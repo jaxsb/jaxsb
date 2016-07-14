@@ -14,12 +14,11 @@
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
-
 <manifest
-  xmlns="http://xml.safris.org/toolkit/binding/manifest.xsd"
+  xmlns="http://maven.safris.org/common/manifest.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xml.safris.org/toolkit/binding/manifest.xsd ../../../../../../toolkit/binding/src/main/resources/xsd/manifest.xsd">
-  <destdir explodeJars="true">${project.build.directory}/generated-sources/xmlbinding</destdir>
+  xsi:schemaLocation="http://maven.safris.org/common/manifest.xsd ../../../../../../maven/common/src/main/resources/manifest.xsd">
+  <destdir explodeJars="true">${project.build.directory}/generated-sources/xsb</destdir>
   <schemas>
     <schema>${basedir}/src/main/resources/xsd/substitutionGroup.xsd</schema>
     <schema>${basedir}/src/main/resources/xsd/xsitype.xsd</schema>

@@ -22,14 +22,16 @@
   <parent>
     <groupId>org</groupId>
     <artifactId>safris</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.7.1</version>
   </parent>
   <groupId>org.safris</groupId>
   <artifactId>xsb</artifactId>
-  <version>2.1.2-SNAPSHOT</version>
+  <version>2.1.2</version>
   <packaging>pom</packaging>
   <name>${project.groupId}.${project.artifactId}</name>
-  <description>XML projects.</description>
+  <description>
+    Xml Schema Binding
+  </description>
   <modules>
     <module>generator</module>
     <module>runtime</module>

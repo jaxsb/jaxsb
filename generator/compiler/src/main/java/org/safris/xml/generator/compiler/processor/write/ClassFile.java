@@ -13,9 +13,9 @@ public class ClassFile {
   private static final StringBuffer license = new StringBuffer();
 
   static {
-    license.append("/* .-------------------------------------------------------------. */\n");
-    license.append("/* | GENERATED CODE - XML Binding [xml.safris.org] - DO NOT EDIT | */\n");
-    license.append("/* '-------------------------------------------------------------' */\n\n");
+    license.append("/* .-------------------------------------------------------------------. */\n");
+    license.append("/* | GENERATED CODE - Xml Shema Binding [xsb.safris.org] - DO NOT EDIT | */\n");
+    license.append("/* '-------------------------------------------------------------------' */\n\n");
   }
 
   private final File file;

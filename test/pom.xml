@@ -28,7 +28,10 @@
   <artifactId>test</artifactId>
   <version>1.2.7</version>
   <name>${project.groupId}.${project.artifactId}</name>
-  <description>This module contains test code of the XML Binding application that may be used by developers as a tutorial.</description>
+  <description>
+    Test code of the XML Binding application that may be used by developers as
+    a tutorial.
+  </description>
   <profiles>
     <profile>
       <build>
@@ -46,13 +49,7 @@
               </execution>
             </executions>
             <configuration>
-              <manifest xmlns="http://maven.safris.org/common/manifest.xsd">
-                <!--<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basedir}/src/test/resources/xml/manifest.xml"/>-->
-            <destdir explodeJars="true">${project.build.directory}/generated-sources/xsb</destdir>
-            <schemas>
-              <schema>${basedir}/src/test/resources/xsd/calendar.xsd</schema>
-            </schemas>
-              </manifest>
+              <manifest xmlns="http://maven.safris.org/common/manifest.xsd" href="${basedir}/src/test/resources/xml/manifest.xml"/>
             </configuration>
           </plugin>
         </plugins>

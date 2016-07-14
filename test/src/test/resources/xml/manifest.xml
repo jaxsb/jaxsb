@@ -14,16 +14,13 @@
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
-
 <manifest
-  xmlns="http://xml.safris.org/toolkit/binding/manifest.xsd"
+  xmlns="http://maven.safris.org/common/manifest.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xml.safris.org/toolkit/binding/manifest.xsd ../../../../../../toolkit/binding/src/main/resources/xsd/manifest.xsd">
-  <destdir explodeJars="true">${project.build.directory}/generated-sources/xmlbinding</destdir>
+  xsi:schemaLocation="http://maven.safris.org/common/manifest.xsd ../../../../../../maven/common/src/main/resources/manifest.xsd">
+  <destdir explodeJars="true">${project.build.directory}/generated-sources/xsb</destdir>
   <schemas>
-    <!--
-      <schema>${basedir}/src/test/resources/xsd/XMLSchema.xsd</schema>
-    -->
+    <!--schema>${basedir}/src/test/resources/xsd/XMLSchema.xsd</schema-->
     <schema>${basedir}/src/test/resources/xsd/maven-v4_0_0.xsd</schema>
     <schema>${basedir}/src/test/resources/xsd/xml.xsd</schema>
 
@@ -50,9 +47,7 @@
     <schema>${basedir}/src/test/resources/xsd/unit/namespace.xsd</schema>
     <schema>${basedir}/src/test/resources/xsd/unit/complexType.xsd</schema>
     <schema>${basedir}/src/test/resources/xsd/unit/mixed.xsd</schema>
-    <!--
-      <schema>${basedir}/src/test/resources/xsd/unit/everything.xsd</schema>
-    -->
+    <!--schema>${basedir}/src/test/resources/xsd/unit/everything.xsd</schema-->
     <schema>${basedir}/src/test/resources/xsd/unit/redefine.xsd</schema>
 
     <schema>${basedir}/src/test/resources/xsd/xhtml/xhtml1-taglib.xsd</schema>
@@ -73,5 +68,7 @@
     <schema>${basedir}/src/test/resources/xsd/xdb.xsd</schema>
     <schema>${basedir}/src/test/resources/xsd/test.xsd</schema>
     <schema>${basedir}/src/test/resources/xsd/test2.xsd</schema>
+    
+    <schema>${basedir}/src/test/resources/xsd/calendar.xsd</schema>
   </schemas>
 </manifest>
