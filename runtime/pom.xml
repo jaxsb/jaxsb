@@ -1,0 +1,53 @@
+<!--
+  Copyright (c) 2006 Seva Safris
+  
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  
+  You should have received a copy of The MIT License (MIT) along with this
+  program. If not, see <http://opensource.org/licenses/MIT/>.
+-->
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.safris</groupId>
+    <artifactId>xsb</artifactId>
+    <version>2.1.2-SNAPSHOT</version>
+  </parent>
+  <groupId>org.safris.xsb</groupId>
+  <artifactId>runtime</artifactId>
+  <version>2.1.2-SNAPSHOT</version>
+  <name>${project.groupId}.${project.artifactId}</name>
+  <description>
+    Binding is an application wrapper for the technology for accessing XML by binding the XSD of the XML to
+    Java classes. But what makes XML Binding different from any other binding technology available
+    elsewhere, like XMLBeans, Castor, and JAX-B? Unlike the other technologies, XML Binding approaches
+    the xml binding problem with 3 simple rules: to work on any xml schema as per the XSD standard,
+    to create all bindings as strongly typed classes or enums (i.e. bring all errors to compile time), and
+    to be intuitive to use by developers. The organization of this project defines two modules, "Runtime,"
+    and "Generator." Please refer to those modules for more details about their roles in making XML Binding
+    a successful framework.
+  </description>
+  <dependencies>
+    <dependency>
+      <groupId>org.safris.xsb.generator</groupId>
+      <artifactId>compiler</artifactId>
+      <version>2.1.2-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.safris.commons</groupId>
+      <artifactId>jci</artifactId>
+      <version>1.2.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>

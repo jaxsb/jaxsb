@@ -1,0 +1,129 @@
+<!--
+  Copyright (c) 2006 Seva Safris
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  You should have received a copy of The MIT License (MIT) along with this
+  program. If not, see <http://opensource.org/licenses/MIT/>.
+-->
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.safris</groupId>
+    <artifactId>xsb</artifactId>
+    <version>1.2.7</version>
+  </parent>
+  <groupId>org.safris.xsb</groupId>
+  <artifactId>test</artifactId>
+  <version>1.2.7</version>
+  <name>${project.groupId}.${project.artifactId}</name>
+  <description>This module contains test code of the XML Binding application that may be used by developers as a tutorial.</description>
+  <profiles>
+    <profile>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.safris.maven.plugin</groupId>
+            <artifactId>xsb</artifactId>
+            <version>1.2.7</version>
+            <executions>
+              <execution>
+                <phase>generate-test-sources</phase>
+                <goals>
+                	<goal>generate</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <manifest xmlns="http://maven.safris.org/common/manifest.xsd">
+                <!--<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basedir}/src/test/resources/xml/manifest.xml"/>-->
+            <destdir explodeJars="true">${project.build.directory}/generated-sources/xsb</destdir>
+            <schemas>
+              <schema>${basedir}/src/test/resources/xsd/calendar.xsd</schema>
+            </schemas>
+              </manifest>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  <!--build>
+    <plugins>
+      <plugin>
+        <groupId>org.safris.maven.plugin</groupId>
+        <artifactId>cobertura</artifactId>
+        <version>1.1.12</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>instrument</goal>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build-->
+  <dependencies>
+    <dependency>
+      <groupId>org.safris.commons</groupId>
+      <artifactId>util</artifactId>
+      <version>0.4.13</version>
+    </dependency>
+    <dependency>
+      <groupId>org.safris.xsb.generator</groupId>
+      <artifactId>compiler</artifactId>
+      <version>1.2.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+    </dependency>
+    <!--dependency>
+      <groupId>classworlds</groupId>
+      <artifactId>classworlds</artifactId>
+      <scope>test</scope>
+    </dependency-->
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!--dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>plexus-utils</artifactId>
+      <groupId>org.codehaus.plexus</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>xml-security</groupId>
+      <artifactId>xmlsec</artifactId>
+      <scope>test</scope>
+    </dependency-->
+  </dependencies>
+</project>
