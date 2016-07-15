@@ -47,23 +47,6 @@
       </build>
     </profile>
   </profiles>
-  <!--build>
-    <plugins>
-      <plugin>
-        <groupId>org.safris.maven.plugin</groupId>
-        <artifactId>cobertura</artifactId>
-        <version>1.1.12</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>instrument</goal>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build-->
   <dependencies>
     <dependency>
       <groupId>org.safris.commons</groupId>
