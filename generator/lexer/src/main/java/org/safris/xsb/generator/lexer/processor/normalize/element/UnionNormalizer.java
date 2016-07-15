@@ -19,7 +19,7 @@ package org.safris.xsb.generator.lexer.processor.normalize.element;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.model.Model;
 import org.safris.xsb.generator.lexer.processor.model.element.ListModel;
@@ -50,7 +50,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
           resolvedMemberType = simpleTypeNormalizer.parseSimpleType(memberType.getName());
           if (resolvedMemberType == null) {
             if (!UniqueQName.XS.getNamespaceURI().equals(memberType.getName().getNamespaceURI()))
-              throw new LexerError("type == null for " + memberType.getName());
+              throw new LexerFailureException("type == null for " + memberType.getName());
 
             resolvedMemberType = SimpleTypeModel.Undefined.parseSimpleType(memberType.getName());
           }
@@ -77,7 +77,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
   @Override
   protected void stage5(final UnionModel model) {
     if (model.getMemberTypes() == null || model.getMemberTypes().size() == 0)
-      throw new LexerError("I dont think this can happen.");
+      throw new LexerFailureException("I dont think this can happen.");
 
     Model parent = model;
     while ((parent = parent.getParent()) != null) {
@@ -89,7 +89,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
       // Or there is a list that of a union
       else if (parent instanceof ListModel) {
         if (((ListModel)parent).getItemType() != null)
-          throw new LexerError("Dont know how this happened, but the <list> has a memberType already and it has a union under it also.");
+          throw new LexerFailureException("Dont know how this happened, but the <list> has a memberType already and it has a union under it also.");
 
         ((ListModel)parent).setItemType(model);
         break;
@@ -100,7 +100,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
   @Override
   protected void stage6(final UnionModel model) {
     if (model.getMemberTypes() == null || model.getMemberTypes().size() == 0)
-      throw new LexerError("I dont think this can happen.");
+      throw new LexerFailureException("I dont think this can happen.");
 
     Model parent = model;
     while ((parent = parent.getParent()) != null) {

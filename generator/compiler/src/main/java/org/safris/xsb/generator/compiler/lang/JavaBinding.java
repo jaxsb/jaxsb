@@ -36,7 +36,7 @@ public final class JavaBinding {
 
   public static String getInstanceName(final Model model) {
     if (!(model instanceof Nameable) || ((Nameable<?>)model).getName() == null)
-      throw new CompilerError("Method being called on a model with no name");
+      throw new CompilerFailureException("Method being called on a model with no name");
 
     final Prefix prefix = JavaBinding.getPrefix(model);
     if (model instanceof AttributeModel)
@@ -51,7 +51,7 @@ public final class JavaBinding {
     if (model instanceof SimpleTypeModel)
       return "_" + COMPLEXTYPE_PREFIX.toLowerCase() + prefix.toString() + "_" + Strings.toJavaCase(((SimpleTypeModel<?>)model).getName().getLocalPart());
 
-    throw new CompilerError("model is not instanceof {AttributeModel,ElementModel,NotationModel,SimpleTypeModel}");
+    throw new CompilerFailureException("model is not instanceof {AttributeModel,ElementModel,NotationModel,SimpleTypeModel}");
   }
 
   public static String getClassName(final Model model) {
@@ -59,7 +59,7 @@ public final class JavaBinding {
       return null;
 
     if (!(model instanceof Nameable) || ((Nameable<?>)model).getName() == null)
-      throw new CompilerError("Method being called on a model with no name");
+      throw new CompilerFailureException("Method being called on a model with no name");
 
     final Nameable<?> nameable = ((Nameable<?>)model);
     return nameable.getName().getNamespaceURI().getPackage() + ".xe." + getClassSimpleName(model);
@@ -79,7 +79,7 @@ public final class JavaBinding {
 
   public static String getClassSimpleName(final Model model) {
     if (!(model instanceof Nameable) || ((Nameable<?>)model).getName() == null)
-      throw new CompilerError("Method being called on a model with no name");
+      throw new CompilerFailureException("Method being called on a model with no name");
 
     final Prefix prefix = JavaBinding.getPrefix(model);
     if (model instanceof AttributeModel)
@@ -94,7 +94,7 @@ public final class JavaBinding {
     if (model instanceof SimpleTypeModel)
       return COMPLEXTYPE_PREFIX + prefix.toString() + "_" + Strings.toJavaCase(((SimpleTypeModel<?>)model).getName().getLocalPart());
 
-    throw new CompilerError("model is not instanceof {AttributeModel,ElementModel,NotationModel,SimpleTypeModel}");
+    throw new CompilerFailureException("model is not instanceof {AttributeModel,ElementModel,NotationModel,SimpleTypeModel}");
   }
 
   private JavaBinding() {

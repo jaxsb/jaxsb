@@ -34,7 +34,7 @@ import org.safris.commons.xml.sax.SAXFeature;
 import org.safris.commons.xml.sax.SAXParser;
 import org.safris.commons.xml.sax.SAXParsers;
 import org.safris.maven.common.Log;
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -146,7 +146,7 @@ public final class SchemaReference implements PipelineEntity {
         checkOpenConnection();
       }
       catch (final IOException e) {
-        throw new LexerError(e);
+        throw new LexerFailureException(e);
       }
 
       try {
@@ -156,22 +156,22 @@ public final class SchemaReference implements PipelineEntity {
         saxParser.parse(new InputSource(inputStream));
       }
       catch (final FileNotFoundException e) {
-        throw new LexerError(e.getMessage());
+        throw new LexerFailureException(e.getMessage());
       }
       catch (final IOException e) {
-        throw new LexerError(e);
+        throw new LexerFailureException(e);
       }
       catch (final SAXException e) {
         if (e.getMessage() == null)
-          throw new LexerError(location.toString(), e);
+          throw new LexerFailureException(location.toString(), e);
 
         final String code = location.hashCode() + "\"";
         if (e.getMessage().indexOf(code) != 0)
-          throw new LexerError(location.toString(), e);
+          throw new LexerFailureException(location.toString(), e);
 
         final int delimiter = e.getMessage().lastIndexOf("\"");
         if (delimiter == -1)
-          throw new LexerError(location.toString(), e);
+          throw new LexerFailureException(location.toString(), e);
 
         final String namespace = e.getMessage().substring(code.length(), delimiter);
         final String prefix = e.getMessage().substring(delimiter + 1);
@@ -179,7 +179,7 @@ public final class SchemaReference implements PipelineEntity {
         if (namespaceURI == null)
           namespaceURI = NamespaceURI.getInstance(namespace);
         else if (!namespaceURI.toString().equals(namespace))
-          throw new LexerError("This should never happen: " + namespaceURI + " != " + namespace);
+          throw new LexerFailureException("This should never happen: " + namespaceURI + " != " + namespace);
 
         this.prefix = Prefix.getInstance(prefix);
         Log.debug("linking \"" + namespaceURI + "\" to \"" + this.prefix + "\"");
@@ -205,11 +205,11 @@ public final class SchemaReference implements PipelineEntity {
           Log.debug("opened connection to: " + location.toExternalForm());
         }
         catch (final FileNotFoundException e) {
-          throw new LexerError("File not found: " + location.toExternalForm());
+          throw new LexerFailureException("File not found: " + location.toExternalForm());
         }
         catch (final IOException e) {
           if ("Connection refused".equals(e.getMessage()) && tryCount == 10)
-            throw new LexerError("Connection refused: " + location);
+            throw new LexerFailureException("Connection refused: " + location);
 
           throw e;
         }

@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.safris.commons.xml.Prefix;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.Nameable;
 import org.safris.xsb.generator.lexer.processor.model.NamedModel;
@@ -39,7 +39,7 @@ public abstract class NamedPlan<T extends NamedModel> extends Plan<T> implements
     if (model.getName() != null) {
       final Prefix prefix = model.getName().getPrefix();
       if (prefix == null)
-        throw new CompilerError("[ERROR] No prefix exists for namespace {" + model.getName().getNamespaceURI() + "}. Is the binding for this namespace defined in the bindings configuration?");
+        throw new CompilerFailureException("[ERROR] No prefix exists for namespace {" + model.getName().getNamespaceURI() + "}. Is the binding for this namespace defined in the bindings configuration?");
 
       name = UniqueQName.getInstance(model.getName().getNamespaceURI(), model.getName().getLocalPart(), prefix.toString());
       all.put(name, this);

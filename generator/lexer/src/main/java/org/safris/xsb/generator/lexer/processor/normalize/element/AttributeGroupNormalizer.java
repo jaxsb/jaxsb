@@ -19,7 +19,7 @@ package org.safris.xsb.generator.lexer.processor.normalize.element;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.Nameable;
 import org.safris.xsb.generator.lexer.processor.model.AttributableModel;
@@ -56,7 +56,7 @@ public final class AttributeGroupNormalizer extends Normalizer<AttributeGroupMod
 
     final AttributeGroupModel ref = parseAttributeGroup(model.getRef().getName());
     if (ref == null)
-      throw new LexerError("ref == null for " + model.getRef().getName());
+      throw new LexerFailureException("ref == null for " + model.getRef().getName());
 
     model.setRef(ref);
 

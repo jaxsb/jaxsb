@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.safris.commons.pipeline.PipelineEntity;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.lang.ElementWrapper;
 import org.safris.xsb.generator.compiler.processor.plan.element.ElementPlan;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
@@ -78,10 +78,10 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
       plan = (A)constructor.newInstance(model, owner);
     }
     catch (final ClassNotFoundException e) {
-      throw new CompilerError("Class<?> not found for element [" + model.getClass().getSimpleName() + "]");
+      throw new CompilerFailureException("Class<?> not found for element [" + model.getClass().getSimpleName() + "]");
     }
     catch (final Exception e) {
-      throw new CompilerError(e);
+      throw new CompilerFailureException(e);
     }
 
     return plan;

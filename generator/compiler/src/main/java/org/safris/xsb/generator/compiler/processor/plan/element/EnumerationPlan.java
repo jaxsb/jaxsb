@@ -21,7 +21,7 @@ import java.util.Arrays;
 import javax.xml.namespace.QName;
 
 import org.safris.commons.lang.Strings;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.processor.plan.Plan;
 import org.safris.xsb.generator.lexer.processor.model.element.EnumerationModel;
 
@@ -68,7 +68,7 @@ public final class EnumerationPlan extends Plan<EnumerationModel> {
       return declarationName;
 
     if (getModel().getValue().getLocalPart().length() == 0)
-      throw new CompilerError("The localPart of this enumeration cannot be length == 0");
+      throw new CompilerFailureException("The localPart of this enumeration cannot be length == 0");
 
     return declarationName = getDeclarationName(getModel().getValue());
   }

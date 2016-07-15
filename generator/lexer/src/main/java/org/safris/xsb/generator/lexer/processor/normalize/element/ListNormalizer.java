@@ -18,7 +18,7 @@ package org.safris.xsb.generator.lexer.processor.normalize.element;
 
 import java.util.Collection;
 
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.model.Model;
 import org.safris.xsb.generator.lexer.processor.model.element.ListModel;
@@ -52,7 +52,7 @@ public final class ListNormalizer extends Normalizer<ListModel> {
       type = simpleTypeNormalizer.parseSimpleType(type.getName());
       if (type == null) {
         if (!UniqueQName.XS.getNamespaceURI().equals(itemType.getName().getNamespaceURI()))
-          throw new LexerError("type == null for ");
+          throw new LexerFailureException("type == null for ");
 
         type = SimpleTypeModel.Undefined.parseSimpleType(itemType.getName());
       }
@@ -93,7 +93,7 @@ public final class ListNormalizer extends Normalizer<ListModel> {
   @Override
   protected void stage6(final ListModel model) {
     if (model.getItemType() == null)
-      throw new LexerError("This can't happen.");
+      throw new LexerFailureException("This can't happen.");
 
     Model parent = model;
     while ((parent = parent.getParent()) != null) {

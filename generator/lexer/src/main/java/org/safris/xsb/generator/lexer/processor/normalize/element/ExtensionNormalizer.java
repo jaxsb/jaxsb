@@ -18,7 +18,7 @@ package org.safris.xsb.generator.lexer.processor.normalize.element;
 
 import java.util.LinkedHashSet;
 
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.Nameable;
 import org.safris.xsb.generator.lexer.processor.model.Model;
@@ -57,7 +57,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
 
       if (base == null) {
         if (!UniqueQName.XS.getNamespaceURI().equals(model.getBase().getName().getNamespaceURI()))
-          throw new LexerError("base == null for " + model.getBase().getName());
+          throw new LexerFailureException("base == null for " + model.getBase().getName());
 
         base = SimpleTypeModel.Undefined.parseSimpleType(model.getBase().getName());
       }
@@ -66,13 +66,13 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
       base = complexTypeNormalizer.parseComplexType(model.getBase().getName());
       if (base == null) {
         if (!UniqueQName.XS.getNamespaceURI().equals(model.getBase().getName().getNamespaceURI()))
-          throw new LexerError("base == null for " + model.getBase().getName());
+          throw new LexerFailureException("base == null for " + model.getBase().getName());
 
         base = ComplexTypeModel.Undefined.parseComplexType(model.getBase().getName());
       }
     }
     else {
-      throw new LexerError(getClass().getName());
+      throw new LexerFailureException(getClass().getName());
     }
 
     model.setBase(base);
@@ -87,7 +87,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
             element = elementNormalizer.parseElement(((Nameable<?>)parent).getName());
 
           if (element == null)
-            throw new LexerError("element == null");
+            throw new LexerFailureException("element == null");
 
           element.setSuperType(base);
         }
@@ -97,7 +97,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
             type = complexTypeNormalizer.parseComplexType(((Nameable<?>)parent).getName());
 
           if (type == null)
-            throw new LexerError("type == null for " + ((Nameable<?>)parent).getName());
+            throw new LexerFailureException("type == null for " + ((Nameable<?>)parent).getName());
 
           // NOTE: This occurs when we're doing a <redefine/>
           if (type == base)
@@ -110,7 +110,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
           ((SimpleTypeModel<?>)parent).setSuperType(base);
         }
         else {
-          throw new LexerError(((Nameable<?>)parent).getName().toString());
+          throw new LexerFailureException(((Nameable<?>)parent).getName().toString());
         }
 
         break;
@@ -151,7 +151,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
       if (parent instanceof SimpleTypeModel && model.getBase().getName().equals(((Nameable<?>)parent).getName()) && parent.getParent() instanceof RedefineModel) {
         if (parent instanceof ComplexTypeModel) {
           if (!(model.getBase() instanceof ComplexTypeModel))
-            throw new LexerError("complexType redefinition done by something other than a complexType");
+            throw new LexerFailureException("complexType redefinition done by something other than a complexType");
 
           ComplexTypeModel<?> redefine = (ComplexTypeModel<?>)parent;
           if (redefine.getAttributes().size() != 0) {

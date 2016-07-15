@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 
 import org.safris.commons.xml.validator.ValidationException;
 import org.safris.commons.xml.validator.Validator;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.lang.XSTypeDirectory;
 import org.safris.xsb.generator.compiler.processor.plan.Plan;
 import org.safris.xsb.generator.compiler.processor.plan.element.AnyAttributePlan;
@@ -52,42 +52,42 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("complexType cannot have a declaration");
+    throw new CompilerFailureException("complexType cannot have a declaration");
   }
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("complexType cannot have a get method");
+    throw new CompilerFailureException("complexType cannot have a get method");
   }
 
   @Override
   protected void appendSetMethod(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("complexType cannot have a set method");
+    throw new CompilerFailureException("complexType cannot have a set method");
   }
 
   @Override
   protected void appendMarshal(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("complexType cannot have a marshal method");
+    throw new CompilerFailureException("complexType cannot have a marshal method");
   }
 
   @Override
   protected void appendParse(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("complexType cannot have a parse method");
+    throw new CompilerFailureException("complexType cannot have a parse method");
   }
 
   @Override
   public void appendCopy(final StringWriter writer, final T plan, Plan<?> parent, final String variable) {
-    throw new CompilerError("complexType cannot have a copy statement");
+    throw new CompilerFailureException("complexType cannot have a copy statement");
   }
 
   @Override
   protected void appendEquals(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("complexType cannot have a equals statement");
+    throw new CompilerFailureException("complexType cannot have a equals statement");
   }
 
   @Override
   protected void appendHashCode(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("complexType cannot have a hashCode statement");
+    throw new CompilerFailureException("complexType cannot have a hashCode statement");
   }
 
   @Override

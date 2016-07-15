@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.model.ElementableModel;
 import org.safris.xsb.generator.lexer.processor.model.Model;
@@ -66,7 +66,7 @@ public final class ElementNormalizer extends Normalizer<ElementModel> {
     if (model.getRef() instanceof ElementModel.Reference) {
       final ElementModel ref = parseElement(model.getRef().getName());
       if (ref == null)
-        throw new LexerError("ref == null for " + model.getRef().getName());
+        throw new LexerFailureException("ref == null for " + model.getRef().getName());
 
       model.setRef(ref);
     }
@@ -78,7 +78,7 @@ public final class ElementNormalizer extends Normalizer<ElementModel> {
 
         if (type == null) {
           if (!UniqueQName.XS.getNamespaceURI().equals(model.getSuperType().getName().getNamespaceURI()))
-            throw new LexerError("type == null for " + model.getSuperType().getName());
+            throw new LexerFailureException("type == null for " + model.getSuperType().getName());
 
           type = SimpleTypeModel.Undefined.parseSimpleType(model.getSuperType().getName());
         }
@@ -87,7 +87,7 @@ public final class ElementNormalizer extends Normalizer<ElementModel> {
       }
     }
     else {
-      throw new LexerError("element type not handled");
+      throw new LexerFailureException("element type not handled");
     }
   }
 

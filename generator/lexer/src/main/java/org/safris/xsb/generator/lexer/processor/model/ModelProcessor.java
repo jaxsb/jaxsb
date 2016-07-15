@@ -23,7 +23,7 @@ import java.util.Collection;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
 import org.safris.commons.xml.NamespaceURI;
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.processor.GeneratorContext;
 import org.safris.xsb.generator.lexer.processor.composite.SchemaComposite;
 import org.safris.xsb.generator.lexer.processor.composite.SchemaModelComposite;
@@ -47,7 +47,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
       final SchemaDocument schemaDocument = schemaModelComposite.getSchemaDocument();
       final SchemaModel model = recurse(root, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getDocument().getChildNodes(), schemaDocument.getSchemaReference().getURL(), directory);
       if (model == null)
-        throw new LexerError("We should have found a schema!");
+        throw new LexerFailureException("We should have found a schema!");
 
       schemaModelComposite.setSchemaModel(model);
       schemaModels.add(model);

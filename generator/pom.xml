@@ -28,7 +28,7 @@
   <artifactId>generator</artifactId>
   <version>2.1.2</version>
   <packaging>pom</packaging>
-  <name>${project.groupId}.${project.artifactId}</name>
+  <name>${project.groupId}:${project.artifactId}</name>
   <description>
     XML Toolkit is a comprehensive framework to facilitate the use of XML in software languages such as Java. This framework
     intends to provide tools that will allow a developer to easily integrate XML interoperability, bind XML Schemas,

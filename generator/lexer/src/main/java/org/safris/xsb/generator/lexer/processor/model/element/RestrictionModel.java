@@ -16,7 +16,7 @@
 
 package org.safris.xsb.generator.lexer.processor.model.element;
 
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.model.Model;
 import org.w3c.dom.NamedNodeMap;
@@ -37,7 +37,7 @@ public final class RestrictionModel extends ElementModel {
         else if (parentNode.getLocalName().contains("simple"))
           base = SimpleTypeModel.Reference.parseSimpleType(UniqueQName.getInstance(parseQNameValue(attribute.getNodeValue(), node)));
         else
-          throw new LexerError("whoa, schema error?");
+          throw new LexerFailureException("whoa, schema error?");
       }
     }
   }

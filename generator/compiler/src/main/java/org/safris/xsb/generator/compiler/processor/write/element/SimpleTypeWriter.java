@@ -29,7 +29,7 @@ import javax.xml.namespace.QName;
 
 import org.safris.commons.util.Collections;
 import org.safris.commons.xml.validator.ValidationException;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.lang.XSTypeDirectory;
 import org.safris.xsb.generator.compiler.processor.plan.EnumerablePlan;
 import org.safris.xsb.generator.compiler.processor.plan.ExtensiblePlan;
@@ -302,42 +302,42 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("simpleType cannot have a declaration");
+    throw new CompilerFailureException("simpleType cannot have a declaration");
   }
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("simpleType cannot have a get method");
+    throw new CompilerFailureException("simpleType cannot have a get method");
   }
 
   @Override
   protected void appendSetMethod(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("simpleType cannot have a set method");
+    throw new CompilerFailureException("simpleType cannot have a set method");
   }
 
   @Override
   protected void appendMarshal(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("simpleType cannot have a marshal method");
+    throw new CompilerFailureException("simpleType cannot have a marshal method");
   }
 
   @Override
   protected void appendParse(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("simpleType cannot have a parse method");
+    throw new CompilerFailureException("simpleType cannot have a parse method");
   }
 
   @Override
   public void appendCopy(final StringWriter writer, final T plan, final Plan<?> parent, final String variable) {
-    throw new CompilerError("simpleType cannot have a copy statement");
+    throw new CompilerFailureException("simpleType cannot have a copy statement");
   }
 
   @Override
   protected void appendEquals(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("simpleType cannot have a equals statement");
+    throw new CompilerFailureException("simpleType cannot have a equals statement");
   }
 
   @Override
   protected void appendHashCode(final StringWriter writer, final T plan, final Plan<?> parent) {
-    throw new CompilerError("simpleType cannot have a hashCode statement");
+    throw new CompilerFailureException("simpleType cannot have a hashCode statement");
   }
 
   protected static void appendPattern(final StringWriter writer, final Collection<PatternPlan> patterns) {
@@ -367,7 +367,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
   @Override
   protected void appendClass(final StringWriter writer, final T plan, final Plan<?> parent) {
     if (plan.getName() == null)
-      throw new CompilerError("Why are we trying to write a final class that has no name?");
+      throw new CompilerFailureException("Why are we trying to write a final class that has no name?");
 
     writeQualifiedName(writer, plan);
     writer.write("public static abstract class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + SimpleType.class.getName() + "\n");

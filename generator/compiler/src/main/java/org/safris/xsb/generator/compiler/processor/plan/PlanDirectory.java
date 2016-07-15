@@ -24,7 +24,7 @@ import java.util.Map;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.processor.plan.element.AllPlan;
 import org.safris.xsb.generator.compiler.processor.plan.element.AnnotationPlan;
 import org.safris.xsb.generator.compiler.processor.plan.element.AnyAttributePlan;
@@ -179,7 +179,7 @@ public final class PlanDirectory implements PipelineDirectory<GeneratorContext,M
       return plan;
     }
     catch (final Exception e) {
-      throw new CompilerError(e);
+      throw new CompilerFailureException(e);
     }
   }
 

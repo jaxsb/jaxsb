@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.processor.GeneratorContext;
 import org.safris.xsb.generator.lexer.processor.model.Model;
 
@@ -45,7 +45,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
       method.invoke(normalizer, model);
     }
     catch (final Exception e) {
-      throw new LexerError(e);
+      throw new LexerFailureException(e);
     }
 
     return model.getChildren();

@@ -40,7 +40,7 @@ import org.safris.commons.xml.NamespaceURI;
 import org.safris.commons.xml.dom.DOMParsers;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.runtime.Binding;
 import org.safris.xsb.generator.compiler.runtime.BindingError;
 import org.safris.xsb.generator.lexer.processor.GeneratorContext;
@@ -211,7 +211,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       return bundles;
     }
     catch (final Throwable e) {
-      throw new CompilerError(e);
+      throw new CompilerFailureException(e);
     }
   }
 }

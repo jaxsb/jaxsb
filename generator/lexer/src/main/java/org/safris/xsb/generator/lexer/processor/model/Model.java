@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.maven.common.Log;
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.model.element.SchemaModel;
 import org.w3c.dom.NamedNodeMap;
@@ -136,7 +136,7 @@ public abstract class Model implements PipelineEntity {
       if (handler instanceof SchemaModel)
         return targetNamespace = handler.getTargetNamespace();
 
-    throw new LexerError("should have found a schema! what's going on?");
+    throw new LexerFailureException("should have found a schema! what's going on?");
   }
 
   public final QName parseQNameValue(final String nodeValue, Node parent) {
@@ -166,7 +166,7 @@ public abstract class Model implements PipelineEntity {
     while(parent != null);
 
     if (xs == null)
-      throw new LexerError("Namespace problem");
+      throw new LexerFailureException("Namespace problem");
 
     return new QName(xs.getNodeValue().intern(), nodeValue.intern());
   }

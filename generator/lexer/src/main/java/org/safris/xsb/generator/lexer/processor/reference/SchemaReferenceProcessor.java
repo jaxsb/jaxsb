@@ -25,7 +25,7 @@ import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
 import org.safris.maven.common.Log;
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.processor.GeneratorContext;
 
 public final class SchemaReferenceProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaReference> {
@@ -67,7 +67,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 //              }
             }
             catch (final Exception e) {
-              throw new LexerError(e);
+              throw new LexerFailureException(e);
             }
 //          }
 //        }.start();
@@ -81,7 +81,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
       }
     }
     catch (final Exception e) {
-      throw new LexerError(e);
+      throw new LexerFailureException(e);
     }
 
     return selectedSchemas;

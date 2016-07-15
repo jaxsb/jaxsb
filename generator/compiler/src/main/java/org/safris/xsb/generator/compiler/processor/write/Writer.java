@@ -30,7 +30,7 @@ import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.maven.common.Log;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.processor.plan.AliasPlan;
 import org.safris.xsb.generator.compiler.processor.plan.NestablePlan;
 import org.safris.xsb.generator.compiler.processor.plan.Plan;
@@ -56,13 +56,13 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     final Nameable<?> nameable = (Nameable<?>)plan;
     try {
       if (nameable.getName().getNamespaceURI().getPackage() == null)
-        throw new CompilerError("The binding configuration does not specify a class name for " + ((Nameable<?>)plan).getName().getNamespaceURI());
+        throw new CompilerFailureException("The binding configuration does not specify a class name for " + ((Nameable<?>)plan).getName().getNamespaceURI());
 
       final String packageName = nameable.getName().getNamespaceURI().getPackage();
       return new File(new File(destDir, packageName.replace('.', '/')), "xe.java");
     }
     catch (final Exception e) {
-      throw new CompilerError(e);
+      throw new CompilerFailureException(e);
     }
   }
 
@@ -79,7 +79,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
       classFile.close();
     }
     catch (final IOException e) {
-      throw new CompilerError(e);
+      throw new CompilerFailureException(e);
     }
 
     fileToClassFile.remove(file);
@@ -100,7 +100,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     final Nameable<?> nameable = (Nameable<?>)plan;
     if (nameable.getName().getNamespaceURI().getPackage() == null)
-      throw new CompilerError("The binding configuration does not specify a class name for " + ((Nameable<?>)plan).getName().getNamespaceURI());
+      throw new CompilerFailureException("The binding configuration does not specify a class name for " + ((Nameable<?>)plan).getName().getNamespaceURI());
 
     final String packageName = nameable.getName().getNamespaceURI().getPackage();
 
@@ -119,7 +119,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
       classFile.addClassText(stringWriter.toString());
     }
     catch (final Exception e) {
-      throw new CompilerError(e);
+      throw new CompilerFailureException(e);
     }
   }
 

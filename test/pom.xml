@@ -27,7 +27,7 @@
   <groupId>org.safris.xsb</groupId>
   <artifactId>test</artifactId>
   <version>1.2.7</version>
-  <name>${project.groupId}.${project.artifactId}</name>
+  <name>${project.groupId}:${project.artifactId}</name>
   <description>
     Test code of the XML Binding application that may be used by developers as
     a tutorial.

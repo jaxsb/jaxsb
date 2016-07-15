@@ -32,7 +32,7 @@ import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.Pipeline;
 import org.safris.commons.xml.dom.DOMParsers;
 import org.safris.maven.common.Resolver;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.processor.plan.Plan;
 import org.safris.xsb.generator.compiler.processor.plan.PlanDirectory;
 import org.safris.xsb.generator.compiler.processor.write.Writer;
@@ -193,7 +193,7 @@ public final class Generator extends AbstractGenerator {
             hrefURL = URLs.makeUrlFromPath(href);
         }
         catch (final MalformedURLException e) {
-          throw new CompilerError(e);
+          throw new CompilerFailureException(e);
         }
       }
       else if (child.getNodeType() == Node.ELEMENT_NODE)
@@ -213,7 +213,7 @@ public final class Generator extends AbstractGenerator {
         document = documentBuilder.parse(connection.getInputStream());
       }
       catch (final Exception e) {
-        throw new CompilerError(e);
+        throw new CompilerFailureException(e);
       }
 
       return parseConfig(basedir, document.getDocumentElement(), modified, resolver);

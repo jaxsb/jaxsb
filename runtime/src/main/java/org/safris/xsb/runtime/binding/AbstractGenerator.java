@@ -25,7 +25,7 @@ import javax.xml.parsers.DocumentBuilder;
 
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.dom.DOMParsers;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.runtime.BindingError;
 import org.safris.xsb.generator.lexer.processor.document.SchemaDocument;
 import org.safris.xsb.generator.lexer.processor.reference.SchemaReference;
@@ -47,7 +47,7 @@ public abstract class AbstractGenerator {
       throw new BindingError(e.getMessage());
     }
     catch (final Exception e) {
-      throw new CompilerError(e);
+      throw new CompilerFailureException(e);
     }
 
     parsedDocument = new SchemaDocument(schemaReference, document);

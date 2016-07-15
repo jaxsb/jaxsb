@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.namespace.QName;
 
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.lang.JavaBinding;
 import org.safris.xsb.generator.compiler.lang.XSTypeDirectory;
 import org.safris.xsb.generator.compiler.processor.plan.AliasPlan;
@@ -81,7 +81,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
       return;
 
     if (element.getSuperType() == null)
-      throw new CompilerError("element with no type?");
+      throw new CompilerFailureException("element with no type?");
 
     typeName = element.getSuperType().getName();
     if (isRestriction())
@@ -187,7 +187,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
       return false;
     }
     catch (final Exception e) {
-      throw new CompilerError(e);
+      throw new CompilerFailureException(e);
     }
 
     return true;

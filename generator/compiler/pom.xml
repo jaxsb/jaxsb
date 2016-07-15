@@ -27,7 +27,7 @@
   <groupId>org.safris.xsb.generator</groupId>
   <artifactId>compiler</artifactId>
   <version>2.1.2</version>
-  <name>${project.groupId}.${project.artifactId}</name>
+  <name>${project.groupId}:${project.artifactId}</name>
   <description>
     The compiler module that performs the planning and writing mechanism of the
     Binding appilcation.

@@ -19,7 +19,7 @@ package org.safris.xsb.generator.lexer.processor.normalize.element;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.model.ElementableModel;
 import org.safris.xsb.generator.lexer.processor.model.Model;
@@ -58,7 +58,7 @@ public final class GroupNormalizer extends Normalizer<GroupModel> {
       ref = parseGroup(model.getName());
 
     if (ref == null)
-      throw new LexerError("ref == null for " + model.getName());
+      throw new LexerFailureException("ref == null for " + model.getName());
 
     model.setRef(ref);
   }

@@ -22,7 +22,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.lang.JavaBinding;
 import org.safris.xsb.generator.compiler.lang.XSTypeDirectory;
 import org.safris.xsb.generator.compiler.processor.plan.AliasPlan;
@@ -226,7 +226,7 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
     final XSTypeDirectory baseXSItemTypeDirectory = XSTypeDirectory.parseType(baseXSItemTypeName);
     final XSTypeDirectory baseXSNonEnumItemTypeDirectory = XSTypeDirectory.parseType(baseXSNonEnumItemTypeName);
     if (baseXSItemTypeDirectory == null)
-      throw new CompilerError("Should always be able to resolve the type for name: " + getName());
+      throw new CompilerFailureException("Should always be able to resolve the type for name: " + getName());
 
     if (this.list = baseXSItemTypeDirectory.getNativeBinding().isList()) {
       nativeItemClassName = baseXSItemTypeDirectory.getNativeBinding().getNativeClass().getType().getName();

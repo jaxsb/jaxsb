@@ -19,7 +19,7 @@ package org.safris.xsb.generator.lexer.processor.normalize.element;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.LexerFailureException;
 import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.safris.xsb.generator.lexer.processor.Nameable;
 import org.safris.xsb.generator.lexer.processor.model.AttributableModel;
@@ -66,7 +66,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
 
       if (base == null) {
         if (!UniqueQName.XS.getNamespaceURI().equals(model.getBase().getName().getNamespaceURI()))
-          throw new LexerError("base == null for " + model.getBase().getName());
+          throw new LexerFailureException("base == null for " + model.getBase().getName());
 
         base = SimpleTypeModel.Undefined.parseSimpleType(model.getBase().getName());
       }
@@ -75,13 +75,13 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
       base = complexTypeNormalizer.parseComplexType(model.getBase().getName());
       if (base == null) {
         if (!UniqueQName.XS.getNamespaceURI().equals(model.getBase().getName().getNamespaceURI()))
-          throw new LexerError("base == null for " + model.getBase().getName());
+          throw new LexerFailureException("base == null for " + model.getBase().getName());
 
         base = ComplexTypeModel.Undefined.parseComplexType(model.getBase().getName());
       }
     }
     else
-      throw new LexerError(getClass().getName());
+      throw new LexerFailureException(getClass().getName());
 
     model.setBase(base);
 
@@ -113,7 +113,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
             element = elementNormalizer.parseElement(((Nameable<?>)parent).getName());
 
           if (element == null)
-            throw new LexerError("element == null");
+            throw new LexerFailureException("element == null");
 
           element.setSuperType(base);
           element.setRestriction(true);
@@ -125,7 +125,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
             attribute = attributeNormalizer.parseAttribute(((Nameable<?>)parent).getName());
 
           if (attribute == null)
-            throw new LexerError("attribute == null");
+            throw new LexerFailureException("attribute == null");
 
           attribute.setSuperType(base);
           attribute.setRestriction(true);
@@ -136,7 +136,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
             type = complexTypeNormalizer.parseComplexType(((Nameable<?>)parent).getName());
 
           if (type == null)
-            throw new LexerError("type == null for " + ((Nameable<?>)parent).getName());
+            throw new LexerFailureException("type == null for " + ((Nameable<?>)parent).getName());
 
           if (type instanceof ComplexTypeModel && type.getSuperType() != null)
             break;
@@ -150,7 +150,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
           ((SimpleTypeModel<?>)parent).setRestriction(true);
         }
         else {
-          throw new LexerError(((Nameable<?>)parent).getName().toString());
+          throw new LexerFailureException(((Nameable<?>)parent).getName().toString());
         }
 
         break;
@@ -195,7 +195,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     for (final AttributeModel restrictionAttribute : restrictionAttributes) {
       final RestrictionPair<AttributeModel> baseAttributePair = findBaseAttribute(restrictionAttribute.getName(), model.getBase());
       if (baseAttributePair == null)
-        throw new LexerError("we should have found an attribute we're restricting! what's goin on?");
+        throw new LexerFailureException("we should have found an attribute we're restricting! what's goin on?");
 
       restrictionAttribute.setRestriction(baseAttributePair.getModel());
       restrictionAttribute.setRestrictionOwner(baseAttributePair.getParent());
@@ -207,7 +207,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     for (final ElementModel restrictionElement : restrictionElements) {
       final RestrictionPair<ElementModel> baseElementPair = findBaseElement(restrictionElement.getName(), model.getBase());
       if (baseElementPair == null)
-        throw new LexerError("we should have found an element we're restricting! what's goin on?");
+        throw new LexerFailureException("we should have found an element we're restricting! what's goin on?");
 
       restrictionElement.setRestriction(baseElementPair.getModel());
       restrictionElement.setRestrictionOwner(baseElementPair.getParent());

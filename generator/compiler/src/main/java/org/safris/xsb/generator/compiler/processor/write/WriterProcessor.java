@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
 import org.safris.xsb.generator.compiler.processor.plan.AliasPlan;
 import org.safris.xsb.generator.compiler.processor.plan.NestablePlan;
 import org.safris.xsb.generator.compiler.processor.plan.Plan;
@@ -98,7 +98,7 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
       return null;
 
     if (((Nameable<?>)plan).getName().getNamespaceURI() == null)
-      throw new CompilerError("Cannot generate classes for schema with no targetNamespace.");
+      throw new CompilerFailureException("Cannot generate classes for schema with no targetNamespace.");
 
     ((Writer)root).writeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestdir());
     return null;
