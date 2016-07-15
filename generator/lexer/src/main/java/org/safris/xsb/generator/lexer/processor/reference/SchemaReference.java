@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.reference;
+package org.safris.xsb.generator.lexer.processor.reference;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,7 +26,6 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.commons.maven.Log;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.xml.NamespaceURI;
@@ -34,8 +33,9 @@ import org.safris.commons.xml.Prefix;
 import org.safris.commons.xml.sax.SAXFeature;
 import org.safris.commons.xml.sax.SAXParser;
 import org.safris.commons.xml.sax.SAXParsers;
-import org.safris.xml.generator.lexer.lang.LexerError;
-import org.safris.xml.generator.lexer.lang.UniqueQName;
+import org.safris.maven.common.Log;
+import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 

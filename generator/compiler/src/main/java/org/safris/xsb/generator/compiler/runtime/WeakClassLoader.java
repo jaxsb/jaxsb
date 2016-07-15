@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.runtime;
+package org.safris.xsb.generator.compiler.runtime;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,7 +26,7 @@ import java.net.URLDecoder;
 import java.security.SecureClassLoader;
 
 import org.safris.commons.io.Files;
-import org.safris.commons.maven.Log;
+import org.safris.maven.common.Log;
 
 public final class WeakClassLoader extends SecureClassLoader {
   private final java.lang.ClassLoader parent;

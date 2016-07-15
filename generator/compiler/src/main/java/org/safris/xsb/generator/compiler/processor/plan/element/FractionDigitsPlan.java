@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.plan.element;
+package org.safris.xsb.generator.compiler.processor.plan.element;
 
-import org.safris.xml.generator.compiler.processor.plan.Plan;
-import org.safris.xml.generator.lexer.processor.model.element.FractionDigitsModel;
+import org.safris.xsb.generator.compiler.processor.plan.Plan;
+import org.safris.xsb.generator.lexer.processor.model.element.FractionDigitsModel;
 
 public final class FractionDigitsPlan extends Plan<FractionDigitsModel> {
   public FractionDigitsPlan(final FractionDigitsModel model, final Plan<?> parent) {

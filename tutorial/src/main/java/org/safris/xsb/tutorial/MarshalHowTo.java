@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.tutorial.binding;
+package org.safris.xsb.tutorial;
 
 import org.safris.commons.xml.binding.Date;
 import org.safris.commons.xml.binding.Decimal;

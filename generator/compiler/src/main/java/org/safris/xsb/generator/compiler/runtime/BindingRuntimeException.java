@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.runtime;
+package org.safris.xsb.generator.compiler.runtime;
 
 public final class BindingRuntimeException extends RuntimeException {
   private static final long serialVersionUID = 4144568519274692003L;

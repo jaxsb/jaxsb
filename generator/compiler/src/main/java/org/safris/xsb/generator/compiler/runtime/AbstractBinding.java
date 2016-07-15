@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.runtime;
+package org.safris.xsb.generator.compiler.runtime;
 
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -27,9 +27,9 @@ import javax.xml.namespace.QName;
 import org.safris.commons.lang.Resource;
 import org.safris.commons.lang.Resources;
 import org.safris.commons.lang.reflect.Classes;
-import org.safris.commons.maven.Log;
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.NamespaceBinding;
+import org.safris.maven.common.Log;
 
 public abstract class AbstractBinding implements Cloneable {
   protected static final QName XSI_TYPE = new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi");
@@ -99,7 +99,7 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   protected static QName getClassQName(final Class<? extends Binding> binding) {
-    final org.safris.xml.generator.compiler.annotation.QName name = Classes.getDeclaredAnnotation(binding, org.safris.xml.generator.compiler.annotation.QName.class);
+    final org.safris.xsb.generator.compiler.annotation.QName name = Classes.getDeclaredAnnotation(binding, org.safris.xsb.generator.compiler.annotation.QName.class);
     return new QName(name.namespaceURI().intern(), name.localPart().intern(), name.prefix().intern());
   }
 

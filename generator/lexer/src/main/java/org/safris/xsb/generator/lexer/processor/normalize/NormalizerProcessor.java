@@ -14,16 +14,16 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.normalize;
+package org.safris.xsb.generator.lexer.processor.normalize;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xml.generator.lexer.lang.LexerError;
-import org.safris.xml.generator.lexer.processor.GeneratorContext;
-import org.safris.xml.generator.lexer.processor.model.Model;
+import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.processor.GeneratorContext;
+import org.safris.xsb.generator.lexer.processor.model.Model;
 
 public final class NormalizerProcessor implements PipelineProcessor<GeneratorContext,Model,Normalizer<?>> {
   private int stage = 0;

@@ -14,14 +14,14 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.normalize.element;
+package org.safris.xsb.generator.lexer.processor.normalize.element;
 
-import org.safris.xml.generator.lexer.processor.Nameable;
-import org.safris.xml.generator.lexer.processor.model.ElementableModel;
-import org.safris.xml.generator.lexer.processor.model.Model;
-import org.safris.xml.generator.lexer.processor.model.element.SequenceModel;
-import org.safris.xml.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xml.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.generator.lexer.processor.Nameable;
+import org.safris.xsb.generator.lexer.processor.model.ElementableModel;
+import org.safris.xsb.generator.lexer.processor.model.Model;
+import org.safris.xsb.generator.lexer.processor.model.element.SequenceModel;
+import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
 
 public final class SequenceNormalizer extends Normalizer<SequenceModel> {
   public SequenceNormalizer(final NormalizerDirectory directory) {

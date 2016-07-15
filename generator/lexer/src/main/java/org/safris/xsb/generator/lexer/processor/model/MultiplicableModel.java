@@ -14,9 +14,9 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.model;
+package org.safris.xsb.generator.lexer.processor.model;
 
-import org.safris.xml.generator.lexer.schema.attribute.Occurs;
+import org.safris.xsb.generator.lexer.schema.attribute.Occurs;
 
 public interface MultiplicableModel extends ElementableModel {
   public Occurs getMaxOccurs();

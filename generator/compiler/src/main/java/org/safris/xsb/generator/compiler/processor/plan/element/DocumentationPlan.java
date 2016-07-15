@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.plan.element;
+package org.safris.xsb.generator.compiler.processor.plan.element;
 
-import org.safris.xml.generator.compiler.processor.plan.Plan;
-import org.safris.xml.generator.lexer.processor.model.element.DocumentationModel;
+import org.safris.xsb.generator.compiler.processor.plan.Plan;
+import org.safris.xsb.generator.lexer.processor.model.element.DocumentationModel;
 
 public final class DocumentationPlan extends Plan<DocumentationModel> {
   private final String text;

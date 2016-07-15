@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.toolkit.sample.binding;
+package org.safris.xsb.sample;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,12 +22,12 @@ import java.util.List;
 
 import org.safris.commons.xml.binding.Date;
 import org.safris.commons.xml.binding.Time;
-import org.safris.xml.generator.compiler.runtime.Binding;
-import org.safris.xml.generator.compiler.runtime.Bindings;
 import org.safris.xml.toolkit.sample.binding.list.xe.$li_employeeType;
 import org.safris.xml.toolkit.sample.binding.list.xe.$li_staffType;
 import org.safris.xml.toolkit.sample.binding.list.xe.$li_volunteerType;
 import org.safris.xml.toolkit.sample.binding.list.xe.li_roster;
+import org.safris.xsb.generator.compiler.runtime.Binding;
+import org.safris.xsb.generator.compiler.runtime.Bindings;
 import org.xml.sax.InputSource;
 
 public class ListSample {

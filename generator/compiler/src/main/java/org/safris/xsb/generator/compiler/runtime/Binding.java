@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.runtime;
+package org.safris.xsb.generator.compiler.runtime;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -293,7 +293,7 @@ public abstract class Binding extends AbstractBinding {
     final Method[] methods = getClass().getDeclaredMethods();
     for (final Method method : methods) {
       if (method.getReturnType() != null && method.getParameterTypes().length == 0) {
-        org.safris.xml.generator.compiler.annotation.QName qName = method.getAnnotation(org.safris.xml.generator.compiler.annotation.QName.class);
+        org.safris.xsb.generator.compiler.annotation.QName qName = method.getAnnotation(org.safris.xsb.generator.compiler.annotation.QName.class);
         if (qName != null) {
           if (name.getLocalPart().equals(qName.localPart()) && (name.getNamespaceURI() != null ? name.getNamespaceURI().equals(qName.namespaceURI()) : qName.namespaceURI() == null)) {
             try {

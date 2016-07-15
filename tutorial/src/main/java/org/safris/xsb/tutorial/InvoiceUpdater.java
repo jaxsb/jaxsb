@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.tutorial.binding;
+package org.safris.xsb.tutorial;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,8 +22,8 @@ import java.io.FileInputStream;
 import org.safris.commons.xml.binding.Decimal;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
-import org.safris.xml.generator.compiler.runtime.Bindings;
 import org.safris.xml.tutorial.binding.invoice.xe.pv_invoice;
+import org.safris.xsb.generator.compiler.runtime.Bindings;
 import org.xml.sax.InputSource;
 
 public class InvoiceUpdater {

@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.toolkit.sample.binding;
+package org.safris.xsb.sample;
 
 import org.junit.Assert;
 import org.junit.Test;

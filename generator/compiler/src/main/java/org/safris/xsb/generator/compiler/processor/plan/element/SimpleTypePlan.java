@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.plan.element;
+package org.safris.xsb.generator.compiler.processor.plan.element;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,22 +22,22 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.safris.xml.generator.compiler.lang.CompilerError;
-import org.safris.xml.generator.compiler.lang.JavaBinding;
-import org.safris.xml.generator.compiler.lang.XSTypeDirectory;
-import org.safris.xml.generator.compiler.processor.plan.AliasPlan;
-import org.safris.xml.generator.compiler.processor.plan.EnumerablePlan;
-import org.safris.xml.generator.compiler.processor.plan.ExtensiblePlan;
-import org.safris.xml.generator.compiler.processor.plan.NamedPlan;
-import org.safris.xml.generator.compiler.processor.plan.NativeablePlan;
-import org.safris.xml.generator.compiler.processor.plan.Plan;
-import org.safris.xml.generator.lexer.lang.UniqueQName;
-import org.safris.xml.generator.lexer.processor.model.AnyableModel;
-import org.safris.xml.generator.lexer.processor.model.Model;
-import org.safris.xml.generator.lexer.processor.model.NamedModel;
-import org.safris.xml.generator.lexer.processor.model.element.ComplexTypeModel;
-import org.safris.xml.generator.lexer.processor.model.element.SimpleTypeModel;
-import org.safris.xml.generator.lexer.processor.model.element.UnionModel;
+import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.JavaBinding;
+import org.safris.xsb.generator.compiler.lang.XSTypeDirectory;
+import org.safris.xsb.generator.compiler.processor.plan.AliasPlan;
+import org.safris.xsb.generator.compiler.processor.plan.EnumerablePlan;
+import org.safris.xsb.generator.compiler.processor.plan.ExtensiblePlan;
+import org.safris.xsb.generator.compiler.processor.plan.NamedPlan;
+import org.safris.xsb.generator.compiler.processor.plan.NativeablePlan;
+import org.safris.xsb.generator.compiler.processor.plan.Plan;
+import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.generator.lexer.processor.model.AnyableModel;
+import org.safris.xsb.generator.lexer.processor.model.Model;
+import org.safris.xsb.generator.lexer.processor.model.NamedModel;
+import org.safris.xsb.generator.lexer.processor.model.element.ComplexTypeModel;
+import org.safris.xsb.generator.lexer.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.generator.lexer.processor.model.element.UnionModel;
 
 public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> implements EnumerablePlan, ExtensiblePlan, NativeablePlan {
   private static SimpleTypeModel<?> getGreatestCommonType(final Collection<SimpleTypeModel<?>> types, final boolean includeEnums) {

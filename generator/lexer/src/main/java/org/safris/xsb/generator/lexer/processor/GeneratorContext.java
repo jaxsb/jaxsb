@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor;
+package org.safris.xsb.generator.lexer.processor;
 
 import java.io.File;
 import java.io.IOException;

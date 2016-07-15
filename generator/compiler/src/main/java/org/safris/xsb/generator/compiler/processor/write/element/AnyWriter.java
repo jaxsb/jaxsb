@@ -14,16 +14,16 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.write.element;
+package org.safris.xsb.generator.compiler.processor.write.element;
 
 import java.io.StringWriter;
 import java.util.List;
 
-import org.safris.xml.generator.compiler.processor.plan.Plan;
-import org.safris.xml.generator.compiler.processor.plan.element.AnyPlan;
-import org.safris.xml.generator.compiler.runtime.Binding;
-import org.safris.xml.generator.compiler.runtime.Bindings;
-import org.safris.xml.generator.compiler.runtime.ElementAudit;
+import org.safris.xsb.generator.compiler.processor.plan.Plan;
+import org.safris.xsb.generator.compiler.processor.plan.element.AnyPlan;
+import org.safris.xsb.generator.compiler.runtime.Binding;
+import org.safris.xsb.generator.compiler.runtime.Bindings;
+import org.safris.xsb.generator.compiler.runtime.ElementAudit;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

@@ -14,16 +14,16 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.toolkit.sample.binding;
+package org.safris.xsb.sample;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
-import org.safris.xml.generator.compiler.runtime.Binding;
-import org.safris.xml.generator.compiler.runtime.Bindings;
 import org.safris.xml.toolkit.sample.binding.id.xe.$id_bookType;
 import org.safris.xml.toolkit.sample.binding.id.xe.id_directory;
+import org.safris.xsb.generator.compiler.runtime.Binding;
+import org.safris.xsb.generator.compiler.runtime.Bindings;
 import org.w3.x2001.xmlschema.xe.$xs_IDREFS;
 import org.xml.sax.InputSource;
 

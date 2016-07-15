@@ -14,12 +14,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.reference;
+package org.safris.xsb.generator.lexer.processor.reference;
 
 import java.net.URL;
 
 import org.safris.commons.xml.NamespaceURI;
-import org.safris.xml.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.generator.lexer.lang.UniqueQName;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

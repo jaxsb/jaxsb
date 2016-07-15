@@ -14,33 +14,33 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.plan.element;
+package org.safris.xsb.generator.compiler.processor.plan.element;
 
 import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.namespace.QName;
 
-import org.safris.xml.generator.compiler.lang.CompilerError;
-import org.safris.xml.generator.compiler.lang.JavaBinding;
-import org.safris.xml.generator.compiler.lang.XSTypeDirectory;
-import org.safris.xml.generator.compiler.processor.plan.AliasPlan;
-import org.safris.xml.generator.compiler.processor.plan.EnumerablePlan;
-import org.safris.xml.generator.compiler.processor.plan.ExtensiblePlan;
-import org.safris.xml.generator.compiler.processor.plan.NativeablePlan;
-import org.safris.xml.generator.compiler.processor.plan.NestablePlan;
-import org.safris.xml.generator.compiler.processor.plan.Plan;
-import org.safris.xml.generator.compiler.processor.plan.RestrictablePlan;
-import org.safris.xml.generator.lexer.lang.UniqueQName;
-import org.safris.xml.generator.lexer.processor.Formable;
-import org.safris.xml.generator.lexer.processor.model.AliasModel;
-import org.safris.xml.generator.lexer.processor.model.AnyableModel;
-import org.safris.xml.generator.lexer.processor.model.Model;
-import org.safris.xml.generator.lexer.processor.model.RestrictableModel;
-import org.safris.xml.generator.lexer.processor.model.element.ComplexTypeModel;
-import org.safris.xml.generator.lexer.processor.model.element.ElementModel;
-import org.safris.xml.generator.lexer.processor.model.element.SchemaModel;
-import org.safris.xml.generator.lexer.processor.model.element.SimpleTypeModel;
-import org.safris.xml.generator.lexer.schema.attribute.Form;
+import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.JavaBinding;
+import org.safris.xsb.generator.compiler.lang.XSTypeDirectory;
+import org.safris.xsb.generator.compiler.processor.plan.AliasPlan;
+import org.safris.xsb.generator.compiler.processor.plan.EnumerablePlan;
+import org.safris.xsb.generator.compiler.processor.plan.ExtensiblePlan;
+import org.safris.xsb.generator.compiler.processor.plan.NativeablePlan;
+import org.safris.xsb.generator.compiler.processor.plan.NestablePlan;
+import org.safris.xsb.generator.compiler.processor.plan.Plan;
+import org.safris.xsb.generator.compiler.processor.plan.RestrictablePlan;
+import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.generator.lexer.processor.Formable;
+import org.safris.xsb.generator.lexer.processor.model.AliasModel;
+import org.safris.xsb.generator.lexer.processor.model.AnyableModel;
+import org.safris.xsb.generator.lexer.processor.model.Model;
+import org.safris.xsb.generator.lexer.processor.model.RestrictableModel;
+import org.safris.xsb.generator.lexer.processor.model.element.ComplexTypeModel;
+import org.safris.xsb.generator.lexer.processor.model.element.ElementModel;
+import org.safris.xsb.generator.lexer.processor.model.element.SchemaModel;
+import org.safris.xsb.generator.lexer.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.generator.lexer.schema.attribute.Form;
 
 public class ElementPlan extends ComplexTypePlan<ElementModel> implements EnumerablePlan, ExtensiblePlan, Formable<Plan<?>>, NativeablePlan, NestablePlan, RestrictablePlan {
   private final ElementModel element;

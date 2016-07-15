@@ -14,13 +14,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.toolkit.processor.timestamp;
+package org.safris.xsb.runtime.processor.timestamp;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xml.generator.lexer.processor.GeneratorContext;
-import org.safris.xml.toolkit.processor.bundle.Bundle;
+import org.safris.xsb.generator.lexer.processor.GeneratorContext;
+import org.safris.xsb.runtime.processor.bundle.Bundle;
 
 public final class TimestampDirectory implements PipelineDirectory<GeneratorContext,Bundle,Bundle> {
   private TimestampProcessor processor = new TimestampProcessor();

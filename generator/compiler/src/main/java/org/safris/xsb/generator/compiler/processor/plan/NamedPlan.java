@@ -14,16 +14,16 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.plan;
+package org.safris.xsb.generator.compiler.processor.plan;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.safris.commons.xml.Prefix;
-import org.safris.xml.generator.compiler.lang.CompilerError;
-import org.safris.xml.generator.lexer.lang.UniqueQName;
-import org.safris.xml.generator.lexer.processor.Nameable;
-import org.safris.xml.generator.lexer.processor.model.NamedModel;
+import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.generator.lexer.processor.Nameable;
+import org.safris.xsb.generator.lexer.processor.model.NamedModel;
 
 public abstract class NamedPlan<T extends NamedModel> extends Plan<T> implements Nameable<Plan<T>> {
   protected static NamedPlan<?> parseNamedPlan(final UniqueQName name) {

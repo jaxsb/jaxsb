@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.runtime;
+package org.safris.xsb.generator.compiler.runtime;
 
 import java.io.StringReader;
 
@@ -22,7 +22,7 @@ import org.safris.commons.xml.XMLException;
 import org.safris.commons.xml.dom.DOMs;
 import org.safris.commons.xml.validator.ValidationException;
 import org.safris.commons.xml.validator.Validator;
-import org.safris.xml.generator.compiler.annotation.QName;
+import org.safris.xsb.generator.compiler.annotation.QName;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 

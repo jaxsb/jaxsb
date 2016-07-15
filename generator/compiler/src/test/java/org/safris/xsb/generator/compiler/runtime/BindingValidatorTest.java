@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.runtime;
+package org.safris.xsb.generator.compiler.runtime;
 
 import java.io.File;
 
@@ -25,6 +25,8 @@ import org.junit.Test;
 import org.safris.commons.test.LoggableTest;
 import org.safris.commons.xml.dom.DOMParsers;
 import org.safris.commons.xml.validator.ValidationException;
+import org.safris.xsb.generator.compiler.runtime.BindingEntityResolver;
+import org.safris.xsb.generator.compiler.runtime.BindingValidator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

@@ -1,4 +1,4 @@
-package org.safris.xml.generator.compiler.processor.write;
+package org.safris.xsb.generator.compiler.processor.write;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.safris.commons.formatter.SourceFormat;
-import org.safris.xml.generator.compiler.runtime.Schema;
+import org.safris.xsb.generator.compiler.runtime.Schema;
 
 public class ClassFile {
   private static final StringBuffer license = new StringBuffer();

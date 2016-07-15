@@ -14,22 +14,22 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.model.element;
+package org.safris.xsb.generator.lexer.processor.model.element;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.safris.xml.generator.lexer.lang.UniqueQName;
-import org.safris.xml.generator.lexer.processor.Formable;
-import org.safris.xml.generator.lexer.processor.Referenceable;
-import org.safris.xml.generator.lexer.processor.model.AliasModel;
-import org.safris.xml.generator.lexer.processor.model.Model;
-import org.safris.xml.generator.lexer.processor.model.ReferableModel;
-import org.safris.xml.generator.lexer.processor.model.RestrictableModel;
-import org.safris.xml.generator.lexer.schema.attribute.Form;
-import org.safris.xml.generator.lexer.schema.attribute.Use;
+import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.generator.lexer.processor.Formable;
+import org.safris.xsb.generator.lexer.processor.Referenceable;
+import org.safris.xsb.generator.lexer.processor.model.AliasModel;
+import org.safris.xsb.generator.lexer.processor.model.Model;
+import org.safris.xsb.generator.lexer.processor.model.ReferableModel;
+import org.safris.xsb.generator.lexer.processor.model.RestrictableModel;
+import org.safris.xsb.generator.lexer.schema.attribute.Form;
+import org.safris.xsb.generator.lexer.schema.attribute.Use;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

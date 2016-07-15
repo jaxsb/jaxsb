@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.toolkit.processor.timestamp;
+package org.safris.xsb.runtime.processor.timestamp;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -25,8 +25,8 @@ import org.safris.commons.io.Files;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xml.generator.lexer.processor.GeneratorContext;
-import org.safris.xml.toolkit.processor.bundle.Bundle;
+import org.safris.xsb.generator.lexer.processor.GeneratorContext;
+import org.safris.xsb.runtime.processor.bundle.Bundle;
 
 public final class TimestampProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,Bundle,Bundle> {
   private static final FileFilter fileFilter = new FileFilter() {

@@ -14,9 +14,9 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.model;
+package org.safris.xsb.generator.lexer.processor.model;
 
-import org.safris.xml.generator.lexer.processor.model.element.DocumentationModel;
+import org.safris.xsb.generator.lexer.processor.model.element.DocumentationModel;
 import org.w3c.dom.Node;
 
 public abstract class AliasModel extends NamedModel implements DocumentableModel {

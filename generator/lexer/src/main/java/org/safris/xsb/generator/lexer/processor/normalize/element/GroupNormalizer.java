@@ -14,19 +14,19 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.normalize.element;
+package org.safris.xsb.generator.lexer.processor.normalize.element;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.xml.generator.lexer.lang.LexerError;
-import org.safris.xml.generator.lexer.lang.UniqueQName;
-import org.safris.xml.generator.lexer.processor.model.ElementableModel;
-import org.safris.xml.generator.lexer.processor.model.Model;
-import org.safris.xml.generator.lexer.processor.model.element.GroupModel;
-import org.safris.xml.generator.lexer.processor.model.element.RedefineModel;
-import org.safris.xml.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xml.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.generator.lexer.processor.model.ElementableModel;
+import org.safris.xsb.generator.lexer.processor.model.Model;
+import org.safris.xsb.generator.lexer.processor.model.element.GroupModel;
+import org.safris.xsb.generator.lexer.processor.model.element.RedefineModel;
+import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
 
 public final class GroupNormalizer extends Normalizer<GroupModel> {
   private final Map<UniqueQName,GroupModel> all = new HashMap<UniqueQName,GroupModel>();

@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.toolkit.binding;
+package org.safris.xsb.runtime.binding;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -25,10 +25,10 @@ import javax.xml.parsers.DocumentBuilder;
 
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.dom.DOMParsers;
-import org.safris.xml.generator.compiler.lang.CompilerError;
-import org.safris.xml.generator.compiler.runtime.BindingError;
-import org.safris.xml.generator.lexer.processor.document.SchemaDocument;
-import org.safris.xml.generator.lexer.processor.reference.SchemaReference;
+import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.runtime.BindingError;
+import org.safris.xsb.generator.lexer.processor.document.SchemaDocument;
+import org.safris.xsb.generator.lexer.processor.reference.SchemaReference;
 import org.w3c.dom.Document;
 
 public abstract class AbstractGenerator {

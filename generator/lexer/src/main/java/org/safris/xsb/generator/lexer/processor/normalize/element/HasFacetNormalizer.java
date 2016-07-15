@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.normalize.element;
+package org.safris.xsb.generator.lexer.processor.normalize.element;
 
-import org.safris.xml.generator.lexer.processor.model.element.HasFacetModel;
-import org.safris.xml.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xml.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.generator.lexer.processor.model.element.HasFacetModel;
+import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
 
 public final class HasFacetNormalizer extends Normalizer<HasFacetModel> {
   public HasFacetNormalizer(final NormalizerDirectory directory) {

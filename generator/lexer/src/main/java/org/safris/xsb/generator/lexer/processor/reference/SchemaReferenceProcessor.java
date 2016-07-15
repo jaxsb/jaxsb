@@ -14,19 +14,19 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.reference;
+package org.safris.xsb.generator.lexer.processor.reference;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.safris.commons.maven.Log;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xml.generator.lexer.lang.LexerError;
-import org.safris.xml.generator.lexer.processor.GeneratorContext;
+import org.safris.maven.common.Log;
+import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.processor.GeneratorContext;
 
 public final class SchemaReferenceProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaReference> {
 //  private static final class Counter {

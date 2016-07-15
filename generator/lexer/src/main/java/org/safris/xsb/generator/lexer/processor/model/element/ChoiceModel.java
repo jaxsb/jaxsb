@@ -14,13 +14,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.model.element;
+package org.safris.xsb.generator.lexer.processor.model.element;
 
 import java.util.LinkedHashSet;
 
-import org.safris.xml.generator.lexer.processor.model.Model;
-import org.safris.xml.generator.lexer.processor.model.MultiplicableModel;
-import org.safris.xml.generator.lexer.schema.attribute.Occurs;
+import org.safris.xsb.generator.lexer.processor.model.Model;
+import org.safris.xsb.generator.lexer.processor.model.MultiplicableModel;
+import org.safris.xsb.generator.lexer.schema.attribute.Occurs;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

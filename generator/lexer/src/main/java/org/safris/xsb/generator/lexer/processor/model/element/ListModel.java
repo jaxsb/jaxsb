@@ -14,13 +14,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.model.element;
+package org.safris.xsb.generator.lexer.processor.model.element;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.safris.xml.generator.lexer.lang.UniqueQName;
-import org.safris.xml.generator.lexer.processor.model.Model;
+import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.generator.lexer.processor.model.Model;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

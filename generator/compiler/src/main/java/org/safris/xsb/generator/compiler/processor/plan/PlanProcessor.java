@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.plan;
+package org.safris.xsb.generator.compiler.processor.plan;
 
 import java.io.File;
 import java.net.URL;
@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.safris.commons.io.Files;
-import org.safris.commons.maven.Log;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xml.generator.lexer.processor.GeneratorContext;
-import org.safris.xml.generator.lexer.processor.model.Model;
+import org.safris.maven.common.Log;
+import org.safris.xsb.generator.lexer.processor.GeneratorContext;
+import org.safris.xsb.generator.lexer.processor.model.Model;
 
 public final class PlanProcessor implements PipelineProcessor<GeneratorContext,Model,Plan<?>> {
   private Plan<?> root;

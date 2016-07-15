@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.write.element;
+package org.safris.xsb.generator.compiler.processor.write.element;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -29,19 +29,19 @@ import javax.xml.namespace.QName;
 
 import org.safris.commons.util.Collections;
 import org.safris.commons.xml.validator.ValidationException;
-import org.safris.xml.generator.compiler.lang.CompilerError;
-import org.safris.xml.generator.compiler.lang.XSTypeDirectory;
-import org.safris.xml.generator.compiler.processor.plan.EnumerablePlan;
-import org.safris.xml.generator.compiler.processor.plan.ExtensiblePlan;
-import org.safris.xml.generator.compiler.processor.plan.Plan;
-import org.safris.xml.generator.compiler.processor.plan.element.EnumerationPlan;
-import org.safris.xml.generator.compiler.processor.plan.element.PatternPlan;
-import org.safris.xml.generator.compiler.processor.plan.element.SimpleTypePlan;
-import org.safris.xml.generator.compiler.processor.write.Writer;
-import org.safris.xml.generator.compiler.runtime.Enum;
-import org.safris.xml.generator.compiler.runtime.MarshalException;
-import org.safris.xml.generator.compiler.runtime.ParseException;
-import org.safris.xml.generator.compiler.runtime.SimpleType;
+import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.lang.XSTypeDirectory;
+import org.safris.xsb.generator.compiler.processor.plan.EnumerablePlan;
+import org.safris.xsb.generator.compiler.processor.plan.ExtensiblePlan;
+import org.safris.xsb.generator.compiler.processor.plan.Plan;
+import org.safris.xsb.generator.compiler.processor.plan.element.EnumerationPlan;
+import org.safris.xsb.generator.compiler.processor.plan.element.PatternPlan;
+import org.safris.xsb.generator.compiler.processor.plan.element.SimpleTypePlan;
+import org.safris.xsb.generator.compiler.processor.write.Writer;
+import org.safris.xsb.generator.compiler.runtime.Enum;
+import org.safris.xsb.generator.compiler.runtime.MarshalException;
+import org.safris.xsb.generator.compiler.runtime.ParseException;
+import org.safris.xsb.generator.compiler.runtime.SimpleType;
 import org.w3.x2001.xmlschema.xe.$xs_ID;
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3c.dom.Attr;
@@ -49,7 +49,7 @@ import org.w3c.dom.Element;
 
 public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
   protected static void writeQualifiedName(final StringWriter writer, final SimpleTypePlan<?> plan) {
-    writer.write("@" + org.safris.xml.generator.compiler.annotation.QName.class.getName() + "(namespaceURI=\"" + plan.getName().getNamespaceURI() +"\", localPart=\"" + plan.getName().getLocalPart() +"\", prefix=\"" + plan.getName().getPrefix() +"\")\n");
+    writer.write("@" + org.safris.xsb.generator.compiler.annotation.QName.class.getName() + "(namespaceURI=\"" + plan.getName().getNamespaceURI() +"\", localPart=\"" + plan.getName().getLocalPart() +"\", prefix=\"" + plan.getName().getPrefix() +"\")\n");
   }
 
   /*protected static void writeIsNull(final StringWriter writer, final SimpleTypePlan<?> plan) {

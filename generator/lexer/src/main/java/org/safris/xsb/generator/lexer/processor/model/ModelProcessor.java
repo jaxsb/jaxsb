@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.model;
+package org.safris.xsb.generator.lexer.processor.model;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,13 +23,13 @@ import java.util.Collection;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
 import org.safris.commons.xml.NamespaceURI;
-import org.safris.xml.generator.lexer.lang.LexerError;
-import org.safris.xml.generator.lexer.processor.GeneratorContext;
-import org.safris.xml.generator.lexer.processor.composite.SchemaComposite;
-import org.safris.xml.generator.lexer.processor.composite.SchemaModelComposite;
-import org.safris.xml.generator.lexer.processor.composite.SchemaNodeComposite;
-import org.safris.xml.generator.lexer.processor.document.SchemaDocument;
-import org.safris.xml.generator.lexer.processor.model.element.SchemaModel;
+import org.safris.xsb.generator.lexer.lang.LexerError;
+import org.safris.xsb.generator.lexer.processor.GeneratorContext;
+import org.safris.xsb.generator.lexer.processor.composite.SchemaComposite;
+import org.safris.xsb.generator.lexer.processor.composite.SchemaModelComposite;
+import org.safris.xsb.generator.lexer.processor.composite.SchemaNodeComposite;
+import org.safris.xsb.generator.lexer.processor.document.SchemaDocument;
+import org.safris.xsb.generator.lexer.processor.model.element.SchemaModel;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.lexer.processor.normalize.element;
+package org.safris.xsb.generator.lexer.processor.normalize.element;
 
-import org.safris.xml.generator.lexer.processor.model.element.FractionDigitsModel;
-import org.safris.xml.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xml.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.generator.lexer.processor.model.element.FractionDigitsModel;
+import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
 
 public final class FractionDigitsNormalizer extends Normalizer<FractionDigitsModel> {
   public FractionDigitsNormalizer(final NormalizerDirectory directory) {

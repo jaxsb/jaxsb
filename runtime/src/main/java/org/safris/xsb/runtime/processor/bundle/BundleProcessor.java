@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.toolkit.processor.bundle;
+package org.safris.xsb.runtime.processor.bundle;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -40,12 +40,12 @@ import org.safris.commons.xml.NamespaceURI;
 import org.safris.commons.xml.dom.DOMParsers;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
-import org.safris.xml.generator.compiler.lang.CompilerError;
-import org.safris.xml.generator.compiler.runtime.Binding;
-import org.safris.xml.generator.compiler.runtime.BindingError;
-import org.safris.xml.generator.lexer.processor.GeneratorContext;
-import org.safris.xml.generator.lexer.processor.composite.SchemaComposite;
-import org.safris.xml.generator.lexer.processor.composite.SchemaModelComposite;
+import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.runtime.Binding;
+import org.safris.xsb.generator.compiler.runtime.BindingError;
+import org.safris.xsb.generator.lexer.processor.GeneratorContext;
+import org.safris.xsb.generator.lexer.processor.composite.SchemaComposite;
+import org.safris.xsb.generator.lexer.processor.composite.SchemaModelComposite;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

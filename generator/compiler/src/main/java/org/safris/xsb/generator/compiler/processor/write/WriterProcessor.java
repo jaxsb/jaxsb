@@ -14,19 +14,19 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.generator.compiler.processor.write;
+package org.safris.xsb.generator.compiler.processor.write;
 
 import java.io.StringWriter;
 import java.util.Collection;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xml.generator.compiler.lang.CompilerError;
-import org.safris.xml.generator.compiler.processor.plan.AliasPlan;
-import org.safris.xml.generator.compiler.processor.plan.NestablePlan;
-import org.safris.xml.generator.compiler.processor.plan.Plan;
-import org.safris.xml.generator.lexer.processor.GeneratorContext;
-import org.safris.xml.generator.lexer.processor.Nameable;
+import org.safris.xsb.generator.compiler.lang.CompilerError;
+import org.safris.xsb.generator.compiler.processor.plan.AliasPlan;
+import org.safris.xsb.generator.compiler.processor.plan.NestablePlan;
+import org.safris.xsb.generator.compiler.processor.plan.Plan;
+import org.safris.xsb.generator.lexer.processor.GeneratorContext;
+import org.safris.xsb.generator.lexer.processor.Nameable;
 
 public final class WriterProcessor implements PipelineProcessor<GeneratorContext,Plan<?>,Writer<?>> {
   private final Writer<?> root = new Writer<Plan<?>>() {

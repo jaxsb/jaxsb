@@ -14,9 +14,8 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xml.toolkit.sample.binding;
+package org.safris.xsb.sample;
 
-import org.safris.xml.generator.compiler.runtime.Binding;
 import org.safris.xml.toolkit.sample.binding.any.xe.any_trash;
 import org.safris.xml.toolkit.sample.binding.enums.xe.enums_color$;
 import org.safris.xml.toolkit.sample.binding.enums.xe.enums_coloredFruitBasket;
@@ -25,6 +24,7 @@ import org.safris.xml.toolkit.sample.binding.simple.xe.simple_fruit;
 import org.safris.xml.toolkit.sample.binding.simple.xe.simple_fruitBasket;
 import org.safris.xml.toolkit.sample.binding.xsitype.xe.$type_fleshyFruitType;
 import org.safris.xml.toolkit.sample.binding.xsitype.xe.$type_indehiscentDryFruitType;
+import org.safris.xsb.generator.compiler.runtime.Binding;
 
 public class AnySample {
   public static void main(final String[] args) {
