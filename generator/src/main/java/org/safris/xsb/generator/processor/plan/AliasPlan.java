@@ -14,15 +14,15 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan;
+package org.safris.xsb.generator.processor.plan;
 
 import org.safris.xsb.compiler.processor.Nameable;
 import org.safris.xsb.compiler.processor.model.AliasModel;
 import org.safris.xsb.compiler.processor.model.Model;
 import org.safris.xsb.compiler.processor.model.element.SchemaModel;
+import org.safris.xsb.generator.processor.plan.element.DocumentationPlan;
 import org.safris.xsb.runtime.JavaBinding;
 import org.safris.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.runtime.processor.plan.element.DocumentationPlan;
 
 public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> implements DocumentablePlan, Nameable<Plan<T>> {
   protected static String getClassName(final AliasModel model, Model parent) {

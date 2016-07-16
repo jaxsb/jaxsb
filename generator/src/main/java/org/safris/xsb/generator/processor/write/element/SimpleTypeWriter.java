@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.write.element;
+package org.safris.xsb.generator.processor.write.element;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -29,19 +29,19 @@ import javax.xml.namespace.QName;
 
 import org.safris.commons.util.Collections;
 import org.safris.commons.xml.validator.ValidationException;
+import org.safris.xsb.generator.processor.plan.EnumerablePlan;
+import org.safris.xsb.generator.processor.plan.ExtensiblePlan;
+import org.safris.xsb.generator.processor.plan.Plan;
+import org.safris.xsb.generator.processor.plan.element.EnumerationPlan;
+import org.safris.xsb.generator.processor.plan.element.PatternPlan;
+import org.safris.xsb.generator.processor.plan.element.SimpleTypePlan;
+import org.safris.xsb.generator.processor.write.Writer;
 import org.safris.xsb.runtime.CompilerFailureException;
 import org.safris.xsb.runtime.Enum;
 import org.safris.xsb.runtime.MarshalException;
 import org.safris.xsb.runtime.ParseException;
 import org.safris.xsb.runtime.SimpleType;
 import org.safris.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.runtime.processor.plan.EnumerablePlan;
-import org.safris.xsb.runtime.processor.plan.ExtensiblePlan;
-import org.safris.xsb.runtime.processor.plan.Plan;
-import org.safris.xsb.runtime.processor.plan.element.EnumerationPlan;
-import org.safris.xsb.runtime.processor.plan.element.PatternPlan;
-import org.safris.xsb.runtime.processor.plan.element.SimpleTypePlan;
-import org.safris.xsb.runtime.processor.write.Writer;
 import org.w3.x2001.xmlschema.xe.$xs_ID;
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3c.dom.Attr;

@@ -1,4 +1,4 @@
-package org.safris.xsb.runtime.processor.write;
+package org.safris.xsb.generator.processor.write;
 
 import java.io.File;
 import java.io.FileOutputStream;

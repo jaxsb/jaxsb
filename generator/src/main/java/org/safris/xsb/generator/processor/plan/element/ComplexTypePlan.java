@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan.element;
+package org.safris.xsb.generator.processor.plan.element;
 
 import java.util.LinkedHashSet;
 
@@ -25,15 +25,15 @@ import org.safris.xsb.compiler.processor.model.TypeableModel;
 import org.safris.xsb.compiler.processor.model.element.ComplexTypeModel;
 import org.safris.xsb.compiler.processor.model.element.SimpleContentModel;
 import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.generator.processor.plan.AttributablePlan;
+import org.safris.xsb.generator.processor.plan.ElementablePlan;
+import org.safris.xsb.generator.processor.plan.EnumerablePlan;
+import org.safris.xsb.generator.processor.plan.ExtensiblePlan;
+import org.safris.xsb.generator.processor.plan.MixablePlan;
+import org.safris.xsb.generator.processor.plan.NativeablePlan;
+import org.safris.xsb.generator.processor.plan.Plan;
 import org.safris.xsb.runtime.ElementWrapper;
 import org.safris.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.runtime.processor.plan.AttributablePlan;
-import org.safris.xsb.runtime.processor.plan.ElementablePlan;
-import org.safris.xsb.runtime.processor.plan.EnumerablePlan;
-import org.safris.xsb.runtime.processor.plan.ExtensiblePlan;
-import org.safris.xsb.runtime.processor.plan.MixablePlan;
-import org.safris.xsb.runtime.processor.plan.NativeablePlan;
-import org.safris.xsb.runtime.processor.plan.Plan;
 
 public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePlan<T> implements AttributablePlan, ElementablePlan, EnumerablePlan, ExtensiblePlan, MixablePlan, NativeablePlan {
   private final Boolean mixed;

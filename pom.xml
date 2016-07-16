@@ -35,7 +35,7 @@
   <modules>
     <module>compiler</module>
     <module>generator</module>
-    <module>lexer</module>
+    <module>runtime</module>
     <module>sample</module>
     <module>tutorial</module>
   </modules>

@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan;
+package org.safris.xsb.generator.processor.plan;
 
 import java.util.LinkedHashSet;
 
-import org.safris.xsb.runtime.processor.plan.element.AttributePlan;
+import org.safris.xsb.generator.processor.plan.element.AttributePlan;
 
 public interface AttributablePlan {
   public LinkedHashSet<AttributePlan> getAttributes();

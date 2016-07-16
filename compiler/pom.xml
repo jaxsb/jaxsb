@@ -24,13 +24,9 @@
     <version>2.1.2</version>
   </parent>
   <groupId>org.safris.xsb</groupId>
-  <artifactId>lexer</artifactId>
+  <artifactId>compiler</artifactId>
   <version>2.1.2</version>
   <name>${project.groupId}:${project.artifactId}</name>
-  <description>
-    The core lexer of the XML Toolkit framework. This is the initial stage in
-    the analysis of XML Schemas intended for binding.
-  </description>
   <dependencies>
     <dependency>
       <groupId>org.safris.commons</groupId>

@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan.element;
+package org.safris.xsb.generator.processor.plan.element;
 
 import java.util.Arrays;
 
@@ -22,8 +22,8 @@ import javax.xml.namespace.QName;
 
 import org.safris.commons.lang.Strings;
 import org.safris.xsb.compiler.processor.model.element.EnumerationModel;
+import org.safris.xsb.generator.processor.plan.Plan;
 import org.safris.xsb.runtime.CompilerFailureException;
-import org.safris.xsb.runtime.processor.plan.Plan;
 
 public final class EnumerationPlan extends Plan<EnumerationModel> {
   private static final char[] illegalChars = {' ', '!', '"', '#', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '.', '/', ':', ';', '<', '=', '>', '?', '@', '@', '[', '\\', ']', '^', '_', '{', '|', '|', '}', '~'};

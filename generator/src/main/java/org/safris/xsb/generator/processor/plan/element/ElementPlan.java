@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan.element;
+package org.safris.xsb.generator.processor.plan.element;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -31,16 +31,16 @@ import org.safris.xsb.compiler.processor.model.element.ElementModel;
 import org.safris.xsb.compiler.processor.model.element.SchemaModel;
 import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.safris.xsb.compiler.schema.attribute.Form;
+import org.safris.xsb.generator.processor.plan.AliasPlan;
+import org.safris.xsb.generator.processor.plan.EnumerablePlan;
+import org.safris.xsb.generator.processor.plan.ExtensiblePlan;
+import org.safris.xsb.generator.processor.plan.NativeablePlan;
+import org.safris.xsb.generator.processor.plan.NestablePlan;
+import org.safris.xsb.generator.processor.plan.Plan;
+import org.safris.xsb.generator.processor.plan.RestrictablePlan;
 import org.safris.xsb.runtime.CompilerFailureException;
 import org.safris.xsb.runtime.JavaBinding;
 import org.safris.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.runtime.processor.plan.AliasPlan;
-import org.safris.xsb.runtime.processor.plan.EnumerablePlan;
-import org.safris.xsb.runtime.processor.plan.ExtensiblePlan;
-import org.safris.xsb.runtime.processor.plan.NativeablePlan;
-import org.safris.xsb.runtime.processor.plan.NestablePlan;
-import org.safris.xsb.runtime.processor.plan.Plan;
-import org.safris.xsb.runtime.processor.plan.RestrictablePlan;
 
 public class ElementPlan extends ComplexTypePlan<ElementModel> implements EnumerablePlan, ExtensiblePlan, Formable<Plan<?>>, NativeablePlan, NestablePlan, RestrictablePlan {
   private final ElementModel element;

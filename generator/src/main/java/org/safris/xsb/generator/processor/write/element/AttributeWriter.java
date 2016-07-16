@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.write.element;
+package org.safris.xsb.generator.processor.write.element;
 
 import java.io.StringWriter;
 
@@ -22,14 +22,14 @@ import javax.xml.namespace.QName;
 
 import org.safris.xsb.compiler.schema.attribute.Form;
 import org.safris.xsb.compiler.schema.attribute.Use;
+import org.safris.xsb.generator.processor.plan.Plan;
+import org.safris.xsb.generator.processor.plan.element.AttributePlan;
+import org.safris.xsb.generator.processor.plan.element.SimpleTypePlan;
 import org.safris.xsb.runtime.AttributeAudit;
 import org.safris.xsb.runtime.AttributeSpec;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.SimpleType;
 import org.safris.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.runtime.processor.plan.Plan;
-import org.safris.xsb.runtime.processor.plan.element.AttributePlan;
-import org.safris.xsb.runtime.processor.plan.element.SimpleTypePlan;
 
 public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
   @Override

@@ -14,16 +14,16 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.write.element;
+package org.safris.xsb.generator.processor.write.element;
 
 import java.io.StringWriter;
 import java.util.List;
 
+import org.safris.xsb.generator.processor.plan.Plan;
+import org.safris.xsb.generator.processor.plan.element.AnyPlan;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.Bindings;
 import org.safris.xsb.runtime.ElementAudit;
-import org.safris.xsb.runtime.processor.plan.Plan;
-import org.safris.xsb.runtime.processor.plan.element.AnyPlan;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

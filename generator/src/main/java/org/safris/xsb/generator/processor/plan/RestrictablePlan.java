@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan;
+package org.safris.xsb.generator.processor.plan;
 
 public interface RestrictablePlan {
   public boolean isRestriction();

@@ -47,7 +47,7 @@
     </dependency>
     <dependency>
       <groupId>org.safris.xsb</groupId>
-      <artifactId>compiler</artifactId>
+      <artifactId>runtime</artifactId>
       <version>2.1.2</version>
     </dependency>
   </dependencies>

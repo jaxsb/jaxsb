@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan.element;
+package org.safris.xsb.generator.processor.plan.element;
 
 import org.safris.xsb.compiler.processor.model.element.MaxInclusiveModel;
-import org.safris.xsb.runtime.processor.plan.Plan;
+import org.safris.xsb.generator.processor.plan.Plan;
 
 public final class MaxInclusivePlan extends Plan<MaxInclusiveModel> {
   public MaxInclusivePlan(final MaxInclusiveModel model, final Plan<?> parent) {

@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan.element;
+package org.safris.xsb.generator.processor.plan.element;
 
 import org.safris.xsb.compiler.processor.model.element.LengthModel;
-import org.safris.xsb.runtime.processor.plan.Plan;
+import org.safris.xsb.generator.processor.plan.Plan;
 
 public final class LengthPlan extends Plan<LengthModel> {
   public LengthPlan(final LengthModel model, final Plan<?> parent) {

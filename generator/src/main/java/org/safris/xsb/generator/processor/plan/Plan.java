@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan;
+package org.safris.xsb.generator.processor.plan;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;
@@ -26,9 +26,9 @@ import org.safris.xsb.compiler.processor.model.EnumerableModel;
 import org.safris.xsb.compiler.processor.model.Model;
 import org.safris.xsb.compiler.processor.model.element.EnumerationModel;
 import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.generator.processor.plan.element.ElementPlan;
 import org.safris.xsb.runtime.CompilerFailureException;
 import org.safris.xsb.runtime.ElementWrapper;
-import org.safris.xsb.runtime.processor.plan.element.ElementPlan;
 
 public abstract class Plan<T extends Model> implements PipelineEntity {
   public ElementPlan elementRefExistsInParent(final UniqueQName name) {

@@ -14,13 +14,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.write.element;
+package org.safris.xsb.generator.processor.write.element;
 
 import java.io.StringWriter;
 
-import org.safris.xsb.runtime.processor.plan.Plan;
-import org.safris.xsb.runtime.processor.plan.element.EnumerationPlan;
-import org.safris.xsb.runtime.processor.write.Writer;
+import org.safris.xsb.generator.processor.plan.Plan;
+import org.safris.xsb.generator.processor.plan.element.EnumerationPlan;
+import org.safris.xsb.generator.processor.write.Writer;
 
 public final class EnumerationWriter extends Writer<EnumerationPlan> {
   @Override

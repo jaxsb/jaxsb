@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.write.element;
+package org.safris.xsb.generator.processor.write.element;
 
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -27,6 +27,15 @@ import javax.xml.namespace.QName;
 import org.safris.commons.xml.validator.ValidationException;
 import org.safris.commons.xml.validator.Validator;
 import org.safris.xsb.compiler.schema.attribute.Form;
+import org.safris.xsb.generator.processor.plan.EnumerablePlan;
+import org.safris.xsb.generator.processor.plan.ExtensiblePlan;
+import org.safris.xsb.generator.processor.plan.Plan;
+import org.safris.xsb.generator.processor.plan.element.AnyAttributePlan;
+import org.safris.xsb.generator.processor.plan.element.AnyPlan;
+import org.safris.xsb.generator.processor.plan.element.AttributePlan;
+import org.safris.xsb.generator.processor.plan.element.ElementPlan;
+import org.safris.xsb.generator.processor.plan.element.SimpleTypePlan;
+import org.safris.xsb.generator.processor.write.Writer;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.BindingList;
 import org.safris.xsb.runtime.BindingRuntimeException;
@@ -36,15 +45,6 @@ import org.safris.xsb.runtime.ElementSpec;
 import org.safris.xsb.runtime.MarshalException;
 import org.safris.xsb.runtime.ParseException;
 import org.safris.xsb.runtime.SimpleType;
-import org.safris.xsb.runtime.processor.plan.EnumerablePlan;
-import org.safris.xsb.runtime.processor.plan.ExtensiblePlan;
-import org.safris.xsb.runtime.processor.plan.Plan;
-import org.safris.xsb.runtime.processor.plan.element.AnyAttributePlan;
-import org.safris.xsb.runtime.processor.plan.element.AnyPlan;
-import org.safris.xsb.runtime.processor.plan.element.AttributePlan;
-import org.safris.xsb.runtime.processor.plan.element.ElementPlan;
-import org.safris.xsb.runtime.processor.plan.element.SimpleTypePlan;
-import org.safris.xsb.runtime.processor.write.Writer;
 import org.w3.x2001.xmlschema.xe.$xs_boolean;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;

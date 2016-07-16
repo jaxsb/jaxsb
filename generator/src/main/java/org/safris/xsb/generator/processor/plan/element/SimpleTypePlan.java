@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.plan.element;
+package org.safris.xsb.generator.processor.plan.element;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,15 +29,15 @@ import org.safris.xsb.compiler.processor.model.NamedModel;
 import org.safris.xsb.compiler.processor.model.element.ComplexTypeModel;
 import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.safris.xsb.compiler.processor.model.element.UnionModel;
+import org.safris.xsb.generator.processor.plan.AliasPlan;
+import org.safris.xsb.generator.processor.plan.EnumerablePlan;
+import org.safris.xsb.generator.processor.plan.ExtensiblePlan;
+import org.safris.xsb.generator.processor.plan.NamedPlan;
+import org.safris.xsb.generator.processor.plan.NativeablePlan;
+import org.safris.xsb.generator.processor.plan.Plan;
 import org.safris.xsb.runtime.CompilerFailureException;
 import org.safris.xsb.runtime.JavaBinding;
 import org.safris.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.runtime.processor.plan.AliasPlan;
-import org.safris.xsb.runtime.processor.plan.EnumerablePlan;
-import org.safris.xsb.runtime.processor.plan.ExtensiblePlan;
-import org.safris.xsb.runtime.processor.plan.NamedPlan;
-import org.safris.xsb.runtime.processor.plan.NativeablePlan;
-import org.safris.xsb.runtime.processor.plan.Plan;
 
 public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> implements EnumerablePlan, ExtensiblePlan, NativeablePlan {
   private static SimpleTypeModel<?> getGreatestCommonType(final Collection<SimpleTypeModel<?>> types, final boolean includeEnums) {
