@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.normalize.element;
+package org.safris.xsb.compiler.processor.normalize.element;
 
 import java.io.File;
 import java.net.URL;
@@ -22,9 +22,9 @@ import java.net.URL;
 import org.safris.commons.io.Files;
 import org.safris.commons.net.URLs;
 import org.safris.maven.common.Log;
-import org.safris.xsb.lexer.processor.model.element.SchemaModel;
-import org.safris.xsb.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.compiler.processor.model.element.SchemaModel;
+import org.safris.xsb.compiler.processor.normalize.Normalizer;
+import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class SchemaNormalizer extends Normalizer<SchemaModel> {
   private static File CWD = null;

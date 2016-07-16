@@ -14,18 +14,18 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.lang;
+package org.safris.xsb.runtime;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.Nameable;
-import org.safris.xsb.lexer.processor.model.Model;
-import org.safris.xsb.lexer.processor.model.MultiplicableModel;
-import org.safris.xsb.lexer.processor.model.RedefineableModel;
-import org.safris.xsb.lexer.processor.model.element.ElementModel;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.Nameable;
+import org.safris.xsb.compiler.processor.model.Model;
+import org.safris.xsb.compiler.processor.model.MultiplicableModel;
+import org.safris.xsb.compiler.processor.model.RedefineableModel;
+import org.safris.xsb.compiler.processor.model.element.ElementModel;
 
 @SuppressWarnings("rawtypes")
 public final class ElementWrapper extends Model implements Nameable {

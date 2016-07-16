@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor;
+package org.safris.xsb.compiler.processor;
 
 public interface Undefineable {
 }

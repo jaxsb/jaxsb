@@ -14,19 +14,19 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.write.element;
+package org.safris.xsb.runtime.processor.write.element;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.safris.xsb.compiler.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.plan.element.AnyAttributePlan;
-import org.safris.xsb.compiler.processor.write.Writer;
-import org.safris.xsb.compiler.runtime.AttributeAudit;
-import org.safris.xsb.compiler.runtime.Binding;
-import org.safris.xsb.lexer.schema.attribute.Form;
-import org.safris.xsb.lexer.schema.attribute.Use;
+import org.safris.xsb.compiler.schema.attribute.Form;
+import org.safris.xsb.compiler.schema.attribute.Use;
+import org.safris.xsb.runtime.AttributeAudit;
+import org.safris.xsb.runtime.Binding;
+import org.safris.xsb.runtime.processor.plan.Plan;
+import org.safris.xsb.runtime.processor.plan.element.AnyAttributePlan;
+import org.safris.xsb.runtime.processor.write.Writer;
 import org.w3c.dom.Element;
 
 public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {

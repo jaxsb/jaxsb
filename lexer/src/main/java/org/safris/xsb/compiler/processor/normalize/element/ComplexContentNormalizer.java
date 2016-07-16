@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.normalize.element;
+package org.safris.xsb.compiler.processor.normalize.element;
 
-import org.safris.xsb.lexer.processor.model.element.ComplexContentModel;
-import org.safris.xsb.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.compiler.processor.model.element.ComplexContentModel;
+import org.safris.xsb.compiler.processor.normalize.Normalizer;
+import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class ComplexContentNormalizer extends Normalizer<ComplexContentModel> {
   public ComplexContentNormalizer(final NormalizerDirectory directory) {

@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.composite;
+package org.safris.xsb.compiler.processor.composite;
 
 import org.w3c.dom.Node;
 

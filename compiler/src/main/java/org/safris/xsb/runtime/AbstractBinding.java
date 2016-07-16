@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.runtime;
+package org.safris.xsb.runtime;
 
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -99,7 +99,7 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   protected static QName getClassQName(final Class<? extends Binding> binding) {
-    final org.safris.xsb.compiler.annotation.QName name = Classes.getDeclaredAnnotation(binding, org.safris.xsb.compiler.annotation.QName.class);
+    final org.safris.xsb.runtime.QName name = Classes.getDeclaredAnnotation(binding, org.safris.xsb.runtime.QName.class);
     return new QName(name.namespaceURI().intern(), name.localPart().intern(), name.prefix().intern());
   }
 

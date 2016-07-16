@@ -14,27 +14,27 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.plan.element;
+package org.safris.xsb.runtime.processor.plan.element;
 
 import javax.xml.namespace.QName;
 
-import org.safris.xsb.compiler.lang.JavaBinding;
-import org.safris.xsb.compiler.lang.XSTypeDirectory;
-import org.safris.xsb.compiler.processor.plan.AliasPlan;
-import org.safris.xsb.compiler.processor.plan.EnumerablePlan;
-import org.safris.xsb.compiler.processor.plan.ExtensiblePlan;
-import org.safris.xsb.compiler.processor.plan.NativeablePlan;
-import org.safris.xsb.compiler.processor.plan.NestablePlan;
-import org.safris.xsb.compiler.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.plan.RestrictablePlan;
-import org.safris.xsb.lexer.processor.Formable;
-import org.safris.xsb.lexer.processor.model.AnyableModel;
-import org.safris.xsb.lexer.processor.model.Model;
-import org.safris.xsb.lexer.processor.model.RestrictableModel;
-import org.safris.xsb.lexer.processor.model.element.AttributeModel;
-import org.safris.xsb.lexer.processor.model.element.SchemaModel;
-import org.safris.xsb.lexer.schema.attribute.Form;
-import org.safris.xsb.lexer.schema.attribute.Use;
+import org.safris.xsb.compiler.processor.Formable;
+import org.safris.xsb.compiler.processor.model.AnyableModel;
+import org.safris.xsb.compiler.processor.model.Model;
+import org.safris.xsb.compiler.processor.model.RestrictableModel;
+import org.safris.xsb.compiler.processor.model.element.AttributeModel;
+import org.safris.xsb.compiler.processor.model.element.SchemaModel;
+import org.safris.xsb.compiler.schema.attribute.Form;
+import org.safris.xsb.compiler.schema.attribute.Use;
+import org.safris.xsb.runtime.JavaBinding;
+import org.safris.xsb.runtime.XSTypeDirectory;
+import org.safris.xsb.runtime.processor.plan.AliasPlan;
+import org.safris.xsb.runtime.processor.plan.EnumerablePlan;
+import org.safris.xsb.runtime.processor.plan.ExtensiblePlan;
+import org.safris.xsb.runtime.processor.plan.NativeablePlan;
+import org.safris.xsb.runtime.processor.plan.NestablePlan;
+import org.safris.xsb.runtime.processor.plan.Plan;
+import org.safris.xsb.runtime.processor.plan.RestrictablePlan;
 
 public class AttributePlan extends SimpleTypePlan<AttributeModel> implements EnumerablePlan, ExtensiblePlan, Formable<Plan<?>>, NativeablePlan, NestablePlan, RestrictablePlan {
   private final AttributeModel attribute;

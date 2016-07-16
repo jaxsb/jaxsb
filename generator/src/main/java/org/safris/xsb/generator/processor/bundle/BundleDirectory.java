@@ -19,8 +19,8 @@ package org.safris.xsb.generator.processor.bundle;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xsb.lexer.processor.GeneratorContext;
-import org.safris.xsb.lexer.processor.composite.SchemaComposite;
+import org.safris.xsb.compiler.processor.GeneratorContext;
+import org.safris.xsb.compiler.processor.composite.SchemaComposite;
 
 public final class BundleDirectory implements PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> {
   private BundleProcessor processor = new BundleProcessor();

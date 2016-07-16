@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.reference;
+package org.safris.xsb.compiler.processor.reference;
 
 import java.io.File;
 import java.util.Collection;
@@ -25,8 +25,8 @@ import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
 import org.safris.maven.common.Log;
-import org.safris.xsb.lexer.lang.LexerFailureException;
-import org.safris.xsb.lexer.processor.GeneratorContext;
+import org.safris.xsb.compiler.lang.LexerFailureException;
+import org.safris.xsb.compiler.processor.GeneratorContext;
 
 public final class SchemaReferenceProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaReference> {
 //  private static final class Counter {

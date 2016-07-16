@@ -14,22 +14,22 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.model.element;
+package org.safris.xsb.compiler.processor.model.element;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.Formable;
-import org.safris.xsb.lexer.processor.Referenceable;
-import org.safris.xsb.lexer.processor.model.AliasModel;
-import org.safris.xsb.lexer.processor.model.Model;
-import org.safris.xsb.lexer.processor.model.ReferableModel;
-import org.safris.xsb.lexer.processor.model.RestrictableModel;
-import org.safris.xsb.lexer.schema.attribute.Form;
-import org.safris.xsb.lexer.schema.attribute.Use;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.Formable;
+import org.safris.xsb.compiler.processor.Referenceable;
+import org.safris.xsb.compiler.processor.model.AliasModel;
+import org.safris.xsb.compiler.processor.model.Model;
+import org.safris.xsb.compiler.processor.model.ReferableModel;
+import org.safris.xsb.compiler.processor.model.RestrictableModel;
+import org.safris.xsb.compiler.schema.attribute.Form;
+import org.safris.xsb.compiler.schema.attribute.Use;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

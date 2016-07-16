@@ -23,7 +23,7 @@ import org.safris.commons.xml.binding.Decimal;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
 import org.safris.xml.tutorial.binding.invoice.xe.pv_invoice;
-import org.safris.xsb.compiler.runtime.Bindings;
+import org.safris.xsb.runtime.Bindings;
 import org.xml.sax.InputSource;
 
 public class InvoiceUpdater {

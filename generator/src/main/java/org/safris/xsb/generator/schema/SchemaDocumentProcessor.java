@@ -32,12 +32,12 @@ import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.maven.common.Log;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.GeneratorContext;
+import org.safris.xsb.compiler.processor.document.SchemaDocument;
+import org.safris.xsb.compiler.processor.reference.SchemaReference;
 import org.safris.xsb.generator.binding.AbstractGenerator;
 import org.safris.xsb.generator.binding.GeneratorError;
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.GeneratorContext;
-import org.safris.xsb.lexer.processor.document.SchemaDocument;
-import org.safris.xsb.lexer.processor.reference.SchemaReference;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 

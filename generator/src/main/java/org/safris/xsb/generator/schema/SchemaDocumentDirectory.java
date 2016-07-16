@@ -18,9 +18,9 @@ package org.safris.xsb.generator.schema;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xsb.lexer.processor.GeneratorContext;
-import org.safris.xsb.lexer.processor.document.SchemaDocument;
-import org.safris.xsb.lexer.processor.reference.SchemaReference;
+import org.safris.xsb.compiler.processor.GeneratorContext;
+import org.safris.xsb.compiler.processor.document.SchemaDocument;
+import org.safris.xsb.compiler.processor.reference.SchemaReference;
 
 public final class SchemaDocumentDirectory implements PipelineDirectory<GeneratorContext,SchemaReference,SchemaDocument> {
   private final SchemaDocumentProcessor processor = new SchemaDocumentProcessor();

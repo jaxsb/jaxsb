@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.reference;
+package org.safris.xsb.compiler.processor.reference;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,8 +34,8 @@ import org.safris.commons.xml.sax.SAXFeature;
 import org.safris.commons.xml.sax.SAXParser;
 import org.safris.commons.xml.sax.SAXParsers;
 import org.safris.maven.common.Log;
-import org.safris.xsb.lexer.lang.LexerFailureException;
-import org.safris.xsb.lexer.lang.UniqueQName;
+import org.safris.xsb.compiler.lang.LexerFailureException;
+import org.safris.xsb.compiler.lang.UniqueQName;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 

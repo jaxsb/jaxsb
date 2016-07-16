@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.annotation;
+package org.safris.xsb.runtime;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

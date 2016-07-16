@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.lang;
+package org.safris.xsb.compiler.lang;
 
 import java.util.HashMap;
 import java.util.Map;

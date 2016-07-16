@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.plan.element;
+package org.safris.xsb.runtime.processor.plan.element;
 
-import org.safris.xsb.compiler.processor.plan.Plan;
-import org.safris.xsb.lexer.processor.model.element.PatternModel;
+import org.safris.xsb.compiler.processor.model.element.PatternModel;
+import org.safris.xsb.runtime.processor.plan.Plan;
 
 public final class PatternPlan extends Plan<PatternModel> {
   private final String value;

@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.schema.facet;
+package org.safris.xsb.compiler.schema.facet;
 
 public final class MaxInclusiveFacet {
 }

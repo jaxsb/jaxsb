@@ -14,14 +14,14 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.runtime;
+package org.safris.xsb.runtime;
 
 import java.io.File;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.safris.commons.test.LoggableTest;
-import org.safris.xsb.compiler.runtime.WeakClassLoader;
+import org.safris.xsb.runtime.WeakClassLoader;
 
 public class ClassLoaderTest extends LoggableTest {
   public static void main(final String[] args) throws Exception {

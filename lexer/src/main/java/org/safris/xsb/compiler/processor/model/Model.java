@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.model;
+package org.safris.xsb.compiler.processor.model;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,9 +27,9 @@ import javax.xml.namespace.QName;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.maven.common.Log;
-import org.safris.xsb.lexer.lang.LexerFailureException;
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.model.element.SchemaModel;
+import org.safris.xsb.compiler.lang.LexerFailureException;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.model.element.SchemaModel;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

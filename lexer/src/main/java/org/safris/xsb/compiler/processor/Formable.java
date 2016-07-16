@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor;
+package org.safris.xsb.compiler.processor;
 
 import org.safris.commons.pipeline.PipelineEntity;
-import org.safris.xsb.lexer.schema.attribute.Form;
+import org.safris.xsb.compiler.schema.attribute.Form;
 
 public interface Formable<T extends PipelineEntity> {
   public Form getFormDefault();

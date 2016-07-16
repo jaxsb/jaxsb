@@ -14,12 +14,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.reference;
+package org.safris.xsb.compiler.processor.reference;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xsb.lexer.processor.GeneratorContext;
+import org.safris.xsb.compiler.processor.GeneratorContext;
 
 public final class SchemaReferenceDirectory implements PipelineDirectory<GeneratorContext,SchemaReference,SchemaReference> {
   private final SchemaReferenceProcessor schemaReferenceProcessor = new SchemaReferenceProcessor();

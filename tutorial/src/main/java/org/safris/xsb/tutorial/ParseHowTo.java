@@ -24,7 +24,7 @@ import org.safris.commons.xml.binding.Date;
 import org.safris.commons.xml.binding.Decimal;
 import org.safris.xml.tutorial.binding.invoice.xe.$pv_itemType;
 import org.safris.xml.tutorial.binding.invoice.xe.pv_invoice;
-import org.safris.xsb.compiler.runtime.Bindings;
+import org.safris.xsb.runtime.Bindings;
 import org.xml.sax.InputSource;
 
 public class ParseHowTo {

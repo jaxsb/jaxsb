@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.write;
+package org.safris.xsb.runtime.processor.write;
 
 import java.io.File;
 import java.io.FileFilter;

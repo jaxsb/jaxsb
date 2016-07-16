@@ -26,8 +26,8 @@ import org.safris.xml.toolkit.sample.binding.list.xe.$li_employeeType;
 import org.safris.xml.toolkit.sample.binding.list.xe.$li_staffType;
 import org.safris.xml.toolkit.sample.binding.list.xe.$li_volunteerType;
 import org.safris.xml.toolkit.sample.binding.list.xe.li_roster;
-import org.safris.xsb.compiler.runtime.Binding;
-import org.safris.xsb.compiler.runtime.Bindings;
+import org.safris.xsb.runtime.Binding;
+import org.safris.xsb.runtime.Bindings;
 import org.xml.sax.InputSource;
 
 public class ListSample {

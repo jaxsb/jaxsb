@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.write.element;
+package org.safris.xsb.runtime.processor.write.element;
 
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -26,25 +26,25 @@ import javax.xml.namespace.QName;
 
 import org.safris.commons.xml.validator.ValidationException;
 import org.safris.commons.xml.validator.Validator;
-import org.safris.xsb.compiler.annotation.ElementSpec;
-import org.safris.xsb.compiler.processor.plan.EnumerablePlan;
-import org.safris.xsb.compiler.processor.plan.ExtensiblePlan;
-import org.safris.xsb.compiler.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.plan.element.AnyAttributePlan;
-import org.safris.xsb.compiler.processor.plan.element.AnyPlan;
-import org.safris.xsb.compiler.processor.plan.element.AttributePlan;
-import org.safris.xsb.compiler.processor.plan.element.ElementPlan;
-import org.safris.xsb.compiler.processor.plan.element.SimpleTypePlan;
-import org.safris.xsb.compiler.processor.write.Writer;
-import org.safris.xsb.compiler.runtime.Binding;
-import org.safris.xsb.compiler.runtime.BindingList;
-import org.safris.xsb.compiler.runtime.BindingRuntimeException;
-import org.safris.xsb.compiler.runtime.ComplexType;
-import org.safris.xsb.compiler.runtime.ElementAudit;
-import org.safris.xsb.compiler.runtime.MarshalException;
-import org.safris.xsb.compiler.runtime.ParseException;
-import org.safris.xsb.compiler.runtime.SimpleType;
-import org.safris.xsb.lexer.schema.attribute.Form;
+import org.safris.xsb.compiler.schema.attribute.Form;
+import org.safris.xsb.runtime.Binding;
+import org.safris.xsb.runtime.BindingList;
+import org.safris.xsb.runtime.BindingRuntimeException;
+import org.safris.xsb.runtime.ComplexType;
+import org.safris.xsb.runtime.ElementAudit;
+import org.safris.xsb.runtime.ElementSpec;
+import org.safris.xsb.runtime.MarshalException;
+import org.safris.xsb.runtime.ParseException;
+import org.safris.xsb.runtime.SimpleType;
+import org.safris.xsb.runtime.processor.plan.EnumerablePlan;
+import org.safris.xsb.runtime.processor.plan.ExtensiblePlan;
+import org.safris.xsb.runtime.processor.plan.Plan;
+import org.safris.xsb.runtime.processor.plan.element.AnyAttributePlan;
+import org.safris.xsb.runtime.processor.plan.element.AnyPlan;
+import org.safris.xsb.runtime.processor.plan.element.AttributePlan;
+import org.safris.xsb.runtime.processor.plan.element.ElementPlan;
+import org.safris.xsb.runtime.processor.plan.element.SimpleTypePlan;
+import org.safris.xsb.runtime.processor.write.Writer;
 import org.w3.x2001.xmlschema.xe.$xs_boolean;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;

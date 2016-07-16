@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.plan.element;
+package org.safris.xsb.runtime.processor.plan.element;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,22 +22,22 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.safris.xsb.compiler.lang.CompilerFailureException;
-import org.safris.xsb.compiler.lang.JavaBinding;
-import org.safris.xsb.compiler.lang.XSTypeDirectory;
-import org.safris.xsb.compiler.processor.plan.AliasPlan;
-import org.safris.xsb.compiler.processor.plan.EnumerablePlan;
-import org.safris.xsb.compiler.processor.plan.ExtensiblePlan;
-import org.safris.xsb.compiler.processor.plan.NamedPlan;
-import org.safris.xsb.compiler.processor.plan.NativeablePlan;
-import org.safris.xsb.compiler.processor.plan.Plan;
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.model.AnyableModel;
-import org.safris.xsb.lexer.processor.model.Model;
-import org.safris.xsb.lexer.processor.model.NamedModel;
-import org.safris.xsb.lexer.processor.model.element.ComplexTypeModel;
-import org.safris.xsb.lexer.processor.model.element.SimpleTypeModel;
-import org.safris.xsb.lexer.processor.model.element.UnionModel;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.model.AnyableModel;
+import org.safris.xsb.compiler.processor.model.Model;
+import org.safris.xsb.compiler.processor.model.NamedModel;
+import org.safris.xsb.compiler.processor.model.element.ComplexTypeModel;
+import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.compiler.processor.model.element.UnionModel;
+import org.safris.xsb.runtime.CompilerFailureException;
+import org.safris.xsb.runtime.JavaBinding;
+import org.safris.xsb.runtime.XSTypeDirectory;
+import org.safris.xsb.runtime.processor.plan.AliasPlan;
+import org.safris.xsb.runtime.processor.plan.EnumerablePlan;
+import org.safris.xsb.runtime.processor.plan.ExtensiblePlan;
+import org.safris.xsb.runtime.processor.plan.NamedPlan;
+import org.safris.xsb.runtime.processor.plan.NativeablePlan;
+import org.safris.xsb.runtime.processor.plan.Plan;
 
 public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> implements EnumerablePlan, ExtensiblePlan, NativeablePlan {
   private static SimpleTypeModel<?> getGreatestCommonType(final Collection<SimpleTypeModel<?>> types, final boolean includeEnums) {

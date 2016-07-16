@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.runtime;
+package org.safris.xsb.runtime;
 
 public final class MarshalException extends BindingException {
   private static final long serialVersionUID = -4075553280110488380L;

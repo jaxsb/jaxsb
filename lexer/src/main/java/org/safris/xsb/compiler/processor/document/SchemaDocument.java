@@ -14,13 +14,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.document;
+package org.safris.xsb.compiler.processor.document;
 
 import java.net.URL;
 import java.util.Collection;
 
 import org.safris.commons.pipeline.PipelineEntity;
-import org.safris.xsb.lexer.processor.reference.SchemaReference;
+import org.safris.xsb.compiler.processor.reference.SchemaReference;
 import org.w3c.dom.Document;
 
 public final class SchemaDocument implements PipelineEntity {

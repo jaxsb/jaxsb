@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.composite;
+package org.safris.xsb.compiler.processor.composite;
 
-import org.safris.xsb.lexer.processor.document.SchemaDocument;
-import org.safris.xsb.lexer.processor.model.element.SchemaModel;
+import org.safris.xsb.compiler.processor.document.SchemaDocument;
+import org.safris.xsb.compiler.processor.model.element.SchemaModel;
 
 public final class SchemaModelComposite implements SchemaComposite {
   private final SchemaDocument schemaDocument;

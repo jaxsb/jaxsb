@@ -14,9 +14,9 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.model;
+package org.safris.xsb.compiler.processor.model;
 
-import org.safris.xsb.lexer.processor.model.element.DocumentationModel;
+import org.safris.xsb.compiler.processor.model.element.DocumentationModel;
 
 public interface DocumentableModel {
   public void setDocumentation(final DocumentationModel documentation);

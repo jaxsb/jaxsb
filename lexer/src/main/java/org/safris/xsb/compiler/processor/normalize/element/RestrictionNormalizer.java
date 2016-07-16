@@ -14,29 +14,29 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.normalize.element;
+package org.safris.xsb.compiler.processor.normalize.element;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.safris.xsb.lexer.lang.LexerFailureException;
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.Nameable;
-import org.safris.xsb.lexer.processor.model.AttributableModel;
-import org.safris.xsb.lexer.processor.model.Model;
-import org.safris.xsb.lexer.processor.model.MultiplicableModel;
-import org.safris.xsb.lexer.processor.model.RestrictableModel;
-import org.safris.xsb.lexer.processor.model.element.AttributeModel;
-import org.safris.xsb.lexer.processor.model.element.ComplexTypeModel;
-import org.safris.xsb.lexer.processor.model.element.ElementModel;
-import org.safris.xsb.lexer.processor.model.element.ListModel;
-import org.safris.xsb.lexer.processor.model.element.RedefineModel;
-import org.safris.xsb.lexer.processor.model.element.RestrictionModel;
-import org.safris.xsb.lexer.processor.model.element.SchemaModel;
-import org.safris.xsb.lexer.processor.model.element.SimpleTypeModel;
-import org.safris.xsb.lexer.processor.model.element.UnionModel;
-import org.safris.xsb.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.compiler.lang.LexerFailureException;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.Nameable;
+import org.safris.xsb.compiler.processor.model.AttributableModel;
+import org.safris.xsb.compiler.processor.model.Model;
+import org.safris.xsb.compiler.processor.model.MultiplicableModel;
+import org.safris.xsb.compiler.processor.model.RestrictableModel;
+import org.safris.xsb.compiler.processor.model.element.AttributeModel;
+import org.safris.xsb.compiler.processor.model.element.ComplexTypeModel;
+import org.safris.xsb.compiler.processor.model.element.ElementModel;
+import org.safris.xsb.compiler.processor.model.element.ListModel;
+import org.safris.xsb.compiler.processor.model.element.RedefineModel;
+import org.safris.xsb.compiler.processor.model.element.RestrictionModel;
+import org.safris.xsb.compiler.processor.model.element.SchemaModel;
+import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.compiler.processor.model.element.UnionModel;
+import org.safris.xsb.compiler.processor.normalize.Normalizer;
+import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
   private final ElementNormalizer elementNormalizer = (ElementNormalizer)getDirectory().lookup(ElementModel.class);

@@ -23,7 +23,7 @@ import org.safris.xml.toolkit.sample.binding.simple.xe.simple_fruitBasket;
 import org.safris.xml.toolkit.sample.binding.xsitype.xe.$type_dehiscentDryFruitType;
 import org.safris.xml.toolkit.sample.binding.xsitype.xe.$type_fleshyFruitType;
 import org.safris.xml.toolkit.sample.binding.xsitype.xe.$type_indehiscentDryFruitType;
-import org.safris.xsb.compiler.runtime.Binding;
+import org.safris.xsb.runtime.Binding;
 
 public class XsiTypeSample {
   public static void main(final String[] args) {

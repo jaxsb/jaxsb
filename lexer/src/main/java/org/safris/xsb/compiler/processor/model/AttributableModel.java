@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.model;
+package org.safris.xsb.compiler.processor.model;
 
 import java.util.LinkedHashSet;
 
-import org.safris.xsb.lexer.processor.model.element.AttributeModel;
+import org.safris.xsb.compiler.processor.model.element.AttributeModel;
 
 public interface AttributableModel {
   public void addAttribute(final AttributeModel model);

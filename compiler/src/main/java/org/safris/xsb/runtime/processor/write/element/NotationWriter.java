@@ -14,17 +14,17 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.write.element;
+package org.safris.xsb.runtime.processor.write.element;
 
 import java.io.StringWriter;
 
 import javax.xml.namespace.QName;
 
-import org.safris.xsb.compiler.lang.CompilerFailureException;
-import org.safris.xsb.compiler.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.plan.element.NotationPlan;
-import org.safris.xsb.compiler.processor.write.Writer;
-import org.safris.xsb.compiler.runtime.NotationType;
+import org.safris.xsb.runtime.CompilerFailureException;
+import org.safris.xsb.runtime.NotationType;
+import org.safris.xsb.runtime.processor.plan.Plan;
+import org.safris.xsb.runtime.processor.plan.element.NotationPlan;
+import org.safris.xsb.runtime.processor.write.Writer;
 
 public final class NotationWriter extends Writer<NotationPlan> {
   @Override

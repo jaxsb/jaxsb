@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.model.element;
+package org.safris.xsb.compiler.processor.model.element;
 
-import org.safris.xsb.lexer.lang.LexerFailureException;
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.model.Model;
+import org.safris.xsb.compiler.lang.LexerFailureException;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.model.Model;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

@@ -14,20 +14,20 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.normalize.element;
+package org.safris.xsb.compiler.processor.normalize.element;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.xsb.lexer.lang.LexerFailureException;
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.Nameable;
-import org.safris.xsb.lexer.processor.model.AttributableModel;
-import org.safris.xsb.lexer.processor.model.Model;
-import org.safris.xsb.lexer.processor.model.element.AttributeGroupModel;
-import org.safris.xsb.lexer.processor.model.element.RedefineModel;
-import org.safris.xsb.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.compiler.lang.LexerFailureException;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.Nameable;
+import org.safris.xsb.compiler.processor.model.AttributableModel;
+import org.safris.xsb.compiler.processor.model.Model;
+import org.safris.xsb.compiler.processor.model.element.AttributeGroupModel;
+import org.safris.xsb.compiler.processor.model.element.RedefineModel;
+import org.safris.xsb.compiler.processor.normalize.Normalizer;
+import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class AttributeGroupNormalizer extends Normalizer<AttributeGroupModel> {
   private final Map<UniqueQName,AttributeGroupModel> all = new HashMap<UniqueQName,AttributeGroupModel>();

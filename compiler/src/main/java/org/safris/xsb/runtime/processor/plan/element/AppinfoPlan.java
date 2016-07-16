@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.plan.element;
+package org.safris.xsb.runtime.processor.plan.element;
 
-import org.safris.xsb.compiler.processor.plan.Plan;
-import org.safris.xsb.lexer.processor.model.element.AppinfoModel;
+import org.safris.xsb.compiler.processor.model.element.AppinfoModel;
+import org.safris.xsb.runtime.processor.plan.Plan;
 
 public final class AppinfoPlan extends Plan<AppinfoModel> {
   public AppinfoPlan(final AppinfoModel model, final Plan<?> parent) {

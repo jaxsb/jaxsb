@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.runtime;
+package org.safris.xsb.runtime;
 
 public final class ParseException extends BindingException {
   private static final long serialVersionUID = -1115503587680711757L;

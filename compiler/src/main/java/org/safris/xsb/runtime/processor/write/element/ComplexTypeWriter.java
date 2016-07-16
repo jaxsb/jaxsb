@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.write.element;
+package org.safris.xsb.runtime.processor.write.element;
 
 import java.io.StringWriter;
 import java.util.Iterator;
@@ -24,21 +24,21 @@ import javax.xml.namespace.QName;
 
 import org.safris.commons.xml.validator.ValidationException;
 import org.safris.commons.xml.validator.Validator;
-import org.safris.xsb.compiler.lang.CompilerFailureException;
-import org.safris.xsb.compiler.lang.XSTypeDirectory;
-import org.safris.xsb.compiler.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.plan.element.AnyAttributePlan;
-import org.safris.xsb.compiler.processor.plan.element.AnyPlan;
-import org.safris.xsb.compiler.processor.plan.element.AttributePlan;
-import org.safris.xsb.compiler.processor.plan.element.ComplexTypePlan;
-import org.safris.xsb.compiler.processor.plan.element.ElementPlan;
-import org.safris.xsb.compiler.processor.write.Writer;
-import org.safris.xsb.compiler.runtime.Binding;
-import org.safris.xsb.compiler.runtime.BindingList;
-import org.safris.xsb.compiler.runtime.BindingRuntimeException;
-import org.safris.xsb.compiler.runtime.ComplexType;
-import org.safris.xsb.compiler.runtime.MarshalException;
-import org.safris.xsb.compiler.runtime.ParseException;
+import org.safris.xsb.runtime.Binding;
+import org.safris.xsb.runtime.BindingList;
+import org.safris.xsb.runtime.BindingRuntimeException;
+import org.safris.xsb.runtime.CompilerFailureException;
+import org.safris.xsb.runtime.ComplexType;
+import org.safris.xsb.runtime.MarshalException;
+import org.safris.xsb.runtime.ParseException;
+import org.safris.xsb.runtime.XSTypeDirectory;
+import org.safris.xsb.runtime.processor.plan.Plan;
+import org.safris.xsb.runtime.processor.plan.element.AnyAttributePlan;
+import org.safris.xsb.runtime.processor.plan.element.AnyPlan;
+import org.safris.xsb.runtime.processor.plan.element.AttributePlan;
+import org.safris.xsb.runtime.processor.plan.element.ComplexTypePlan;
+import org.safris.xsb.runtime.processor.plan.element.ElementPlan;
+import org.safris.xsb.runtime.processor.write.Writer;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

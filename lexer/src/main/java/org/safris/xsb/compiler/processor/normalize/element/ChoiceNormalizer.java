@@ -14,14 +14,14 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.normalize.element;
+package org.safris.xsb.compiler.processor.normalize.element;
 
-import org.safris.xsb.lexer.processor.Nameable;
-import org.safris.xsb.lexer.processor.model.ElementableModel;
-import org.safris.xsb.lexer.processor.model.Model;
-import org.safris.xsb.lexer.processor.model.element.ChoiceModel;
-import org.safris.xsb.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.compiler.processor.Nameable;
+import org.safris.xsb.compiler.processor.model.ElementableModel;
+import org.safris.xsb.compiler.processor.model.Model;
+import org.safris.xsb.compiler.processor.model.element.ChoiceModel;
+import org.safris.xsb.compiler.processor.normalize.Normalizer;
+import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class ChoiceNormalizer extends Normalizer<ChoiceModel> {
   public ChoiceNormalizer(final NormalizerDirectory directory) {

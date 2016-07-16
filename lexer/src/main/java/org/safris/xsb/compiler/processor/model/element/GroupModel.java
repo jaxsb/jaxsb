@@ -14,21 +14,21 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.lexer.processor.model.element;
+package org.safris.xsb.compiler.processor.model.element;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
-import org.safris.xsb.lexer.lang.UniqueQName;
-import org.safris.xsb.lexer.processor.Nameable;
-import org.safris.xsb.lexer.processor.Referenceable;
-import org.safris.xsb.lexer.processor.model.Model;
-import org.safris.xsb.lexer.processor.model.MultiplicableModel;
-import org.safris.xsb.lexer.processor.model.NamedModel;
-import org.safris.xsb.lexer.processor.model.RedefineableModel;
-import org.safris.xsb.lexer.processor.model.ReferableModel;
-import org.safris.xsb.lexer.schema.attribute.Occurs;
+import org.safris.xsb.compiler.lang.UniqueQName;
+import org.safris.xsb.compiler.processor.Nameable;
+import org.safris.xsb.compiler.processor.Referenceable;
+import org.safris.xsb.compiler.processor.model.Model;
+import org.safris.xsb.compiler.processor.model.MultiplicableModel;
+import org.safris.xsb.compiler.processor.model.NamedModel;
+import org.safris.xsb.compiler.processor.model.RedefineableModel;
+import org.safris.xsb.compiler.processor.model.ReferableModel;
+import org.safris.xsb.compiler.schema.attribute.Occurs;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

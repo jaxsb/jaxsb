@@ -16,7 +16,7 @@
 
 package org.w3.x2001.xmlschema.xe;
 
-import org.safris.xsb.compiler.runtime.MarshalException;
+import org.safris.xsb.runtime.MarshalException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_normalizedString extends $xs_string {

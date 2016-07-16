@@ -25,10 +25,10 @@ import javax.xml.parsers.DocumentBuilder;
 
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.dom.DOMParsers;
-import org.safris.xsb.compiler.lang.CompilerFailureException;
-import org.safris.xsb.compiler.runtime.BindingError;
-import org.safris.xsb.lexer.processor.document.SchemaDocument;
-import org.safris.xsb.lexer.processor.reference.SchemaReference;
+import org.safris.xsb.compiler.processor.document.SchemaDocument;
+import org.safris.xsb.compiler.processor.reference.SchemaReference;
+import org.safris.xsb.runtime.BindingError;
+import org.safris.xsb.runtime.CompilerFailureException;
 import org.w3c.dom.Document;
 
 public abstract class AbstractGenerator {

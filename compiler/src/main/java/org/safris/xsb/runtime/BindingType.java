@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.runtime;
+package org.safris.xsb.runtime;
 
 public interface BindingType {
 }

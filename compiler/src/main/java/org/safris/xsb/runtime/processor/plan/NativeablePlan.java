@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.compiler.processor.plan;
+package org.safris.xsb.runtime.processor.plan;
 
 public interface NativeablePlan {
   public String getNativeItemClassNameInterface();
