@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.model;
+package org.safris.xsb.lexer.processor.model;
 
 public interface RestrictableModel<T extends RestrictableModel<?>> {
   public AliasModel getRestrictionOwner();

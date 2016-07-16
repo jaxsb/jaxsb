@@ -41,7 +41,7 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.safris.xsb.generator</groupId>
+      <groupId>org.safris.xsb</groupId>
       <artifactId>compiler</artifactId>
       <version>2.1.2</version>
     </dependency>

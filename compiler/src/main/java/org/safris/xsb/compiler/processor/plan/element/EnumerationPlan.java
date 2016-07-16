@@ -14,16 +14,16 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.processor.plan.element;
+package org.safris.xsb.compiler.processor.plan.element;
 
 import java.util.Arrays;
 
 import javax.xml.namespace.QName;
 
 import org.safris.commons.lang.Strings;
-import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
-import org.safris.xsb.generator.compiler.processor.plan.Plan;
-import org.safris.xsb.generator.lexer.processor.model.element.EnumerationModel;
+import org.safris.xsb.compiler.lang.CompilerFailureException;
+import org.safris.xsb.compiler.processor.plan.Plan;
+import org.safris.xsb.lexer.processor.model.element.EnumerationModel;
 
 public final class EnumerationPlan extends Plan<EnumerationModel> {
   private static final char[] illegalChars = {' ', '!', '"', '#', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '.', '/', ':', ';', '<', '=', '>', '?', '@', '@', '[', '\\', ']', '^', '_', '{', '|', '|', '}', '~'};

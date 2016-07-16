@@ -14,14 +14,14 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.normalize.element;
+package org.safris.xsb.lexer.processor.normalize.element;
 
-import org.safris.xsb.generator.lexer.processor.Nameable;
-import org.safris.xsb.generator.lexer.processor.model.EnumerableModel;
-import org.safris.xsb.generator.lexer.processor.model.Model;
-import org.safris.xsb.generator.lexer.processor.model.element.EnumerationModel;
-import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.lexer.processor.Nameable;
+import org.safris.xsb.lexer.processor.model.EnumerableModel;
+import org.safris.xsb.lexer.processor.model.Model;
+import org.safris.xsb.lexer.processor.model.element.EnumerationModel;
+import org.safris.xsb.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
 
 public final class EnumerationNormalizer extends Normalizer<EnumerationModel> {
   public EnumerationNormalizer(final NormalizerDirectory directory) {

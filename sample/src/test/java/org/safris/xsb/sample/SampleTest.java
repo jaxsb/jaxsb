@@ -22,9 +22,9 @@ import org.safris.commons.test.LoggableTest;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
 import org.safris.commons.xml.validator.Validator;
-import org.safris.xsb.generator.compiler.runtime.Binding;
-import org.safris.xsb.generator.compiler.runtime.BindingValidator;
-import org.safris.xsb.generator.compiler.runtime.Bindings;
+import org.safris.xsb.compiler.runtime.Binding;
+import org.safris.xsb.compiler.runtime.BindingValidator;
+import org.safris.xsb.compiler.runtime.Bindings;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 

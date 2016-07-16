@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.lang;
+package org.safris.xsb.compiler.lang;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -38,9 +38,9 @@ import org.safris.commons.xml.binding.MonthDay;
 import org.safris.commons.xml.binding.Time;
 import org.safris.commons.xml.binding.Year;
 import org.safris.commons.xml.binding.YearMonth;
-import org.safris.xsb.generator.compiler.runtime.Binding;
-import org.safris.xsb.generator.compiler.runtime.NotationType;
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.compiler.runtime.Binding;
+import org.safris.xsb.compiler.runtime.NotationType;
+import org.safris.xsb.lexer.lang.UniqueQName;
 import org.w3.x2001.xmlschema.xe.$xs_ENTITIES;
 import org.w3.x2001.xmlschema.xe.$xs_ENTITY;
 import org.w3.x2001.xmlschema.xe.$xs_ID;

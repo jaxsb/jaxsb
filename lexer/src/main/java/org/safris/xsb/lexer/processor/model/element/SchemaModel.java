@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.model.element;
+package org.safris.xsb.lexer.processor.model.element;
 
 import java.io.File;
 import java.net.URL;
@@ -23,11 +23,11 @@ import org.safris.commons.io.Files;
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.maven.common.Log;
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
-import org.safris.xsb.generator.lexer.processor.model.Model;
-import org.safris.xsb.generator.lexer.schema.attribute.BlockDefault;
-import org.safris.xsb.generator.lexer.schema.attribute.FinalDefault;
-import org.safris.xsb.generator.lexer.schema.attribute.Form;
+import org.safris.xsb.lexer.lang.UniqueQName;
+import org.safris.xsb.lexer.processor.model.Model;
+import org.safris.xsb.lexer.schema.attribute.BlockDefault;
+import org.safris.xsb.lexer.schema.attribute.FinalDefault;
+import org.safris.xsb.lexer.schema.attribute.Form;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

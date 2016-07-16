@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.processor.plan.element;
+package org.safris.xsb.compiler.processor.plan.element;
 
-import org.safris.xsb.generator.compiler.processor.plan.Plan;
-import org.safris.xsb.generator.lexer.processor.model.element.SchemaModel;
+import org.safris.xsb.compiler.processor.plan.Plan;
+import org.safris.xsb.lexer.processor.model.element.SchemaModel;
 
 public final class SchemaPlan extends Plan<SchemaModel> {
   public SchemaPlan(final SchemaModel model, final Plan<?> parent) {

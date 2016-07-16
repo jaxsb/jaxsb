@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.safris.xsb.generator.compiler.runtime.MarshalException;
-import org.safris.xsb.generator.compiler.runtime.ParseException;
+import org.safris.xsb.compiler.runtime.MarshalException;
+import org.safris.xsb.compiler.runtime.ParseException;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("unchecked")

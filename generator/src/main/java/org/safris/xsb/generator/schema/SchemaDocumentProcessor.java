@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.document;
+package org.safris.xsb.generator.schema;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -32,12 +32,12 @@ import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.maven.common.Log;
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
-import org.safris.xsb.generator.lexer.processor.GeneratorContext;
-import org.safris.xsb.generator.lexer.processor.document.SchemaDocument;
-import org.safris.xsb.generator.lexer.processor.reference.SchemaReference;
-import org.safris.xsb.runtime.binding.AbstractGenerator;
-import org.safris.xsb.runtime.binding.GeneratorError;
+import org.safris.xsb.generator.binding.AbstractGenerator;
+import org.safris.xsb.generator.binding.GeneratorError;
+import org.safris.xsb.lexer.lang.UniqueQName;
+import org.safris.xsb.lexer.processor.GeneratorContext;
+import org.safris.xsb.lexer.processor.document.SchemaDocument;
+import org.safris.xsb.lexer.processor.reference.SchemaReference;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 

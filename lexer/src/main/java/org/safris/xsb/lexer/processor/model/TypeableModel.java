@@ -14,9 +14,9 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.model;
+package org.safris.xsb.lexer.processor.model;
 
-import org.safris.xsb.generator.lexer.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.lexer.processor.model.element.SimpleTypeModel;
 
 public interface TypeableModel<T extends TypeableModel<?>> {
   public SimpleTypeModel<?> getSuperType();

@@ -25,8 +25,8 @@ import org.safris.xml.toolkit.sample.binding.substitutiongroup.xe.sg_hat;
 import org.safris.xml.toolkit.sample.binding.substitutiongroup.xe.sg_shirt;
 import org.safris.xml.toolkit.sample.binding.substitutiongroup.xe.sg_stockList;
 import org.safris.xml.toolkit.sample.binding.substitutiongroup.xe.sg_umbrella;
-import org.safris.xsb.generator.compiler.runtime.Binding;
-import org.safris.xsb.generator.compiler.runtime.Bindings;
+import org.safris.xsb.compiler.runtime.Binding;
+import org.safris.xsb.compiler.runtime.Bindings;
 import org.xml.sax.InputSource;
 
 public class SubstitutionGroupSample {

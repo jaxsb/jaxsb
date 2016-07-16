@@ -14,18 +14,18 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.normalize.element;
+package org.safris.xsb.lexer.processor.normalize.element;
 
 import java.util.Collection;
 
-import org.safris.xsb.generator.lexer.lang.LexerFailureException;
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
-import org.safris.xsb.generator.lexer.processor.model.Model;
-import org.safris.xsb.generator.lexer.processor.model.element.ListModel;
-import org.safris.xsb.generator.lexer.processor.model.element.SimpleTypeModel;
-import org.safris.xsb.generator.lexer.processor.model.element.UnionModel;
-import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.lexer.lang.LexerFailureException;
+import org.safris.xsb.lexer.lang.UniqueQName;
+import org.safris.xsb.lexer.processor.model.Model;
+import org.safris.xsb.lexer.processor.model.element.ListModel;
+import org.safris.xsb.lexer.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.lexer.processor.model.element.UnionModel;
+import org.safris.xsb.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
 
 public final class ListNormalizer extends Normalizer<ListModel> {
   private final SimpleTypeNormalizer simpleTypeNormalizer = (SimpleTypeNormalizer)getDirectory().lookup(SimpleTypeModel.class);

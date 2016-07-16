@@ -19,9 +19,9 @@ package org.w3.x2001.xmlschema.xe;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.xsb.generator.compiler.runtime.MarshalException;
-import org.safris.xsb.generator.compiler.runtime.ParseException;
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.compiler.runtime.MarshalException;
+import org.safris.xsb.compiler.runtime.ParseException;
+import org.safris.xsb.lexer.lang.UniqueQName;
 import org.w3c.dom.Element;
 
 public abstract class $xs_ID extends $xs_NCName {

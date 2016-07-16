@@ -19,7 +19,7 @@ package org.safris.xsb.sample;
 import org.safris.xml.toolkit.sample.binding.enums.xe.enums_color$;
 import org.safris.xml.toolkit.sample.binding.enums.xe.enums_coloredFruitBasket;
 import org.safris.xml.toolkit.sample.binding.simple.xe.simple_fruit;
-import org.safris.xsb.generator.compiler.runtime.Binding;
+import org.safris.xsb.compiler.runtime.Binding;
 
 public class EnumsSample {
   public static void main(final String[] args) {

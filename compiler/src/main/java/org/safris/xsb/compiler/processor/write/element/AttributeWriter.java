@@ -14,22 +14,22 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.processor.write.element;
+package org.safris.xsb.compiler.processor.write.element;
 
 import java.io.StringWriter;
 
 import javax.xml.namespace.QName;
 
-import org.safris.xsb.generator.compiler.annotation.AttributeSpec;
-import org.safris.xsb.generator.compiler.lang.XSTypeDirectory;
-import org.safris.xsb.generator.compiler.processor.plan.Plan;
-import org.safris.xsb.generator.compiler.processor.plan.element.AttributePlan;
-import org.safris.xsb.generator.compiler.processor.plan.element.SimpleTypePlan;
-import org.safris.xsb.generator.compiler.runtime.AttributeAudit;
-import org.safris.xsb.generator.compiler.runtime.Binding;
-import org.safris.xsb.generator.compiler.runtime.SimpleType;
-import org.safris.xsb.generator.lexer.schema.attribute.Form;
-import org.safris.xsb.generator.lexer.schema.attribute.Use;
+import org.safris.xsb.compiler.annotation.AttributeSpec;
+import org.safris.xsb.compiler.lang.XSTypeDirectory;
+import org.safris.xsb.compiler.processor.plan.Plan;
+import org.safris.xsb.compiler.processor.plan.element.AttributePlan;
+import org.safris.xsb.compiler.processor.plan.element.SimpleTypePlan;
+import org.safris.xsb.compiler.runtime.AttributeAudit;
+import org.safris.xsb.compiler.runtime.Binding;
+import org.safris.xsb.compiler.runtime.SimpleType;
+import org.safris.xsb.lexer.schema.attribute.Form;
+import org.safris.xsb.lexer.schema.attribute.Use;
 
 public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
   @Override

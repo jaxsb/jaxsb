@@ -33,10 +33,10 @@
     Xml Schema Binding.
   </description>
   <modules>
+    <module>compiler</module>
     <module>generator</module>
-    <module>runtime</module>
+    <module>lexer</module>
     <module>sample</module>
     <module>tutorial</module>
-    <!-- <module>test</module> -->
   </modules>
 </project>

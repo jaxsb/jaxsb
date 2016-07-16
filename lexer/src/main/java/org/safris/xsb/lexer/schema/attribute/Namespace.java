@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.schema.attribute;
+package org.safris.xsb.lexer.schema.attribute;
 
 import java.util.HashMap;
 import java.util.Map;

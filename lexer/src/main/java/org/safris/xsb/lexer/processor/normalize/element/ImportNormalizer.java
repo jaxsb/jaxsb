@@ -14,15 +14,15 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.normalize.element;
+package org.safris.xsb.lexer.processor.normalize.element;
 
 import java.util.Collection;
 import java.util.HashSet;
 
 import org.safris.maven.common.Log;
-import org.safris.xsb.generator.lexer.processor.model.element.ImportModel;
-import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.lexer.processor.model.element.ImportModel;
+import org.safris.xsb.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
 
 public final class ImportNormalizer extends Normalizer<ImportModel> {
   private final Collection<String> messages = new HashSet<String>();

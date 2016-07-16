@@ -14,9 +14,9 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.model;
+package org.safris.xsb.lexer.processor.model;
 
-import org.safris.xsb.generator.lexer.processor.Nameable;
+import org.safris.xsb.lexer.processor.Nameable;
 
 public interface ReferableModel<T extends ReferableModel<?>> extends Nameable<Model> {
   public T getRef();

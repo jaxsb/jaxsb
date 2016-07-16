@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.processor.plan.element;
+package org.safris.xsb.compiler.processor.plan.element;
 
-import org.safris.xsb.generator.compiler.processor.plan.AnyablePlan;
-import org.safris.xsb.generator.compiler.processor.plan.Plan;
-import org.safris.xsb.generator.lexer.processor.model.element.AnyModel;
+import org.safris.xsb.compiler.processor.plan.AnyablePlan;
+import org.safris.xsb.compiler.processor.plan.Plan;
+import org.safris.xsb.lexer.processor.model.element.AnyModel;
 
 public final class AnyPlan extends ElementPlan implements AnyablePlan {
   public AnyPlan(final AnyModel model, final Plan<?> parent) {

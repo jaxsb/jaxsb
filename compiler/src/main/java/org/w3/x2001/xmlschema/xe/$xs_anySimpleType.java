@@ -21,10 +21,10 @@ import java.util.Collection;
 import javax.xml.namespace.QName;
 
 import org.safris.commons.xml.validator.ValidationException;
-import org.safris.xsb.generator.compiler.runtime.Binding;
-import org.safris.xsb.generator.compiler.runtime.BindingRuntimeException;
-import org.safris.xsb.generator.compiler.runtime.MarshalException;
-import org.safris.xsb.generator.compiler.runtime.ParseException;
+import org.safris.xsb.compiler.runtime.Binding;
+import org.safris.xsb.compiler.runtime.BindingRuntimeException;
+import org.safris.xsb.compiler.runtime.MarshalException;
+import org.safris.xsb.compiler.runtime.ParseException;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;

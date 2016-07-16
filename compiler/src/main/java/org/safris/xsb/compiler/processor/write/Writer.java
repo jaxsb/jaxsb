@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.processor.write;
+package org.safris.xsb.compiler.processor.write;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,12 +30,12 @@ import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.maven.common.Log;
-import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
-import org.safris.xsb.generator.compiler.processor.plan.AliasPlan;
-import org.safris.xsb.generator.compiler.processor.plan.NestablePlan;
-import org.safris.xsb.generator.compiler.processor.plan.Plan;
-import org.safris.xsb.generator.lexer.processor.GeneratorContext;
-import org.safris.xsb.generator.lexer.processor.Nameable;
+import org.safris.xsb.compiler.lang.CompilerFailureException;
+import org.safris.xsb.compiler.processor.plan.AliasPlan;
+import org.safris.xsb.compiler.processor.plan.NestablePlan;
+import org.safris.xsb.compiler.processor.plan.Plan;
+import org.safris.xsb.lexer.processor.GeneratorContext;
+import org.safris.xsb.lexer.processor.Nameable;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class Writer<T extends Plan<?>> implements PipelineEntity {

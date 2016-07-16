@@ -20,11 +20,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.safris.xsb</groupId>
-    <artifactId>generator</artifactId>
+    <groupId>org.safris</groupId>
+    <artifactId>xsb</artifactId>
     <version>2.1.2</version>
   </parent>
-  <groupId>org.safris.xsb.generator</groupId>
+  <groupId>org.safris.xsb</groupId>
   <artifactId>compiler</artifactId>
   <version>2.1.2</version>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -39,7 +39,7 @@
       <version>0.4.4</version>
     </dependency>
     <dependency>
-      <groupId>org.safris.xsb.generator</groupId>
+      <groupId>org.safris.xsb</groupId>
       <artifactId>lexer</artifactId>
       <version>2.1.2</version>
     </dependency>

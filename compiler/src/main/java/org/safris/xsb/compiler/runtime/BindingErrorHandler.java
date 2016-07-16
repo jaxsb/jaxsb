@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.runtime;
+package org.safris.xsb.compiler.runtime;
 
 import org.safris.maven.common.Log;
 import org.xml.sax.ErrorHandler;

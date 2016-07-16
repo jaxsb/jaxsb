@@ -14,13 +14,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.processor.write.element;
+package org.safris.xsb.compiler.processor.write.element;
 
 import java.io.StringWriter;
 
-import org.safris.xsb.generator.compiler.processor.plan.Plan;
-import org.safris.xsb.generator.compiler.processor.plan.element.ImportPlan;
-import org.safris.xsb.generator.compiler.processor.write.Writer;
+import org.safris.xsb.compiler.processor.plan.Plan;
+import org.safris.xsb.compiler.processor.plan.element.ImportPlan;
+import org.safris.xsb.compiler.processor.write.Writer;
 
 public final class ImportWriter extends Writer<ImportPlan> {
   @Override

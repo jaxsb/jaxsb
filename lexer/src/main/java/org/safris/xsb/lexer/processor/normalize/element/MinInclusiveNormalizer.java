@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.normalize.element;
+package org.safris.xsb.lexer.processor.normalize.element;
 
-import org.safris.xsb.generator.lexer.processor.model.element.MinInclusiveModel;
-import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.lexer.processor.model.element.MinInclusiveModel;
+import org.safris.xsb.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
 
 public final class MinInclusiveNormalizer extends Normalizer<MinInclusiveModel> {
   public MinInclusiveNormalizer(final NormalizerDirectory directory) {

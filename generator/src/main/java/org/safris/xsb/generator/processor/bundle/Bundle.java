@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.processor.bundle;
+package org.safris.xsb.generator.processor.bundle;
 
 import java.io.File;
 

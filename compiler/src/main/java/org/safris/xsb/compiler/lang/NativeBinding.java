@@ -14,12 +14,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.lang;
+package org.safris.xsb.compiler.lang;
 
 import java.lang.reflect.AccessibleObject;
 import java.util.List;
 
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.lexer.lang.UniqueQName;
 
 public final class NativeBinding {
   private final UniqueQName name;

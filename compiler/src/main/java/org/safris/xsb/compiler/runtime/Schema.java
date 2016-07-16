@@ -1,4 +1,4 @@
-package org.safris.xsb.generator.compiler.runtime;
+package org.safris.xsb.compiler.runtime;
 
 public abstract class Schema extends AbstractBinding {
 }

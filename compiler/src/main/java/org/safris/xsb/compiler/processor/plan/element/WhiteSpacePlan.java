@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.processor.plan.element;
+package org.safris.xsb.compiler.processor.plan.element;
 
-import org.safris.xsb.generator.compiler.processor.plan.Plan;
-import org.safris.xsb.generator.lexer.processor.model.element.WhiteSpaceModel;
+import org.safris.xsb.compiler.processor.plan.Plan;
+import org.safris.xsb.lexer.processor.model.element.WhiteSpaceModel;
 
 public final class WhiteSpacePlan extends Plan<WhiteSpaceModel> {
   public WhiteSpacePlan(final WhiteSpaceModel model, final Plan<?> parent) {

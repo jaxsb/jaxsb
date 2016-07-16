@@ -14,11 +14,11 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.processor.plan;
+package org.safris.xsb.compiler.processor.plan;
 
 import java.util.LinkedHashSet;
 
-import org.safris.xsb.generator.compiler.processor.plan.element.EnumerationPlan;
+import org.safris.xsb.compiler.processor.plan.element.EnumerationPlan;
 
 public interface EnumerablePlan {
   public boolean hasEnumerations();

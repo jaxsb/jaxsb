@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.runtime;
+package org.safris.xsb.compiler.runtime;
 
 import java.util.Collection;
 import java.util.Iterator;

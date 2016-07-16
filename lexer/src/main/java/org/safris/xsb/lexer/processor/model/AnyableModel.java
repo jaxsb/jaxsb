@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.model;
+package org.safris.xsb.lexer.processor.model;
 
-import org.safris.xsb.generator.lexer.schema.attribute.Namespace;
-import org.safris.xsb.generator.lexer.schema.attribute.ProcessContents;
+import org.safris.xsb.lexer.schema.attribute.Namespace;
+import org.safris.xsb.lexer.schema.attribute.ProcessContents;
 
 public interface AnyableModel {
   public ProcessContents getProcessContents();

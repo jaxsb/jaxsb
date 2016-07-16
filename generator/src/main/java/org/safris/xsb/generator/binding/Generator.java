@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.runtime.binding;
+package org.safris.xsb.generator.binding;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -32,26 +32,26 @@ import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.Pipeline;
 import org.safris.commons.xml.dom.DOMParsers;
 import org.safris.maven.common.Resolver;
-import org.safris.xsb.generator.compiler.lang.CompilerFailureException;
-import org.safris.xsb.generator.compiler.processor.plan.Plan;
-import org.safris.xsb.generator.compiler.processor.plan.PlanDirectory;
-import org.safris.xsb.generator.compiler.processor.write.Writer;
-import org.safris.xsb.generator.compiler.processor.write.WriterDirectory;
-import org.safris.xsb.generator.compiler.runtime.BindingError;
-import org.safris.xsb.generator.lexer.document.SchemaDocumentDirectory;
-import org.safris.xsb.generator.lexer.processor.GeneratorContext;
-import org.safris.xsb.generator.lexer.processor.composite.SchemaComposite;
-import org.safris.xsb.generator.lexer.processor.composite.SchemaCompositeDirectory;
-import org.safris.xsb.generator.lexer.processor.document.SchemaDocument;
-import org.safris.xsb.generator.lexer.processor.model.Model;
-import org.safris.xsb.generator.lexer.processor.model.ModelDirectory;
-import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
-import org.safris.xsb.generator.lexer.processor.reference.SchemaReference;
-import org.safris.xsb.generator.lexer.processor.reference.SchemaReferenceDirectory;
-import org.safris.xsb.runtime.processor.bundle.Bundle;
-import org.safris.xsb.runtime.processor.bundle.BundleDirectory;
-import org.safris.xsb.runtime.processor.timestamp.TimestampDirectory;
+import org.safris.xsb.compiler.lang.CompilerFailureException;
+import org.safris.xsb.compiler.processor.plan.Plan;
+import org.safris.xsb.compiler.processor.plan.PlanDirectory;
+import org.safris.xsb.compiler.processor.write.Writer;
+import org.safris.xsb.compiler.processor.write.WriterDirectory;
+import org.safris.xsb.compiler.runtime.BindingError;
+import org.safris.xsb.generator.processor.bundle.Bundle;
+import org.safris.xsb.generator.processor.bundle.BundleDirectory;
+import org.safris.xsb.generator.processor.timestamp.TimestampDirectory;
+import org.safris.xsb.generator.schema.SchemaDocumentDirectory;
+import org.safris.xsb.lexer.processor.GeneratorContext;
+import org.safris.xsb.lexer.processor.composite.SchemaComposite;
+import org.safris.xsb.lexer.processor.composite.SchemaCompositeDirectory;
+import org.safris.xsb.lexer.processor.document.SchemaDocument;
+import org.safris.xsb.lexer.processor.model.Model;
+import org.safris.xsb.lexer.processor.model.ModelDirectory;
+import org.safris.xsb.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.lexer.processor.reference.SchemaReference;
+import org.safris.xsb.lexer.processor.reference.SchemaReferenceDirectory;
 import org.w3.x2001.xmlschema.xe.$xs_boolean;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

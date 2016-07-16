@@ -14,21 +14,21 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.model.element;
+package org.safris.xsb.lexer.processor.model.element;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
-import org.safris.xsb.generator.lexer.processor.Referenceable;
-import org.safris.xsb.generator.lexer.processor.Undefineable;
-import org.safris.xsb.generator.lexer.processor.model.AttributableModel;
-import org.safris.xsb.generator.lexer.processor.model.ElementableModel;
-import org.safris.xsb.generator.lexer.processor.model.MixableModel;
-import org.safris.xsb.generator.lexer.processor.model.Model;
-import org.safris.xsb.generator.lexer.processor.model.MultiplicableModel;
-import org.safris.xsb.generator.lexer.schema.attribute.Block;
+import org.safris.xsb.lexer.lang.UniqueQName;
+import org.safris.xsb.lexer.processor.Referenceable;
+import org.safris.xsb.lexer.processor.Undefineable;
+import org.safris.xsb.lexer.processor.model.AttributableModel;
+import org.safris.xsb.lexer.processor.model.ElementableModel;
+import org.safris.xsb.lexer.processor.model.MixableModel;
+import org.safris.xsb.lexer.processor.model.Model;
+import org.safris.xsb.lexer.processor.model.MultiplicableModel;
+import org.safris.xsb.lexer.schema.attribute.Block;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

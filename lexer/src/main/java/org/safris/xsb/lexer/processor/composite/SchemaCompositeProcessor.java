@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.composite;
+package org.safris.xsb.lexer.processor.composite;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,8 +22,8 @@ import java.util.Collection;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.xsb.generator.lexer.processor.GeneratorContext;
-import org.safris.xsb.generator.lexer.processor.document.SchemaDocument;
+import org.safris.xsb.lexer.processor.GeneratorContext;
+import org.safris.xsb.lexer.processor.document.SchemaDocument;
 
 public final class SchemaCompositeProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaDocument,SchemaComposite> {
   @Override

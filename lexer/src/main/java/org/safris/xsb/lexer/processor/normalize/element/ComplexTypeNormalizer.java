@@ -14,19 +14,19 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor.normalize.element;
+package org.safris.xsb.lexer.processor.normalize.element;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
-import org.safris.xsb.generator.lexer.processor.Nameable;
-import org.safris.xsb.generator.lexer.processor.model.Model;
-import org.safris.xsb.generator.lexer.processor.model.element.ComplexTypeModel;
-import org.safris.xsb.generator.lexer.processor.model.element.ElementModel;
-import org.safris.xsb.generator.lexer.processor.model.element.RedefineModel;
-import org.safris.xsb.generator.lexer.processor.normalize.Normalizer;
-import org.safris.xsb.generator.lexer.processor.normalize.NormalizerDirectory;
+import org.safris.xsb.lexer.lang.UniqueQName;
+import org.safris.xsb.lexer.processor.Nameable;
+import org.safris.xsb.lexer.processor.model.Model;
+import org.safris.xsb.lexer.processor.model.element.ComplexTypeModel;
+import org.safris.xsb.lexer.processor.model.element.ElementModel;
+import org.safris.xsb.lexer.processor.model.element.RedefineModel;
+import org.safris.xsb.lexer.processor.normalize.Normalizer;
+import org.safris.xsb.lexer.processor.normalize.NormalizerDirectory;
 
 public final class ComplexTypeNormalizer extends Normalizer<ComplexTypeModel<?>> {
   protected final Map<UniqueQName,ComplexTypeModel<?>> all = new HashMap<UniqueQName,ComplexTypeModel<?>>();

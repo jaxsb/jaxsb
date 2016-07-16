@@ -14,20 +14,20 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.lang;
+package org.safris.xsb.compiler.lang;
 
 import org.safris.commons.lang.Strings;
 import org.safris.commons.xml.Prefix;
-import org.safris.xsb.generator.lexer.processor.Nameable;
-import org.safris.xsb.generator.lexer.processor.model.Model;
-import org.safris.xsb.generator.lexer.processor.model.ReferableModel;
-import org.safris.xsb.generator.lexer.processor.model.element.AttributeModel;
-import org.safris.xsb.generator.lexer.processor.model.element.ElementModel;
-import org.safris.xsb.generator.lexer.processor.model.element.NotationModel;
-import org.safris.xsb.generator.lexer.processor.model.element.RedefineModel;
-import org.safris.xsb.generator.lexer.processor.model.element.SchemaModel;
-import org.safris.xsb.generator.lexer.processor.model.element.SimpleTypeModel;
-import org.safris.xsb.generator.lexer.schema.attribute.Form;
+import org.safris.xsb.lexer.processor.Nameable;
+import org.safris.xsb.lexer.processor.model.Model;
+import org.safris.xsb.lexer.processor.model.ReferableModel;
+import org.safris.xsb.lexer.processor.model.element.AttributeModel;
+import org.safris.xsb.lexer.processor.model.element.ElementModel;
+import org.safris.xsb.lexer.processor.model.element.NotationModel;
+import org.safris.xsb.lexer.processor.model.element.RedefineModel;
+import org.safris.xsb.lexer.processor.model.element.SchemaModel;
+import org.safris.xsb.lexer.processor.model.element.SimpleTypeModel;
+import org.safris.xsb.lexer.schema.attribute.Form;
 
 public final class JavaBinding {
   private final static String ATTRIBUTE_SUFFIX = "$";

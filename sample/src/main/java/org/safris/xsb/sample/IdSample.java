@@ -22,8 +22,8 @@ import java.util.List;
 
 import org.safris.xml.toolkit.sample.binding.id.xe.$id_bookType;
 import org.safris.xml.toolkit.sample.binding.id.xe.id_directory;
-import org.safris.xsb.generator.compiler.runtime.Binding;
-import org.safris.xsb.generator.compiler.runtime.Bindings;
+import org.safris.xsb.compiler.runtime.Binding;
+import org.safris.xsb.compiler.runtime.Bindings;
 import org.w3.x2001.xmlschema.xe.$xs_IDREFS;
 import org.xml.sax.InputSource;
 

@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.compiler.lang;
+package org.safris.xsb.compiler.lang;
 
 import org.safris.commons.xml.XMLRuntimeException;
 

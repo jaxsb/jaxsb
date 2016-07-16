@@ -17,8 +17,8 @@
 package org.w3.x2001.xmlschema.xe;
 
 import org.safris.commons.xml.binding.YearMonth;
-import org.safris.xsb.generator.compiler.runtime.MarshalException;
-import org.safris.xsb.generator.compiler.runtime.ParseException;
+import org.safris.xsb.compiler.runtime.MarshalException;
+import org.safris.xsb.compiler.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_gYearMonth extends $xs_anySimpleType {

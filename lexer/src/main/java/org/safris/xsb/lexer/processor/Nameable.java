@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.lexer.processor;
+package org.safris.xsb.lexer.processor;
 
 import org.safris.commons.pipeline.PipelineEntity;
-import org.safris.xsb.generator.lexer.lang.UniqueQName;
+import org.safris.xsb.lexer.lang.UniqueQName;
 
 public interface Nameable<T extends PipelineEntity> {
   public UniqueQName getName();
