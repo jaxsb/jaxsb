@@ -1,16 +1,16 @@
 <!--
   Copyright (c) 2006 Seva Safris
-
+  
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
-
+  
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
-
+  
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
@@ -25,23 +25,29 @@
     <version>2.1.2</version>
   </parent>
   <groupId>org.safris.xsb</groupId>
-  <artifactId>generator</artifactId>
+  <artifactId>runtime</artifactId>
   <version>2.1.2</version>
-  <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>
-    XML Toolkit is a comprehensive framework to facilitate the use of XML in software languages such as Java. This framework
-    intends to provide tools that will allow a developer to easily integrate XML interoperability, bind XML Schemas,
-    and analyze XML Schemas for use with any software. Currently there is only one language and one application
-    that is supported: XML Binding in Java. Next on the agenda is the development of analysis tools for XML Schema Documents.
-    For instance, imagine a tool that will allow you to determine whether an XSD complies to best-practices. This tool
-    will: 1) produce warnings for structures that do not comply to best-practices, 2) tell the developer whether the logical
-    structure can be transformed linearly to a form that complies to best-practices, and 3) to automatically produce an XSD
-    that maintains the logical structure of the original document but now fully complies to best-practices. This is just one of many
-    tools that will be available shortly. In the meantime, check out the binding application.
+    Binding is an application wrapper for the technology for accessing XML by binding the XSD of the XML to
+    Java classes. But what makes XML Binding different from any other binding technology available
+    elsewhere, like XMLBeans, Castor, and JAX-B? Unlike the other technologies, XML Binding approaches
+    the xml binding problem with 3 simple rules: to work on any xml schema as per the XSD standard,
+    to create all bindings as strongly typed classes or enums (i.e. bring all errors to compile time), and
+    to be intuitive to use by developers. The organization of this project defines two modules, "Runtime,"
+    and "Generator." Please refer to those modules for more details about their roles in making XML Binding
+    a successful framework.
   </description>
-  <modules>
-    <module>lexer</module>
-    <module>compiler</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>org.safris.xsb.generator</groupId>
+      <artifactId>compiler</artifactId>
+      <version>2.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.safris.commons</groupId>
+      <artifactId>jci</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+  </dependencies>
 </project>
