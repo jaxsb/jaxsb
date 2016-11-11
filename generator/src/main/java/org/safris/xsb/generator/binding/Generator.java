@@ -30,8 +30,8 @@ import org.safris.commons.io.Files;
 import org.safris.commons.lang.Paths;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.Pipeline;
+import org.safris.commons.util.Translator;
 import org.safris.commons.xml.dom.DOMParsers;
-import org.safris.maven.common.Resolver;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.composite.SchemaComposite;
 import org.safris.xsb.compiler.processor.composite.SchemaCompositeDirectory;
@@ -108,9 +108,9 @@ public final class Generator extends AbstractGenerator {
     this.schemas = schemas;
   }
 
-  public Generator(final File basedir, final Element bindingsElement, long lastModified, final Resolver<String> resolver) {
+  public Generator(final File basedir, final Element bindingsElement, long lastModified, final Translator<String> translator) {
     this.schemas = new HashSet<SchemaReference>();
-    this.generatorContext = parseConfig(basedir, bindingsElement, lastModified, resolver);
+    this.generatorContext = parseConfig(basedir, bindingsElement, lastModified, translator);
   }
 
   public GeneratorContext getGeneratorContext() {
@@ -121,7 +121,7 @@ public final class Generator extends AbstractGenerator {
     return schemas;
   }
 
-  public GeneratorContext parseConfig(final File basedir, final Element bindingsElement, long lastModified, final Resolver<String> resolver) {
+  public GeneratorContext parseConfig(final File basedir, final Element bindingsElement, long lastModified, final Translator<String> translator) {
     if (!"manifest".equals(bindingsElement.getNodeName()))
       throw new IllegalArgumentException("Invalid manifest element!");
 
@@ -147,14 +147,14 @@ public final class Generator extends AbstractGenerator {
             if (node.getNodeType() != Node.TEXT_NODE)
               continue;
 
-            schemaReference = resolver.resolve(node.getNodeValue());
+            schemaReference = translator.translate(node.getNodeValue());
             break;
           }
 
           if (schemaReference.length() != 0 && !Paths.isAbsolute(schemaReference))
             schemaReference = basedir.getAbsolutePath() + File.separator + schemaReference;
 
-          schemas.add(new SchemaReference(resolver.resolve(schemaReference), false));
+          schemas.add(new SchemaReference(translator.translate(schemaReference), false));
         }
       }
       else if (destDir == null && "destdir".equals(child.getLocalName())) {
@@ -164,7 +164,7 @@ public final class Generator extends AbstractGenerator {
           if (node.getNodeType() != Node.TEXT_NODE)
             continue;
 
-          destDir = new File(resolver.resolve(node.getNodeValue()));
+          destDir = new File(translator.translate(node.getNodeValue()));
           final NamedNodeMap attributes = child.getAttributes();
           if (attributes != null) {
             for (int k = 0; k < attributes.getLength(); k++) {
@@ -185,7 +185,7 @@ public final class Generator extends AbstractGenerator {
         if (attributes == null || (hrefNode = attributes.getNamedItemNS("http://www.w3.org/1999/xlink", "href")) == null || hrefNode.getNodeValue().length() == 0)
           throw new BindingError(MANIFEST_ERROR);
 
-        final String href = resolver.resolve(hrefNode.getNodeValue());
+        final String href = translator.translate(hrefNode.getNodeValue());
         try {
           if (basedir != null)
             hrefURL = URLs.makeUrlFromPath(basedir.getAbsolutePath(), href);
@@ -216,7 +216,7 @@ public final class Generator extends AbstractGenerator {
         throw new CompilerFailureException(e);
       }
 
-      return parseConfig(basedir, document.getDocumentElement(), modified, resolver);
+      return parseConfig(basedir, document.getDocumentElement(), modified, translator);
     }
 
     return new GeneratorContext(lastModified, destDir, explodeJars, overwrite);
