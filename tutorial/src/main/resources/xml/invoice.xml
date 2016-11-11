@@ -15,7 +15,7 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 
-<invoice xmlns="http://xml.safris.org/toolkit/tutorial/binding/beginner/invoice.xsd"
+<invoice xmlns="http://xml.safris.org/tutorial/binding/invoice.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xml.safris.org/toolkit/tutorial/binding/beginner/invoice.xsd ../xsd/invoice.xsd">
   <number>1458</number>

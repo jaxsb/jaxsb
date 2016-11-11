@@ -32,7 +32,7 @@
     <plugins>
       <plugin>
         <groupId>org.safris.maven.plugin</groupId>
-        <artifactId>xsb</artifactId>
+        <artifactId>xsb-maven-plugin</artifactId>
         <configuration>
           <manifest xmlns="http://maven.safris.org/common/manifest.xsd" href="${basedir}/src/main/resources/xml/manifest.xml"/>
         </configuration>
