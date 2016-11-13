@@ -39,4 +39,16 @@
     <module>sample</module>
     <module>tutorial</module>
   </modules>
+  <repositories>
+    <repository>
+      <id>mvn.repo.safris.org</id>
+      <url>http://mvn.repo.safris.org/m2</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>mvn.repo.safris.org</id>
+      <url>http://mvn.repo.safris.org/m2</url>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
