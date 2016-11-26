@@ -15,9 +15,9 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <roster
-  xmlns="http://cf.safris.org/xsb/sample/list.xsd"
+  xmlns="http://xsb.safris.org/sample/list.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://cf.safris.org/xsb/sample/list.xsd list.xsd">
+  xsi:schemaLocation="http://xsb.safris.org/sample/list.xsd list.xsd">
   <employees>
     <employee>
       <name>James Woods</name>

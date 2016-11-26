@@ -14,14 +14,13 @@
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
-
 <xs:schema elementFormDefault="qualified"
-  targetNamespace="http://cf.safris.org/xsb/sample/any.xsd"
-  xmlns:any="http://cf.safris.org/xsb/sample/any.xsd"
-  xmlns:simple="http://cf.safris.org/xsb/sample/simple.xsd"
+  targetNamespace="http://xsb.safris.org/sample/any.xsd"
+  xmlns:any="http://xsb.safris.org/sample/any.xsd"
+  xmlns:simple="http://xsb.safris.org/sample/simple.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:import namespace="http://cf.safris.org/xsb/sample/simple.xsd" schemaLocation="simple.xsd"/>
+  <xs:import namespace="http://xsb.safris.org/sample/simple.xsd" schemaLocation="simple.xsd"/>
 
   <xs:complexType name="trashType">
     <xs:annotation>

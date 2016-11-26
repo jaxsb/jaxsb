@@ -15,9 +15,9 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <id:directory
-  xmlns:id="http://cf.safris.org/xsb/sample/id.xsd"
+  xmlns:id="http://xsb.safris.org/sample/id.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://cf.safris.org/xsb/sample/id.xsd id.xsd">
+  xsi:schemaLocation="http://xsb.safris.org/sample/id.xsd id.xsd">
   <id:author id="bgreene">
     <id:name>Brian Greene</id:name>
   </id:author>

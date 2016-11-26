@@ -20,14 +20,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
-import org.safris.cf.xsb.sample.list.xe.$li_employeeType;
-import org.safris.cf.xsb.sample.list.xe.$li_staffType;
-import org.safris.cf.xsb.sample.list.xe.$li_volunteerType;
-import org.safris.cf.xsb.sample.list.xe.li_roster;
 import org.safris.commons.xml.binding.Date;
 import org.safris.commons.xml.binding.Time;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.Bindings;
+import org.safris.xsb.sample.list.xe.$li_employeeType;
+import org.safris.xsb.sample.list.xe.$li_staffType;
+import org.safris.xsb.sample.list.xe.$li_volunteerType;
+import org.safris.xsb.sample.list.xe.li_roster;
 import org.xml.sax.InputSource;
 
 public class ListSample {

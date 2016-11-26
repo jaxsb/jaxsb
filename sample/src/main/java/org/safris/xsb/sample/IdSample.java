@@ -20,10 +20,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
-import org.safris.cf.xsb.sample.id.xe.$id_bookType;
-import org.safris.cf.xsb.sample.id.xe.id_directory;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.Bindings;
+import org.safris.xsb.sample.id.xe.$id_bookType;
+import org.safris.xsb.sample.id.xe.id_directory;
 import org.w3.x2001.xmlschema.xe.$xs_IDREFS;
 import org.xml.sax.InputSource;
 

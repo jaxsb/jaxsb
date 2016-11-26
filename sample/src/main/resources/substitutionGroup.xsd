@@ -15,8 +15,8 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <xs:schema elementFormDefault="qualified"
-  targetNamespace="http://cf.safris.org/xsb/sample/substitutionGroup.xsd"
-  xmlns:sg="http://cf.safris.org/xsb/sample/substitutionGroup.xsd"
+  targetNamespace="http://xsb.safris.org/sample/substitutionGroup.xsd"
+  xmlns:sg="http://xsb.safris.org/sample/substitutionGroup.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
   <xs:element name="stockList">

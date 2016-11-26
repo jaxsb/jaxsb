@@ -15,9 +15,9 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <fruitBasket
-  xmlns="http://cf.safris.org/xsb/sample/simple.xsd"
+  xmlns="http://xsb.safris.org/sample/simple.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://cf.safris.org/xsb/sample/simple.xsd simple.xsd">
+  xsi:schemaLocation="http://xsb.safris.org/sample/simple.xsd simple.xsd">
   <fruits>
     <fruit name="strawberry" sweet="true"/>
     <fruit name="jackfruit" sweet="false" dry="false"/>

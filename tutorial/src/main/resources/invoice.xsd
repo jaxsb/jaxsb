@@ -15,9 +15,9 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <xs:schema elementFormDefault="qualified"
-  xmlns:pv="http://cf.safris.org/xsb/tutorial/invoice.xsd"
+  xmlns:pv="http://xsb.safris.org/tutorial/invoice.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://cf.safris.org/xsb/tutorial/invoice.xsd">
+  targetNamespace="http://xsb.safris.org/tutorial/invoice.xsd">
   
   <xs:element name="invoice">
     <xs:complexType>

@@ -15,8 +15,8 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <xs:schema elementFormDefault="qualified"
-  targetNamespace="http://cf.safris.org/xsb/sample/simple.xsd"
-  xmlns:simple="http://cf.safris.org/xsb/sample/simple.xsd"
+  targetNamespace="http://xsb.safris.org/sample/simple.xsd"
+  xmlns:simple="http://xsb.safris.org/sample/simple.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:complexType name="fruitType">

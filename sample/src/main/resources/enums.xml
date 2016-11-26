@@ -15,10 +15,10 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <enums:coloredFruitBasket
-  xmlns:simple="http://cf.safris.org/xsb/sample/simple.xsd"
-  xmlns:enums="http://cf.safris.org/xsb/sample/enums.xsd"
+  xmlns:simple="http://xsb.safris.org/sample/simple.xsd"
+  xmlns:enums="http://xsb.safris.org/sample/enums.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://cf.safris.org/xsb/sample/simple.xsd simple.xsd http://cf.safris.org/xsb/sample/enums.xsd enums.xsd"
+  xsi:schemaLocation="http://xsb.safris.org/sample/simple.xsd simple.xsd http://xsb.safris.org/sample/enums.xsd enums.xsd"
   enums:color="blue">
   <simple:fruits>
     <simple:fruit name="strawberry" sweet="true"/>

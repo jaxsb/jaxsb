@@ -15,9 +15,9 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <stockList
-  xmlns="http://cf.safris.org/xsb/sample/substitutionGroup.xsd"
+  xmlns="http://xsb.safris.org/sample/substitutionGroup.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://cf.safris.org/xsb/sample/substitutionGroup.xsd substitutionGroup.xsd">
+  xsi:schemaLocation="http://xsb.safris.org/sample/substitutionGroup.xsd substitutionGroup.xsd">
   <shirt>
     <amount>352</amount>
     <name>Short-Sleeved Linen Blouse</name>

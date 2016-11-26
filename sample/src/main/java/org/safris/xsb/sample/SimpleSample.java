@@ -16,9 +16,9 @@
 
 package org.safris.xsb.sample;
 
-import org.safris.cf.xsb.sample.simple.xe.simple_fruit;
-import org.safris.cf.xsb.sample.simple.xe.simple_fruitBasket;
 import org.safris.xsb.runtime.Binding;
+import org.safris.xsb.sample.simple.xe.simple_fruit;
+import org.safris.xsb.sample.simple.xe.simple_fruitBasket;
 
 public class SimpleSample {
   public static void main(final String[] args) {

@@ -19,11 +19,11 @@ package org.safris.xsb.tutorial;
 import java.io.File;
 import java.io.FileInputStream;
 
-import org.safris.cf.xsb.tutorial.invoice.xe.pv_invoice;
 import org.safris.commons.xml.binding.Decimal;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
 import org.safris.xsb.runtime.Bindings;
+import org.safris.xsb.tutorial.invoice.xe.pv_invoice;
 import org.xml.sax.InputSource;
 
 public class InvoiceUpdater {

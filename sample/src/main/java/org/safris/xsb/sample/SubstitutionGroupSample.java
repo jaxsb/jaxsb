@@ -20,13 +20,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
-import org.safris.cf.xsb.sample.substitutiongroup.xe.$sg_productType;
-import org.safris.cf.xsb.sample.substitutiongroup.xe.sg_hat;
-import org.safris.cf.xsb.sample.substitutiongroup.xe.sg_shirt;
-import org.safris.cf.xsb.sample.substitutiongroup.xe.sg_stockList;
-import org.safris.cf.xsb.sample.substitutiongroup.xe.sg_umbrella;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.Bindings;
+import org.safris.xsb.sample.substitutiongroup.xe.$sg_productType;
+import org.safris.xsb.sample.substitutiongroup.xe.sg_hat;
+import org.safris.xsb.sample.substitutiongroup.xe.sg_shirt;
+import org.safris.xsb.sample.substitutiongroup.xe.sg_stockList;
+import org.safris.xsb.sample.substitutiongroup.xe.sg_umbrella;
 import org.xml.sax.InputSource;
 
 public class SubstitutionGroupSample {

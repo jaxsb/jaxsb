@@ -15,12 +15,12 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <xs:schema elementFormDefault="qualified"
-  targetNamespace="http://cf.safris.org/xsb/sample/xsitype.xsd"
-  xmlns:type="http://cf.safris.org/xsb/sample/xsitype.xsd"
-  xmlns:simple="http://cf.safris.org/xsb/sample/simple.xsd"
+  targetNamespace="http://xsb.safris.org/sample/xsitype.xsd"
+  xmlns:type="http://xsb.safris.org/sample/xsitype.xsd"
+  xmlns:simple="http://xsb.safris.org/sample/simple.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:import namespace="http://cf.safris.org/xsb/sample/simple.xsd" schemaLocation="simple.xsd"/>
+  <xs:import namespace="http://xsb.safris.org/sample/simple.xsd" schemaLocation="simple.xsd"/>
 
   <xs:complexType name="fleshyFruitTypeAbstract" abstract="true">
     <xs:annotation>

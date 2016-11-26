@@ -16,15 +16,15 @@
 
 package org.safris.xsb.sample;
 
-import org.safris.cf.xsb.sample.any.xe.any_trash;
-import org.safris.cf.xsb.sample.enums.xe.enums_color$;
-import org.safris.cf.xsb.sample.enums.xe.enums_coloredFruitBasket;
-import org.safris.cf.xsb.sample.simple.xe.$simple_fruitType;
-import org.safris.cf.xsb.sample.simple.xe.simple_fruit;
-import org.safris.cf.xsb.sample.simple.xe.simple_fruitBasket;
-import org.safris.cf.xsb.sample.xsitype.xe.$type_fleshyFruitType;
-import org.safris.cf.xsb.sample.xsitype.xe.$type_indehiscentDryFruitType;
 import org.safris.xsb.runtime.Binding;
+import org.safris.xsb.sample.any.xe.any_trash;
+import org.safris.xsb.sample.enums.xe.enums_color$;
+import org.safris.xsb.sample.enums.xe.enums_coloredFruitBasket;
+import org.safris.xsb.sample.simple.xe.$simple_fruitType;
+import org.safris.xsb.sample.simple.xe.simple_fruit;
+import org.safris.xsb.sample.simple.xe.simple_fruitBasket;
+import org.safris.xsb.sample.xsitype.xe.$type_fleshyFruitType;
+import org.safris.xsb.sample.xsitype.xe.$type_indehiscentDryFruitType;
 
 public class AnySample {
   public static void main(final String[] args) {
