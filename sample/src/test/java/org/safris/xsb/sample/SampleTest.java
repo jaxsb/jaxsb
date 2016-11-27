@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.cf.xsb.sample;
+package org.safris.xsb.sample;
 
 import java.io.StringReader;
 

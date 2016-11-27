@@ -14,16 +14,16 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.cf.xsb.sample;
+package org.safris.xsb.sample;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.safris.xsb.sample.ListSample;
+import org.safris.xsb.sample.SimpleSample;
 
-public class ListTest extends SampleTest {
+public class SimpleTest extends SampleTest {
   @Test
   @Override
   public void testSample() throws Exception {
-    Assert.assertTrue(verifyBinding(new ListSample().runSample()));
+    Assert.assertTrue(verifyBinding(new SimpleSample().runSample()));
   }
 }
