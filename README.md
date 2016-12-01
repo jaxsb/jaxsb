@@ -1,10 +1,10 @@
 <img src="http://safris.org/logo.png" align="right"/>
-## XSB<br>[![JavaCommons](https://img.shields.io/badge/java-enterprise-blue.svg)](https://cohesionfirst.com/) [![CohesionFirst](https://img.shields.io/badge/CohesionFirst%E2%84%A2--blue.svg)](https://cohesionfirst.com/)
+## XSB<br>![java-enterprise][java-enterprise] [![CohesionFirst™][cohesionfirst_badge]][cohesionfirst]
 > Xml Schema Binding
 
 ### Introduction
 
-**XSB** is a Java framework for binging to XML Schemas. Based on the CohesionFirst™ approach, the **XSB** framework provides a complete solution for cohesive integration of Java applications to XML Documents via XML Schemas. The framework provides a [XSB Java Source Code Generator](https://github.com/SevaSafris/xsb/tree/master/generator) and a [XSB Runtime](https://github.com/SevaSafris/xsb/tree/master/runtime) to parse and marshal XML Documents to and from Java objects. The **XSB** framework is a complete implementation and covers the entirety of the [XSD 1.1 Specification][xsd-spec].
+**XSB** is a Java framework for binging to XML Schemas. Based on the CohesionFirst™ approach, the **XSB** framework provides a complete solution for cohesive integration of Java applications to XML Documents via XML Schemas. The framework provides a [XSB Java Source Code Generator][generator] and a [XSB Runtime][runtime] to parse and marshal XML Documents to and from Java objects. The **XSB** framework is a complete implementation and covers the entirety of the [XSD 1.1 Specification][xsd-spec].
 
 ### Why **XSB**?
 
@@ -48,12 +48,12 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
 
 #### Prerequisites
 
-* [Java 7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html) - The minimum required JDK version.
-* [Maven](https://maven.apache.org/) - The dependency management system.
+* [Java 7][jdk7-download] - The minimum required JDK version.
+* [Maven][maven] - The dependency management system.
 
 #### Example
 
-1. In your preferred development directory, create a [`maven-archetype-quickstart`](http://maven.apache.org/archetypes/maven-archetype-quickstart/) project.
+1. In your preferred development directory, create a [`maven-archetype-quickstart`][maven-archetype-quickstart] project.
 
   ```tcsh
   mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
@@ -99,7 +99,7 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   </xs:schema>
   ```
   
-4. Add the [`org.safris.maven.plugin:xsb-maven-plugin`](https://github.com/SevaSafris/xsb-maven-plugin/) to the POM.
+4. Add the [`org.safris.maven.plugin:xsb-maven-plugin`][xsb-maven-plugin] to the POM.
 
   ```xml
   <plugin>
@@ -125,12 +125,12 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   </plugin>
   ```
 
-5. Add the `org.safris.xsb:runtime` dependency to the POM.
+5. Add the `org.safris.xsb:xsb-runtime` dependency to the POM.
 
   ```xml
   <dependency>
     <groupId>org.safris.xsb</groupId>
-    <artifactId>runtime</artifactId>
+    <artifactId>xsb-runtime</artifactId>
     <version>2.1.2</version>
   </dependency>
   ```
@@ -184,10 +184,21 @@ mvn install
 
 ### Known Issues
 
-The **XSB** framework is not suitable for processing of large XML Documents (in the 100s of MBs). Built on top of Java's `org.w3c.dom` implementation of the [Document Object Model (DOM) Level 3 Core Specification](http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407), XML Documents parsed and marshalled by **XSB** consume a significant amount of memory. Work is underway for **XSB** v3 to use [Java's SAX Parser](https://docs.oracle.com/javase/tutorial/jaxp/sax/), which will allow the framework to process XML Documents of unbounded size.
+The **XSB** framework is not suitable for processing of large XML Documents (in the 100s of MBs). Built on top of Java's `org.w3c.dom` implementation of the [Document Object Model (DOM) Level 3 Core Specification][dom3], XML Documents parsed and marshalled by **XSB** consume a significant amount of memory. Work is underway for **XSB** v3 to use [Java's SAX Parser][sax-parser], which will allow the framework to process XML Documents of unbounded size.
 
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 
+[cohesionfirst]: https://www.cohesionfirst.com/
+[cohesionfirst_badge]: https://img.shields.io/badge/CohesionFirst%E2%84%A2--blue.svg
+[dom3]: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407
+[java-enterprise]: https://img.shields.io/badge/java-enterprise-blue.svg
+[jdk7-download]: http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
+[maven-archetype-quickstart]: http://maven.apache.org/archetypes/maven-archetype-quickstart/
+[maven]: https://maven.apache.org/
+[sax-parser]: https://docs.oracle.com/javase/tutorial/jaxp/sax/
+[generator]: https://github.com/SevaSafris/xsb/tree/master/generator
+[xsb-maven-plugin]: https://github.com/SevaSafris/xsb-maven-plugin
+[runtime]: https://github.com/SevaSafris/xsb/tree/master/runtime
 [xsd-spec]: https://www.w3.org/TR/xmlschema11-1/
