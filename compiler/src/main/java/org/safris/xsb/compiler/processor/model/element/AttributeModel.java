@@ -158,6 +158,14 @@ public class AttributeModel extends SimpleTypeModel<SimpleTypeModel<?>> implemen
     return getName().toString();
   }
 
+  @Override
+  public boolean isQualified(final boolean nested) {
+    if (getRef() != null)
+      return true;
+
+    return form != null ? form == Form.QUALIFIED : getSchema().getAttributeFormDefault() == Form.QUALIFIED;
+  }
+
   public static final class Reference extends AttributeModel implements Referenceable {
     private static final Map<UniqueQName,Reference> all = new HashMap<UniqueQName,Reference>();
 

@@ -171,6 +171,11 @@ public class ElementModel extends ComplexTypeModel<SimpleTypeModel<?>> implement
   }
 
   @Override
+  public boolean isQualified(final boolean nested) {
+    return !nested && (getRef() != null || getSchema().getElementFormDefault() == Form.QUALIFIED);
+  }
+
+  @Override
   public int hashCode() {
     if (getRef() != null && getRef().getName() != null)
       return ("ref" + getRef().getName().toString()).hashCode();

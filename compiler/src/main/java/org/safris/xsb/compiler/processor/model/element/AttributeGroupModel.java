@@ -84,6 +84,11 @@ public class AttributeGroupModel extends NamedModel implements AttributableModel
   }
 
   @Override
+  public boolean isQualified(final boolean nested) {
+    return getRef() != null;
+  }
+
+  @Override
   public String toString() {
     return super.toString().replace(TO_STRING_DELIMITER, "ref=\"" + ref + "\"");
   }

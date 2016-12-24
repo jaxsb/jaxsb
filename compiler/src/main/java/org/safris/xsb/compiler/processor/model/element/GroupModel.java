@@ -98,6 +98,11 @@ public class GroupModel extends NamedModel implements MultiplicableModel, Nameab
   }
 
   @Override
+  public boolean isQualified(final boolean nested) {
+    return getRef() != null;
+  }
+
+  @Override
   public int hashCode() {
     return toString().hashCode();
   }

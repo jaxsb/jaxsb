@@ -20,14 +20,12 @@ import org.safris.commons.lang.Strings;
 import org.safris.commons.xml.Prefix;
 import org.safris.xsb.compiler.processor.Nameable;
 import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.ReferableModel;
 import org.safris.xsb.compiler.processor.model.element.AttributeModel;
 import org.safris.xsb.compiler.processor.model.element.ElementModel;
 import org.safris.xsb.compiler.processor.model.element.NotationModel;
 import org.safris.xsb.compiler.processor.model.element.RedefineModel;
 import org.safris.xsb.compiler.processor.model.element.SchemaModel;
 import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
-import org.safris.xsb.compiler.schema.attribute.Form;
 
 public final class JavaBinding {
   private final static String ATTRIBUTE_SUFFIX = "$";
@@ -65,16 +63,13 @@ public final class JavaBinding {
     return nameable.getName().getNamespaceURI().getPackage() + ".xe." + getClassSimpleName(model);
   }
 
-  private static boolean isRef(final Model model) {
-    return model instanceof ReferableModel && ((ReferableModel<?>)model).getRef() != null;
-  }
-
   private static boolean isNested(final Model model) {
     return !(model.getParent() instanceof SchemaModel || (model.getParent() instanceof RedefineModel && model.getParent().getParent() instanceof SchemaModel) || (model instanceof Nameable && XSTypeDirectory.parseType(((Nameable<?>)model).getName()) != null));
   }
 
   private static Prefix getPrefix(final Model model) {
-    return !JavaBinding.isNested(model) || JavaBinding.isRef(model) || (model instanceof AttributeModel && Form.QUALIFIED.equals(((AttributeModel)model).getForm())) ? ((Nameable<?>)model).getName().getPrefix() : Prefix.EMPTY;
+    final boolean nested = JavaBinding.isNested(model);
+    return !nested || model.isQualified(nested) ? ((Nameable<?>)model).getName().getPrefix() : Prefix.EMPTY;
   }
 
   public static String getClassSimpleName(final Model model) {
