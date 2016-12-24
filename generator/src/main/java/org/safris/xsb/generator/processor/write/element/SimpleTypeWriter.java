@@ -167,6 +167,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       writer.write(" implements " + Enum.class.getName() + "<" + plan.getNativeItemClassName() + ">\n{\n");
       writer.write("protected static final " + Map.class.getName() + "<" + String.class.getName() + ",Enum> values = new " + HashMap.class.getName() + "<" + String.class.getName() + ",Enum>();\n");
       writer.write("protected static " + Map.class.getName() + "<" + String.class.getName() + ",Enum> values()\n{\nreturn values;\n};\n");
+      writer.write("public static Enum valueOf(final " + String.class.getName() + " s)\n{\nreturn values.get(s);\n};\n");
     }
 
     if (hasEnumerations) {
@@ -187,9 +188,11 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("protected Enum(final " + String.class.getName() + " text)\n");
     writer.write("{\n");
 
-    if (hasSuperEnumerations)
+    if (hasSuperEnumerations) {
       writer.write("super(text);\n");
+    }
     else if (hasEnumerations) {
+
       if (plan.getNativeFactory() != null)
         writer.write("this.text = " + plan.getNativeFactory() + "(text);\n");
       else
