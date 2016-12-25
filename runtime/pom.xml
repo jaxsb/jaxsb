@@ -49,8 +49,8 @@
       <artifactId>tools</artifactId>
     </dependency>
     <dependency>
-      <groupId>xerces</groupId>
-      <artifactId>xercesImpl</artifactId>
+      <groupId>org.opengis.cite.xerces</groupId>
+      <artifactId>xercesImpl-xsd11</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
