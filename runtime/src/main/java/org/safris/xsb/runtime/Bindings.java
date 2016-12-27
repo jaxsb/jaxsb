@@ -20,8 +20,8 @@ import java.io.StringReader;
 
 import org.safris.commons.xml.XMLException;
 import org.safris.commons.xml.dom.DOMs;
-import org.safris.commons.xml.validator.ValidationException;
-import org.safris.commons.xml.validator.Validator;
+import org.safris.commons.xml.dom.Validator;
+import org.safris.commons.xml.validate.ValidationException;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 

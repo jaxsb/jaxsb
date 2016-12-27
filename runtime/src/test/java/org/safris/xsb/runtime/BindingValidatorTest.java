@@ -24,7 +24,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.safris.commons.test.LoggableTest;
 import org.safris.commons.xml.dom.DOMParsers;
-import org.safris.commons.xml.validator.ValidationException;
+import org.safris.commons.xml.validate.ValidationException;
 import org.safris.xsb.runtime.BindingEntityResolver;
 import org.safris.xsb.runtime.BindingValidator;
 import org.w3c.dom.Document;

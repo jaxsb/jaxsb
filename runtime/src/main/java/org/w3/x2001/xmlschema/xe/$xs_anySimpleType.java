@@ -20,7 +20,7 @@ import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
-import org.safris.commons.xml.validator.ValidationException;
+import org.safris.commons.xml.validate.ValidationException;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.BindingRuntimeException;
 import org.safris.xsb.runtime.MarshalException;

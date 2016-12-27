@@ -21,7 +21,7 @@ import java.io.StringReader;
 import org.safris.commons.test.LoggableTest;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
-import org.safris.commons.xml.validator.Validator;
+import org.safris.commons.xml.dom.Validator;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.BindingValidator;
 import org.safris.xsb.runtime.Bindings;

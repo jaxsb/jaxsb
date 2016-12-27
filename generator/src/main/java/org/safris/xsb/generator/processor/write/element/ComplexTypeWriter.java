@@ -22,8 +22,8 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.safris.commons.xml.validator.ValidationException;
-import org.safris.commons.xml.validator.Validator;
+import org.safris.commons.xml.dom.Validator;
+import org.safris.commons.xml.validate.ValidationException;
 import org.safris.xsb.generator.processor.plan.Plan;
 import org.safris.xsb.generator.processor.plan.element.AnyAttributePlan;
 import org.safris.xsb.generator.processor.plan.element.AnyPlan;

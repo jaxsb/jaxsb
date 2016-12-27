@@ -26,7 +26,7 @@ import org.safris.commons.lang.PackageLoader;
 import org.safris.commons.lang.Paths;
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.NamespaceBinding;
-import org.safris.commons.xml.validator.ValidatorError;
+import org.safris.commons.xml.validate.ValidatorError;
 
 import com.sun.org.apache.xerces.internal.impl.xs.XSDDescription;
 import com.sun.org.apache.xerces.internal.xni.XMLResourceIdentifier;

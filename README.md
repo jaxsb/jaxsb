@@ -48,7 +48,7 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
 
 #### Prerequisites
 
-* [Java 7][jdk7-download] - The minimum required JDK version.
+* [Java 8][jdk8-download] - The minimum required JDK version.
 * [Maven][maven] - The dependency management system.
 
 #### Example
@@ -192,7 +192,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 [dom3]: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407
 [java-enterprise]: https://img.shields.io/badge/java-enterprise-blue.svg
-[jdk7-download]: http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
+[jdk8-download]: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 [maven-archetype-quickstart]: http://maven.apache.org/archetypes/maven-archetype-quickstart/
 [maven]: https://maven.apache.org/
 [sax-parser]: https://docs.oracle.com/javase/tutorial/jaxp/sax/

@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 import javax.xml.namespace.QName;
 
 import org.safris.commons.util.Collections;
-import org.safris.commons.xml.validator.ValidationException;
+import org.safris.commons.xml.validate.ValidationException;
 import org.safris.xsb.generator.processor.plan.EnumerablePlan;
 import org.safris.xsb.generator.processor.plan.ExtensiblePlan;
 import org.safris.xsb.generator.processor.plan.Plan;

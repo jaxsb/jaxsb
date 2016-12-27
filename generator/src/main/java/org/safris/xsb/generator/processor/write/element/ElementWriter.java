@@ -24,8 +24,8 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
-import org.safris.commons.xml.validator.ValidationException;
-import org.safris.commons.xml.validator.Validator;
+import org.safris.commons.xml.dom.Validator;
+import org.safris.commons.xml.validate.ValidationException;
 import org.safris.xsb.compiler.schema.attribute.Form;
 import org.safris.xsb.generator.processor.plan.EnumerablePlan;
 import org.safris.xsb.generator.processor.plan.ExtensiblePlan;

@@ -19,7 +19,7 @@ package org.safris.xsb.runtime;
 import java.io.IOException;
 import java.net.URL;
 
-import org.safris.commons.xml.validator.ValidationException;
+import org.safris.commons.xml.validate.ValidationException;
 import org.xml.sax.InputSource;
 
 public final class BindingDocument {
