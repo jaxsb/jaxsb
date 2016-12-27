@@ -28,6 +28,24 @@
   <artifactId>xsb-runtime</artifactId>
   <version>2.1.2</version>
   <name>${project.groupId}:${project.artifactId}</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.safris.maven.plugin</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <configuration>
+              <excludes>
+                <exclude>src/test/resources/empty.xml</exclude>
+              </excludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <groupId>org.safris.xsb</groupId>

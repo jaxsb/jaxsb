@@ -16,9 +16,9 @@
 -->
 <enums:coloredFruitBasket
   enums:color="red"
-  xmlns:simple="http://xdb.safris.org/sample/simple.xsd"
-  xmlns:enums="http://xdb.safris.org/sample/enums.xsd"
-  xmlns:xsitype="http://xdb.safris.org/sample/xsitype.xsd"
+  xmlns:simple="http://xsb.safris.org/sample/simple.xsd"
+  xmlns:enums="http://xsb.safris.org/sample/enums.xsd"
+  xmlns:xsitype="http://xsb.safris.org/sample/xsitype.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xsb.safris.org/sample/simple.xsd simple.xsd http://xdb.safris.org/sample/enums.xsd enums.xsd http://xdb.safris.org/sample/xsitype.xsd xsitype.xsd">
   <simple:fruits>
