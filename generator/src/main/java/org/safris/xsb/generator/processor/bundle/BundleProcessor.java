@@ -60,7 +60,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       if (!javaFile.isDirectory() && javaFile.getName().endsWith(".java"))
         javaSources.add(javaFile);
 
-    final Collection<File> classpath = new ArrayList<File>(sourcePath);
+    final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<File>(2);
     final File bindingLocationBase = Resources.getLocationBase(Binding.class);
     if (bindingLocationBase != null)
       classpath.add(bindingLocationBase);
