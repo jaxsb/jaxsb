@@ -1,15 +1,15 @@
 /* Copyright (c) 2006 Seva Safris
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * You should have received a copy of The MIT License (MIT) along with this
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
@@ -23,6 +23,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -31,6 +32,7 @@ import org.safris.commons.lang.Paths;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.Pipeline;
 import org.safris.commons.util.Translator;
+import org.safris.commons.xml.NamespaceURI;
 import org.safris.commons.xml.dom.DOMParsers;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.composite.SchemaComposite;
@@ -95,30 +97,28 @@ public final class Generator extends AbstractGenerator {
       destDir = Files.getCwd();
 
     final GeneratorContext generatorContext = new GeneratorContext(System.currentTimeMillis(), destDir, explodeJars, overwrite);
-    final Generator generator = new Generator(generatorContext, schemas);
+    final Generator generator = new Generator(generatorContext, schemas, null, null);
     generator.generate();
   }
 
   private static final String MANIFEST_ERROR = "There is an error in your binding xml. Please consult manifest.xsd for proper usage.";
   private final GeneratorContext generatorContext;
   private final Collection<SchemaReference> schemas;
+  private final Set<NamespaceURI> excludes;
+  private final Set<File> sourcePath;
 
-  public Generator(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas) {
+  public Generator(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<NamespaceURI> excludes, final Set<File> sourcePath) {
     this.generatorContext = generatorContext;
     this.schemas = schemas;
+    this.excludes = excludes;
+    this.sourcePath = sourcePath;
   }
 
-  public Generator(final File basedir, final Element bindingsElement, long lastModified, final Translator<String> translator) {
+  public Generator(final File basedir, final Element bindingsElement, long lastModified, final Translator<String> translator, final Set<File> sourcePath) {
     this.schemas = new HashSet<SchemaReference>();
+    this.excludes = new HashSet<NamespaceURI>();
     this.generatorContext = parseConfig(basedir, bindingsElement, lastModified, translator);
-  }
-
-  public GeneratorContext getGeneratorContext() {
-    return generatorContext;
-  }
-
-  public Collection<SchemaReference> getSchemas() {
-    return schemas;
+    this.sourcePath = sourcePath;
   }
 
   public GeneratorContext parseConfig(final File basedir, final Element bindingsElement, long lastModified, final Translator<String> translator) {
@@ -155,6 +155,26 @@ public final class Generator extends AbstractGenerator {
             schemaReference = basedir.getAbsolutePath() + File.separator + schemaReference;
 
           schemas.add(new SchemaReference(translator.translate(schemaReference), false));
+        }
+      }
+      else if ("excludes".equals(child.getNodeName())) {
+        NodeList schemaNodes = child.getChildNodes();
+        for (int j = 0; j < schemaNodes.getLength(); j++) {
+          Node schemaNode = schemaNodes.item(j);
+          if (!"exclude".equals(schemaNode.getLocalName()))
+            continue;
+
+          NodeList text = schemaNode.getChildNodes();
+          for (int k = 0; k < text.getLength(); k++) {
+            final Node node = text.item(k);
+            if (node.getNodeType() != Node.TEXT_NODE)
+              continue;
+
+            schemaReference = node.getNodeValue();
+            break;
+          }
+
+          excludes.add(NamespaceURI.getInstance(schemaReference));
         }
       }
       else if (destDir == null && "destdir".equals(child.getLocalName())) {
@@ -222,6 +242,10 @@ public final class Generator extends AbstractGenerator {
     return new GeneratorContext(lastModified, destDir, explodeJars, overwrite);
   }
 
+  public GeneratorContext getGeneratorContext() {
+    return generatorContext;
+  }
+
   public Collection<Bundle> generate() {
     final Pipeline<GeneratorContext> pipeline = new Pipeline<GeneratorContext>(generatorContext);
 
@@ -249,11 +273,11 @@ public final class Generator extends AbstractGenerator {
     pipeline.<Model,Plan<?>>addProcessor(models, plans, new PlanDirectory());
 
     // write the plans to files
-    pipeline.<Plan<?>,Writer<?>>addProcessor(plans, null, new WriterDirectory());
+    pipeline.<Plan<?>,Writer<?>>addProcessor(plans, null, new WriterDirectory(excludes));
 
     // compile and jar the bindings
     final Collection<Bundle> bundles = new ArrayList<Bundle>();
-    pipeline.<SchemaComposite,Bundle>addProcessor(schemaComposites, bundles, new BundleDirectory());
+    pipeline.<SchemaComposite,Bundle>addProcessor(schemaComposites, bundles, new BundleDirectory(excludes, sourcePath));
 
     // timestamp the generated files and directories
     pipeline.<Bundle,Bundle>addProcessor(bundles, null, new TimestampDirectory());

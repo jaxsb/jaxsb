@@ -18,9 +18,11 @@ package org.safris.xsb.generator.processor.write;
 
 import java.io.StringWriter;
 import java.util.Collection;
+import java.util.Set;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
+import org.safris.commons.xml.NamespaceURI;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.Nameable;
 import org.safris.xsb.generator.processor.plan.AliasPlan;
@@ -29,6 +31,12 @@ import org.safris.xsb.generator.processor.plan.Plan;
 import org.safris.xsb.runtime.CompilerFailureException;
 
 public final class WriterProcessor implements PipelineProcessor<GeneratorContext,Plan<?>,Writer<?>> {
+  private final Set<NamespaceURI> excludes;
+
+  public WriterProcessor(final Set<NamespaceURI> excludes) {
+    this.excludes = excludes;
+  }
+
   private final Writer<?> root = new Writer<Plan<?>>() {
     @Override
     protected void appendRegistration(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {
@@ -100,7 +108,9 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
     if (((Nameable<?>)plan).getName().getNamespaceURI() == null)
       throw new CompilerFailureException("Cannot generate classes for schema with no targetNamespace.");
 
-    ((Writer)root).writeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestdir());
+    if (excludes == null || !excludes.contains(plan.getModel().getTargetNamespace()))
+      ((Writer)root).writeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestdir());
+
     return null;
   }
 }

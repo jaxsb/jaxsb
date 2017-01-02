@@ -53,14 +53,14 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
-  private static void compile(final File destDir) throws Throwable {
+  private static void compile(final File destDir, final Set<File> sourcePath) throws Throwable {
     final Collection<File> javaFiles = Files.listAll(destDir);
     final Collection<File> javaSources = new ArrayList<File>();
     for (final File javaFile : javaFiles)
       if (!javaFile.isDirectory() && javaFile.getName().endsWith(".java"))
         javaSources.add(javaFile);
 
-    final Collection<File> classpath = new ArrayList<File>(2);
+    final Collection<File> classpath = new ArrayList<File>(sourcePath);
     final File bindingLocationBase = Resources.getLocationBase(Binding.class);
     if (bindingLocationBase != null)
       classpath.add(bindingLocationBase);
@@ -76,39 +76,41 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     new JavaCompiler(destDir, classpath).compile(javaSources);
   }
 
-  private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites) throws Exception {
+  private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> excludes) throws Exception {
     final Set<NamespaceURI> namespaceURIsAdded = new HashSet<NamespaceURI>();
     final Collection<File> jarFiles = new HashSet<File>();
 
     for (final SchemaComposite schemaComposite : schemaComposites) {
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
-      final String pkg = namespaceURI.getPackage();
-      final File jarFile = new File(destDir, pkg + ".jar");
-      if (jarFile.exists())
-        if (!jarFile.delete())
-          throw new BindingError("Unable to delete the existing jar: " + jarFile.getAbsolutePath());
+      if (excludes == null || !excludes.contains(namespaceURI)) {
+        final String pkg = namespaceURI.getPackage();
+        final File jarFile = new File(destDir, pkg + ".jar");
+        if (jarFile.exists())
+          if (!jarFile.delete())
+            throw new BindingError("Unable to delete the existing jar: " + jarFile.getAbsolutePath());
 
-      final Jar jar = new Jar(jarFile);
-      jarFiles.add(jarFile);
+        final Jar jar = new Jar(jarFile);
+        jarFiles.add(jarFile);
 
-      final String packagePath = pkg.replace('.', '/');
-      if (!namespaceURIsAdded.contains(namespaceURI)) {
-        namespaceURIsAdded.add(namespaceURI);
+        final String packagePath = pkg.replace('.', '/');
+        if (!namespaceURIsAdded.contains(namespaceURI)) {
+          namespaceURIsAdded.add(namespaceURI);
 
-        final Collection<File> list = Files.listAll(new File(destDir, packagePath));
-        if (list != null)
-          for (final File file : list)
-            if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
-              jar.addEntry(Files.relativePath(destDir.getAbsoluteFile(), file.getAbsoluteFile()), Files.getBytes(file));
+          final Collection<File> list = Files.listAll(new File(destDir, packagePath));
+          if (list != null)
+            for (final File file : list)
+              if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
+                jar.addEntry(Files.relativePath(destDir.getAbsoluteFile(), file.getAbsoluteFile()), Files.getBytes(file));
+        }
+
+        final URL url = schemaModelComposite.getSchemaDocument().getSchemaReference().getURL();
+        String xsdName = packagePath + '/' + pkg;
+        if (!schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
+          addXSDs(url, xsdName + ".xsd", jar, destDir, 0);
+
+        jar.close();
       }
-
-      final URL url = schemaModelComposite.getSchemaDocument().getSchemaReference().getURL();
-      String xsdName = packagePath + '/' + pkg;
-      if (!schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
-        addXSDs(url, xsdName + ".xsd", jar, destDir, 0);
-
-      jar.close();
     }
 
     return jarFiles;
@@ -181,14 +183,19 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     Files.writeFile(tempFile, bytes);
   }
 
-  protected BundleProcessor() {
+  private final Set<NamespaceURI> excludes;
+  private final Set<File> sourcePath;
+
+  public BundleProcessor(final Set<NamespaceURI> excludes, final Set<File> sourcePath) {
+    this.excludes = excludes;
+    this.sourcePath = sourcePath;
   }
 
   @Override
   public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> directory) {
     try {
-      BundleProcessor.compile(pipelineContext.getDestdir());
-      final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestdir(), documents);
+      BundleProcessor.compile(pipelineContext.getDestdir(), sourcePath);
+      final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestdir(), documents, excludes);
       final Collection<Bundle> bundles = new ArrayList<Bundle>(jarFiles.size());
       for (final File jarFile : jarFiles)
         bundles.add(new Bundle(jarFile));

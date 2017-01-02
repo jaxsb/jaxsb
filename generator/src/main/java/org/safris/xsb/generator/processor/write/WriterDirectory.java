@@ -19,10 +19,12 @@ package org.safris.xsb.generator.processor.write;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
+import org.safris.commons.xml.NamespaceURI;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.generator.processor.plan.Plan;
 import org.safris.xsb.generator.processor.plan.element.AllPlan;
@@ -118,9 +120,10 @@ public final class WriterDirectory implements PipelineDirectory<GeneratorContext
   private final Map<Class<? extends Plan>,Class<? extends Writer>> classes = new HashMap<Class<? extends Plan>,Class<? extends Writer>>(39);
   private final Map<Class<? extends Plan>,Writer> instances = new HashMap<Class<? extends Plan>,Writer>(39);
   private final Collection<Class<? extends Plan>> keys;
-  private final WriterProcessor processor = new WriterProcessor();
+  private final WriterProcessor processor;
 
-  public WriterDirectory() {
+  public WriterDirectory(final Set<NamespaceURI> excludes) {
+    processor = new WriterProcessor(excludes);
     classes.put(AllPlan.class, AllWriter.class);
     classes.put(AnnotationPlan.class, AnnotationWriter.class);
     classes.put(AnyAttributePlan.class, AnyAttributeWriter.class);
