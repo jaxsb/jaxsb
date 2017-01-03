@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.xsb.generator.binding;
+package org.safris.xsb.generator;
 
 import org.safris.commons.xml.XMLError;
 

@@ -86,6 +86,12 @@ public final class SchemaReference implements PipelineEntity {
     Log.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\")");
   }
 
+  public SchemaReference(final URL location, final boolean isInclude) {
+    this.location = location;
+    this.isInclude = isInclude;
+    Log.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", " + isInclude + ")");
+  }
+
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
     this.location = location;
     this.namespaceURI = namespaceURI;
