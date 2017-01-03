@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3c.dom.Element;
 
-public final class AttributeAudit<T> {
+public final class AttributeAudit<T extends $xs_anySimpleType> {
   private final $xs_anySimpleType parent;
   private final T _default;
   private final QName name;

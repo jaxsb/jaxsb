@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Seva Safris
+/* Copyright (c) 2017 Seva Safris
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -16,14 +16,31 @@
 
 package org.safris.xsb.runtime;
 
+import java.util.HashSet;
 import java.util.Iterator;
-
-import javax.xml.namespace.QName;
+import java.util.Set;
 
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 
-public interface ComplexType extends BindingType {
-  public Iterator<? extends $xs_anySimpleType> attributeIterator();
-  public Iterator<? extends Binding> elementIterator();
-  public BindingList<? extends Binding> fetchChild(final QName name);
+public class CompositeAttributeStore {
+  private final Set<AttributeAudit<?>> audits = new HashSet<AttributeAudit<?>>();
+
+  public void add(final AttributeAudit<?> audit) {
+    this.audits.add(audit);
+  }
+
+  public Iterator<? extends $xs_anySimpleType> iterator() {
+    final Iterator<AttributeAudit<?>> iterator = audits.iterator();
+    return new Iterator<$xs_anySimpleType>() {
+      @Override
+      public boolean hasNext() {
+        return iterator.hasNext();
+      }
+
+      @Override
+      public $xs_anySimpleType next() {
+        return iterator.next().getAttribute();
+      }
+    };
+  }
 }

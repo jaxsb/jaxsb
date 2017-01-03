@@ -16,5 +16,8 @@
 
 package org.safris.xsb.runtime;
 
+import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
+
 public interface Attribute extends SimpleType {
+  public $xs_anySimpleType owner();
 }

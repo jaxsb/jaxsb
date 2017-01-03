@@ -39,6 +39,7 @@ import org.safris.xsb.runtime.ComplexType;
 import org.safris.xsb.runtime.MarshalException;
 import org.safris.xsb.runtime.ParseException;
 import org.safris.xsb.runtime.XSTypeDirectory;
+import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -278,6 +279,13 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     writer.write("protected " + QName.class.getName() + " typeName()\n");
     writer.write("{\n");
     writer.write("return NAME;\n");
+    writer.write("}\n");
+
+    // ATTRIBUTE ITERATORS
+    writer.write("@" + Override.class.getName() + "\n");
+    writer.write("public " + Iterator.class.getName() + "<? extends " + $xs_anySimpleType.class.getName() + "> attributeIterator()\n");
+    writer.write("{\n");
+    writer.write("return super.attributeIterator();\n");
     writer.write("}\n");
 
     // ELEMENT ITERATORS

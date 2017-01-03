@@ -25,6 +25,7 @@ import org.safris.xsb.compiler.schema.attribute.Use;
 import org.safris.xsb.generator.processor.plan.Plan;
 import org.safris.xsb.generator.processor.plan.element.AttributePlan;
 import org.safris.xsb.generator.processor.plan.element.SimpleTypePlan;
+import org.safris.xsb.runtime.Attribute;
 import org.safris.xsb.runtime.AttributeAudit;
 import org.safris.xsb.runtime.AttributeSpec;
 import org.safris.xsb.runtime.Binding;
@@ -44,7 +45,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     if (plan.isRestriction())
       return;
 
-    writer.write("private " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + "> " + plan.getInstanceName() + " = new " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + ">(this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + ");\n");
+    writer.write("private " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + "> " + plan.getInstanceName() + " = __$$registerAttributeAudit(new " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + ">(this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + "));\n");
   }
 
   @Override
@@ -162,7 +163,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       return;
 
     writeQualifiedName(writer, plan);
-    writer.write("public static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + SimpleType.class.getName() + "\n");
+    writer.write("public static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + Attribute.class.getName() + ", " + SimpleType.class.getName() + "\n");
     writer.write("{\n");
     writer.write("private static final " + QName.class.getName() + " NAME = getClassQName(" + plan.getClassName(parent) + ".class);\n");
 

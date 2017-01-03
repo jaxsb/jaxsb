@@ -45,6 +45,7 @@ import org.safris.xsb.runtime.ElementSpec;
 import org.safris.xsb.runtime.MarshalException;
 import org.safris.xsb.runtime.ParseException;
 import org.safris.xsb.runtime.SimpleType;
+import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3.x2001.xmlschema.xe.$xs_boolean;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -181,7 +182,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.isAbstract())
       writer.write("abstract ");
 
-    writer.write("class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + (plan.isComplexType() ? ComplexType.class.getName() : SimpleType.class.getName()) + "\n");
+    writer.write("class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + (plan.isComplexType() ? ComplexType.class.getName() : SimpleType.class.getName()) + ", " + org.safris.xsb.runtime.Element.class.getName() + "\n");
     writer.write("{\n");
 
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
@@ -435,6 +436,13 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
     // PATTERN
     appendPattern(writer, plan.getPatterns());
+
+    // ATTRIBUTE ITERATORS
+    writer.write("@" + Override.class.getName() + "\n");
+    writer.write("public " + Iterator.class.getName() + "<? extends " + $xs_anySimpleType.class.getName() + "> attributeIterator()\n");
+    writer.write("{\n");
+    writer.write("return super.attributeIterator();\n");
+    writer.write("}\n");
 
     // ELEMENT ITERATORS
     writer.write("@" + Override.class.getName() + "\n");

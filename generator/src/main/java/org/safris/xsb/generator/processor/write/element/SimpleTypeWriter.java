@@ -361,6 +361,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
   }
 
   protected static void appendOwner(final StringWriter writer) {
+    writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + $xs_anySimpleType.class.getName() + " owner()\n");
     writer.write("{\n");
     writer.write("return _$$getOwner();\n");

@@ -254,6 +254,7 @@ public abstract class Binding extends AbstractBinding {
 
   private final Object elementsLock = new Object();
   private CompositeElementStore elementDirectory = null;
+  private CompositeAttributeStore attributeDirectory = null;
   private Binding inherits;
   private $xs_anySimpleType owner;
 
@@ -390,11 +391,19 @@ public abstract class Binding extends AbstractBinding {
     return true;
   }
 
-  protected static <B extends Binding>boolean _$$setAttribute(final AttributeAudit<B> audit, final Binding binding, final B attribute) {
+  protected static <B extends $xs_anySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final Binding binding, final B attribute) {
     if (attribute != null)
       attribute._$$setOwner(($xs_anySimpleType)binding);
 
     return audit.setAttribute(attribute);
+  }
+
+  protected <B extends $xs_anySimpleType>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
+    if (attributeDirectory == null)
+      attributeDirectory = new CompositeAttributeStore();
+
+    attributeDirectory.add(audit);
+    return audit;
   }
 
   protected Iterator<Binding> elementIterator() {
@@ -407,6 +416,10 @@ public abstract class Binding extends AbstractBinding {
 
   protected ListIterator<Binding> elementListIterator(final int index) {
     return elementDirectory.getElements().listIterator(index);
+  }
+
+  protected Iterator<? extends $xs_anySimpleType> attributeIterator() {
+    return attributeDirectory == null ? null : attributeDirectory.iterator();
   }
 
   protected final boolean _$$removeElement(final Binding element) {
