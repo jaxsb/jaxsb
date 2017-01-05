@@ -19,6 +19,7 @@ package org.safris.xsb.generator.processor.bundle;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,6 +27,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.safris.commons.io.Files;
+import org.safris.commons.jci.CompilationException;
 import org.safris.commons.jci.JavaCompiler;
 import org.safris.commons.lang.ClassLoaders;
 import org.safris.commons.lang.Paths;
@@ -53,7 +55,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
-  private static void compile(final File destDir, final Set<File> sourcePath) throws Throwable {
+  private static void compile(final File destDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final Collection<File> javaFiles = Files.listAll(destDir);
     final Collection<File> javaSources = new ArrayList<File>();
     for (final File javaFile : javaFiles)
@@ -76,7 +78,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     new JavaCompiler(destDir, classpath).compile(javaSources);
   }
 
-  private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> excludes) throws Exception {
+  private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> excludes) throws IOException, SAXException {
     final Set<NamespaceURI> namespaceURIsAdded = new HashSet<NamespaceURI>();
     final Collection<File> jarFiles = new HashSet<File>();
 
@@ -217,7 +219,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
       return bundles;
     }
-    catch (final Throwable e) {
+    catch (final CompilationException | IOException | SAXException | URISyntaxException e) {
       throw new CompilerFailureException(e);
     }
   }

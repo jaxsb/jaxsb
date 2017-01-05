@@ -264,7 +264,9 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
         writer.write("return (" + String.class.getName() + ")super.text();\n");
         writer.write("}\n");
 
-        writer.write("@" + Override.class.getName() + "\n");
+        if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
+          writer.write("@" + Override.class.getName() + "\n");
+
         writer.write("public void text(final " + String.class.getName() + " text)\n");
         writer.write("{\n");
         writer.write("super.text(text);\n");
