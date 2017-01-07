@@ -113,6 +113,11 @@ public abstract class $xs_anySimpleType extends Binding {
   }
 
   @Override
+  public String id() {
+    return id(inherits());
+  }
+
+  @Override
   public QName name() {
     return name(inherits());
   }

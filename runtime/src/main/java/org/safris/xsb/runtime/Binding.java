@@ -114,11 +114,12 @@ public abstract class Binding extends AbstractBinding {
     }
   }
 
-  protected static QName name(final Binding binding) {
-    if (binding == null)
-      return null;
+  protected static String id(final Binding binding) {
+    return binding == null ? null : binding.id();
+  }
 
-    return binding.name();
+  protected static QName name(final Binding binding) {
+    return binding == null ? null : binding.name();
   }
 
   protected static QName typeName(final Binding binding) {
@@ -576,6 +577,10 @@ public abstract class Binding extends AbstractBinding {
 
   protected static boolean _$$failEquals() {
     return false;
+  }
+
+  protected String id() {
+    return null;
   }
 
   protected Object text() {

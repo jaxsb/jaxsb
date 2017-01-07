@@ -115,6 +115,10 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
     return model;
   }
 
+  public String getId() {
+    return model.getId();
+  }
+
   public final Plan<?> getParent() {
     return parent;
   }
