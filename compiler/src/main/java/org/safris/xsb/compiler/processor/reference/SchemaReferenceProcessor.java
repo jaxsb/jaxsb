@@ -17,6 +17,7 @@
 package org.safris.xsb.compiler.processor.reference;
 
 import java.io.File;
+import java.net.URLConnection;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -24,6 +25,9 @@ import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
+import org.safris.commons.xml.sax.DocumentHandler;
+import org.safris.commons.xml.sax.SAXInterruptException;
+import org.safris.commons.xml.sax.XMLDocuments;
 import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.lang.LexerFailureException;
 import org.safris.xsb.compiler.processor.GeneratorContext;
@@ -34,7 +38,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 //  }
 
   @Override
-  public Collection<SchemaReference> process(final GeneratorContext pipelineContext, final Collection<SchemaReference> schemas, final PipelineDirectory<GeneratorContext,SchemaReference,SchemaReference> directory) {
+  public Collection<SchemaReference> process(final GeneratorContext pipelineContext, final Collection<SchemaReference> schemaReferences, final PipelineDirectory<GeneratorContext,SchemaReference,SchemaReference> directory) {
     final File destDir = pipelineContext.getDestdir();
     Log.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
 
@@ -46,18 +50,33 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 //      final ThreadGroup threadGroup = new ThreadGroup("SchemaReferenceProcess");
 //      Log.debug("created SchemaReferenceProcess ThreadGroup");
       // download and cache the schemas into a temporary directory
-      for (final SchemaReference schemaReference : schemas) {
+      for (final SchemaReference schemaReference : schemaReferences) {
 //        new Thread(threadGroup, schemaReference.getURL().toString()) {
 //          @Override
 //          public void run() {
             try {
               final File containerClass = new File(destDir, schemaReference.getNamespaceURI().getPackage().replace('.', File.separatorChar) + File.separator + "xe.java");
               Log.debug("checking whether class is up-to-date: " + containerClass.getAbsolutePath());
-              if (pipelineContext.getOverwrite() || !containerClass.exists() || containerClass.lastModified() < pipelineContext.getManifestLastModified()  || containerClass.lastModified() < schemaReference.getLastModified()) {
+              if (pipelineContext.getOverwrite() || !containerClass.exists()) {
                 Log.debug("adding: " + containerClass.getAbsolutePath());
                 selectedSchemas.add(schemaReference);
               }
               else {
+                try {
+                  XMLDocuments.parse(schemaReference.getURL(), new DocumentHandler() {
+                    @Override
+                    public void schemaLocation(final URLConnection connection) throws SAXInterruptException {
+                      if (containerClass.lastModified() < connection.getLastModified())
+                        throw new SAXInterruptException();
+                    }
+                  }, false);
+                }
+                catch (final SAXInterruptException e) {
+                  Log.debug("adding: " + containerClass.getAbsolutePath());
+                  selectedSchemas.add(schemaReference);
+                  continue;
+                }
+
                 Log.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
               }
 

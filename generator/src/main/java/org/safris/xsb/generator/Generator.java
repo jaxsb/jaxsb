@@ -19,7 +19,6 @@ package org.safris.xsb.generator;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -96,7 +95,7 @@ public final class Generator extends AbstractGenerator {
     if (destDir == null)
       destDir = Files.getCwd();
 
-    final GeneratorContext generatorContext = new GeneratorContext(System.currentTimeMillis(), destDir, explodeJars, overwrite);
+    final GeneratorContext generatorContext = new GeneratorContext(destDir, explodeJars, overwrite);
     final Generator generator = new Generator(generatorContext, schemas, null, null);
     generator.generate();
   }
@@ -117,11 +116,11 @@ public final class Generator extends AbstractGenerator {
   public Generator(final File basedir, final Element bindingsElement, long lastModified, final Translator<String> translator, final Set<File> sourcePath) {
     this.schemas = new HashSet<SchemaReference>();
     this.excludes = new HashSet<NamespaceURI>();
-    this.generatorContext = parseConfig(basedir, bindingsElement, lastModified, translator);
+    this.generatorContext = parseConfig(basedir, bindingsElement, translator);
     this.sourcePath = sourcePath;
   }
 
-  public GeneratorContext parseConfig(final File basedir, final Element bindingsElement, long lastModified, final Translator<String> translator) {
+  public GeneratorContext parseConfig(final File basedir, final Element bindingsElement, final Translator<String> translator) {
     if (!"manifest".equals(bindingsElement.getNodeName()))
       throw new IllegalArgumentException("Invalid manifest element!");
 
@@ -224,22 +223,19 @@ public final class Generator extends AbstractGenerator {
       if (destDir != null || schemas.size() != 0)
         throw new BindingError(MANIFEST_ERROR);
 
-      long modified = 0;
       final Document document;
       try {
         final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
-        final URLConnection connection = hrefURL.openConnection();
-        modified = connection.getLastModified();
-        document = documentBuilder.parse(connection.getInputStream());
+        document = documentBuilder.parse(hrefURL.openStream());
       }
       catch (final Exception e) {
         throw new CompilerFailureException(e);
       }
 
-      return parseConfig(basedir, document.getDocumentElement(), modified, translator);
+      return parseConfig(basedir, document.getDocumentElement(), translator);
     }
 
-    return new GeneratorContext(lastModified, destDir, explodeJars, overwrite);
+    return new GeneratorContext(destDir, explodeJars, overwrite);
   }
 
   public GeneratorContext getGeneratorContext() {

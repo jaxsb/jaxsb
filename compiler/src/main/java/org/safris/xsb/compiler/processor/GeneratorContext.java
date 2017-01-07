@@ -22,13 +22,11 @@ import java.io.IOException;
 import org.safris.commons.pipeline.PipelineContext;
 
 public final class GeneratorContext implements PipelineContext {
-  private final long manifestLastModified;
   private final File destDir;
   private final boolean explodeJars;
   private final boolean overwrite;
 
-  public GeneratorContext(final long manifestLastModified, final File destDir, boolean explodeJars, final boolean overwrite) {
-    this.manifestLastModified = manifestLastModified;
+  public GeneratorContext(final File destDir, boolean explodeJars, final boolean overwrite) {
     File tempDestDir;
     try {
       tempDestDir = destDir.getCanonicalFile();
@@ -39,10 +37,6 @@ public final class GeneratorContext implements PipelineContext {
     this.destDir = tempDestDir;
     this.explodeJars = explodeJars;
     this.overwrite = overwrite;
-  }
-
-  public long getManifestLastModified() {
-    return manifestLastModified;
   }
 
   public File getDestdir() {

@@ -398,7 +398,7 @@ public abstract class Binding extends AbstractBinding {
     return audit.setAttribute(attribute);
   }
 
-  protected <B extends $xs_anySimpleType>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
+  protected final <B extends $xs_anySimpleType>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
     if (attributeDirectory == null)
       attributeDirectory = new CompositeAttributeStore();
 

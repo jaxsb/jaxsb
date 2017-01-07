@@ -16,14 +16,14 @@
 
 package org.safris.xsb.runtime;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 
 public class CompositeAttributeStore {
-  private final Set<AttributeAudit<?>> audits = new HashSet<AttributeAudit<?>>();
+  private final List<AttributeAudit<?>> audits = new ArrayList<AttributeAudit<?>>();
 
   public void add(final AttributeAudit<?> audit) {
     this.audits.add(audit);
