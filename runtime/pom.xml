@@ -33,7 +33,6 @@
       <plugin>
         <groupId>org.safris.maven.plugin</groupId>
         <artifactId>xml-maven-plugin</artifactId>
-        <extensions>true</extensions>
         <executions>
           <execution>
             <configuration>
