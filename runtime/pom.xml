@@ -49,17 +49,14 @@
     <dependency>
       <groupId>org.safris.xsb</groupId>
       <artifactId>xsb-compiler</artifactId>
-      <version>2.1.2</version>
     </dependency>
     <dependency>
       <groupId>org.safris.commons</groupId>
       <artifactId>commons-formatter</artifactId>
-      <version>0.4.4</version>
     </dependency>
     <dependency>
       <groupId>org.safris.commons</groupId>
       <artifactId>commons-util</artifactId>
-      <version>1.5.7</version>
     </dependency>
     <dependency>
       <groupId>com.sun</groupId>

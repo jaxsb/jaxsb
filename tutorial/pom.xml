@@ -48,12 +48,10 @@
     <dependency>
       <groupId>org.safris.xsb</groupId>
       <artifactId>xsb-runtime</artifactId>
-      <version>2.1.2</version>
     </dependency>
     <dependency>
       <groupId>org.safris.commons</groupId>
       <artifactId>commons-xml</artifactId>
-      <version>1.0.2</version>
     </dependency>
   </dependencies>
 </project>
