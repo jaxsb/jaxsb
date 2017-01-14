@@ -23,10 +23,11 @@ import org.safris.commons.pipeline.PipelineContext;
 
 public final class GeneratorContext implements PipelineContext {
   private final File destDir;
-  private final boolean explodeJars;
   private final boolean overwrite;
+  private final boolean compale;
+  private final boolean pack;
 
-  public GeneratorContext(final File destDir, boolean explodeJars, final boolean overwrite) {
+  public GeneratorContext(final File destDir, final boolean overwrite, final boolean compile, final boolean pack) {
     File tempDestDir;
     try {
       tempDestDir = destDir.getCanonicalFile();
@@ -35,19 +36,24 @@ public final class GeneratorContext implements PipelineContext {
       tempDestDir = destDir;
     }
     this.destDir = tempDestDir;
-    this.explodeJars = explodeJars;
     this.overwrite = overwrite;
+    this.compale = compile;
+    this.pack = pack;
   }
 
   public File getDestdir() {
     return destDir;
   }
 
-  public boolean getExplodeJars() {
-    return explodeJars;
-  }
-
   public boolean getOverwrite() {
     return overwrite;
+  }
+
+  public boolean getCompile() {
+    return compale;
+  }
+
+  public boolean getPackage() {
+    return pack;
   }
 }

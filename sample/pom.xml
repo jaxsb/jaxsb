@@ -34,7 +34,18 @@
         <groupId>org.safris.maven.plugin</groupId>
         <artifactId>xsb-maven-plugin</artifactId>
         <configuration>
-          <manifest xmlns="http://maven.safris.org/common/manifest.xsd" href="${basedir}/src/main/resources/manifest.xml"/>
+          <manifest xmlns="http://maven.safris.org/common/manifest.xsd">
+            <destdir>${project.build.directory}/generated-sources/xsb</destdir>
+            <schemas>
+              <schema>${basedir}/src/main/resources/substitutionGroup.xsd</schema>
+              <schema>${basedir}/src/main/resources/xsitype.xsd</schema>
+              <schema>${basedir}/src/main/resources/simple.xsd</schema>
+              <schema>${basedir}/src/main/resources/enums.xsd</schema>
+              <schema>${basedir}/src/main/resources/list.xsd</schema>
+              <schema>${basedir}/src/main/resources/any.xsd</schema>
+              <schema>${basedir}/src/main/resources/id.xsd</schema>
+            </schemas>
+          </manifest>
         </configuration>
       </plugin>
     </plugins>

@@ -18,21 +18,16 @@ package org.safris.xsb.generator;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilder;
-
 import org.safris.commons.io.Files;
 import org.safris.commons.lang.Paths;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.Pipeline;
-import org.safris.commons.util.Translator;
 import org.safris.commons.xml.NamespaceURI;
-import org.safris.commons.xml.dom.DOMParsers;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.composite.SchemaComposite;
 import org.safris.xsb.compiler.processor.composite.SchemaCompositeDirectory;
@@ -51,14 +46,6 @@ import org.safris.xsb.generator.processor.timestamp.TimestampDirectory;
 import org.safris.xsb.generator.processor.write.Writer;
 import org.safris.xsb.generator.processor.write.WriterDirectory;
 import org.safris.xsb.generator.schema.SchemaDocumentDirectory;
-import org.safris.xsb.runtime.BindingError;
-import org.safris.xsb.runtime.CompilerFailureException;
-import org.w3.x2001.xmlschema.xe.$xs_boolean;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {
@@ -68,39 +55,42 @@ public final class Generator extends AbstractGenerator {
     System.err.println("  -d <destDir>    Specify the destination directory.");
     System.err.println("");
     System.err.println("Optional arguments:");
-    System.err.println("  --explodeJars   Explode generated jars into the destination directory.");
     System.err.println("  --overwrite     Overwrite all existing generated classes.");
+    System.err.println("  --compile       Compile generated source.");
+    System.err.println("  --package       Package generated jars into a jar.");
     System.exit(1);
   }
 
-  public static void main(final String[] args) {
+  public static void main(final String[] args) throws MalformedURLException {
     if (args.length == 0 || args[0] == null || args[0].length() == 0)
       trapPrintUsage();
 
-    boolean explodeJars = false;
     boolean overwrite = false;
+    boolean compile = false;
+    boolean pack = false;
     File destDir = null;
     final Collection<SchemaReference> schemas = new HashSet<SchemaReference>();
     for (int i = 0; i < args.length; i++) {
-      if ("--explodeJars".equals(args[i]))
-        explodeJars = true;
-      else if ("--overwrite".equals(args[i]))
+      if ("--overwrite".equals(args[i]))
         overwrite = true;
+      else if ("--compile".equals(args[i]))
+        compile = true;
+      else if ("--package".equals(args[i]))
+        pack = true;
       else if ("-d".equals(args[i]) && i < args.length)
         destDir = new File(args[++i]).getAbsoluteFile();
       else
-        schemas.add(new SchemaReference(args[i], false));
+        schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.makeUrlFromPath(args[i]) : new File(Files.getCwd(), args[i]).toURI().toURL(), false));
     }
 
     if (destDir == null)
       destDir = Files.getCwd();
 
-    final GeneratorContext generatorContext = new GeneratorContext(destDir, explodeJars, overwrite);
+    final GeneratorContext generatorContext = new GeneratorContext(destDir, overwrite, compile, pack);
     final Generator generator = new Generator(generatorContext, schemas, null, null);
     generator.generate();
   }
 
-  private static final String MANIFEST_ERROR = "There is an error in your binding xml. Please consult manifest.xsd for proper usage.";
   private final GeneratorContext generatorContext;
   private final Collection<SchemaReference> schemas;
   private final Set<NamespaceURI> excludes;
@@ -111,131 +101,6 @@ public final class Generator extends AbstractGenerator {
     this.schemas = schemas;
     this.excludes = excludes;
     this.sourcePath = sourcePath;
-  }
-
-  public Generator(final File basedir, final Element bindingsElement, long lastModified, final Translator<String> translator, final Set<File> sourcePath) {
-    this.schemas = new HashSet<SchemaReference>();
-    this.excludes = new HashSet<NamespaceURI>();
-    this.generatorContext = parseConfig(basedir, bindingsElement, translator);
-    this.sourcePath = sourcePath;
-  }
-
-  public GeneratorContext parseConfig(final File basedir, final Element bindingsElement, final Translator<String> translator) {
-    if (!"manifest".equals(bindingsElement.getNodeName()))
-      throw new IllegalArgumentException("Invalid manifest element!");
-
-    File destDir = null;
-    boolean explodeJars = false;
-    boolean overwrite = false;
-
-    URL hrefURL = null;
-    final NodeList list = bindingsElement.getChildNodes();
-    for (int i = 0; i < list.getLength(); i++) {
-      String schemaReference = null;
-      final Node child = list.item(i);
-      if ("schemas".equals(child.getNodeName())) {
-        NodeList schemaNodes = child.getChildNodes();
-        for (int j = 0; j < schemaNodes.getLength(); j++) {
-          Node schemaNode = schemaNodes.item(j);
-          if (!"schema".equals(schemaNode.getLocalName()))
-            continue;
-
-          NodeList text = schemaNode.getChildNodes();
-          for (int k = 0; k < text.getLength(); k++) {
-            final Node node = text.item(k);
-            if (node.getNodeType() != Node.TEXT_NODE)
-              continue;
-
-            schemaReference = translator.translate(node.getNodeValue());
-            break;
-          }
-
-          if (schemaReference.length() != 0 && !Paths.isAbsolute(schemaReference))
-            schemaReference = basedir.getAbsolutePath() + File.separator + schemaReference;
-
-          schemas.add(new SchemaReference(translator.translate(schemaReference), false));
-        }
-      }
-      else if ("excludes".equals(child.getNodeName())) {
-        NodeList schemaNodes = child.getChildNodes();
-        for (int j = 0; j < schemaNodes.getLength(); j++) {
-          Node schemaNode = schemaNodes.item(j);
-          if (!"exclude".equals(schemaNode.getLocalName()))
-            continue;
-
-          NodeList text = schemaNode.getChildNodes();
-          for (int k = 0; k < text.getLength(); k++) {
-            final Node node = text.item(k);
-            if (node.getNodeType() != Node.TEXT_NODE)
-              continue;
-
-            schemaReference = node.getNodeValue();
-            break;
-          }
-
-          excludes.add(NamespaceURI.getInstance(schemaReference));
-        }
-      }
-      else if (destDir == null && "destdir".equals(child.getLocalName())) {
-        final NodeList text = child.getChildNodes();
-        for (int j = 0; j < text.getLength(); j++) {
-          final Node node = text.item(j);
-          if (node.getNodeType() != Node.TEXT_NODE)
-            continue;
-
-          destDir = new File(translator.translate(node.getNodeValue()));
-          final NamedNodeMap attributes = child.getAttributes();
-          if (attributes != null) {
-            for (int k = 0; k < attributes.getLength(); k++) {
-              final Node attribute = attributes.item(k);
-              if ("explodeJars".equals(attribute.getLocalName()))
-                explodeJars = $xs_boolean.parseBoolean(attribute.getNodeValue());
-              else if ("overwrite".equals(attribute.getLocalName()))
-                overwrite = $xs_boolean.parseBoolean(attribute.getNodeValue());
-            }
-          }
-
-          break;
-        }
-      }
-      else if (hrefURL == null && "link".equals(child.getLocalName())) {
-        final NamedNodeMap attributes = child.getAttributes();
-        Node hrefNode = null;
-        if (attributes == null || (hrefNode = attributes.getNamedItemNS("http://www.w3.org/1999/xlink", "href")) == null || hrefNode.getNodeValue().length() == 0)
-          throw new BindingError(MANIFEST_ERROR);
-
-        final String href = translator.translate(hrefNode.getNodeValue());
-        try {
-          if (basedir != null)
-            hrefURL = URLs.makeUrlFromPath(basedir.getAbsolutePath(), href);
-          else
-            hrefURL = URLs.makeUrlFromPath(href);
-        }
-        catch (final MalformedURLException e) {
-          throw new CompilerFailureException(e);
-        }
-      }
-      else if (child.getNodeType() == Node.ELEMENT_NODE)
-        throw new BindingError(MANIFEST_ERROR);
-    }
-
-    if (hrefURL != null) {
-      if (destDir != null || schemas.size() != 0)
-        throw new BindingError(MANIFEST_ERROR);
-
-      final Document document;
-      try {
-        final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
-        document = documentBuilder.parse(hrefURL.openStream());
-      }
-      catch (final Exception e) {
-        throw new CompilerFailureException(e);
-      }
-
-      return parseConfig(basedir, document.getDocumentElement(), translator);
-    }
-
-    return new GeneratorContext(destDir, explodeJars, overwrite);
   }
 
   public GeneratorContext getGeneratorContext() {

@@ -16,17 +16,14 @@
 
 package org.safris.xsb.compiler.processor.reference;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.commons.xml.Prefix;
@@ -53,33 +50,6 @@ public final class SchemaReference implements PipelineEntity {
   private long lastModified = Long.MIN_VALUE;
   private InputStream inputStream = null;
 
-  public SchemaReference(final String location, final boolean isInclude) {
-    this(null, location, isInclude);
-  }
-
-  public SchemaReference(final String basedir, final String location, final boolean isInclude) {
-    if (location == null)
-      throw new IllegalArgumentException("location cannot be null");
-
-    try {
-      if (basedir != null)
-        this.location = URLs.makeUrlFromPath(basedir, location);
-      else
-        this.location = new URL(location);
-    }
-    catch (final MalformedURLException e) {
-      try {
-        this.location = basedir != null ? new File(basedir, location).toURI().toURL() : new File(location).toURI().toURL();
-      }
-      catch (final MalformedURLException ex) {
-        throw new IllegalArgumentException("Unknown URL format: " + location);
-      }
-    }
-
-    this.isInclude = isInclude;
-    Log.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\")");
-  }
-
   public SchemaReference(final URL location) {
     this.location = location;
     this.isInclude = null;
@@ -87,6 +57,9 @@ public final class SchemaReference implements PipelineEntity {
   }
 
   public SchemaReference(final URL location, final boolean isInclude) {
+    if (location == null)
+      throw new NullPointerException("location == null");
+
     this.location = location;
     this.isInclude = isInclude;
     Log.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", " + isInclude + ")");

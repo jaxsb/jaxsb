@@ -17,10 +17,10 @@
 package org.safris.xsb.generator.processor.bundle;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -56,12 +56,6 @@ import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final File destDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
-    final Collection<File> javaFiles = Files.listAll(destDir);
-    final Collection<File> javaSources = new ArrayList<File>();
-    for (final File javaFile : javaFiles)
-      if (!javaFile.isDirectory() && javaFile.getName().endsWith(".java"))
-        javaSources.add(javaFile);
-
     final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<File>(2);
     final File bindingLocationBase = Resources.getLocationBase(Binding.class);
     if (bindingLocationBase != null)
@@ -75,7 +69,8 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     for (final URL url : ClassLoaders.getClassPath())
       classpath.add(new File(url.toURI()));
 
-    new JavaCompiler(destDir, classpath).compile(javaSources);
+    new JavaCompiler(destDir, classpath).compile(destDir);
+    ClassLoaders.addURL((URLClassLoader)ClassLoader.getSystemClassLoader(), destDir.toURI().toURL());
   }
 
   private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> excludes) throws IOException, SAXException {
@@ -107,7 +102,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         }
 
         final URL url = schemaModelComposite.getSchemaDocument().getSchemaReference().getURL();
-        String xsdName = packagePath + '/' + pkg;
+        final String xsdName = packagePath + '/' + pkg;
         if (!schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
           addXSDs(url, xsdName + ".xsd", jar, destDir, 0);
 
@@ -196,25 +191,22 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   @Override
   public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> directory) {
     try {
-      BundleProcessor.compile(pipelineContext.getDestdir(), sourcePath);
-      final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestdir(), documents, excludes);
-      final Collection<Bundle> bundles = new ArrayList<Bundle>(jarFiles.size());
-      for (final File jarFile : jarFiles)
-        bundles.add(new Bundle(jarFile));
+      if (pipelineContext.getCompile())
+        BundleProcessor.compile(pipelineContext.getDestdir(), sourcePath);
 
-      // If we don't care about the exploded files,
-      // then delete all of the files only leaving the jars.
-      if (!pipelineContext.getExplodeJars()) {
-        final FileFilter jarFilter = new FileFilter() {
-          @Override
-          public boolean accept(final File pathname) {
-            return !pathname.getName().endsWith(".jar");
-          }
-        };
-
-        final Collection<File> files = Files.listAll(pipelineContext.getDestdir(), jarFilter);
-        for (final File file : files)
-          Files.deleteAllOnExit(file.toPath());
+      final Collection<Bundle> bundles = new ArrayList<Bundle>();
+      if (pipelineContext.getPackage()) {
+        final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestdir(), documents, excludes);
+        for (final File jarFile : jarFiles)
+          bundles.add(new Bundle(jarFile));
+      }
+      else {
+        for (final SchemaComposite schemaComposite : documents) {
+          final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
+          final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
+          if (excludes == null || !excludes.contains(namespaceURI))
+            bundles.add(new Bundle(new File(pipelineContext.getDestdir(), namespaceURI.getPackage())));
+        }
       }
 
       return bundles;
