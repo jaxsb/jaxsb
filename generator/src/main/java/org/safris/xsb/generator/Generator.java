@@ -27,7 +27,6 @@ import org.safris.commons.io.Files;
 import org.safris.commons.lang.Paths;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.Pipeline;
-import org.safris.commons.xml.NamespaceURI;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.composite.SchemaComposite;
 import org.safris.xsb.compiler.processor.composite.SchemaCompositeDirectory;
@@ -86,20 +85,18 @@ public final class Generator extends AbstractGenerator {
     if (destDir == null)
       destDir = Files.getCwd();
 
-    final GeneratorContext generatorContext = new GeneratorContext(destDir, overwrite, compile, pack);
-    final Generator generator = new Generator(generatorContext, schemas, null, null);
+    final GeneratorContext generatorContext = new GeneratorContext(destDir, overwrite, compile, pack, null, null);
+    final Generator generator = new Generator(generatorContext, schemas, null);
     generator.generate();
   }
 
   private final GeneratorContext generatorContext;
   private final Collection<SchemaReference> schemas;
-  private final Set<NamespaceURI> excludes;
   private final Set<File> sourcePath;
 
-  public Generator(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<NamespaceURI> excludes, final Set<File> sourcePath) {
+  public Generator(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath) {
     this.generatorContext = generatorContext;
     this.schemas = schemas;
-    this.excludes = excludes;
     this.sourcePath = sourcePath;
   }
 
@@ -134,11 +131,11 @@ public final class Generator extends AbstractGenerator {
     pipeline.<Model,Plan<?>>addProcessor(models, plans, new PlanDirectory());
 
     // write the plans to files
-    pipeline.<Plan<?>,Writer<?>>addProcessor(plans, null, new WriterDirectory(excludes));
+    pipeline.<Plan<?>,Writer<?>>addProcessor(plans, null, new WriterDirectory());
 
     // compile and jar the bindings
     final Collection<Bundle> bundles = new ArrayList<Bundle>();
-    pipeline.<SchemaComposite,Bundle>addProcessor(schemaComposites, bundles, new BundleDirectory(excludes, sourcePath));
+    pipeline.<SchemaComposite,Bundle>addProcessor(schemaComposites, bundles, new BundleDirectory(sourcePath));
 
     // timestamp the generated files and directories
     pipeline.<Bundle,Bundle>addProcessor(bundles, null, new TimestampDirectory());

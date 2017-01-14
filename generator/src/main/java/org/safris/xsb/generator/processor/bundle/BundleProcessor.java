@@ -73,14 +73,14 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     ClassLoaders.addURL((URLClassLoader)ClassLoader.getSystemClassLoader(), destDir.toURI().toURL());
   }
 
-  private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> excludes) throws IOException, SAXException {
+  private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) throws IOException, SAXException {
     final Set<NamespaceURI> namespaceURIsAdded = new HashSet<NamespaceURI>();
     final Collection<File> jarFiles = new HashSet<File>();
 
     for (final SchemaComposite schemaComposite : schemaComposites) {
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
-      if (excludes == null || !excludes.contains(namespaceURI)) {
+      if ((includes == null || includes.contains(namespaceURI)) && (excludes == null || !excludes.contains(namespaceURI))) {
         final String pkg = namespaceURI.getPackage();
         final File jarFile = new File(destDir, pkg + ".jar");
         if (jarFile.exists())
@@ -180,11 +180,9 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     Files.writeFile(tempFile, bytes);
   }
 
-  private final Set<NamespaceURI> excludes;
   private final Set<File> sourcePath;
 
-  public BundleProcessor(final Set<NamespaceURI> excludes, final Set<File> sourcePath) {
-    this.excludes = excludes;
+  public BundleProcessor(final Set<File> sourcePath) {
     this.sourcePath = sourcePath;
   }
 
@@ -196,7 +194,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
       final Collection<Bundle> bundles = new ArrayList<Bundle>();
       if (pipelineContext.getPackage()) {
-        final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestdir(), documents, excludes);
+        final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestdir(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes());
         for (final File jarFile : jarFiles)
           bundles.add(new Bundle(jarFile));
       }
@@ -204,7 +202,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         for (final SchemaComposite schemaComposite : documents) {
           final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
           final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
-          if (excludes == null || !excludes.contains(namespaceURI))
+          if ((pipelineContext.getIncludes() == null || pipelineContext.getIncludes().contains(namespaceURI)) && (pipelineContext.getExcludes() == null || !pipelineContext.getExcludes().contains(namespaceURI)))
             bundles.add(new Bundle(new File(pipelineContext.getDestdir(), namespaceURI.getPackage())));
         }
       }

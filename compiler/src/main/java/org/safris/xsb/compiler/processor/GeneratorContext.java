@@ -18,16 +18,20 @@ package org.safris.xsb.compiler.processor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 import org.safris.commons.pipeline.PipelineContext;
+import org.safris.commons.xml.NamespaceURI;
 
 public final class GeneratorContext implements PipelineContext {
   private final File destDir;
   private final boolean overwrite;
   private final boolean compale;
   private final boolean pack;
+  private final Set<NamespaceURI> includes;
+  private final Set<NamespaceURI> excludes;
 
-  public GeneratorContext(final File destDir, final boolean overwrite, final boolean compile, final boolean pack) {
+  public GeneratorContext(final File destDir, final boolean overwrite, final boolean compile, final boolean pack, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) {
     File tempDestDir;
     try {
       tempDestDir = destDir.getCanonicalFile();
@@ -39,6 +43,8 @@ public final class GeneratorContext implements PipelineContext {
     this.overwrite = overwrite;
     this.compale = compile;
     this.pack = pack;
+    this.includes = includes;
+    this.excludes = excludes;
   }
 
   public File getDestdir() {
@@ -55,5 +61,13 @@ public final class GeneratorContext implements PipelineContext {
 
   public boolean getPackage() {
     return pack;
+  }
+
+  public Set<NamespaceURI> getIncludes() {
+    return includes;
+  }
+
+  public Set<NamespaceURI> getExcludes() {
+    return excludes;
   }
 }

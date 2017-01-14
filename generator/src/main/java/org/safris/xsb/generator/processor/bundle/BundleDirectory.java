@@ -22,15 +22,14 @@ import java.util.Set;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.commons.xml.NamespaceURI;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.composite.SchemaComposite;
 
 public final class BundleDirectory implements PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> {
   private BundleProcessor processor;
 
-  public BundleDirectory(final Set<NamespaceURI> excludes, final Set<File> sourcePath) {
-    this.processor = new BundleProcessor(excludes, sourcePath);
+  public BundleDirectory(final Set<File> sourcePath) {
+    this.processor = new BundleProcessor(sourcePath);
   }
 
   @Override
