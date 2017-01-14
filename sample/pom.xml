@@ -37,13 +37,13 @@
           <manifest xmlns="http://maven.safris.org/common/manifest.xsd">
             <destdir>${project.build.directory}/generated-sources/xsb</destdir>
             <resources>
-              <resource>${basedir}/src/main/resources/substitutionGroup.xsd</resource>
-              <resource>${basedir}/src/main/resources/xsitype.xsd</resource>
-              <resource>${basedir}/src/main/resources/simple.xsd</resource>
-              <resource>${basedir}/src/main/resources/enums.xsd</resource>
-              <resource>${basedir}/src/main/resources/list.xsd</resource>
-              <resource>${basedir}/src/main/resources/any.xsd</resource>
-              <resource>${basedir}/src/main/resources/id.xsd</resource>
+              <resource>src/main/resources/substitutionGroup.xsd</resource>
+              <resource>src/main/resources/xsitype.xsd</resource>
+              <resource>src/main/resources/simple.xsd</resource>
+              <resource>src/main/resources/enums.xsd</resource>
+              <resource>src/main/resources/list.xsd</resource>
+              <resource>src/main/resources/any.xsd</resource>
+              <resource>src/main/resources/id.xsd</resource>
             </resources>
           </manifest>
         </configuration>
