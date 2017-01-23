@@ -24,9 +24,9 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.safris.commons.lang.Classes;
 import org.safris.commons.lang.Resource;
 import org.safris.commons.lang.Resources;
-import org.safris.commons.lang.reflect.Classes;
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.NamespaceBinding;
 import org.safris.maven.common.Log;
