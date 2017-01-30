@@ -33,10 +33,12 @@ public final class BindingError extends XMLError {
   public BindingError(final Throwable cause) {
     super(cause);
     Throwables.set(this, cause.getMessage() != null ? cause.getMessage() : cause.getClass().getSimpleName(), cause);
+    setStackTrace(cause.getStackTrace());
   }
 
   public BindingError(final String message, final Throwable cause) {
     super(message, cause);
     Throwables.set(this, message != null ? message : (cause.getMessage() != null ? cause.getMessage() : cause.getClass().getSimpleName()), cause);
+    setStackTrace(cause.getStackTrace());
   }
 }
