@@ -18,8 +18,8 @@ package org.safris.xsb.tutorial;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.math.BigDecimal;
 
-import org.safris.commons.xml.binding.Decimal;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
 import org.safris.xsb.runtime.Bindings;
@@ -43,7 +43,7 @@ public class InvoiceUpdater {
     item._description(new pv_invoice._billedItems._item._description(args[1]));
     item._code(new pv_invoice._billedItems._item._code(Integer.parseInt(args[2])));
     item._quantity(new pv_invoice._billedItems._item._quantity(Integer.parseInt(args[3])));
-    item._price(new pv_invoice._billedItems._item._price(new Decimal(Float.parseFloat(args[4]))));
+    item._price(new pv_invoice._billedItems._item._price(new BigDecimal(Float.parseFloat(args[4]))));
 
     final pv_invoice invoice = addItem(file, item);
     DOMs.domToString(invoice.marshal(), DOMStyle.INDENT);

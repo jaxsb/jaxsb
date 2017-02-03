@@ -16,8 +16,9 @@
 
 package org.safris.xsb.tutorial;
 
+import java.math.BigDecimal;
+
 import org.safris.commons.xml.binding.Date;
-import org.safris.commons.xml.binding.Decimal;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
 import org.safris.xsb.tutorial.invoice.xe.pv_invoice;
@@ -53,7 +54,7 @@ public class MarshalHowTo {
     item._description(new pv_invoice._billedItems._item._description("Studded Collar"));
     item._code(new pv_invoice._billedItems._item._code(45342));
     item._quantity(new pv_invoice._billedItems._item._quantity(10));
-    item._price(new pv_invoice._billedItems._item._price(new Decimal(11.95)));
+    item._price(new pv_invoice._billedItems._item._price(new BigDecimal(11.95)));
 
     billedItems._item(item);
 
@@ -61,7 +62,7 @@ public class MarshalHowTo {
     item._description(new pv_invoice._billedItems._item._description("K9 Pet Coat"));
     item._code(new pv_invoice._billedItems._item._code(25233));
     item._quantity(new pv_invoice._billedItems._item._quantity(5));
-    item._price(new pv_invoice._billedItems._item._price(new Decimal(25.01)));
+    item._price(new pv_invoice._billedItems._item._price(new BigDecimal(25.01)));
 
     billedItems._item(item);
 

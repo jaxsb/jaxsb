@@ -16,7 +16,8 @@
 
 package org.w3.x2001.xmlschema.xe;
 
-import org.safris.commons.xml.binding.Decimal;
+import java.math.BigDecimal;
+
 import org.safris.xsb.runtime.MarshalException;
 import org.safris.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
@@ -26,7 +27,7 @@ public abstract class $xs_decimal extends $xs_anySimpleType {
     super(binding);
   }
 
-  public $xs_decimal(final Decimal value) {
+  public $xs_decimal(final BigDecimal value) {
     super(value);
   }
 
@@ -49,7 +50,7 @@ public abstract class $xs_decimal extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(Decimal.parseDecimal(value));
+    super.text(new BigDecimal(value));
   }
 
   @Override

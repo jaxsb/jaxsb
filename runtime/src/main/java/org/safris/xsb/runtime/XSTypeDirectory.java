@@ -18,6 +18,7 @@ package org.safris.xsb.runtime;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,6 @@ import org.safris.commons.xml.binding.Base64Binary;
 import org.safris.commons.xml.binding.Date;
 import org.safris.commons.xml.binding.DateTime;
 import org.safris.commons.xml.binding.Day;
-import org.safris.commons.xml.binding.Decimal;
 import org.safris.commons.xml.binding.Duration;
 import org.safris.commons.xml.binding.HexBinary;
 import org.safris.commons.xml.binding.Language;
@@ -124,7 +124,7 @@ public final class XSTypeDirectory {
       final XSTypeDirectory _byte = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "byte"), new NativeBinding.GenericClass($xs_byte.class), new NativeBinding.GenericClass(Byte.class), Byte.class.getDeclaredMethod("parseByte", String.class)), _short);
       final XSTypeDirectory date = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "date"), new NativeBinding.GenericClass($xs_date.class), new NativeBinding.GenericClass(Date.class), Date.class.getDeclaredMethod("parseDate", String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory dateTime = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "dateTime"), new NativeBinding.GenericClass($xs_dateTime.class), new NativeBinding.GenericClass(DateTime.class), DateTime.class.getDeclaredMethod("parseDateTime", String.class)), ANYSIMPLETYPE);
-      final XSTypeDirectory decimal = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "decimal"), new NativeBinding.GenericClass($xs_decimal.class), new NativeBinding.GenericClass(Decimal.class), Decimal.class.getDeclaredMethod("parseDecimal", String.class)), ANYSIMPLETYPE);
+      final XSTypeDirectory decimal = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "decimal"), new NativeBinding.GenericClass($xs_decimal.class), new NativeBinding.GenericClass(BigDecimal.class), BigDecimal.class.getDeclaredConstructor(String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory _double = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "double"), new NativeBinding.GenericClass($xs_double.class), new NativeBinding.GenericClass(Double.class), Double.class.getDeclaredMethod("parseDouble", String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory duration = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "duration"), new NativeBinding.GenericClass($xs_duration.class), new NativeBinding.GenericClass(Duration.class), Duration.class.getDeclaredMethod("parseDuration", String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory _float = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "float"), new NativeBinding.GenericClass($xs_float.class), new NativeBinding.GenericClass(Float.class), Float.class.getDeclaredMethod("parseFloat", String.class)), ANYSIMPLETYPE);

@@ -18,10 +18,10 @@ package org.safris.xsb.tutorial;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.safris.commons.xml.binding.Date;
-import org.safris.commons.xml.binding.Decimal;
 import org.safris.xsb.runtime.Bindings;
 import org.safris.xsb.tutorial.invoice.xe.$pv_itemType;
 import org.safris.xsb.tutorial.invoice.xe.pv_invoice;
@@ -85,7 +85,7 @@ public class ParseHowTo {
       final Integer code = item._code(0).text();
       System.out.print("(#" + code + ") ");
 
-      final Decimal price = item._price(0).text();
+      final BigDecimal price = item._price(0).text();
       System.out.println("$" + price + " each.");
     }
   }
