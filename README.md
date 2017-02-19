@@ -4,7 +4,7 @@
 
 ### Introduction
 
-**XSB** is a Java framework for binging to XML Schemas. Based on the CohesionFirst™ approach, the **XSB** framework provides a complete solution for cohesive integration of Java applications to XML Documents via XML Schemas. The framework provides a [XSB Java Source Code Generator][generator] and a [XSB Runtime][runtime] to parse and marshal XML Documents to and from Java objects. The **XSB** framework is a complete implementation and covers the entirety of the [XSD 1.1 Specification][xsd-spec].
+**XSB** is a Java framework for binding to XML Schemas. Based on the CohesionFirst™ approach, the **XSB** framework provides a complete solution for cohesive integration of Java applications to XML Documents via XML Schemas. The framework provides a [XSB Java Source Code Generator][generator] and a [XSB Runtime][runtime] to parse and marshal XML Documents to and from Java objects. The **XSB** framework is a complete implementation and covers the entirety of the [XSD 1.1 Specification][xsd-spec].
 
 ### Why **XSB**?
 
