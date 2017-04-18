@@ -115,9 +115,9 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
         <configuration>
           <manifest xmlns="http://maven.safris.org/common/manifest.xsd">
             <destdir explodeJars="true">${project.build.directory}/generated-sources/xsb</destdir>
-            <schemas>
-              <schema>${basedir}/src/main/resources/example.xsd</schema>
-            </schemas>
+            <resources>
+              <resource>${basedir}/src/main/resources/example.xsd</resource>
+            </resources>
           </manifest>
         </configuration>
       </execution>
