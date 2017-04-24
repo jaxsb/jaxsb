@@ -177,28 +177,17 @@ public final class SchemaReference implements PipelineEntity {
         return;
 
       final URLConnection connection = location.openConnection();
-      int tryCount = 0;
-      while (tryCount++ < 10) {
-        try {
-          this.inputStream = connection.getInputStream();
-          Log.debug("opened connection to: " + location.toExternalForm());
-        }
-        catch (final FileNotFoundException e) {
-          throw new LexerFailureException("File not found: " + location.toExternalForm());
-        }
-        catch (final IOException e) {
-          if ("Connection refused".equals(e.getMessage()) && tryCount == 10)
-            throw new LexerFailureException("Connection refused: " + location);
-
-          throw e;
-        }
+      try {
+        this.inputStream = connection.getInputStream();
+        Log.debug("opened connection to: " + location.toExternalForm());
+      }
+      catch (final FileNotFoundException e) {
+        throw new LexerFailureException("File not found: " + location.toExternalForm());
       }
 
       this.lastModified = connection.getLastModified();
       isConnected = true;
     }
-
-    return;
   }
 
   public long getLastModified() throws IOException {
