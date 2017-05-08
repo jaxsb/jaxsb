@@ -69,7 +69,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
                       if (containerClass.lastModified() < connection.getLastModified())
                         throw new SAXInterruptException();
                     }
-                  }, false);
+                  }, false, false);
                 }
                 catch (final SAXInterruptException e) {
                   Log.debug("adding: " + containerClass.getAbsolutePath());
