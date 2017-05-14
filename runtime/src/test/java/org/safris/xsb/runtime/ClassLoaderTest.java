@@ -21,7 +21,6 @@ import java.io.File;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.safris.commons.test.LoggableTest;
-import org.safris.xsb.runtime.WeakClassLoader;
 
 public class ClassLoaderTest extends LoggableTest {
   public static void main(final String[] args) throws Exception {

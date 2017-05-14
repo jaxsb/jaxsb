@@ -34,7 +34,6 @@ import com.sun.org.apache.xerces.internal.xni.XNIException;
 import com.sun.org.apache.xerces.internal.xni.parser.XMLEntityResolver;
 import com.sun.org.apache.xerces.internal.xni.parser.XMLInputSource;
 
-@SuppressWarnings("restriction")
 public final class BindingEntityResolver implements XMLEntityResolver {
   public static void registerSchemaLocation(final String namespaceURI, final URL schemaReference) {
     final URL present = schemaReferences.get(namespaceURI);

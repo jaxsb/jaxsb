@@ -24,7 +24,6 @@ import java.util.Map;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.lang.LexerFailureException;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.composite.SchemaComposite;
@@ -73,9 +72,13 @@ import org.safris.xsb.compiler.processor.model.element.UnionModel;
 import org.safris.xsb.compiler.processor.model.element.UniqueModel;
 import org.safris.xsb.compiler.processor.model.element.UnknownModel;
 import org.safris.xsb.compiler.processor.model.element.WhiteSpaceModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
 public final class ModelDirectory implements PipelineDirectory<GeneratorContext,SchemaComposite,Model> {
+  private static final Logger logger = LoggerFactory.getLogger(ModelDirectory.class);
+
   private final Map<String,Class<? extends Model>> classes = new HashMap<String,Class<? extends Model>>(39);
   private final Collection<String> keys;
   private final ModelProcessor processor = new ModelProcessor();
@@ -139,7 +142,7 @@ public final class ModelDirectory implements PipelineDirectory<GeneratorContext,
       throw new IllegalArgumentException("Node key without local name");
 
     if (!keys.contains(elementName)) {
-      Log.warn("Unknown schema element <" + (schemaNodeComposite.getNode().getPrefix() != null ? schemaNodeComposite.getNode().getPrefix() + ":" : "") + elementName + ">");
+      logger.warn("Unknown schema element <" + (schemaNodeComposite.getNode().getPrefix() != null ? schemaNodeComposite.getNode().getPrefix() + ":" : "") + elementName + ">");
       elementName = null;
     }
 

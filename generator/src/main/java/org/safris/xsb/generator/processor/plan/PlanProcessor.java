@@ -25,11 +25,14 @@ import org.safris.commons.io.Files;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineProcessor;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class PlanProcessor implements PipelineProcessor<GeneratorContext,Model,Plan<?>> {
+  private static final Logger logger = LoggerFactory.getLogger(PlanProcessor.class);
+
   private Plan<?> root;
 
   @Override
@@ -42,7 +45,7 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
 
       final URL url = model.getSchema().getURL();
       final String display = URLs.isLocal(url) ? Files.relativePath(Files.getCwd().getAbsoluteFile(), new File(url.getFile()).getAbsoluteFile()) : url.toExternalForm();
-      Log.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
+      logger.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
 
       for (final Model child : model.getChildren())
         disclose(child, root, plans, pipelineContext, directory);

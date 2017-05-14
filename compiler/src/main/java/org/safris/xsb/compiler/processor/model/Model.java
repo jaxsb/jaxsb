@@ -26,15 +26,18 @@ import javax.xml.namespace.QName;
 
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.xml.NamespaceURI;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.lang.LexerFailureException;
 import org.safris.xsb.compiler.lang.UniqueQName;
 import org.safris.xsb.compiler.processor.model.element.SchemaModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public abstract class Model implements PipelineEntity {
   protected static final String TO_STRING_DELIMITER = "TO_STRING_DELIMITER";
+
+  protected final Logger logger = LoggerFactory.getLogger(getClass());
 
   private final Collection<Model> children = new ArrayList<Model>();
   private Map<NamespaceURI,URL> schemaReferences = null;
@@ -67,7 +70,7 @@ public abstract class Model implements PipelineEntity {
 
   protected final void registerSchemaLocation(final NamespaceURI namespaceURI, final URL schemaReference) {
     if (getParent() != null) {
-      Log.debug("registering schema location \"" + namespaceURI + "\" to \"" + schemaReference.toExternalForm() + "\"");
+      logger.debug("registering schema location \"" + namespaceURI + "\" to \"" + schemaReference.toExternalForm() + "\"");
       getParent().registerSchemaLocation(namespaceURI, schemaReference);
       return;
     }

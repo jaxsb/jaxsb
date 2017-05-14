@@ -31,17 +31,19 @@ import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.commons.pipeline.PipelineProcessor;
 import org.safris.commons.xml.NamespaceURI;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.lang.UniqueQName;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.document.SchemaDocument;
 import org.safris.xsb.compiler.processor.reference.SchemaReference;
 import org.safris.xsb.generator.AbstractGenerator;
 import org.safris.xsb.generator.GeneratorError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public final class SchemaDocumentProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaDocument> {
+  private static final Logger logger = LoggerFactory.getLogger(SchemaDocumentProcessor.class);
   private static final String[] includeStrings = new String[] {"include","redefine"};
 
   @Override
@@ -87,7 +89,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
                     duplicates = new ArrayList<URL>();
 
                 duplicates.add(schemaLocationURL);
-                Log.info("Adding " + new File(schemaLocationURL.getFile()).getName() + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}");
+                logger.info("Adding " + new File(schemaLocationURL.getFile()).getName() + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}");
                 includeLoopCheck.put(schemaDocument.getSchemaReference().getNamespaceURI(), duplicates);
               }
             }

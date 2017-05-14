@@ -30,13 +30,15 @@ import org.safris.commons.xml.Prefix;
 import org.safris.commons.xml.sax.SAXFeature;
 import org.safris.commons.xml.sax.SAXParser;
 import org.safris.commons.xml.sax.SAXParsers;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.lang.LexerFailureException;
 import org.safris.xsb.compiler.lang.UniqueQName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public final class SchemaReference implements PipelineEntity {
+  private static final Logger logger = LoggerFactory.getLogger(SchemaReference.class);
   private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<NamespaceURI,Prefix>();
   private static final Map<Prefix,NamespaceURI> prefixToNamespaceURI = new HashMap<Prefix,NamespaceURI>();
 
@@ -53,7 +55,7 @@ public final class SchemaReference implements PipelineEntity {
   public SchemaReference(final URL location) {
     this.location = location;
     this.isInclude = null;
-    Log.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\")");
+    logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\")");
   }
 
   public SchemaReference(final URL location, final boolean isInclude) {
@@ -62,7 +64,7 @@ public final class SchemaReference implements PipelineEntity {
 
     this.location = location;
     this.isInclude = isInclude;
-    Log.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", " + isInclude + ")");
+    logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", " + isInclude + ")");
   }
 
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
@@ -70,14 +72,14 @@ public final class SchemaReference implements PipelineEntity {
     this.namespaceURI = namespaceURI;
     this.prefix = prefix;
     this.isInclude = isInclude;
-    Log.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
+    logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
   }
 
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final boolean isInclude) {
     this.location = location;
     this.namespaceURI = namespaceURI;
     this.isInclude = isInclude;
-    Log.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", \"" + namespaceURI + "\")");
+    logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", \"" + namespaceURI + "\")");
   }
 
   public NamespaceURI getNamespaceURI() {
@@ -161,7 +163,7 @@ public final class SchemaReference implements PipelineEntity {
           throw new LexerFailureException("This should never happen: " + namespaceURI + " != " + namespace);
 
         this.prefix = Prefix.getInstance(prefix);
-        Log.debug("linking \"" + namespaceURI + "\" to \"" + this.prefix + "\"");
+        logger.debug("linking \"" + namespaceURI + "\" to \"" + this.prefix + "\"");
         UniqueQName.linkPrefixNamespace(namespaceURI, this.prefix);
         isResolved = true;
       }
@@ -179,7 +181,7 @@ public final class SchemaReference implements PipelineEntity {
       final URLConnection connection = location.openConnection();
       try {
         this.inputStream = connection.getInputStream();
-        Log.debug("opened connection to: " + location.toExternalForm());
+        logger.debug("opened connection to: " + location.toExternalForm());
       }
       catch (final FileNotFoundException e) {
         throw new LexerFailureException("File not found: " + location.toExternalForm());

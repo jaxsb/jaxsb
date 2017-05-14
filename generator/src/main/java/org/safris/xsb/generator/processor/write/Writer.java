@@ -29,16 +29,19 @@ import org.safris.commons.io.Files;
 import org.safris.commons.net.URLs;
 import org.safris.commons.pipeline.PipelineDirectory;
 import org.safris.commons.pipeline.PipelineEntity;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.Nameable;
 import org.safris.xsb.generator.processor.plan.AliasPlan;
 import org.safris.xsb.generator.processor.plan.NestablePlan;
 import org.safris.xsb.generator.processor.plan.Plan;
 import org.safris.xsb.runtime.CompilerFailureException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
+  private static final Logger logger = LoggerFactory.getLogger(Writer.class);
+
   private final Collection<String> messages = new HashSet<String>();
 
   private static final Map<File,ClassFile> fileToClassFile = new HashMap<File,ClassFile>();
@@ -50,7 +53,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     if (!messages.contains(message)) {
       messages.add(message);
-      Log.info(message);
+      logger.info(message);
     }
 
     final Nameable<?> nameable = (Nameable<?>)plan;
@@ -95,7 +98,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     if (!messages.contains(message)) {
       messages.add(message);
-      Log.info(message);
+      logger.info(message);
     }
 
     final Nameable<?> nameable = (Nameable<?>)plan;

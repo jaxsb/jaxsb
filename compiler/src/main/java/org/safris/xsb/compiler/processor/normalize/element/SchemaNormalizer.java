@@ -21,7 +21,6 @@ import java.net.URL;
 
 import org.safris.commons.io.Files;
 import org.safris.commons.net.URLs;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.processor.model.element.SchemaModel;
 import org.safris.xsb.compiler.processor.normalize.Normalizer;
 import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;
@@ -43,7 +42,7 @@ public final class SchemaNormalizer extends Normalizer<SchemaModel> {
       return;
 
     final String display = URLs.isLocal(url) ? Files.relativePath(Files.getCwd().getAbsoluteFile(), new File(url.getFile()).getAbsoluteFile()) : url.toExternalForm();
-    Log.info("Lexing {" + model.getTargetNamespace() + "} from " + display);
+    logger.info("Lexing {" + model.getTargetNamespace() + "} from " + display);
   }
 
   @Override

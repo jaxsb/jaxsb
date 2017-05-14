@@ -18,7 +18,6 @@ package org.safris.xsb.sample;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.safris.xsb.sample.SimpleSample;
 
 public class SimpleTest extends SampleTest {
   @Test

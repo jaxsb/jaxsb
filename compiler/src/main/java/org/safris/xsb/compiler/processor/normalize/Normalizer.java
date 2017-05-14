@@ -18,8 +18,12 @@ package org.safris.xsb.compiler.processor.normalize;
 
 import org.safris.commons.pipeline.PipelineEntity;
 import org.safris.xsb.compiler.processor.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class Normalizer<T extends Model> implements PipelineEntity {
+  protected final Logger logger = LoggerFactory.getLogger(getClass());
+
   private final NormalizerDirectory directory;
 
   public Normalizer(final NormalizerDirectory directory) {

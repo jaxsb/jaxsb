@@ -18,7 +18,6 @@ package org.safris.xsb.sample;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.safris.xsb.sample.EnumsSample;
 
 public class EnumsTest extends SampleTest {
   @Test

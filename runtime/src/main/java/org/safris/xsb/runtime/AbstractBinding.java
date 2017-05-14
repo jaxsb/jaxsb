@@ -29,9 +29,12 @@ import org.safris.commons.lang.Resource;
 import org.safris.commons.lang.Resources;
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.NamespaceBinding;
-import org.safris.maven.common.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractBinding implements Cloneable {
+  private static final Logger logger = LoggerFactory.getLogger(AbstractBinding.class);
+
   protected static final QName XSI_TYPE = new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi");
   protected static final QName XSI_NIL = new QName("http://www.w3.org/2001/XMLSchema-instance", "nil", "xsi");
   protected static final QName XMLNS = new QName("http://www.w3.org/2000/xmlns/", "xmlns");
@@ -51,7 +54,7 @@ public abstract class AbstractBinding implements Cloneable {
       BindingEntityResolver.registerSchemaLocation(namespaceURI, new URL(parent + "/" + schemaReference));
     }
     catch (final MalformedURLException e) {
-      Log.error("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
+      logger.error("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
     }
   }
 

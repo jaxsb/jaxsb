@@ -28,19 +28,22 @@ import org.safris.commons.pipeline.PipelineProcessor;
 import org.safris.commons.xml.sax.DocumentHandler;
 import org.safris.commons.xml.sax.SAXInterruptException;
 import org.safris.commons.xml.sax.XMLDocuments;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.lang.LexerFailureException;
 import org.safris.xsb.compiler.processor.GeneratorContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class SchemaReferenceProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaReference> {
-//  private static final class Counter {
+  private static final Logger logger = LoggerFactory.getLogger(SchemaReferenceProcessor.class);
+
+  //  private static final class Counter {
 //    protected volatile int count = 0;
 //  }
 
   @Override
   public Collection<SchemaReference> process(final GeneratorContext pipelineContext, final Collection<SchemaReference> schemaReferences, final PipelineDirectory<GeneratorContext,SchemaReference,SchemaReference> directory) {
     final File destDir = pipelineContext.getDestdir();
-    Log.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
+    logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
 
     final Collection<SchemaReference> selectedSchemas = new LinkedHashSet<SchemaReference>(3);
     try {
@@ -48,7 +51,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 //      final Counter counter = new Counter();
 
 //      final ThreadGroup threadGroup = new ThreadGroup("SchemaReferenceProcess");
-//      Log.debug("created SchemaReferenceProcess ThreadGroup");
+//      logger.debug("created SchemaReferenceProcess ThreadGroup");
       // download and cache the schemas into a temporary directory
       for (final SchemaReference schemaReference : schemaReferences) {
 //        new Thread(threadGroup, schemaReference.getURL().toString()) {
@@ -56,9 +59,9 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 //          public void run() {
             try {
               final File containerClass = new File(destDir, schemaReference.getNamespaceURI().getPackage().replace('.', File.separatorChar) + File.separator + "xe.java");
-              Log.debug("checking whether class is up-to-date: " + containerClass.getAbsolutePath());
+              logger.debug("checking whether class is up-to-date: " + containerClass.getAbsolutePath());
               if (pipelineContext.getOverwrite() || !containerClass.exists()) {
-                Log.debug("adding: " + containerClass.getAbsolutePath());
+                logger.debug("adding: " + containerClass.getAbsolutePath());
                 selectedSchemas.add(schemaReference);
               }
               else {
@@ -72,12 +75,12 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
                   }, false, false);
                 }
                 catch (final SAXInterruptException e) {
-                  Log.debug("adding: " + containerClass.getAbsolutePath());
+                  logger.debug("adding: " + containerClass.getAbsolutePath());
                   selectedSchemas.add(schemaReference);
                   continue;
                 }
 
-                Log.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
+                logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
               }
 
 //              synchronized (counter) {

@@ -22,7 +22,6 @@ import java.net.URL;
 import org.safris.commons.io.Files;
 import org.safris.commons.net.URLs;
 import org.safris.commons.xml.NamespaceURI;
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.lang.UniqueQName;
 import org.safris.xsb.compiler.processor.model.Model;
 import org.safris.xsb.compiler.schema.attribute.BlockDefault;
@@ -67,7 +66,7 @@ public final class SchemaModel extends Model {
   public final void setURL(final URL url) {
     this.url = url;
     final String display = URLs.isLocal(url) ? Files.relativePath(Files.getCwd().getAbsoluteFile(), new File(url.getFile()).getAbsoluteFile()) : url.toExternalForm();
-    Log.info("Scanning {" + getTargetNamespace() + "} from " + display);
+    logger.info("Scanning {" + getTargetNamespace() + "} from " + display);
   }
 
   public final URL getURL() {

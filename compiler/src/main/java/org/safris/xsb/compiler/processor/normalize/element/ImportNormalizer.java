@@ -19,7 +19,6 @@ package org.safris.xsb.compiler.processor.normalize.element;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.safris.maven.common.Log;
 import org.safris.xsb.compiler.processor.model.element.ImportModel;
 import org.safris.xsb.compiler.processor.normalize.Normalizer;
 import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;
@@ -42,7 +41,7 @@ public final class ImportNormalizer extends Normalizer<ImportModel> {
       return;
 
     messages.add(message);
-    Log.info(message);
+    logger.info(message);
   }
 
   @Override
