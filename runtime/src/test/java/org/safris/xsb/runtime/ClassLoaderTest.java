@@ -20,9 +20,12 @@ import java.io.File;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.safris.commons.test.LoggableTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ClassLoaderTest extends LoggableTest {
+public class ClassLoaderTest {
+  private static final Logger logger = LoggerFactory.getLogger(ClassLoaderTest.class);
+
   public static void main(final String[] args) throws Exception {
     if (args == null || args.length == 0) {
       new ClassLoaderTest().testClassLoaders();
@@ -49,13 +52,13 @@ public class ClassLoaderTest extends LoggableTest {
 
     long freeMemoryAfterUnload = Runtime.getRuntime().freeMemory();
     float ratio = (float)freeMemoryAfterUnload / (float)freeMemoryAfterLoad;
-    log(classLoader.getClass().getName());
-    log("{");
-    log("\tFree Memory Before Load: " + freeMemoryBeforeLoad);
-    log("\tFree Memory After Load: " + freeMemoryAfterLoad);
-    log("\tFree Memory After Unload: " + freeMemoryAfterUnload);
-    log("\tratio: " + ratio);
-    log("}");
+    logger.info(classLoader.getClass().getName());
+    logger.info("{");
+    logger.info("\tFree Memory Before Load: " + freeMemoryBeforeLoad);
+    logger.info("\tFree Memory After Load: " + freeMemoryAfterLoad);
+    logger.info("\tFree Memory After Unload: " + freeMemoryAfterUnload);
+    logger.info("\tratio: " + ratio);
+    logger.info("}");
     return ratio;
   }
 
@@ -104,11 +107,11 @@ public class ClassLoaderTest extends LoggableTest {
      if (line.contains("ratio: "))
      ratio = Float.parseFloat(line.substring(line.indexOf(": ") + 2));
 
-     log(line);
+     logger.info(line);
      }
 
      while((line = bufferedErrorReader.readLine()) != null)
-     log(line);
+     logger.info(line);
 
      try {
      process.waitFor();

@@ -18,27 +18,30 @@ package org.safris.xsb.sample;
 
 import java.io.StringReader;
 
-import org.safris.commons.test.LoggableTest;
 import org.safris.commons.xml.dom.DOMStyle;
 import org.safris.commons.xml.dom.DOMs;
 import org.safris.commons.xml.dom.Validator;
 import org.safris.xsb.runtime.Binding;
 import org.safris.xsb.runtime.BindingValidator;
 import org.safris.xsb.runtime.Bindings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
-public abstract class SampleTest extends LoggableTest {
+public abstract class SampleTest {
+  private static final Logger logger = LoggerFactory.getLogger(SampleTest.class);
+
   static {
     final Validator validator = new BindingValidator();
     Validator.setSystemValidator(validator);
   }
 
-  protected final boolean verifyBinding(final Binding binding) throws Exception {
+  protected static final boolean verifyBinding(final Binding binding) throws Exception {
     boolean success = true;
     final Element element = Bindings.marshal(binding);
     final String xml = DOMs.domToString(element, DOMStyle.INDENT);
-    log(xml + "\n");
+    logger.info(xml + "\n");
     Binding reparsed = Bindings.parse(new InputSource(new StringReader(xml)));
     String message = "SUCCESS";
     String not = "---";
@@ -60,7 +63,7 @@ public abstract class SampleTest extends LoggableTest {
     not = "---";
     final String xml2 = DOMs.domToString(Bindings.marshal(reparsed), DOMStyle.INDENT);
     if (!xml.equals(xml2)) {
-      log(xml2);
+      logger.info(xml2);
       success = false;
       message = "FAILURE";
       not = "NOT";
@@ -68,7 +71,7 @@ public abstract class SampleTest extends LoggableTest {
 
     log += "\njava -> xml -> java -> xml    String.equals() [" + message + "]";
     log += "\n         ^-" + not + "-equal----^\n";
-    log(log);
+    logger.info(log);
 
     return success;
   }
