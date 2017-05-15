@@ -72,7 +72,7 @@ public abstract class $xs_anySimpleType extends Binding {
       return "";
 
     if (text() instanceof Collection)
-      throw new Error("Why is this a Collection? The collection logic should be in the appropriate subclass.");
+      throw new IllegalArgumentException("Why is this a Collection? The collection logic should be in the appropriate subclass.");
 
     return text().toString();
   }

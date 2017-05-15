@@ -32,18 +32,17 @@ public class ClassLoaderTest {
       return;
     }
 
-    final ClassLoaderTest test = new ClassLoaderTest();
     if ("weak".equals(args[0]))
-      test.testClassLoader(new WeakClassLoader());
+      ClassLoaderTest.testClassLoader(new WeakClassLoader());
     else if ("system".equals(args[0]))
-      test.testClassLoader(ClassLoader.getSystemClassLoader());
+      ClassLoaderTest.testClassLoader(ClassLoader.getSystemClassLoader());
     else
-      throw new Error("Unknown classLoader option");
+      throw new Exception("Unknown classLoader option");
 
     Runtime.getRuntime().gc();
   }
 
-  private float testClassLoader(final java.lang.ClassLoader classLoader) throws Exception {
+  private static float testClassLoader(final java.lang.ClassLoader classLoader) throws Exception {
     long freeMemoryBeforeLoad = Runtime.getRuntime().freeMemory();
 //      PackageLoader.getSystemPackageLoader().loadPackage("org.safris.xml.toolkit.component.runtime");
     long freeMemoryAfterLoad = Runtime.getRuntime().freeMemory();
@@ -118,7 +117,7 @@ public class ClassLoaderTest {
      }
      catch(final InterruptedException e)
      {
-     throw new Error(e);
+     throw new Exception(e);
      }
 
      return ratio;*/ return 0;

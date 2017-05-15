@@ -18,6 +18,7 @@ package org.safris.xsb.sample;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.safris.commons.xml.binding.Date;
@@ -28,30 +29,30 @@ import org.safris.xsb.sample.list.xe.$li_employeeType;
 import org.safris.xsb.sample.list.xe.$li_staffType;
 import org.safris.xsb.sample.list.xe.$li_volunteerType;
 import org.safris.xsb.sample.list.xe.li_roster;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
 public class ListSample {
-  public static void main(final String[] args) throws Exception {
-    new SubstitutionGroupSample().runSample();
-  }
+  private static final Logger logger = LoggerFactory.getLogger(ListSample.class);
 
   private static void printCommon(final $li_staffType staffType) {
     final String name = staffType._name(0).text();
-    System.out.println("Name: " + name);
+    logger.info("Name: " + name);
 
     final List<String> workDays = staffType._workDays(0).text();
-    System.out.println("Work Days: " + name);
-    for (String workDay : workDays)
-      System.out.println("\t" + workDay);
+    logger.info("Work Days: " + name);
+    for (final String workDay : workDays)
+      logger.info("\t" + workDay);
   }
 
   public Binding runSample() throws Exception {
     final File file = new File("src/main/resources/list.xml");
     if (!file.exists())
-      throw new Error("File " + file.getAbsolutePath() + " does not exist.");
+      throw new FileNotFoundException("File " + file.getAbsolutePath() + " does not exist.");
 
     if (!file.canRead())
-      throw new Error("File " + file.getAbsolutePath() + " is not readable.");
+      throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
 
     final li_roster roster = (li_roster)Bindings.parse(new InputSource(new FileInputStream(file)));
     if (roster._employees() != null && roster._employees().size() != -1) {
@@ -60,12 +61,12 @@ public class ListSample {
         printCommon(employee);
 
         final String position = employee._position(0).text();
-        System.out.println("Position: " + position);
+        logger.info("Position: " + position);
 
         final List<Date> vacationDates = employee._vacationDates(0).text();
-        System.out.println("Vacation Dates:");
-        for (Date vacationDate : vacationDates)
-          System.out.println("\t" + vacationDate);
+        logger.info("Vacation Dates:");
+        for (final Date vacationDate : vacationDates)
+          logger.info("\t" + vacationDate);
       }
 
       final li_roster._employees._employee employee = new li_roster._employees._employee();
@@ -82,9 +83,9 @@ public class ListSample {
         printCommon(volunteer);
 
         final List<Time> breakTimes = volunteer._breakTimes(0).text();
-        System.out.println("Break Times:");
+        logger.info("Break Times:");
         for (final Time breakTime : breakTimes)
-          System.out.println("\t" + breakTime);
+          logger.info("\t" + breakTime);
       }
 
       final li_roster._volunteers._volunteer volunteer = new li_roster._volunteers._volunteer();

@@ -133,7 +133,7 @@ public final class UniqueQName {
 
     final Prefix exists = namespaceURIToPrefix.get(namespaceURI);
     if (exists != null && !exists.equals(prefix))
-      throw new Error("Prefix for namespace {" + namespaceURI + "} is being redefined from \"" + exists + "\" to \"" + prefix + "\"");
+      throw new IllegalStateException("Prefix for namespace {" + namespaceURI + "} is being redefined from \"" + exists + "\" to \"" + prefix + "\"");
 
     namespaceURIToPrefix.put(namespaceURI, prefix);
   }

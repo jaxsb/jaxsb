@@ -18,6 +18,7 @@ package org.safris.xsb.sample;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.safris.xsb.runtime.Binding;
@@ -35,10 +36,10 @@ public class IdSample {
   public Binding runSample() throws Exception {
     final File file = new File("src/main/resources/id.xml");
     if (!file.exists())
-      throw new Error("File " + file.getAbsolutePath() + " does not exist.");
+      throw new FileNotFoundException("File " + file.getAbsolutePath() + " does not exist.");
 
     if (!file.canRead())
-      throw new Error("File " + file.getAbsolutePath() + " is not readable.");
+      throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
 
     final id_directory directory = (id_directory)Bindings.parse(new InputSource(new FileInputStream(file)));
     final List<$id_bookType> books = directory._book();

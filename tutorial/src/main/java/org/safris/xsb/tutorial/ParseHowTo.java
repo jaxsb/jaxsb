@@ -18,6 +18,7 @@ package org.safris.xsb.tutorial;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -31,10 +32,10 @@ public class ParseHowTo {
   public static void main(final String[] args) throws Exception {
     final File file = new File("src/main/resources/xml/invoice.xml");
     if (!file.exists())
-      throw new Error("File " + file.getAbsolutePath() + " does not exist.");
+      throw new FileNotFoundException("File " + file.getAbsolutePath() + " does not exist.");
 
     if (!file.canRead())
-      throw new Error("File " + file.getAbsolutePath() + " is not readable.");
+      throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
 
     final pv_invoice invoice = (pv_invoice)Bindings.parse(new InputSource(new FileInputStream(file)));
 
