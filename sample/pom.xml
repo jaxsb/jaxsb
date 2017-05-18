@@ -55,9 +55,5 @@
       <groupId>org.safris.xsb</groupId>
       <artifactId>xsb-runtime</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.safris.commons</groupId>
-      <artifactId>commons-util</artifactId>
-    </dependency>
   </dependencies>
 </project>

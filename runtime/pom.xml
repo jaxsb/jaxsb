@@ -47,25 +47,17 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.safris.xsb</groupId>
-      <artifactId>xsb-compiler</artifactId>
+      <groupId>org.opengis.cite.xerces</groupId>
+      <artifactId>xercesImpl-xsd11</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.safris.commons</groupId>
       <artifactId>commons-formatter</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.safris.commons</groupId>
-      <artifactId>commons-util</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.sun</groupId>
-      <artifactId>tools</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.opengis.cite.xerces</groupId>
-      <artifactId>xercesImpl-xsd11</artifactId>
-      <scope>test</scope>
+      <groupId>org.safris.xsb</groupId>
+      <artifactId>xsb-compiler</artifactId>
     </dependency>
   </dependencies>
 </project>
