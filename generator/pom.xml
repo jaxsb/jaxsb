@@ -45,8 +45,8 @@
       <artifactId>xsb-runtime</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.safris.commons</groupId>
-      <artifactId>commons-jci</artifactId>
+      <groupId>org.safris</groupId>
+      <artifactId>safris-jci</artifactId>
     </dependency>
   </dependencies>
 </project>

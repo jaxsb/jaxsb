@@ -52,8 +52,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.safris.commons</groupId>
-      <artifactId>commons-formatter</artifactId>
+      <groupId>org.safris</groupId>
+      <artifactId>safris-formatter</artifactId>
     </dependency>
     <dependency>
       <groupId>org.safris.xsb</groupId>

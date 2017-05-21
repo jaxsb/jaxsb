@@ -30,12 +30,12 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <dependencies>
     <dependency>
-      <groupId>org.safris.commons</groupId>
-      <artifactId>commons-pipeline</artifactId>
+      <groupId>org.safris</groupId>
+      <artifactId>safris-pipeline</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.safris.commons</groupId>
-      <artifactId>commons-xml</artifactId>
+      <groupId>org.safris</groupId>
+      <artifactId>safris-xml</artifactId>
     </dependency>
   </dependencies>
 </project>
