@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.safris.commons.xml.validate.ValidationException;
-import org.xml.sax.InputSource;
 
 public final class BindingDocument {
   private final URL url;
@@ -29,7 +28,7 @@ public final class BindingDocument {
   public BindingDocument(final URL url) throws IOException, ParseException, ValidationException {
     this.url = url;
     url.openConnection();
-    document = Bindings.parse(new InputSource(url.openStream()));
+    document = Bindings.parse(url);
   }
 
   public Binding getDocument() {

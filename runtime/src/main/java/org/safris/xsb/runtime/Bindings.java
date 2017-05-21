@@ -16,17 +16,20 @@
 
 package org.safris.xsb.runtime;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URL;
 
-import org.safris.commons.xml.XMLException;
 import org.safris.commons.xml.dom.DOMs;
 import org.safris.commons.xml.dom.Validator;
 import org.safris.commons.xml.validate.ValidationException;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public abstract class Bindings {
-  public static Binding clone(final Binding binding) throws XMLException {
+  public static Binding clone(final Binding binding) throws IOException, MarshalException, ParseException, ValidationException {
     return Bindings.parse(new InputSource(new StringReader(DOMs.domToString(binding.marshal()))));
   }
 
@@ -63,12 +66,12 @@ public abstract class Bindings {
    * @param inputSource InputSource pointing to xml.
    * @return Binding instance.
    */
-  public static Binding parse(final InputSource inputSource) throws ParseException, ValidationException {
+  public static Binding parse(final InputSource inputSource) throws IOException, ParseException, ValidationException {
     final Element element;
     try {
       element = Binding.newDocumentBuilder().parse(inputSource).getDocumentElement();
     }
-    catch (final Exception e) {
+    catch (final SAXException e) {
       throw new ParseException(e);
     }
 
@@ -76,6 +79,18 @@ public abstract class Bindings {
       Validator.getSystemValidator().validateParse(element);
 
     return Binding.parseElement(element, null);
+  }
+
+  /**
+   * Parse an URL pointing to xml into a Binding instance.
+   *
+   * @param url URL pointing to xml.
+   * @return Binding instance.
+   */
+  public static Binding parse(final URL url) throws IOException, ParseException, ValidationException {
+    try (final InputStream in = url.openStream()) {
+      return parse(new InputSource(in));
+    }
   }
 
   public static javax.xml.namespace.QName getTypeName(final Binding binding) {
