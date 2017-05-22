@@ -60,19 +60,19 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
   ```
 
-2. Add the `mvn.repo.safris.org` Maven repositories to the POM.
+2. Add the `mvn.repo.lib4j.org` Maven repositories to the POM.
 
   ```xml
   <repositories>
     <repository>
-      <id>mvn.repo.safris.org</id>
-      <url>http://mvn.repo.safris.org/m2</url>
+      <id>mvn.repo.lib4j.org</id>
+      <url>http://mvn.repo.lib4j.org/m2</url>
     </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <id>mvn.repo.safris.org</id>
-      <url>http://mvn.repo.safris.org/m2</url>
+      <id>mvn.repo.lib4j.org</id>
+      <url>http://mvn.repo.lib4j.org/m2</url>
     </pluginRepository>
   </pluginRepositories>
   ```
@@ -100,11 +100,11 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   </xs:schema>
   ```
   
-4. Add the [`org.safris.maven.plugin:xsb-maven-plugin`][xsb-maven-plugin] to the POM.
+4. Add the [`org.lib4jx.maven.plugin:xsb-maven-plugin`][xsb-maven-plugin] to the POM.
 
   ```xml
   <plugin>
-    <groupId>org.safris.maven.plugin</groupId>
+    <groupId>org.lib4jx.maven.plugin</groupId>
     <artifactId>xsb-maven-plugin</artifactId>
     <version>2.1.2</version>
     <executions>
@@ -114,7 +114,7 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
           <goal>generate</goal>
         </goals>
         <configuration>
-          <manifest xmlns="http://maven.safris.org/common/manifest.xsd">
+          <manifest xmlns="http://maven.lib4j.org/common/manifest.xsd">
             <destdir explodeJars="true">generated-sources/xsb</destdir>
             <resources>
               <resource>src/main/resources/example.xsd</resource>
@@ -126,11 +126,11 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   </plugin>
   ```
 
-5. Add the `org.safris.xsb:xsb-runtime` dependency to the POM.
+5. Add the `org.lib4jx.xsb:xsb-runtime` dependency to the POM.
 
   ```xml
   <dependency>
-    <groupId>org.safris.xsb</groupId>
+    <groupId>org.lib4jx.xsb</groupId>
     <artifactId>xsb-runtime</artifactId>
     <version>2.1.2</version>
   </dependency>
@@ -168,7 +168,7 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
 Samples are provided in the XSB source code:
 
 ```tcsh
-git clone git@github.com:SevaSafris/xsb.git
+git clone git@github.com:lib4jx/xsb.git
 cd xsb/sample
 mvn install
 ```
@@ -178,7 +178,7 @@ mvn install
 Tutorials are provided in the XSB source code:
 
 ```tcsh
-git clone git@github.com:SevaSafris/xsb.git
+git clone git@github.com:lib4jx/xsb.git
 cd xsb/tutorial
 mvn install
 ```
@@ -197,7 +197,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 [maven-archetype-quickstart]: http://maven.apache.org/archetypes/maven-archetype-quickstart/
 [maven]: https://maven.apache.org/
 [sax-parser]: https://docs.oracle.com/javase/tutorial/jaxp/sax/
-[generator]: https://github.com/SevaSafris/xsb/tree/master/generator
-[xsb-maven-plugin]: https://github.com/SevaSafris/xsb-maven-plugin
-[runtime]: https://github.com/SevaSafris/xsb/tree/master/runtime
+[generator]: https://github.com/lib4jx/xsb/tree/master/generator
+[xsb-maven-plugin]: https://github.com/lib4jx/xsb-maven-plugin
+[runtime]: https://github.com/lib4jx/xsb/tree/master/runtime
 [xsd-spec]: https://www.w3.org/TR/xmlschema11-1/

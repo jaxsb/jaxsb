@@ -1,4 +1,4 @@
-/* Copyright (c) 2008 Seva Safris
+/* Copyright (c) 2008 lib4j
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@ public final class DocumentationPlan extends Plan<DocumentationModel> {
   private String preparedDocumentation = null;
 
   public static String getMetaDocumentation() {
-    return " * @author Source generated with: <u>XML Toolkit for Java</u> by <b>Seva Safris &lt;seva@safris.org&gt;</b>\n";
+    return " * @author Source generated with: <u>org.lib4jx.xsb</u>\n";
   }
 
   public DocumentationPlan(final DocumentationModel model, final Plan<?> parent) {

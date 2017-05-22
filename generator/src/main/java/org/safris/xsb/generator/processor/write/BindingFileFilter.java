@@ -1,4 +1,4 @@
-/* Copyright (c) 2008 Seva Safris
+/* Copyright (c) 2008 lib4j
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@ public final class BindingFileFilter implements FileFilter {
     try (final InputStream in = pathname.toURI().toURL().openStream()) {
       final byte[] bytes = new byte[33];
       in.read(bytes);
-      return new String(bytes).contains("Seva Safris");
+      return new String(bytes).contains("lib4j");
     }
     catch (final IOException e) {
       return false;
