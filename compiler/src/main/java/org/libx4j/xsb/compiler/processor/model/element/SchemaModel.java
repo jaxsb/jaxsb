@@ -21,12 +21,12 @@ import java.net.URL;
 
 import org.lib4j.io.Files;
 import org.lib4j.net.URLs;
+import org.lib4j.xml.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.libx4j.xsb.compiler.processor.model.Model;
 import org.libx4j.xsb.compiler.schema.attribute.BlockDefault;
 import org.libx4j.xsb.compiler.schema.attribute.FinalDefault;
 import org.libx4j.xsb.compiler.schema.attribute.Form;
-import org.safris.commons.xml.NamespaceURI;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

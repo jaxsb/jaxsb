@@ -16,6 +16,8 @@
 
 package org.libx4j.xsb.runtime;
 
+import org.lib4j.lang.Strings;
+import org.lib4j.xml.Prefix;
 import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.compiler.processor.model.Model;
 import org.libx4j.xsb.compiler.processor.model.element.AttributeModel;
@@ -24,8 +26,6 @@ import org.libx4j.xsb.compiler.processor.model.element.NotationModel;
 import org.libx4j.xsb.compiler.processor.model.element.RedefineModel;
 import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
 import org.libx4j.xsb.compiler.processor.model.element.SimpleTypeModel;
-import org.safris.commons.lang.Strings;
-import org.safris.commons.xml.Prefix;
 
 public final class JavaBinding {
   private final static String ATTRIBUTE_SUFFIX = "$";

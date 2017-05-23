@@ -27,6 +27,8 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
+import org.lib4j.util.Collections;
+import org.lib4j.xml.validate.ValidationException;
 import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
 import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
@@ -40,8 +42,6 @@ import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.SimpleType;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.safris.commons.util.Collections;
-import org.safris.commons.xml.validate.ValidationException;
 import org.w3.x2001.xmlschema.xe.$xs_ID;
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3c.dom.Attr;

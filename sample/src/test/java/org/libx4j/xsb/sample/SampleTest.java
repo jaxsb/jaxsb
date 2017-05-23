@@ -18,12 +18,12 @@ package org.libx4j.xsb.sample;
 
 import java.io.StringReader;
 
+import org.lib4j.xml.dom.DOMStyle;
+import org.lib4j.xml.dom.DOMs;
+import org.lib4j.xml.dom.Validator;
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.BindingValidator;
 import org.libx4j.xsb.runtime.Bindings;
-import org.safris.commons.xml.dom.DOMStyle;
-import org.safris.commons.xml.dom.DOMs;
-import org.safris.commons.xml.dom.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;

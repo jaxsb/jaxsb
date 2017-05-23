@@ -25,10 +25,10 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.lib4j.pipeline.PipelineEntity;
+import org.lib4j.xml.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.LexerFailureException;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
-import org.safris.commons.xml.NamespaceURI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.NamedNodeMap;

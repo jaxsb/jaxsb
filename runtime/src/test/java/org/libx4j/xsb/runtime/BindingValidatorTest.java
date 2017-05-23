@@ -22,8 +22,8 @@ import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.xni.parser.XMLEntityResolver;
 import org.junit.Assert;
 import org.junit.Test;
-import org.safris.commons.xml.dom.DOMParsers;
-import org.safris.commons.xml.validate.ValidationException;
+import org.lib4j.xml.dom.DOMParsers;
+import org.lib4j.xml.validate.ValidationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

@@ -20,10 +20,10 @@ import java.util.Arrays;
 
 import javax.xml.namespace.QName;
 
+import org.lib4j.lang.Strings;
 import org.libx4j.xsb.compiler.processor.model.element.EnumerationModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.runtime.CompilerFailureException;
-import org.safris.commons.lang.Strings;
 
 public final class EnumerationPlan extends Plan<EnumerationModel> {
   private static final char[] illegalChars = {' ', '!', '"', '#', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '.', '/', ':', ';', '<', '=', '>', '?', '@', '@', '[', '\\', ']', '^', '_', '{', '|', '|', '}', '~'};

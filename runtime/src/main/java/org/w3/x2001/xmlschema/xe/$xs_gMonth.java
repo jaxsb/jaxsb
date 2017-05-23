@@ -16,9 +16,9 @@
 
 package org.w3.x2001.xmlschema.xe;
 
+import org.lib4j.xml.binding.Month;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
-import org.safris.commons.xml.binding.Month;
 import org.w3c.dom.Element;
 
 public abstract class $xs_gMonth extends $xs_anySimpleType {

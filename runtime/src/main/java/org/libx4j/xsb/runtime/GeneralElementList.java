@@ -18,7 +18,7 @@ package org.libx4j.xsb.runtime;
 
 import java.util.Iterator;
 
-import org.safris.commons.util.IdentityArrayList;
+import org.lib4j.util.IdentityArrayList;
 
 final class GeneralElementList<E extends Binding> extends IdentityArrayList<E> {
   private static final long serialVersionUID = 4251508116129047104L;

@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
-import org.safris.commons.xml.XMLRuntimeException;
+import org.lib4j.xml.XMLRuntimeException;
 
 public final class CompilerFailureException extends XMLRuntimeException {
   private static final long serialVersionUID = -4619096950067417903L;

@@ -24,6 +24,8 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
+import org.lib4j.xml.dom.Validator;
+import org.lib4j.xml.validate.ValidationException;
 import org.libx4j.xsb.compiler.schema.attribute.Form;
 import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
 import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
@@ -43,8 +45,6 @@ import org.libx4j.xsb.runtime.ElementSpec;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.SimpleType;
-import org.safris.commons.xml.dom.Validator;
-import org.safris.commons.xml.validate.ValidationException;
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3.x2001.xmlschema.xe.$xs_boolean;
 import org.w3c.dom.Attr;

@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.runtime;
 
-import org.safris.commons.lang.Throwables;
-import org.safris.commons.xml.XMLError;
+import org.lib4j.lang.Throwables;
+import org.lib4j.xml.XMLError;
 
 public final class BindingError extends XMLError {
   private static final long serialVersionUID = 3337621621621474582L;

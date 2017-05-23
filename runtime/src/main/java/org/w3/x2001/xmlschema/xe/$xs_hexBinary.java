@@ -16,9 +16,9 @@
 
 package org.w3.x2001.xmlschema.xe;
 
+import org.lib4j.xml.binding.HexBinary;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
-import org.safris.commons.xml.binding.HexBinary;
 import org.w3c.dom.Element;
 
 public abstract class $xs_hexBinary extends $xs_anySimpleType {

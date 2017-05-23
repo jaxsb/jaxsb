@@ -24,11 +24,11 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 
 import org.lib4j.net.URLs;
+import org.lib4j.xml.dom.DOMParsers;
 import org.libx4j.xsb.compiler.processor.document.SchemaDocument;
 import org.libx4j.xsb.compiler.processor.reference.SchemaReference;
 import org.libx4j.xsb.runtime.BindingError;
 import org.libx4j.xsb.runtime.CompilerFailureException;
-import org.safris.commons.xml.dom.DOMParsers;
 import org.w3c.dom.Document;
 
 public abstract class AbstractGenerator {

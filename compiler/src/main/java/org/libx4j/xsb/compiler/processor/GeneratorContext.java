@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.Set;
 
 import org.lib4j.pipeline.PipelineContext;
-import org.safris.commons.xml.NamespaceURI;
+import org.lib4j.xml.NamespaceURI;
 
 public final class GeneratorContext implements PipelineContext {
   private final File destDir;

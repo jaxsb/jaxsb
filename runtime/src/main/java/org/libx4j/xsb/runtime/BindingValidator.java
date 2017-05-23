@@ -22,13 +22,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.commons.xml.dom.DOMs;
-import org.safris.commons.xml.dom.Validator;
-import org.safris.commons.xml.sax.SAXFeature;
-import org.safris.commons.xml.sax.SAXParser;
-import org.safris.commons.xml.sax.SAXParsers;
-import org.safris.commons.xml.sax.SAXProperty;
-import org.safris.commons.xml.validate.ValidationException;
+import org.lib4j.xml.dom.DOMs;
+import org.lib4j.xml.dom.Validator;
+import org.lib4j.xml.sax.SAXFeature;
+import org.lib4j.xml.sax.SAXParser;
+import org.lib4j.xml.sax.SAXParsers;
+import org.lib4j.xml.sax.SAXProperty;
+import org.lib4j.xml.validate.ValidationException;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 

@@ -20,11 +20,11 @@ import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
+import org.lib4j.xml.validate.ValidationException;
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.BindingRuntimeException;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
-import org.safris.commons.xml.validate.ValidationException;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;

@@ -21,9 +21,9 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
 
-import org.safris.commons.xml.dom.DOMs;
-import org.safris.commons.xml.dom.Validator;
-import org.safris.commons.xml.validate.ValidationException;
+import org.lib4j.xml.dom.DOMs;
+import org.lib4j.xml.dom.Validator;
+import org.lib4j.xml.validate.ValidationException;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

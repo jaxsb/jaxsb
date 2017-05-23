@@ -22,6 +22,8 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.lib4j.xml.dom.Validator;
+import org.lib4j.xml.validate.ValidationException;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.generator.processor.plan.element.AnyAttributePlan;
 import org.libx4j.xsb.generator.processor.plan.element.AnyPlan;
@@ -37,8 +39,6 @@ import org.libx4j.xsb.runtime.ComplexType;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.safris.commons.xml.dom.Validator;
-import org.safris.commons.xml.validate.ValidationException;
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;

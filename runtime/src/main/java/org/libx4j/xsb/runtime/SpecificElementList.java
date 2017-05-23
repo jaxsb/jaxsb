@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-import org.safris.commons.util.IdentityArrayList;
+import org.lib4j.util.IdentityArrayList;
 
 final class SpecificElementList<E extends Binding> extends IdentityArrayList<E> implements BindingList<E> {
   public static <E extends Binding>SpecificElementList<E> singleton(final ElementAudit<E> elementAudit, final E binding) {

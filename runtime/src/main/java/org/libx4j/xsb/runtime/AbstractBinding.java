@@ -24,11 +24,11 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.lib4j.lang.Classes;
+import org.lib4j.lang.Resource;
+import org.lib4j.lang.Resources;
 import org.lib4j.net.URLs;
-import org.safris.commons.lang.Classes;
-import org.safris.commons.lang.Resource;
-import org.safris.commons.lang.Resources;
-import org.safris.commons.xml.NamespaceBinding;
+import org.lib4j.xml.NamespaceBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

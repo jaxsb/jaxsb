@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.compiler.lang;
 
-import org.safris.commons.xml.XMLRuntimeException;
+import org.lib4j.xml.XMLRuntimeException;
 
 public final class LexerFailureException extends XMLRuntimeException {
   private static final long serialVersionUID = 7086955029486763018L;

@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
-import org.safris.commons.xml.XMLException;
+import org.lib4j.xml.XMLException;
 
 public class BindingException extends XMLException {
   private static final long serialVersionUID = 1328917257490102694L;

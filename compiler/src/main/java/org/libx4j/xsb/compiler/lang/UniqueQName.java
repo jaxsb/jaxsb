@@ -22,8 +22,8 @@ import java.util.Map;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.safris.commons.xml.NamespaceURI;
-import org.safris.commons.xml.Prefix;
+import org.lib4j.xml.NamespaceURI;
+import org.lib4j.xml.Prefix;
 
 public final class UniqueQName {
   private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<NamespaceURI,Prefix>();

@@ -18,8 +18,8 @@ package org.libx4j.xsb.compiler.processor.reference;
 
 import java.net.URL;
 
+import org.lib4j.xml.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
-import org.safris.commons.xml.NamespaceURI;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
