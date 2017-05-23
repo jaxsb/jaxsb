@@ -20,8 +20,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.safris.commons.pipeline.PipelineDirectory;
-import org.safris.commons.pipeline.PipelineProcessor;
+import org.lib4j.pipeline.PipelineDirectory;
+import org.lib4j.pipeline.PipelineProcessor;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.xsb.compiler.lang.LexerFailureException;
 import org.safris.xsb.compiler.processor.GeneratorContext;

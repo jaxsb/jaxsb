@@ -24,7 +24,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.commons.pipeline.PipelineEntity;
+import org.lib4j.pipeline.PipelineEntity;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.commons.xml.Prefix;
 import org.safris.commons.xml.sax.SAXFeature;

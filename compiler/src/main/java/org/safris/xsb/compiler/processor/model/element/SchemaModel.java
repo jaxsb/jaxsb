@@ -19,8 +19,8 @@ package org.safris.xsb.compiler.processor.model.element;
 import java.io.File;
 import java.net.URL;
 
+import org.lib4j.net.URLs;
 import org.safris.commons.io.Files;
-import org.safris.commons.net.URLs;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.xsb.compiler.lang.UniqueQName;
 import org.safris.xsb.compiler.processor.model.Model;

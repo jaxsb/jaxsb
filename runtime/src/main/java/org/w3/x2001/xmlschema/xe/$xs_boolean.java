@@ -19,8 +19,8 @@ package org.w3.x2001.xmlschema.xe;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.safris.xsb.runtime.MarshalException;
-import org.safris.xsb.runtime.ParseException;
+import org.libx4j.xsb.runtime.MarshalException;
+import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_boolean extends $xs_anySimpleType {

@@ -16,7 +16,7 @@
 
 package org.safris.xsb.compiler.processor.normalize;
 
-import org.safris.commons.pipeline.PipelineEntity;
+import org.lib4j.pipeline.PipelineEntity;
 import org.safris.xsb.compiler.processor.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

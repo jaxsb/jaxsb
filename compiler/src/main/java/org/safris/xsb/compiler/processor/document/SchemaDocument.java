@@ -19,7 +19,7 @@ package org.safris.xsb.compiler.processor.document;
 import java.net.URL;
 import java.util.Collection;
 
-import org.safris.commons.pipeline.PipelineEntity;
+import org.lib4j.pipeline.PipelineEntity;
 import org.safris.xsb.compiler.processor.reference.SchemaReference;
 import org.w3c.dom.Document;
 

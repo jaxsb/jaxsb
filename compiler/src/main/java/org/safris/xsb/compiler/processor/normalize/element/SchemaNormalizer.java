@@ -19,8 +19,8 @@ package org.safris.xsb.compiler.processor.normalize.element;
 import java.io.File;
 import java.net.URL;
 
+import org.lib4j.net.URLs;
 import org.safris.commons.io.Files;
-import org.safris.commons.net.URLs;
 import org.safris.xsb.compiler.processor.model.element.SchemaModel;
 import org.safris.xsb.compiler.processor.normalize.Normalizer;
 import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;

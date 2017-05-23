@@ -16,7 +16,7 @@
 
 package org.safris.xsb.compiler.processor;
 
-import org.safris.commons.pipeline.PipelineEntity;
+import org.lib4j.pipeline.PipelineEntity;
 import org.safris.xsb.compiler.schema.attribute.Form;
 
 public interface Formable<T extends PipelineEntity> {

@@ -21,7 +21,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.safris.xsb.runtime.Binding;
+import org.libx4j.xsb.runtime.Binding;
 
 public abstract class $xs_anyType extends $xs_anySimpleType {
   private final List<Binding> anys = new ArrayList<Binding>(7);

@@ -16,9 +16,9 @@
 
 package org.w3.x2001.xmlschema.xe;
 
-import org.safris.xsb.runtime.MarshalException;
-import org.safris.xsb.runtime.NotationType;
-import org.safris.xsb.runtime.ParseException;
+import org.libx4j.xsb.runtime.MarshalException;
+import org.libx4j.xsb.runtime.NotationType;
+import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_NOTATION extends $xs_anySimpleType {

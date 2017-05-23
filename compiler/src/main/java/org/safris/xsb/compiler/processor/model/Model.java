@@ -24,7 +24,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.safris.commons.pipeline.PipelineEntity;
+import org.lib4j.pipeline.PipelineEntity;
 import org.safris.commons.xml.NamespaceURI;
 import org.safris.xsb.compiler.lang.LexerFailureException;
 import org.safris.xsb.compiler.lang.UniqueQName;

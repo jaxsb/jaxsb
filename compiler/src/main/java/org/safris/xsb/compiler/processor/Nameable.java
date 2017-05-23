@@ -16,7 +16,7 @@
 
 package org.safris.xsb.compiler.processor;
 
-import org.safris.commons.pipeline.PipelineEntity;
+import org.lib4j.pipeline.PipelineEntity;
 import org.safris.xsb.compiler.lang.UniqueQName;
 
 public interface Nameable<T extends PipelineEntity> {

@@ -19,8 +19,8 @@ package org.safris.xsb.compiler.processor.normalize;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
-import org.safris.commons.pipeline.PipelineDirectory;
-import org.safris.commons.pipeline.PipelineProcessor;
+import org.lib4j.pipeline.PipelineDirectory;
+import org.lib4j.pipeline.PipelineProcessor;
 import org.safris.xsb.compiler.lang.LexerFailureException;
 import org.safris.xsb.compiler.processor.GeneratorContext;
 import org.safris.xsb.compiler.processor.model.Model;

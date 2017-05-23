@@ -21,10 +21,10 @@ import java.net.URLConnection;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.safris.commons.net.URLs;
-import org.safris.commons.pipeline.PipelineDirectory;
-import org.safris.commons.pipeline.PipelineEntity;
-import org.safris.commons.pipeline.PipelineProcessor;
+import org.lib4j.net.URLs;
+import org.lib4j.pipeline.PipelineDirectory;
+import org.lib4j.pipeline.PipelineEntity;
+import org.lib4j.pipeline.PipelineProcessor;
 import org.safris.commons.xml.sax.DocumentHandler;
 import org.safris.commons.xml.sax.SAXInterruptException;
 import org.safris.commons.xml.sax.XMLDocuments;
