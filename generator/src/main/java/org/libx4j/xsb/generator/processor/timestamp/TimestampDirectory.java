@@ -19,8 +19,8 @@ package org.libx4j.xsb.generator.processor.timestamp;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
 import org.lib4j.pipeline.PipelineProcessor;
+import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.generator.processor.bundle.Bundle;
-import org.safris.xsb.compiler.processor.GeneratorContext;
 
 public final class TimestampDirectory implements PipelineDirectory<GeneratorContext,Bundle,Bundle> {
   private TimestampProcessor processor = new TimestampProcessor();

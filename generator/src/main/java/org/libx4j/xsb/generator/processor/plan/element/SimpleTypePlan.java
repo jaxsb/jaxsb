@@ -22,6 +22,13 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.libx4j.xsb.compiler.lang.UniqueQName;
+import org.libx4j.xsb.compiler.processor.model.AnyableModel;
+import org.libx4j.xsb.compiler.processor.model.Model;
+import org.libx4j.xsb.compiler.processor.model.NamedModel;
+import org.libx4j.xsb.compiler.processor.model.element.ComplexTypeModel;
+import org.libx4j.xsb.compiler.processor.model.element.SimpleTypeModel;
+import org.libx4j.xsb.compiler.processor.model.element.UnionModel;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;
 import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
 import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
@@ -31,13 +38,6 @@ import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.libx4j.xsb.runtime.JavaBinding;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.compiler.lang.UniqueQName;
-import org.safris.xsb.compiler.processor.model.AnyableModel;
-import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.NamedModel;
-import org.safris.xsb.compiler.processor.model.element.ComplexTypeModel;
-import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
-import org.safris.xsb.compiler.processor.model.element.UnionModel;
 
 public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> implements EnumerablePlan, ExtensiblePlan, NativeablePlan {
   private static SimpleTypeModel<?> getGreatestCommonType(final Collection<SimpleTypeModel<?>> types, final boolean includeEnums) {

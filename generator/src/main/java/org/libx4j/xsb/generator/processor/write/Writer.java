@@ -25,16 +25,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import org.lib4j.io.Files;
 import org.lib4j.net.URLs;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.compiler.processor.GeneratorContext;
+import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;
 import org.libx4j.xsb.generator.processor.plan.NestablePlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.runtime.CompilerFailureException;
-import org.safris.commons.io.Files;
-import org.safris.xsb.compiler.processor.GeneratorContext;
-import org.safris.xsb.compiler.processor.Nameable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

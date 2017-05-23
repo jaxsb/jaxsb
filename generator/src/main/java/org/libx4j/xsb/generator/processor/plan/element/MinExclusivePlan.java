@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.MinExclusiveModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.MinExclusiveModel;
 
 public final class MinExclusivePlan extends Plan<MinExclusiveModel> {
   public MinExclusivePlan(final MinExclusiveModel model, final Plan<?> parent) {

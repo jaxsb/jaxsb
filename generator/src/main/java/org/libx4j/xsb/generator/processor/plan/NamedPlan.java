@@ -19,11 +19,11 @@ package org.libx4j.xsb.generator.processor.plan;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.libx4j.xsb.compiler.lang.UniqueQName;
+import org.libx4j.xsb.compiler.processor.Nameable;
+import org.libx4j.xsb.compiler.processor.model.NamedModel;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.safris.commons.xml.Prefix;
-import org.safris.xsb.compiler.lang.UniqueQName;
-import org.safris.xsb.compiler.processor.Nameable;
-import org.safris.xsb.compiler.processor.model.NamedModel;
 
 public abstract class NamedPlan<T extends NamedModel> extends Plan<T> implements Nameable<Plan<T>> {
   protected static NamedPlan<?> parseNamedPlan(final UniqueQName name) {

@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.FieldModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.FieldModel;
 
 public final class FieldPlan extends Plan<FieldModel> {
   public FieldPlan(final FieldModel model, final Plan<?> parent) {

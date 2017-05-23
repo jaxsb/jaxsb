@@ -16,9 +16,9 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.AnyModel;
 import org.libx4j.xsb.generator.processor.plan.AnyablePlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.AnyModel;
 
 public final class AnyPlan extends ElementPlan implements AnyablePlan {
   public AnyPlan(final AnyModel model, final Plan<?> parent) {

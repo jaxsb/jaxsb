@@ -20,6 +20,17 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.namespace.QName;
 
+import org.libx4j.xsb.compiler.lang.UniqueQName;
+import org.libx4j.xsb.compiler.processor.Formable;
+import org.libx4j.xsb.compiler.processor.model.AliasModel;
+import org.libx4j.xsb.compiler.processor.model.AnyableModel;
+import org.libx4j.xsb.compiler.processor.model.Model;
+import org.libx4j.xsb.compiler.processor.model.RestrictableModel;
+import org.libx4j.xsb.compiler.processor.model.element.ComplexTypeModel;
+import org.libx4j.xsb.compiler.processor.model.element.ElementModel;
+import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
+import org.libx4j.xsb.compiler.processor.model.element.SimpleTypeModel;
+import org.libx4j.xsb.compiler.schema.attribute.Form;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;
 import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
 import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
@@ -30,17 +41,6 @@ import org.libx4j.xsb.generator.processor.plan.RestrictablePlan;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.libx4j.xsb.runtime.JavaBinding;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.compiler.lang.UniqueQName;
-import org.safris.xsb.compiler.processor.Formable;
-import org.safris.xsb.compiler.processor.model.AliasModel;
-import org.safris.xsb.compiler.processor.model.AnyableModel;
-import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.RestrictableModel;
-import org.safris.xsb.compiler.processor.model.element.ComplexTypeModel;
-import org.safris.xsb.compiler.processor.model.element.ElementModel;
-import org.safris.xsb.compiler.processor.model.element.SchemaModel;
-import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
-import org.safris.xsb.compiler.schema.attribute.Form;
 
 public class ElementPlan extends ComplexTypePlan<ElementModel> implements EnumerablePlan, ExtensiblePlan, Formable<Plan<?>>, NativeablePlan, NestablePlan, RestrictablePlan {
   private final ElementModel element;

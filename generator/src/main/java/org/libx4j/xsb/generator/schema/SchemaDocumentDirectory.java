@@ -18,9 +18,9 @@ package org.libx4j.xsb.generator.schema;
 
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineProcessor;
-import org.safris.xsb.compiler.processor.GeneratorContext;
-import org.safris.xsb.compiler.processor.document.SchemaDocument;
-import org.safris.xsb.compiler.processor.reference.SchemaReference;
+import org.libx4j.xsb.compiler.processor.GeneratorContext;
+import org.libx4j.xsb.compiler.processor.document.SchemaDocument;
+import org.libx4j.xsb.compiler.processor.reference.SchemaReference;
 
 public final class SchemaDocumentDirectory implements PipelineDirectory<GeneratorContext,SchemaReference,SchemaDocument> {
   private final SchemaDocumentProcessor processor = new SchemaDocumentProcessor();

@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.RestrictionModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.RestrictionModel;
 
 public final class RestrictionPlan extends Plan<RestrictionModel> {
   public RestrictionPlan(final RestrictionModel model, final Plan<?> parent) {

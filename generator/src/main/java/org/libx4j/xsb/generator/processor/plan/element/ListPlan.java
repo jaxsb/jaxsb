@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.ListModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.ListModel;
 
 public final class ListPlan extends Plan<ListModel> {
   public ListPlan(final ListModel model, final Plan<?> parent) {

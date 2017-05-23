@@ -20,13 +20,13 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.libx4j.xsb.compiler.schema.attribute.Form;
+import org.libx4j.xsb.compiler.schema.attribute.Use;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.generator.processor.plan.element.AnyAttributePlan;
 import org.libx4j.xsb.generator.processor.write.Writer;
 import org.libx4j.xsb.runtime.AttributeAudit;
 import org.libx4j.xsb.runtime.Binding;
-import org.safris.xsb.compiler.schema.attribute.Form;
-import org.safris.xsb.compiler.schema.attribute.Use;
 import org.w3c.dom.Element;
 
 public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {

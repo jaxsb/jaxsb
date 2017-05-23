@@ -23,8 +23,19 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.lib4j.io.Files;
 import org.lib4j.net.URLs;
 import org.lib4j.pipeline.Pipeline;
+import org.libx4j.xsb.compiler.processor.GeneratorContext;
+import org.libx4j.xsb.compiler.processor.composite.SchemaComposite;
+import org.libx4j.xsb.compiler.processor.composite.SchemaCompositeDirectory;
+import org.libx4j.xsb.compiler.processor.document.SchemaDocument;
+import org.libx4j.xsb.compiler.processor.model.Model;
+import org.libx4j.xsb.compiler.processor.model.ModelDirectory;
+import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
+import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;
+import org.libx4j.xsb.compiler.processor.reference.SchemaReference;
+import org.libx4j.xsb.compiler.processor.reference.SchemaReferenceDirectory;
 import org.libx4j.xsb.generator.processor.bundle.Bundle;
 import org.libx4j.xsb.generator.processor.bundle.BundleDirectory;
 import org.libx4j.xsb.generator.processor.plan.Plan;
@@ -33,18 +44,7 @@ import org.libx4j.xsb.generator.processor.timestamp.TimestampDirectory;
 import org.libx4j.xsb.generator.processor.write.Writer;
 import org.libx4j.xsb.generator.processor.write.WriterDirectory;
 import org.libx4j.xsb.generator.schema.SchemaDocumentDirectory;
-import org.safris.commons.io.Files;
 import org.safris.commons.lang.Paths;
-import org.safris.xsb.compiler.processor.GeneratorContext;
-import org.safris.xsb.compiler.processor.composite.SchemaComposite;
-import org.safris.xsb.compiler.processor.composite.SchemaCompositeDirectory;
-import org.safris.xsb.compiler.processor.document.SchemaDocument;
-import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.ModelDirectory;
-import org.safris.xsb.compiler.processor.normalize.Normalizer;
-import org.safris.xsb.compiler.processor.normalize.NormalizerDirectory;
-import org.safris.xsb.compiler.processor.reference.SchemaReference;
-import org.safris.xsb.compiler.processor.reference.SchemaReferenceDirectory;
 
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {

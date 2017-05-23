@@ -16,9 +16,9 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.NotationModel;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.NotationModel;
 
 public final class NotationPlan extends AliasPlan<NotationModel> {
   private final String _public;

@@ -21,12 +21,12 @@ import java.util.Collection;
 
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineProcessor;
+import org.libx4j.xsb.compiler.processor.GeneratorContext;
+import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;
 import org.libx4j.xsb.generator.processor.plan.NestablePlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.runtime.CompilerFailureException;
-import org.safris.xsb.compiler.processor.GeneratorContext;
-import org.safris.xsb.compiler.processor.Nameable;
 
 public final class WriterProcessor implements PipelineProcessor<GeneratorContext,Plan<?>,Writer<?>> {
   private final Writer<?> root = new Writer<Plan<?>>() {

@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.FractionDigitsModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.FractionDigitsModel;
 
 public final class FractionDigitsPlan extends Plan<FractionDigitsModel> {
   public FractionDigitsPlan(final FractionDigitsModel model, final Plan<?> parent) {

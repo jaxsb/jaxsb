@@ -23,6 +23,7 @@ import java.util.Map;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
 import org.lib4j.pipeline.PipelineProcessor;
+import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.generator.processor.plan.element.AllPlan;
 import org.libx4j.xsb.generator.processor.plan.element.AnnotationPlan;
@@ -111,7 +112,6 @@ import org.libx4j.xsb.generator.processor.write.element.UnionWriter;
 import org.libx4j.xsb.generator.processor.write.element.UniqueWriter;
 import org.libx4j.xsb.generator.processor.write.element.WhiteSpaceWriter;
 import org.libx4j.xsb.runtime.CompilerFailureException;
-import org.safris.xsb.compiler.processor.GeneratorContext;
 
 @SuppressWarnings("rawtypes")
 public final class WriterDirectory implements PipelineDirectory<GeneratorContext,Plan<?>,Writer<?>> {

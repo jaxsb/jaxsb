@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.AppinfoModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.AppinfoModel;
 
 public final class AppinfoPlan extends Plan<AppinfoModel> {
   public AppinfoPlan(final AppinfoModel model, final Plan<?> parent) {

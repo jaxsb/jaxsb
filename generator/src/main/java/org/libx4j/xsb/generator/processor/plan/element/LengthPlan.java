@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.LengthModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.LengthModel;
 
 public final class LengthPlan extends Plan<LengthModel> {
   public LengthPlan(final LengthModel model, final Plan<?> parent) {

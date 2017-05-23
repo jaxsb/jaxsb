@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.SchemaModel;
 
 public final class SchemaPlan extends Plan<SchemaModel> {
   public SchemaPlan(final SchemaModel model, final Plan<?> parent) {

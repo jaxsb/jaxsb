@@ -18,6 +18,13 @@ package org.libx4j.xsb.generator.processor.plan.element;
 
 import java.util.LinkedHashSet;
 
+import org.libx4j.xsb.compiler.lang.UniqueQName;
+import org.libx4j.xsb.compiler.processor.model.MixableModel;
+import org.libx4j.xsb.compiler.processor.model.Model;
+import org.libx4j.xsb.compiler.processor.model.TypeableModel;
+import org.libx4j.xsb.compiler.processor.model.element.ComplexTypeModel;
+import org.libx4j.xsb.compiler.processor.model.element.SimpleContentModel;
+import org.libx4j.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.libx4j.xsb.generator.processor.plan.AttributablePlan;
 import org.libx4j.xsb.generator.processor.plan.ElementablePlan;
 import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
@@ -27,13 +34,6 @@ import org.libx4j.xsb.generator.processor.plan.NativeablePlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.runtime.ElementWrapper;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.compiler.lang.UniqueQName;
-import org.safris.xsb.compiler.processor.model.MixableModel;
-import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.TypeableModel;
-import org.safris.xsb.compiler.processor.model.element.ComplexTypeModel;
-import org.safris.xsb.compiler.processor.model.element.SimpleContentModel;
-import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
 
 public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePlan<T> implements AttributablePlan, ElementablePlan, EnumerablePlan, ExtensiblePlan, MixablePlan, NativeablePlan {
   private final Boolean mixed;

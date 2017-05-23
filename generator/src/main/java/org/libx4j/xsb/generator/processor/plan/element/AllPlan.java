@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.AllModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.AllModel;
 
 public final class AllPlan extends Plan<AllModel> {
   public AllPlan(final AllModel model, final Plan<?> parent) {

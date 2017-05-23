@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.SelectorModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.SelectorModel;
 
 public final class SelectorPlan extends Plan<SelectorModel> {
   public SelectorPlan(final SelectorModel model, final Plan<?> parent) {

@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.MaxInclusiveModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.MaxInclusiveModel;
 
 public final class MaxExclusivePlan extends Plan<MaxInclusiveModel> {
   public MaxExclusivePlan(final MaxInclusiveModel model, final Plan<?> parent) {

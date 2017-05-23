@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.GroupModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.GroupModel;
 
 public final class GroupPlan extends Plan<GroupModel> {
   public GroupPlan(final GroupModel model, final Plan<?> parent) {

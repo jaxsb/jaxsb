@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.AnnotationModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.AnnotationModel;
 
 public final class AnnotationPlan extends Plan<AnnotationModel> {
   public AnnotationPlan(final AnnotationModel model, final Plan<?> parent) {

@@ -18,6 +18,14 @@ package org.libx4j.xsb.generator.processor.plan.element;
 
 import javax.xml.namespace.QName;
 
+import org.libx4j.xsb.compiler.processor.Formable;
+import org.libx4j.xsb.compiler.processor.model.AnyableModel;
+import org.libx4j.xsb.compiler.processor.model.Model;
+import org.libx4j.xsb.compiler.processor.model.RestrictableModel;
+import org.libx4j.xsb.compiler.processor.model.element.AttributeModel;
+import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
+import org.libx4j.xsb.compiler.schema.attribute.Form;
+import org.libx4j.xsb.compiler.schema.attribute.Use;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;
 import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
 import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
@@ -27,14 +35,6 @@ import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.generator.processor.plan.RestrictablePlan;
 import org.libx4j.xsb.runtime.JavaBinding;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.compiler.processor.Formable;
-import org.safris.xsb.compiler.processor.model.AnyableModel;
-import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.RestrictableModel;
-import org.safris.xsb.compiler.processor.model.element.AttributeModel;
-import org.safris.xsb.compiler.processor.model.element.SchemaModel;
-import org.safris.xsb.compiler.schema.attribute.Form;
-import org.safris.xsb.compiler.schema.attribute.Use;
 
 public class AttributePlan extends SimpleTypePlan<AttributeModel> implements EnumerablePlan, ExtensiblePlan, Formable<Plan<?>>, NativeablePlan, NestablePlan, RestrictablePlan {
   private final AttributeModel attribute;

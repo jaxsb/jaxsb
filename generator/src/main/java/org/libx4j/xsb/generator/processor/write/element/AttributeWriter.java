@@ -20,6 +20,8 @@ import java.io.StringWriter;
 
 import javax.xml.namespace.QName;
 
+import org.libx4j.xsb.compiler.schema.attribute.Form;
+import org.libx4j.xsb.compiler.schema.attribute.Use;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.generator.processor.plan.element.AttributePlan;
 import org.libx4j.xsb.generator.processor.plan.element.SimpleTypePlan;
@@ -29,8 +31,6 @@ import org.libx4j.xsb.runtime.AttributeSpec;
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.SimpleType;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.compiler.schema.attribute.Form;
-import org.safris.xsb.compiler.schema.attribute.Use;
 
 public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
   @Override

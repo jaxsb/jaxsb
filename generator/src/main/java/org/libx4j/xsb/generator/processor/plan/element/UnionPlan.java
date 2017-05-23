@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.UnionModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.UnionModel;
 
 public final class UnionPlan extends Plan<UnionModel> {
   public UnionPlan(final UnionModel model, final Plan<?> parent) {

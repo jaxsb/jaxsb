@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.MinLengthModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.MinLengthModel;
 
 public final class MinLengthPlan extends Plan<MinLengthModel> {
   public MinLengthPlan(final MinLengthModel model, final Plan<?> parent) {

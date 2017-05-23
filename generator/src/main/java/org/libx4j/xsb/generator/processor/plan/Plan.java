@@ -21,14 +21,14 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.compiler.lang.UniqueQName;
+import org.libx4j.xsb.compiler.processor.model.EnumerableModel;
+import org.libx4j.xsb.compiler.processor.model.Model;
+import org.libx4j.xsb.compiler.processor.model.element.EnumerationModel;
+import org.libx4j.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.libx4j.xsb.generator.processor.plan.element.ElementPlan;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.libx4j.xsb.runtime.ElementWrapper;
-import org.safris.xsb.compiler.lang.UniqueQName;
-import org.safris.xsb.compiler.processor.model.EnumerableModel;
-import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.element.EnumerationModel;
-import org.safris.xsb.compiler.processor.model.element.SimpleTypeModel;
 
 public abstract class Plan<T extends Model> implements PipelineEntity {
   public ElementPlan elementRefExistsInParent(final UniqueQName name) {

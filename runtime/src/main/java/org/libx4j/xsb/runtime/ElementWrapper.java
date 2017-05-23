@@ -20,12 +20,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
-import org.safris.xsb.compiler.lang.UniqueQName;
-import org.safris.xsb.compiler.processor.Nameable;
-import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.MultiplicableModel;
-import org.safris.xsb.compiler.processor.model.RedefineableModel;
-import org.safris.xsb.compiler.processor.model.element.ElementModel;
+import org.libx4j.xsb.compiler.lang.UniqueQName;
+import org.libx4j.xsb.compiler.processor.Nameable;
+import org.libx4j.xsb.compiler.processor.model.Model;
+import org.libx4j.xsb.compiler.processor.model.MultiplicableModel;
+import org.libx4j.xsb.compiler.processor.model.RedefineableModel;
+import org.libx4j.xsb.compiler.processor.model.element.ElementModel;
 
 @SuppressWarnings("rawtypes")
 public final class ElementWrapper extends Model implements Nameable {

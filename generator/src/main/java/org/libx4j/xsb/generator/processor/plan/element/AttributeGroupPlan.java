@@ -16,9 +16,9 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.AttributeGroupModel;
 import org.libx4j.xsb.generator.processor.plan.NamedPlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.AttributeGroupModel;
 
 public final class AttributeGroupPlan extends NamedPlan<AttributeGroupModel> {
   public AttributeGroupPlan(final AttributeGroupModel model, final Plan<?> parent) {

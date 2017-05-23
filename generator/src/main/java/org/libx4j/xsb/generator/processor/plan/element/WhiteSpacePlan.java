@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.WhiteSpaceModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.WhiteSpaceModel;
 
 public final class WhiteSpacePlan extends Plan<WhiteSpaceModel> {
   public WhiteSpacePlan(final WhiteSpaceModel model, final Plan<?> parent) {

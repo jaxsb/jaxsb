@@ -19,7 +19,7 @@ package org.libx4j.xsb.runtime;
 import java.lang.reflect.AccessibleObject;
 import java.util.List;
 
-import org.safris.xsb.compiler.lang.UniqueQName;
+import org.libx4j.xsb.compiler.lang.UniqueQName;
 
 public final class NativeBinding {
   private final UniqueQName name;

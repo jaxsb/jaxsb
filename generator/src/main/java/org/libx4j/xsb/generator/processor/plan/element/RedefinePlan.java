@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.RedefineModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.RedefineModel;
 
 public final class RedefinePlan extends Plan<RedefineModel> {
   public RedefinePlan(final RedefineModel model, final Plan<?> parent) {

@@ -26,6 +26,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.safris.commons.xml.binding.Base64Binary;
 import org.safris.commons.xml.binding.Date;
 import org.safris.commons.xml.binding.DateTime;
@@ -38,7 +39,6 @@ import org.safris.commons.xml.binding.MonthDay;
 import org.safris.commons.xml.binding.Time;
 import org.safris.commons.xml.binding.Year;
 import org.safris.commons.xml.binding.YearMonth;
-import org.safris.xsb.compiler.lang.UniqueQName;
 import org.w3.x2001.xmlschema.xe.$xs_ENTITIES;
 import org.w3.x2001.xmlschema.xe.$xs_ENTITY;
 import org.w3.x2001.xmlschema.xe.$xs_ID;

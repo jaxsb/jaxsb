@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.MaxLengthModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.MaxLengthModel;
 
 public final class MaxLengthPlan extends Plan<MaxLengthModel> {
   public MaxLengthPlan(final MaxLengthModel model, final Plan<?> parent) {

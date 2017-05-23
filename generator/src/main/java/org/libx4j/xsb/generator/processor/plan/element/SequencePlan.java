@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.processor.plan.element;
 
+import org.libx4j.xsb.compiler.processor.model.element.SequenceModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
-import org.safris.xsb.compiler.processor.model.element.SequenceModel;
 
 public final class SequencePlan extends Plan<SequenceModel> {
   public SequencePlan(final SequenceModel model, final Plan<?> parent) {

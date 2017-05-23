@@ -22,8 +22,8 @@ import java.util.Set;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
 import org.lib4j.pipeline.PipelineProcessor;
-import org.safris.xsb.compiler.processor.GeneratorContext;
-import org.safris.xsb.compiler.processor.composite.SchemaComposite;
+import org.libx4j.xsb.compiler.processor.GeneratorContext;
+import org.libx4j.xsb.compiler.processor.composite.SchemaComposite;
 
 public final class BundleDirectory implements PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> {
   private BundleProcessor processor;

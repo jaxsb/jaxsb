@@ -16,13 +16,13 @@
 
 package org.libx4j.xsb.generator.processor.plan;
 
+import org.libx4j.xsb.compiler.processor.Nameable;
+import org.libx4j.xsb.compiler.processor.model.AliasModel;
+import org.libx4j.xsb.compiler.processor.model.Model;
+import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
 import org.libx4j.xsb.generator.processor.plan.element.DocumentationPlan;
 import org.libx4j.xsb.runtime.JavaBinding;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.safris.xsb.compiler.processor.Nameable;
-import org.safris.xsb.compiler.processor.model.AliasModel;
-import org.safris.xsb.compiler.processor.model.Model;
-import org.safris.xsb.compiler.processor.model.element.SchemaModel;
 
 public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> implements DocumentablePlan, Nameable<Plan<T>> {
   protected static String getClassName(final AliasModel model, Model parent) {
