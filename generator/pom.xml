@@ -20,11 +20,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.lib4jx</groupId>
+    <groupId>org.libx4j</groupId>
     <artifactId>xsb</artifactId>
     <version>2.1.2</version>
   </parent>
-  <groupId>org.lib4jx.xsb</groupId>
+  <groupId>org.libx4j.xsb</groupId>
   <artifactId>xsb-generator</artifactId>
   <version>2.1.2</version>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -41,7 +41,7 @@
   </description>
   <dependencies>
     <dependency>
-      <groupId>org.lib4jx.xsb</groupId>
+      <groupId>org.libx4j.xsb</groupId>
       <artifactId>xsb-runtime</artifactId>
     </dependency>
     <dependency>
