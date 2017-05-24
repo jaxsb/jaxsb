@@ -23,8 +23,8 @@ import java.util.List;
 
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.Bindings;
-import org.safris.xsb.sample.id.xe.$id_bookType;
-import org.safris.xsb.sample.id.xe.id_directory;
+import org.libx4j.xsb.sample.id.xe.$id_bookType;
+import org.libx4j.xsb.sample.id.xe.id_directory;
 import org.w3.x2001.xmlschema.xe.$xs_IDREFS;
 import org.xml.sax.InputSource;
 

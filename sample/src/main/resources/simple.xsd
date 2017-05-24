@@ -14,9 +14,10 @@
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
-<xs:schema elementFormDefault="qualified"
-  targetNamespace="http://xsb.safris.org/sample/simple.xsd"
-  xmlns:simple="http://xsb.safris.org/sample/simple.xsd"
+<xs:schema
+  elementFormDefault="qualified"
+  targetNamespace="http://xsb.libx4j.org/sample/simple.xsd"
+  xmlns:simple="http://xsb.libx4j.org/sample/simple.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:complexType name="fruitType">

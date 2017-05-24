@@ -14,9 +14,9 @@
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
-<invoice xmlns="http://xsb.safris.org/tutorial/invoice.xsd"
+<invoice xmlns="http://xsb.libx4j.org/tutorial/invoice.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xsb.safris.org/tutorial/invoice.xsd invoice.xsd">
+  xsi:schemaLocation="http://xsb.libx4j.org/tutorial/invoice.xsd invoice.xsd">
   <number>1458</number>
   <date>2003-01-07</date>
   <billingAddress>

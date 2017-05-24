@@ -16,8 +16,8 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://openuri.org/testNumerals">
+  targetNamespace="http://openuri.org/testNumerals"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="doc">
     <xs:complexType>
       <xs:sequence>

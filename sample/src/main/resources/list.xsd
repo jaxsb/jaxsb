@@ -16,8 +16,8 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
-  targetNamespace="http://xsb.safris.org/sample/list.xsd"
-  xmlns:li="http://xsb.safris.org/sample/list.xsd"
+  targetNamespace="http://xsb.libx4j.org/sample/list.xsd"
+  xmlns:li="http://xsb.libx4j.org/sample/list.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:complexType name="staffType" abstract="true">

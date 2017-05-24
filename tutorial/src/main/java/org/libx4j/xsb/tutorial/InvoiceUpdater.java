@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
 import org.libx4j.xsb.runtime.Bindings;
-import org.safris.xsb.tutorial.invoice.xe.pv_invoice;
+import org.libx4j.xsb.tutorial.invoice.xe.pv_invoice;
 import org.xml.sax.InputSource;
 
 public class InvoiceUpdater {

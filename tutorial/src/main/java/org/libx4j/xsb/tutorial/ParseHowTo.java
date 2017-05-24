@@ -24,8 +24,8 @@ import java.util.List;
 
 import org.lib4j.xml.binding.Date;
 import org.libx4j.xsb.runtime.Bindings;
-import org.safris.xsb.tutorial.invoice.xe.$pv_itemType;
-import org.safris.xsb.tutorial.invoice.xe.pv_invoice;
+import org.libx4j.xsb.tutorial.invoice.xe.$pv_itemType;
+import org.libx4j.xsb.tutorial.invoice.xe.pv_invoice;
 import org.xml.sax.InputSource;
 
 public class ParseHowTo {

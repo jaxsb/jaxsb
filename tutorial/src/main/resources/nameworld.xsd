@@ -16,10 +16,10 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
+  targetNamespace="http://openuri.org/nameworld"
   xmlns:nw="http://openuri.org/nameworld"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://openuri.org/nameworld">
-
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
   <xs:element name="nameworld">
     <xs:complexType>
       <xs:sequence maxOccurs="unbounded">

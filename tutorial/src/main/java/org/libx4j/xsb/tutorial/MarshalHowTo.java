@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 import org.lib4j.xml.binding.Date;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
-import org.safris.xsb.tutorial.invoice.xe.pv_invoice;
+import org.libx4j.xsb.tutorial.invoice.xe.pv_invoice;
 
 public class MarshalHowTo {
   public static void main(final String[] args) throws Exception {

@@ -17,9 +17,9 @@
 package org.libx4j.xsb.sample;
 
 import org.libx4j.xsb.runtime.Binding;
-import org.safris.xsb.sample.enums.xe.enums_color$;
-import org.safris.xsb.sample.enums.xe.enums_coloredFruitBasket;
-import org.safris.xsb.sample.simple.xe.simple_fruit;
+import org.libx4j.xsb.sample.enums.xe.enums_color$;
+import org.libx4j.xsb.sample.enums.xe.enums_coloredFruitBasket;
+import org.libx4j.xsb.sample.simple.xe.simple_fruit;
 
 public class EnumsSample {
   public static void main(final String[] args) {

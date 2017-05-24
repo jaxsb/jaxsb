@@ -17,13 +17,13 @@
 package org.libx4j.xsb.sample;
 
 import org.libx4j.xsb.runtime.Binding;
-import org.safris.xsb.sample.enums.xe.enums_color$;
-import org.safris.xsb.sample.enums.xe.enums_coloredFruitBasket;
-import org.safris.xsb.sample.simple.xe.$simple_fruitType;
-import org.safris.xsb.sample.simple.xe.simple_fruitBasket;
-import org.safris.xsb.sample.xsitype.xe.$type_dehiscentDryFruitType;
-import org.safris.xsb.sample.xsitype.xe.$type_fleshyFruitType;
-import org.safris.xsb.sample.xsitype.xe.$type_indehiscentDryFruitType;
+import org.libx4j.xsb.sample.enums.xe.enums_color$;
+import org.libx4j.xsb.sample.enums.xe.enums_coloredFruitBasket;
+import org.libx4j.xsb.sample.simple.xe.$simple_fruitType;
+import org.libx4j.xsb.sample.simple.xe.simple_fruitBasket;
+import org.libx4j.xsb.sample.xsitype.xe.$type_dehiscentDryFruitType;
+import org.libx4j.xsb.sample.xsitype.xe.$type_fleshyFruitType;
+import org.libx4j.xsb.sample.xsitype.xe.$type_indehiscentDryFruitType;
 
 public class XsiTypeSample {
   public static void main(final String[] args) {
