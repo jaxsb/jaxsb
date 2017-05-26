@@ -100,11 +100,11 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   </xs:schema>
   ```
   
-4. Add the [`org.lib4jx.maven.plugin:xsb-maven-plugin`][xsb-maven-plugin] to the POM.
+4. Add the [`org.libx4j.maven.plugin:xsb-maven-plugin`][xsb-maven-plugin] to the POM.
 
   ```xml
   <plugin>
-    <groupId>org.lib4jx.maven.plugin</groupId>
+    <groupId>org.libx4j.maven.plugin</groupId>
     <artifactId>xsb-maven-plugin</artifactId>
     <version>2.1.2</version>
     <executions>
@@ -126,11 +126,11 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   </plugin>
   ```
 
-5. Add the `org.lib4jx.xsb:xsb-runtime` dependency to the POM.
+5. Add the `org.libx4j.xsb:xsb-runtime` dependency to the POM.
 
   ```xml
   <dependency>
-    <groupId>org.lib4jx.xsb</groupId>
+    <groupId>org.libx4j.xsb</groupId>
     <artifactId>xsb-runtime</artifactId>
     <version>2.1.2</version>
   </dependency>
@@ -168,7 +168,7 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
 Samples are provided in the XSB source code:
 
 ```tcsh
-git clone git@github.com:lib4jx/xsb.git
+git clone git@github.com:libx4j/xsb.git
 cd xsb/sample
 mvn install
 ```
@@ -178,7 +178,7 @@ mvn install
 Tutorials are provided in the XSB source code:
 
 ```tcsh
-git clone git@github.com:lib4jx/xsb.git
+git clone git@github.com:libx4j/xsb.git
 cd xsb/tutorial
 mvn install
 ```
@@ -197,7 +197,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 [maven-archetype-quickstart]: http://maven.apache.org/archetypes/maven-archetype-quickstart/
 [maven]: https://maven.apache.org/
 [sax-parser]: https://docs.oracle.com/javase/tutorial/jaxp/sax/
-[generator]: https://github.com/lib4jx/xsb/tree/master/generator
-[xsb-maven-plugin]: https://github.com/lib4jx/xsb-maven-plugin
-[runtime]: https://github.com/lib4jx/xsb/tree/master/runtime
+[generator]: https://github.com/libx4j/xsb/tree/master/generator
+[xsb-maven-plugin]: https://github.com/libx4j/xsb-maven-plugin
+[runtime]: https://github.com/libx4j/xsb/tree/master/runtime
 [xsd-spec]: https://www.w3.org/TR/xmlschema11-1/
