@@ -698,9 +698,8 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("public int hashCode()\n");
     writer.write("{\n");
     writer.write("int hashCode = super.hashCode();\n");
-    writer.write("hashCode += NAME.hashCode();\n");
-//    if (plan.getMixed() != null && plan.getMixed())
-//      writer.write("hashCode += text != null ? text.hashCode() : -1;\n");
+    if (plan.getMixed() != null && plan.getMixed())
+      writer.write("hashCode += text != null ? text.hashCode() : -1;\n");
     for (final AttributePlan attribute : plan.getAttributes())
       Writer.writeHashCode(writer, attribute, plan);
     for (final ElementPlan element : plan.getElements())

@@ -546,22 +546,23 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("}\n");
 
     // EQUALS
-    writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public boolean equals(" + Object.class.getName() + " obj)\n");
-    writer.write("{\n");
-    // NOTE: This is not checking whether getTEXT() is equal between this and obj
-    // NOTE: because this final class does not contain the text field.
-    writer.write("return super.equals(obj);\n");
-    writer.write("}\n");
+//    writer.write("@" + Override.class.getName() + "\n");
+//    writer.write("public boolean equals(" + Object.class.getName() + " obj)\n");
+//    writer.write("{\n");
+//    // NOTE: This is not checking whether getTEXT() is equal between this and obj
+//    // NOTE: because this final class does not contain the text field.
+//    writer.write("return super.equals(obj);\n");
+//    writer.write("}\n");
 
     // HASHCODE
-    writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public int hashCode()\n");
-    writer.write("{\n");
-    writer.write("int hashCode = super.hashCode();\n");
-    writer.write("hashCode += NAME.hashCode();\n");
-    writer.write("return hashCode;\n");
-    writer.write("}\n");
+//    writer.write("@" + Override.class.getName() + "\n");
+//    writer.write("public int hashCode()\n");
+//    writer.write("{\n");
+//    writer.write("int hashCode = super.hashCode();\n");
+//    // NOTE: This is not checking whether getTEXT() is equal between this and obj
+//    // NOTE: because this final class does not contain the text field.
+//    writer.write("return hashCode;\n");
+//    writer.write("}\n");
 
     writer.write("}\n");
   }
