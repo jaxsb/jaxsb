@@ -62,7 +62,7 @@ public final class BindingEntityResolver implements XMLEntityResolver {
       // FIXME: Look this over. Also make a dedicated RuntimeException for this.
       if (!schemaReferences.containsKey(namespaceURI)) {
         try {
-          PackageLoader.getSystemPackageLoader().loadPackage(NamespaceBinding.getPackageFromNamespace(namespaceURI));
+          PackageLoader.getSystemContextPackageLoader().loadPackage(NamespaceBinding.getPackageFromNamespace(namespaceURI));
         }
         catch (final Exception e) {
           throw new RuntimeException(e);

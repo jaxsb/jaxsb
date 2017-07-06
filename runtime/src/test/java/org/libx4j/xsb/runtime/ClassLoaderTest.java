@@ -44,7 +44,7 @@ public class ClassLoaderTest {
 
   private static float testClassLoader(final java.lang.ClassLoader classLoader) throws Exception {
     long freeMemoryBeforeLoad = Runtime.getRuntime().freeMemory();
-//      PackageLoader.getSystemPackageLoader().loadPackage("org.safris.xml.toolkit.component.runtime");
+//      PackageLoader.getSystemContextPackageLoader().loadPackage("org.safris.xml.toolkit.component.runtime");
     long freeMemoryAfterLoad = Runtime.getRuntime().freeMemory();
 
     Runtime.getRuntime().gc();
