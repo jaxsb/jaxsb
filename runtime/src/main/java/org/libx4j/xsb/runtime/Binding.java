@@ -367,24 +367,22 @@ public abstract class Binding extends AbstractBinding {
     return _$$addElement(elementAudit, element, false);
   }
 
+  private CompositeElementStore getCreateElementDirectory() {
+    if (elementDirectory != null)
+      return elementDirectory;
+
+    synchronized (elementsLock) {
+      if (elementDirectory != null)
+        return elementDirectory;
+
+      return elementDirectory = new CompositeElementStore(2);
+    }
+  }
+
   private <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element, final boolean addToAudit) {
-    if (elementDirectory == null) {
-      synchronized (elementsLock) {
-        if (elementDirectory == null) {
-          elementDirectory = new CompositeElementStore(2);
-          if (!elementDirectory.add(element, elementAudit, addToAudit))
-            throw new BindingRuntimeException("Elements list should have changed here.");
-        }
-        else {
-          if (!elementDirectory.add(element, elementAudit, addToAudit))
-            throw new BindingRuntimeException("Elements list should have changed here.");
-        }
-      }
-    }
-    else {
-      if (!elementDirectory.add(element, elementAudit, addToAudit))
-        throw new BindingRuntimeException("Elements list should have changed here.");
-    }
+    final CompositeElementStore elementDirectory = getCreateElementDirectory();
+    if (!elementDirectory.add(element, elementAudit, addToAudit))
+      throw new BindingRuntimeException("Elements list should have changed here.");
 
     if (element != null)
       element._$$setOwner(($xs_anySimpleType)this);
@@ -399,28 +397,29 @@ public abstract class Binding extends AbstractBinding {
     return audit.setAttribute(attribute);
   }
 
-  protected final <B extends $xs_anySimpleType>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
-    if (attributeDirectory == null)
-      attributeDirectory = new CompositeAttributeStore();
+  private CompositeAttributeStore getCreateAttributeStore() {
+    return attributeDirectory == null ? attributeDirectory = new CompositeAttributeStore() : attributeDirectory;
+  }
 
-    attributeDirectory.add(audit);
+  protected final <B extends $xs_anySimpleType>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
+    getCreateAttributeStore().add(audit);
     return audit;
   }
 
   protected Iterator<Binding> elementIterator() {
-    return elementDirectory.getElements().iterator();
+    return getCreateElementDirectory().getElements().iterator();
   }
 
   protected ListIterator<Binding> elementListIterator() {
-    return elementDirectory.getElements().listIterator();
+    return getCreateElementDirectory().getElements().listIterator();
   }
 
   protected ListIterator<Binding> elementListIterator(final int index) {
-    return elementDirectory.getElements().listIterator(index);
+    return getCreateElementDirectory().getElements().listIterator(index);
   }
 
   protected Iterator<? extends $xs_anySimpleType> attributeIterator() {
-    return attributeDirectory == null ? null : attributeDirectory.iterator();
+    return getCreateAttributeStore().iterator();
   }
 
   protected final boolean _$$removeElement(final Binding element) {
