@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.function.Function;
 
 import org.lib4j.xml.dom.DOMs;
 import org.lib4j.xml.dom.Validator;
@@ -96,5 +97,15 @@ public abstract class Bindings {
   public static javax.xml.namespace.QName getTypeName(final Binding binding) {
     final QName name = binding.getClass().getAnnotation(QName.class);
     return name != null ? new javax.xml.namespace.QName(name.namespaceURI(), name.localPart(), name.prefix()) : null;
+  }
+
+  public static String getXPath(final Binding binding, final Function<Binding,String> function) {
+    final StringBuilder string = new StringBuilder();
+    Binding owner = binding;
+    do {
+      string.insert(0, "/" + function.apply(owner));
+    }
+    while ((owner = owner._$$getOwner()) != null);
+    return string.toString();
   }
 }

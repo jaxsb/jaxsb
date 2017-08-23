@@ -412,7 +412,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
     // INHERITS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("protected " + plan.getClassSimpleName() + " inherits()\n");
+    writer.write("protected " + plan.getCopyClassName(parent) + " inherits()\n");
     writer.write("{\n");
     writer.write("return this;\n");
     writer.write("}\n");
