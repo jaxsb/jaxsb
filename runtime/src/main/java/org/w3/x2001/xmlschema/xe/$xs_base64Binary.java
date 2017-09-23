@@ -22,6 +22,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_base64Binary extends $xs_anySimpleType {
+  private static final long serialVersionUID = -5862425707789169319L;
+
   public $xs_base64Binary(final $xs_base64Binary binding) {
     super(binding);
   }
@@ -56,6 +58,8 @@ public abstract class $xs_base64Binary extends $xs_anySimpleType {
   @Override
   public $xs_base64Binary clone() {
     return new $xs_base64Binary(this) {
+      private static final long serialVersionUID = 130881242257625800L;
+
       @Override
       protected $xs_base64Binary inherits() {
         return this;

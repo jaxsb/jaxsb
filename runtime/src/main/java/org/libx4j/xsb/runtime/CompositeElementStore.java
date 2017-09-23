@@ -16,10 +16,13 @@
 
 package org.libx4j.xsb.runtime;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-final class CompositeElementStore {
+final class CompositeElementStore implements Serializable {
+  private static final long serialVersionUID = 1140578580159732414L;
+
   private final List<Binding> elements;
   private final List<ElementAudit<? extends Binding>> elementAudits;
 

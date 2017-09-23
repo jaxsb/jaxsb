@@ -21,6 +21,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_int extends $xs_long {
+  private static final long serialVersionUID = 6845008408792068840L;
+
   public $xs_int(final $xs_int binding) {
     super(binding);
   }
@@ -59,6 +61,8 @@ public abstract class $xs_int extends $xs_long {
   @Override
   public $xs_int clone() {
     return new $xs_int(this) {
+      private static final long serialVersionUID = 4980199696919832977L;
+
       @Override
       protected $xs_int inherits() {
         return this;

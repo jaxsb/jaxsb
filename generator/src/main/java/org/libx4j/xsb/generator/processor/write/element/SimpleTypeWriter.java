@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.generator.processor.write.element;
 
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,7 +81,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     writer.write("public static " + plan.getClassName(parent) + " lookupId(final " + className + " id)\n");
     writer.write("{\n");
-    writer.write("final " + Map.class.getName() + "<" + Object.class.getName() + ",? extends " + $xs_ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
+    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $xs_ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
     writer.write("if (idMap == null)\n");
     writer.write("return null;\n");
     writer.write("final " + $xs_ID.class.getName() + " value = idMap.get(" + instanceName + ");\n");
@@ -91,7 +92,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     writer.write("public static " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> lookupId()\n");
     writer.write("{\n");
-    writer.write("final " + Map.class.getName() + "<" + Object.class.getName() + ",? extends " + $xs_ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
+    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $xs_ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
     writer.write("if (idMap == null)\n");
     writer.write("return null;\n");
     writer.write("final " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> ids = new " + ArrayList.class.getName() + "<" + plan.getClassName(parent) + ">();\n");
@@ -106,28 +107,33 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     if (plan.getNativeItemClassNameInterface() == null || (plan.isList() && plan.hasEnumerations()))
       return;
 
-    String accessibility;
+    final String visibility;
     if (((EnumerablePlan)plan).hasEnumerations() && !plan.isUnionWithNonEnumeration()) {
-      accessibility = "protected ";
+      visibility = "protected ";
     }
     else {
       // DOCUMENTATION
       writer.write(plan.getDocumentation());
 
-      accessibility = "public ";
+      visibility = "public ";
     }
 
-    writer.write(accessibility + plan.getClassSimpleName() + "(final " + plan.getNativeNonEnumItemClassNameInterface() + " text)\n");
-    writer.write("{\n");
-    writer.write("super(text);\n");
-    writer.write("}\n");
-
     if (plan.isList()) {
-      writer.write(accessibility + plan.getClassSimpleName() + "(final " + plan.getNativeNonEnumItemClassName() + " ... text)\n");
+      writer.write(visibility + "<T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">" + plan.getClassSimpleName() + "(final T text)\n");
       writer.write("{\n");
-      writer.write("super(" + Arrays.class.getName() + ".asList(text));\n");
+      writer.write("super(text);\n");
       writer.write("}\n");
 
+      writer.write(visibility + "<T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">" + plan.getClassSimpleName() + "(final " + plan.getNativeNonEnumItemClassName() + " ... text)\n");
+      writer.write("{\n");
+      writer.write("super((T)" + Arrays.class.getName() + ".asList(text));\n");
+      writer.write("}\n");
+    }
+    else {
+      writer.write(visibility + plan.getClassSimpleName() + "(final " + plan.getNativeNonEnumItemClassNameInterface() + " text)\n");
+      writer.write("{\n");
+      writer.write("super(text);\n");
+      writer.write("}\n");
     }
 
 //      if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
@@ -519,7 +525,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     // MARSHAL
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("protected " + Attr.class.getName() + " marshalAttr(" + String.class.getName() + " name, " + Element.class.getName() + " parent) throws " + MarshalException.class.getName() + "\n");
+    writer.write("protected " + Attr.class.getName() + " marshalAttr(final " + String.class.getName() + " name, final " + Element.class.getName() + " parent) throws " + MarshalException.class.getName() + "\n");
     writer.write("{\n");
     writer.write("return super.marshalAttr(name, parent);\n");
     writer.write("}\n");
@@ -530,7 +536,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("return marshal(root, name(), typeName(_$$inheritsInstance()));\n");
     writer.write("}\n");
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("protected " + Element.class.getName() + " marshal(" + Element.class.getName() + " parent, " + QName.class.getName() + " name, " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
+    writer.write("protected " + Element.class.getName() + " marshal(final " + Element.class.getName() + " parent, final " + QName.class.getName() + " name, final " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
     writer.write("{\n");
     writer.write("return super.marshal(parent, name, typeName);\n");
     writer.write("}\n");
@@ -547,7 +553,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     // EQUALS
 //    writer.write("@" + Override.class.getName() + "\n");
-//    writer.write("public boolean equals(" + Object.class.getName() + " obj)\n");
+//    writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
 //    writer.write("{\n");
 //    // NOTE: This is not checking whether getTEXT() is equal between this and obj
 //    // NOTE: because this final class does not contain the text field.

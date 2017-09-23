@@ -24,6 +24,8 @@ import javax.xml.namespace.QName;
 import org.libx4j.xsb.runtime.Binding;
 
 public abstract class $xs_anyType extends $xs_anySimpleType {
+  private static final long serialVersionUID = -6510869738097560771L;
+
   private final List<Binding> anys = new ArrayList<Binding>(7);
   private final List<Binding> anys$ = new ArrayList<Binding>(7);
 
@@ -62,6 +64,8 @@ public abstract class $xs_anyType extends $xs_anySimpleType {
   @Override
   public $xs_anyType clone() {
     return new $xs_anyType(this) {
+      private static final long serialVersionUID = 7881269189540416455L;
+
       @Override
       public QName name() {
         return this.name();

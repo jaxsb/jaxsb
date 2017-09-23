@@ -16,6 +16,7 @@
 
 package org.w3.x2001.xmlschema.xe;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.xml.namespace.QName;
@@ -30,7 +31,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
 public abstract class $xs_anySimpleType extends Binding {
-  private Object text = null;
+  private static final long serialVersionUID = 3006785147423317837L;
+
+  private Serializable text = null;
 
   public $xs_anySimpleType(final $xs_anySimpleType copy) {
     super(copy);
@@ -42,14 +45,14 @@ public abstract class $xs_anySimpleType extends Binding {
     if (text instanceof $xs_anySimpleType && (($xs_anySimpleType)text)._$$hasElements())
       merge(($xs_anySimpleType)text);
     else
-      this.text = text;
+      this.text = (Serializable)text;
   }
 
   protected $xs_anySimpleType() {
     super();
   }
 
-  public void text(final Object text) {
+  public void text(final Serializable text) {
     if (isNull())
       throw new BindingRuntimeException("NULL Object is immutable.");
 
@@ -130,6 +133,8 @@ public abstract class $xs_anySimpleType extends Binding {
   @Override
   public $xs_anySimpleType clone() {
     return new $xs_anySimpleType(this) {
+      private static final long serialVersionUID = -8479447711356944297L;
+
       @Override
       protected $xs_anySimpleType inherits() {
         return this;

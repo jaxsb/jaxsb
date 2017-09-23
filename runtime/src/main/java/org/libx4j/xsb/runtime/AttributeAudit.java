@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.xml.namespace.QName;
@@ -23,7 +24,9 @@ import javax.xml.namespace.QName;
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3c.dom.Element;
 
-public final class AttributeAudit<T extends $xs_anySimpleType> {
+public final class AttributeAudit<T extends $xs_anySimpleType> implements Serializable {
+  private static final long serialVersionUID = 4793561156708612350L;
+
   private final $xs_anySimpleType parent;
   private final T _default;
   private final QName name;

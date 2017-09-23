@@ -331,7 +331,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     writer.write("}\n");
 
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("protected " + Element.class.getName() + " marshal(" + Element.class.getName() + " parent, " + QName.class.getName() + " name, " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
+    writer.write("protected " + Element.class.getName() + " marshal(final " + Element.class.getName() + " parent, final " + QName.class.getName() + " name, final " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
     writer.write("{\n");
     if (plan.getElements() != null || plan.getAttributes() != null || plan.getMixed()) {
       writer.write(Element.class.getName() + " node = super.marshal(parent, name, typeName);\n");
@@ -428,7 +428,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
 
     // EQUALS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public boolean equals(" + Object.class.getName() + " obj)\n");
+    writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
     writer.write("{\n");
     writer.write("if (this == obj)\n");
     writer.write("return true;\n");

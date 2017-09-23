@@ -21,6 +21,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_ENTITY extends $xs_NCName {
+  private static final long serialVersionUID = 2131270403814548561L;
+
   public $xs_ENTITY(final $xs_ENTITY binding) {
     super(binding);
   }
@@ -56,6 +58,8 @@ public abstract class $xs_ENTITY extends $xs_NCName {
   @Override
   public $xs_ENTITY clone() {
     return new $xs_ENTITY(this) {
+      private static final long serialVersionUID = 3761266650692111155L;
+
       @Override
       protected $xs_ENTITY inherits() {
         return this;

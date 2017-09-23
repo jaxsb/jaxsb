@@ -21,6 +21,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_nonPositiveInteger extends $xs_integer {
+  private static final long serialVersionUID = 6601655744973800161L;
+
   public $xs_nonPositiveInteger(final $xs_nonPositiveInteger binding) {
     super(binding);
   }
@@ -59,6 +61,8 @@ public abstract class $xs_nonPositiveInteger extends $xs_integer {
   @Override
   public $xs_nonPositiveInteger clone() {
     return new $xs_nonPositiveInteger(this) {
+      private static final long serialVersionUID = -3911881390557014095L;
+
       @Override
       protected $xs_nonPositiveInteger inherits() {
         return this;

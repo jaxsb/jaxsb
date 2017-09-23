@@ -27,6 +27,8 @@ import org.w3c.dom.Element;
  * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">Definition</a>
  */
 public abstract class $xs_dateTime extends $xs_anySimpleType {
+  private static final long serialVersionUID = 2247372411847607768L;
+
   public $xs_dateTime(final $xs_dateTime binding) {
     super(binding);
   }
@@ -68,6 +70,8 @@ public abstract class $xs_dateTime extends $xs_anySimpleType {
   @Override
   public $xs_dateTime clone() {
     return new $xs_dateTime(this) {
+      private static final long serialVersionUID = 2550595550037752459L;
+
       @Override
       protected $xs_dateTime inherits() {
         return this;

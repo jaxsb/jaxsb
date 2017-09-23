@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -92,9 +93,9 @@ public final class XSTypeDirectory {
 
   // may not need this...
   public static final XSTypeDirectory TYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "Type"), new NativeBinding.GenericClass(Binding.class)), null);
-  public static final XSTypeDirectory ANYTYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anyType"), new NativeBinding.GenericClass($xs_anySimpleType.class), new NativeBinding.GenericClass(Object.class)), null);
+  public static final XSTypeDirectory ANYTYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anyType"), new NativeBinding.GenericClass($xs_anySimpleType.class), new NativeBinding.GenericClass(Serializable.class)), null);
 
-  public static final XSTypeDirectory ANYSIMPLETYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anySimpleType"), new NativeBinding.GenericClass($xs_anySimpleType.class), new NativeBinding.GenericClass(Object.class)), null);
+  public static final XSTypeDirectory ANYSIMPLETYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anySimpleType"), new NativeBinding.GenericClass($xs_anySimpleType.class), new NativeBinding.GenericClass(Serializable.class)), null);
 
   public static final XSTypeDirectory QNAME;
 

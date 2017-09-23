@@ -128,7 +128,7 @@ public final class NotationWriter extends Writer<NotationPlan> {
     writer.write("}\n");
 
     // EQUALS
-    writer.write("public boolean equals(" + Object.class.getName() + " obj)\n");
+    writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
     writer.write("{\n");
     writer.write("if (this == obj)\n");
     writer.write("return true;\n");

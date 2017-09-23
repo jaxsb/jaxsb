@@ -20,6 +20,8 @@ import org.libx4j.xsb.runtime.MarshalException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_normalizedString extends $xs_string {
+  private static final long serialVersionUID = 3288734660660079355L;
+
   public $xs_normalizedString(final $xs_normalizedString binding) {
     super(binding);
   }
@@ -54,6 +56,8 @@ public abstract class $xs_normalizedString extends $xs_string {
   @Override
   public $xs_normalizedString clone() {
     return new $xs_normalizedString(this) {
+      private static final long serialVersionUID = -2005930855161284183L;
+
       @Override
       protected $xs_normalizedString inherits() {
         return this;

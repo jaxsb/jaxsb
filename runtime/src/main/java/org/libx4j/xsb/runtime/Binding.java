@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -38,7 +39,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-public abstract class Binding extends AbstractBinding {
+public abstract class Binding extends AbstractBinding implements Serializable {
+  private static final long serialVersionUID = -1760699437761774773L;
+
   protected static DocumentBuilder newDocumentBuilder() {
     final DocumentBuilder documentBuilder;
     try {
@@ -253,7 +256,7 @@ public abstract class Binding extends AbstractBinding {
     documentBuilderFactory.setValidating(false);
   }
 
-  private final Object elementsLock = new Object();
+  private transient final Object elementsLock = new Object();
   private CompositeElementStore elementDirectory = null;
   private CompositeAttributeStore attributeDirectory = null;
   private Binding inherits;

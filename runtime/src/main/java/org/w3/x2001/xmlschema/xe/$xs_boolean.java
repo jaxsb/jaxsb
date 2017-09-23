@@ -24,6 +24,7 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_boolean extends $xs_anySimpleType {
+  private static final long serialVersionUID = 5805207783730082952L;
   private static final Map<Boolean,String[]> valueMap = new HashMap<Boolean,String[]>();
 
   public static final Boolean parseBoolean(final String s) {
@@ -89,6 +90,8 @@ public abstract class $xs_boolean extends $xs_anySimpleType {
   @Override
   public $xs_boolean clone() {
     return new $xs_boolean(this) {
+      private static final long serialVersionUID = -8964376560317450311L;
+
       @Override
       protected $xs_boolean inherits() {
         return this;

@@ -23,6 +23,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_QName extends $xs_anySimpleType {
+  private static final long serialVersionUID = -6159227210752729335L;
+
   public $xs_QName(final $xs_QName binding) {
     super(binding);
   }
@@ -67,6 +69,8 @@ public abstract class $xs_QName extends $xs_anySimpleType {
   @Override
   public $xs_QName clone() {
     return new $xs_QName(this) {
+      private static final long serialVersionUID = 5679781638989841841L;
+
       @Override
       protected $xs_QName inherits() {
         return this;

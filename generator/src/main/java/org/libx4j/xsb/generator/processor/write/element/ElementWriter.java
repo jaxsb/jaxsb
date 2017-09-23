@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.generator.processor.write.element;
 
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -328,15 +329,21 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
           if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
             writer.write("@" + Override.class.getName() + "\n");
 
-          writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
-          writer.write("{\n");
-          writer.write("super.text(text);\n");
-          writer.write("}\n");
-
           if (plan.isList()) {
-            writer.write("public void text(" + plan.getNativeItemClassName() + " ... text)\n");
+            writer.write("public <T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">void text(final T text)\n");
             writer.write("{\n");
-            writer.write("super.text(" + Arrays.class.getName() + ".asList(text));\n");
+            writer.write("super.text(text);\n");
+            writer.write("}\n");
+
+            writer.write("public <T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">void text(final " + plan.getNativeItemClassName() + " ... text)\n");
+            writer.write("{\n");
+            writer.write("super.text((T)" + Arrays.class.getName() + ".asList(text));\n");
+            writer.write("}\n");
+          }
+          else {
+            writer.write("public void text(final " + plan.getNativeNonEnumItemClassNameInterface() + " text)\n");
+            writer.write("{\n");
+            writer.write("super.text(text);\n");
             writer.write("}\n");
           }
         }
@@ -493,7 +500,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("return node;\n");
       writer.write("}\n");
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected " + Element.class.getName() + " marshal(" + Element.class.getName() + " parent, " + QName.class.getName() + " name, " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
+      writer.write("protected " + Element.class.getName() + " marshal(final " + Element.class.getName() + " parent, final " + QName.class.getName() + " name, final " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
       writer.write("{\n");
       writer.write("final " + Element.class.getName() + " node = super.marshal(parent, name, typeName);\n");
       if (plan.getMixed() != null && plan.getMixed()) {
@@ -518,7 +525,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     else {
       // FIXME: What's the point of this??
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected " + Attr.class.getName() + " marshalAttr(" + String.class.getName() + " name, " + Element.class.getName() + " parent) throws " + MarshalException.class.getName() + "\n");
+      writer.write("protected " + Attr.class.getName() + " marshalAttr(final " + String.class.getName() + " name, final " + Element.class.getName() + " parent) throws " + MarshalException.class.getName() + "\n");
       writer.write("{\n");
       writer.write("return super.marshalAttr(name, parent);\n");
       writer.write("}\n");
@@ -541,7 +548,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
       // FIXME: Check here if we need nillable and remove this entry otherwise.
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected " + Element.class.getName() + " marshal(" + Element.class.getName() + " parent, " + QName.class.getName() + " name, " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
+      writer.write("protected " + Element.class.getName() + " marshal(final " + Element.class.getName() + " parent, final " + QName.class.getName() + " name, final " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
       writer.write("{\n");
       writer.write("final " + Element.class.getName() + " node = super.marshal(parent, name, typeName);\n");
       if (plan.isNillable())
@@ -669,7 +676,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
     // EQUALS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public boolean equals(" + Object.class.getName() + " obj)\n");
+    writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
     writer.write("{\n");
     writer.write("if (this == obj)\n");
     writer.write("return true;\n");

@@ -22,6 +22,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_double extends $xs_anySimpleType {
+  private static final long serialVersionUID = 5696304973581941043L;
+
   public $xs_double(final $xs_double binding) {
     super(binding);
   }
@@ -56,6 +58,8 @@ public abstract class $xs_double extends $xs_anySimpleType {
   @Override
   public $xs_double clone() {
     return new $xs_double(this) {
+      private static final long serialVersionUID = -186742707176755984L;
+
       @Override
       protected $xs_double inherits() {
         return this;

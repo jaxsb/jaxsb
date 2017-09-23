@@ -16,11 +16,15 @@
 
 package org.libx4j.xsb.runtime;
 
+import java.io.Serializable;
+
 import javax.xml.namespace.QName;
 
 import org.w3c.dom.Element;
 
-public final class ElementAudit<T extends Binding> {
+public final class ElementAudit<T extends Binding> implements Serializable {
+  private static final long serialVersionUID = -8175752291591734863L;
+
   private final Binding parent;
   private final BindingList<T> _default;
   private final QName name;

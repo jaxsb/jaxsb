@@ -25,18 +25,19 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_ID extends $xs_NCName {
-  protected static final Map<String,Map<Object,$xs_ID>> namespaceIds = new HashMap<String,Map<Object,$xs_ID>>();
+  private static final long serialVersionUID = 8671692505211063717L;
+  protected static final Map<String,Map<String,$xs_ID>> namespaceIds = new HashMap<String,Map<String,$xs_ID>>();
 
-  private static void persist(final String namespace, final Object value, final $xs_ID id) {
-    Map<Object,$xs_ID> idMap = namespaceIds.get(namespace);
+  private static void persist(final String namespace, final String value, final $xs_ID id) {
+    Map<String,$xs_ID> idMap = namespaceIds.get(namespace);
     if (idMap == null)
-      namespaceIds.put(namespace, idMap = new HashMap<Object,$xs_ID>());
+      namespaceIds.put(namespace, idMap = new HashMap<String,$xs_ID>());
 
     idMap.put(value, id);
   }
 
   private static void remove(final String namespace, final Object value) {
-    final Map<Object,$xs_ID> ids = namespaceIds.get(namespace);
+    final Map<String,$xs_ID> ids = namespaceIds.get(namespace);
     if (ids == null)
       return;
 
@@ -44,7 +45,7 @@ public abstract class $xs_ID extends $xs_NCName {
   }
 
   public static $xs_ID lookupId(final Object id) {
-    final Map<Object,$xs_ID> ids = namespaceIds.get(UniqueQName.XS.getNamespaceURI().toString());
+    final Map<String,$xs_ID> ids = namespaceIds.get(UniqueQName.XS.getNamespaceURI().toString());
     if (ids == null)
       return null;
 
@@ -71,7 +72,7 @@ public abstract class $xs_ID extends $xs_NCName {
 
   @Override
   public void text(final String text) {
-    final Object old = text();
+    final String old = text();
     super.text(text);
     if (old != null)
       remove(name().getNamespaceURI(), old);
@@ -93,6 +94,8 @@ public abstract class $xs_ID extends $xs_NCName {
   @Override
   public $xs_ID clone() {
     return new $xs_ID(this) {
+      private static final long serialVersionUID = -2416845455854858753L;
+
       @Override
       protected $xs_ID inherits() {
         return this;

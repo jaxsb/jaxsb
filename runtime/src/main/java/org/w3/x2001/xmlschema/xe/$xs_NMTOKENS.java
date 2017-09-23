@@ -16,6 +16,7 @@
 
 package org.w3.x2001.xmlschema.xe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -26,6 +27,8 @@ import org.w3c.dom.Element;
 
 @SuppressWarnings("unchecked")
 public abstract class $xs_NMTOKENS extends $xs_anySimpleType {
+  private static final long serialVersionUID = -5260386241351935007L;
+
   public $xs_NMTOKENS(final $xs_NMTOKENS binding) {
     super(binding);
   }
@@ -43,7 +46,7 @@ public abstract class $xs_NMTOKENS extends $xs_anySimpleType {
     return (List<String>)super.text();
   }
 
-  public void text(final List<String> text) {
+  public <T extends List<String> & Serializable>void text(final T text) {
     super.text(text);
   }
 
@@ -73,6 +76,8 @@ public abstract class $xs_NMTOKENS extends $xs_anySimpleType {
   @Override
   public $xs_NMTOKENS clone() {
     return new $xs_NMTOKENS(this) {
+      private static final long serialVersionUID = 4984687020734176771L;
+
       @Override
       protected $xs_NMTOKENS inherits() {
         return this;

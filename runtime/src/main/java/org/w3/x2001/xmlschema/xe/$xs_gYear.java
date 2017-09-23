@@ -22,6 +22,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_gYear extends $xs_anySimpleType {
+  private static final long serialVersionUID = 7929109327684024810L;
+
   public $xs_gYear(final $xs_gYear binding) {
     super(binding);
   }
@@ -56,6 +58,8 @@ public abstract class $xs_gYear extends $xs_anySimpleType {
   @Override
   public $xs_gYear clone() {
     return new $xs_gYear(this) {
+      private static final long serialVersionUID = -6924725826573073029L;
+
       @Override
       protected $xs_gYear inherits() {
         return this;

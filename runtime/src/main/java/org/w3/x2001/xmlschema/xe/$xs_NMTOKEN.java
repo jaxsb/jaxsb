@@ -21,6 +21,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_NMTOKEN extends $xs_token {
+  private static final long serialVersionUID = -8208935544015142206L;
+
   public $xs_NMTOKEN(final $xs_NMTOKEN binding) {
     super(binding);
   }
@@ -56,6 +58,8 @@ public abstract class $xs_NMTOKEN extends $xs_token {
   @Override
   public $xs_NMTOKEN clone() {
     return new $xs_NMTOKEN(this) {
+      private static final long serialVersionUID = 3570596966666394331L;
+
       @Override
       protected $xs_NMTOKEN inherits() {
         return this;

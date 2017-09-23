@@ -21,6 +21,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_token extends $xs_normalizedString {
+  private static final long serialVersionUID = 9075199116743643063L;
+
   public $xs_token(final $xs_token binding) {
     super(binding);
   }
@@ -56,6 +58,8 @@ public abstract class $xs_token extends $xs_normalizedString {
   @Override
   public $xs_token clone() {
     return new $xs_token(this) {
+      private static final long serialVersionUID = -837309197068360375L;
+
       @Override
       protected $xs_token inherits() {
         return this;

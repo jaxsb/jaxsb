@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.generator.processor.write.element;
 
+import java.io.Serializable;
 import java.io.StringWriter;
 
 import javax.xml.namespace.QName;
@@ -254,10 +255,18 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
         writer.write("@" + Override.class.getName() + "\n");
 
-      writer.write("public void text(" + plan.getNativeItemClassNameInterface() + " text)\n");
-      writer.write("{\n");
-      writer.write("super.text(text);\n");
-      writer.write("}\n");
+      if (plan.isList()) {
+        writer.write("public <T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">void text(final T text)\n");
+        writer.write("{\n");
+        writer.write("super.text(text);\n");
+        writer.write("}\n");
+      }
+      else {
+        writer.write("public void text(" + plan.getNativeItemClassNameInterface() + " text)\n");
+        writer.write("{\n");
+        writer.write("super.text(text);\n");
+        writer.write("}\n");
+      }
     }
 
     // CLONE
@@ -269,7 +278,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
     // EQUALS
 //    writer.write("@" + Override.class.getName() + "\n");
-//    writer.write("public boolean equals(" + Object.class.getName() + " obj)\n");
+//    writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
 //    writer.write("{\n");
 //    // NOTE: This is not checking whether getValue() is equal between this and obj
 //    // NOTE: because this final class does not contain the value field.

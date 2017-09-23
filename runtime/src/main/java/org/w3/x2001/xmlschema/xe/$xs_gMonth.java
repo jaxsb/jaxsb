@@ -22,6 +22,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_gMonth extends $xs_anySimpleType {
+  private static final long serialVersionUID = -9051270336948297692L;
+
   public $xs_gMonth(final $xs_gMonth binding) {
     super(binding);
   }
@@ -56,6 +58,8 @@ public abstract class $xs_gMonth extends $xs_anySimpleType {
   @Override
   public $xs_gMonth clone() {
     return new $xs_gMonth(this) {
+      private static final long serialVersionUID = 2153662309105407332L;
+
       @Override
       protected $xs_gMonth inherits() {
         return this;

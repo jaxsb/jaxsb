@@ -21,6 +21,8 @@ import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;
 
 public abstract class $xs_anyURI extends $xs_anySimpleType {
+  private static final long serialVersionUID = 7515449882634738035L;
+
   public $xs_anyURI(final $xs_anyURI binding) {
     super(binding);
   }
@@ -55,6 +57,8 @@ public abstract class $xs_anyURI extends $xs_anySimpleType {
   @Override
   public $xs_anyURI clone() {
     return new $xs_anyURI(this) {
+      private static final long serialVersionUID = 896348518452291347L;
+
       @Override
       protected $xs_anyURI inherits() {
         return this;
