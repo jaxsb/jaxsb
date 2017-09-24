@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -70,7 +71,7 @@ public abstract class AbstractBinding implements Cloneable {
       method.setAccessible(true);
       method.invoke(null);
     }
-    catch (final ReflectiveOperationException e) {
+    catch (final ClassNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       throw new RuntimeException(e);
     }
   }
