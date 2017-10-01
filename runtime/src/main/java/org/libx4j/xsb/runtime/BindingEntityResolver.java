@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.lib4j.lang.PackageLoader;
+import org.lib4j.lang.PackageNotFoundException;
 import org.lib4j.lang.Paths;
 import org.lib4j.net.URLs;
 import org.lib4j.xml.NamespaceBinding;
@@ -64,7 +65,7 @@ public final class BindingEntityResolver implements XMLEntityResolver {
         try {
           PackageLoader.getSystemContextPackageLoader().loadPackage(NamespaceBinding.getPackageFromNamespace(namespaceURI));
         }
-        catch (final Exception e) {
+        catch (final PackageNotFoundException e) {
           throw new RuntimeException(e);
         }
       }
@@ -121,9 +122,6 @@ public final class BindingEntityResolver implements XMLEntityResolver {
     }
     catch (final IOException e) {
       throw e;
-    }
-    catch (final Exception e) {
-      throw new ValidatorError(resourceIdentifier.toString(), e);
     }
   }
 }

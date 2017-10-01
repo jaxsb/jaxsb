@@ -17,6 +17,7 @@
 package org.libx4j.xsb.generator.processor.plan;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -178,7 +179,7 @@ public final class PlanDirectory implements PipelineDirectory<GeneratorContext,M
       plan = (Plan<?>)constructor.newInstance(entity, parent);
       return plan;
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
     }
   }

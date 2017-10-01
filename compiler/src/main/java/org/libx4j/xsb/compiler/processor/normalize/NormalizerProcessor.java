@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.compiler.processor.normalize;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
@@ -44,7 +45,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
       method.setAccessible(true);
       method.invoke(normalizer, model);
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       throw new LexerFailureException(e);
     }
 

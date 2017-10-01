@@ -17,6 +17,8 @@
 package org.libx4j.xsb.generator;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +32,7 @@ import org.libx4j.xsb.compiler.processor.reference.SchemaReference;
 import org.libx4j.xsb.runtime.BindingError;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 public abstract class AbstractGenerator {
   private static final Map<String,SchemaDocument> parsedDocuments = new HashMap<String,SchemaDocument>();
@@ -46,7 +49,7 @@ public abstract class AbstractGenerator {
     catch (final FileNotFoundException e) {
       throw new BindingError(e.getMessage());
     }
-    catch (final Exception e) {
+    catch (final IOException | SAXException | URISyntaxException e) {
       throw new CompilerFailureException(e);
     }
 

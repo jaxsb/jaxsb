@@ -109,21 +109,16 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     final File file = new File(new File(destDir, packageName.replace('.', '/')), "xe.java");
     ClassFile classFile = fileToClassFile.get(file);
-    try {
-      if (classFile == null)
-        fileToClassFile.put(file, classFile = new ClassFile(file, packageName));
+    if (classFile == null)
+      fileToClassFile.put(file, classFile = new ClassFile(file, packageName));
 
-      StringWriter stringWriter = new StringWriter();
-      writer.appendRegistration(stringWriter, plan, null);
-      classFile.addRegistrationText(stringWriter.toString());
+    StringWriter stringWriter = new StringWriter();
+    writer.appendRegistration(stringWriter, plan, null);
+    classFile.addRegistrationText(stringWriter.toString());
 
-      stringWriter = new StringWriter();
-      writer.appendClass(stringWriter, plan, null);
-      classFile.addClassText(stringWriter.toString());
-    }
-    catch (final Exception e) {
-      throw new CompilerFailureException(e);
-    }
+    stringWriter = new StringWriter();
+    writer.appendClass(stringWriter, plan, null);
+    classFile.addClassText(stringWriter.toString());
   }
 
   public static void writeDeclaration(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {

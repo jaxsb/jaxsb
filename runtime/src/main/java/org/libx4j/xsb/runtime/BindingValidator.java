@@ -31,6 +31,7 @@ import org.lib4j.xml.sax.SAXProperty;
 import org.lib4j.xml.validate.ValidationException;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public final class BindingValidator extends Validator {
   private final Map<String,URL> schemaReferences = new HashMap<String,URL>();
@@ -63,7 +64,7 @@ public final class BindingValidator extends Validator {
 
       saxParser.setErrorHandler(BindingErrorHandler.getInstance());
     }
-    catch (final Exception e) {
+    catch (final SAXException e) {
       throw new ValidationException(e);
     }
 
@@ -74,7 +75,7 @@ public final class BindingValidator extends Validator {
     catch (final IOException e) {
       throw e;
     }
-    catch (final Exception e) {
+    catch (final SAXException e) {
       throw new ValidationException("\n" + e.getMessage() + "\n" + output, e);
     }
   }

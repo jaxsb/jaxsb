@@ -17,6 +17,7 @@
 package org.libx4j.xsb.generator.processor.plan;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -80,7 +81,7 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
     catch (final ClassNotFoundException e) {
       throw new CompilerFailureException("Class<?> not found for element [" + model.getClass().getSimpleName() + "]");
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
     }
 

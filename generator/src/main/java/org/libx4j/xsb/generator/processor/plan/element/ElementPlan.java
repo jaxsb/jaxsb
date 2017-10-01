@@ -186,7 +186,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
     catch (final InvocationTargetException e) {
       return false;
     }
-    catch (final Exception e) {
+    catch (final ClassNotFoundException | IllegalAccessException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
     }
 

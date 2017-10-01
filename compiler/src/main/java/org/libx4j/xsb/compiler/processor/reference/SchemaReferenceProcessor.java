@@ -17,6 +17,7 @@
 package org.libx4j.xsb.compiler.processor.reference;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLConnection;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -88,7 +89,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 //                counter.notify();
 //              }
             }
-            catch (final Exception e) {
+            catch (final IOException e) {
               throw new LexerFailureException(e);
             }
 //          }

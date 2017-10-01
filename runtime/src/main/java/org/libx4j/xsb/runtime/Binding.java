@@ -19,6 +19,7 @@ package org.libx4j.xsb.runtime;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -86,7 +87,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       binding = (Binding)constructor.newInstance();
       binding._$$decode(parent, attribute.getNodeValue());
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException | ParseException e) {
       throw new BindingError(e);
     }
 
@@ -148,7 +149,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         return namespaceURI.equals(substitutionGroup.getNamespaceURI()) && localName.equals(substitutionGroup.getLocalPart());
       }
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException e) {
       throw new ParseException(e);
     }
 
@@ -244,7 +245,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     catch (final ParseException e) {
       throw e;
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new ParseException(e);
     }
   }
@@ -304,7 +305,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
             try {
               return (BindingList<? extends Binding>)method.invoke(this);
             }
-            catch (final Exception e) {
+            catch (final IllegalAccessException | InvocationTargetException e) {
               throw new BindingError(e);
             }
           }
@@ -463,7 +464,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         return NULL;
       }
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new BindingError(e);
     }
   }

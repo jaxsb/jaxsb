@@ -17,6 +17,7 @@
 package org.libx4j.xsb.compiler.processor.model;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,7 +155,7 @@ public final class ModelDirectory implements PipelineDirectory<GeneratorContext,
       handler = constructor.newInstance(schemaNodeComposite.getNode(), parent);
       return handler;
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new LexerFailureException(e);
     }
   }
