@@ -50,6 +50,8 @@ public class AnySample {
     coloredBasket._fruits(simple_fruits);
 
     final $type_fleshyFruitType berry = new $type_fleshyFruitType() {
+      private static final long serialVersionUID = 2218327322530017590L;
+
       @Override
       protected $simple_fruitType inherits() {
         return new simple_fruit();
@@ -60,6 +62,8 @@ public class AnySample {
 
     // Again, instantiate a nameless element.GenericBasket
     final $type_indehiscentDryFruitType grain = new $type_indehiscentDryFruitType() {
+      private static final long serialVersionUID = 867582743279198067L;
+
       @Override
       protected $simple_fruitType inherits() {
         return new simple_fruit();
@@ -69,6 +73,8 @@ public class AnySample {
 
     // Again, instantiate a nameless element.
     final $type_indehiscentDryFruitType nut = new $type_indehiscentDryFruitType() {
+      private static final long serialVersionUID = -1491146052315929931L;
+
       @Override
       protected $simple_fruitType inherits() {
         return new simple_fruit();

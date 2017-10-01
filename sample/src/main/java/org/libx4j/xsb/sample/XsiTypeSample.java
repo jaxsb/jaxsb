@@ -35,6 +35,8 @@ public class XsiTypeSample {
     // we need to instantiate a nameless element. Once this element is
     // put into the basket, the element will obtain the needed name.
     final $type_fleshyFruitType berry = new $type_fleshyFruitType() {
+      private static final long serialVersionUID = 3429848525130169057L;
+
       @Override
       protected $simple_fruitType inherits() {
         return null;
@@ -45,6 +47,8 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.
     final $type_fleshyFruitType drupe = new $type_fleshyFruitType() {
+      private static final long serialVersionUID = -2818980037530493310L;
+
       @Override
       protected $simple_fruitType inherits() {
         return null;
@@ -55,6 +59,8 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.
     final $type_dehiscentDryFruitType legume = new $type_dehiscentDryFruitType() {
+      private static final long serialVersionUID = 7187893314583339315L;
+
       @Override
       protected $simple_fruitType inherits() {
         return null;
@@ -64,6 +70,8 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.
     final $type_dehiscentDryFruitType follicle = new $type_dehiscentDryFruitType() {
+      private static final long serialVersionUID = -3745696718412448230L;
+
       @Override
       protected $simple_fruitType inherits() {
         return null;
@@ -73,6 +81,8 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.GenericBasket
     final $type_indehiscentDryFruitType grain = new $type_indehiscentDryFruitType() {
+      private static final long serialVersionUID = 4305262292756850924L;
+
       @Override
       protected $simple_fruitType inherits() {
         return null;
@@ -82,6 +92,8 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.
     final $type_indehiscentDryFruitType nut = new $type_indehiscentDryFruitType() {
+      private static final long serialVersionUID = 5866670471244912648L;
+
       @Override
       protected $simple_fruitType inherits() {
         return null;
