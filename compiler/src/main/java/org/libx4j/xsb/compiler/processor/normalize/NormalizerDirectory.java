@@ -17,6 +17,7 @@
 package org.libx4j.xsb.compiler.processor.normalize;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -189,7 +190,7 @@ public final class NormalizerDirectory implements PipelineDirectory<GeneratorCon
       instances.put(clazz, normalizerInstance = constructor.newInstance(this));
       return normalizerInstance;
     }
-    catch (final Exception e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new LexerFailureException(e);
     }
   }
