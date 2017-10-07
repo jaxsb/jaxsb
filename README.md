@@ -132,7 +132,7 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   <dependency>
     <groupId>org.libx4j.xsb</groupId>
     <artifactId>xsb-runtime</artifactId>
-    <version>2.1.2</version>
+    <version>2.1.3-SNAPSHOT</version>
   </dependency>
   ```
 
