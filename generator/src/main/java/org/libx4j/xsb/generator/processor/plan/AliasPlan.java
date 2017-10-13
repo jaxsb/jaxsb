@@ -25,23 +25,23 @@ import org.libx4j.xsb.runtime.JavaBinding;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
 
 public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> implements DocumentablePlan, Nameable<Plan<T>> {
-  protected static String getClassName(final AliasModel model, Model parent) {
+  protected static String getClassName(final AliasModel model, Plan<?> parent) {
     if (model == null || model.getName() == null)
       return null;
 
     if (model.getParent() instanceof SchemaModel || XSTypeDirectory.parseType(model.getName()) != null)
       return model.getName().getNamespaceURI().getPackage() + ".xe." + JavaBinding.getClassSimpleName(model);
 
+    if (parent != null)
+      do
+        if (parent instanceof AliasPlan && ((AliasPlan<?>)parent).getName() != null)
+          return ((AliasPlan<?>)parent).getClassName(null) + "." + JavaBinding.getClassSimpleName(model);
+      while((parent = parent.getParent()) != null);
+
     Model check = model;
     while ((check = check.getParent()) != null)
       if (check instanceof AliasModel && ((AliasModel)check).getName() != null)
         return getClassName((AliasModel)check, null) + "." + JavaBinding.getClassSimpleName(model);
-
-    if (parent != null)
-      do
-        if (parent instanceof AliasModel && ((AliasModel)parent).getName() != null)
-          return getClassName((AliasModel)parent, null) + "." + JavaBinding.getClassSimpleName(model);
-      while((parent = parent.getParent()) != null);
 
     return model.getName().getNamespaceURI().getPackage() + ".xe." + JavaBinding.getClassSimpleName(model);
   }
@@ -84,7 +84,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
       return className;
 
     if (parent != null)
-      return className = AliasPlan.getClassName(getModel(), parent.getModel());
+      return className = AliasPlan.getClassName(getModel(), parent);
 
     return className = AliasPlan.getClassName(getModel(), null);
   }
@@ -94,7 +94,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
       return classInconvertibleName;
 
     if (parent != null)
-      return classInconvertibleName = AliasPlan.getClassName(getModel(), parent.getModel());
+      return classInconvertibleName = AliasPlan.getClassName(getModel(), parent);
 
     return classInconvertibleName = AliasPlan.getClassName(getModel(), null);
   }

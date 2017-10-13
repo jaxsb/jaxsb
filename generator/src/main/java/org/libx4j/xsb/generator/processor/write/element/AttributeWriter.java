@@ -43,10 +43,8 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final AttributePlan plan, final Plan<?> parent) {
-    if (plan.isRestriction())
-      return;
-
-    writer.write("private " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + "> " + plan.getInstanceName() + " = __$$registerAttributeAudit(new " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + ">(this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + "));\n");
+    if (!plan.isRestriction())
+      writer.write("private " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + "> " + plan.getInstanceName() + " = __$$registerAttributeAudit(new " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + ">(this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + "));\n");
   }
 
   @Override

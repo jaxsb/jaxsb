@@ -43,7 +43,6 @@ import org.libx4j.xsb.runtime.JavaBinding;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
 
 public class ElementPlan extends ComplexTypePlan<ElementModel> implements EnumerablePlan, ExtensiblePlan, Formable<Plan<?>>, NativeablePlan, NestablePlan, RestrictablePlan {
-  private final ElementModel element;
   private final boolean ref;
   private final boolean _abstract;
   private final boolean restriction;
@@ -70,7 +69,8 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
 
   public ElementPlan(final ElementModel model, final Plan<?> parent) {
     super(model, parent);
-    ref = (element = getModel()) != model;
+    final ElementModel element = model.getRef() != null ? model.getRef() : model;
+    this.ref = element != model;
     _abstract = model.getAbstract();
     restriction = model.getRestrictionOwner() != null;
     fixed = model.getFixed() != null;
@@ -87,7 +87,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
     if (isRestriction())
       superClassNameWithoutType = AliasPlan.getClassName(element.getRestrictionOwner(), null) + "." + JavaBinding.getClassSimpleName(getModel().getRestriction());
     else
-      superClassNameWithoutType = AliasPlan.getClassName(element.getSuperType(), element.getSuperType().getParent());
+      superClassNameWithoutType = AliasPlan.getClassName(element.getSuperType(), null);
 
     superClassNameWithType = superClassNameWithoutType;
     // If we are directly inheriting from another element via the substitutionGroup, then dont add the type
@@ -202,8 +202,13 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
     return restriction;
   }
 
+  @SuppressWarnings("unused")
   @Override
   public final ElementModel getModel() {
+    if ("check".equals(super.getModel().getName().getLocalPart())) {
+      int i = 0;
+    }
+
     return super.getModel().getRef() != null ? super.getModel().getRef() : super.getModel();
   }
 
@@ -247,7 +252,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
     else
       model = getModel();
 
-    return AliasPlan.getClassName(model, parent.getModel());
+    return AliasPlan.getClassName(model, parent);
   }
 
   public final String getDeclarationGenericWithInconvertible(final Plan<?> parent) {
@@ -261,7 +266,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
     else
       model = getModel();
 
-    return AliasPlan.getClassName(model, parent.getModel());
+    return AliasPlan.getClassName(model, parent);
   }
 
   public final String getDeclarationRestrictionGeneric(final Plan<?> parent) {
@@ -291,9 +296,9 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
       return AliasPlan.getClassName(getModel().getSuperType(), null);
 
     if (getModel().getRef() != null && getModel().getRef().getName() != null)
-      return AliasPlan.getClassName(getModel().getRef(), parent != null ? parent.getModel() : null);
+      return AliasPlan.getClassName(getModel().getRef(), parent);
 
-    return AliasPlan.getClassName(getModel(), parent != null ? parent.getModel() : null);
+    return AliasPlan.getClassName(getModel(), parent);
   }
 
   @Override

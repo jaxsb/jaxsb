@@ -578,7 +578,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       if (plan.isNillable()) {
         writer.write("else if (XSI_NIL.getNamespaceURI().equals(attribute.getNamespaceURI()) && XSI_NIL.getLocalPart().equals(attribute.getLocalName()))\n");
         writer.write("{\n");
-        writer.write("this.nil = " + $xs_boolean.class.getName() + ".parseBoolean(attribute.getNodeValue());\n");
+        writer.write("this.nil = " + $xs_boolean.class.getName() + ".parse(attribute.getNodeValue());\n");
         writer.write("return true;\n");
         writer.write("}\n");
       }
