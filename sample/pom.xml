@@ -35,15 +35,15 @@
         <artifactId>xsb-maven-plugin</artifactId>
         <configuration>
           <destDir>${project.build.directory}/generated-sources/xsb</destDir>
-          <resources>
-            <resource>src/main/resources/substitutionGroup.xsd</resource>
-            <resource>src/main/resources/xsitype.xsd</resource>
-            <resource>src/main/resources/simple.xsd</resource>
-            <resource>src/main/resources/enums.xsd</resource>
-            <resource>src/main/resources/list.xsd</resource>
-            <resource>src/main/resources/any.xsd</resource>
-            <resource>src/main/resources/id.xsd</resource>
-          </resources>
+          <schemas>
+            <schema>src/main/resources/substitutionGroup.xsd</schema>
+            <schema>src/main/resources/xsitype.xsd</schema>
+            <schema>src/main/resources/simple.xsd</schema>
+            <schema>src/main/resources/enums.xsd</schema>
+            <schema>src/main/resources/list.xsd</schema>
+            <schema>src/main/resources/any.xsd</schema>
+            <schema>src/main/resources/id.xsd</schema>
+          </schemas>
         </configuration>
       </plugin>
     </plugins>

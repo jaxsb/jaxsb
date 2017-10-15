@@ -35,9 +35,9 @@
         <artifactId>xsb-maven-plugin</artifactId>
         <configuration>
           <destDir>${project.build.directory}/generated-sources/xsb</destDir>
-          <resources>
-            <resource>src/main/resources/invoice.xsd</resource>
-          </resources>
+          <schemas>
+            <schema>src/main/resources/invoice.xsd</schema>
+          </schemas>
         </configuration>
       </plugin>
     </plugins>
