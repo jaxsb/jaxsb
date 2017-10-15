@@ -202,13 +202,8 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
     return restriction;
   }
 
-  @SuppressWarnings("unused")
   @Override
   public final ElementModel getModel() {
-    if ("check".equals(super.getModel().getName().getLocalPart())) {
-      int i = 0;
-    }
-
     return super.getModel().getRef() != null ? super.getModel().getRef() : super.getModel();
   }
 

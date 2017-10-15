@@ -47,7 +47,7 @@ public abstract class $xs_hexBinary extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(HexBinary.parseHexBinary(value));
+    super.text(HexBinary.parse(value));
   }
 
   @Override

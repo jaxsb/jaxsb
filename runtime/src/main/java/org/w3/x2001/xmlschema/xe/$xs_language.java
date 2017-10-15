@@ -47,7 +47,7 @@ public abstract class $xs_language extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(Language.parseLanguage(value));
+    super.text(Language.parse(value));
   }
 
   @Override

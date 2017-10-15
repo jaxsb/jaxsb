@@ -89,7 +89,7 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
 
     for (final Plan<?> plan : plans)
       if (plan != null)
-        ((Writer)root).closeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestdir());
+        ((Writer)root).closeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestDir());
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})
@@ -101,7 +101,7 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
       throw new CompilerFailureException("Cannot generate classes for schema with no targetNamespace.");
 
     if ((pipelineContext.getIncludes() == null || pipelineContext.getIncludes().contains(plan.getModel().getTargetNamespace())) && (pipelineContext.getExcludes() == null || !pipelineContext.getExcludes().contains(plan.getModel().getTargetNamespace())))
-      ((Writer)root).writeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestdir());
+      ((Writer)root).writeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestDir());
 
     return null;
   }

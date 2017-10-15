@@ -47,7 +47,7 @@ public abstract class $xs_base64Binary extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(Base64Binary.parseBase64Binary(String.valueOf(value)));
+    super.text(Base64Binary.parse(String.valueOf(value)));
   }
 
   @Override

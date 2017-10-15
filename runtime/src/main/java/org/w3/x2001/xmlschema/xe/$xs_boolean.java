@@ -27,7 +27,7 @@ public abstract class $xs_boolean extends $xs_anySimpleType {
   private static final long serialVersionUID = 5805207783730082952L;
   private static final Map<Boolean,String[]> valueMap = new HashMap<Boolean,String[]>();
 
-  public static final Boolean parseBoolean(final String s) {
+  public static final Boolean parse(final String s) {
     if (s == null)
       return false;
 

@@ -43,7 +43,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 
   @Override
   public Collection<SchemaReference> process(final GeneratorContext pipelineContext, final Collection<SchemaReference> schemaReferences, final PipelineDirectory<GeneratorContext,SchemaReference,SchemaReference> directory) {
-    final File destDir = pipelineContext.getDestdir();
+    final File destDir = pipelineContext.getDestDir();
     logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
 
     final Collection<SchemaReference> selectedSchemas = new LinkedHashSet<SchemaReference>(3);

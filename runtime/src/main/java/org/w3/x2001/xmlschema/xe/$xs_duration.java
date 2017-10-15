@@ -47,7 +47,7 @@ public abstract class $xs_duration extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(Duration.parseDuration(value));
+    super.text(Duration.parse(value));
   }
 
   @Override

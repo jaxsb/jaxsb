@@ -36,9 +36,11 @@
         <executions>
           <execution>
             <configuration>
-              <excludes>
-                <exclude>src/test/resources/empty.xml</exclude>
-              </excludes>
+              <files>
+                <excludes>
+                  <exclude>src/test/resources/empty.xml</exclude>
+                </excludes>
+              </files>
             </configuration>
           </execution>
         </executions>

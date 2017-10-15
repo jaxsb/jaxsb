@@ -27,7 +27,7 @@ public abstract class NotationType extends Binding implements BindingType {
     notations.put(notation.getName(), notation);
   }
 
-  public static NotationType parseNotation(final String name) {
+  public static NotationType parse(final String name) {
     return notations.get(name);
   }
 

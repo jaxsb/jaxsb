@@ -59,7 +59,7 @@ public abstract class $xs_dateTime extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(DateTime.parseDateTime(value));
+    super.text(DateTime.parse(value));
   }
 
   @Override

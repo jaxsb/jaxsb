@@ -47,7 +47,7 @@ public abstract class $xs_gDay extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(Day.parseDay(value));
+    super.text(Day.parse(value));
   }
 
   @Override

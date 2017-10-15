@@ -47,7 +47,7 @@ public final class GeneratorContext implements PipelineContext {
     this.excludes = excludes;
   }
 
-  public File getDestdir() {
+  public File getDestDir() {
     return destDir;
   }
 

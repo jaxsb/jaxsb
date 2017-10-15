@@ -47,7 +47,7 @@ public abstract class $xs_NOTATION extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(NotationType.parseNotation(value));
+    super.text(NotationType.parse(value));
     if (super.text() == null)
       throw new ParseException("Notation \"" + value + "\" is not registered. The code that instantiates the Notation binding for \"" + value + "\" must be run before it is possible for the Binding engine to have to know about it.");
   }

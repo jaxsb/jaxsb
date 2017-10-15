@@ -47,7 +47,7 @@ public abstract class $xs_gMonth extends $xs_anySimpleType {
 
   @Override
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    super.text(Month.parseMonth(value));
+    super.text(Month.parse(value));
   }
 
   @Override
