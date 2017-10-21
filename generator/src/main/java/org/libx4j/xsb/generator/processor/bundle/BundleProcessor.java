@@ -162,7 +162,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           final Node attribute = attributes.item(j);
           if ("schemaLocation".equals(attribute.getLocalName())) {
             final String schemaLocation = attribute.getNodeValue();
-            final URL includeURL = URLs.isAbsolute(schemaLocation) ? new URL(schemaLocation) : Paths.isAbsolute(schemaLocation) ? URLs.makeUrlFromPath(schemaLocation) : URLs.makeUrlFromPath(URLs.getParent(url), schemaLocation);
+            final URL includeURL = URLs.isAbsolute(schemaLocation) ? new URL(schemaLocation) : Paths.isAbsolute(schemaLocation) ? URLs.makeCanonicalUrlFromPath(schemaLocation) : URLs.makeUrlFromPath(URLs.getParent(url), schemaLocation);
             final String includePath = filePath.replace(".xsd", "-" + ++includeCount + ".xsd");
             attribute.setNodeValue(Paths.getName(includePath));
             addXSDs(includeURL, includePath, jar, destDir, includeCount);

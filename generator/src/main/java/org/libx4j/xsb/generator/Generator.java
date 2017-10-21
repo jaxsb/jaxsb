@@ -79,7 +79,7 @@ public final class Generator extends AbstractGenerator {
       else if ("-d".equals(args[i]) && i < args.length)
         destDir = new File(args[++i]).getAbsoluteFile();
       else
-        schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.makeUrlFromPath(args[i]) : new File(Files.getCwd(), args[i]).toURI().toURL(), false));
+        schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.makeCanonicalUrlFromPath(args[i]) : new File(Files.getCwd(), args[i]).toURI().toURL(), false));
     }
 
     if (destDir == null)

@@ -148,6 +148,6 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
 
     final String externalUrl = baseURL.toExternalForm();
     final String basedir = externalUrl.substring(0, externalUrl.lastIndexOf('/') + 1);
-    return URLs.makeUrlFromPath(basedir, schemaLocation);
+    return URLs.makeCanonicalUrlFromPath(basedir, schemaLocation);
   }
 }
