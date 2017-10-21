@@ -110,7 +110,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
               }
 
               if (!duplicate.equals(schemaLocationURL))
-                throw new GeneratorError("There are two schemaReferences that define the namespace {" + importNamespaceURI + "}:\n[x] " + schemaDocument.getSchemaReference().getURL() + "\n[1] " + duplicate + "\n[2] " + schemaLocationURL);
+                logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + new File(schemaLocationURL.getFile()).getName() + " with " + new File(duplicate.getFile()).getName());
             }
           }
 
@@ -142,11 +142,12 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
   }
 
   private static URL getSchemaLocation(final URL baseURL, final Element element) throws MalformedURLException {
-    final String basedir = baseURL.getFile().substring(0, baseURL.getFile().lastIndexOf('/') + 1);
     final String schemaLocation = element.getAttribute("schemaLocation");
     if (URLs.isAbsolute(schemaLocation))
       return new URL(schemaLocation);
 
+    final String externalUrl = baseURL.toExternalForm();
+    final String basedir = externalUrl.substring(0, externalUrl.lastIndexOf('/') + 1);
     return URLs.makeUrlFromPath(basedir, schemaLocation);
   }
 }

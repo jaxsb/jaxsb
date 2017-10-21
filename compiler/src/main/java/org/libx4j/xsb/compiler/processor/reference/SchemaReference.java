@@ -45,7 +45,7 @@ public final class SchemaReference implements PipelineEntity {
   // to dereference the schemaReference to a targetNamespace
   private volatile boolean isConnected = false;
   private volatile boolean isResolved = false;
-  private URL location;
+  private final URL location;
   private NamespaceURI namespaceURI;
   private Prefix prefix;
   private final Boolean isInclude;

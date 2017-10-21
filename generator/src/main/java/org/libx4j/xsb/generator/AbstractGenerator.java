@@ -38,13 +38,13 @@ public abstract class AbstractGenerator {
   private static final Map<String,SchemaDocument> parsedDocuments = new HashMap<String,SchemaDocument>();
 
   public static SchemaDocument parse(final SchemaReference schemaReference) {
-    URL url = null;
-    SchemaDocument parsedDocument = null;
-    Document document = null;
     try {
-      url = URLs.canonicalizeURL(schemaReference.getURL());
+      final URL url = URLs.canonicalizeURL(schemaReference.getURL());
       final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
-      document = documentBuilder.parse(url.toURI().toString());
+      final Document document = documentBuilder.parse(url.toURI().toString());
+      final SchemaDocument parsedDocument = new SchemaDocument(schemaReference, document);
+      parsedDocuments.put(schemaReference.getNamespaceURI() + url.toString(), parsedDocument);
+      return parsedDocument;
     }
     catch (final FileNotFoundException e) {
       throw new BindingError(e.getMessage());
@@ -52,9 +52,5 @@ public abstract class AbstractGenerator {
     catch (final IOException | SAXException | URISyntaxException e) {
       throw new CompilerFailureException(e);
     }
-
-    parsedDocument = new SchemaDocument(schemaReference, document);
-    parsedDocuments.put(schemaReference.getNamespaceURI() + url.toString(), parsedDocument);
-    return parsedDocument;
   }
 }
