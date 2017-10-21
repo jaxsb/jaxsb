@@ -106,20 +106,17 @@ Developed with the CohesionFirst™ approach, **XSB** is reliably designed, cons
   <plugin>
     <groupId>org.libx4j.maven.plugin</groupId>
     <artifactId>xsb-maven-plugin</artifactId>
-    <version>2.1.2</version>
+    <version>2.1.3-SNAPSHOT</version>
     <executions>
       <execution>
-        <phase>generate-sources</phase>
         <goals>
           <goal>generate</goal>
         </goals>
         <configuration>
-          <manifest xmlns="http://maven.lib4j.org/common/manifest.xsd">
-            <destdir explodeJars="true">generated-sources/xsb</destdir>
-            <resources>
-              <resource>src/main/resources/example.xsd</resource>
-            </resources>
-          </manifest>
+          <destDir>${project.build.directory}/generated-sources/xsb</destDir>
+          <schemas>
+            <schema>src/main/resources/example.xsd</schema>
+          </schemas>
         </configuration>
       </execution>
     </executions>
