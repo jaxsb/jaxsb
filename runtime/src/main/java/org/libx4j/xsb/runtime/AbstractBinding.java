@@ -50,7 +50,7 @@ public abstract class AbstractBinding implements Cloneable {
     if (resource == null)
       throw new BindingError("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
 
-    final URL parent = URLs.getParent(resource.getURL());
+    final URL parent = URLs.getCanonicalParent(resource.getURL());
     try {
       BindingEntityResolver.registerSchemaLocation(namespaceURI, new URL(parent + "/" + schemaReference));
     }

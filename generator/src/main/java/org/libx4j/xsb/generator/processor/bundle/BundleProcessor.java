@@ -112,7 +112,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   }
 
   private static void addXSDs(final URL url, final String filePath, final Jar jar, final File destDir, int includeCount) throws IOException, SAXException {
-    final String baseDir = Paths.getParent(filePath);
+    final String baseDir = Paths.getCanonicalParent(filePath);
     String relativeRootPath = null;
     final Element element = DOMParsers.newDocumentBuilder().parse(url.openStream()).getDocumentElement();
     final NodeList children = element.getChildNodes();
@@ -162,7 +162,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           final Node attribute = attributes.item(j);
           if ("schemaLocation".equals(attribute.getLocalName())) {
             final String schemaLocation = attribute.getNodeValue();
-            final URL includeURL = URLs.isAbsolute(schemaLocation) ? new URL(schemaLocation) : Paths.isAbsolute(schemaLocation) ? URLs.makeCanonicalUrlFromPath(schemaLocation) : URLs.makeUrlFromPath(URLs.getParent(url), schemaLocation);
+            final URL includeURL = URLs.isAbsolute(schemaLocation) ? new URL(schemaLocation) : Paths.isAbsolute(schemaLocation) ? URLs.makeCanonicalUrlFromPath(schemaLocation) : URLs.makeUrlFromPath(URLs.getCanonicalParent(url), schemaLocation);
             final String includePath = filePath.replace(".xsd", "-" + ++includeCount + ".xsd");
             attribute.setNodeValue(Paths.getName(includePath));
             addXSDs(includeURL, includePath, jar, destDir, includeCount);

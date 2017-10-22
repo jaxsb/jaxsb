@@ -94,7 +94,7 @@ public final class BindingEntityResolver implements XMLEntityResolver {
       final URL schemaReference;
       if (((XSDDescription)resourceIdentifier).getContextType() == XSDDescription.CONTEXT_INCLUDE) {
         final String localName = Paths.getName(resourceIdentifier.getExpandedSystemId());
-        schemaReference = new URL(Paths.getParent(baseId) + "/" + localName);
+        schemaReference = new URL(Paths.getCanonicalParent(baseId) + "/" + localName);
       }
       else {
         schemaReference = lookupSchemaLocation(namespaceURI);
