@@ -19,6 +19,7 @@ package org.libx4j.xsb.runtime;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 import org.lib4j.util.IdentityArrayList;
 
@@ -175,14 +176,12 @@ final class SpecificElementList<E extends Binding> extends IdentityArrayList<E> 
     @Override
     public void remove() {
       if (lastRet == -1)
-        throw new IllegalStateException();
+        throw new NoSuchElementException();
 
-      final E removeMe = SpecificElementList.this.get(lastRet);
-      if (!SpecificElementList.this.remove(removeMe))
-        throw new IllegalStateException("remove() method should have removed an element here");
-
+      iterator.remove();
       if (lastRet < cursor)
         cursor--;
+
       lastRet = -1;
     }
   }
