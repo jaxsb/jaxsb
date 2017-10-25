@@ -119,12 +119,13 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     }
 
     if (plan.isList()) {
-      writer.write(visibility + "<T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">" + plan.getClassSimpleName() + "(final T text)\n");
+      final String genericType = "<T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">";
+      writer.write(visibility + genericType + plan.getClassSimpleName() + "(final T text)\n");
       writer.write("{\n");
       writer.write("super(text);\n");
       writer.write("}\n");
 
-      writer.write(visibility + "<T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">" + plan.getClassSimpleName() + "(final " + plan.getNativeNonEnumItemClassName() + " ... text)\n");
+      writer.write(visibility + genericType + plan.getClassSimpleName() + "(final " + plan.getNativeNonEnumItemClassName() + " ... text)\n");
       writer.write("{\n");
       writer.write("super((T)" + Arrays.class.getName() + ".asList(text));\n");
       writer.write("}\n");
@@ -450,7 +451,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
       if (plan.hasEnumerations()) {
         if (plan.isList()) {
-          writer.write("public void text(final " + List.class.getName() + "<" + plan.getClassName(parent) + ".Enum> enm)\n");
+          writer.write("public <E extends " + List.class.getName() + "<" + plan.getClassName(parent) + ".Enum> & " + Serializable.class.getName() + ">void text(final E enm)\n");
           writer.write("{\n");
           writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
           writer.write("for(" + plan.getClassName(parent) + ".Enum temp : enm)\n");
@@ -478,14 +479,17 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
         if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
           writer.write("@" + Override.class.getName() + "\n");
 
-        writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
+        if (plan.getNativeItemClassNameInterface().contains(List.class.getName()))
+          writer.write("public <T extends " + plan.getNativeItemClassNameInterface() + " & " + Serializable.class.getName() + ">void text(final T text)\n");
+        else
+          writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
         writer.write("{\n");
         writer.write("super.text(text);\n");
         writer.write("}\n");
 
         if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName())) {
           writer.write("@" + Override.class.getName() + "\n");
-          writer.write("public void text(final " + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text)\n");
+          writer.write("public <T extends " + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> & " + Serializable.class.getName() + ">void text(final T text)\n");
           writer.write("{\n");
           writer.write("super.text(text);\n");
           writer.write("}\n");

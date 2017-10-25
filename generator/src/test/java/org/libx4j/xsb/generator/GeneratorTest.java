@@ -14,24 +14,15 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.libx4j.xsb.runtime;
+package org.libx4j.xsb.generator;
 
-public final class MarshalException extends BindingRuntimeException {
-  private static final long serialVersionUID = -4075553280110488380L;
+import java.net.MalformedURLException;
 
-  public MarshalException() {
-    super();
-  }
+import org.junit.Test;
 
-  public MarshalException(final String message) {
-    super(message);
-  }
-
-  public MarshalException(final Throwable cause) {
-    super(cause);
-  }
-
-  public MarshalException(final String message, final Throwable cause) {
-    super(message, cause);
+public class GeneratorTest {
+  @Test
+  public void testHtml() throws MalformedURLException {
+    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/xsb", "src/test/resources/html.xsd"});
   }
 }

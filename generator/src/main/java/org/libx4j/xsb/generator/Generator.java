@@ -65,7 +65,7 @@ public final class Generator extends AbstractGenerator {
       trapPrintUsage();
 
     boolean overwrite = false;
-    boolean compile = false;
+    File compile = null;
     boolean pack = false;
     File destDir = null;
     final Collection<SchemaReference> schemas = new HashSet<SchemaReference>();
@@ -73,7 +73,7 @@ public final class Generator extends AbstractGenerator {
       if ("--overwrite".equals(args[i]))
         overwrite = true;
       else if ("--compile".equals(args[i]))
-        compile = true;
+        compile = new File(args[++i]).getAbsoluteFile();
       else if ("--package".equals(args[i]))
         pack = true;
       else if ("-d".equals(args[i]) && i < args.length)

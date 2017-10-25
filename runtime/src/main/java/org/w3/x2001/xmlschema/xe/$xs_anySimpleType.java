@@ -176,14 +176,4 @@ public abstract class $xs_anySimpleType extends Binding {
 
     return value.hashCode();
   }
-
-  @Override
-  public String toString() {
-    try {
-      return String.valueOf(_$$encode(parent));
-    }
-    catch (final MarshalException e) {
-      return super.toString();
-    }
-  }
 }

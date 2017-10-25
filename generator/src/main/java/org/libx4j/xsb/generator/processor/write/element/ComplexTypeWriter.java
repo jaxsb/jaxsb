@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.generator.processor.write.element;
 
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -197,7 +198,8 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
         writer.write("}\n");
 
         writer.write("@" + Override.class.getName() + "\n");
-        writer.write("public void text(final " + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text)\n");
+        final String genericType = "<T extends " + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> & " + Serializable.class.getName() + ">";
+        writer.write("public " + genericType + "void text(final T text)\n");
         writer.write("{\n");
         writer.write("super.text(text);\n");
         writer.write("}\n");

@@ -31,7 +31,7 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
   @Override
   protected void appendDeclaration(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
 //      if (plan.getMaxOccurs() > 1)
-    writer.write("private " + ElementAudit.class.getName() + "<" + Binding.class.getName() + "> any = new " + ElementAudit.class.getName() + "<" + Binding.class.getName() + ">(this, " + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
+    writer.write("private " + ElementAudit.class.getName() + "<" + Binding.class.getName() + "> any = new " + ElementAudit.class.getName() + "<" + Binding.class.getName() + ">(" + Binding.class.getName() + ".class, this, " + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
 //      else
 //          writer.write("private " + ElementAudit.class.getName() + "<" + Binding.class.getName() + "> any = new " + ElementAudit.class.getName() + "<" + Binding.class.getName() + ">(" + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
   }

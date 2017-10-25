@@ -20,54 +20,137 @@ import java.io.Serializable;
 
 import javax.xml.namespace.QName;
 
+import org.lib4j.util.IdentityArrayList;
+import org.lib4j.util.ObservableList;
 import org.w3c.dom.Element;
 
-public final class ElementAudit<T extends Binding> implements Serializable {
+@SuppressWarnings("unchecked")
+public final class ElementAudit<B extends Binding> implements Serializable {
+  private static void marshalNil(final Element element, final Element parent) {
+    // NOTE: This makes the assumption that the xmlns:xsi will be present if
+    // NOTE: xsi:nil is present, saving us a hasAttributeNS() call.
+    if (!element.hasAttributeNS(Binding.XSI_NIL.getNamespaceURI(), Binding.XSI_NIL.getLocalPart())) {
+      element.setAttributeNS(Binding.XSI_NIL.getNamespaceURI(), Binding.XSI_NIL.getPrefix() + ":" + Binding.XSI_NIL.getLocalPart(), "true");
+      if (!parent.getOwnerDocument().getDocumentElement().hasAttributeNS(Binding.XMLNS.getNamespaceURI(), Binding.XSI_NIL.getPrefix()))
+        parent.getOwnerDocument().getDocumentElement().setAttributeNS(Binding.XMLNS.getNamespaceURI(), Binding.XMLNS.getLocalPart() + ":" + Binding.XSI_NIL.getPrefix(), Binding.XSI_NIL.getNamespaceURI());
+    }
+  }
+
   private static final long serialVersionUID = -8175752291591734863L;
 
+  public final class SpecificElementList extends ObservableList<B> implements BindingList<B>, Cloneable {
+    private static final long serialVersionUID = -6390976298261014375L;
+
+    public SpecificElementList() {
+      super(new IdentityArrayList<B>());
+    }
+
+    private SpecificElementList(final SpecificElementList copy) {
+      super(new IdentityArrayList<B>(copy));
+    }
+
+    protected void addUnsafe(final int index, final B e) {
+      super.source.add(index, e);
+    }
+
+    protected void addUnsafe(final B e) {
+      super.source.add(e);
+    }
+
+    protected B setUnsafe(int index, final B e) {
+      return (B)super.source.set(index, e);
+    }
+
+    protected B removeUnsafe(int index) {
+      return (B)super.source.remove(index);
+    }
+
+    @Override
+    protected void beforeRemove(final int index) {
+      final B element = get(index);
+      parent._$$removeElement(element);
+    }
+
+    @Override
+    protected void beforeSet(final int index, final B newElement) {
+      final B element = get(index);
+      parent._$$replaceElement(element, ElementAudit.this, newElement);
+    }
+
+    @Override
+    protected void beforeAdd(final int index, final B e) {
+      if (index == size()) {
+        parent._$$addElementNoAudit(ElementAudit.this, e);
+      }
+      else {
+        final B element = get(index);
+        parent._$$addElementBefore(element, ElementAudit.this, e);
+      }
+    }
+
+    @Override
+    public SpecificElementList clone() {
+      return new SpecificElementList(this);
+    }
+
+    @Override
+    public Binding getParent() {
+      return parent;
+    }
+  }
+
+  private final Class<? extends Binding> type;
   private final Binding parent;
-  private final BindingList<T> _default;
+  private final B _default;
+  private final BindingProxy<B> defaultProxy;
   private final QName name;
   private final QName typeName;
   private final boolean qualified;
   private final boolean nillable;
   private final int minOccurs;
   private final int maxOccurs;
-  private SpecificElementList<T> value = null;
+  private SpecificElementList value;
 
-  public ElementAudit(final Binding parent, final T _default, QName name, final QName typeName, boolean qualified, final boolean nillable, int minOccurs, final int maxOccurs) {
+  public ElementAudit(final Class<? extends Binding> type, final Binding parent, final B _default, QName name, final QName typeName, boolean qualified, final boolean nillable, int minOccurs, final int maxOccurs) {
+    this.type = type;
     this.parent = parent;
-    this._default = _default != null ? SpecificElementList.singleton(this, _default) : null;
+    if (_default != null) {
+      parent._$$addElementNoAudit(this, (B)(this.defaultProxy = new BindingProxy<B>(this._default = _default)));
+    }
+    else {
+      this._default = null;
+      this.defaultProxy = null;
+    }
+
     this.name = name;
     this.typeName = typeName;
     this.qualified = qualified;
     this.nillable = nillable;
     this.minOccurs = minOccurs;
     this.maxOccurs = maxOccurs;
+    parent._$$registerElementAudit(this);
   }
 
-  public ElementAudit(final Binding parent, final ElementAudit<T> copy) {
+  public ElementAudit(final Binding parent, final ElementAudit<B> copy) {
     this.parent = parent;
+    this.type = copy.type;
     this._default = copy._default;
+    this.defaultProxy = copy.defaultProxy;
     this.name = copy.name;
     this.typeName = copy.typeName;
     this.qualified = copy.qualified;
     this.nillable = copy.nillable;
     this.minOccurs = copy.minOccurs;
     this.maxOccurs = copy.maxOccurs;
-    this.value = copy.value.clone(this);
+    this.value = copy.value.clone();
   }
 
-  protected Binding getParent() {
-    return parent;
+  public Class<? extends Binding> getType() {
+    return this.type;
   }
 
   public boolean isQualified() {
     return qualified;
-  }
-
-  public BindingList<T> getDefault() {
-    return _default;
   }
 
   public QName getName() {
@@ -90,35 +173,56 @@ public final class ElementAudit<T extends Binding> implements Serializable {
     return maxOccurs;
   }
 
-  public boolean addElement(final T element) {
+  public boolean addElement(final B element) {
+    return addElement(element, false);
+  }
+
+  public boolean addElementUnsafe(final B element) {
+    return addElement(element, true);
+  }
+
+  private boolean addElement(final B element, final boolean unsafe) {
     if (parent.isNull())
       throw new BindingRuntimeException("NULL Object is immutable.");
 
     if (this.value == null)
-      this.value = new SpecificElementList<T>(this, 2);
+      this.value = new SpecificElementList();
 
-    return this.value.add(element, false);
-  }
-
-  public BindingList<T> getElements() {
-    return value != null ? value : getDefault();
-  }
-
-  protected void reset() {
-    value = null;
-  }
-
-  private static void marshalNil(final Element element, final Element parent) {
-    // NOTE: This makes the assumption that the xmlns:xsi will be present if
-    // NOTE: xsi:nil is present, saving us a hasAttributeNS() call.
-    if (!element.hasAttributeNS(Binding.XSI_NIL.getNamespaceURI(), Binding.XSI_NIL.getLocalPart())) {
-      element.setAttributeNS(Binding.XSI_NIL.getNamespaceURI(), Binding.XSI_NIL.getPrefix() + ":" + Binding.XSI_NIL.getLocalPart(), "true");
-      if (!parent.getOwnerDocument().getDocumentElement().hasAttributeNS(Binding.XMLNS.getNamespaceURI(), Binding.XSI_NIL.getPrefix()))
-        parent.getOwnerDocument().getDocumentElement().setAttributeNS(Binding.XMLNS.getNamespaceURI(), Binding.XMLNS.getLocalPart() + ":" + Binding.XSI_NIL.getPrefix(), Binding.XSI_NIL.getNamespaceURI());
+    if (defaultProxy != null && defaultProxy.getBinding() == _default) {
+      defaultProxy.setBinding(element);
+      return false;
     }
+
+    if (unsafe)
+      this.value.addUnsafe(element);
+    else
+      this.value.add(element);
+
+    return true;
   }
 
-  protected void marshal(final Element parent, final T element) throws MarshalException {
+  public BindingList<B> getElements() {
+    return value;
+  }
+
+  protected int indexOf(final Binding element) {
+    return value.indexOf(element);
+  }
+
+  protected boolean removeUnsafe(final Binding element) {
+    final int index = this.value.indexOf(element);
+    return index > -1 && this.value.removeUnsafe(index) != null;
+  }
+
+  protected B removeUnsafe(final int index) {
+    return this.value.removeUnsafe(index);
+  }
+
+  protected B setUnsafe(final int index, final B element) {
+    return value.setUnsafe(index, element);
+  }
+
+  protected void marshal(final Element parent, final B element) throws MarshalException {
     if (value == null)
       return;
 
@@ -126,7 +230,11 @@ public final class ElementAudit<T extends Binding> implements Serializable {
     if (name == null)
       name = element.name();
 
-    final Element node = element.marshal(parent, name, getTypeName());
+    QName typeName = getTypeName();
+    if (typeName == null)
+      typeName = element.typeName();
+
+    final Element node = element.marshal(parent, name, typeName);
     if (!element._$$hasElements() && isNillable())
       marshalNil(node, parent);
 
@@ -137,8 +245,8 @@ public final class ElementAudit<T extends Binding> implements Serializable {
     parent.appendChild(node);
   }
 
-  public ElementAudit<T> clone(final Binding parent) {
-    return new ElementAudit<T>(parent, this);
+  public ElementAudit<B> clone(final Binding parent) {
+    return new ElementAudit<B>(parent, this);
   }
 
   @Override

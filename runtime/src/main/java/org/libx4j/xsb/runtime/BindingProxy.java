@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 lib4j
+/* Copyright (c) 2008 lib4j
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -16,22 +16,32 @@
 
 package org.libx4j.xsb.runtime;
 
-public final class MarshalException extends BindingRuntimeException {
-  private static final long serialVersionUID = -4075553280110488380L;
+import javax.xml.namespace.QName;
 
-  public MarshalException() {
-    super();
+public class BindingProxy<T extends Binding> extends Binding {
+  private static final long serialVersionUID = -7980470458516366660L;
+
+  private T binding;
+
+  public BindingProxy(final T binding) {
+    this.binding = binding;
   }
 
-  public MarshalException(final String message) {
-    super(message);
+  public void setBinding(final T binding) {
+    this.binding = binding;
   }
 
-  public MarshalException(final Throwable cause) {
-    super(cause);
+  public T getBinding() {
+    return this.binding;
   }
 
-  public MarshalException(final String message, final Throwable cause) {
-    super(message, cause);
+  @Override
+  protected Binding inherits() {
+    return binding.inherits();
+  }
+
+  @Override
+  public QName name() {
+    return binding.name();
   }
 }

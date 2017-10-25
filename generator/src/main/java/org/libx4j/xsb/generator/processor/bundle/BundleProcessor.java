@@ -54,7 +54,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
-  private static void compile(final File destDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
+  private static void compile(final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<File>(2);
     final File bindingLocationBase = Resources.getLocationBase(Binding.class);
     if (bindingLocationBase != null)
@@ -68,7 +68,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     for (final URL url : ClassLoaders.getClassPath())
       classpath.add(new File(url.toURI()));
 
-    new JavaCompiler(destDir, classpath).compile(destDir);
+    new JavaCompiler(destDir, classpath).compile(sourceDir);
   }
 
   private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) throws IOException, SAXException {
@@ -187,8 +187,8 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   @Override
   public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> directory) {
     try {
-      if (pipelineContext.getCompile())
-        BundleProcessor.compile(pipelineContext.getDestDir(), sourcePath);
+      if (pipelineContext.getCompileDir() != null)
+        BundleProcessor.compile(pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
 
       final Collection<Bundle> bundles = new ArrayList<Bundle>();
       if (pipelineContext.getPackage()) {

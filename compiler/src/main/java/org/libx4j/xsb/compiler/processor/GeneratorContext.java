@@ -26,12 +26,12 @@ import org.lib4j.xml.NamespaceURI;
 public final class GeneratorContext implements PipelineContext {
   private final File destDir;
   private final boolean overwrite;
-  private final boolean compale;
+  private final File compileDir;
   private final boolean pack;
   private final Set<NamespaceURI> includes;
   private final Set<NamespaceURI> excludes;
 
-  public GeneratorContext(final File destDir, final boolean overwrite, final boolean compile, final boolean pack, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) {
+  public GeneratorContext(final File destDir, final boolean overwrite, final File compileDir, final boolean pack, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) {
     File tempDestDir;
     try {
       tempDestDir = destDir.getCanonicalFile();
@@ -41,7 +41,7 @@ public final class GeneratorContext implements PipelineContext {
     }
     this.destDir = tempDestDir;
     this.overwrite = overwrite;
-    this.compale = compile;
+    this.compileDir = compileDir;
     this.pack = pack;
     this.includes = includes;
     this.excludes = excludes;
@@ -55,8 +55,8 @@ public final class GeneratorContext implements PipelineContext {
     return overwrite;
   }
 
-  public boolean getCompile() {
-    return compale;
+  public File getCompileDir() {
+    return compileDir;
   }
 
   public boolean getPackage() {

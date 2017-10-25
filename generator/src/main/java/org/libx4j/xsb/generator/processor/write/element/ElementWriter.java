@@ -75,7 +75,8 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.isRestriction() || plan.getRepeatedExtension() != null)
       return;
 
-    writer.write("private " + ElementAudit.class.getName() + "<" + plan.getDeclarationGenericWithInconvertible(parent) + "> " + plan.getInstanceName() + " = new " + ElementAudit.class.getName() + "<" + plan.getDeclarationGenericWithInconvertible(parent) + ">(this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), new " + QName.class.getName() + "(\"" + plan.getTypeName().getNamespaceURI() + "\", \"" + plan.getTypeName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + (!plan.isNested() || Form.QUALIFIED.equals(plan.getFormDefault())) + ", " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
+    final String className = plan.getDeclarationGenericWithInconvertible(parent);
+    writer.write("private " + ElementAudit.class.getName() + "<" + className + "> " + plan.getInstanceName() + " = new " + ElementAudit.class.getName() + "<" + className + ">(" + className + ".class, this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), new " + QName.class.getName() + "(\"" + plan.getTypeName().getNamespaceURI() + "\", \"" + plan.getTypeName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + (!plan.isNested() || Form.QUALIFIED.equals(plan.getFormDefault())) + ", " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
   }
 
   @Override
@@ -283,7 +284,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
             enumClassName = "Enum";
 
           if (plan.isList()) {
-            writer.write("public void text(final " + List.class.getName() + "<" + enumClassName + "> enm)\n");
+            writer.write("public <T extends " + List.class.getName() + "<" + enumClassName + "> & " + Serializable.class.getName() + ">void text(final T enm)\n");
             writer.write("{\n");
             writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
             writer.write("for (" + enumClassName + " temp : enm)\n");
@@ -300,7 +301,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
             writer.write("}\n");
 
             if (plan.isUnionWithNonEnumeration()) {
-              writer.write("public void text(final " + List.class.getName() + "<" + plan.getNativeNonEnumItemClassNameInterface() + "> text)\n");
+              writer.write("public <T extends " + List.class.getName() + "<" + plan.getNativeNonEnumItemClassNameInterface() + "> & " + Serializable.class.getName() + ">void text(final T text)\n");
               writer.write("{\n");
               writer.write("super.text(new " + plan.getNativeNonEnumItemClassNameImplementation() + "());\n");
               writer.write("for (" + enumClassName + " temp : text)\n");
@@ -350,7 +351,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
 //        if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
 //        {
-//          writer.write("public void text(" + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text)\n");
+//          writer.write("public <T extends " + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> & " + Serializable.class.getName() + ">void text(final T text)\n");
 //          writer.write("{\n");
 //          writer.write("super.text(text);\n");
 //          writer.write("}\n");

@@ -20,25 +20,91 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lib4j.util.IdentityArrayList;
+import org.lib4j.util.ObservableList;
+
 final class CompositeElementStore implements Serializable {
   private static final long serialVersionUID = 1140578580159732414L;
 
-  private final List<Binding> elements;
+  @SuppressWarnings("unchecked")
+  private class GeneralElementList<E extends Binding> extends ObservableList<E> implements Serializable {
+    private static final long serialVersionUID = 4251508116129047104L;
+
+    protected GeneralElementList(final CompositeElementStore directory, final int initialCapacity) {
+      super(new IdentityArrayList<E>(initialCapacity));
+    }
+
+    protected GeneralElementList(final CompositeElementStore directory) {
+      super(new IdentityArrayList<E>());
+    }
+
+    protected void addUnsafe(final E e) {
+      super.source.add(e);
+    }
+
+    protected void addUnsafe(int index, final E e) {
+      super.source.add(index, e);
+    }
+
+    protected E setUnsafe(int index, final E e) {
+      return (E)super.source.set(index, e);
+    }
+
+    protected E removeUnsafe(int index) {
+      return (E)super.source.remove(index);
+    }
+
+    @Override
+    protected void beforeAdd(final int index, final E e) {
+      final ElementAudit<? super E> audit = (ElementAudit<E>)parent._$$getElementAudit(e.getClass());
+      if (audit == null)
+        throw new IllegalArgumentException("Element " + e.name() + " of type " + e.typeName() + " is not allowed to appear in " + parent.name());
+
+      audit.addElementUnsafe(e);
+      elementAudits.add(index, audit);
+    }
+
+    @Override
+    protected void beforeRemove(final int index) {
+      final ElementAudit<?> audit = elementAudits.remove(index);
+      final Binding element = elements.get(index);
+      audit.removeUnsafe(element);
+    }
+
+    @Override
+    protected void beforeSet(final int index, final E newElement) {
+      final ElementAudit<?> audit = elementAudits.get(index);
+      final Binding element = elements.get(index);
+      final int auditIndex = audit.indexOf(element);
+      if(element.getClass() == newElement.getClass()) {
+        ((ElementAudit<E>)audit).setUnsafe(auditIndex, newElement);
+      }
+      else {
+        final ElementAudit<? super E> newAudit = (ElementAudit<E>)parent._$$getElementAudit(newElement.getClass());
+        if (newAudit == null)
+          throw new IllegalArgumentException("Element " + newElement.name() + " of type " + newElement.typeName() + " is not allowed to appear in " + parent.name());
+
+        audit.removeUnsafe(auditIndex);
+        newAudit.addElementUnsafe(newElement);
+        elementAudits.set(index, newAudit);
+      }
+    }
+  }
+
+  private final Binding parent;
+  private final GeneralElementList<Binding> elements;
   private final List<ElementAudit<? extends Binding>> elementAudits;
 
-  protected CompositeElementStore(final int initialCapacity) {
-    this.elements = new GeneralElementList<Binding>(this, initialCapacity);
-    this.elementAudits = new ArrayList<ElementAudit<? extends Binding>>(initialCapacity);
+  protected CompositeElementStore(final Binding parent) {
+    this.parent = parent;
+    this.elements = new GeneralElementList<Binding>(this);
+    this.elementAudits = new ArrayList<ElementAudit<? extends Binding>>();
   }
 
   protected CompositeElementStore(final CompositeElementStore copy) {
+    this.parent = copy.parent;
     this.elements = new GeneralElementList<Binding>(this);
     this.elementAudits = new ArrayList<ElementAudit<? extends Binding>>(copy.elementAudits);
-  }
-
-  protected CompositeElementStore() {
-    this.elements = new GeneralElementList<Binding>(this);
-    this.elementAudits = new ArrayList<ElementAudit<? extends Binding>>();
   }
 
   protected int size() {
@@ -53,46 +119,35 @@ final class CompositeElementStore implements Serializable {
     return elements.get(index);
   }
 
-  protected ElementAudit<? extends Binding> getElementAudits(final int index) {
+  protected ElementAudit<? extends Binding> getElementAudit(final int index) {
     return elementAudits.get(index);
   }
 
-  protected <B extends Binding>boolean add(final B element, final ElementAudit<B> elementAudit, final boolean addToAudit) {
+  protected <B extends Binding>void add(final B element, final ElementAudit<B> elementAudit, final boolean addToAudit) {
     synchronized (elements) {
-      if (!elements.add(element))
-        throw new BindingRuntimeException("Addition of element should have modified the elements list!");
+      elementAudits.add(elementAudit);
+      // This complexity takes care of the situation when the _default value is replaced within the BindingProxy
+      boolean addedToAudit = false;
+      if (addToAudit)
+        addedToAudit = elementAudit.addElementUnsafe(element);
 
-      if (!elementAudits.add(elementAudit))
-        throw new BindingRuntimeException("Addition of element should have modified the elementAudits list!");
-
-      if (addToAudit && !elementAudit.addElement(element))
-        throw new BindingRuntimeException("Addition of element should have modified the elementAudit list!");
+      if (!addToAudit || addedToAudit)
+        elements.addUnsafe(element);
     }
-
-    return true;
   }
 
   protected void addBefore(final Binding before, final Binding element, final ElementAudit<? extends Binding> elementAudit) {
     synchronized (elements) {
       final int index = elements.indexOf(before);
-      elements.add(index, element);
-      elementAudits.add(index, elementAudit);
-    }
-  }
-
-  protected void addAfter(final Binding after, final Binding element, final ElementAudit<? extends Binding> elementAudit) {
-    synchronized (elements) {
-      final int index = elements.indexOf(after);
-      elements.add(index + 1, element);
-      elementAudits.add(index, elementAudit);
+      elements.addUnsafe(index, element);
     }
   }
 
   protected void replace(final Binding original, final Binding element, final ElementAudit<? extends Binding> elementAudit) {
     synchronized (elements) {
       final int index = elements.indexOf(original);
-      elements.set(index, element);
       elementAudits.set(index, elementAudit);
+      elements.setUnsafe(index, element);
     }
   }
 
@@ -102,7 +157,7 @@ final class CompositeElementStore implements Serializable {
       if (index < 0)
         return false;
 
-      if (elements.remove(index) != element)
+      if (elements.removeUnsafe(index) != element)
         throw new BindingRuntimeException("Element identities do not match. Report this please.");
 
       // NOTE: The remove() method is initiated from the value list, which
@@ -113,16 +168,6 @@ final class CompositeElementStore implements Serializable {
     }
 
     return true;
-  }
-
-  protected boolean remove(final int index, final Binding element) {
-    synchronized (elements) {
-      final ElementAudit<?> elementAudit = elementAudits.remove(index);
-      if (elementAudit != null)
-        return ((SpecificElementList<?>)elementAudit.getElements()).remove(element, false);
-    }
-
-    return false;
   }
 
   protected void clear() {

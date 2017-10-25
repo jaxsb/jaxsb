@@ -22,15 +22,19 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.lib4j.xml.dom.DOMStyle;
+import org.lib4j.xml.dom.DOMs;
 import org.lib4j.xml.validate.ValidationException;
 import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
 import org.w3c.dom.Attr;
@@ -341,8 +345,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
     synchronized (elementsLock) {
       for (int i = 0; i < elementDirectory.size(); i++) {
-        final Binding element = elementDirectory.getElement(i);
-        final ElementAudit elementAudit = elementDirectory.getElementAudits(i);
+        Binding element = elementDirectory.getElement(i);
+        if (element instanceof BindingProxy)
+          element = ((BindingProxy)element).getBinding();
+
+        final ElementAudit elementAudit = elementDirectory.getElementAudit(i);
         elementAudit.marshal(parent, element);
       }
     }
@@ -358,9 +365,21 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       elementDirectory.addBefore(before, element, elementAudit);
   }
 
-  protected final void _$$addElementAfter(final Binding after, final ElementAudit<? extends Binding> elementAudit, final Binding element) {
+  private CompositeElementStore getCreateElementDirectory() {
     if (elementDirectory != null)
-      elementDirectory.addAfter(after, element, elementAudit);
+      return elementDirectory;
+
+    synchronized (elementsLock) {
+      return elementDirectory == null ? elementDirectory = new CompositeElementStore(this) : elementDirectory;
+    }
+  }
+
+  private final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element, final boolean addToAudit) {
+    getCreateElementDirectory().add(element, elementAudit, addToAudit);
+    if (element != null)
+      element._$$setOwner(($xs_anySimpleType)this);
+
+    return true;
   }
 
   protected final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
@@ -371,27 +390,31 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return _$$addElement(elementAudit, element, false);
   }
 
-  private CompositeElementStore getCreateElementDirectory() {
-    if (elementDirectory != null)
-      return elementDirectory;
+  private final AtomicBoolean elementTypesMutex = new AtomicBoolean();
+  private IdentityHashMap<Class<? extends Binding>,ElementAudit<?>> typeToAudit;
 
-    synchronized (elementsLock) {
-      if (elementDirectory != null)
-        return elementDirectory;
-
-      return elementDirectory = new CompositeElementStore(2);
+  protected final void _$$registerElementAudit(final ElementAudit<?> elementAudit) {
+    if (!elementTypesMutex.get()) {
+      synchronized (elementTypesMutex) {
+        if (!elementTypesMutex.get()) {
+          typeToAudit = new IdentityHashMap<Class<? extends Binding>,ElementAudit<?>>();
+          elementTypesMutex.set(true);
+        }
+      }
     }
+
+    typeToAudit.put(elementAudit.getType(), elementAudit);
   }
 
-  private <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element, final boolean addToAudit) {
-    final CompositeElementStore elementDirectory = getCreateElementDirectory();
-    if (!elementDirectory.add(element, elementAudit, addToAudit))
-      throw new BindingRuntimeException("Elements list should have changed here.");
-
-    if (element != null)
-      element._$$setOwner(($xs_anySimpleType)this);
-
-    return true;
+  @SuppressWarnings("unchecked")
+  protected final <B extends Binding>ElementAudit<? super B> _$$getElementAudit(Class<? super B> type) {
+    do {
+      final ElementAudit<? super B> specificAudit = (ElementAudit<B>)typeToAudit.get(type);
+      if (specificAudit != null)
+        return specificAudit;
+    }
+    while ((type = type.getSuperclass()) != null);
+    return null;
   }
 
   protected static <B extends $xs_anySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final Binding binding, final B attribute) {
@@ -486,7 +509,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws MarshalException
    */
   protected Element marshal(final Element parent, QName name, final QName typeName) throws MarshalException {
-    boolean substitutionGroup = _$$isSubstitutionGroup(name) || _$$isSubstitutionGroup(name(inherits()));
+    final boolean substitutionGroup = _$$isSubstitutionGroup(name) || _$$isSubstitutionGroup(name(inherits()));
     if (substitutionGroup)
       name = name();
 
@@ -609,5 +632,10 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   @Override
   public Binding clone() {
     return null;
+  }
+
+  @Override
+  public String toString() {
+    return DOMs.domToString(marshal(), DOMStyle.INDENT);
   }
 }
