@@ -26,7 +26,6 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
@@ -261,7 +260,6 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     documentBuilderFactory.setValidating(false);
   }
 
-  private final Object elementsLock = new Object();
   private ElementSuperList elements = null;
   private CompositeAttributeStore attributeDirectory = null;
   private Binding inherits;
@@ -343,25 +341,18 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     if (elements == null || elements.size() == 0)
       return;
 
-    synchronized (elementsLock) {
-      for (int i = 0; i < elements.size(); i++) {
-        Binding element = elements.get(i);
-        if (element instanceof BindingProxy)
-          element = ((BindingProxy<Binding>)element).getBinding();
+    for (int i = 0; i < elements.size(); i++) {
+      Binding element = elements.get(i);
+      if (element instanceof BindingProxy)
+        element = ((BindingProxy<Binding>)element).getBinding();
 
-        final ElementAudit<Binding> elementAudit = (ElementAudit<Binding>)elements.getPartition(i).getAudit();
-        elementAudit.marshal(parent, element);
-      }
+      final ElementAudit<Binding> elementAudit = (ElementAudit<Binding>)elements.getPartition(i).getAudit();
+      elementAudit.marshal(parent, element);
     }
   }
 
   protected ElementSuperList getCreateElementDirectory() {
-    if (elements != null)
-      return elements;
-
-    synchronized (elementsLock) {
-      return elements == null ? elements = new ElementSuperList(typeToAudit) : elements;
-    }
+    return elements == null ? elements = new ElementSuperList(typeToAudit) : elements;
   }
 
   protected final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
@@ -372,18 +363,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return true;
   }
 
-  private final AtomicBoolean elementTypesMutex = new AtomicBoolean();
   private IdentityHashMap<Class<? extends Binding>,ElementAudit<?>> typeToAudit;
 
   protected final void _$$registerElementAudit(final ElementAudit<?> elementAudit) {
-    if (!elementTypesMutex.get()) {
-      synchronized (elementTypesMutex) {
-        if (!elementTypesMutex.get()) {
-          typeToAudit = new IdentityHashMap<Class<? extends Binding>,ElementAudit<?>>();
-          elementTypesMutex.set(true);
-        }
-      }
-    }
+    if (typeToAudit == null)
+      typeToAudit = new IdentityHashMap<Class<? extends Binding>,ElementAudit<?>>();
 
     typeToAudit.put(elementAudit.getType(), elementAudit);
   }
@@ -440,17 +424,15 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       return NULL;
 
     try {
-      synchronized (clazz) {
-        NULL = nulls.get(clazz);
-        if (NULL != null)
-          return NULL;
-
-        final Constructor<? extends Binding> constructor = clazz.getDeclaredConstructor();
-        constructor.setAccessible(true);
-        nulls.put(clazz, NULL = constructor.newInstance());
-        NULL.isNull = true;
+      NULL = nulls.get(clazz);
+      if (NULL != null)
         return NULL;
-      }
+
+      final Constructor<? extends Binding> constructor = clazz.getDeclaredConstructor();
+      constructor.setAccessible(true);
+      nulls.put(clazz, NULL = constructor.newInstance());
+      NULL.isNull = true;
+      return NULL;
     }
     catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new BindingError(e);

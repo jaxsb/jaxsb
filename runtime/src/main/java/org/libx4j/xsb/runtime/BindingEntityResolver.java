@@ -77,7 +77,7 @@ public final class BindingEntityResolver implements XMLEntityResolver {
   private static final Map<String,URL> schemaReferences = new HashMap<String,URL>();
 
   @Override
-  public XMLInputSource resolveEntity(final XMLResourceIdentifier resourceIdentifier) throws XNIException, IOException {
+  public XMLInputSource resolveEntity(final XMLResourceIdentifier resourceIdentifier) throws IOException, XNIException {
     if (resourceIdentifier == null)
       return null;
 
@@ -90,38 +90,33 @@ public final class BindingEntityResolver implements XMLEntityResolver {
     if (namespaceURI == null && baseId == null)
       return null;
 
+    final URL schemaReference;
+    if (((XSDDescription)resourceIdentifier).getContextType() == XSDDescription.CONTEXT_INCLUDE) {
+      final String localName = Paths.getName(resourceIdentifier.getExpandedSystemId());
+      schemaReference = new URL(Paths.getCanonicalParent(baseId) + "/" + localName);
+    }
+    else {
+      schemaReference = lookupSchemaLocation(namespaceURI);
+    }
+
+    if (schemaReference == null)
+      throw new ValidatorError("The schemaReference for " + resourceIdentifier + " is null!");
+
+    final String expandedSystemId;
     try {
-      final URL schemaReference;
-      if (((XSDDescription)resourceIdentifier).getContextType() == XSDDescription.CONTEXT_INCLUDE) {
-        final String localName = Paths.getName(resourceIdentifier.getExpandedSystemId());
-        schemaReference = new URL(Paths.getCanonicalParent(baseId) + "/" + localName);
-      }
-      else {
-        schemaReference = lookupSchemaLocation(namespaceURI);
-      }
-
-      if (schemaReference == null)
-        throw new ValidatorError("The schemaReference for " + resourceIdentifier + " is null!");
-
-      final String expandedSystemId;
-      try {
-        expandedSystemId = URLs.toExternalForm(schemaReference);
-      }
-      catch (final MalformedURLException e) {
-        final IOException ioException = new IOException("Cannot obtain externalForm of " + schemaReference);
-        ioException.initCause(e);
-        throw ioException;
-      }
-
-      resourceIdentifier.setExpandedSystemId(expandedSystemId);
-      resourceIdentifier.setLiteralSystemId(expandedSystemId);
-
-      final XMLInputSource inputSource = new XMLInputSource(resourceIdentifier);
-      inputSource.setByteStream(schemaReference.openStream());
-      return inputSource;
+      expandedSystemId = URLs.toExternalForm(schemaReference);
     }
-    catch (final IOException e) {
-      throw e;
+    catch (final MalformedURLException e) {
+      final IOException ioException = new IOException("Cannot obtain externalForm of " + schemaReference);
+      ioException.initCause(e);
+      throw ioException;
     }
+
+    resourceIdentifier.setExpandedSystemId(expandedSystemId);
+    resourceIdentifier.setLiteralSystemId(expandedSystemId);
+
+    final XMLInputSource inputSource = new XMLInputSource(resourceIdentifier);
+    inputSource.setByteStream(schemaReference.openStream());
+    return inputSource;
   }
 }
