@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import org.lib4j.lang.Classes;
@@ -36,10 +37,10 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractBinding implements Cloneable {
   private static final Logger logger = LoggerFactory.getLogger(AbstractBinding.class);
 
-  protected static final QName XSI_TYPE = new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi");
-  protected static final QName XSI_NIL = new QName("http://www.w3.org/2001/XMLSchema-instance", "nil", "xsi");
-  protected static final QName XMLNS = new QName("http://www.w3.org/2000/xmlns/", "xmlns");
-  protected static final QName XML = new QName("http://www.w3.org/XML/1998/namespace", "xml");
+  protected static final QName XSI_TYPE = new QName(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "type", "xsi");
+  protected static final QName XSI_NIL = new QName(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "nil", "xsi");
+  protected static final QName XMLNS = new QName(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns");
+  protected static final QName XML = new QName(XMLConstants.XML_NS_URI, "xml");
 
   private static final Map<QName,Class<? extends Binding>> elementBindings = new HashMap<QName,Class<? extends Binding>>();
   private static final Map<QName,Class<? extends Binding>> typeBindings = new HashMap<QName,Class<? extends Binding>>();

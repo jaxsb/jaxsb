@@ -20,8 +20,6 @@ import java.io.Serializable;
 
 import javax.xml.namespace.QName;
 
-import org.lib4j.util.IdentityArrayList;
-import org.lib4j.util.ObservableList;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("unchecked")
@@ -38,68 +36,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
 
   private static final long serialVersionUID = -8175752291591734863L;
 
-  public final class SpecificElementList extends ObservableList<B> implements BindingList<B>, Cloneable {
-    private static final long serialVersionUID = -6390976298261014375L;
-
-    public SpecificElementList() {
-      super(new IdentityArrayList<B>());
-    }
-
-    private SpecificElementList(final SpecificElementList copy) {
-      super(new IdentityArrayList<B>(copy));
-    }
-
-    protected void addUnsafe(final int index, final B e) {
-      super.source.add(index, e);
-    }
-
-    protected void addUnsafe(final B e) {
-      super.source.add(e);
-    }
-
-    protected B setUnsafe(int index, final B e) {
-      return (B)super.source.set(index, e);
-    }
-
-    protected B removeUnsafe(int index) {
-      return (B)super.source.remove(index);
-    }
-
-    @Override
-    protected void beforeRemove(final int index) {
-      final B element = get(index);
-      parent._$$removeElement(element);
-    }
-
-    @Override
-    protected void beforeSet(final int index, final B newElement) {
-      final B element = get(index);
-      parent._$$replaceElement(element, ElementAudit.this, newElement);
-    }
-
-    @Override
-    protected void beforeAdd(final int index, final B e) {
-      if (index == size()) {
-        parent._$$addElementNoAudit(ElementAudit.this, e);
-      }
-      else {
-        final B element = get(index);
-        parent._$$addElementBefore(element, ElementAudit.this, e);
-      }
-    }
-
-    @Override
-    public SpecificElementList clone() {
-      return new SpecificElementList(this);
-    }
-
-    @Override
-    public Binding getParent() {
-      return parent;
-    }
-  }
-
-  private final Class<? extends Binding> type;
+  private final Class<B> type;
   private final Binding parent;
   private final B _default;
   private final BindingProxy<B> defaultProxy;
@@ -109,13 +46,15 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   private final boolean nillable;
   private final int minOccurs;
   private final int maxOccurs;
-  private SpecificElementList value;
+  private ElementSuperList.ElementSubList<B> elements;
 
   public ElementAudit(final Class<? extends Binding> type, final Binding parent, final B _default, QName name, final QName typeName, boolean qualified, final boolean nillable, int minOccurs, final int maxOccurs) {
-    this.type = type;
+    this.type = (Class<B>)type;
     this.parent = parent;
     if (_default != null) {
-      parent._$$addElementNoAudit(this, (B)(this.defaultProxy = new BindingProxy<B>(this._default = _default)));
+      this._default = _default;
+      this.defaultProxy = new BindingProxy<B>(null);
+      parent._$$addElement(this, (B)this.defaultProxy);
     }
     else {
       this._default = null;
@@ -142,11 +81,14 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     this.nillable = copy.nillable;
     this.minOccurs = copy.minOccurs;
     this.maxOccurs = copy.maxOccurs;
-    this.value = copy.value.clone();
   }
 
-  public Class<? extends Binding> getType() {
+  public Class<B> getType() {
     return this.type;
+  }
+
+  public Binding getParent() {
+    return this.parent;
   }
 
   public boolean isQualified() {
@@ -173,57 +115,31 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     return maxOccurs;
   }
 
-  public boolean addElement(final B element) {
-    return addElement(element, false);
-  }
-
-  public boolean addElementUnsafe(final B element) {
-    return addElement(element, true);
-  }
-
-  private boolean addElement(final B element, final boolean unsafe) {
-    if (parent.isNull())
-      throw new BindingRuntimeException("NULL Object is immutable.");
-
-    if (this.value == null)
-      this.value = new SpecificElementList();
-
-    if (defaultProxy != null && defaultProxy.getBinding() == _default) {
-      defaultProxy.setBinding(element);
-      return false;
-    }
-
-    if (unsafe)
-      this.value.addUnsafe(element);
-    else
-      this.value.add(element);
-
-    return true;
-  }
-
   public BindingList<B> getElements() {
-    return value;
+    return elements;
+  }
+
+  public int size() {
+    return elements == null ? 0 : elements.size();
   }
 
   protected int indexOf(final Binding element) {
-    return value.indexOf(element);
+    return elements.indexOf(element);
   }
 
-  protected boolean removeUnsafe(final Binding element) {
-    final int index = this.value.indexOf(element);
-    return index > -1 && this.value.removeUnsafe(index) != null;
+  protected void setElements(final ElementSuperList.ElementSubList<B> elements) {
+    this.elements = elements;
   }
 
-  protected B removeUnsafe(final int index) {
-    return this.value.removeUnsafe(index);
-  }
+  public boolean addElement(final B element) {
+    if (elements == null)
+      elements = parent.getCreateElementDirectory().newPartition(this);
 
-  protected B setUnsafe(final int index, final B element) {
-    return value.setUnsafe(index, element);
+    return elements.add(element);
   }
 
   protected void marshal(final Element parent, final B element) throws MarshalException {
-    if (value == null)
+    if (elements == null)
       return;
 
     QName name = getName();
@@ -245,8 +161,11 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     parent.appendChild(node);
   }
 
-  public ElementAudit<B> clone(final Binding parent) {
-    return new ElementAudit<B>(parent, this);
+  public ElementAudit<B> clone(final ElementSuperList elementList) {
+    final ElementAudit<B> clone = new ElementAudit<B>(elementList.getParent(), this);
+    clone.elements = elementList.getPartition(type);
+    clone.elements.setAudit(this);
+    return clone;
   }
 
   @Override
@@ -257,16 +176,16 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     if (!(obj instanceof ElementAudit))
       return false;
 
-    return value != null ? value.equals(((ElementAudit<?>)obj).value) : ((ElementAudit<?>)obj).value == null;
+    return elements != null ? elements.equals(((ElementAudit<?>)obj).elements) : ((ElementAudit<?>)obj).elements == null;
   }
 
   @Override
   public int hashCode() {
-    return value != null ? value.hashCode() : 0;
+    return elements != null ? elements.hashCode() : 0;
   }
 
   @Override
   public String toString() {
-    return value != null ? value.toString() : super.toString();
+    return elements != null ? elements.toString() : super.toString();
   }
 }
