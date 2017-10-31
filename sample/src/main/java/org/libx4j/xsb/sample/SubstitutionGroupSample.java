@@ -48,15 +48,15 @@ public class SubstitutionGroupSample {
     for (final $sg_productType product : products) {
       if (product instanceof sg_shirt) {
         final sg_shirt shirt = (sg_shirt)product;
-        System.out.println("There are " + shirt._amount(0).text() + " of '" + shirt._name(0).text() + "' shirts colored " + shirt._color(0).text() + ", size " + shirt._size(0).text());
+        System.out.println("There are " + shirt._amount().text() + " of '" + shirt._name().text() + "' shirts colored " + shirt._color().text() + ", size " + shirt._size().text());
       }
       else if (product instanceof sg_hat) {
         final sg_hat hat = (sg_hat)product;
-        System.out.println("There are " + hat._amount(0).text() + " of '" + hat._name(0).text() + "' hats, size " + hat._size(0).text());
+        System.out.println("There are " + hat._amount().text() + " of '" + hat._name().text() + "' hats, size " + hat._size().text());
       }
       else if (product instanceof sg_umbrella) {
         final sg_umbrella umbrella = (sg_umbrella)product;
-        System.out.println("There are " + umbrella._amount(0).text() + " of '" + umbrella._name(0).text() + "' umbrellas");
+        System.out.println("There are " + umbrella._amount().text() + " of '" + umbrella._name().text() + "' umbrellas");
       }
     }
 

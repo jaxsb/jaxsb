@@ -39,54 +39,54 @@ public class ParseHowTo {
 
     final pv_invoice invoice = (pv_invoice)Bindings.parse(new InputSource(new FileInputStream(file)));
 
-    final Integer number = invoice._number(0).text();
+    final Integer number = invoice._number().text();
     System.out.print("This invoice # " + number + " ");
 
-    final Date date = invoice._date(0).text();
+    final Date date = invoice._date().text();
     System.out.println("is established on " + date + " ");
 
-    final String billingName = invoice._billingAddress(0)._name(0).text();
+    final String billingName = invoice._billingAddress()._name().text();
     System.out.print("from " + billingName + ", ");
 
-    final String billingAddress = invoice._billingAddress(0)._address(0).text();
+    final String billingAddress = invoice._billingAddress()._address().text();
     System.out.print(billingAddress + ", ");
 
-    final String billingCity = invoice._billingAddress(0)._city(0).text();
+    final String billingCity = invoice._billingAddress()._city().text();
     System.out.print(billingCity + ", ");
 
-    final Integer billingPostalCode = invoice._billingAddress(0)._postalCode(0).text();
+    final Integer billingPostalCode = invoice._billingAddress()._postalCode().text();
     System.out.print(billingPostalCode + ", ");
 
-    final String billingCountry = invoice._billingAddress(0)._country(0).text();
+    final String billingCountry = invoice._billingAddress()._country().text();
     System.out.println(billingCountry + ".");
 
-    final String shippingName = invoice._shippingAddress(0)._name(0).text();
+    final String shippingName = invoice._shippingAddress()._name().text();
     System.out.print("Shipping address is: " + shippingName + ", ");
 
-    final String shippingAddress = invoice._shippingAddress(0)._address(0).text();
+    final String shippingAddress = invoice._shippingAddress()._address().text();
     System.out.print(shippingAddress + ", ");
 
-    final String shippingCity = invoice._shippingAddress(0)._city(0).text();
+    final String shippingCity = invoice._shippingAddress()._city().text();
     System.out.print(shippingCity + ", ");
 
-    final Integer shippingPostalCode = invoice._shippingAddress(0)._postalCode(0).text();
+    final Integer shippingPostalCode = invoice._shippingAddress()._postalCode().text();
     System.out.print(shippingPostalCode + ", ");
 
-    final String shippingCountry = invoice._shippingAddress(0)._country(0).text();
+    final String shippingCountry = invoice._shippingAddress()._country().text();
     System.out.println(shippingCountry + ".");
 
     System.out.println("The following items are included in this invoice:");
-    for (final $pv_itemType item : (List<$pv_itemType>)invoice._billedItems(0)._item()) {
-      final Integer quantity = item._quantity(0).text();
+    for (final $pv_itemType item : (List<$pv_itemType>)invoice._billedItems()._item()) {
+      final Integer quantity = item._quantity().text();
       System.out.print(quantity + " ");
 
-      final String description = item._description(0).text();
+      final String description = item._description().text();
       System.out.print(description + " ");
 
-      final Integer code = item._code(0).text();
+      final Integer code = item._code().text();
       System.out.print("(#" + code + ") ");
 
-      final BigDecimal price = item._price(0).text();
+      final BigDecimal price = item._price().text();
       System.out.println("$" + price + " each.");
     }
   }

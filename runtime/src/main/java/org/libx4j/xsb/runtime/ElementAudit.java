@@ -119,6 +119,10 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     return elements;
   }
 
+  public B getElement() {
+    return elements == null || elements.size() == 0 ? null : elements.get(0);
+  }
+
   public int size() {
     return elements == null ? 0 : elements.size();
   }
@@ -135,7 +139,12 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     if (elements == null)
       elements = parent.getCreateElementDirectory().newPartition(this);
 
-    return elements.add(element);
+    if (maxOccurs > 1 || elements.size() == 0)
+      elements.add(element);
+    else
+      elements.set(0, element);
+
+    return true;
   }
 
   protected void marshal(final Element parent, final B element) throws MarshalException {

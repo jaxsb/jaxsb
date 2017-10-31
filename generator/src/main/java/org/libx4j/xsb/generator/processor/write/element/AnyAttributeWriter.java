@@ -55,7 +55,7 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendSetMethod(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("public void addAny$(" + Binding.class.getName() + " anyAttribute)\n");
+    writer.write("public void addAny$(final " + Binding.class.getName() + " anyAttribute)\n");
     writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
     writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + ">());\n");

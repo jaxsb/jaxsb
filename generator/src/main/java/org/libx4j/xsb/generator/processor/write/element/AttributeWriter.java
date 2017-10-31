@@ -55,7 +55,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     if (plan.isRestriction())
       writer.write("return super." + plan.getDeclarationRestrictionSimpleName() + "();\n");
     else
-      writer.write("return " + plan.getInstanceName() + ".getAttribute() != null ? " + plan.getInstanceName() + ".getAttribute() : (" + plan.getClassName(parent) + ")NULL(" + plan.getClassName(parent) + ".class);\n");
+      writer.write("return " + plan.getInstanceName() + ".getAttribute() == null ? null : " + plan.getInstanceName() + ".getAttribute();\n");
     writer.write("}\n");
   }
 
@@ -67,7 +67,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       writer.write(" * Use of this method WILL CAUSE an IllegalArgumentException!\n");
       writer.write(" * Please correct your argument to use the alternate method signature.\n");
       writer.write(" */\n");
-      writer.write("public void " + plan.getDeclarationRestrictionSimpleName() + "(" + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getInstanceName() + ")\n");
+      writer.write("public void " + plan.getDeclarationRestrictionSimpleName() + "(final " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getInstanceName() + ")\n");
       writer.write("{\n");
       writer.write("throw new " + IllegalArgumentException.class.getName() + "(\"This method has been restricted by a more specific signature. Please correct your argument to use the alternate method signature.\");\n");
       writer.write("}\n");

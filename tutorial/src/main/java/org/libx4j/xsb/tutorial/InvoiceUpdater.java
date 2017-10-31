@@ -29,7 +29,7 @@ import org.xml.sax.InputSource;
 public class InvoiceUpdater {
   private static pv_invoice addItem(final File invoiceFile, final pv_invoice._billedItems._item item) throws Exception {
     final pv_invoice invoice = (pv_invoice)Bindings.parse(new InputSource(new FileInputStream(invoiceFile)));
-    invoice._billedItems(0)._item(item);
+    invoice._billedItems()._item(item);
     return invoice;
   }
 

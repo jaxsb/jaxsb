@@ -84,14 +84,14 @@
   <xs:element name="roster">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="employees" minOccurs="0">
+        <xs:element name="employees" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:sequence maxOccurs="unbounded">
               <xs:element name="employee" type="li:employeeType"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="volunteers" minOccurs="0">
+        <xs:element name="volunteers" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:sequence maxOccurs="unbounded">
               <xs:element name="volunteer" type="li:volunteerType"/>

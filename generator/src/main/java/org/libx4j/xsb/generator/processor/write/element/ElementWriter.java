@@ -85,19 +85,28 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       return;
 
     writeQualifiedName(writer, plan);
-    writer.write("public " + BindingList.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> " + plan.getClassSimpleName() + "()\n");
-    writer.write("{\n");
-    if (plan.isRestriction())
-      writer.write("return super." + plan.getClassSimpleName() + "();\n");
-    else
-      writer.write("return " + plan.getInstanceName() + ".getElements();\n");
-    writer.write("}\n");
+    final String methodName = plan.getClassSimpleName();
+    if (plan.getMaxOccurs() == 1) {
+      writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " " + methodName + "()\n{\n");
+      if (plan.isRestriction())
+        writer.write("return super." + plan.getClassSimpleName() + "();\n");
+      else
+        writer.write("return " + plan.getInstanceName() + ".getElement();\n");
+      writer.write("}\n");
+    }
+    else {
+      writer.write("public " + BindingList.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> " + methodName + "()\n{\n");
+      if (plan.isRestriction())
+        writer.write("return super." + plan.getClassSimpleName() + "();\n");
+      else
+        writer.write("return " + plan.getInstanceName() + ".getElements();\n");
+      writer.write("}\n");
 
-    writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getClassSimpleName() + "(final int index)\n");
-    writer.write("{\n");
-    writer.write("final " + List.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> values = " + plan.getClassSimpleName() + "();\n");
-    writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : (" + plan.getClassName(parent) + ")NULL(" + plan.getClassName(parent) + ".class);\n");
-    writer.write("}\n");
+      writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getClassSimpleName() + "(final int index)\n{\n");
+      writer.write("final " + List.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> values = " + plan.getClassSimpleName() + "();\n");
+      writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : (" + plan.getClassName(parent) + ")NULL(" + plan.getClassName(parent) + ".class);\n");
+      writer.write("}\n");
+    }
   }
 
   @Override
@@ -108,7 +117,8 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("@" + ElementSpec.class.getName() + "(minOccurs=" + plan.getMinOccurs() + ", maxOccurs=" + plan.getMaxOccurs() + ")\n");
     writeQualifiedName(writer, plan);
     final String type = plan.getDeclarationGeneric(parent);
-    writer.write("public " + type + " " + plan.getClassSimpleName() + "(" + type + " " + plan.getInstanceName() + ")\n");
+    final String methodName = plan.getClassSimpleName();
+    writer.write("public " + type + " " + methodName + "(final " + type + " " + plan.getInstanceName() + ")\n");
     writer.write("{\n");
     if (plan.isRestriction())
       writer.write("super." + plan.getClassSimpleName() + "(" + plan.getInstanceName() + ");\n");

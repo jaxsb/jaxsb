@@ -37,10 +37,10 @@ public class ListSample {
   private static final Logger logger = LoggerFactory.getLogger(ListSample.class);
 
   private static void printCommon(final $li_staffType staffType) {
-    final String name = staffType._name(0).text();
+    final String name = staffType._name().text();
     logger.info("Name: " + name);
 
-    final List<String> workDays = staffType._workDays(0).text();
+    final List<String> workDays = staffType._workDays().text();
     logger.info("Work Days: " + name);
     for (final String workDay : workDays)
       logger.info("\t" + workDay);
@@ -60,10 +60,10 @@ public class ListSample {
       for (final $li_employeeType employee : employees) {
         printCommon(employee);
 
-        final String position = employee._position(0).text();
+        final String position = employee._position().text();
         logger.info("Position: " + position);
 
-        final List<Date> vacationDates = employee._vacationDates(0).text();
+        final List<Date> vacationDates = employee._vacationDates().text();
         logger.info("Vacation Dates:");
         for (final Date vacationDate : vacationDates)
           logger.info("\t" + vacationDate);
@@ -82,7 +82,7 @@ public class ListSample {
       for (final $li_volunteerType volunteer : volunteers) {
         printCommon(volunteer);
 
-        final List<Time> breakTimes = volunteer._breakTimes(0).text();
+        final List<Time> breakTimes = volunteer._breakTimes().text();
         logger.info("Break Times:");
         for (final Time breakTime : breakTimes)
           logger.info("\t" + breakTime);

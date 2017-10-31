@@ -59,8 +59,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
 
   @Override
   public final void addMultiplicableModel(final MultiplicableModel multiplicableModel) {
-    if (!this.equals(multiplicableModel))
-      this.multiplicableModels.add(multiplicableModel);
+    this.multiplicableModels.add(multiplicableModel);
   }
 
   @Override

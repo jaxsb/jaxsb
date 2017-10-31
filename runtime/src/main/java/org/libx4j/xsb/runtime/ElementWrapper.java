@@ -18,6 +18,7 @@ package org.libx4j.xsb.runtime;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.libx4j.xsb.compiler.lang.UniqueQName;
@@ -30,12 +31,12 @@ import org.libx4j.xsb.compiler.processor.model.element.ElementModel;
 @SuppressWarnings("rawtypes")
 public final class ElementWrapper extends Model implements Nameable {
   public static LinkedHashSet<ElementWrapper> asSet(final LinkedHashSet<MultiplicableModel> multiplicableModels) {
-    final LinkedHashSet<ElementWrapper> elementWrappers = new LinkedHashSet<ElementWrapper>();
+    final LinkedHashMap<ElementWrapper,ElementWrapper> elementWrappers = new LinkedHashMap<ElementWrapper,ElementWrapper>();
     asSet(multiplicableModels, elementWrappers, 1, 1, new HashSet<UniqueQName>());
-    return elementWrappers;
+    return new LinkedHashSet<ElementWrapper>(elementWrappers.values());
   }
 
-  private static void asSet(final LinkedHashSet<MultiplicableModel> multiplicableModels, final LinkedHashSet<ElementWrapper> elementWrappers, int min, final int max, final Collection<UniqueQName> redefines) {
+  private static void asSet(final LinkedHashSet<MultiplicableModel> multiplicableModels, final LinkedHashMap<ElementWrapper,ElementWrapper> elementWrappers, int min, final int max, final Collection<UniqueQName> redefines) {
     for (MultiplicableModel multiplicableModel : multiplicableModels) {
       // FIXME: the list used to track redefines seems BAD!!!
       if (multiplicableModel instanceof RedefineableModel && ((RedefineableModel<?>)multiplicableModel).getRedefine() != null && !redefines.contains(((Nameable<?>)multiplicableModel).getName())) {
@@ -50,16 +51,25 @@ public final class ElementWrapper extends Model implements Nameable {
       int minOccurs = multiplicableModel.getMinOccurs().getValue();
       minOccurs *= min;
 
-      if (multiplicableModel instanceof ElementModel)
-        elementWrappers.add(new ElementWrapper((ElementModel)multiplicableModel, minOccurs, maxOccurs));
+      if (multiplicableModel instanceof ElementModel) {
+        final ElementWrapper elementWrapper = new ElementWrapper((ElementModel)multiplicableModel, minOccurs, maxOccurs);
+        final ElementWrapper exists = elementWrappers.get(elementWrapper);
+        if (exists != null) {
+          exists.setMinOccurs(exists.getMinOccurs() + minOccurs);
+          exists.setMaxOccurs(exists.getMaxOccurs() + maxOccurs);
+        }
+        else {
+          elementWrappers.put(elementWrapper, elementWrapper);
+        }
+      }
       else
         asSet(multiplicableModel.getMultiplicableModels(), elementWrappers, minOccurs, maxOccurs, redefines);
     }
   }
 
   private final ElementModel elementModel;
-  private final int minOccurs;
-  private final int maxOccurs;
+  private int minOccurs;
+  private int maxOccurs;
 
   public ElementWrapper(final ElementModel elementModel, final int minOccurs, final int maxOccurs) {
     super(null, elementModel.getParent());
@@ -76,8 +86,16 @@ public final class ElementWrapper extends Model implements Nameable {
     return minOccurs;
   }
 
+  public void setMinOccurs(final int minOccurs) {
+    this.minOccurs = minOccurs;
+  }
+
   public final int getMaxOccurs() {
     return maxOccurs;
+  }
+
+  public void setMaxOccurs(final int maxOccurs) {
+    this.maxOccurs = maxOccurs;
   }
 
   @Override

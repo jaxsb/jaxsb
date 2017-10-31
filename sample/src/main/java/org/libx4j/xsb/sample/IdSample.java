@@ -44,18 +44,18 @@ public class IdSample {
     final id_directory directory = (id_directory)Bindings.parse(new InputSource(new FileInputStream(file)));
     final List<$id_bookType> books = directory._book();
     for (final $id_bookType book : books) {
-      final String shortName = book._author(0).text();
+      final String shortName = book._author().text();
       final id_directory._author._id$ authorId = id_directory._author._id$.lookupId(shortName);
       final id_directory._author author = (id_directory._author)authorId.owner();
-      System.out.print(author._name(0).text() + " is the author of " + book._title(0).text() + ".");
+      System.out.print(author._name().text() + " is the author of " + book._title().text() + ".");
       if (book._co_authors() != null) {
-        final $xs_IDREFS co_authors = book._co_authors(0);
+        final $xs_IDREFS co_authors = book._co_authors();
         if (co_authors.text() != null) {
           StringBuffer buffer = new StringBuffer();
           for (Object co_authorHandle : co_authors.text()) {
             final id_directory._author._id$ co_authorId = id_directory._author._id$.lookupId((String)co_authorHandle);
             final id_directory._author co_author = (id_directory._author)co_authorId.owner();
-            buffer.append(", ").append(co_author._name(0).text());
+            buffer.append(", ").append(co_author._name().text());
           }
 
           System.out.print(" " + buffer.substring(2));
