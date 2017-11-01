@@ -167,7 +167,10 @@ public class ElementModel extends ComplexTypeModel<SimpleTypeModel<?>> implement
     if (!(obj instanceof ElementModel))
       return false;
 
-    return getRef() == null ? getName().equals(((ElementModel)obj).getName()) : (((ElementModel)obj).getRef() != null ? getRef().getName().equals(((ElementModel)obj).getRef().getName()) : false);
+    final ElementModel that = (ElementModel)obj;
+    final ElementModel a = getRef() != null ? getRef() : this;
+    final ElementModel b = that.getRef() != null ? that.getRef() : that;
+    return a.getName().equals(b.getName());
   }
 
   @Override
@@ -178,10 +181,10 @@ public class ElementModel extends ComplexTypeModel<SimpleTypeModel<?>> implement
   @Override
   public int hashCode() {
     if (getRef() != null && getRef().getName() != null)
-      return ("ref" + getRef().getName().toString()).hashCode();
+      return getRef().getName().toString().hashCode();
 
     if (getName() != null)
-      return ("elem" + getName().toString()).hashCode();
+      return getName().toString().hashCode();
 
     return super.hashCode();
   }

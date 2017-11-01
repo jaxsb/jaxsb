@@ -90,14 +90,11 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Enumer
       superClassNameWithoutType = AliasPlan.getClassName(element.getSuperType(), null);
 
     superClassNameWithType = superClassNameWithoutType;
-    // If we are directly inheriting from another element via the substitutionGroup, then dont add the type
-    if (substitutionGroup == null || !substitutionGroup.equals(element.getSuperType().getName())) {
+    // If we are directly inheriting from another element via the substitutionGroup, then don't add the type
+    if (substitutionGroup == null || !substitutionGroup.equals(element.getSuperType().getName()))
       isComplexType = isComplexType(element.getSuperType());
-    }
-    else if (substitutionGroup != null && isComplexType(element.getSuperType()))
-      isComplexType = true;
     else
-      isComplexType = false;
+      isComplexType = substitutionGroup != null && isComplexType(element.getSuperType());
 
     if (!ref && element.getParent() instanceof SchemaModel)
       declarationGeneric = superClassNameWithType;

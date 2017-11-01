@@ -45,12 +45,12 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
     for (final SchemaComposite schemaComposite : documents) {
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final SchemaDocument schemaDocument = schemaModelComposite.getSchemaDocument();
-      final SchemaModel model = recurse(root, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getDocument().getChildNodes(), schemaDocument.getSchemaReference().getURL(), directory);
-      if (model == null)
+      final SchemaModel schemaModel = recurse(root, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getDocument().getChildNodes(), schemaDocument.getSchemaReference().getURL(), directory);
+      if (schemaModel == null)
         throw new LexerFailureException("We should have found a schema!");
 
-      schemaModelComposite.setSchemaModel(model);
-      schemaModels.add(model);
+      schemaModelComposite.setSchemaModel(schemaModel);
+      schemaModels.add(schemaModel);
     }
 
     return schemaModels;

@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.compiler.processor.model.element;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 
 import org.libx4j.xsb.compiler.lang.UniqueQName;
@@ -33,7 +33,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public class GroupModel extends NamedModel implements MultiplicableModel, Nameable<Model>, RedefineableModel<GroupModel>, ReferableModel<GroupModel> {
-  private final LinkedHashSet<MultiplicableModel> multiplicableModels = new LinkedHashSet<MultiplicableModel>();
+  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<MultiplicableModel>();
   private Occurs maxOccurs = Occurs.parseOccurs("1");
   private Occurs minOccurs = Occurs.parseOccurs("1");
   private GroupModel ref = null;
@@ -73,7 +73,7 @@ public class GroupModel extends NamedModel implements MultiplicableModel, Nameab
   }
 
   @Override
-  public final LinkedHashSet<MultiplicableModel> getMultiplicableModels() {
+  public final ArrayList<MultiplicableModel> getMultiplicableModels() {
     return multiplicableModels;
   }
 

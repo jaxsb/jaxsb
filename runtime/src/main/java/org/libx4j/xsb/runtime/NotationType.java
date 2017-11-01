@@ -16,23 +16,11 @@
 
 package org.libx4j.xsb.runtime;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public abstract class NotationType extends Binding implements BindingType {
   private static final long serialVersionUID = -7634751765517029331L;
-  private static final Map<String,NotationType> notations = new HashMap<String,NotationType>(7);
-
-  protected static void _$$registerNotation(final NotationType notation) {
-    notations.put(notation.getName(), notation);
-  }
 
   public static NotationType parse(final String name) {
-    return notations.get(name);
-  }
-
-  protected NotationType() {
-    notations.put(getName(), this);
+    return _$$getNotation(name);
   }
 
   @Override

@@ -44,6 +44,31 @@ public abstract class AbstractBinding implements Cloneable {
 
   private static final Map<QName,Class<? extends Binding>> elementBindings = new HashMap<QName,Class<? extends Binding>>();
   private static final Map<QName,Class<? extends Binding>> typeBindings = new HashMap<QName,Class<? extends Binding>>();
+  private static final Map<String,Object> notations = new HashMap<String,Object>();
+
+  protected static NotationType _$$getNotation(final String name) {
+    final Object object = notations.get(name);
+    if (object instanceof NotationType)
+      return (NotationType)object;
+
+
+    if (!(object instanceof Class))
+      throw new UnsupportedOperationException("Unsupported object type in notations map: " + object.getClass().getName());
+
+    try {
+      final NotationType notation = (NotationType)((Class<?>)object).newInstance();
+      notations.put(name, notation);
+      return notation;
+    }
+    catch (final IllegalAccessException | InstantiationException e) {
+      throw new UnsupportedOperationException(e);
+    }
+  }
+
+  // FIXME: How does systemName play into this?
+  protected static void _$$registerNotation(final String publicName, final String systemName, final Class<? extends NotationType> notation) {
+    notations.put(publicName, notation);
+  }
 
   protected static void _$$registerSchemaLocation(final String namespaceURI, final Class<?> className, final String schemaReference) {
     final String simpleName = className.getName().replace('.', '/') + ".class";

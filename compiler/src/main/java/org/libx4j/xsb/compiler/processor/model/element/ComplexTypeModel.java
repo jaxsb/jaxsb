@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.compiler.processor.model.element;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -34,7 +35,7 @@ import org.w3c.dom.Node;
 
 public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeModel<T> implements AttributableModel, ElementableModel, MixableModel {
   private final LinkedHashSet<AttributeModel> attributes = new LinkedHashSet<AttributeModel>();
-  private final LinkedHashSet<MultiplicableModel> multiplicableModels = new LinkedHashSet<MultiplicableModel>();
+  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<MultiplicableModel>();
   private Boolean _abstract = false;
   private Block block = null;
   private Boolean mixed = null;
@@ -63,7 +64,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
   }
 
   @Override
-  public final LinkedHashSet<MultiplicableModel> getMultiplicableModels() {
+  public final ArrayList<MultiplicableModel> getMultiplicableModels() {
     return multiplicableModels;
   }
 

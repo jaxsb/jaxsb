@@ -29,7 +29,7 @@ import org.libx4j.xsb.runtime.NotationType;
 public final class NotationWriter extends Writer<NotationPlan> {
   @Override
   protected void appendRegistration(final StringWriter writer, final NotationPlan plan, final Plan<?> parent) {
-    writer.write("_$$registerNotation(new " + plan.getClassSimpleName() + "());\n");
+    writer.write("_$$registerNotation(\"" + plan.getPublic() + "\", \"" + plan.getSystem() + "\", " + plan.getClassName(plan) + ".class);\n");
     writer.write("_$$registerSchemaLocation(" + plan.getClassName(parent) + ".NAME.getNamespaceURI(), " + plan.getClassName(null) + ".class, \"" + plan.getXsdLocation() + "\");\n");
   }
 
@@ -78,7 +78,7 @@ public final class NotationWriter extends Writer<NotationPlan> {
     // DOCUMENTATION
     writer.write(plan.getDocumentation());
 
-    writer.write("public final class " + plan.getClassSimpleName() + " extends " + NotationType.class.getName() + "\n");
+    writer.write("public static final class " + plan.getClassSimpleName() + " extends " + NotationType.class.getName() + "\n");
     writer.write("{\n");
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 

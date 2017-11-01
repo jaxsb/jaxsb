@@ -53,7 +53,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
   }
 
   @Override
-  public Collection<Normalizer<?>> process(final GeneratorContext pipelineContext, final Collection<Model> documents, final PipelineDirectory<GeneratorContext,Model,Normalizer<?>> directory) {
+  public Collection<Normalizer<?>> process(final GeneratorContext pipelineContext, final Collection<Model> models, final PipelineDirectory<GeneratorContext,Model,Normalizer<?>> directory) {
     int stages = 0;
     final Method[] methods = Normalizer.class.getDeclaredMethods();
     for (final Method method : methods)
@@ -62,7 +62,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
 
     for (int stage = 0; stage < stages; stage++) {
       this.stage = stage;
-      tailRecurse(pipelineContext, documents, directory);
+      tailRecurse(pipelineContext, models, directory);
     }
 
     return null;

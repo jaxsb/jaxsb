@@ -16,7 +16,9 @@
 
 package org.libx4j.xsb.compiler.processor.normalize.element;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.libx4j.xsb.compiler.lang.LexerFailureException;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
@@ -165,7 +167,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
           }
 
           if (redefine.getMultiplicableModels().size() != 0) {
-            final LinkedHashSet<MultiplicableModel> multiplicableModels = (LinkedHashSet<MultiplicableModel>)((ComplexTypeModel<?>)model.getBase()).getMultiplicableModels().clone();
+            final List<MultiplicableModel> multiplicableModels = (ArrayList<MultiplicableModel>)((ComplexTypeModel<?>)model.getBase()).getMultiplicableModels().clone();
             multiplicableModels.addAll(redefine.getMultiplicableModels());
             redefine.getMultiplicableModels().clear();
             redefine.getMultiplicableModels().addAll(multiplicableModels);

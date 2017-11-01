@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.compiler.processor.model.element;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 
 import org.libx4j.xsb.compiler.processor.model.Model;
 import org.libx4j.xsb.compiler.processor.model.MultiplicableModel;
@@ -25,7 +25,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class ChoiceModel extends Model implements MultiplicableModel {
-  private final LinkedHashSet<MultiplicableModel> multiplicableModels = new LinkedHashSet<MultiplicableModel>();
+  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<MultiplicableModel>();
 
   private Occurs maxOccurs = Occurs.parseOccurs("1");
   private Occurs minOccurs = Occurs.parseOccurs("1");
@@ -49,7 +49,7 @@ public final class ChoiceModel extends Model implements MultiplicableModel {
   }
 
   @Override
-  public final LinkedHashSet<MultiplicableModel> getMultiplicableModels() {
+  public final ArrayList<MultiplicableModel> getMultiplicableModels() {
     return multiplicableModels;
   }
 

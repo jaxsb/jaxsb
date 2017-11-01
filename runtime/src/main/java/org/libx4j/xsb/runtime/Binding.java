@@ -356,11 +356,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   protected final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
-    elementAudit.addElement(element);
-    if (element != null)
+    final boolean added = elementAudit.addElement(element);
+    if (added && element != null)
       element._$$setOwner(($xs_anySimpleType)this);
 
-    return true;
+    return added;
   }
 
   private IdentityHashMap<Class<? extends Binding>,ElementAudit<?>> typeToAudit;
