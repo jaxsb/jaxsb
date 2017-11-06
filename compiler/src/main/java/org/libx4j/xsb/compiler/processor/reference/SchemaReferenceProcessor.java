@@ -59,7 +59,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 //          @Override
 //          public void run() {
             try {
-              final File containerClass = new File(destDir, schemaReference.getNamespaceURI().getPackage().replace('.', File.separatorChar) + File.separator + "xe.java");
+              final File containerClass = new File(destDir, schemaReference.getNamespaceURI().getNamespaceBinding().getClassName().replace('.', File.separatorChar) + ".java");
               logger.debug("checking whether class is up-to-date: " + containerClass.getAbsolutePath());
               if (pipelineContext.getOverwrite() || !containerClass.exists()) {
                 logger.debug("adding: " + containerClass.getAbsolutePath());

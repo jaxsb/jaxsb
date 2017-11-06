@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lib4j.formatter.SourceFormat;
+import org.lib4j.xml.NamespaceBinding;
 import org.libx4j.xsb.runtime.Schema;
 
 public class ClassFile {
@@ -30,18 +31,18 @@ public class ClassFile {
 
   static {
     license.append("/* .-------------------------------------------------------------------. */\n");
-    license.append("/* | GENERATED CODE - Xml Shema Binding [xsb.safris.org] - DO NOT EDIT | */\n");
+    license.append("/* | GENERATED CODE - Xml Shema Binding [xsb.libx4j.org] - DO NOT EDIT | */\n");
     license.append("/* '-------------------------------------------------------------------' */\n\n");
   }
 
   private final File file;
-  private final String packageName;
+  private final NamespaceBinding namespaceBinding;
   private List<String> registrationTexts = new ArrayList<String>();
   private List<String> classTexts = new ArrayList<String>();
 
-  public ClassFile(final File file, final String packageName) {
+  public ClassFile(final File file, final NamespaceBinding namespaceBinding) {
     this.file = file;
-    this.packageName = packageName;
+    this.namespaceBinding = namespaceBinding;
   }
 
   public void addRegistrationText(final String registrationText) {
@@ -54,9 +55,9 @@ public class ClassFile {
 
   public void close() throws IOException {
     final StringBuilder buffer = new StringBuilder();
-    buffer.append("package " + packageName + ";\n\n");
+    buffer.append("package " + namespaceBinding.getPackageName() + ";\n\n");
     buffer.append("@" + SuppressWarnings.class.getName() + "(\"all\")\n");
-    buffer.append("public class xe extends " + Schema.class.getName() + " {\n\n");
+    buffer.append("public class " + namespaceBinding.getSimpleClassName() + " extends " + Schema.class.getName() + " {\n\n");
     buffer.append("protected static void _$$register() {");
     for (final String registrationText : registrationTexts)
       buffer.append("\n" + registrationText);

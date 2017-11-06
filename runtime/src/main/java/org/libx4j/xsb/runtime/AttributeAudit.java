@@ -21,20 +21,20 @@ import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
-import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
 import org.w3c.dom.Element;
 
-public final class AttributeAudit<T extends $xs_anySimpleType> implements Serializable {
+public final class AttributeAudit<T extends $AnySimpleType> implements Serializable {
   private static final long serialVersionUID = 4793561156708612350L;
 
-  private final $xs_anySimpleType parent;
+  private final $AnySimpleType parent;
   private final T _default;
   private final QName name;
   private final boolean qualified;
   private final boolean required;
   private T value = null;
 
-  public AttributeAudit(final $xs_anySimpleType parent, final T _default, final QName name, final boolean qualified, final boolean required) {
+  public AttributeAudit(final $AnySimpleType parent, final T _default, final QName name, final boolean qualified, final boolean required) {
     this.parent = parent;
     this._default = _default;
     this.name = name;

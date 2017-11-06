@@ -40,7 +40,7 @@ import org.libx4j.xsb.runtime.ComplexType;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -291,7 +291,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
 
     // ATTRIBUTE ITERATORS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + Iterator.class.getName() + "<? extends " + $xs_anySimpleType.class.getName() + "> attributeIterator()\n");
+    writer.write("public " + Iterator.class.getName() + "<? extends " + $AnySimpleType.class.getName() + "> attributeIterator()\n");
     writer.write("{\n");
     writer.write("return super.attributeIterator();\n");
     writer.write("}\n");

@@ -17,9 +17,9 @@
 package org.libx4j.xsb.sample;
 
 import org.libx4j.xsb.runtime.Binding;
-import org.libx4j.xsb.sample.enums.xe.enums_color$;
-import org.libx4j.xsb.sample.enums.xe.enums_coloredFruitBasket;
-import org.libx4j.xsb.sample.simple.xe.simple_fruit;
+import org.libx4j.xsb.sample.enums.xKCODDHBLs0Eu4BC54c2Q.Color$;
+import org.libx4j.xsb.sample.enums.xKCODDHBLs0Eu4BC54c2Q.ColoredFruitBasket;
+import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.Fruit;
 
 public class EnumsSample {
   public static void main(final String[] args) {
@@ -27,22 +27,22 @@ public class EnumsSample {
   }
 
   public Binding runSample() {
-    final simple_fruit strawberry = new simple_fruit();
-    strawberry._name$(new simple_fruit._name$("strawberry"));
-    strawberry._sweet$(new simple_fruit._sweet$(true));
+    final Fruit strawberry = new Fruit();
+    strawberry.setName$(new Fruit.Name$("strawberry"));
+    strawberry.setSweet$(new Fruit.Sweet$(true));
 
-    final simple_fruit jackfruit = new simple_fruit();
-    jackfruit._name$(new simple_fruit._name$("jackfruit"));
-    jackfruit._sweet$(new simple_fruit._sweet$(false));
-    jackfruit._dry$(new simple_fruit._dry$(false));
+    final Fruit jackfruit = new Fruit();
+    jackfruit.setName$(new Fruit.Name$("jackfruit"));
+    jackfruit.setSweet$(new Fruit.Sweet$(false));
+    jackfruit.setDry$(new Fruit.Dry$(false));
 
-    final enums_coloredFruitBasket._fruits simple_fruits = new enums_coloredFruitBasket._fruits();
-    simple_fruits.simple_fruit(strawberry);
-    simple_fruits.simple_fruit(jackfruit);
+    final ColoredFruitBasket.Fruits fruits = new ColoredFruitBasket.Fruits();
+    fruits.addSimpleFruit(strawberry);
+    fruits.addSimpleFruit(jackfruit);
 
-    final enums_coloredFruitBasket coloredBasket = new enums_coloredFruitBasket();
-    coloredBasket.enums_color$(new enums_color$(enums_color$.blue));
-    coloredBasket._fruits(simple_fruits);
+    final ColoredFruitBasket coloredBasket = new ColoredFruitBasket();
+    coloredBasket.setEnumsColor$(new Color$(Color$.blue));
+    coloredBasket.setFruits(fruits);
 
     // Now verify the integrity of the code representing this XML structure.
     return coloredBasket;

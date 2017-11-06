@@ -16,8 +16,8 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
-  targetNamespace="http://xsb.libx4j.org/generator/name2.xsd"
-  xmlns:n2="http://xsb.libx4j.org/generator/name2.xsd"
+  targetNamespace="http://www.libx4j.org/do/abstract/n$a*m(e)2.xsd"
+  xmlns="http://www.libx4j.org/do/abstract/n$a*m(e)2.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:simpleType name="class">
@@ -26,8 +26,16 @@
     </xs:restriction>
   </xs:simpleType>
   
-  <xs:element name="class" type="n2:class"/>
+  <xs:simpleType name="Class">
+    <xs:restriction base="class"/>
+  </xs:simpleType>
   
-  <xs:attribute name="class" type="n2:class"/>
-
+  <xs:element name="class" type="class"/>
+  
+  <xs:element name="Class" type="class"/>
+  
+  <xs:attribute name="class" type="class"/>
+  
+  <xs:attribute name="Class" type="class"/>
+  
 </xs:schema>

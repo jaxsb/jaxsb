@@ -23,13 +23,13 @@ import java.math.BigDecimal;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
 import org.libx4j.xsb.runtime.Bindings;
-import org.libx4j.xsb.tutorial.invoice.xe.pv_invoice;
+import org.libx4j.xsb.tutorial.invoice.xKCODDHBLs0Eu6BC54c2Q.Invoice;
 import org.xml.sax.InputSource;
 
 public class InvoiceUpdater {
-  private static pv_invoice addItem(final File invoiceFile, final pv_invoice._billedItems._item item) throws Exception {
-    final pv_invoice invoice = (pv_invoice)Bindings.parse(new InputSource(new FileInputStream(invoiceFile)));
-    invoice._billedItems()._item(item);
+  private static Invoice addItem(final File invoiceFile, final Invoice.BilledItems.Item item) throws Exception {
+    final Invoice invoice = (Invoice)Bindings.parse(new InputSource(new FileInputStream(invoiceFile)));
+    invoice.getBilledItems().addItem(item);
     return invoice;
   }
 
@@ -39,13 +39,13 @@ public class InvoiceUpdater {
 
     final File file = new File(args[0]);
 
-    final pv_invoice._billedItems._item item = new pv_invoice._billedItems._item();
-    item._description(new pv_invoice._billedItems._item._description(args[1]));
-    item._code(new pv_invoice._billedItems._item._code(Integer.parseInt(args[2])));
-    item._quantity(new pv_invoice._billedItems._item._quantity(Integer.parseInt(args[3])));
-    item._price(new pv_invoice._billedItems._item._price(new BigDecimal(Float.parseFloat(args[4]))));
+    final Invoice.BilledItems.Item item = new Invoice.BilledItems.Item();
+    item.setDescription(new Invoice.BilledItems.Item.Description(args[1]));
+    item.setCode(new Invoice.BilledItems.Item.Code(Integer.parseInt(args[2])));
+    item.setQuantity(new Invoice.BilledItems.Item.Quantity(Integer.parseInt(args[3])));
+    item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(Float.parseFloat(args[4]))));
 
-    final pv_invoice invoice = addItem(file, item);
+    final Invoice invoice = addItem(file, item);
     DOMs.domToString(invoice.marshal(), DOMStyle.INDENT);
   }
 

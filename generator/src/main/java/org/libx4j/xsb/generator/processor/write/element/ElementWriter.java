@@ -46,8 +46,8 @@ import org.libx4j.xsb.runtime.ElementSpec;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.SimpleType;
-import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
-import org.w3.x2001.xmlschema.xe.$xs_boolean;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$Boolean;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -85,25 +85,25 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       return;
 
     writeQualifiedName(writer, plan);
-    final String methodName = plan.getClassSimpleName();
+    final String methodName = plan.getMethodName();
     if (plan.getMaxOccurs() == 1) {
-      writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " " + methodName + "()\n{\n");
+      writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " get" + methodName + "()\n{\n");
       if (plan.isRestriction())
-        writer.write("return super." + plan.getClassSimpleName() + "();\n");
+        writer.write("return super.get" + plan.getClassSimpleName() + "();\n");
       else
         writer.write("return " + plan.getInstanceName() + ".getElement();\n");
       writer.write("}\n");
     }
     else {
-      writer.write("public " + BindingList.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> " + methodName + "()\n{\n");
+      writer.write("public " + BindingList.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> get" + methodName + "()\n{\n");
       if (plan.isRestriction())
-        writer.write("return super." + plan.getClassSimpleName() + "();\n");
+        writer.write("return super.get" + plan.getClassSimpleName() + "();\n");
       else
         writer.write("return " + plan.getInstanceName() + ".getElements();\n");
       writer.write("}\n");
 
-      writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getClassSimpleName() + "(final int index)\n{\n");
-      writer.write("final " + List.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> values = " + plan.getClassSimpleName() + "();\n");
+      writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " get" + methodName + "(final int index)\n{\n");
+      writer.write("final " + List.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> values = get" + plan.getMethodName() + "();\n");
       writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : (" + plan.getClassName(parent) + ")NULL(" + plan.getClassName(parent) + ".class);\n");
       writer.write("}\n");
     }
@@ -117,11 +117,12 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("@" + ElementSpec.class.getName() + "(minOccurs=" + plan.getMinOccurs() + ", maxOccurs=" + plan.getMaxOccurs() + ")\n");
     writeQualifiedName(writer, plan);
     final String type = plan.getDeclarationGeneric(parent);
-    final String methodName = plan.getClassSimpleName();
-    writer.write("public " + type + " " + methodName + "(final " + type + " " + plan.getInstanceName() + ")\n");
+    final String methodName = plan.getMethodName();
+    final String setAdd = plan.getMaxOccurs() > 1 ? "add" : "set";
+    writer.write("public " + type + " " + setAdd + methodName + "(final " + type + " " + plan.getInstanceName() + ")\n");
     writer.write("{\n");
     if (plan.isRestriction())
-      writer.write("super." + plan.getClassSimpleName() + "(" + plan.getInstanceName() + ");\n");
+      writer.write("super." + setAdd + methodName + "(" + plan.getInstanceName() + ");\n");
     else
       writer.write("_$$addElement(this." + plan.getInstanceName() + ", " + plan.getInstanceName() + ");\n");
     writer.write("return " + plan.getInstanceName() + ";\n");
@@ -465,7 +466,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
     // ATTRIBUTE ITERATORS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + Iterator.class.getName() + "<? extends " + $xs_anySimpleType.class.getName() + "> attributeIterator()\n");
+    writer.write("public " + Iterator.class.getName() + "<? extends " + $AnySimpleType.class.getName() + "> attributeIterator()\n");
     writer.write("{\n");
     writer.write("return super.attributeIterator();\n");
     writer.write("}\n");
@@ -589,7 +590,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       if (plan.isNillable()) {
         writer.write("else if (XSI_NIL.getNamespaceURI().equals(attribute.getNamespaceURI()) && XSI_NIL.getLocalPart().equals(attribute.getLocalName()))\n");
         writer.write("{\n");
-        writer.write("this.nil = " + $xs_boolean.class.getName() + ".parse(attribute.getNodeValue());\n");
+        writer.write("this.nil = " + $Boolean.class.getName() + ".parse(attribute.getNodeValue());\n");
         writer.write("return true;\n");
         writer.write("}\n");
       }

@@ -1,0 +1,81 @@
+/* Copyright (c) 2006 lib4j
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * You should have received a copy of The MIT License (MIT) along with this
+ * program. If not, see <http://opensource.org/licenses/MIT/>.
+ */
+
+package org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A;
+
+import org.lib4j.xml.binding.DateTime;
+import org.libx4j.xsb.runtime.MarshalException;
+import org.libx4j.xsb.runtime.ParseException;
+import org.w3c.dom.Element;
+
+/**
+ * This final class represents the Java binding of the dateTime instance of time.
+ *
+ * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">Definition</a>
+ */
+public abstract class $DateTime extends $AnySimpleType {
+  private static final long serialVersionUID = 2247372411847607768L;
+
+  public $DateTime(final $DateTime binding) {
+    super(binding);
+  }
+
+  public $DateTime(final DateTime value) {
+    super(value);
+  }
+
+  /**
+   * Allocates a <code>Date</code> object and initializes it so that it
+   * represents the time at which it was allocated. Milliseconds are
+   * <b>NOT</b> significant figures and are not represented.
+   *
+   * @see java.lang.System#currentTimeMillis()
+   */
+  protected $DateTime() {
+    super();
+  }
+
+  @Override
+  public DateTime text() {
+    return (DateTime)super.text();
+  }
+
+  public void text(final DateTime text) {
+    super.text(text);
+  }
+
+  @Override
+  protected void _$$decode(final Element parent, final String value) throws ParseException {
+    super.text(DateTime.parse(value));
+  }
+
+  @Override
+  protected String _$$encode(final Element parent) throws MarshalException {
+    return super.text() != null ? super.text().toString() : "";
+  }
+
+  @Override
+  public $DateTime clone() {
+    return new $DateTime(this) {
+      private static final long serialVersionUID = 2550595550037752459L;
+
+      @Override
+      protected $DateTime inherits() {
+        return this;
+      }
+    };
+  }
+}

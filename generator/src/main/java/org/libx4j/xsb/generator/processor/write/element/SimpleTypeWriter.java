@@ -43,8 +43,8 @@ import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.SimpleType;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.w3.x2001.xmlschema.xe.$xs_ID;
-import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$ID;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
@@ -61,7 +61,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
   }*/
 
   protected static void writeIdLookup(final StringWriter writer, final SimpleTypePlan<?> plan, final Plan<?> parent) {
-    if (!$xs_ID.class.getName().equals(plan.getSuperClassNameWithoutType()))
+    if (!$ID.class.getName().equals(plan.getSuperClassNameWithoutType()))
       return;
 
     final String className;
@@ -81,10 +81,10 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     writer.write("public static " + plan.getClassName(parent) + " lookupId(final " + className + " id)\n");
     writer.write("{\n");
-    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $xs_ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
+    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
     writer.write("if (idMap == null)\n");
     writer.write("return null;\n");
-    writer.write("final " + $xs_ID.class.getName() + " value = idMap.get(" + instanceName + ");\n");
+    writer.write("final " + $ID.class.getName() + " value = idMap.get(" + instanceName + ");\n");
     writer.write("if (value instanceof " + plan.getClassName(parent) + ")\n");
     writer.write("return (" + plan.getClassName(parent) + ")value;\n");
     writer.write("return null;\n");
@@ -92,11 +92,11 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     writer.write("public static " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> lookupId()\n");
     writer.write("{\n");
-    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $xs_ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
+    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
     writer.write("if (idMap == null)\n");
     writer.write("return null;\n");
     writer.write("final " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> ids = new " + ArrayList.class.getName() + "<" + plan.getClassName(parent) + ">();\n");
-    writer.write("for(" + $xs_ID.class.getName() + " id : idMap.values())\n");
+    writer.write("for(" + $ID.class.getName() + " id : idMap.values())\n");
     writer.write("if (id.getClass().equals(" + plan.getClassName(parent) + ".class))\n");
     writer.write("ids.add((" + plan.getClassName(parent) + ")id);\n");
     writer.write("return ids;\n");
@@ -369,7 +369,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
   protected static void appendOwner(final StringWriter writer) {
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + $xs_anySimpleType.class.getName() + " owner()\n");
+    writer.write("public " + $AnySimpleType.class.getName() + " owner()\n");
     writer.write("{\n");
     writer.write("return _$$getOwner();\n");
     writer.write("}\n");

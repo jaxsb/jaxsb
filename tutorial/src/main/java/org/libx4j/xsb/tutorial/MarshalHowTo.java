@@ -21,52 +21,52 @@ import java.math.BigDecimal;
 import org.lib4j.xml.binding.Date;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
-import org.libx4j.xsb.tutorial.invoice.xe.pv_invoice;
+import org.libx4j.xsb.tutorial.invoice.xKCODDHBLs0Eu6BC54c2Q.Invoice;
 
 public class MarshalHowTo {
   public static void main(final String[] args) throws Exception {
-    final pv_invoice invoice = new pv_invoice();
-    invoice._date(new pv_invoice._date(new Date(2003, 1, 7)));
+    final Invoice invoice = new Invoice();
+    invoice.setDate(new Invoice.Date(new Date(2003, 1, 7)));
 
-    invoice._number(new pv_invoice._number(1458));
+    invoice.setNumber(new Invoice.Number(1458));
 
-    final pv_invoice._billingAddress billingAddress = new pv_invoice._billingAddress();
-    billingAddress._name(new pv_invoice._billingAddress._name("Ian Barking"));
-    billingAddress._address(new pv_invoice._billingAddress._address("123 Kennel Street"));
-    billingAddress._city(new pv_invoice._billingAddress._city("Dachshund City"));
-    billingAddress._postalCode(new pv_invoice._billingAddress._postalCode(98765));
-    billingAddress._country(new pv_invoice._billingAddress._country("US"));
+    final Invoice.BillingAddress billingAddress = new Invoice.BillingAddress();
+    billingAddress.setName(new Invoice.BillingAddress.Name("Ian Barking"));
+    billingAddress.setAddress(new Invoice.BillingAddress.Address("123 Kennel Street"));
+    billingAddress.setCity(new Invoice.BillingAddress.City("Dachshund City"));
+    billingAddress.setPostalCode(new Invoice.BillingAddress.PostalCode(98765));
+    billingAddress.setCountry(new Invoice.BillingAddress.Country("US"));
 
-    invoice._billingAddress(billingAddress);
+    invoice.setBillingAddress(billingAddress);
 
-    final pv_invoice._shippingAddress shippingAddress = new pv_invoice._shippingAddress();
-    shippingAddress._name(new pv_invoice._billingAddress._name("Retail Dept."));
-    shippingAddress._address(new pv_invoice._billingAddress._address("888 Dogbowl Street"));
-    shippingAddress._city(new pv_invoice._billingAddress._city("Pet City"));
-    shippingAddress._postalCode(new pv_invoice._billingAddress._postalCode(98765));
-    shippingAddress._country(new pv_invoice._billingAddress._country("US"));
+    final Invoice.ShippingAddress shippingAddress = new Invoice.ShippingAddress();
+    shippingAddress.setName(new Invoice.BillingAddress.Name("Retail Dept."));
+    shippingAddress.setAddress(new Invoice.BillingAddress.Address("888 Dogbowl Street"));
+    shippingAddress.setCity(new Invoice.BillingAddress.City("Pet City"));
+    shippingAddress.setPostalCode(new Invoice.BillingAddress.PostalCode(98765));
+    shippingAddress.setCountry(new Invoice.BillingAddress.Country("US"));
 
-    invoice._shippingAddress(shippingAddress);
+    invoice.setShippingAddress(shippingAddress);
 
-    final pv_invoice._billedItems billedItems = new pv_invoice._billedItems();
+    final Invoice.BilledItems billedItems = new Invoice.BilledItems();
 
-    pv_invoice._billedItems._item item = new pv_invoice._billedItems._item();
-    item._description(new pv_invoice._billedItems._item._description("Studded Collar"));
-    item._code(new pv_invoice._billedItems._item._code(45342));
-    item._quantity(new pv_invoice._billedItems._item._quantity(10));
-    item._price(new pv_invoice._billedItems._item._price(new BigDecimal(11.95)));
+    Invoice.BilledItems.Item item = new Invoice.BilledItems.Item();
+    item.setDescription(new Invoice.BilledItems.Item.Description("Studded Collar"));
+    item.setCode(new Invoice.BilledItems.Item.Code(45342));
+    item.setQuantity(new Invoice.BilledItems.Item.Quantity(10));
+    item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(11.95)));
 
-    billedItems._item(item);
+    billedItems.addItem(item);
 
-    item = new pv_invoice._billedItems._item();
-    item._description(new pv_invoice._billedItems._item._description("K9 Pet Coat"));
-    item._code(new pv_invoice._billedItems._item._code(25233));
-    item._quantity(new pv_invoice._billedItems._item._quantity(5));
-    item._price(new pv_invoice._billedItems._item._price(new BigDecimal(25.01)));
+    item = new Invoice.BilledItems.Item();
+    item.setDescription(new Invoice.BilledItems.Item.Description("K9 Pet Coat"));
+    item.setCode(new Invoice.BilledItems.Item.Code(25233));
+    item.setQuantity(new Invoice.BilledItems.Item.Quantity(5));
+    item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(25.01)));
 
-    billedItems._item(item);
+    billedItems.addItem(item);
 
-    invoice._billedItems(billedItems);
+    invoice.setBilledItems(billedItems);
 
     System.out.println(DOMs.domToString(invoice.marshal(), DOMStyle.INDENT));
   }

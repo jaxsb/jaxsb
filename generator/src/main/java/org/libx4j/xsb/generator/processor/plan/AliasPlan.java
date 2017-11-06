@@ -30,7 +30,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
       return null;
 
     if (model.getParent() instanceof SchemaModel || XSTypeDirectory.parseType(model.getName()) != null)
-      return model.getName().getNamespaceURI().getPackage() + ".xe." + JavaBinding.getClassSimpleName(model);
+      return model.getName().getNamespaceURI().getNamespaceBinding().getClassName() + "." + JavaBinding.getClassSimpleName(model);
 
     if (parent != null)
       do
@@ -43,7 +43,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
       if (check instanceof AliasModel && ((AliasModel)check).getName() != null)
         return getClassName((AliasModel)check, null) + "." + JavaBinding.getClassSimpleName(model);
 
-    return model.getName().getNamespaceURI().getPackage() + ".xe." + JavaBinding.getClassSimpleName(model);
+    return model.getName().getNamespaceURI().getNamespaceBinding().getClassName() + "." + JavaBinding.getClassSimpleName(model);
   }
 
   private DocumentationPlan documentation = null;
@@ -54,6 +54,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
   private String className = null;
   private String classInconvertibleName = null;
   private String classSimpleName = null;
+  private String methodName = null;
 //  private String schemaReference = null;
   private String xsdLocation = null;
 
@@ -63,7 +64,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
       documentation = Plan.<DocumentationPlan>analyze(getModel().getDocumentation(), this);
 
 //    schemaReference = model.getSchema().getURL().toString();
-    xsdLocation = model.getSchema().getTargetNamespace().getPackage() + ".xsd";
+    xsdLocation = model.getSchema().getTargetNamespace().getNamespaceBinding().getPackageName() + ".xsd";
   }
 
   public final String getXsdLocation() {
@@ -101,5 +102,9 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
 
   public final String getClassSimpleName() {
     return classSimpleName == null ? classSimpleName = JavaBinding.getClassSimpleName(getModel()) : classSimpleName;
+  }
+
+  public final String getMethodName() {
+    return methodName == null ? methodName = JavaBinding.getMethodName(getModel()) : methodName;
   }
 }

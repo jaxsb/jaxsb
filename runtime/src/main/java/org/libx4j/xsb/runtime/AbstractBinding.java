@@ -22,11 +22,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import org.lib4j.lang.Classes;
+import org.lib4j.lang.PackageLoader;
+import org.lib4j.lang.PackageNotFoundException;
 import org.lib4j.lang.Resource;
 import org.lib4j.lang.Resources;
 import org.lib4j.net.URLs;
@@ -92,13 +95,17 @@ public abstract class AbstractBinding implements Cloneable {
   private static void loadPackage(final String namespaceURI) {
     // FIXME: Look this over. Also make a dedicated RuntimeException for this.
     try {
-      final Class<?> schemaClass = Class.forName(NamespaceBinding.getPackageFromNamespace(namespaceURI) + ".xe");
-      final Method method = schemaClass.getDeclaredMethod("_$$register");
-      method.setAccessible(true);
-      method.invoke(null);
+      final Set<Class<?>> classes = PackageLoader.getSystemContextPackageLoader().loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
+      for (final Class<?> cls : classes) {
+        if (Schema.class.isAssignableFrom(cls)) {
+          final Method method = cls.getDeclaredMethod("_$$register");
+          method.setAccessible(true);
+          method.invoke(null);
+        }
+      }
     }
-    catch (final ClassNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-      throw new RuntimeException(e);
+    catch (final PackageNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+      throw new BindingRuntimeException(e);
     }
   }
 

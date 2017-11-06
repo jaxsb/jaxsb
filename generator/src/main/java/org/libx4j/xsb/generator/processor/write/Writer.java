@@ -29,6 +29,7 @@ import org.lib4j.io.Files;
 import org.lib4j.net.URLs;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
+import org.lib4j.xml.NamespaceBinding;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;
@@ -58,11 +59,11 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     final Nameable<?> nameable = (Nameable<?>)plan;
     try {
-      if (nameable.getName().getNamespaceURI().getPackage() == null)
-        throw new CompilerFailureException("The binding configuration does not specify a class name for " + ((Nameable<?>)plan).getName().getNamespaceURI());
+      if (nameable.getName().getNamespaceURI().getNamespaceBinding() == null)
+        throw new CompilerFailureException("The binding configuration does not specify a NamespaceBinding for " + ((Nameable<?>)plan).getName().getNamespaceURI());
 
-      final String packageName = nameable.getName().getNamespaceURI().getPackage();
-      return new File(new File(destDir, packageName.replace('.', '/')), "xe.java");
+      final NamespaceBinding namespaceBinding = nameable.getName().getNamespaceURI().getNamespaceBinding();
+      return new File(new File(destDir, namespaceBinding.getPackageName().replace('.', '/')), namespaceBinding.getSimpleClassName() + ".java");
     }
     catch (final Exception e) {
       throw new CompilerFailureException(e);
@@ -102,15 +103,14 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     }
 
     final Nameable<?> nameable = (Nameable<?>)plan;
-    if (nameable.getName().getNamespaceURI().getPackage() == null)
-      throw new CompilerFailureException("The binding configuration does not specify a class name for " + ((Nameable<?>)plan).getName().getNamespaceURI());
+    if (nameable.getName().getNamespaceURI().getNamespaceBinding() == null)
+      throw new CompilerFailureException("The binding configuration does not specify a NamespaceBinding for " + ((Nameable<?>)plan).getName().getNamespaceURI());
 
-    final String packageName = nameable.getName().getNamespaceURI().getPackage();
-
-    final File file = new File(new File(destDir, packageName.replace('.', '/')), "xe.java");
+    final NamespaceBinding namespaceBinding = nameable.getName().getNamespaceURI().getNamespaceBinding();
+    final File file = new File(new File(destDir, namespaceBinding.getPackageName().replace('.', '/')), namespaceBinding.getSimpleClassName() + ".java");
     ClassFile classFile = fileToClassFile.get(file);
     if (classFile == null)
-      fileToClassFile.put(file, classFile = new ClassFile(file, packageName));
+      fileToClassFile.put(file, classFile = new ClassFile(file, namespaceBinding));
 
     StringWriter stringWriter = new StringWriter();
     writer.appendRegistration(stringWriter, plan, null);

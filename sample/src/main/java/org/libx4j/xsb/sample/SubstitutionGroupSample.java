@@ -23,11 +23,11 @@ import java.util.List;
 
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.Bindings;
-import org.libx4j.xsb.sample.substitutiongroup.xe.$sg_productType;
-import org.libx4j.xsb.sample.substitutiongroup.xe.sg_hat;
-import org.libx4j.xsb.sample.substitutiongroup.xe.sg_shirt;
-import org.libx4j.xsb.sample.substitutiongroup.xe.sg_stockList;
-import org.libx4j.xsb.sample.substitutiongroup.xe.sg_umbrella;
+import org.libx4j.xsb.sample.substitutionGroup.xKCODDHBLs0Eu$BC54c2Q.$ProductType;
+import org.libx4j.xsb.sample.substitutionGroup.xKCODDHBLs0Eu$BC54c2Q.Hat;
+import org.libx4j.xsb.sample.substitutionGroup.xKCODDHBLs0Eu$BC54c2Q.Shirt;
+import org.libx4j.xsb.sample.substitutionGroup.xKCODDHBLs0Eu$BC54c2Q.StockList;
+import org.libx4j.xsb.sample.substitutionGroup.xKCODDHBLs0Eu$BC54c2Q.Umbrella;
 import org.xml.sax.InputSource;
 
 public class SubstitutionGroupSample {
@@ -43,20 +43,20 @@ public class SubstitutionGroupSample {
     if (!file.canRead())
       throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
 
-    final sg_stockList stockList = (sg_stockList)Bindings.parse(new InputSource(new FileInputStream(file)));
-    final List<$sg_productType> products = stockList.sg_product();
-    for (final $sg_productType product : products) {
-      if (product instanceof sg_shirt) {
-        final sg_shirt shirt = (sg_shirt)product;
-        System.out.println("There are " + shirt._amount().text() + " of '" + shirt._name().text() + "' shirts colored " + shirt._color().text() + ", size " + shirt._size().text());
+    final StockList stockList = (StockList)Bindings.parse(new InputSource(new FileInputStream(file)));
+    final List<$ProductType> products = stockList.getSgProduct();
+    for (final $ProductType product : products) {
+      if (product instanceof Shirt) {
+        final Shirt shirt = (Shirt)product;
+        System.out.println("There are " + shirt.getAmount().text() + " of '" + shirt.getName().text() + "' shirts colored " + shirt.getColor().text() + ", size " + shirt.getSize().text());
       }
-      else if (product instanceof sg_hat) {
-        final sg_hat hat = (sg_hat)product;
-        System.out.println("There are " + hat._amount().text() + " of '" + hat._name().text() + "' hats, size " + hat._size().text());
+      else if (product instanceof Hat) {
+        final Hat hat = (Hat)product;
+        System.out.println("There are " + hat.getAmount().text() + " of '" + hat.getName().text() + "' hats, size " + hat.getSize().text());
       }
-      else if (product instanceof sg_umbrella) {
-        final sg_umbrella umbrella = (sg_umbrella)product;
-        System.out.println("There are " + umbrella._amount().text() + " of '" + umbrella._name().text() + "' umbrellas");
+      else if (product instanceof Umbrella) {
+        final Umbrella umbrella = (Umbrella)product;
+        System.out.println("There are " + umbrella.getAmount().text() + " of '" + umbrella.getName().text() + "' umbrellas");
       }
     }
 

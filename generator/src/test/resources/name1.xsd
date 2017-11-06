@@ -16,25 +16,31 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
-  targetNamespace="http://xsb.libx4j.org/generator/name1.xsd"
-  xmlns:n1="http://xsb.libx4j.org/generator/name1.xsd"
-  xmlns:n2="http://xsb.libx4j.org/generator/name2.xsd"
+  targetNamespace="http://www.libx4j.org/do/abstract/n$a*m(e)1.xsd"
+  xmlns:n1="http://www.libx4j.org/do/abstract/n$a*m(e)1.xsd"
+  xmlns:n2="http://www.libx4j.org/do/abstract/n$a*m(e)2.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
-  <xs:import namespace="http://xsb.libx4j.org/generator/name2.xsd" schemaLocation="name2.xsd"/>
+  <xs:import namespace="http://www.libx4j.org/do/abstract/n$a*m(e)2.xsd" schemaLocation="name2.xsd"/>
   
   <xs:complexType name="class">
     <xs:sequence minOccurs="0">
       <xs:element name="class" type="n1:class"/>
       <xs:element ref="n1:class"/>
       <xs:element ref="n2:class"/>
+      <xs:element ref="n1:Class"/>
+      <xs:element ref="n2:Class"/>
     </xs:sequence>
     <xs:attribute name="class" type="n2:class" use="required"/>
+    <xs:attribute name="Class" type="n2:Class" use="required"/>
     <xs:attribute ref="n1:class" use="required"/>
     <xs:attribute ref="n2:class" use="required"/>
+    <xs:attribute ref="n2:Class" use="required"/>
   </xs:complexType>
   
   <xs:element name="class" type="n1:class"/>
+  
+  <xs:element name="Class" type="n1:class"/>
   
   <xs:attribute name="class" type="n2:class"/>
   

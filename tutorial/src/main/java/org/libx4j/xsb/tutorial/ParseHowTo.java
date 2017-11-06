@@ -24,8 +24,8 @@ import java.util.List;
 
 import org.lib4j.xml.binding.Date;
 import org.libx4j.xsb.runtime.Bindings;
-import org.libx4j.xsb.tutorial.invoice.xe.$pv_itemType;
-import org.libx4j.xsb.tutorial.invoice.xe.pv_invoice;
+import org.libx4j.xsb.tutorial.invoice.xKCODDHBLs0Eu6BC54c2Q.$ItemType;
+import org.libx4j.xsb.tutorial.invoice.xKCODDHBLs0Eu6BC54c2Q.Invoice;
 import org.xml.sax.InputSource;
 
 public class ParseHowTo {
@@ -37,56 +37,56 @@ public class ParseHowTo {
     if (!file.canRead())
       throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
 
-    final pv_invoice invoice = (pv_invoice)Bindings.parse(new InputSource(new FileInputStream(file)));
+    final Invoice invoice = (Invoice)Bindings.parse(new InputSource(new FileInputStream(file)));
 
-    final Integer number = invoice._number().text();
+    final Integer number = invoice.getNumber().text();
     System.out.print("This invoice # " + number + " ");
 
-    final Date date = invoice._date().text();
+    final Date date = invoice.getDate().text();
     System.out.println("is established on " + date + " ");
 
-    final String billingName = invoice._billingAddress()._name().text();
+    final String billingName = invoice.getBillingAddress().getName().text();
     System.out.print("from " + billingName + ", ");
 
-    final String billingAddress = invoice._billingAddress()._address().text();
+    final String billingAddress = invoice.getBillingAddress().getAddress().text();
     System.out.print(billingAddress + ", ");
 
-    final String billingCity = invoice._billingAddress()._city().text();
+    final String billingCity = invoice.getBillingAddress().getCity().text();
     System.out.print(billingCity + ", ");
 
-    final Integer billingPostalCode = invoice._billingAddress()._postalCode().text();
+    final Integer billingPostalCode = invoice.getBillingAddress().getPostalCode().text();
     System.out.print(billingPostalCode + ", ");
 
-    final String billingCountry = invoice._billingAddress()._country().text();
+    final String billingCountry = invoice.getBillingAddress().getCountry().text();
     System.out.println(billingCountry + ".");
 
-    final String shippingName = invoice._shippingAddress()._name().text();
+    final String shippingName = invoice.getShippingAddress().getName().text();
     System.out.print("Shipping address is: " + shippingName + ", ");
 
-    final String shippingAddress = invoice._shippingAddress()._address().text();
+    final String shippingAddress = invoice.getShippingAddress().getAddress().text();
     System.out.print(shippingAddress + ", ");
 
-    final String shippingCity = invoice._shippingAddress()._city().text();
+    final String shippingCity = invoice.getShippingAddress().getCity().text();
     System.out.print(shippingCity + ", ");
 
-    final Integer shippingPostalCode = invoice._shippingAddress()._postalCode().text();
+    final Integer shippingPostalCode = invoice.getShippingAddress().getPostalCode().text();
     System.out.print(shippingPostalCode + ", ");
 
-    final String shippingCountry = invoice._shippingAddress()._country().text();
+    final String shippingCountry = invoice.getShippingAddress().getCountry().text();
     System.out.println(shippingCountry + ".");
 
     System.out.println("The following items are included in this invoice:");
-    for (final $pv_itemType item : (List<$pv_itemType>)invoice._billedItems()._item()) {
-      final Integer quantity = item._quantity().text();
+    for (final $ItemType item : (List<$ItemType>)invoice.getBilledItems().getItem()) {
+      final Integer quantity = item.getQuantity().text();
       System.out.print(quantity + " ");
 
-      final String description = item._description().text();
+      final String description = item.getDescription().text();
       System.out.print(description + " ");
 
-      final Integer code = item._code().text();
+      final Integer code = item.getCode().text();
       System.out.print("(#" + code + ") ");
 
-      final BigDecimal price = item._price().text();
+      final BigDecimal price = item.getPrice().text();
       System.out.println("$" + price + " each.");
     }
   }

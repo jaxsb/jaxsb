@@ -50,10 +50,9 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
   @Override
   protected void appendGetMethod(final StringWriter writer, final AttributePlan plan, final Plan<?> parent) {
     writeQualifiedName(writer, plan);
-    writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getClassSimpleName() + "()\n");
-    writer.write("{\n");
+    writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " get" + plan.getMethodName() + "()\n{\n");
     if (plan.isRestriction())
-      writer.write("return super." + plan.getDeclarationRestrictionSimpleName() + "();\n");
+      writer.write("return super.get" + plan.getDeclarationRestrictionSimpleName() + "();\n");
     else
       writer.write("return " + plan.getInstanceName() + ".getAttribute() == null ? null : " + plan.getInstanceName() + ".getAttribute();\n");
     writer.write("}\n");
@@ -67,7 +66,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       writer.write(" * Use of this method WILL CAUSE an IllegalArgumentException!\n");
       writer.write(" * Please correct your argument to use the alternate method signature.\n");
       writer.write(" */\n");
-      writer.write("public void " + plan.getDeclarationRestrictionSimpleName() + "(final " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getInstanceName() + ")\n");
+      writer.write("public void set" + plan.getDeclarationRestrictionSimpleName() + "(final " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getInstanceName() + ")\n");
       writer.write("{\n");
       writer.write("throw new " + IllegalArgumentException.class.getName() + "(\"This method has been restricted by a more specific signature. Please correct your argument to use the alternate method signature.\");\n");
       writer.write("}\n");
@@ -75,10 +74,10 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
     writer.write("@" + AttributeSpec.class.getName() + "(use=\"" + plan.getUse().getValue() + "\")\n");
     writeQualifiedName(writer, plan);
-    writer.write("public void " + plan.getClassSimpleName() + "(" + plan.getThisClassNameWithType(parent) + " " + plan.getInstanceName() + ")\n");
+    writer.write("public void set" + plan.getMethodName() + "(" + plan.getThisClassNameWithType(parent) + " " + plan.getInstanceName() + ")\n");
     writer.write("{\n");
     if (plan.isRestriction())
-      writer.write("super." + plan.getDeclarationRestrictionSimpleName() + "(" + plan.getInstanceName() + ");\n");
+      writer.write("super.set" + plan.getDeclarationRestrictionSimpleName() + "(" + plan.getInstanceName() + ");\n");
     else
       writer.write("_$$setAttribute(this." + plan.getInstanceName() + ", this, " + plan.getInstanceName() + ");\n");
     writer.write("}\n");

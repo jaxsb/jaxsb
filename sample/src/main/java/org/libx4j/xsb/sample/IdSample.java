@@ -23,9 +23,9 @@ import java.util.List;
 
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.Bindings;
-import org.libx4j.xsb.sample.id.xe.$id_bookType;
-import org.libx4j.xsb.sample.id.xe.id_directory;
-import org.w3.x2001.xmlschema.xe.$xs_IDREFS;
+import org.libx4j.xsb.sample.id.xIEcGGcJdtCXeiFzw5sg.$BookType;
+import org.libx4j.xsb.sample.id.xIEcGGcJdtCXeiFzw5sg.Directory;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$IDREFS;
 import org.xml.sax.InputSource;
 
 public class IdSample {
@@ -41,25 +41,25 @@ public class IdSample {
     if (!file.canRead())
       throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
 
-    final id_directory directory = (id_directory)Bindings.parse(new InputSource(new FileInputStream(file)));
-    final List<$id_bookType> books = directory._book();
-    for (final $id_bookType book : books) {
-      final String shortName = book._author().text();
-      final id_directory._author._id$ authorId = id_directory._author._id$.lookupId(shortName);
-      final id_directory._author author = (id_directory._author)authorId.owner();
-      System.out.print(author._name().text() + " is the author of " + book._title().text() + ".");
-      if (book._co_authors() != null) {
-        final $xs_IDREFS co_authors = book._co_authors();
-        if (co_authors.text() != null) {
+    final Directory directory = (Directory)Bindings.parse(new InputSource(new FileInputStream(file)));
+    final List<$BookType> books = directory.getBook();
+    for (final $BookType book : books) {
+      final String shortName = book.getAuthor().text();
+      final Directory.Author.Id$ authorId = Directory.Author.Id$.lookupId(shortName);
+      final Directory.Author author = (Directory.Author)authorId.owner();
+      System.out.print(author.getName().text() + " is the author of " + book.getTitle().text() + ".");
+      if (book.getCo$_authors() != null) {
+        final $IDREFS coAuthors = book.getCo$_authors();
+        if (coAuthors.text() != null) {
           StringBuffer buffer = new StringBuffer();
-          for (Object co_authorHandle : co_authors.text()) {
-            final id_directory._author._id$ co_authorId = id_directory._author._id$.lookupId((String)co_authorHandle);
-            final id_directory._author co_author = (id_directory._author)co_authorId.owner();
-            buffer.append(", ").append(co_author._name().text());
+          for (final Object coAuthorIdString : coAuthors.text()) {
+            final Directory.Author.Id$ coAuthorId = Directory.Author.Id$.lookupId((String)coAuthorIdString);
+            final Directory.Author coAuthor = (Directory.Author)coAuthorId.owner();
+            buffer.append(", ").append(coAuthor.getName().text());
           }
 
           System.out.print(" " + buffer.substring(2));
-          if (co_authors.text().size() == 1)
+          if (coAuthors.text().size() == 1)
             System.out.print(" is the co-author.");
           else
             System.out.print(" are co-authors.");

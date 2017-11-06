@@ -17,8 +17,8 @@
 package org.libx4j.xsb.sample;
 
 import org.libx4j.xsb.runtime.Binding;
-import org.libx4j.xsb.sample.simple.xe.simple_fruit;
-import org.libx4j.xsb.sample.simple.xe.simple_fruitBasket;
+import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.Fruit;
+import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.FruitBasket;
 
 public class SimpleSample {
   public static void main(final String[] args) {
@@ -26,21 +26,21 @@ public class SimpleSample {
   }
 
   public Binding runSample() {
-    final simple_fruit strawberry = new simple_fruit();
-    strawberry._name$(new simple_fruit._name$("strawberry"));
-    strawberry._sweet$(new simple_fruit._sweet$(true));
+    final Fruit strawberry = new Fruit();
+    strawberry.setName$(new Fruit.Name$("strawberry"));
+    strawberry.setSweet$(new Fruit.Sweet$(true));
 
-    final simple_fruit jackfruit = new simple_fruit();
-    jackfruit._name$(new simple_fruit._name$("jackfruit"));
-    jackfruit._sweet$(new simple_fruit._sweet$(false));
-    jackfruit._dry$(new simple_fruit._dry$(false));
+    final Fruit jackfruit = new Fruit();
+    jackfruit.setName$(new Fruit.Name$("jackfruit"));
+    jackfruit.setSweet$(new Fruit.Sweet$(false));
+    jackfruit.setDry$(new Fruit.Dry$(false));
 
-    final simple_fruitBasket._fruits fruits = new simple_fruitBasket._fruits();
-    fruits.simple_fruit(strawberry);
-    fruits.simple_fruit(jackfruit);
+    final FruitBasket.Fruits fruits = new FruitBasket.Fruits();
+    fruits.addSimpleFruit(strawberry);
+    fruits.addSimpleFruit(jackfruit);
 
-    final simple_fruitBasket genericBasket = new simple_fruitBasket();
-    genericBasket._fruits(fruits);
+    final FruitBasket genericBasket = new FruitBasket();
+    genericBasket.setFruits(fruits);
 
     // Now verify the integrity of the code representing this XML structure.
     return genericBasket;

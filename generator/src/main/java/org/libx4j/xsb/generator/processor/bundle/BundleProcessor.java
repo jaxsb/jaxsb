@@ -79,8 +79,8 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
       if ((includes == null || includes.contains(namespaceURI)) && (excludes == null || !excludes.contains(namespaceURI))) {
-        final String pkg = namespaceURI.getPackage();
-        final File jarFile = new File(destDir, pkg + ".jar");
+        final String packageName = namespaceURI.getNamespaceBinding().getPackageName();
+        final File jarFile = new File(destDir, packageName + ".jar");
         if (jarFile.exists())
           if (!jarFile.delete())
             throw new BindingError("Unable to delete the existing jar: " + jarFile.getAbsolutePath());
@@ -88,7 +88,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         final Jar jar = new Jar(jarFile);
         jarFiles.add(jarFile);
 
-        final String packagePath = pkg.replace('.', '/');
+        final String packagePath = packageName.replace('.', '/');
         if (!namespaceURIsAdded.contains(namespaceURI)) {
           namespaceURIsAdded.add(namespaceURI);
 
@@ -100,7 +100,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         }
 
         final URL url = schemaModelComposite.getSchemaDocument().getSchemaReference().getURL();
-        final String xsdName = packagePath + '/' + pkg;
+        final String xsdName = packagePath + '/' + packageName;
         if (!schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
           addXSDs(url, xsdName + ".xsd", jar, destDir, 0);
 
@@ -133,8 +133,8 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
             schemaLocation = attribute;
 
           if (namespace != null && schemaLocation != null) {
-            final String packageName = NamespaceBinding.getPackageFromNamespace(namespace.getNodeValue());
-            final String packagePath = packageName.replace('.', '/');
+            final NamespaceURI namespaceURI = NamespaceURI.getInstance(namespace.getNodeValue());
+            final String packagePath = namespaceURI.getNamespaceBinding().getPackageName().replace('.', '/');
             final String schemaPath;
             if (baseDir.equals(packagePath)) {
               schemaPath = baseDir;
@@ -149,7 +149,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
               schemaPath = Paths.canonicalize(relativeRootPath + packagePath);
             }
 
-            schemaLocation.setNodeValue(schemaPath + "/" + packageName + ".xsd");
+            schemaLocation.setNodeValue(schemaPath + "/" + namespaceURI.getNamespaceBinding().getPackageName() + ".xsd");
             namespace = null;
             schemaLocation = null;
             break;
@@ -201,7 +201,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
           final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
           if ((pipelineContext.getIncludes() == null || pipelineContext.getIncludes().contains(namespaceURI)) && (pipelineContext.getExcludes() == null || !pipelineContext.getExcludes().contains(namespaceURI)))
-            bundles.add(new Bundle(new File(pipelineContext.getDestDir(), namespaceURI.getPackage())));
+            bundles.add(new Bundle(new File(pipelineContext.getDestDir(), namespaceURI.getNamespaceBinding().getPackageName())));
         }
       }
 

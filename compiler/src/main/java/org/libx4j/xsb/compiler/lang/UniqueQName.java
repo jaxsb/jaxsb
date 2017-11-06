@@ -30,12 +30,18 @@ public final class UniqueQName {
   private static final Map<QName,UniqueQName> instances = new HashMap<QName,UniqueQName>();
 
   // subjectively chosen
-  public static final UniqueQName XS = UniqueQName.getInstance(NamespaceURI.XS);
-  public static final UniqueQName XSI = UniqueQName.getInstance(NamespaceURI.XSI);
+  public static final UniqueQName XS = linkPrefixNamespace(UniqueQName.getInstance(NamespaceURI.XS));
+  public static final UniqueQName XSI = linkPrefixNamespace(UniqueQName.getInstance(NamespaceURI.XSI));
 
-  // staticly defined
-  public static final UniqueQName XML = UniqueQName.getInstance(NamespaceURI.XML);
-  public static final UniqueQName XMLNS = UniqueQName.getInstance(NamespaceURI.XMLNS);
+  // statically defined
+  public static final UniqueQName XML = linkPrefixNamespace(UniqueQName.getInstance(NamespaceURI.XML));
+  public static final UniqueQName XMLNS = linkPrefixNamespace(UniqueQName.getInstance(NamespaceURI.XMLNS));
+
+  public static Prefix getPrefix(final NamespaceURI namespaceURI) {
+    final Prefix prefix = namespaceURIToPrefix.get(namespaceURI);
+    return prefix == null ? Prefix.DEFAULT : prefix;
+
+  }
 
   public static UniqueQName getInstance(final QName name) {
     final UniqueQName bindingQName = new UniqueQName(name);
@@ -125,6 +131,11 @@ public final class UniqueQName {
     }
 
     this.localPart = name.getLocalPart();
+  }
+
+  private static UniqueQName linkPrefixNamespace(final UniqueQName qName) {
+    linkPrefixNamespace(qName.getNamespaceURI(), qName.getPrefix());
+    return qName;
   }
 
   public static void linkPrefixNamespace(final NamespaceURI namespaceURI, final Prefix prefix) {

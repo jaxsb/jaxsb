@@ -110,7 +110,7 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements Enu
 
     String defaultInstance = getDefaultInstance(parent);
     if (isRestriction())
-      return "super." + getDeclarationRestrictionSimpleName() + "(" + defaultInstance + ");\n";
+      return "super.set" + getDeclarationRestrictionSimpleName() + "(" + defaultInstance + ");\n";
 
     return "_$$setAttribute(" + getInstanceName() + ", this, " + defaultInstance + ");\n";
   }

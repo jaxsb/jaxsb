@@ -35,7 +35,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
 import org.lib4j.xml.validate.ValidationException;
-import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -263,7 +263,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   private ElementSuperList elements = null;
   private CompositeAttributeStore attributeDirectory = null;
   private Binding inherits;
-  private $xs_anySimpleType owner;
+  private $AnySimpleType owner;
 
   protected Binding(final Binding copy) {
     this();
@@ -324,11 +324,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     // this.owner = copy.owner;
   }
 
-  protected $xs_anySimpleType _$$getOwner() {
+  protected $AnySimpleType _$$getOwner() {
     return owner;
   }
 
-  protected void _$$setOwner(final $xs_anySimpleType owner) {
+  protected void _$$setOwner(final $AnySimpleType owner) {
     this.owner = owner;
   }
 
@@ -358,7 +358,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   protected final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
     final boolean added = elementAudit.addElement(element);
     if (added && element != null)
-      element._$$setOwner(($xs_anySimpleType)this);
+      element._$$setOwner(($AnySimpleType)this);
 
     return added;
   }
@@ -372,9 +372,9 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     typeToAudit.put(elementAudit.getType(), elementAudit);
   }
 
-  protected static <B extends $xs_anySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final Binding binding, final B attribute) {
+  protected static <B extends $AnySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final Binding binding, final B attribute) {
     if (attribute != null)
-      attribute._$$setOwner(($xs_anySimpleType)binding);
+      attribute._$$setOwner(($AnySimpleType)binding);
 
     return audit.setAttribute(attribute);
   }
@@ -383,7 +383,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return attributeDirectory == null ? attributeDirectory = new CompositeAttributeStore() : attributeDirectory;
   }
 
-  protected final <B extends $xs_anySimpleType>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
+  protected final <B extends $AnySimpleType>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
     getCreateAttributeStore().add(audit);
     return audit;
   }
@@ -400,7 +400,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return getCreateElementDirectory().listIterator(index);
   }
 
-  protected Iterator<? extends $xs_anySimpleType> attributeIterator() {
+  protected Iterator<? extends $AnySimpleType> attributeIterator() {
     return getCreateAttributeStore().iterator();
   }
 

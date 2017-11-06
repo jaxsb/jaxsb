@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
 
 public class CompositeAttributeStore implements Serializable {
   private static final long serialVersionUID = 5214136979828034837L;
@@ -32,16 +32,16 @@ public class CompositeAttributeStore implements Serializable {
     this.audits.add(audit);
   }
 
-  public Iterator<? extends $xs_anySimpleType> iterator() {
+  public Iterator<? extends $AnySimpleType> iterator() {
     final Iterator<AttributeAudit<?>> iterator = audits.iterator();
-    return new Iterator<$xs_anySimpleType>() {
+    return new Iterator<$AnySimpleType>() {
       @Override
       public boolean hasNext() {
         return iterator.hasNext();
       }
 
       @Override
-      public $xs_anySimpleType next() {
+      public $AnySimpleType next() {
         return iterator.next().getAttribute();
       }
     };

@@ -17,14 +17,14 @@
 package org.libx4j.xsb.sample;
 
 import org.libx4j.xsb.runtime.Binding;
-import org.libx4j.xsb.sample.any.xe.any_trash;
-import org.libx4j.xsb.sample.enums.xe.enums_color$;
-import org.libx4j.xsb.sample.enums.xe.enums_coloredFruitBasket;
-import org.libx4j.xsb.sample.simple.xe.$simple_fruitType;
-import org.libx4j.xsb.sample.simple.xe.simple_fruit;
-import org.libx4j.xsb.sample.simple.xe.simple_fruitBasket;
-import org.libx4j.xsb.sample.xsitype.xe.$type_fleshyFruitType;
-import org.libx4j.xsb.sample.xsitype.xe.$type_indehiscentDryFruitType;
+import org.libx4j.xsb.sample.any.xIEcGGcJdtCXfCFzw5sg.Trash;
+import org.libx4j.xsb.sample.enums.xKCODDHBLs0Eu4BC54c2Q.Color$;
+import org.libx4j.xsb.sample.enums.xKCODDHBLs0Eu4BC54c2Q.ColoredFruitBasket;
+import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.$FruitType;
+import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.Fruit;
+import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.FruitBasket;
+import org.libx4j.xsb.sample.xsitype.xKCODDHBLs0Eu5BC54c2Q.$FleshyFruitType;
+import org.libx4j.xsb.sample.xsitype.xKCODDHBLs0Eu5BC54c2Q.$IndehiscentDryFruitType;
 
 public class AnySample {
   public static void main(final String[] args) {
@@ -32,59 +32,58 @@ public class AnySample {
   }
 
   public Binding runSample() {
-    final simple_fruit strawberry = new simple_fruit();
-    strawberry._name$(new simple_fruit._name$("strawberry"));
-    strawberry._sweet$(new simple_fruit._sweet$(true));
+    final Fruit strawberry = new Fruit();
+    strawberry.setName$(new Fruit.Name$("strawberry"));
+    strawberry.setSweet$(new Fruit.Sweet$(true));
 
-    final simple_fruit jackfruit = new simple_fruit();
-    jackfruit._name$(new simple_fruit._name$("jackfruit"));
-    jackfruit._sweet$(new simple_fruit._sweet$(false));
-    jackfruit._dry$(new simple_fruit._dry$(false));
+    final Fruit jackfruit = new Fruit();
+    jackfruit.setName$(new Fruit.Name$("jackfruit"));
+    jackfruit.setSweet$(new Fruit.Sweet$(false));
+    jackfruit.setDry$(new Fruit.Dry$(false));
 
-    final simple_fruitBasket._fruits simple_fruits = new simple_fruitBasket._fruits();
-    simple_fruits.simple_fruit(strawberry);
-    simple_fruits.simple_fruit(jackfruit);
+    final FruitBasket.Fruits fruits = new FruitBasket.Fruits();
+    fruits.addSimpleFruit(strawberry);
+    fruits.addSimpleFruit(jackfruit);
 
-    final enums_coloredFruitBasket coloredBasket = new enums_coloredFruitBasket();
-    coloredBasket.enums_color$(new enums_color$(enums_color$.blue));
-    coloredBasket._fruits(simple_fruits);
+    final ColoredFruitBasket coloredBasket = new ColoredFruitBasket();
+    coloredBasket.setEnumsColor$(new Color$(Color$.blue));
+    coloredBasket.setFruits(fruits);
 
-    final $type_fleshyFruitType berry = new $type_fleshyFruitType() {
+    final $FleshyFruitType berry = new $FleshyFruitType() {
       private static final long serialVersionUID = 2218327322530017590L;
 
       @Override
-      protected $simple_fruitType inherits() {
-        return new simple_fruit();
+      protected $FruitType inherits() {
+        return new Fruit();
       }
     };
-    berry._name$(new $type_fleshyFruitType._name$($type_fleshyFruitType._name$.Berry));
-    berry._pericarp$(new $type_fleshyFruitType._pericarp$($type_fleshyFruitType._pericarp$.soft));
+    berry.setName$(new $FleshyFruitType.Name$($FleshyFruitType.Name$.Berry));
+    berry.setPericarp$(new $FleshyFruitType.Pericarp$($FleshyFruitType.Pericarp$.soft));
 
     // Again, instantiate a nameless element.GenericBasket
-    final $type_indehiscentDryFruitType grain = new $type_indehiscentDryFruitType() {
+    final $IndehiscentDryFruitType grain = new $IndehiscentDryFruitType() {
       private static final long serialVersionUID = 867582743279198067L;
 
       @Override
-      protected $simple_fruitType inherits() {
-        return new simple_fruit();
+      protected $FruitType inherits() {
+        return new Fruit();
       }
     };
-    grain._name$(new $type_indehiscentDryFruitType._name$($type_indehiscentDryFruitType._name$.Grain));
+    grain.setName$(new $IndehiscentDryFruitType.Name$($IndehiscentDryFruitType.Name$.Grain));
 
     // Again, instantiate a nameless element.
-    final $type_indehiscentDryFruitType nut = new $type_indehiscentDryFruitType() {
+    final $IndehiscentDryFruitType nut = new $IndehiscentDryFruitType() {
       private static final long serialVersionUID = -1491146052315929931L;
 
       @Override
-      protected $simple_fruitType inherits() {
-        return new simple_fruit();
+      protected $FruitType inherits() {
+        return new Fruit();
       }
     };
-    nut._name$(new $type_indehiscentDryFruitType._name$($type_indehiscentDryFruitType._name$.Nut));
-    nut._dry$(new $type_indehiscentDryFruitType._dry$($type_indehiscentDryFruitType._dry$._5Ftrue));
-//      nut.setDryAttr(new ITypesimple_fruitType.DryAttr(false));
+    nut.setName$(new $IndehiscentDryFruitType.Name$($IndehiscentDryFruitType.Name$.Nut));
+    nut.setDry$(new $IndehiscentDryFruitType.Dry$($IndehiscentDryFruitType.Dry$._5Ftrue));
 
-    final any_trash trash = new any_trash();
+    final Trash trash = new Trash();
     trash.addAny(coloredBasket);
     trash.addAny(berry);
     trash.addAny(grain);

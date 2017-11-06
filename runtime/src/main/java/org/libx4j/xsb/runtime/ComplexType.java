@@ -20,10 +20,10 @@ import java.util.Iterator;
 
 import javax.xml.namespace.QName;
 
-import org.w3.x2001.xmlschema.xe.$xs_anySimpleType;
+import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
 
 public interface ComplexType extends BindingType {
-  public Iterator<? extends $xs_anySimpleType> attributeIterator();
+  public Iterator<? extends $AnySimpleType> attributeIterator();
   public Iterator<? extends Binding> elementIterator();
   public BindingList<? extends Binding> fetchChild(final QName name);
 }
