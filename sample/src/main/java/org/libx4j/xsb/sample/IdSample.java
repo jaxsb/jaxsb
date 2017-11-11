@@ -23,9 +23,9 @@ import java.util.List;
 
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.Bindings;
-import org.libx4j.xsb.sample.id.xIEcGGcJdtCXeiFzw5sg.$BookType;
-import org.libx4j.xsb.sample.id.xIEcGGcJdtCXeiFzw5sg.Directory;
-import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$IDREFS;
+import org.libx4j.xsb.sample.id.HHuJd6JcA.$BookType;
+import org.libx4j.xsb.sample.id.HHuJd6JcA.Directory;
+import org.w3.www._2001.XMLSchema.hF8l3SXA.$IDREFS;
 import org.xml.sax.InputSource;
 
 public class IdSample {

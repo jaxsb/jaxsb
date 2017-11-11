@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import javax.xml.namespace.QName;
 
-import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.hF8l3SXA.$AnySimpleType;
 
 public interface ComplexType extends BindingType {
   public Iterator<? extends $AnySimpleType> attributeIterator();

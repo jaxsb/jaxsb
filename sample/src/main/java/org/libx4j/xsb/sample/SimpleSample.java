@@ -17,8 +17,8 @@
 package org.libx4j.xsb.sample;
 
 import org.libx4j.xsb.runtime.Binding;
-import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.Fruit;
-import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.FruitBasket;
+import org.libx4j.xsb.sample.simple.HHuJd6JcA.Fruit;
+import org.libx4j.xsb.sample.simple.HHuJd6JcA.FruitBasket;
 
 public class SimpleSample {
   public static void main(final String[] args) {

@@ -17,13 +17,13 @@
 package org.libx4j.xsb.sample;
 
 import org.libx4j.xsb.runtime.Binding;
-import org.libx4j.xsb.sample.enums.xKCODDHBLs0Eu4BC54c2Q.Color$;
-import org.libx4j.xsb.sample.enums.xKCODDHBLs0Eu4BC54c2Q.ColoredFruitBasket;
-import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.$FruitType;
-import org.libx4j.xsb.sample.simple.xKCODDHBLs0Eu4hC54c2Q.FruitBasket;
-import org.libx4j.xsb.sample.xsitype.xKCODDHBLs0Eu5BC54c2Q.$DehiscentDryFruitType;
-import org.libx4j.xsb.sample.xsitype.xKCODDHBLs0Eu5BC54c2Q.$FleshyFruitType;
-import org.libx4j.xsb.sample.xsitype.xKCODDHBLs0Eu5BC54c2Q.$IndehiscentDryFruitType;
+import org.libx4j.xsb.sample.enums.HHuJd6JcA.Color$;
+import org.libx4j.xsb.sample.enums.HHuJd6JcA.ColoredFruitBasket;
+import org.libx4j.xsb.sample.simple.HHuJd6JcA.$FruitType;
+import org.libx4j.xsb.sample.simple.HHuJd6JcA.FruitBasket;
+import org.libx4j.xsb.sample.xsitype.HHuJd6JcA.$DehiscentDryFruitType;
+import org.libx4j.xsb.sample.xsitype.HHuJd6JcA.$FleshyFruitType;
+import org.libx4j.xsb.sample.xsitype.HHuJd6JcA.$IndehiscentDryFruitType;
 
 public class XsiTypeSample {
   public static void main(final String[] args) {

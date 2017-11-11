@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
-import org.w3.www._2001.XMLSchema.xIEcGGcJdlCXaI_A.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.hF8l3SXA.$AnySimpleType;
 import org.w3c.dom.Element;
 
 public final class AttributeAudit<T extends $AnySimpleType> implements Serializable {
