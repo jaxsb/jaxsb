@@ -59,11 +59,11 @@ public abstract class AbstractBinding implements Cloneable {
       throw new UnsupportedOperationException("Unsupported object type in notations map: " + object.getClass().getName());
 
     try {
-      final NotationType notation = (NotationType)((Class<?>)object).newInstance();
+      final NotationType notation = (NotationType)((Class<?>)object).getDeclaredConstructor().newInstance();
       notations.put(name, notation);
       return notation;
     }
-    catch (final IllegalAccessException | InstantiationException e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new UnsupportedOperationException(e);
     }
   }

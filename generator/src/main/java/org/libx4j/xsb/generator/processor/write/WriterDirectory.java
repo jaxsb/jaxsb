@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.generator.processor.write;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -179,10 +180,10 @@ public final class WriterDirectory implements PipelineDirectory<GeneratorContext
 
     final Class<? extends Writer> writerClass = classes.get(entity.getClass());
     try {
-      instances.put(entity.getClass(), writerInstance = writerClass.newInstance());
+      instances.put(entity.getClass(), writerInstance = writerClass.getDeclaredConstructor().newInstance());
       return writerInstance;
     }
-    catch (final IllegalAccessException | InstantiationException e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
     }
   }
