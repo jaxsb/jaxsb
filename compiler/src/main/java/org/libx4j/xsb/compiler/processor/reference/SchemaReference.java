@@ -25,12 +25,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.lib4j.pipeline.PipelineEntity;
-import org.lib4j.xml.NamespaceURI;
 import org.lib4j.xml.Prefix;
 import org.lib4j.xml.sax.SAXFeature;
 import org.lib4j.xml.sax.SAXParser;
 import org.lib4j.xml.sax.SAXParsers;
 import org.libx4j.xsb.compiler.lang.LexerFailureException;
+import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

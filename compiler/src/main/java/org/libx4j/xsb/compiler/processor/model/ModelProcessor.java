@@ -22,8 +22,8 @@ import java.util.Collection;
 
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineProcessor;
-import org.lib4j.xml.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.LexerFailureException;
+import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.composite.SchemaComposite;
 import org.libx4j.xsb.compiler.processor.composite.SchemaModelComposite;
