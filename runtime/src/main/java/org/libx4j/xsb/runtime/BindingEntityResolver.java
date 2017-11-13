@@ -26,8 +26,8 @@ import org.lib4j.lang.PackageLoader;
 import org.lib4j.lang.PackageNotFoundException;
 import org.lib4j.lang.Paths;
 import org.lib4j.net.URLs;
-import org.lib4j.xml.NamespaceBinding;
 import org.lib4j.xml.validate.ValidatorError;
+import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 
 import com.sun.org.apache.xerces.internal.impl.xs.XSDDescription;
 import com.sun.org.apache.xerces.internal.xni.XMLResourceIdentifier;

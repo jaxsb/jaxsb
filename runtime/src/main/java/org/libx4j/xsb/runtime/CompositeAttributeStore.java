@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.w3.www._2001.XMLSchema.hF8l3SXA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
 public class CompositeAttributeStore implements Serializable {
   private static final long serialVersionUID = 5214136979828034837L;

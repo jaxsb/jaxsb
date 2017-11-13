@@ -23,11 +23,11 @@ import java.util.List;
 
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.Bindings;
-import org.libx4j.xsb.sample.substitutionGroup.HHuJd6JcA.$ProductType;
-import org.libx4j.xsb.sample.substitutionGroup.HHuJd6JcA.Hat;
-import org.libx4j.xsb.sample.substitutionGroup.HHuJd6JcA.Shirt;
-import org.libx4j.xsb.sample.substitutionGroup.HHuJd6JcA.StockList;
-import org.libx4j.xsb.sample.substitutionGroup.HHuJd6JcA.Umbrella;
+import org.libx4j.xsb.sample.substitutionGroup.xAA.$ProductType;
+import org.libx4j.xsb.sample.substitutionGroup.xAA.Hat;
+import org.libx4j.xsb.sample.substitutionGroup.xAA.Shirt;
+import org.libx4j.xsb.sample.substitutionGroup.xAA.StockList;
+import org.libx4j.xsb.sample.substitutionGroup.xAA.Umbrella;
 import org.xml.sax.InputSource;
 
 public class SubstitutionGroupSample {

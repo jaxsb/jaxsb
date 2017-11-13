@@ -35,7 +35,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
 import org.lib4j.xml.validate.ValidationException;
-import org.w3.www._2001.XMLSchema.hF8l3SXA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;

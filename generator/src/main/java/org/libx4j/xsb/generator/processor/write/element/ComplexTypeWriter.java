@@ -40,7 +40,7 @@ import org.libx4j.xsb.runtime.ComplexType;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.w3.www._2001.XMLSchema.hF8l3SXA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

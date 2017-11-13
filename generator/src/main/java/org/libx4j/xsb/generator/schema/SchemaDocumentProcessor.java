@@ -30,7 +30,7 @@ import org.lib4j.net.URLs;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
 import org.lib4j.pipeline.PipelineProcessor;
-import org.lib4j.xml.NamespaceURI;
+import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.document.SchemaDocument;

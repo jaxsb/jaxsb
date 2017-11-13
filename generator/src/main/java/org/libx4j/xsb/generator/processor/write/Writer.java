@@ -29,7 +29,7 @@ import org.lib4j.io.Files;
 import org.lib4j.net.URLs;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
-import org.lib4j.xml.NamespaceBinding;
+import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;

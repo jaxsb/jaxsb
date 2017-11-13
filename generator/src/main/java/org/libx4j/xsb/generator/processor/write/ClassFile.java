@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lib4j.formatter.SourceFormat;
-import org.lib4j.xml.NamespaceBinding;
+import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.libx4j.xsb.runtime.Schema;
 
 public class ClassFile {

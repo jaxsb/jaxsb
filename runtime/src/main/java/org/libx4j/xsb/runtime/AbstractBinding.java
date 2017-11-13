@@ -33,7 +33,7 @@ import org.lib4j.lang.PackageNotFoundException;
 import org.lib4j.lang.Resource;
 import org.lib4j.lang.Resources;
 import org.lib4j.net.URLs;
-import org.lib4j.xml.NamespaceBinding;
+import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
