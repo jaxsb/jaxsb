@@ -149,7 +149,7 @@ public final class NamespaceBinding {
     do {
       final String word = end == -1 ? (start == len - 1 ? null : path.substring(start + 1)) : start != end ? path.substring(start + 1, end) : null;
       if (word != null)
-        builder.append('.').append(JavaIdentifiers.toIdentifier(end == -1 ? formatFileName(word) : word, '_'));
+        builder.append('.').append(JavaIdentifiers.toIdentifier(end == -1 ? formatFileName(word) : word, '_', '_'));
 
       start = end;
       end = path.indexOf('/', start + 1);
@@ -243,7 +243,7 @@ public final class NamespaceBinding {
     int match = 0;
     for (int i = builder.length() - 1; i >= 0; --i) {
       final char ch = builder.charAt(i);
-      if (match > 0 && (ch == '/' || ch == '.'))
+      if (match > 1 && (ch == '/' || ch == '.'))
         builder.delete(i + 1, i + 2);
 
       if (match > 0 && ch == '_') {
