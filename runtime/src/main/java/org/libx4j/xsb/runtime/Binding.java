@@ -133,6 +133,10 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return binding.typeName();
   }
 
+  protected static $AnySimpleType owner(final Binding binding) {
+    return binding.owner;
+  }
+
   protected static boolean _$$iSsubstitutionGroup(final QName elementName, final String namespaceURI, final String localName) throws ParseException {
     if (elementName == null || namespaceURI == null || localName == null)
       return false;
