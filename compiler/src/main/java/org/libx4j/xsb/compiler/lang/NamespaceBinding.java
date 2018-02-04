@@ -21,7 +21,6 @@ import java.util.Base64;
 
 import org.lib4j.net.Service;
 import org.lib4j.net.Services;
-import org.lib4j.net.URIs;
 import org.lib4j.util.Diff;
 import org.lib4j.util.JavaIdentifiers;
 
@@ -302,7 +301,7 @@ public final class NamespaceBinding {
     }
 
     if (!Character.isDigit(namespaceUri.charAt(0)))
-      return new NamespaceBinding(URIs.makeURI(flipNamespaceURI(namespaceUri.toString(), false)), className, simpleClassName);
+      return new NamespaceBinding(URI.create(flipNamespaceURI(namespaceUri.toString(), false)), className, simpleClassName);
 
     final StringBuilder port = new StringBuilder().append(namespaceUri.charAt(0));
     int i = 1;
@@ -310,7 +309,7 @@ public final class NamespaceBinding {
       port.append(namespaceUri.charAt(i++));
 
     final Service service = Services.getService(Integer.parseInt(port.toString()));
-    return new NamespaceBinding(URIs.makeURI(service == null ? namespaceUri.toString() : flipNamespaceURI(service.getName() + "://" + namespaceUri.substring(i), false)), className, simpleClassName);
+    return new NamespaceBinding(URI.create(service == null ? namespaceUri.toString() : flipNamespaceURI(service.getName() + "://" + namespaceUri.substring(i), false)), className, simpleClassName);
   }
 
   /**
@@ -390,7 +389,7 @@ public final class NamespaceBinding {
    * @see NamespaceBinding#parseNamespace(URI)
    */
   public static NamespaceBinding parseNamespace(final String uri) {
-    return uri == null ? null : parseNamespace(URIs.makeURI(uri));
+    return uri == null ? null : parseNamespace(URI.create(uri));
   }
 
   private final URI namespaceUri;
