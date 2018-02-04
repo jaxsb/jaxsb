@@ -76,8 +76,10 @@ public abstract class AbstractBinding implements Cloneable {
   protected static void _$$registerSchemaLocation(final String namespaceURI, final Class<?> className, final String schemaReference) {
     final String simpleName = className.getName().replace('.', '/') + ".class";
     final Resource resource = Resources.getResource(simpleName);
-    if (resource == null)
-      throw new BindingError("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
+    if (resource == null) {
+      logger.debug("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
+      return;
+    }
 
     final URL parent = URLs.getCanonicalParent(resource.getURL());
     try {
@@ -92,10 +94,10 @@ public abstract class AbstractBinding implements Cloneable {
     elementBindings.put(name, cls);
   }
 
-  private static void loadPackage(final String namespaceURI) {
+  private static void loadPackage(final String namespaceURI, final ClassLoader classLoader) {
     // FIXME: Look this over. Also make a dedicated RuntimeException for this.
     try {
-      final Set<Class<?>> classes = PackageLoader.getSystemContextPackageLoader().loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
+      final Set<Class<?>> classes = PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
       for (final Class<?> cls : classes) {
         if (Schema.class.isAssignableFrom(cls)) {
           final Method method = cls.getDeclaredMethod("_$$register");
@@ -104,17 +106,17 @@ public abstract class AbstractBinding implements Cloneable {
         }
       }
     }
-    catch (final PackageNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+    catch (final IllegalAccessException | InvocationTargetException | NoSuchMethodException | PackageNotFoundException e) {
       throw new BindingRuntimeException(e);
     }
   }
 
-  protected static Class<? extends Binding> lookupElement(final QName name) {
+  protected static Class<? extends Binding> lookupElement(final QName name, final ClassLoader classLoader) {
     final Class<? extends Binding> clazz = elementBindings.get(name);
     if (clazz != null)
       return clazz;
 
-    loadPackage(name.getNamespaceURI());
+    loadPackage(name.getNamespaceURI(), classLoader);
     return elementBindings.get(name);
   }
 
@@ -122,12 +124,12 @@ public abstract class AbstractBinding implements Cloneable {
     typeBindings.put(name, cls);
   }
 
-  protected static Class<? extends Binding> lookupType(final QName name) {
+  protected static Class<? extends Binding> lookupType(final QName name, final ClassLoader classLoader) {
     final Class<? extends Binding> clazz = typeBindings.get(name);
     if (clazz != null)
       return clazz;
 
-    loadPackage(name.getNamespaceURI());
+    loadPackage(name.getNamespaceURI(), classLoader);
     return typeBindings.get(name);
   }
 

@@ -91,19 +91,22 @@ public final class NotationWriter extends Writer<NotationPlan> {
     writer.write("super();\n");
     writer.write("}\n");
 
-    // GETNAME
-    writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + String.class.getName() + " id()\n");
-    writer.write("{\n");
-    writer.write("return \"" + plan.getId() + "\";\n");
-    writer.write("}\n");
+    // ID
+    if (plan.getId() != null) {
+      writer.write("@" + Override.class.getName() + "\n");
+      writer.write("public " + String.class.getName() + " id()\n");
+      writer.write("{\n");
+      writer.write("return \"" + plan.getId() + "\";\n");
+      writer.write("}\n");
+    }
 
+    // NAME
     writer.write("public " + QName.class.getName() + " name()\n");
     writer.write("{\n");
     writer.write("return NAME;\n");
     writer.write("}\n");
 
-    // NAME
+    // GETNAME
     writer.write("public " +  String.class.getName() + " getName()\n");
     writer.write("{\n");
     writer.write("return _name;\n");

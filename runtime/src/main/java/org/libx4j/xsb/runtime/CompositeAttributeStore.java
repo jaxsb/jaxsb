@@ -28,22 +28,39 @@ public class CompositeAttributeStore implements Serializable {
 
   private final List<AttributeAudit<?>> audits = new ArrayList<AttributeAudit<?>>();
 
+  private class AttributeIterator implements Iterator<$AnySimpleType> {
+    private final Iterator<AttributeAudit<?>> iterator;
+    private $AnySimpleType next;
+
+    public AttributeIterator(final Iterator<AttributeAudit<?>> iterator) {
+      this.iterator = iterator;
+      setNext();
+    }
+
+    private void setNext() {
+      while (next == null && iterator.hasNext())
+        next = iterator.next().getAttribute();
+    }
+
+    @Override
+    public boolean hasNext() {
+      return next != null;
+    }
+
+    @Override
+    public $AnySimpleType next() {
+      final $AnySimpleType current = next;
+      next = null;
+      setNext();
+      return current;
+    }
+  }
+
   public void add(final AttributeAudit<?> audit) {
     this.audits.add(audit);
   }
 
   public Iterator<? extends $AnySimpleType> iterator() {
-    final Iterator<AttributeAudit<?>> iterator = audits.iterator();
-    return new Iterator<$AnySimpleType>() {
-      @Override
-      public boolean hasNext() {
-        return iterator.hasNext();
-      }
-
-      @Override
-      public $AnySimpleType next() {
-        return iterator.next().getAttribute();
-      }
-    };
+    return new AttributeIterator(audits.iterator());
   }
 }

@@ -126,7 +126,7 @@ public abstract class $AnySimpleType extends Binding {
   }
 
   @Override
-  protected QName typeName() {
+  public QName type() {
     return null;
   }
 

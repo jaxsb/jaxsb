@@ -54,11 +54,39 @@ public abstract class Bindings {
    * @return Binding instance.
    */
   public static Binding parse(final Element element) throws ParseException, ValidationException {
-    final Binding binding = Binding.parseElement(element, null);
+    return parse(element, Thread.currentThread().getContextClassLoader());
+  }
+
+  public static Binding parse(final Element element, final ClassLoader classLoader) throws ParseException, ValidationException {
+    final Binding binding = Binding.parseElement(element, null, classLoader);
     if (Validator.getSystemValidator() != null)
       Validator.getSystemValidator().validateParse(element);
 
     return binding;
+  }
+
+  /**
+   * Parse an URL pointing to xml into a Binding instance.
+   *
+   * @param url URL pointing to xml.
+   * @return Binding instance.
+   */
+  public static Binding parse(final URL url) throws IOException, ParseException, ValidationException {
+    return parse(url, Thread.currentThread().getContextClassLoader());
+  }
+
+  public static Binding parse(final URL url, final ClassLoader classLoader) throws IOException, ParseException, ValidationException {
+    try (final InputStream in = url.openStream()) {
+      return parse(new InputSource(in), classLoader);
+    }
+  }
+
+  public static Binding parse(final InputStream in) throws IOException, ParseException, ValidationException {
+    return parse(in, Thread.currentThread().getContextClassLoader());
+  }
+
+  public static Binding parse(final InputStream in, final ClassLoader classLoader) throws IOException, ParseException, ValidationException {
+    return parse(new InputSource(in), classLoader);
   }
 
   /**
@@ -68,6 +96,10 @@ public abstract class Bindings {
    * @return Binding instance.
    */
   public static Binding parse(final InputSource inputSource) throws IOException, ParseException, ValidationException {
+    return parse(inputSource, Thread.currentThread().getContextClassLoader());
+  }
+
+  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, ParseException, ValidationException {
     final Element element;
     try {
       element = Binding.newDocumentBuilder().parse(inputSource).getDocumentElement();
@@ -79,19 +111,7 @@ public abstract class Bindings {
     if (Validator.getSystemValidator() != null)
       Validator.getSystemValidator().validateParse(element);
 
-    return Binding.parseElement(element, null);
-  }
-
-  /**
-   * Parse an URL pointing to xml into a Binding instance.
-   *
-   * @param url URL pointing to xml.
-   * @return Binding instance.
-   */
-  public static Binding parse(final URL url) throws IOException, ParseException, ValidationException {
-    try (final InputStream in = url.openStream()) {
-      return parse(new InputSource(in));
-    }
+    return Binding.parseElement(element, null, classLoader);
   }
 
   public static javax.xml.namespace.QName getTypeName(final Binding binding) {

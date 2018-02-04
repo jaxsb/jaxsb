@@ -210,13 +210,16 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     // OWNER
     appendOwner(writer);
 
-    // GETNAME
-    writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + String.class.getName() + " id()\n");
-    writer.write("{\n");
-    writer.write("return \"" + plan.getId() + "\";\n");
-    writer.write("}\n");
+    // ID
+    if (plan.getId() != null) {
+      writer.write("@" + Override.class.getName() + "\n");
+      writer.write("public " + String.class.getName() + " id()\n");
+      writer.write("{\n");
+      writer.write("return \"" + plan.getId() + "\";\n");
+      writer.write("}\n");
+    }
 
+    // NAME
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + QName.class.getName() + " name()\n");
     writer.write("{\n");

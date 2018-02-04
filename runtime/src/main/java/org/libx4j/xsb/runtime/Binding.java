@@ -129,8 +129,8 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return binding == null ? null : binding.name();
   }
 
-  protected static QName typeName(final Binding binding) {
-    return binding.typeName();
+  protected static QName type(final Binding binding) {
+    return binding.type();
   }
 
   protected static $AnySimpleType owner(final Binding binding) {
@@ -141,7 +141,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     if (elementName == null || namespaceURI == null || localName == null)
       return false;
 
-    final Class<? extends Binding> element = lookupElement(elementName);
+    final Class<? extends Binding> element = lookupElement(elementName, Thread.currentThread().getContextClassLoader());
     if (element == null)
       return false;
 
@@ -164,17 +164,17 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   protected static Binding parse(final Element element, Class<? extends Binding> defaultClass) throws ParseException, ValidationException {
-    return parseElement(element, defaultClass);
+    return parseElement(element, defaultClass, Thread.currentThread().getContextClassLoader());
   }
 
   protected static Binding parse(final Element element) throws ParseException, ValidationException {
-    return parseElement(element, null);
+    return parseElement(element, null, Thread.currentThread().getContextClassLoader());
   }
 
   protected static Binding parseAttr(final Element element, final Node node) throws ParseException {
     final String localName = node.getLocalName();
     final String namespaceURI = node.getNamespaceURI();
-    final Class<?> classBinding = lookupElement(new QName(namespaceURI != null ? namespaceURI.intern() : null, localName.intern()));
+    final Class<?> classBinding = lookupElement(new QName(namespaceURI != null ? namespaceURI.intern() : null, localName.intern()), Thread.currentThread().getContextClassLoader());
     if (classBinding == null) {
       if (namespaceURI != null)
         throw new ParseException("Unable to find final class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
@@ -188,7 +188,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   /**
    * @throws ValidationException
    */
-  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass) throws ParseException, ValidationException {
+  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ParseException, ValidationException {
     final String localName = node.getLocalName();
     String namespaceURI = node.getNamespaceURI();
 
@@ -206,7 +206,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
     Class<? extends Binding> classBinding = null;
     try {
-      classBinding = defaultClass != null ? defaultClass : lookupElement(new QName(namespaceURI.intern(), localName.intern()));
+      classBinding = defaultClass != null ? defaultClass : lookupElement(new QName(namespaceURI.intern(), localName.intern()), classLoader);
       Binding binding = null;
       if (classBinding != null) {
         final Constructor<?> constructor = classBinding.getDeclaredConstructor();
@@ -218,7 +218,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         if (xsiPrefix != null)
           namespaceURI = node.getOwnerDocument().getDocumentElement().lookupNamespaceURI(xsiPrefix);
 
-        final Class<? extends Binding> xsiBinding = lookupType(new QName(namespaceURI, xsiTypeName.intern()));
+        final Class<? extends Binding> xsiBinding = lookupType(new QName(namespaceURI, xsiTypeName.intern()), classLoader);
         if (xsiBinding == null) {
           if (namespaceURI != null)
             throw new ParseException("Unable to find final class binding for xsi:type <" + xsiTypeName + " xmlns=\"" + namespaceURI + "\">");
@@ -416,7 +416,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   public abstract QName name();
 
-  protected QName typeName() {
+  public QName type() {
     return null;
   }
 
@@ -459,7 +459,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   /**
    * @throws MarshalException
    */
-  protected Element marshal(final Element parent, QName name, final QName typeName) throws MarshalException {
+  protected Element marshal(final Element parent, QName name, final QName type) throws MarshalException {
     final boolean substitutionGroup = _$$isSubstitutionGroup(name) || _$$isSubstitutionGroup(name(inherits()));
     if (substitutionGroup)
       name = name();
@@ -475,10 +475,10 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     // There are 2 ways to require an xsi:type attribute:
     // 1. The element being marshaled is not global, and its typeName comes from its containing complexType
     // 2. The complexType being marshaled is global, and its name comes from the element it inherits from
-    if (!substitutionGroup && typeName() != null && ((typeName != null && !typeName().equals(typeName)) || !typeName().equals(typeName(inherits())))) {
-      final String prefix = _$$getPrefix(parent, typeName());
+    if (!substitutionGroup && type() != null && ((type != null && !type().equals(type)) || !type().equals(type(inherits())))) {
+      final String prefix = _$$getPrefix(parent, type());
       parent.getOwnerDocument().getDocumentElement().setAttributeNS(XMLNS.getNamespaceURI(), XMLNS.getLocalPart() + ":" + XSI_TYPE.getPrefix(), XSI_TYPE.getNamespaceURI());
-      element.setAttributeNS(XSI_TYPE.getNamespaceURI(), XSI_TYPE.getPrefix() + ":" + XSI_TYPE.getLocalPart(), prefix + ":" + typeName().getLocalPart());
+      element.setAttributeNS(XSI_TYPE.getNamespaceURI(), XSI_TYPE.getPrefix() + ":" + XSI_TYPE.getLocalPart(), prefix + ":" + type().getLocalPart());
     }
 
     return element;
@@ -494,7 +494,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    */
   protected Element marshal() throws MarshalException, ValidationException {
     final Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
-    return marshal(root, name(), typeName());
+    return marshal(root, name(), type());
   }
 
   /**

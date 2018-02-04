@@ -155,11 +155,11 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     if (name == null)
       name = element.name();
 
-    QName typeName = getTypeName();
-    if (typeName == null)
-      typeName = element.typeName();
+    QName type = getTypeName();
+    if (type == null)
+      type = element.type();
 
-    final Element node = element.marshal(parent, name, typeName);
+    final Element node = element.marshal(parent, name, type);
     if (!element._$$hasElements() && isNillable())
       marshalNil(node, parent);
 

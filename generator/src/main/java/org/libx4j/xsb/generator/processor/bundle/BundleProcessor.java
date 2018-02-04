@@ -35,10 +35,12 @@ import org.lib4j.net.URLs;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
 import org.lib4j.pipeline.PipelineProcessor;
+import org.lib4j.util.Collections;
 import org.lib4j.util.jar.Jar;
 import org.lib4j.xml.dom.DOMParsers;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
+import org.lib4j.xml.dom.Validator;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;
@@ -56,6 +58,14 @@ import org.xml.sax.SAXException;
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<File>(2);
+    final File utilLocationBase = Resources.getLocationBase(Collections.class);
+    if (utilLocationBase != null)
+      classpath.add(utilLocationBase);
+
+    final File xmlLocationBase = Resources.getLocationBase(Validator.class);
+    if (xmlLocationBase != null)
+      classpath.add(xmlLocationBase);
+
     final File bindingLocationBase = Resources.getLocationBase(Binding.class);
     if (bindingLocationBase != null)
       classpath.add(bindingLocationBase);

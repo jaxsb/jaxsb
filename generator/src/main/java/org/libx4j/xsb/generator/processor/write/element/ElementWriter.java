@@ -448,13 +448,16 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("}\n");
     }
 
-    // GETNAME
-    writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + String.class.getName() + " id()\n");
-    writer.write("{\n");
-    writer.write("return \"" + plan.getId() + "\";\n");
-    writer.write("}\n");
+    // ID
+    if (plan.getId() != null) {
+      writer.write("@" + Override.class.getName() + "\n");
+      writer.write("public " + String.class.getName() + " id()\n");
+      writer.write("{\n");
+      writer.write("return \"" + plan.getId() + "\";\n");
+      writer.write("}\n");
+    }
 
+    // NAME
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + QName.class.getName() + " name()\n");
     writer.write("{\n");
@@ -505,16 +508,16 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write(Element.class.getName() + " marshal() throws " + MarshalException.class.getName() + ", " + ValidationException.class.getName() + "\n");
       writer.write("{\n");
       writer.write(Element.class.getName() + " root = createElementNS(name().getNamespaceURI(), name().getLocalPart());\n");
-      writer.write(Element.class.getName() + " node = marshal(root, name(), typeName(_$$inheritsInstance()));\n");
+      writer.write(Element.class.getName() + " node = marshal(root, name(), type(_$$inheritsInstance()));\n");
       writer.write("_$$marshalElements(node);\n");
       writer.write("if (" + Validator.class.getName() + ".getSystemValidator() != null)\n");
       writer.write(Validator.class.getName() + ".getSystemValidator().validateMarshal(node);\n");
       writer.write("return node;\n");
       writer.write("}\n");
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected " + Element.class.getName() + " marshal(final " + Element.class.getName() + " parent, final " + QName.class.getName() + " name, final " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
+      writer.write("protected " + Element.class.getName() + " marshal(final " + Element.class.getName() + " parent, final " + QName.class.getName() + " name, final " + QName.class.getName() + " type) throws " + MarshalException.class.getName() + "\n");
       writer.write("{\n");
-      writer.write("final " + Element.class.getName() + " node = super.marshal(parent, name, typeName);\n");
+      writer.write("final " + Element.class.getName() + " node = super.marshal(parent, name, type);\n");
       if (plan.getMixed() != null && plan.getMixed()) {
         writer.write("if (text != null)\n");
         writer.write("node.appendChild(node.getOwnerDocument().createTextNode(text));\n");
@@ -551,7 +554,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write(Element.class.getName() + " marshal() throws " + MarshalException.class.getName() + ", " + ValidationException.class.getName() + "\n");
       writer.write("{\n");
       writer.write(Element.class.getName() + " root = createElementNS(name().getNamespaceURI(), name().getLocalPart());\n");
-      writer.write(Element.class.getName() + " node = marshal(root, name(), typeName(_$$inheritsInstance()));\n");
+      writer.write(Element.class.getName() + " node = marshal(root, name(), type(_$$inheritsInstance()));\n");
       writer.write("_$$marshalElements(node);\n");
       writer.write("if (" + Validator.class.getName() + ".getSystemValidator() != null)\n");
       writer.write(Validator.class.getName() + ".getSystemValidator().validateMarshal(node);\n");
@@ -560,9 +563,9 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
       // FIXME: Check here if we need nillable and remove this entry otherwise.
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected " + Element.class.getName() + " marshal(final " + Element.class.getName() + " parent, final " + QName.class.getName() + " name, final " + QName.class.getName() + " typeName) throws " + MarshalException.class.getName() + "\n");
+      writer.write("protected " + Element.class.getName() + " marshal(final " + Element.class.getName() + " parent, final " + QName.class.getName() + " name, final " + QName.class.getName() + " type) throws " + MarshalException.class.getName() + "\n");
       writer.write("{\n");
-      writer.write("final " + Element.class.getName() + " node = super.marshal(parent, name, typeName);\n");
+      writer.write("final " + Element.class.getName() + " node = super.marshal(parent, name, type);\n");
       if (plan.isNillable())
         writeNilMarshal(writer);
 
