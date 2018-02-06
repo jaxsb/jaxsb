@@ -18,17 +18,17 @@ package org.libx4j.xsb.generator.processor.bundle;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
+
 import org.lib4j.io.Files;
 import org.lib4j.jci.CompilationException;
 import org.lib4j.jci.JavaCompiler;
-import org.lib4j.lang.ClassLoaders;
 import org.lib4j.lang.Paths;
 import org.lib4j.lang.Resources;
 import org.lib4j.net.URLs;
@@ -56,27 +56,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
-  private static void compile(final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
+  private static void compile(final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException {
     final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<File>(2);
-    final File utilLocationBase = Resources.getLocationBase(Collections.class);
-    if (utilLocationBase != null)
-      classpath.add(utilLocationBase);
-
-    final File xmlLocationBase = Resources.getLocationBase(Validator.class);
-    if (xmlLocationBase != null)
-      classpath.add(xmlLocationBase);
-
-    final File bindingLocationBase = Resources.getLocationBase(Binding.class);
-    if (bindingLocationBase != null)
-      classpath.add(bindingLocationBase);
-
-    // FIXME: Make this more explicit.
-    final File namespaceBindingBase = Resources.getLocationBase(NamespaceBinding.class);
-    if (namespaceBindingBase != null)
-      classpath.add(namespaceBindingBase);
-
-    for (final URL url : ClassLoaders.getClassPath())
-      classpath.add(new File(url.toURI()));
+    final File[] requiredLibs = Resources.getLocationBases(Collections.class, Validator.class, Binding.class, NamespaceBinding.class);
+    for (final File file : requiredLibs)
+      classpath.add(file);
 
     new JavaCompiler(destDir, classpath).compile(sourceDir);
   }
@@ -91,9 +75,8 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       if ((includes == null || includes.contains(namespaceURI)) && (excludes == null || !excludes.contains(namespaceURI))) {
         final String packageName = namespaceURI.getNamespaceBinding().getPackageName();
         final File jarFile = new File(destDir, packageName + ".jar");
-        if (jarFile.exists())
-          if (!jarFile.delete())
-            throw new BindingError("Unable to delete the existing jar: " + jarFile.getAbsolutePath());
+        if (jarFile.exists() && !jarFile.delete())
+          throw new BindingError("Unable to delete the existing jar: " + jarFile.getAbsolutePath());
 
         final Jar jar = new Jar(jarFile);
         jarFiles.add(jarFile);
@@ -102,17 +85,15 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         if (!namespaceURIsAdded.contains(namespaceURI)) {
           namespaceURIsAdded.add(namespaceURI);
 
-          final Collection<File> list = Files.listAll(new File(destDir, packagePath));
-          if (list != null)
-            for (final File file : list)
+          final Collection<File> files = Files.listAll(new File(destDir, packagePath));
+          if (files != null)
+            for (final File file : files)
               if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
                 jar.addEntry(Files.relativePath(destDir.getAbsoluteFile(), file.getAbsoluteFile()), Files.getBytes(file));
         }
 
-        final URL url = schemaModelComposite.getSchemaDocument().getSchemaReference().getURL();
-        final String xsdName = packagePath + '/' + packageName;
         if (!schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
-          addXSDs(url, xsdName + ".xsd", jar, destDir, 0);
+          addXSDs(schemaModelComposite.getSchemaDocument().getSchemaReference().getURL(), packagePath + '/' + packageName + ".xsd", jar, destDir, 0);
 
         jar.close();
       }
@@ -128,7 +109,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     final NodeList children = element.getChildNodes();
     for (int i = 0; i < children.getLength(); i++) {
       final Node node = children.item(i);
-      if (!"http://www.w3.org/2001/XMLSchema".equals(node.getNamespaceURI()))
+      if (!XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(node.getNamespaceURI()))
         continue;
 
       if ("import".equals(node.getLocalName())) {
@@ -217,7 +198,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
       return bundles;
     }
-    catch (final CompilationException | IOException | SAXException | URISyntaxException e) {
+    catch (final CompilationException | IOException | SAXException e) {
       throw new CompilerFailureException(e);
     }
   }
