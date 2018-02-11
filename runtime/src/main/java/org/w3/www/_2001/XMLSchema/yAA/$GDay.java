@@ -57,13 +57,6 @@ public abstract class $GDay extends $AnySimpleType {
 
   @Override
   public $GDay clone() {
-    return new $GDay(this) {
-      private static final long serialVersionUID = 6038331742814204927L;
-
-      @Override
-      protected $GDay inherits() {
-        return this;
-      }
-    };
+    return ($GDay)super.clone();
   }
 }

@@ -56,13 +56,6 @@ public abstract class $AnyURI extends $AnySimpleType {
 
   @Override
   public $AnyURI clone() {
-    return new $AnyURI(this) {
-      private static final long serialVersionUID = 896348518452291347L;
-
-      @Override
-      protected $AnyURI inherits() {
-        return this;
-      }
-    };
+    return ($AnyURI)super.clone();
   }
 }

@@ -57,13 +57,6 @@ public abstract class $Time extends $AnySimpleType {
 
   @Override
   public $Time clone() {
-    return new $Time(this) {
-      private static final long serialVersionUID = -8822632606808313854L;
-
-      @Override
-      protected $Time inherits() {
-        return this;
-      }
-    };
+    return ($Time)super.clone();
   }
 }

@@ -60,6 +60,10 @@ public final class SequenceWriter extends Writer<SequencePlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final SequencePlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final SequencePlan plan, final Plan<?> parent) {
   }
 }

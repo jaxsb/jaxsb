@@ -57,13 +57,6 @@ public abstract class $GYearMonth extends $AnySimpleType {
 
   @Override
   public $GYearMonth clone() {
-    return new $GYearMonth(this) {
-      private static final long serialVersionUID = 6604047392076228890L;
-
-      @Override
-      protected $GYearMonth inherits() {
-        return this;
-      }
-    };
+    return ($GYearMonth)super.clone();
   }
 }

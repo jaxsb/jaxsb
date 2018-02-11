@@ -57,13 +57,6 @@ public abstract class $GYear extends $AnySimpleType {
 
   @Override
   public $GYear clone() {
-    return new $GYear(this) {
-      private static final long serialVersionUID = -6924725826573073029L;
-
-      @Override
-      protected $GYear inherits() {
-        return this;
-      }
-    };
+    return ($GYear)super.clone();
   }
 }

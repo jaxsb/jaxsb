@@ -57,13 +57,6 @@ public abstract class $name extends $Token {
 
   @Override
   public $name clone() {
-    return new $name(this) {
-      private static final long serialVersionUID = -6795928362112151567L;
-
-      @Override
-      protected $name inherits() {
-        return this;
-      }
-    };
+    return ($name)super.clone();
   }
 }

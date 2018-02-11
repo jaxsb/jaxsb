@@ -60,6 +60,10 @@ public final class HasFacetWriter extends Writer<HasFacetPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final HasFacetPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final HasFacetPlan plan, final Plan<?> parent) {
   }
 }

@@ -60,6 +60,10 @@ public final class RestrictionWriter extends Writer<RestrictionPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final RestrictionPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final RestrictionPlan plan, final Plan<?> parent) {
   }
 }

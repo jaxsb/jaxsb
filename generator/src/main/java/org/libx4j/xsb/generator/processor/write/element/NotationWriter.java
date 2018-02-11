@@ -74,6 +74,11 @@ public final class NotationWriter extends Writer<NotationPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final NotationPlan plan, final Plan<?> parent) {
+    throw new CompilerFailureException("notation cannot have a clone statement");
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final NotationPlan plan, final Plan<?> parent) {
     // DOCUMENTATION
     writer.write(plan.getDocumentation());
@@ -127,7 +132,7 @@ public final class NotationWriter extends Writer<NotationPlan> {
     // CLONE
     writer.write("public " + plan.getClassName(null) + " clone()\n");
     writer.write("{\n");
-    writer.write("return this;\n");
+    writer.write("return (" + plan.getClassName(null) + ")super.clone();\n");
     writer.write("}\n");
 
     // EQUALS

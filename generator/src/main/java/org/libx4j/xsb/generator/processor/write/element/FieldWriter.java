@@ -60,6 +60,10 @@ public final class FieldWriter extends Writer<FieldPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final FieldPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final FieldPlan plan, final Plan<?> parent) {
   }
 }

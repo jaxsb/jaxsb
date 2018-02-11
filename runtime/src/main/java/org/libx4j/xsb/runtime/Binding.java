@@ -22,7 +22,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Map;
@@ -333,6 +332,9 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   protected void _$$setOwner(final $AnySimpleType owner) {
+    if (this.owner != null && this.owner != owner)
+      throw new IllegalArgumentException("Cannot add another document's element. Hint: Use element.clone()");
+
     this.owner = owner;
   }
 
@@ -356,7 +358,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   protected ElementSuperList getCreateElementDirectory() {
-    return elements == null ? elements = new ElementSuperList(typeToAudit) : elements;
+    return elements == null ? elements = new ElementSuperList(($AnySimpleType)this, nameToAudit) : elements;
   }
 
   protected final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
@@ -367,13 +369,13 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return added;
   }
 
-  private IdentityHashMap<Class<? extends Binding>,ElementAudit<?>> typeToAudit;
+  private HashMap<QName,ElementAudit<?>> nameToAudit;
 
   protected final void _$$registerElementAudit(final ElementAudit<?> elementAudit) {
-    if (typeToAudit == null)
-      typeToAudit = new IdentityHashMap<Class<? extends Binding>,ElementAudit<?>>();
+    if (nameToAudit == null)
+      nameToAudit = new HashMap<QName,ElementAudit<?>>();
 
-    typeToAudit.put(elementAudit.getType(), elementAudit);
+    nameToAudit.put(elementAudit.getName() != null ? elementAudit.getName() : ElementSuperList.ANY, elementAudit);
   }
 
   protected static <B extends $AnySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final Binding binding, final B attribute) {
@@ -383,7 +385,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return audit.setAttribute(attribute);
   }
 
-  private CompositeAttributeStore getCreateAttributeStore() {
+  protected CompositeAttributeStore getCreateAttributeStore() {
     return attributeDirectory == null ? attributeDirectory = new CompositeAttributeStore() : attributeDirectory;
   }
 
@@ -582,7 +584,18 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   @Override
   public Binding clone() {
-    return null;
+    try {
+      final Binding clone = (Binding)super.clone();
+      clone.owner = null;
+      clone.elements = null;
+      clone.attributeDirectory = null;
+      clone.inherits = inherits;
+      clone.isNull = isNull;
+      return clone;
+    }
+    catch (final CloneNotSupportedException e) {
+      throw new UnsupportedOperationException(e);
+    }
   }
 
   @Override

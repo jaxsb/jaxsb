@@ -37,7 +37,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   private static final long serialVersionUID = -8175752291591734863L;
 
   private final Class<B> type;
-  private final Binding parent;
+  private final Binding owner;
   private final B _default;
   private final BindingProxy<B> defaultProxy;
   private final QName name;
@@ -46,15 +46,15 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   private final boolean nillable;
   private final int minOccurs;
   private final int maxOccurs;
-  private ElementSuperList.ElementSubList<B> elements;
+  private ElementSuperList.ElementSubList elements;
 
-  public ElementAudit(final Class<? extends Binding> type, final Binding parent, final B _default, QName name, final QName typeName, boolean qualified, final boolean nillable, int minOccurs, final int maxOccurs) {
+  public ElementAudit(final Class<? extends Binding> type, final Binding owner, final B _default, QName name, final QName typeName, boolean qualified, final boolean nillable, int minOccurs, final int maxOccurs) {
     this.type = (Class<B>)type;
-    this.parent = parent;
+    this.owner = owner;
     if (_default != null) {
       this._default = _default;
       this.defaultProxy = new BindingProxy<B>(null);
-      parent._$$addElement(this, (B)this.defaultProxy);
+      owner._$$addElement(this, (B)this.defaultProxy);
     }
     else {
       this._default = null;
@@ -67,11 +67,11 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     this.nillable = nillable;
     this.minOccurs = minOccurs;
     this.maxOccurs = maxOccurs;
-    parent._$$registerElementAudit(this);
+    owner._$$registerElementAudit(this);
   }
 
-  public ElementAudit(final Binding parent, final ElementAudit<B> copy) {
-    this.parent = parent;
+  public ElementAudit(final Binding owner, final ElementAudit<B> copy) {
+    this.owner = owner;
     this.type = copy.type;
     this._default = copy._default;
     this.defaultProxy = copy.defaultProxy;
@@ -81,14 +81,15 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     this.nillable = copy.nillable;
     this.minOccurs = copy.minOccurs;
     this.maxOccurs = copy.maxOccurs;
+    owner._$$registerElementAudit(this);
   }
 
   public Class<B> getType() {
     return this.type;
   }
 
-  public Binding getParent() {
-    return this.parent;
+  public Binding getOwner() {
+    return this.owner;
   }
 
   public boolean isQualified() {
@@ -116,11 +117,11 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   }
 
   public BindingList<B> getElements() {
-    return elements;
+    return (BindingList<B>)elements;
   }
 
   public B getElement() {
-    return elements == null || elements.size() == 0 ? null : elements.get(0);
+    return elements == null || elements.size() == 0 ? null : (B)elements.get(0);
   }
 
   public int size() {
@@ -131,13 +132,13 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     return elements.indexOf(element);
   }
 
-  protected void setElements(final ElementSuperList.ElementSubList<B> elements) {
+  protected void setElements(final ElementSuperList.ElementSubList elements) {
     this.elements = elements;
   }
 
   public boolean addElement(final B element) {
     if (elements == null)
-      elements = parent.getCreateElementDirectory().newPartition(this);
+      elements = owner.getCreateElementDirectory().newPartition(this);
 
     if (maxOccurs > 1 || elements.size() == 0)
       elements.add(element);
@@ -171,9 +172,9 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   }
 
   public ElementAudit<B> clone(final ElementSuperList elementList) {
-    final ElementAudit<B> clone = new ElementAudit<B>(elementList.getParent(), this);
-    clone.elements = elementList.getPartition(type);
-    clone.elements.setAudit(this);
+    final ElementAudit<B> clone = new ElementAudit<B>(elementList.getOwner(), this);
+    clone.elements = (ElementSuperList.ElementSubList)elementList.getPartition(name, type);
+    clone.elements.setAudit(clone);
     return clone;
   }
 

@@ -57,13 +57,6 @@ public abstract class $Duration extends $AnySimpleType {
 
   @Override
   public $Duration clone() {
-    return new $Duration(this) {
-      private static final long serialVersionUID = 5300317542969875340L;
-
-      @Override
-      protected $Duration inherits() {
-        return this;
-      }
-    };
+    return ($Duration)super.clone();
   }
 }

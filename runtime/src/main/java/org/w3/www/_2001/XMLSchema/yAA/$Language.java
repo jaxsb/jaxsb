@@ -57,13 +57,6 @@ public abstract class $Language extends $AnySimpleType {
 
   @Override
   public $Language clone() {
-    return new $Language(this) {
-      private static final long serialVersionUID = -5293396511288427796L;
-
-      @Override
-      protected $Language inherits() {
-        return this;
-      }
-    };
+    return ($Language)super.clone();
   }
 }

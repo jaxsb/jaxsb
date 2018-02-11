@@ -60,13 +60,6 @@ public abstract class $UnsignedShort extends $UnsignedInt {
 
   @Override
   public $UnsignedShort clone() {
-    return new $UnsignedShort(this) {
-      private static final long serialVersionUID = 4611203811013083001L;
-
-      @Override
-      protected $UnsignedShort inherits() {
-        return this;
-      }
-    };
+    return ($UnsignedShort)super.clone();
   }
 }

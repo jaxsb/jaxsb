@@ -60,6 +60,10 @@ public final class ListWriter extends Writer<ListPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final ListPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final ListPlan plan, final Plan<?> parent) {
   }
 }

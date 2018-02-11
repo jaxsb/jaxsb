@@ -60,6 +60,10 @@ public final class RedefineWriter extends Writer<RedefinePlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final RedefinePlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final RedefinePlan plan, final Plan<?> parent) {
   }
 }

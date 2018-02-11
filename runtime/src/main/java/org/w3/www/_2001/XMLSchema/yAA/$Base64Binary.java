@@ -57,13 +57,6 @@ public abstract class $Base64Binary extends $AnySimpleType {
 
   @Override
   public $Base64Binary clone() {
-    return new $Base64Binary(this) {
-      private static final long serialVersionUID = 130881242257625800L;
-
-      @Override
-      protected $Base64Binary inherits() {
-        return this;
-      }
-    };
+    return ($Base64Binary)super.clone();
   }
 }

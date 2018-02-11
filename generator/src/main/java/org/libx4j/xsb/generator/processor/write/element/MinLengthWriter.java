@@ -60,6 +60,10 @@ public final class MinLengthWriter extends Writer<MinLengthPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final MinLengthPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final MinLengthPlan plan, final Plan<?> parent) {
   }
 }

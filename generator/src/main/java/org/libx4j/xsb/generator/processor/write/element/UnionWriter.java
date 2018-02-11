@@ -60,6 +60,10 @@ public final class UnionWriter extends Writer<UnionPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final UnionPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final UnionPlan plan, final Plan<?> parent) {
   }
 }

@@ -60,6 +60,10 @@ public final class MaxLengthWriter extends Writer<MaxLengthPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final MaxLengthPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final MaxLengthPlan plan, final Plan<?> parent) {
   }
 }

@@ -67,6 +67,10 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
     }
 
     @Override
+    protected void appendClone(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {
+    }
+
+    @Override
     protected void appendClass(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {
     }
   };

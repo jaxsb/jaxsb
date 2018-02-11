@@ -60,6 +60,10 @@ public final class KeyWriter extends Writer<KeyPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final KeyPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final KeyPlan plan, final Plan<?> parent) {
   }
 }

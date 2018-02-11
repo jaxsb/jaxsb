@@ -60,6 +60,10 @@ public final class ComplexContentWriter extends Writer<ComplexContentPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final ComplexContentPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final ComplexContentPlan plan, final Plan<?> parent) {
   }
 }

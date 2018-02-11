@@ -60,6 +60,10 @@ public final class GroupWriter extends Writer<GroupPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final GroupPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final GroupPlan plan, final Plan<?> parent) {
   }
 }

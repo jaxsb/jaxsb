@@ -156,6 +156,14 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final AttributePlan plan, final Plan<?> parent) {
+    if (plan.isRestriction())
+      return;
+
+    writer.write("clone." + plan.getInstanceName() + " = " + plan.getInstanceName() + ".clone(getCreateAttributeStore());\n");
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final AttributePlan plan, final Plan<?> parent) {
     if (plan.isRef())
       return;
@@ -273,7 +281,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + plan.getCopyClassName(parent) + " clone()\n");
     writer.write("{\n");
-    writer.write("return new " + plan.getClassName(parent) + "(this);\n");
+    writer.write("return (" + plan.getClassName(parent) + ")super.clone();\n");
     writer.write("}\n");
 
     // EQUALS

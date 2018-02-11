@@ -93,13 +93,6 @@ public abstract class $ID extends $nCName {
 
   @Override
   public $ID clone() {
-    return new $ID(this) {
-      private static final long serialVersionUID = -2416845455854858753L;
-
-      @Override
-      protected $ID inherits() {
-        return this;
-      }
-    };
+    return ($ID)super.clone();
   }
 }

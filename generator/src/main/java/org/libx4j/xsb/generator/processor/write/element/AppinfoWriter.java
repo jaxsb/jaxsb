@@ -60,6 +60,10 @@ public final class AppinfoWriter extends Writer<AppinfoPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final AppinfoPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final AppinfoPlan plan, final Plan<?> parent) {
   }
 }

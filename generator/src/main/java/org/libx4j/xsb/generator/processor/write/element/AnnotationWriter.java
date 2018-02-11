@@ -60,6 +60,10 @@ public final class AnnotationWriter extends Writer<AnnotationPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final AnnotationPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final AnnotationPlan plan, final Plan<?> parent) {
   }
 }

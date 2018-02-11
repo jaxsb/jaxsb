@@ -57,13 +57,6 @@ public abstract class $IDREF extends $nCName {
 
   @Override
   public $IDREF clone() {
-    return new $IDREF(this) {
-      private static final long serialVersionUID = 3000197239754433202L;
-
-      @Override
-      protected $IDREF inherits() {
-        return this;
-      }
-    };
+    return ($IDREF)super.clone();
   }
 }

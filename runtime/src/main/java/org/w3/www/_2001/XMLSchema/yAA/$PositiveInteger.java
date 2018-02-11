@@ -61,13 +61,6 @@ public abstract class $PositiveInteger extends $NonNegativeInteger {
 
   @Override
   public $PositiveInteger clone() {
-    return new $PositiveInteger(this) {
-      private static final long serialVersionUID = -7387743498735262267L;
-
-      @Override
-      protected $PositiveInteger inherits() {
-        return this;
-      }
-    };
+    return ($PositiveInteger)super.clone();
   }
 }

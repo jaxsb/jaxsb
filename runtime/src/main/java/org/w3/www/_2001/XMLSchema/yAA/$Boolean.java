@@ -89,13 +89,6 @@ public abstract class $Boolean extends $AnySimpleType {
 
   @Override
   public $Boolean clone() {
-    return new $Boolean(this) {
-      private static final long serialVersionUID = -8964376560317450311L;
-
-      @Override
-      protected $Boolean inherits() {
-        return this;
-      }
-    };
+    return ($Boolean)super.clone();
   }
 }

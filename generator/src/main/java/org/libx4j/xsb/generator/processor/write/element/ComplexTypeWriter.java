@@ -93,6 +93,11 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final T plan, final Plan<?> parent) {
+    throw new CompilerFailureException("complexType cannot have a clone statement");
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final T plan, final Plan<?> parent) {
     writeQualifiedName(writer, plan);
     writer.write("public static abstract class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + ComplexType.class.getName() + "\n");
@@ -428,7 +433,14 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + plan.getClassName(parent) + " clone()\n");
     writer.write("{\n");
-    writer.write("return " + plan.getClassName(parent) + ".newInstance(this);\n");
+    writer.write("final " + plan.getClassName(parent) + " clone = (" + plan.getClassName(parent) + ")super.clone();\n");
+    if (plan.getNativeItemClassNameInterface() == null && plan.getMixed() != null && plan.getMixed())
+      writer.write("clone.text = text;");
+    for (final AttributePlan attribute : plan.getAttributes())
+      Writer.writeClone(writer, attribute, plan);
+    for (final ElementPlan element : plan.getElements())
+      Writer.writeClone(writer, element, plan);
+    writer.write("return clone;\n");
     writer.write("}\n");
 
     // EQUALS
@@ -445,10 +457,10 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
         writer.write("if (text != null ? !text.equals(that.text) : that.text != null)\n");
         writer.write("return _$$failEquals();\n");
       }
-      for (final Object attribute : plan.getAttributes())
-        Writer.writeEquals(writer, (AttributePlan)attribute, plan);
-      for (final Object element : plan.getElements())
-        Writer.writeEquals(writer, (ElementPlan)element, plan);
+      for (final AttributePlan attribute : plan.getAttributes())
+        Writer.writeEquals(writer, attribute, plan);
+      for (final ElementPlan element : plan.getElements())
+        Writer.writeEquals(writer, element, plan);
     }
     writer.write("return super.equals(obj);\n");
     writer.write("}\n");

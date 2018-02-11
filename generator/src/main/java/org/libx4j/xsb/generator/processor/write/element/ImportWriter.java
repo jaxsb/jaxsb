@@ -60,6 +60,10 @@ public final class ImportWriter extends Writer<ImportPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final ImportPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final ImportPlan plan, final Plan<?> parent) {
   }
 }

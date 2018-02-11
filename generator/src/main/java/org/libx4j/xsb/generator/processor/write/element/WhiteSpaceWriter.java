@@ -60,6 +60,10 @@ public final class WhiteSpaceWriter extends Writer<WhiteSpacePlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final WhiteSpacePlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final WhiteSpacePlan plan, final Plan<?> parent) {
   }
 }

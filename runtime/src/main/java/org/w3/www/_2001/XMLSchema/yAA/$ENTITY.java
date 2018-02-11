@@ -57,13 +57,6 @@ public abstract class $ENTITY extends $nCName {
 
   @Override
   public $ENTITY clone() {
-    return new $ENTITY(this) {
-      private static final long serialVersionUID = 3761266650692111155L;
-
-      @Override
-      protected $ENTITY inherits() {
-        return this;
-      }
-    };
+    return ($ENTITY)super.clone();
   }
 }

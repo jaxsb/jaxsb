@@ -60,6 +60,10 @@ public final class EnumerationWriter extends Writer<EnumerationPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final EnumerationPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final EnumerationPlan plan, final Plan<?> parent) {
   }
 }

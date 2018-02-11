@@ -60,6 +60,10 @@ public final class AttributeGroupWriter extends Writer<AttributeGroupPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final AttributeGroupPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final AttributeGroupPlan plan, final Plan<?> parent) {
   }
 }

@@ -60,6 +60,10 @@ public final class UniqueWriter extends Writer<UniquePlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final UniquePlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final UniquePlan plan, final Plan<?> parent) {
   }
 }

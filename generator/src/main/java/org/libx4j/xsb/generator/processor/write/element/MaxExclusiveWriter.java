@@ -60,6 +60,10 @@ public final class MaxExclusiveWriter extends Writer<MaxExclusivePlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final MaxExclusivePlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final MaxExclusivePlan plan, final Plan<?> parent) {
   }
 }

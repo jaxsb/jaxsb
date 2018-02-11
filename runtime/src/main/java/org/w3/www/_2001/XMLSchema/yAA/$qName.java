@@ -68,13 +68,6 @@ public abstract class $qName extends $AnySimpleType {
 
   @Override
   public $qName clone() {
-    return new $qName(this) {
-      private static final long serialVersionUID = 5679781638989841841L;
-
-      @Override
-      protected $qName inherits() {
-        return this;
-      }
-    };
+    return ($qName)super.clone();
   }
 }

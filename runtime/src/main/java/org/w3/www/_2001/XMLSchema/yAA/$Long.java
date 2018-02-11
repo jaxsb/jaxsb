@@ -60,13 +60,6 @@ public abstract class $Long extends $Integer {
 
   @Override
   public $Long clone() {
-    return new $Long(this) {
-      private static final long serialVersionUID = -6394607848954244651L;
-
-      @Override
-      protected $Long inherits() {
-        return this;
-      }
-    };
+    return ($Long)super.clone();
   }
 }

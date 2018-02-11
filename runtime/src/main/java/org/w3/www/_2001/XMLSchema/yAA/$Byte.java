@@ -56,13 +56,6 @@ public abstract class $Byte extends $Short {
 
   @Override
   public $Byte clone() {
-    return new $Byte(this) {
-      private static final long serialVersionUID = 3395324229646772549L;
-
-      @Override
-      protected $Byte inherits() {
-        return this;
-      }
-    };
+    return ($Byte)super.clone();
   }
 }

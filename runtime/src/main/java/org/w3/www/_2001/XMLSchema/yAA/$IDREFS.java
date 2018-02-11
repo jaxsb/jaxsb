@@ -75,13 +75,6 @@ public abstract class $IDREFS extends $AnySimpleType {
 
   @Override
   public $IDREFS clone() {
-    return new $IDREFS(this) {
-      private static final long serialVersionUID = -5884428757266368741L;
-
-      @Override
-      protected $IDREFS inherits() {
-        return this;
-      }
-    };
+    return ($IDREFS)super.clone();
   }
 }

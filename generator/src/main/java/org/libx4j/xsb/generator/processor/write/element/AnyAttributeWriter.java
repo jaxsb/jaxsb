@@ -95,6 +95,11 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
+    writer.write("clone.anyAttribute = anyAttribute.clone(getCreateAttributeStore());\n");
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
   }
 }

@@ -56,13 +56,6 @@ public abstract class $String extends $AnySimpleType {
 
   @Override
   public $String clone() {
-    return new $String(this) {
-      private static final long serialVersionUID = -2015866370581946033L;
-
-      @Override
-      protected $String inherits() {
-        return this;
-      }
-    };
+    return ($String)super.clone();
   }
 }

@@ -57,13 +57,6 @@ public abstract class $NMTOKEN extends $Token {
 
   @Override
   public $NMTOKEN clone() {
-    return new $NMTOKEN(this) {
-      private static final long serialVersionUID = 3570596966666394331L;
-
-      @Override
-      protected $NMTOKEN inherits() {
-        return this;
-      }
-    };
+    return ($NMTOKEN)super.clone();
   }
 }

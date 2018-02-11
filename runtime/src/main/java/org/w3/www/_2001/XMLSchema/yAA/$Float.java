@@ -57,13 +57,6 @@ public abstract class $Float extends $AnySimpleType {
 
   @Override
   public $Float clone() {
-    return new $Float(this) {
-      private static final long serialVersionUID = -4803378714254264243L;
-
-      @Override
-      protected $Float inherits() {
-        return this;
-      }
-    };
+    return ($Float)super.clone();
   }
 }

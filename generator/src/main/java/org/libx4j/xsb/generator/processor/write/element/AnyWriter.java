@@ -111,6 +111,11 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
+    writer.write("clone.any = any.clone(getCreateElementDirectory());\n");
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
   }
 }

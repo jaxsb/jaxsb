@@ -75,13 +75,6 @@ public abstract class $ENTITIES extends $AnySimpleType {
 
   @Override
   public $ENTITIES clone() {
-    return new $ENTITIES(this) {
-      private static final long serialVersionUID = 7826924876739622313L;
-
-      @Override
-      protected $ENTITIES inherits() {
-        return this;
-      }
-    };
+    return ($ENTITIES)super.clone();
   }
 }

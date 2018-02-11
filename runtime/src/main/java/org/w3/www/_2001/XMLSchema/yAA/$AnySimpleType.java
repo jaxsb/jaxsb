@@ -117,7 +117,7 @@ public abstract class $AnySimpleType extends Binding {
 
   @Override
   public String id() {
-    return id(inherits());
+    return inherits() == this ? null : id(inherits());
   }
 
   @Override
@@ -132,14 +132,7 @@ public abstract class $AnySimpleType extends Binding {
 
   @Override
   public $AnySimpleType clone() {
-    return new $AnySimpleType(this) {
-      private static final long serialVersionUID = -8479447711356944297L;
-
-      @Override
-      protected $AnySimpleType inherits() {
-        return this;
-      }
-    };
+    return ($AnySimpleType)super.clone();
   }
 
   @Override

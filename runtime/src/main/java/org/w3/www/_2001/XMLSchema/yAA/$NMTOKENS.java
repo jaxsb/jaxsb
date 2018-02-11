@@ -75,13 +75,6 @@ public abstract class $NMTOKENS extends $AnySimpleType {
 
   @Override
   public $NMTOKENS clone() {
-    return new $NMTOKENS(this) {
-      private static final long serialVersionUID = 4984687020734176771L;
-
-      @Override
-      protected $NMTOKENS inherits() {
-        return this;
-      }
-    };
+    return ($NMTOKENS)super.clone();
   }
 }

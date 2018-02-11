@@ -55,13 +55,6 @@ public abstract class $NormalizedString extends $String {
 
   @Override
   public $NormalizedString clone() {
-    return new $NormalizedString(this) {
-      private static final long serialVersionUID = -2005930855161284183L;
-
-      @Override
-      protected $NormalizedString inherits() {
-        return this;
-      }
-    };
+    return ($NormalizedString)super.clone();
   }
 }

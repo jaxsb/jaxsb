@@ -62,13 +62,6 @@ public abstract class $Decimal extends $AnySimpleType {
 
   @Override
   public $Decimal clone() {
-    return new $Decimal(this) {
-      private static final long serialVersionUID = -7289942158677479602L;
-
-      @Override
-      protected $Decimal inherits() {
-        return this;
-      }
-    };
+    return ($Decimal)super.clone();
   }
 }

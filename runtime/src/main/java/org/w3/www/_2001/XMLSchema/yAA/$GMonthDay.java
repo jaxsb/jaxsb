@@ -57,13 +57,6 @@ public abstract class $GMonthDay extends $AnySimpleType {
 
   @Override
   public $GMonthDay clone() {
-    return new $GMonthDay(this) {
-      private static final long serialVersionUID = -4608081862190441411L;
-
-      @Override
-      protected $GMonthDay inherits() {
-        return this;
-      }
-    };
+    return ($GMonthDay)super.clone();
   }
 }

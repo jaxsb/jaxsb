@@ -186,6 +186,14 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final T plan, final Plan<?> parent) {
+    if (plan.isRestriction() || plan.getRepeatedExtension() != null)
+      return;
+
+    writer.write("clone." + plan.getInstanceName() + " = " + plan.getInstanceName() + ".clone(getCreateElementDirectory());\n");
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final T plan, final Plan<?> parent) {
     if (plan.isRef() || plan.getRepeatedExtension() != null)
       return;
@@ -685,8 +693,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + plan.getClassName(parent) + " clone()\n");
     writer.write("{\n");
-    String anonymousClass = plan.isAbstract() ? "{}" : "";
-    writer.write("return new " + plan.getClassName(parent) + "(this)" + anonymousClass + ";\n");
+    writer.write("return (" + plan.getClassName(parent) + ")super.clone();\n");
     writer.write("}\n");
 
     // EQUALS

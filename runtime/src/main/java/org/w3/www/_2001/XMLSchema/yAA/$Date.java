@@ -57,13 +57,6 @@ public abstract class $Date extends $AnySimpleType {
 
   @Override
   public $Date clone() {
-    return new $Date(this) {
-      private static final long serialVersionUID = -4736023220689267632L;
-
-      @Override
-      protected $Date inherits() {
-        return this;
-      }
-    };
+    return ($Date)super.clone();
   }
 }

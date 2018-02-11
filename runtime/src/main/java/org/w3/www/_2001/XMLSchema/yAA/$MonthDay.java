@@ -57,13 +57,6 @@ public abstract class $MonthDay extends $AnySimpleType {
 
   @Override
   public $MonthDay clone() {
-    return new $MonthDay(this) {
-      private static final long serialVersionUID = 477481892369091744L;
-
-      @Override
-      protected $MonthDay inherits() {
-        return this;
-      }
-    };
+    return ($MonthDay)super.clone();
   }
 }

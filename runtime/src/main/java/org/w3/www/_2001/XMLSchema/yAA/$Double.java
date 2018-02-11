@@ -57,13 +57,6 @@ public abstract class $Double extends $AnySimpleType {
 
   @Override
   public $Double clone() {
-    return new $Double(this) {
-      private static final long serialVersionUID = -186742707176755984L;
-
-      @Override
-      protected $Double inherits() {
-        return this;
-      }
-    };
+    return ($Double)super.clone();
   }
 }

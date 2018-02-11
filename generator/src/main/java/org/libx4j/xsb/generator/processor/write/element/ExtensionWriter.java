@@ -60,6 +60,10 @@ public final class ExtensionWriter extends Writer<ExtensionPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final ExtensionPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final ExtensionPlan plan, final Plan<?> parent) {
   }
 }

@@ -60,6 +60,10 @@ public final class ChoiceWriter extends Writer<ChoicePlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final ChoicePlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final ChoicePlan plan, final Plan<?> parent) {
   }
 }

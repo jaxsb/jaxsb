@@ -59,13 +59,6 @@ public abstract class $NOTATION extends $AnySimpleType {
 
   @Override
   public $NOTATION clone() {
-    return new $NOTATION(this) {
-      private static final long serialVersionUID = 5354182416535222789L;
-
-      @Override
-      protected $NOTATION inherits() {
-        return this;
-      }
-    };
+    return ($NOTATION)super.clone();
   }
 }

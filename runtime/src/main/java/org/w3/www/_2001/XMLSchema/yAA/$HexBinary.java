@@ -57,13 +57,6 @@ public abstract class $HexBinary extends $AnySimpleType {
 
   @Override
   public $HexBinary clone() {
-    return new $HexBinary(this) {
-      private static final long serialVersionUID = 6507796864013783811L;
-
-      @Override
-      protected $HexBinary inherits() {
-        return this;
-      }
-    };
+    return ($HexBinary)super.clone();
   }
 }

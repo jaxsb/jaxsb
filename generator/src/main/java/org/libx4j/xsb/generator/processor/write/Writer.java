@@ -153,6 +153,10 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     ((Writer)directory.getEntity(plan, null)).appendHashCode(writer, plan, parent);
   }
 
+  public static void writeClone(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {
+    ((Writer)directory.getEntity(plan, null)).appendClone(writer, plan, parent);
+  }
+
   public static void writeClass(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {
     ((Writer)directory.getEntity(plan, null)).appendClass(writer, plan, parent);
   }
@@ -168,5 +172,6 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
   protected abstract void appendCopy(final StringWriter writer, final T plan, final Plan<?> parent, final String variable);
   protected abstract void appendEquals(final StringWriter writer, final T plan, final Plan<?> parent);
   protected abstract void appendHashCode(final StringWriter writer, final T plan, final Plan<?> parent);
+  protected abstract void appendClone(final StringWriter writer, final T plan, final Plan<?> parent);
   protected abstract void appendClass(final StringWriter writer, final T plan, final Plan<?> parent);
 }

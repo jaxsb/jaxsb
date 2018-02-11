@@ -48,6 +48,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
     this.name = copy.name;
     this.qualified = copy.qualified;
     this.required = copy.required;
+    this.value = copy.value;
   }
 
   public T getDefault() {
@@ -108,9 +109,10 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
     }
   }
 
-  @Override
-  public AttributeAudit<T> clone() {
-    return new AttributeAudit<T>(this);
+  public AttributeAudit<T> clone(final CompositeAttributeStore attributeStore) {
+    final AttributeAudit<T> audit = new AttributeAudit<T>(this);
+    attributeStore.add(audit);
+    return audit;
   }
 
   @Override

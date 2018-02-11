@@ -60,6 +60,10 @@ public final class SimpleContentWriter extends Writer<SimpleContentPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final SimpleContentPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final SimpleContentPlan plan, final Plan<?> parent) {
   }
 }

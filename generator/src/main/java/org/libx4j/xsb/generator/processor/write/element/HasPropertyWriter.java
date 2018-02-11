@@ -60,6 +60,10 @@ public final class HasPropertyWriter extends Writer<HasPropertyPlan> {
   }
 
   @Override
+  protected void appendClone(final StringWriter writer, final HasPropertyPlan plan, final Plan<?> parent) {
+  }
+
+  @Override
   protected void appendClass(final StringWriter writer, final HasPropertyPlan plan, final Plan<?> parent) {
   }
 }

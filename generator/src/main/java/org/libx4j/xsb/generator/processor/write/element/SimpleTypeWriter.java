@@ -353,6 +353,11 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     throw new CompilerFailureException("simpleType cannot have a hashCode statement");
   }
 
+  @Override
+  protected void appendClone(final StringWriter writer, final T plan, final Plan<?> parent) {
+    throw new CompilerFailureException("simpleType cannot have a clone statement");
+  }
+
   protected static void appendPattern(final StringWriter writer, final Collection<PatternPlan> patterns) {
     if (patterns == null || patterns.size() == 0)
       return;
@@ -558,7 +563,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + plan.getClassName(parent) + " clone()\n");
     writer.write("{\n");
-    writer.write("return " + plan.getClassName(parent) + ".newInstance(this);\n");
+    writer.write("return (" + plan.getClassName(parent) + ")super.clone();\n");
     writer.write("}\n");
 
     // EQUALS

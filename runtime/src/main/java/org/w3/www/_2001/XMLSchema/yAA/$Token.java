@@ -57,13 +57,6 @@ public abstract class $Token extends $NormalizedString {
 
   @Override
   public $Token clone() {
-    return new $Token(this) {
-      private static final long serialVersionUID = -837309197068360375L;
-
-      @Override
-      protected $Token inherits() {
-        return this;
-      }
-    };
+    return ($Token)super.clone();
   }
 }
