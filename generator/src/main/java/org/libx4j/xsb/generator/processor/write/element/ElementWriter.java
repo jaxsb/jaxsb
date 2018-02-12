@@ -190,7 +190,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.isRestriction() || plan.getRepeatedExtension() != null)
       return;
 
-    writer.write("clone." + plan.getInstanceName() + " = " + plan.getInstanceName() + ".clone(getCreateElementDirectory());\n");
+    writer.write("clone." + plan.getInstanceName() + " = " + plan.getInstanceName() + " == null ? null : clone.getAudit(" + plan.getInstanceName() + ");\n");
   }
 
   @Override

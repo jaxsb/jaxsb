@@ -323,7 +323,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   protected void merge(final Binding copy) {
     if (copy._$$hasElements())
-      this.elements = copy.elements.clone();
+      this.elements = copy.elements.clone(($AnySimpleType)this);
     // this.owner = copy.owner;
   }
 
@@ -376,6 +376,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       nameToAudit = new HashMap<QName,ElementAudit<?>>();
 
     nameToAudit.put(elementAudit.getName() != null ? elementAudit.getName() : ElementSuperList.ANY, elementAudit);
+  }
+
+  @SuppressWarnings("unchecked")
+  protected final <T extends Binding>ElementAudit<T> getAudit(final ElementAudit<T> audit) {
+    return (ElementAudit<T>)nameToAudit.get(audit.getName());
   }
 
   protected static <B extends $AnySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final Binding binding, final B attribute) {
@@ -586,11 +591,15 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   public Binding clone() {
     try {
       final Binding clone = (Binding)super.clone();
-      clone.owner = null;
-      clone.elements = null;
-      clone.attributeDirectory = null;
+      if (elements != null) {
+        clone.elements = elements.clone(($AnySimpleType)clone);
+        clone.nameToAudit = elements.nameToAudit;
+      }
+
+      clone.attributeDirectory = attributeDirectory == null ? null : attributeDirectory.clone(($AnySimpleType)clone);
       clone.inherits = inherits;
       clone.isNull = isNull;
+      clone.owner = null;
       return clone;
     }
     catch (final CloneNotSupportedException e) {

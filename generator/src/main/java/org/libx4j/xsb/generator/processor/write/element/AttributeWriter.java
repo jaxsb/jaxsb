@@ -160,7 +160,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     if (plan.isRestriction())
       return;
 
-    writer.write("clone." + plan.getInstanceName() + " = " + plan.getInstanceName() + ".clone(getCreateAttributeStore());\n");
+    writer.write("clone." + plan.getInstanceName() + " = " + plan.getInstanceName() + ".clone(clone);\n");
   }
 
   @Override

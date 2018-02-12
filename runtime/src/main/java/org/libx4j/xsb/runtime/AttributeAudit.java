@@ -27,28 +27,29 @@ import org.w3c.dom.Element;
 public final class AttributeAudit<T extends $AnySimpleType> implements Serializable {
   private static final long serialVersionUID = 4793561156708612350L;
 
-  private final $AnySimpleType parent;
+  private final $AnySimpleType owner;
   private final T _default;
   private final QName name;
   private final boolean qualified;
   private final boolean required;
   private T value = null;
 
-  public AttributeAudit(final $AnySimpleType parent, final T _default, final QName name, final boolean qualified, final boolean required) {
-    this.parent = parent;
+  public AttributeAudit(final $AnySimpleType owner, final T _default, final QName name, final boolean qualified, final boolean required) {
+    this.owner = owner;
     this._default = _default;
     this.name = name;
     this.qualified = qualified;
     this.required = required;
   }
 
-  public AttributeAudit(final AttributeAudit<T> copy) {
-    this.parent = copy.parent;
-    this._default = copy._default;
+  @SuppressWarnings("unchecked")
+  private AttributeAudit(final $AnySimpleType owner, final AttributeAudit<T> copy) {
+    this.owner = owner;
+    this._default = copy._default == null ? null : (T)copy._default.clone();
     this.name = copy.name;
     this.qualified = copy.qualified;
     this.required = copy.required;
-    this.value = copy.value;
+    this.value = copy.value == null ? null : (T)copy.value.clone();
   }
 
   public T getDefault() {
@@ -68,7 +69,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
   }
 
   public boolean setAttribute(final T value) {
-    if (parent.isNull())
+    if (owner.isNull())
       throw new BindingRuntimeException("NULL Object is immutable.");
 
     this.value = value;
@@ -109,10 +110,8 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
     }
   }
 
-  public AttributeAudit<T> clone(final CompositeAttributeStore attributeStore) {
-    final AttributeAudit<T> audit = new AttributeAudit<T>(this);
-    attributeStore.add(audit);
-    return audit;
+  public AttributeAudit<T> clone(final $AnySimpleType owner) {
+    return new AttributeAudit<T>(owner, this);
   }
 
   @Override

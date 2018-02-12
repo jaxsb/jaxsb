@@ -69,7 +69,7 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
     }
   }
 
-  private HashMap<QName,ElementAudit<? extends Binding>> nameToAudit;
+  protected HashMap<QName,ElementAudit<? extends Binding>> nameToAudit;
   private $AnySimpleType owner;
 
   public ElementSuperList(final $AnySimpleType owner, final HashMap<QName,ElementAudit<?>> nameToAudit) {
@@ -98,7 +98,7 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
   }
 
   @SuppressWarnings("unchecked")
-  private PartitionedList<Binding,QName>.PartitionList<Binding> getPartition(final QName name) {
+  protected PartitionedList<Binding,QName>.PartitionList<Binding> getPartition(final QName name) {
     if (!typeToSubList.containsKey(name))
       return null;
 
@@ -140,12 +140,18 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
   }
 
   @Override
-  public ElementSuperList clone() {
+  protected Binding clone(final Binding item) {
+    return item.clone();
+  }
+
+  protected ElementSuperList clone(final $AnySimpleType owner) {
     final ElementSuperList clone = (ElementSuperList)super.clone();
     clone.owner = owner;
     clone.nameToAudit = new HashMap<QName,ElementAudit<?>>();
-    for (final HashMap.Entry<QName,ElementAudit<?>> entry : nameToAudit.entrySet())
-      clone.nameToAudit.put(entry.getKey(), entry.getValue().clone(this));
+    for (final HashMap.Entry<QName,ElementAudit<?>> entry : nameToAudit.entrySet()) {
+      final ElementAudit<?> copy = new ElementAudit<>(owner, entry.getValue(), (ElementSuperList.ElementSubList)clone.getPartition(entry.getValue().getName()));
+      clone.nameToAudit.put(entry.getKey(), copy);
+    }
 
     return clone;
   }

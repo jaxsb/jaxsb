@@ -19,14 +19,21 @@ package org.libx4j.xsb.runtime;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
 public class CompositeAttributeStore implements Serializable {
   private static final long serialVersionUID = 5214136979828034837L;
 
-  private final List<AttributeAudit<?>> audits = new ArrayList<AttributeAudit<?>>();
+  private final ArrayList<AttributeAudit<?>> audits;
+
+  public CompositeAttributeStore() {
+    this.audits = new ArrayList<AttributeAudit<?>>();
+  }
+
+  private CompositeAttributeStore(final ArrayList<AttributeAudit<?>> audits) {
+    this.audits = audits;
+  }
 
   private class AttributeIterator implements Iterator<$AnySimpleType> {
     private final Iterator<AttributeAudit<?>> iterator;
@@ -62,5 +69,13 @@ public class CompositeAttributeStore implements Serializable {
 
   public Iterator<? extends $AnySimpleType> iterator() {
     return new AttributeIterator(audits.iterator());
+  }
+
+  public CompositeAttributeStore clone(final $AnySimpleType owner) {
+    final ArrayList<AttributeAudit<?>> clone = new ArrayList<AttributeAudit<?>>();
+    for (final AttributeAudit<?> audit : audits)
+      clone.add(audit.clone(owner));
+
+    return new CompositeAttributeStore(clone);
   }
 }

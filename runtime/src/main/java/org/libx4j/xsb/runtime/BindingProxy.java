@@ -44,4 +44,12 @@ public class BindingProxy<T extends Binding> extends Binding {
   public QName name() {
     return binding.name();
   }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public BindingProxy<T> clone() {
+    final BindingProxy<T> clone = (BindingProxy<T>)super.clone();
+    clone.binding = (T)binding.clone();
+    return clone;
+  }
 }

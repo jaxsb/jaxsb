@@ -37,7 +37,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   private static final long serialVersionUID = -8175752291591734863L;
 
   private final Class<B> type;
-  private final Binding owner;
+  protected final Binding owner;
   private final B _default;
   private final BindingProxy<B> defaultProxy;
   private final QName name;
@@ -70,18 +70,18 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     owner._$$registerElementAudit(this);
   }
 
-  public ElementAudit(final Binding owner, final ElementAudit<B> copy) {
+  protected ElementAudit(final Binding owner, final ElementAudit<B> copy, final ElementSuperList.ElementSubList elements) {
     this.owner = owner;
     this.type = copy.type;
-    this._default = copy._default;
-    this.defaultProxy = copy.defaultProxy;
+    this._default = copy._default == null ? null : (B)copy._default.clone();
+    this.defaultProxy = copy.defaultProxy == null ? null : copy.defaultProxy.clone();
     this.name = copy.name;
     this.typeName = copy.typeName;
     this.qualified = copy.qualified;
     this.nillable = copy.nillable;
     this.minOccurs = copy.minOccurs;
     this.maxOccurs = copy.maxOccurs;
-    owner._$$registerElementAudit(this);
+    this.elements = elements;
   }
 
   public Class<B> getType() {
@@ -169,13 +169,6 @@ public final class ElementAudit<B extends Binding> implements Serializable {
       node.setPrefix(null);
 
     parent.appendChild(node);
-  }
-
-  public ElementAudit<B> clone(final ElementSuperList elementList) {
-    final ElementAudit<B> clone = new ElementAudit<B>(elementList.getOwner(), this);
-    clone.elements = (ElementSuperList.ElementSubList)elementList.getPartition(name, type);
-    clone.elements.setAudit(clone);
-    return clone;
   }
 
   @Override
