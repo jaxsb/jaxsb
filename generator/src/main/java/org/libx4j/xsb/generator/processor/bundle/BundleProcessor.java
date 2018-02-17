@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.XMLConstants;
@@ -56,13 +57,19 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
-  private static void compile(final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException {
+  private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException {
     final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<File>(2);
     final File[] requiredLibs = Resources.getLocationBases(Collections.class, Validator.class, Binding.class, NamespaceBinding.class);
     for (final File file : requiredLibs)
       classpath.add(file);
 
-    new JavaCompiler(destDir, classpath).compile(sourceDir);
+    final File[] sources = new File[documents.size()];
+    final Iterator<SchemaComposite> iterator = documents.iterator();
+    for (int i = 0; i < sources.length; i++)
+      // FIXME: This is duplicated in SchemaReferenceProcessor[62]
+      sources[i] = new File(sourceDir, ((SchemaModelComposite)iterator.next()).getSchemaModel().getTargetNamespace().getNamespaceBinding().getClassName().replace('.', File.separatorChar) + ".java");
+
+    new JavaCompiler(destDir, classpath).compile(sources);
   }
 
   private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) throws IOException, SAXException {
@@ -179,7 +186,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> directory) {
     try {
       if (pipelineContext.getCompileDir() != null)
-        BundleProcessor.compile(pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
+        BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
 
       final Collection<Bundle> bundles = new ArrayList<Bundle>();
       if (pipelineContext.getPackage()) {
