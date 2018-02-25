@@ -76,7 +76,7 @@ public final class NamespaceBinding {
         }
       }
       else {
-        if (!start.equals(builder.substring(0, start.length())))
+        if (builder.length() < start.length() || !start.equals(builder.substring(0, start.length())))
           return '\0';
 
         builder.delete(0, start.length());
