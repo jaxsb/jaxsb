@@ -61,7 +61,7 @@ public class ClassFile {
     buffer.append("protected static void _$$register() {");
     for (final String registrationText : registrationTexts)
       buffer.append("\n" + registrationText);
-    buffer.append("}");
+    buffer.append('}');
 
     for (final String classText : classTexts)
       buffer.append("\n" + classText);

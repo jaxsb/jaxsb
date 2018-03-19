@@ -120,12 +120,11 @@ public abstract class Bindings {
   }
 
   public static String getXPath(final Binding binding, final Function<Binding,String> function) {
-    final StringBuilder string = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     Binding owner = binding;
-    do {
-      string.insert(0, "/" + function.apply(owner));
-    }
+    do
+      builder.insert(0, "/" + function.apply(owner));
     while ((owner = owner._$$getOwner()) != null);
-    return string.toString();
+    return builder.toString();
   }
 }

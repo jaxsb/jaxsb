@@ -26,7 +26,7 @@ import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.generator.processor.plan.element.AnyAttributePlan;
 import org.libx4j.xsb.generator.processor.write.Writer;
 import org.libx4j.xsb.runtime.AttributeAudit;
-import org.libx4j.xsb.runtime.Binding;
+import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Element;
 
 public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
@@ -36,26 +36,26 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("private " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + Binding.class.getName() + ">> anyAttribute = new " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + Binding.class.getName() + ">>(this, null, null, " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + ");\n");
+    writer.write("private " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + $AnySimpleType.class.getName() + ">> anyAttribute = new " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + $AnySimpleType.class.getName() + ">>(this, null, null, " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + ");\n");
   }
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("public " + List.class.getName() + "<" +  Binding.class.getName() + "> getAny$()\n");
+    writer.write("public " + List.class.getName() + "<" +  $AnySimpleType.class.getName() + "> getAny$()\n");
     writer.write("{\n");
     writer.write("return anyAttribute.getAttribute();\n");
     writer.write("}\n");
 
-    writer.write("public " + Binding.class.getName() + " any$(final int index)\n");
+    writer.write("public " + $AnySimpleType.class.getName() + " any$(final int index)\n");
     writer.write("{\n");
-    writer.write("final " + List.class.getName() + "<" + Binding.class.getName() + "> values = getAny$();\n");
+    writer.write("final " + List.class.getName() + "<" + $AnySimpleType.class.getName() + "> values = getAny$();\n");
     writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : null;\n");
     writer.write("}\n");
   }
 
   @Override
   protected void appendSetMethod(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("public void addAny$(final " + Binding.class.getName() + " anyAttribute)\n");
+    writer.write("public void addAny$(final " + $AnySimpleType.class.getName() + " anyAttribute)\n");
     writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
     writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + ">());\n");
@@ -73,8 +73,8 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 //      writer.write("else\n");
 //      writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
-    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<" + Binding.class.getName() + ">());\n");
-    writer.write("this.anyAttribute.getAttribute().add(" + Binding.class.getName() + ".parseAttr((" + Element.class.getName() + ")attribute.getParentNode(), attribute));\n");
+    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<" + $AnySimpleType.class.getName() + ">());\n");
+    writer.write("this.anyAttribute.getAttribute().add(" + $AnySimpleType.class.getName() + ".parseAttr((" + Element.class.getName() + ")attribute.getParentNode(), attribute));\n");
 //      writer.write("}\n");
   }
 
