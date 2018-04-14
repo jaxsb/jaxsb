@@ -47,8 +47,8 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
     }
 
     @Override
-    protected void afterAdd(final int index, final Binding e) {
-      super.afterAdd(index, e);
+    protected void afterAdd(final int index, final Binding e, final RuntimeException re) {
+      super.afterAdd(index, e, re);
       if (e._$$getOwner() != owner)
         e._$$setOwner(owner);
     }
