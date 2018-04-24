@@ -16,39 +16,48 @@
 
 package org.libx4j.xsb.compiler.processor.reference;
 
-import java.net.URL;
-
+import org.lib4j.util.BiMap;
+import org.lib4j.util.HashBiMap;
 import org.libx4j.xsb.compiler.lang.NamespaceURI;
-import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public final class SchemaNamespaceHandler extends DefaultHandler {
-  private final URL schemaUrl;
-
-  public SchemaNamespaceHandler(final URL schemaUrl) {
-    this.schemaUrl = schemaUrl;
-  }
+  private final BiMap<String,String> xmlns = new HashBiMap<String,String>();
 
   @Override
-  public void startElement(final String uri, final String localName, String qName, final Attributes attributes) throws SAXException {
-    if (!UniqueQName.XS.getNamespaceURI().toString().equals(uri) || !"schema".equals(localName))
+  public void startElement(final String uri, String localName, final String qName, final Attributes attributes) throws SAXException {
+    if (xmlns.isEmpty()) {
+      for (int i = 0; i < attributes.getLength(); i++) {
+        final String name = attributes.getQName(i);
+        if (name.startsWith("xmlns")) {
+          final int colon = name.indexOf(':');
+          xmlns.put(colon == -1 ? "" : name.substring(colon + 1), attributes.getValue(i));
+        }
+      }
+    }
+
+    final int colon = qName.indexOf(':');
+    final String prefix;
+    if (colon != -1) {
+      prefix = qName.substring(0, colon);
+      localName = qName.substring(colon + 1);
+    }
+    else {
+      prefix = "";
+      localName = qName;
+    }
+
+    if (!"schema".equals(localName))
+      return;
+
+    if (!NamespaceURI.XS.getNamespaceURI().equals(this.xmlns.get(prefix)))
       return;
 
     final int index = attributes.getIndex("targetNamespace");
-    final NamespaceURI namespaceURI = NamespaceURI.getInstance(index != -1 ? attributes.getValue(index) : "");
-
-    String prefix = null;
-    for (int i = 0; i < attributes.getLength(); i++) {
-      final String name = attributes.getQName(i);
-      if (name.startsWith("xmlns:") && namespaceURI.toString().equals(attributes.getValue(i)))
-        prefix = name.substring(6);
-    }
-
-    if (prefix == null)
-      prefix = "";
-
-    throw new SAXException(schemaUrl.hashCode() + "\"" + namespaceURI + "\"" + prefix);
+    final String namespaceURI = index != -1 ? attributes.getValue(index) : "";
+    final String nsPrefix = xmlns.inverse().get(namespaceURI);
+    throw new ReferenceSAXException(namespaceURI, nsPrefix != null ? nsPrefix : "");
   }
 }

@@ -17,42 +17,38 @@
 package org.libx4j.xsb.runtime;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.lib4j.lang.PackageLoader;
 import org.lib4j.lang.PackageNotFoundException;
-import org.lib4j.lang.Paths;
+import org.lib4j.net.CachedURL;
 import org.lib4j.net.URLs;
+import org.lib4j.xml.sax.LSInputImpl;
 import org.lib4j.xml.validate.ValidatorError;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
 
-import com.sun.org.apache.xerces.internal.impl.xs.XSDDescription;
-import com.sun.org.apache.xerces.internal.xni.XMLResourceIdentifier;
-import com.sun.org.apache.xerces.internal.xni.XNIException;
-import com.sun.org.apache.xerces.internal.xni.parser.XMLEntityResolver;
-import com.sun.org.apache.xerces.internal.xni.parser.XMLInputSource;
-
-public final class BindingEntityResolver implements XMLEntityResolver {
+public final class BindingEntityResolver implements LSResourceResolver {
   public static void registerSchemaLocation(final String namespaceURI, final URL schemaReference) {
-    final URL present = schemaReferences.get(namespaceURI);
+    final CachedURL present = schemaReferences.get(namespaceURI);
     if (present != null) {
-      if (!present.equals(schemaReference))
+      if (!present.toURL().equals(schemaReference))
         throw new ValidatorError("We should not be resetting {" + namespaceURI + "} from " + present + " to " + schemaReference);
 
       return;
     }
 
-    schemaReferences.put(namespaceURI, schemaReference);
+    schemaReferences.put(namespaceURI, new CachedURL(schemaReference));
   }
 
-  public static URL lookupSchemaLocation(final String namespaceURI) {
+  public static CachedURL lookupSchemaLocation(final String namespaceURI) {
     if (namespaceURI == null)
       return null;
 
-    final URL schemaReference = schemaReferences.get(namespaceURI);
+    final CachedURL schemaReference = schemaReferences.get(namespaceURI);
     if (schemaReference != null)
       return schemaReference;
 
@@ -74,49 +70,37 @@ public final class BindingEntityResolver implements XMLEntityResolver {
     return schemaReferences.get(namespaceURI);
   }
 
-  private static final Map<String,URL> schemaReferences = new HashMap<String,URL>();
+  protected static final Map<String,CachedURL> schemaReferences = new HashMap<String,CachedURL>();
 
   @Override
-  public XMLInputSource resolveEntity(final XMLResourceIdentifier resourceIdentifier) throws IOException, XNIException {
-    if (resourceIdentifier == null)
-      return null;
-
-    final String namespaceURI = resourceIdentifier.getNamespace();
-    String baseId = resourceIdentifier.getBaseSystemId();
-    if (baseId == null)
-      baseId = resourceIdentifier.getExpandedSystemId();
+  public LSInput resolveResource(final String type, final String namespaceURI, final String publicId, final String systemId, final String baseURI) {
+    if (systemId == null) {
+//      systemId = resourceIdentifier.getExpandedSystemId();
+    }
 
     // for some reason, this happens every once in a while
-    if (namespaceURI == null && baseId == null)
+    if (namespaceURI == null && systemId == null)
       return null;
 
-    final URL schemaReference;
-    if (((XSDDescription)resourceIdentifier).getContextType() == XSDDescription.CONTEXT_INCLUDE) {
-      final String localName = Paths.getName(resourceIdentifier.getExpandedSystemId());
-      schemaReference = new URL(Paths.getCanonicalParent(baseId) + "/" + localName);
-    }
-    else {
-      schemaReference = lookupSchemaLocation(namespaceURI);
-    }
+    final CachedURL url;
+//    if (((XSDDescription)resourceIdentifier).getContextType() == XSDDescription.CONTEXT_INCLUDE) {
+//      final String localName = Paths.getName(resourceIdentifier.getExpandedSystemId());
+//      schemaReference = new URL(Paths.getCanonicalParent(systemId) + "/" + localName);
+//    }
+//    else {
+      url = lookupSchemaLocation(namespaceURI);
+//    }
 
-    if (schemaReference == null)
-      throw new ValidatorError("The schemaReference for " + resourceIdentifier + " is null!");
+    if (url == null)
+      throw new ValidatorError("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null!");
 
-    final String expandedSystemId;
     try {
-      expandedSystemId = URLs.toExternalForm(schemaReference);
+      final LSInput input = new LSInputImpl(URLs.toExternalForm(url), publicId, baseURI);
+      input.setByteStream(url.openStream());
+      return input;
     }
-    catch (final MalformedURLException e) {
-      final IOException ioException = new IOException("Cannot obtain externalForm of " + schemaReference);
-      ioException.initCause(e);
-      throw ioException;
+    catch (final IOException e) {
+      throw new RuntimeException("Cannot obtain externalForm of " + url, e);
     }
-
-    resourceIdentifier.setExpandedSystemId(expandedSystemId);
-    resourceIdentifier.setLiteralSystemId(expandedSystemId);
-
-    final XMLInputSource inputSource = new XMLInputSource(resourceIdentifier);
-    inputSource.setByteStream(schemaReference.openStream());
-    return inputSource;
   }
 }

@@ -16,8 +16,6 @@
 
 package org.libx4j.xsb.runtime;
 
-import java.io.File;
-
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.xni.parser.XMLEntityResolver;
 import org.junit.Assert;
@@ -40,7 +38,7 @@ public class BindingValidatorTest {
   @Test
   public void testSAXParser() throws Exception {
     System.setProperty("org.xml.sax.driver", SAXParser.class.getName());
-    final Document document = DOMParsers.newDocumentBuilder().parse(new File("src/test/resources/empty.xml"));
+    final Document document = DOMParsers.newDocumentBuilder().parse(Thread.currentThread().getContextClassLoader().getResourceAsStream("empty.xml"));
     if (document == null)
       Assert.fail("document == null");
 
@@ -51,7 +49,7 @@ public class BindingValidatorTest {
     catch (final ValidationException e) {
       if (e.getMessage().startsWith(BindingEntityResolver.class.getName() + " cannot be cast to " + XMLEntityResolver.class.getName()))
         Assert.fail(e.getMessage());
-      else if (e.getCause() == null || e.getCause().getMessage() == null || !e.getCause().getMessage().startsWith("cvc-elt.1: Cannot find the declaration of element"))
+      else if (e.getCause() == null || e.getCause().getMessage() == null || !e.getCause().getMessage().startsWith("cvc-elt.1.a: Cannot find the declaration of element 'empty'."))
         throw e;
     }
   }

@@ -23,12 +23,14 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.lib4j.pipeline.PipelineEntity;
 import org.lib4j.xml.Prefix;
-import org.lib4j.xml.sax.SAXFeature;
-import org.lib4j.xml.sax.SAXParser;
-import org.lib4j.xml.sax.SAXParsers;
 import org.libx4j.xsb.compiler.lang.LexerFailureException;
 import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
@@ -43,20 +45,14 @@ public final class SchemaReference implements PipelineEntity {
   private static final Map<Prefix,NamespaceURI> prefixToNamespaceURI = new HashMap<Prefix,NamespaceURI>();
 
   // to dereference the schemaReference to a targetNamespace
-  private volatile boolean isConnected = false;
-  private volatile boolean isResolved = false;
+  private final AtomicBoolean isConnected = new AtomicBoolean();
+  private final AtomicBoolean isResolved = new AtomicBoolean();
   private final URL location;
   private NamespaceURI namespaceURI;
   private Prefix prefix;
-  private final Boolean isInclude;
+  private final boolean isInclude;
   private long lastModified = Long.MIN_VALUE;
   private InputStream inputStream = null;
-
-  public SchemaReference(final URL location) {
-    this.location = location;
-    this.isInclude = null;
-    logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\")");
-  }
 
   public SchemaReference(final URL location, final boolean isInclude) {
     if (location == null)
@@ -97,7 +93,7 @@ public final class SchemaReference implements PipelineEntity {
   }
 
   private void resolveUnknowns() {
-    if (isResolved)
+    if (isResolved.get())
       return;
 
     if (namespaceURI != null) {
@@ -105,7 +101,7 @@ public final class SchemaReference implements PipelineEntity {
         prefix = namespaceURIToPrefix.get(namespaceURI);
 
       if (prefix != null) {
-        isResolved = true;
+        isResolved.set(true);
         return;
       }
     }
@@ -114,13 +110,13 @@ public final class SchemaReference implements PipelineEntity {
         namespaceURI = prefixToNamespaceURI.get(prefix);
 
       if (namespaceURI != null) {
-        isResolved = true;
+        isResolved.set(true);
         return;
       }
     }
 
     synchronized (location) {
-      if (isResolved)
+      if (isResolved.get())
         return;
 
       try {
@@ -131,51 +127,38 @@ public final class SchemaReference implements PipelineEntity {
       }
 
       try {
-        final SAXParser saxParser = SAXParsers.createParser();
-        saxParser.setFeature(SAXFeature.NAMESPACE_PREFIXES, true);
-        saxParser.setContentHandler(new SchemaNamespaceHandler(getURL()));
-        saxParser.parse(new InputSource(inputStream));
+        final SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+        saxParser.parse(new InputSource(inputStream), new SchemaNamespaceHandler());
       }
       catch (final FileNotFoundException e) {
         throw new LexerFailureException(e.getMessage());
       }
-      catch (final IOException e) {
+      catch (final IOException | ParserConfigurationException e) {
         throw new LexerFailureException(e);
       }
-      catch (final SAXException e) {
-        if (e.getMessage() == null)
-          throw new LexerFailureException(location.toString(), e);
-
-        final String code = location.hashCode() + "\"";
-        if (e.getMessage().indexOf(code) != 0)
-          throw new LexerFailureException(location.toString(), e);
-
-        final int delimiter = e.getMessage().lastIndexOf("\"");
-        if (delimiter == -1)
-          throw new LexerFailureException(location.toString(), e);
-
-        final String namespace = e.getMessage().substring(code.length(), delimiter);
-        final String prefix = e.getMessage().substring(delimiter + 1);
-        // This links the namespaceURI to the prefix
+      catch (final ReferenceSAXException e) {
         if (namespaceURI == null)
-          namespaceURI = NamespaceURI.getInstance(namespace);
-        else if (!namespaceURI.toString().equals(namespace))
-          throw new LexerFailureException("This should never happen: " + namespaceURI + " != " + namespace);
+          namespaceURI = NamespaceURI.getInstance(e.getNamespaceURI());
+        else if (!namespaceURI.toString().equals(e.getNamespaceURI()))
+          throw new LexerFailureException("This should never happen: " + namespaceURI + " != " + e.getNamespaceURI());
 
-        this.prefix = Prefix.getInstance(prefix);
+        this.prefix = Prefix.getInstance(e.getPrefix());
         logger.debug("linking \"" + namespaceURI + "\" to \"" + this.prefix + "\"");
         UniqueQName.linkPrefixNamespace(namespaceURI, this.prefix);
-        isResolved = true;
+        isResolved.set(true);
+      }
+      catch (final SAXException e) {
+        throw new LexerFailureException(location.toString(), e);
       }
     }
   }
 
   private void checkOpenConnection() throws IOException {
-    if (isConnected)
+    if (isConnected.get())
       return;
 
     synchronized (location.toString()) {
-      if (isConnected)
+      if (isConnected.get())
         return;
 
       final URLConnection connection = location.openConnection();
@@ -188,7 +171,7 @@ public final class SchemaReference implements PipelineEntity {
       }
 
       this.lastModified = connection.getLastModified();
-      isConnected = true;
+      isConnected.set(true);
     }
   }
 

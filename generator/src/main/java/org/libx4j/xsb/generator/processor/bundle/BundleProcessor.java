@@ -72,7 +72,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     new JavaCompiler(destDir, classpath).compile(sources);
   }
 
-  private static Collection<File> jar(final File destDir, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) throws IOException, SAXException {
+  private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) throws IOException, SAXException {
     final Set<NamespaceURI> namespaceURIsAdded = new HashSet<NamespaceURI>();
     final Collection<File> jarFiles = new HashSet<File>();
 
@@ -81,28 +81,35 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
       if ((includes == null || includes.contains(namespaceURI)) && (excludes == null || !excludes.contains(namespaceURI))) {
         final String packageName = namespaceURI.getNamespaceBinding().getPackageName();
-        final File jarFile = new File(destDir, packageName + ".jar");
-        if (jarFile.exists() && !jarFile.delete())
-          throw new BindingError("Unable to delete the existing jar: " + jarFile.getAbsolutePath());
-
-        final Jar jar = new Jar(jarFile);
-        jarFiles.add(jarFile);
-
         final String packagePath = packageName.replace('.', '/');
-        if (!namespaceURIsAdded.contains(namespaceURI)) {
-          namespaceURIsAdded.add(namespaceURI);
+        final Jar jar;
+        if (isJar) {
+          final File jarFile = new File(destDir, packageName + ".jar");
+          if (jarFile.exists() && !jarFile.delete())
+            throw new BindingError("Unable to delete the existing jar: " + jarFile.getAbsolutePath());
 
-          final Collection<File> files = Files.listAll(new File(destDir, packagePath));
-          if (files != null)
-            for (final File file : files)
-              if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
-                jar.addEntry(Files.relativePath(destDir.getAbsoluteFile(), file.getAbsoluteFile()), Files.getBytes(file));
+          jar = new Jar(jarFile);
+          jarFiles.add(jarFile);
+
+          if (!namespaceURIsAdded.contains(namespaceURI)) {
+            namespaceURIsAdded.add(namespaceURI);
+
+            final Collection<File> files = Files.listAll(new File(destDir, packagePath));
+            if (files != null)
+              for (final File file : files)
+                if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
+                  jar.addEntry(Files.relativePath(destDir.getAbsoluteFile(), file.getAbsoluteFile()), Files.getBytes(file));
+          }
+        }
+        else {
+          jar = null;
         }
 
         if (!schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
           addXSDs(schemaModelComposite.getSchemaDocument().getSchemaReference().getURL(), packagePath + '/' + packageName + ".xsd", jar, destDir, 0);
 
-        jar.close();
+        if (jar != null)
+          jar.close();
       }
     }
 
@@ -170,10 +177,10 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     }
 
     final byte[] bytes = DOMs.domToString(element, DOMStyle.INDENT).getBytes();
-    jar.addEntry(filePath, bytes);
+    if (jar != null)
+      jar.addEntry(filePath, bytes);
 
-    final File tempFile = new File(destDir, filePath);
-    Files.writeFile(tempFile, bytes);
+    Files.writeFile(new File(destDir, filePath), bytes);
   }
 
   private final Set<File> sourcePath;
@@ -189,19 +196,9 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
 
       final Collection<Bundle> bundles = new ArrayList<Bundle>();
-      if (pipelineContext.getPackage()) {
-        final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes());
-        for (final File jarFile : jarFiles)
-          bundles.add(new Bundle(jarFile));
-      }
-      else {
-        for (final SchemaComposite schemaComposite : documents) {
-          final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
-          final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
-          if ((pipelineContext.getIncludes() == null || pipelineContext.getIncludes().contains(namespaceURI)) && (pipelineContext.getExcludes() == null || !pipelineContext.getExcludes().contains(namespaceURI)))
-            bundles.add(new Bundle(new File(pipelineContext.getDestDir(), namespaceURI.getNamespaceBinding().getPackageName())));
-        }
-      }
+      final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes());
+      for (final File jarFile : jarFiles)
+        bundles.add(new Bundle(jarFile));
 
       return bundles;
     }
