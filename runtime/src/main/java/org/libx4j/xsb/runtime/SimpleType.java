@@ -16,5 +16,5 @@
 
 package org.libx4j.xsb.runtime;
 
-public interface SimpleType extends BindingType {
+public interface SimpleType {
 }

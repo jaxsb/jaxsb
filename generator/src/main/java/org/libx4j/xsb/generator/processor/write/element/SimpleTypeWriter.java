@@ -375,14 +375,6 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("}\n");
   }
 
-  protected static void appendOwner(final StringWriter writer) {
-    writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + $AnySimpleType.class.getName() + " owner()\n");
-    writer.write("{\n");
-    writer.write("return _$$getOwner();\n");
-    writer.write("}\n");
-  }
-
   @Override
   protected void appendClass(final StringWriter writer, final T plan, final Plan<?> parent) {
     if (plan.getName() == null)

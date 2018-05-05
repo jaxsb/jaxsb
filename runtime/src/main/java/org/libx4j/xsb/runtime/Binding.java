@@ -327,7 +327,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     // this.owner = copy.owner;
   }
 
-  protected $AnySimpleType _$$getOwner() {
+  public $AnySimpleType owner() {
     return owner;
   }
 

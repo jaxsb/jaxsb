@@ -444,9 +444,6 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("return this;\n");
     writer.write("}\n");
 
-    // OWNER
-    appendOwner(writer);
-
     // SUBSTITUTION GROUP
     if (plan.getSubstitutionGroup() != null) {
       writer.write("@" + Override.class.getName() + "\n");

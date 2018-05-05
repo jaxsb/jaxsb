@@ -29,7 +29,7 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
 
   protected static final QName ANY = new QName("##any", "##any");
 
-  protected class ElementSubList extends PartitionedList<Binding,QName>.PartitionList<Binding> implements BindingList<Binding>, Serializable {
+  protected class ElementSubList extends PartitionedList<Binding,QName>.PartitionList<Binding> implements BindingList<Binding> {
     private static final long serialVersionUID = -9155837408220305718L;
     private ElementAudit<? extends Binding> audit;
 
@@ -49,7 +49,7 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
     @Override
     protected void afterAdd(final int index, final Binding e, final RuntimeException re) {
       super.afterAdd(index, e, re);
-      if (e._$$getOwner() != owner)
+      if (e.owner() != owner)
         e._$$setOwner(owner);
     }
 
@@ -73,7 +73,7 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
   private $AnySimpleType owner;
 
   public ElementSuperList(final $AnySimpleType owner, final HashMap<QName,ElementAudit<?>> nameToAudit) {
-    super(nameToAudit.keySet());
+    super(nameToAudit == null ? null : nameToAudit.keySet());
     this.nameToAudit = nameToAudit;
     this.owner = owner;
   }

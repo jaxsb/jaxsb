@@ -16,8 +16,5 @@
 
 package org.libx4j.xsb.runtime;
 
-import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
-
-public interface Element extends BindingType {
-  public $AnySimpleType owner();
+public interface Element {
 }

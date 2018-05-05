@@ -124,7 +124,7 @@ public abstract class Bindings {
     Binding owner = binding;
     do
       builder.insert(0, "/" + function.apply(owner));
-    while ((owner = owner._$$getOwner()) != null);
+    while ((owner = owner.owner()) != null);
     return builder.toString();
   }
 }

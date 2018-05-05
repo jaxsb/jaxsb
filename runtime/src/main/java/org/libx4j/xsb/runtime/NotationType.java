@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
-public abstract class NotationType extends Binding implements BindingType {
+public abstract class NotationType extends Binding {
   private static final long serialVersionUID = -7634751765517029331L;
 
   public static NotationType parse(final String name) {
