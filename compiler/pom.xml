@@ -34,8 +34,8 @@
       <artifactId>lib4j-pipeline</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.lib4j</groupId>
-      <artifactId>lib4j-xml</artifactId>
+      <groupId>org.lib4j.xml</groupId>
+      <artifactId>xml-sax</artifactId>
     </dependency>
   </dependencies>
 </project>

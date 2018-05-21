@@ -29,7 +29,6 @@ import java.util.StringTokenizer;
 import javax.xml.namespace.QName;
 
 import org.lib4j.util.Collections;
-import org.lib4j.xml.validate.ValidationException;
 import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
 import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
@@ -43,7 +42,6 @@ import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.SimpleType;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
-import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$ID;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -537,7 +535,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("return super.marshalAttr(name, parent);\n");
     writer.write("}\n");
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("protected " + Element.class.getName() + " marshal() throws " + MarshalException.class.getName() + ", " + ValidationException.class.getName() + "\n");
+    writer.write("protected " + Element.class.getName() + " marshal() throws " + MarshalException.class.getName() + "\n");
     writer.write("{\n");
     writer.write(Element.class.getName() + " root = createElementNS(name().getNamespaceURI(), name().getLocalPart());\n");
     writer.write("return marshal(root, name(), type(_$$inheritsInstance()));\n");

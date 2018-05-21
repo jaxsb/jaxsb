@@ -21,7 +21,6 @@ import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
-import org.lib4j.xml.validate.ValidationException;
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.BindingRuntimeException;
 import org.libx4j.xsb.runtime.MarshalException;
@@ -101,7 +100,7 @@ public abstract class $AnySimpleType extends Binding {
   }
 
   @Override
-  protected void parseText(final Text text) throws ParseException, ValidationException {
+  protected void parseText(final Text text) throws ParseException {
     // Ignore all attributes that have a xsi prefix because these are
     // controlled implicitly by the framework
     if (XSI_NIL.getPrefix().equals(text.getPrefix()))

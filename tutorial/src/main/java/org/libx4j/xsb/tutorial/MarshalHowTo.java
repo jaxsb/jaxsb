@@ -19,8 +19,6 @@ package org.libx4j.xsb.tutorial;
 import java.math.BigDecimal;
 
 import org.lib4j.xml.binding.Date;
-import org.lib4j.xml.dom.DOMStyle;
-import org.lib4j.xml.dom.DOMs;
 import org.libx4j.xsb.tutorial.invoice.xAA.Invoice;
 
 public class MarshalHowTo {
@@ -68,6 +66,6 @@ public class MarshalHowTo {
 
     invoice.setBilledItems(billedItems);
 
-    System.out.println(DOMs.domToString(invoice.marshal(), DOMStyle.INDENT));
+    System.out.println(invoice.toString());
   }
 }

@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
-import org.lib4j.xml.Prefix;
+import org.libx4j.xsb.compiler.lang.Prefix;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.compiler.processor.model.Model;

@@ -57,6 +57,14 @@
       <artifactId>lib4j-formatter</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.lib4j.xml</groupId>
+      <artifactId>xml-binding</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.lib4j.xml</groupId>
+      <artifactId>xml-dom</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.libx4j.xsb</groupId>
       <artifactId>xsb-compiler</artifactId>
     </dependency>

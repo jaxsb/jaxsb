@@ -20,7 +20,6 @@ import java.io.StringReader;
 
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
-import org.lib4j.xml.dom.Validator;
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.BindingValidator;
 import org.libx4j.xsb.runtime.Bindings;
@@ -33,8 +32,8 @@ public abstract class SampleTest {
   private static final Logger logger = LoggerFactory.getLogger(SampleTest.class);
 
   static {
-    final Validator validator = new BindingValidator();
-    Validator.setSystemValidator(validator);
+    final BindingValidator validator = new BindingValidator();
+    BindingValidator.setSystemValidator(validator);
   }
 
   protected static final boolean verifyBinding(final Binding binding) throws Exception {
@@ -54,7 +53,7 @@ public abstract class SampleTest {
     String log = "java -> xml -> java           Object.equals() [" + message + "]";
     log += "\n ^-" + not + "-equal----^\n";
 
-    Validator.getSystemValidator().validate(element);
+    BindingValidator.getSystemValidator().validate(element);
 
     log += "\n        xml              Validator.validate() [" + message + "]";
     log += "\n         ^\n";

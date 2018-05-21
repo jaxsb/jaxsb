@@ -25,16 +25,44 @@ import java.util.Map;
 import javax.xml.transform.stream.StreamSource;
 
 import org.lib4j.net.CachedURL;
+import org.lib4j.xml.ValidationException;
 import org.lib4j.xml.dom.DOMs;
 import org.lib4j.xml.dom.Validator;
 import org.lib4j.xml.sax.SchemaLocation;
 import org.lib4j.xml.sax.XMLCatalog;
-import org.lib4j.xml.validate.ValidationException;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 public final class BindingValidator extends Validator {
+  private static BindingValidator validator = null;
+
+  public static BindingValidator getSystemValidator() {
+    return validator;
+  }
+
+  public static void setSystemValidator(final BindingValidator validator) {
+    BindingValidator.validator = validator;
+  }
+
   private final Map<String,URL> schemaReferences = new HashMap<String,URL>();
+  private boolean validateOnMarshal = false;
+  private boolean validateOnParse = false;
+
+  public void setValidateOnMarshal(final boolean validateOnMarshal) {
+    this.validateOnMarshal = validateOnMarshal;
+  }
+
+  public boolean isValidateOnMarshal() {
+    return validateOnMarshal;
+  }
+
+  public void setValidateOnParse(final boolean validateOnParse) {
+    this.validateOnParse = validateOnParse;
+  }
+
+  public boolean isValidateOnParse() {
+    return validateOnParse;
+  }
 
   @Override
   protected URL lookupSchemaLocation(final String namespaceURI) {
@@ -42,8 +70,8 @@ public final class BindingValidator extends Validator {
   }
 
   @Override
-  protected CachedURL getSchemaLocation(final String namespaceURI) {
-    return BindingEntityResolver.lookupSchemaLocation(namespaceURI);
+  protected URL getSchemaLocation(final String namespaceURI) {
+    return BindingEntityResolver.lookupSchemaLocation(namespaceURI).toURL();
   }
 
   @Override
@@ -67,6 +95,28 @@ public final class BindingValidator extends Validator {
     }
     catch (final SAXException e) {
       throw new ValidationException("\n" + e.getMessage() + "\n" + output, e);
+    }
+  }
+
+  public void validateMarshal(final Element element) {
+    if (validateOnMarshal) {
+      try {
+        validate(element);
+      }
+      catch (final ValidationException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+
+  public void validateParse(final Element element) {
+    if (validateOnParse) {
+      try {
+        validate(element);
+      }
+      catch (final ValidationException e) {
+        throw new RuntimeException(e);
+      }
     }
   }
 }

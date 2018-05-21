@@ -16,9 +16,7 @@
 
 package org.libx4j.xsb.generator;
 
-import org.lib4j.xml.XMLError;
-
-public class GeneratorError extends XMLError {
+public class GeneratorError extends Error {
   private static final long serialVersionUID = 4921369916251699414L;
 
   public GeneratorError() {

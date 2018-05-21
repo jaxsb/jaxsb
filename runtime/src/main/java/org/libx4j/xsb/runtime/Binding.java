@@ -31,9 +31,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.lib4j.xml.ValidationException;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
-import org.lib4j.xml.validate.ValidationException;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -104,7 +104,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return binding._$$encode(parent);
   }
 
-  protected static void parse(final Binding binding, final Element node) throws ParseException, ValidationException {
+  protected static void parse(final Binding binding, final Element node) throws ParseException {
     final NamedNodeMap attributes = node.getAttributes();
     for (int i = 0; i < attributes.getLength(); i++)
       if (attributes.item(i) instanceof Attr && !binding.parseAttribute((Attr)attributes.item(i)))
@@ -162,11 +162,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return false;
   }
 
-  protected static Binding parse(final Element element, Class<? extends Binding> defaultClass) throws ParseException, ValidationException {
+  protected static Binding parse(final Element element, Class<? extends Binding> defaultClass) throws ParseException {
     return parseElement(element, defaultClass, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static Binding parse(final Element element) throws ParseException, ValidationException {
+  protected static Binding parse(final Element element) throws ParseException {
     return parseElement(element, null, Thread.currentThread().getContextClassLoader());
   }
 
@@ -187,7 +187,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   /**
    * @throws ValidationException
    */
-  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ParseException, ValidationException {
+  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ParseException {
     final String localName = node.getLocalName();
     String namespaceURI = node.getNamespaceURI();
 
@@ -499,7 +499,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws MarshalException
    * @throws ValidationException
    */
-  protected Element marshal() throws MarshalException, ValidationException {
+  protected Element marshal() throws MarshalException {
     final Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
     return marshal(root, name(), type());
   }
@@ -508,7 +508,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws ParseException
    * @throws ValidationException
    */
-  protected boolean parseElement(final Element element) throws ParseException, ValidationException {
+  protected boolean parseElement(final Element element) throws ParseException {
     return false;
   }
 
@@ -516,7 +516,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws ParseException
    * @throws ValidationException
    */
-  protected boolean parseAttribute(final Attr attribute) throws ParseException, ValidationException {
+  protected boolean parseAttribute(final Attr attribute) throws ParseException {
     return false;
   }
 
@@ -524,21 +524,21 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws ParseException
    * @throws ValidationException
    */
-  protected void parseText(final Text text) throws ParseException, ValidationException {
+  protected void parseText(final Text text) throws ParseException {
   }
 
   /**
    * @throws ParseException
    * @throws ValidationException
    */
-  protected void parseAny(final Element element) throws ParseException, ValidationException {
+  protected void parseAny(final Element element) throws ParseException {
   }
 
   /**
    * @throws ParseException
    * @throws ValidationException
    */
-  protected void parseAnyAttribute(final Attr attribute) throws ParseException, ValidationException {
+  protected void parseAnyAttribute(final Attr attribute) throws ParseException {
   }
 
   /**

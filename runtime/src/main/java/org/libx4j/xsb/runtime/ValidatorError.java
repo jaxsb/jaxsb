@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 lib4j
+/* Copyright (c) 2008 lib4j
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -14,24 +14,24 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.libx4j.xsb.compiler.lang;
+package org.libx4j.xsb.runtime;
 
-public final class LexerFailureException extends RuntimeException {
-  private static final long serialVersionUID = 7086955029486763018L;
+public final class ValidatorError extends Error {
+  private static final long serialVersionUID = 1330762778984203337L;
 
-  public LexerFailureException() {
+  public ValidatorError() {
     super();
   }
 
-  public LexerFailureException(final String message) {
+  public ValidatorError(final String message) {
     super(message);
   }
 
-  public LexerFailureException(final Throwable cause) {
+  public ValidatorError(final Throwable cause) {
     super(cause);
   }
 
-  public LexerFailureException(final String message, final Throwable cause) {
+  public ValidatorError(final String message, final Throwable cause) {
     super(message, cause);
   }
 }

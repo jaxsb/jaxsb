@@ -17,9 +17,8 @@
 package org.libx4j.xsb.runtime;
 
 import org.lib4j.lang.Throwables;
-import org.lib4j.xml.XMLError;
 
-public final class BindingError extends XMLError {
+public final class BindingError extends Error {
   private static final long serialVersionUID = 3337621621621474582L;
 
   public BindingError() {

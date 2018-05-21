@@ -26,7 +26,6 @@ import org.lib4j.lang.PackageNotFoundException;
 import org.lib4j.net.CachedURL;
 import org.lib4j.net.URLs;
 import org.lib4j.xml.sax.LSInputImpl;
-import org.lib4j.xml.validate.ValidatorError;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;

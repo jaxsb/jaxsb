@@ -22,8 +22,6 @@ import java.util.Map;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.lib4j.xml.Prefix;
-
 public final class UniqueQName {
   private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<NamespaceURI,Prefix>();
   private static final Map<QName,UniqueQName> instances = new HashMap<QName,UniqueQName>();
