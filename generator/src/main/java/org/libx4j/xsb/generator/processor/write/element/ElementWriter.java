@@ -25,6 +25,7 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
+import org.lib4j.xml.ValidationException;
 import org.libx4j.xsb.compiler.schema.attribute.Form;
 import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
 import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
@@ -607,7 +608,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
       if (any != null) {
         writer.write("@" + Override.class.getName() + "\n");
-        writer.write("protected void parseAnyAttribute(final " + Attr.class.getName() + " attribute) throws " + ParseException.class.getName() + "\n");
+        writer.write("protected void parseAnyAttribute(final " + Attr.class.getName() + " attribute) throws " + ParseException.class.getName() + ", " + ValidationException.class.getName() + "\n");
         writer.write("{\n");
         Writer.writeParse(writer, any, plan);
         writer.write("}\n");
@@ -617,7 +618,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     // PARSE ELEMENT
     if ((plan.getElements() != null && plan.getElements().size() != 0) || (plan.getMixed() != null && plan.getMixed())) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected boolean parseElement(final " + Element.class.getName() + " element) throws " + ParseException.class.getName() + "\n");
+      writer.write("protected boolean parseElement(final " + Element.class.getName() + " element) throws " + ParseException.class.getName() + ", " + ValidationException.class.getName() + "\n");
       writer.write("{\n");
       if (plan.getMixed() != null && plan.getMixed()) {
         writer.write("if (" + Node.class.getName() + ".TEXT_NODE == element.getNodeType())\n");
@@ -646,7 +647,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
       if (any != null) {
         writer.write("@" + Override.class.getName() + "\n");
-        writer.write("protected void parseAny(final " + Element.class.getName() + " element) throws " + ParseException.class.getName() + "\n");
+        writer.write("protected void parseAny(final " + Element.class.getName() + " element) throws " + ParseException.class.getName() + ", " + ValidationException.class.getName() + "\n");
         writer.write("{\n");
         Writer.writeParse(writer, any, plan);
         writer.write("}\n");

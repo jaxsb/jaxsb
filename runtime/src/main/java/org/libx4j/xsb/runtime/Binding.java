@@ -104,7 +104,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return binding._$$encode(parent);
   }
 
-  protected static void parse(final Binding binding, final Element node) throws ParseException {
+  protected static void parse(final Binding binding, final Element node) throws ParseException, ValidationException {
     final NamedNodeMap attributes = node.getAttributes();
     for (int i = 0; i < attributes.getLength(); i++)
       if (attributes.item(i) instanceof Attr && !binding.parseAttribute((Attr)attributes.item(i)))
@@ -162,11 +162,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return false;
   }
 
-  protected static Binding parse(final Element element, Class<? extends Binding> defaultClass) throws ParseException {
+  protected static Binding parse(final Element element, Class<? extends Binding> defaultClass) throws ParseException, ValidationException {
     return parseElement(element, defaultClass, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static Binding parse(final Element element) throws ParseException {
+  protected static Binding parse(final Element element) throws ParseException, ValidationException {
     return parseElement(element, null, Thread.currentThread().getContextClassLoader());
   }
 
@@ -176,18 +176,15 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     final Class<?> classBinding = lookupElement(new QName(namespaceURI != null ? namespaceURI.intern() : null, localName.intern()), Thread.currentThread().getContextClassLoader());
     if (classBinding == null) {
       if (namespaceURI != null)
-        throw new ParseException("Unable to find final class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
+        throw new ParseException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
 
-      throw new ParseException("Unable to find final class binding for <" + localName + "/>");
+      throw new ParseException("Unable to find class binding for <" + localName + "/>");
     }
 
     return Binding._$$parseAttr(classBinding, element, node);
   }
 
-  /**
-   * @throws ValidationException
-   */
-  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ParseException {
+  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ParseException, ValidationException {
     final String localName = node.getLocalName();
     String namespaceURI = node.getNamespaceURI();
 
@@ -220,9 +217,9 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         final Class<? extends Binding> xsiBinding = lookupType(new QName(namespaceURI, xsiTypeName.intern()), classLoader);
         if (xsiBinding == null) {
           if (namespaceURI != null)
-            throw new ParseException("Unable to find final class binding for xsi:type <" + xsiTypeName + " xmlns=\"" + namespaceURI + "\">");
+            throw new ParseException("Unable to find class binding for xsi:type <" + xsiTypeName + " xmlns=\"" + namespaceURI + "\">");
 
-          throw new ParseException("Unable to find final class binding for xsi:type <" + xsiTypeName + "/>");
+          throw new ParseException("Unable to find class binding for xsi:type <" + xsiTypeName + "/>");
         }
 
         Method method = null;
@@ -240,16 +237,13 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
       if (binding == null) {
         if (namespaceURI != null)
-          throw new ParseException("Unable to find final class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
+          throw new ParseException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
 
-        throw new ParseException("Unable to find final class binding for <" + localName + "/>");
+        throw new ParseException("Unable to find class binding for <" + localName + "/>");
       }
 
       Binding.parse(binding, node);
       return binding;
-    }
-    catch (final ParseException e) {
-      throw e;
     }
     catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new ParseException(e);
@@ -497,7 +491,6 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   /**
    * @throws MarshalException
-   * @throws ValidationException
    */
   protected Element marshal() throws MarshalException {
     final Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
@@ -508,13 +501,12 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws ParseException
    * @throws ValidationException
    */
-  protected boolean parseElement(final Element element) throws ParseException {
+  protected boolean parseElement(final Element element) throws ParseException, ValidationException {
     return false;
   }
 
   /**
    * @throws ParseException
-   * @throws ValidationException
    */
   protected boolean parseAttribute(final Attr attribute) throws ParseException {
     return false;
@@ -522,7 +514,6 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   /**
    * @throws ParseException
-   * @throws ValidationException
    */
   protected void parseText(final Text text) throws ParseException {
   }
@@ -531,14 +522,14 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws ParseException
    * @throws ValidationException
    */
-  protected void parseAny(final Element element) throws ParseException {
+  protected void parseAny(final Element element) throws ParseException, ValidationException {
   }
 
   /**
    * @throws ParseException
    * @throws ValidationException
    */
-  protected void parseAnyAttribute(final Attr attribute) throws ParseException {
+  protected void parseAnyAttribute(final Attr attribute) throws ParseException, ValidationException {
   }
 
   /**

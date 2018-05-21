@@ -24,7 +24,6 @@ public class NamespaceBindingTest {
   private static void assertEquals(final String expected, final String uri) {
     final NamespaceBinding namespaceBinding = NamespaceBinding.parseNamespace(uri);
     final NamespaceBinding decodedBinding = NamespaceBinding.parseClassName(namespaceBinding.getClassName());
-//    System.err.println(namespaceBinding.getClassName());
     Assert.assertEquals("Direct", expected, namespaceBinding.getClassName());
     Assert.assertEquals("Diff", uri, decodedBinding.getNamespaceUri().toString());
   }

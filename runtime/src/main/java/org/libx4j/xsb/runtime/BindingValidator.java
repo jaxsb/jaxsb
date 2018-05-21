@@ -109,14 +109,8 @@ public final class BindingValidator extends Validator {
     }
   }
 
-  public void validateParse(final Element element) {
-    if (validateOnParse) {
-      try {
-        validate(element);
-      }
-      catch (final ValidationException e) {
-        throw new RuntimeException(e);
-      }
-    }
+  public void validateParse(final Element element) throws ValidationException {
+    if (validateOnParse)
+      validate(element);
   }
 }

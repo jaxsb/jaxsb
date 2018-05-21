@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
-public final class ParseException extends BindingRuntimeException {
+public class ParseException extends BindingRuntimeException {
   private static final long serialVersionUID = -1115503587680711757L;
 
   public ParseException() {
