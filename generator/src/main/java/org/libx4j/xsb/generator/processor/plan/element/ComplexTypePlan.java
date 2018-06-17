@@ -27,15 +27,12 @@ import org.libx4j.xsb.compiler.processor.model.element.SimpleContentModel;
 import org.libx4j.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.libx4j.xsb.generator.processor.plan.AttributablePlan;
 import org.libx4j.xsb.generator.processor.plan.ElementablePlan;
-import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
-import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
 import org.libx4j.xsb.generator.processor.plan.MixablePlan;
-import org.libx4j.xsb.generator.processor.plan.NativeablePlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.runtime.ElementWrapper;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
 
-public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePlan<T> implements AttributablePlan, ElementablePlan, EnumerablePlan, ExtensiblePlan, MixablePlan, NativeablePlan {
+public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePlan<T> implements AttributablePlan, ElementablePlan, MixablePlan {
   private final Boolean mixed;
 
   private Boolean mixedType = null;

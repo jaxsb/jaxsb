@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.libx4j.xsb.compiler.lang.UniqueQName;
-import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.compiler.processor.Referenceable;
 import org.libx4j.xsb.compiler.processor.model.Model;
 import org.libx4j.xsb.compiler.processor.model.MultiplicableModel;
@@ -32,7 +31,7 @@ import org.libx4j.xsb.compiler.schema.attribute.Occurs;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-public class GroupModel extends NamedModel implements MultiplicableModel, Nameable<Model>, RedefineableModel<GroupModel>, ReferableModel<GroupModel> {
+public class GroupModel extends NamedModel implements MultiplicableModel, RedefineableModel<GroupModel>, ReferableModel<GroupModel> {
   private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<MultiplicableModel>();
   private Occurs maxOccurs = Occurs.parseOccurs("1");
   private Occurs minOccurs = Occurs.parseOccurs("1");

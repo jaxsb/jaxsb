@@ -16,7 +16,6 @@
 
 package org.libx4j.xsb.generator.processor.plan;
 
-import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.compiler.processor.model.AliasModel;
 import org.libx4j.xsb.compiler.processor.model.Model;
 import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
@@ -24,7 +23,7 @@ import org.libx4j.xsb.generator.processor.plan.element.DocumentationPlan;
 import org.libx4j.xsb.runtime.JavaBinding;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
 
-public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> implements DocumentablePlan, Nameable<Plan<T>> {
+public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> implements DocumentablePlan {
   protected static String getClassName(final AliasModel model, Plan<?> parent) {
     if (model == null || model.getName() == null)
       return null;

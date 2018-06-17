@@ -25,7 +25,6 @@ import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.libx4j.xsb.compiler.processor.Referenceable;
 import org.libx4j.xsb.compiler.processor.Undefineable;
 import org.libx4j.xsb.compiler.processor.model.AliasModel;
-import org.libx4j.xsb.compiler.processor.model.DocumentableModel;
 import org.libx4j.xsb.compiler.processor.model.EnumerableModel;
 import org.libx4j.xsb.compiler.processor.model.Model;
 import org.libx4j.xsb.compiler.processor.model.PatternableModel;
@@ -35,7 +34,7 @@ import org.libx4j.xsb.compiler.schema.attribute.Final;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel implements DocumentableModel, EnumerableModel, PatternableModel, RedefineableModel<T>, TypeableModel<T> {
+public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel implements EnumerableModel, PatternableModel, RedefineableModel<T>, TypeableModel<T> {
   private final LinkedHashSet<EnumerationModel> enumerations = new LinkedHashSet<EnumerationModel>();
   private final LinkedHashSet<PatternModel> patterns = new LinkedHashSet<PatternModel>();
 

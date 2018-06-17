@@ -32,9 +32,6 @@ import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
 import org.libx4j.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.libx4j.xsb.compiler.schema.attribute.Form;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;
-import org.libx4j.xsb.generator.processor.plan.EnumerablePlan;
-import org.libx4j.xsb.generator.processor.plan.ExtensiblePlan;
-import org.libx4j.xsb.generator.processor.plan.NativeablePlan;
 import org.libx4j.xsb.generator.processor.plan.NestablePlan;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.generator.processor.plan.RestrictablePlan;
@@ -42,7 +39,7 @@ import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.libx4j.xsb.runtime.JavaBinding;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
 
-public class ElementPlan extends ComplexTypePlan<ElementModel> implements EnumerablePlan, ExtensiblePlan, Formable<Plan<?>>, NativeablePlan, NestablePlan, RestrictablePlan {
+public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formable<Plan<?>>, NestablePlan, RestrictablePlan {
   private final boolean ref;
   private final boolean _abstract;
   private final boolean restriction;
