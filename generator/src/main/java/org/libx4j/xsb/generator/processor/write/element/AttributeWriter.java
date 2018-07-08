@@ -54,7 +54,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     if (plan.isRestriction())
       writer.write("return super.get" + plan.getDeclarationRestrictionSimpleName() + "();\n");
     else
-      writer.write("return " + plan.getInstanceName() + ".getAttribute() == null ? null : " + plan.getInstanceName() + ".getAttribute();\n");
+      writer.write("return " + plan.getInstanceName() + ".getAttribute();\n");
     writer.write("}\n");
   }
 

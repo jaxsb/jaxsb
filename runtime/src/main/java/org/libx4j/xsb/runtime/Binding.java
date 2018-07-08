@@ -261,9 +261,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   private CompositeAttributeStore attributeDirectory = null;
   private Binding inherits;
   private $AnySimpleType owner;
+  private boolean isDefault;
 
   protected Binding(final Binding copy) {
     this();
+    this.isDefault = copy.isDefault;
     merge(copy);
   }
 
@@ -284,7 +286,15 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     }
 
     if (!legalInheritance)
-      throw new IllegalArgumentException("Invalid inheritance hierarchy.");
+      throw new IllegalArgumentException("Invalid inheritance hierarchy");
+  }
+
+  protected boolean isDefault() {
+    return isDefault;
+  }
+
+  protected static void markDefault(final Binding binding) {
+    binding.isDefault = true;
   }
 
   @SuppressWarnings("unchecked")
@@ -315,10 +325,9 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return null;
   }
 
-  protected void merge(final Binding copy) {
+  protected final void merge(final Binding copy) {
     if (copy._$$hasElements())
       this.elements = copy.elements.clone(($AnySimpleType)this);
-    // this.owner = copy.owner;
   }
 
   public $AnySimpleType owner() {
@@ -448,6 +457,10 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   public final boolean isNull() {
     return isNull;
+  }
+
+  protected static void s() {
+
   }
 
   /**

@@ -30,8 +30,6 @@ import javax.xml.namespace.QName;
 import org.lib4j.lang.Classes;
 import org.lib4j.lang.PackageLoader;
 import org.lib4j.lang.PackageNotFoundException;
-import org.lib4j.lang.Resource;
-import org.lib4j.lang.Resources;
 import org.lib4j.net.URLs;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.slf4j.Logger;
@@ -75,13 +73,13 @@ public abstract class AbstractBinding implements Cloneable {
 
   protected static void _$$registerSchemaLocation(final String namespaceURI, final Class<?> className, final String schemaReference) {
     final String simpleName = className.getName().replace('.', '/') + ".class";
-    final Resource resource = Resources.getResource(simpleName);
-    if (resource == null) {
+    final URL url = Thread.currentThread().getContextClassLoader().getResource(simpleName);
+    if (url == null) {
       logger.debug("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
       return;
     }
 
-    final URL parent = URLs.getCanonicalParent(resource.getURL());
+    final URL parent = URLs.getCanonicalParent(url);
     try {
       BindingEntityResolver.registerSchemaLocation(namespaceURI, new URL(parent + "/" + schemaReference));
     }

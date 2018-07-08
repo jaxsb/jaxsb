@@ -58,7 +58,7 @@ public final class BindingEntityResolver implements LSResourceResolver {
       // FIXME: Look this over. Also make a dedicated RuntimeException for this.
       if (!schemaReferences.containsKey(namespaceURI)) {
         try {
-          PackageLoader.getSystemContextPackageLoader().loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
+          PackageLoader.getContextPackageLoader().loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
         }
         catch (final PackageNotFoundException e) {
           throw new UnsupportedOperationException(e);

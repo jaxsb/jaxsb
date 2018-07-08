@@ -37,6 +37,9 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
   public AttributeAudit(final $AnySimpleType owner, final T _default, final QName name, final boolean qualified, final boolean required) {
     this.owner = owner;
     this._default = _default;
+    if (_default != null)
+      Binding.markDefault(_default);
+
     this.name = name;
     this.qualified = qualified;
     this.required = required;
@@ -81,9 +84,8 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
   }
 
   public void marshal(final Element parent) throws MarshalException {
-    final Object value = getAttribute();
     if (value == null || value.equals(getDefault()))
-        return;
+      return;
 
     if (value instanceof Collection) {
       String name = null;

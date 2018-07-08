@@ -32,7 +32,7 @@ import org.w3c.dom.Text;
 public abstract class $AnySimpleType extends Binding {
   private static final long serialVersionUID = 3006785147423317837L;
 
-  private Serializable text = null;
+  private Serializable text;
 
   public $AnySimpleType(final $AnySimpleType copy) {
     super(copy);
@@ -61,6 +61,11 @@ public abstract class $AnySimpleType extends Binding {
   @Override
   public Object text() {
     return text;
+  }
+
+  @Override
+  public boolean isDefault() {
+    return super.isDefault();
   }
 
   @Override

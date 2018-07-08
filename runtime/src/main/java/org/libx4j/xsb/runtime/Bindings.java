@@ -16,6 +16,7 @@
 
 package org.libx4j.xsb.runtime;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -75,7 +76,6 @@ public abstract class Bindings {
    *
    * @param url URL pointing to xml.
    * @return Binding instance.
-   * @throws ValidationException
    */
   public static Binding parse(final URL url) throws IOException, ParseException, ValidationException {
     return parse(url, Thread.currentThread().getContextClassLoader());
@@ -103,10 +103,15 @@ public abstract class Bindings {
    *
    * @param inputSource InputSource pointing to xml.
    * @return Binding instance.
-   * @throws ValidationException
    */
   public static Binding parse(final InputSource inputSource) throws IOException, ParseException, ValidationException {
     return parse(inputSource, Thread.currentThread().getContextClassLoader());
+  }
+
+  public static Binding parse(final String xml) throws IOException, ParseException, ValidationException {
+    try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
+      return parse(new InputSource(in), Thread.currentThread().getContextClassLoader());
+    }
   }
 
   public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, ParseException, ValidationException {
