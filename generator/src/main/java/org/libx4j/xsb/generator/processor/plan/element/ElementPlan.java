@@ -47,6 +47,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
   private final QName _default;
   private final boolean nillable;
   private final UniqueQName substitutionGroup;
+  private final String ownerClassName;
 
   private UniqueQName typeName;
 
@@ -74,6 +75,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
     _default = fixed ? model.getFixed() : model.getDefault();
     nillable = getModel().getNillable() != null && getModel().getNillable();
     substitutionGroup = model.getSubstitutionGroup();
+    ownerClassName = parent instanceof ElementPlan ? ((ElementPlan)parent).getClassName(null) : null;
     if (model instanceof AnyableModel)
       return;
 
@@ -123,6 +125,10 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
     repeatedExtension = getParent().getSuperType() != null ? getParent().getSuperType().elementRefExistsInParent(getName()) : null;
     repeatedExtensionRun = true;
     return repeatedExtension;
+  }
+
+  public final String getOwnerClassName() {
+    return this.ownerClassName;
   }
 
   public final UniqueQName getSubstitutionGroup() {

@@ -469,6 +469,15 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("return NAME;\n");
     writer.write("}\n");
 
+    // OWNER
+    if (plan.getOwnerClassName() != null) {
+      writer.write("@" + Override.class.getName() + "\n");
+      writer.write("public " + plan.getOwnerClassName() + " owner()\n");
+      writer.write("{\n");
+      writer.write("return (" + plan.getOwnerClassName() + ")super.owner();\n");
+      writer.write("}\n");
+    }
+
     // PATTERN
     appendPattern(writer, plan.getPatterns());
 
