@@ -56,7 +56,7 @@ public final class SchemaReference implements PipelineEntity {
 
   public SchemaReference(final URL location, final boolean isInclude) {
     if (location == null)
-      throw new NullPointerException("location == null");
+      throw new IllegalArgumentException("location == null");
 
     this.location = location;
     this.isInclude = isInclude;

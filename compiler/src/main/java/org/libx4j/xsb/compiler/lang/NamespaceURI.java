@@ -40,7 +40,7 @@ public final class NamespaceURI {
 
   public static NamespaceURI getInstance(final String namespaceURI) {
     if (namespaceURI == null)
-      throw new NullPointerException("namespaceURI == null");
+      throw new IllegalArgumentException("namespaceURI == null");
 
     NamespaceURI value = instances.get(namespaceURI);
     if (value == null)
@@ -64,7 +64,7 @@ public final class NamespaceURI {
 
   private NamespaceURI(final String namespaceURI) {
     if (namespaceURI == null)
-      throw new NullPointerException("namespaceURI == null");
+      throw new IllegalArgumentException("namespaceURI == null");
 
     this.namespaceURI = namespaceURI.intern();
     this.namespaceBinding = NamespaceBinding.parseNamespace(namespaceURI);

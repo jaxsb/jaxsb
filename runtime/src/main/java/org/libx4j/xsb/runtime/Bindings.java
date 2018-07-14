@@ -93,7 +93,7 @@ public abstract class Bindings {
 
   public static Binding parse(final InputStream in, final ClassLoader classLoader) throws IOException, ParseException, ValidationException {
     if (in == null)
-      throw new NullPointerException("in == null");
+      throw new IllegalArgumentException("in == null");
 
     return parse(new InputSource(in), classLoader);
   }

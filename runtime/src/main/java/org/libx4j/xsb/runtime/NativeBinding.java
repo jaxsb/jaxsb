@@ -30,10 +30,10 @@ public final class NativeBinding {
 
   public NativeBinding(final UniqueQName name, final GenericClass baseClass, GenericClass nativeClass, final AccessibleObject factoryMethod) {
     if (name == null)
-      throw new NullPointerException("name == null");
+      throw new IllegalArgumentException("name == null");
 
     if (baseClass == null)
-      throw new NullPointerException("baseClass<?> == null");
+      throw new IllegalArgumentException("baseClass<?> == null");
 
     this.name = name;
     this.baseClass = baseClass;
@@ -99,7 +99,7 @@ public final class NativeBinding {
 
     public GenericClass(final Class<?> cls, final Class<?> type) {
       if (cls == null)
-        throw new NullPointerException("cls == null");
+        throw new IllegalArgumentException("cls == null");
 
       this.cls = cls;
       this.type = type;

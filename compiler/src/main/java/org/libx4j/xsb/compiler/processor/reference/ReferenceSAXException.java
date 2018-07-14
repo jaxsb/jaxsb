@@ -27,11 +27,11 @@ public class ReferenceSAXException extends SAXException {
   public ReferenceSAXException(final String namespaceURI, final String prefix) {
     this.namespaceURI = namespaceURI;
     if (namespaceURI == null)
-      throw new NullPointerException("namespaceURI == null");
+      throw new IllegalArgumentException("namespaceURI == null");
 
     this.prefix = prefix;
     if (prefix == null)
-      throw new NullPointerException("prefix == null");
+      throw new IllegalArgumentException("prefix == null");
   }
 
   public String getNamespaceURI() {
