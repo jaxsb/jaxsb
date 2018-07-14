@@ -118,8 +118,8 @@ import org.libx4j.xsb.compiler.processor.normalize.element.UnknownNormalizer;
 import org.libx4j.xsb.compiler.processor.normalize.element.WhiteSpaceNormalizer;
 
 public final class NormalizerDirectory implements PipelineDirectory<GeneratorContext,Model,Normalizer<?>> {
-  private final Map<Class<? extends Model>,Class<? extends Normalizer<?>>> classes = new HashMap<Class<? extends Model>,Class<? extends Normalizer<?>>>(39);
-  private final Map<Class<? extends Model>,Normalizer<?>> instances = new HashMap<Class<? extends Model>,Normalizer<?>>(39);
+  private final Map<Class<? extends Model>,Class<? extends Normalizer<?>>> classes = new HashMap<>(39);
+  private final Map<Class<? extends Model>,Normalizer<?>> instances = new HashMap<>(39);
   private final Collection<Class<? extends Model>> keys;
   private final NormalizerProcessor processor = new NormalizerProcessor();
 

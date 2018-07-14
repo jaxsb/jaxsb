@@ -25,7 +25,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class AllModel extends Model implements MultiplicableModel {
-  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<MultiplicableModel>();
+  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<>();
 
   private Occurs maxOccurs = Occurs.parseOccurs("1");
   private Occurs minOccurs = Occurs.parseOccurs("1");

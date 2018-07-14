@@ -28,7 +28,7 @@ public class CompositeAttributeStore implements Serializable {
   private final ArrayList<AttributeAudit<?>> audits;
 
   public CompositeAttributeStore() {
-    this.audits = new ArrayList<AttributeAudit<?>>();
+    this.audits = new ArrayList<>();
   }
 
   private CompositeAttributeStore(final ArrayList<AttributeAudit<?>> audits) {
@@ -72,7 +72,7 @@ public class CompositeAttributeStore implements Serializable {
   }
 
   public CompositeAttributeStore clone(final $AnySimpleType owner) {
-    final ArrayList<AttributeAudit<?>> clone = new ArrayList<AttributeAudit<?>>();
+    final ArrayList<AttributeAudit<?>> clone = new ArrayList<>();
     for (final AttributeAudit<?> audit : audits)
       clone.add(audit.clone(owner));
 

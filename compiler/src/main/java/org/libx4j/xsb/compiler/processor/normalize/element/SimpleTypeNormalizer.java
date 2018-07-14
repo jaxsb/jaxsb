@@ -30,7 +30,7 @@ import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
 import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class SimpleTypeNormalizer extends Normalizer<SimpleTypeModel<?>> {
-  private final Map<UniqueQName,SimpleTypeModel<?>> all = new HashMap<UniqueQName,SimpleTypeModel<?>>();
+  private final Map<UniqueQName,SimpleTypeModel<?>> all = new HashMap<>();
 
   public SimpleTypeNormalizer(final NormalizerDirectory directory) {
     super(directory);

@@ -43,7 +43,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
   protected void stage2(final UnionModel model) {
     final Collection<SimpleTypeModel<?>> memberTypes = model.getMemberTypes();
     if (memberTypes != null) {
-      final Collection<SimpleTypeModel<?>> resolvedMemberTypes = new ArrayList<SimpleTypeModel<?>>(memberTypes.size());
+      final Collection<SimpleTypeModel<?>> resolvedMemberTypes = new ArrayList<>(memberTypes.size());
       SimpleTypeModel<?> resolvedMemberType;
       for (final SimpleTypeModel<?> memberType : memberTypes) {
         if (memberType instanceof SimpleTypeModel.Reference) {

@@ -39,7 +39,7 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
   public static <A extends Plan<?>>LinkedHashSet<A> analyze(Collection<? extends Model> models, final Plan<?> owner) {
     final LinkedHashSet<A> plans;
     if (models != null && models.size() != 0) {
-      plans = new LinkedHashSet<A>(models.size());
+      plans = new LinkedHashSet<>(models.size());
       for (final Object model : models) {
         // If there is a name conflict with a parent type, then skip
         // adding this in duplicate. Otherwise there will be conflicts
@@ -60,7 +60,7 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
       }
     }
     else {
-      plans = new LinkedHashSet<A>(0);
+      plans = new LinkedHashSet<>(0);
     }
 
     return plans;

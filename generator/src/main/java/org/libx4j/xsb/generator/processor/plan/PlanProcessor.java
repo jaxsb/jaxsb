@@ -37,8 +37,8 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
 
   @Override
   public final Collection<Plan<?>> process(final GeneratorContext pipelineContext, final Collection<Model> documents, final PipelineDirectory<GeneratorContext,Model,Plan<?>> directory) {
-    root = new Plan<Model>(null, null) {};
-    final Collection<Plan<?>> plans = new ArrayList<Plan<?>>();
+    root = new Plan<>(null, null) {};
+    final Collection<Plan<?>> plans = new ArrayList<>();
     for (final Model model : documents) {
       if (model.getChildren() == null || model.getChildren().size() == 0)
         continue;

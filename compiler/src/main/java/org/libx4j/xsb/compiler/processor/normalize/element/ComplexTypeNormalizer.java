@@ -29,7 +29,7 @@ import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
 import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class ComplexTypeNormalizer extends Normalizer<ComplexTypeModel<?>> {
-  protected final Map<UniqueQName,ComplexTypeModel<?>> all = new HashMap<UniqueQName,ComplexTypeModel<?>>();
+  protected final Map<UniqueQName,ComplexTypeModel<?>> all = new HashMap<>();
 
   public ComplexTypeNormalizer(final NormalizerDirectory directory) {
     super(directory);

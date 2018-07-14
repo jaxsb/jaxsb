@@ -26,8 +26,8 @@ import org.libx4j.xsb.runtime.Binding;
 public abstract class $AnyType extends $AnySimpleType {
   private static final long serialVersionUID = -6510869738097560771L;
 
-  private final List<Binding> anys = new ArrayList<Binding>(7);
-  private final List<Binding> anys$ = new ArrayList<Binding>(7);
+  private final List<Binding> anys = new ArrayList<>(7);
+  private final List<Binding> anys$ = new ArrayList<>(7);
 
   public $AnyType(final $AnyType binding) {
     super(binding);

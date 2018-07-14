@@ -43,9 +43,9 @@ import org.slf4j.LoggerFactory;
 public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
   private static final Logger logger = LoggerFactory.getLogger(Writer.class);
 
-  private final Collection<String> messages = new HashSet<String>();
+  private final Collection<String> messages = new HashSet<>();
 
-  private static final Map<File,ClassFile> fileToClassFile = new HashMap<File,ClassFile>();
+  private static final Map<File,ClassFile> fileToClassFile = new HashMap<>();
 
   private File getFile(final Writer<T> writer, final T plan, final File destDir) {
     final URL url = plan.getModel().getSchema().getURL();

@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class ProcessContents {
-  private static final Map<String,ProcessContents> enums = new HashMap<String,ProcessContents>();
+  private static final Map<String,ProcessContents> enums = new HashMap<>();
 
   public static final ProcessContents LAX = new ProcessContents("lax");
   public static final ProcessContents SKIP = new ProcessContents("skip");

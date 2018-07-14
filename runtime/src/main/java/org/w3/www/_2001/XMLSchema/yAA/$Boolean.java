@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 
 public abstract class $Boolean extends $AnySimpleType {
   private static final long serialVersionUID = 5805207783730082952L;
-  private static final Map<Boolean,String[]> valueMap = new HashMap<Boolean,String[]>();
+  private static final Map<Boolean,String[]> valueMap = new HashMap<>();
 
   public static final Boolean parse(final String s) {
     if (s == null)

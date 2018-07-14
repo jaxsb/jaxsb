@@ -32,7 +32,7 @@ import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
 import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class ElementNormalizer extends Normalizer<ElementModel> {
-  private final Map<UniqueQName,ElementModel> all = new HashMap<UniqueQName,ElementModel>();
+  private final Map<UniqueQName,ElementModel> all = new HashMap<>();
   private final SimpleTypeNormalizer simpleTypeNormalizer = (SimpleTypeNormalizer)getDirectory().lookup(SimpleTypeModel.class);
   private final ComplexTypeNormalizer complexTypeNormalizer = (ComplexTypeNormalizer)getDirectory().lookup(ComplexTypeModel.class);
 

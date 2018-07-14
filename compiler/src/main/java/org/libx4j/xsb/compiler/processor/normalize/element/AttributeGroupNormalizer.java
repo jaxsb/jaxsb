@@ -30,7 +30,7 @@ import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
 import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class AttributeGroupNormalizer extends Normalizer<AttributeGroupModel> {
-  private final Map<UniqueQName,AttributeGroupModel> all = new HashMap<UniqueQName,AttributeGroupModel>();
+  private final Map<UniqueQName,AttributeGroupModel> all = new HashMap<>();
 
   public AttributeGroupNormalizer(final NormalizerDirectory directory) {
     super(directory);

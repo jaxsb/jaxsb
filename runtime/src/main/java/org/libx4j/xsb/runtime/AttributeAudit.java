@@ -113,7 +113,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
   }
 
   public AttributeAudit<T> clone(final $AnySimpleType owner) {
-    return new AttributeAudit<T>(owner, this);
+    return new AttributeAudit<>(owner, this);
   }
 
   @Override

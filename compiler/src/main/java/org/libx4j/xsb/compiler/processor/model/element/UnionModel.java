@@ -1,15 +1,15 @@
 /* Copyright (c) 2008 lib4j
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * You should have received a copy of The MIT License (MIT) along with this
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
@@ -27,8 +27,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class UnionModel extends Model {
-  private final Collection<SimpleTypeModel<?>> memberTypes = new HashSet<SimpleTypeModel<?>>();
-  private final Collection<UnionModel> unions = new HashSet<UnionModel>();
+  private final Collection<SimpleTypeModel<?>> memberTypes = new HashSet<>();
+  private final Collection<UnionModel> unions = new HashSet<>();
 
   protected UnionModel(final Node node, final Model parent) {
     super(node, parent);
@@ -55,7 +55,7 @@ public final class UnionModel extends Model {
   }
 
   public final Collection<SimpleTypeModel<?>> getNormalizedMemberTypes() {
-    final Collection<SimpleTypeModel<?>> allMemberTypes = new ArrayList<SimpleTypeModel<?>>(getMemberTypes());
+    final Collection<SimpleTypeModel<?>> allMemberTypes = new ArrayList<>(getMemberTypes());
     for (final UnionModel union : unions)
       allMemberTypes.addAll(union.getNormalizedMemberTypes());
 

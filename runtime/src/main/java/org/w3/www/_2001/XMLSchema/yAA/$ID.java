@@ -26,12 +26,12 @@ import org.w3c.dom.Element;
 
 public abstract class $ID extends $nCName {
   private static final long serialVersionUID = 8671692505211063717L;
-  protected static final Map<String,Map<String,$ID>> namespaceIds = new HashMap<String,Map<String,$ID>>();
+  protected static final Map<String,Map<String,$ID>> namespaceIds = new HashMap<>();
 
   private static void persist(final String namespace, final String value, final $ID id) {
     Map<String,$ID> idMap = namespaceIds.get(namespace);
     if (idMap == null)
-      namespaceIds.put(namespace, idMap = new HashMap<String,$ID>());
+      namespaceIds.put(namespace, idMap = new HashMap<>());
 
     idMap.put(value, id);
   }

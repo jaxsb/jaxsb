@@ -34,7 +34,7 @@ import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
 import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class AttributeNormalizer extends Normalizer<AttributeModel> {
-  private final Map<UniqueQName,AttributeModel> all = new HashMap<UniqueQName,AttributeModel>();
+  private final Map<UniqueQName,AttributeModel> all = new HashMap<>();
   private final SimpleTypeNormalizer simpleTypeNormalizer = (SimpleTypeNormalizer)getDirectory().lookup(SimpleTypeModel.class);
 
   public AttributeNormalizer(final NormalizerDirectory directory) {

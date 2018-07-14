@@ -29,7 +29,7 @@ import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
 import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class GroupNormalizer extends Normalizer<GroupModel> {
-  private final Map<UniqueQName,GroupModel> all = new HashMap<UniqueQName,GroupModel>();
+  private final Map<UniqueQName,GroupModel> all = new HashMap<>();
 
   public GroupNormalizer(final NormalizerDirectory directory) {
     super(directory);

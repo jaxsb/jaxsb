@@ -202,7 +202,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     }
 
     // find all elements declared in this restriction
-    final Collection<ElementModel> restrictionElements = new ArrayList<ElementModel>();
+    final Collection<ElementModel> restrictionElements = new ArrayList<>();
     findChildElements(restrictionElements, model.getChildren());
     for (final ElementModel restrictionElement : restrictionElements) {
       final RestrictionPair<ElementModel> baseElementPair = findBaseElement(restrictionElement.getName(), model.getBase());
@@ -219,7 +219,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
   }
 
   private static Collection<AttributeModel> findChildAttributes(final Collection<Model> children) {
-    Collection<AttributeModel> attributes = new ArrayList<AttributeModel>();
+    Collection<AttributeModel> attributes = new ArrayList<>();
     for (final Model model : children)
       if (model instanceof AttributeModel)
         attributes.add((AttributeModel)model);
@@ -235,7 +235,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     if (typeModel instanceof ComplexTypeModel)
       for (final AttributeModel attribute : ((AttributableModel)typeModel).getAttributes())
         if (name.getLocalPart().equals(attribute.getName().getLocalPart()))
-          return new RestrictionPair<AttributeModel>(attribute, typeModel);
+          return new RestrictionPair<>(attribute, typeModel);
 
     return findBaseAttribute(name, typeModel.getSuperType());
   }
@@ -257,7 +257,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
       return null;
 
     if (typeModel instanceof ComplexTypeModel) {
-      final Collection<ElementModel> elements = new ArrayList<ElementModel>();
+      final Collection<ElementModel> elements = new ArrayList<>();
       findChildElements(elements, typeModel.getChildren());
       for (final MultiplicableModel multiplicableModel : ((ComplexTypeModel<?>)typeModel).getMultiplicableModels())
         findChildElements(elements, ((Model)multiplicableModel).getChildren());
@@ -265,7 +265,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
       // FIXME: Can I equate on just the localPart of the QName???
       for (final ElementModel element : elements)
         if (name.getLocalPart().equals(element.getName().getLocalPart()))
-          return new RestrictionPair<ElementModel>(element, typeModel);
+          return new RestrictionPair<>(element, typeModel);
     }
 
     return findBaseElement(name, typeModel.getSuperType());

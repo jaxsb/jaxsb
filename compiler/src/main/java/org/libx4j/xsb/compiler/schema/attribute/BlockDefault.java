@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class BlockDefault {
-  private static final Map<String,BlockDefault> enums = new HashMap<String,BlockDefault>();
+  private static final Map<String,BlockDefault> enums = new HashMap<>();
 
   public static final BlockDefault ALL = new BlockDefault("#all");
   public static final BlockDefault EXTENSION = new BlockDefault("extension");

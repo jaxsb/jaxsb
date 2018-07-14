@@ -36,7 +36,7 @@ public final class NamespaceURI {
   public static final QName XML = new QName(XMLConstants.XML_NS_URI, "", XMLConstants.XML_NS_PREFIX);
   public static final QName XMLNS = new QName(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "", XMLConstants.XMLNS_ATTRIBUTE);
 
-  private static final Map<String,NamespaceURI> instances = new HashMap<String,NamespaceURI>();
+  private static final Map<String,NamespaceURI> instances = new HashMap<>();
 
   public static NamespaceURI getInstance(final String namespaceURI) {
     if (namespaceURI == null)

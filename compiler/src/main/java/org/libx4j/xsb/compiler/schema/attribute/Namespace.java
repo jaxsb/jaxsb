@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Namespace {
-  private static final Map<String,Namespace> enums = new HashMap<String,Namespace>();
+  private static final Map<String,Namespace> enums = new HashMap<>();
 
   public static final Namespace ANY = new Namespace("##any");
   public static final Namespace LOCAL = new Namespace("##local");

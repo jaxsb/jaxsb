@@ -80,7 +80,7 @@ import org.w3c.dom.Node;
 public final class ModelDirectory implements PipelineDirectory<GeneratorContext,SchemaComposite,Model> {
   private static final Logger logger = LoggerFactory.getLogger(ModelDirectory.class);
 
-  private final Map<String,Class<? extends Model>> classes = new HashMap<String,Class<? extends Model>>(39);
+  private final Map<String,Class<? extends Model>> classes = new HashMap<>(39);
   private final Collection<String> keys;
   private final ModelProcessor processor = new ModelProcessor();
 

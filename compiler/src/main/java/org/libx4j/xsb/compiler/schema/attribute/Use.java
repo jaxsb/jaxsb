@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Use {
-  private static final Map<String,Use> enums = new HashMap<String,Use>();
+  private static final Map<String,Use> enums = new HashMap<>();
 
   public static final Use OPTIONAL = new Use("optional");
   public static final Use PROHIBITED = new Use("prohibited");

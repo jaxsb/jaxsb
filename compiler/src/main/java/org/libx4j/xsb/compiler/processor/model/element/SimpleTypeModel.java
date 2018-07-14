@@ -35,8 +35,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel implements EnumerableModel, PatternableModel, RedefineableModel<T>, TypeableModel<T> {
-  private final LinkedHashSet<EnumerationModel> enumerations = new LinkedHashSet<EnumerationModel>();
-  private final LinkedHashSet<PatternModel> patterns = new LinkedHashSet<PatternModel>();
+  private final LinkedHashSet<EnumerationModel> enumerations = new LinkedHashSet<>();
+  private final LinkedHashSet<PatternModel> patterns = new LinkedHashSet<>();
 
   private T redefine = null;
   private SimpleTypeModel<?> superType = null;
@@ -130,7 +130,7 @@ public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel im
   }
 
   public static final class Reference extends SimpleTypeModel<SimpleTypeModel<?>> implements Referenceable {
-    private static final Map<UniqueQName,Reference> all = new HashMap<UniqueQName,Reference>();
+    private static final Map<UniqueQName,Reference> all = new HashMap<>();
 
     public static Reference parseSimpleType(final UniqueQName name) {
       Reference type = all.get(name);
@@ -149,7 +149,7 @@ public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel im
   }
 
   public static final class Undefined extends SimpleTypeModel<SimpleTypeModel<?>> implements Undefineable {
-    private static final Map<UniqueQName,Undefined> all = new HashMap<UniqueQName,Undefined>();
+    private static final Map<UniqueQName,Undefined> all = new HashMap<>();
 
     public static Undefined parseSimpleType(final UniqueQName name) {
       Undefined type = all.get(name);

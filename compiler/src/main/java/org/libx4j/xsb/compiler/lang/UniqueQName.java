@@ -23,8 +23,8 @@ import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 public final class UniqueQName {
-  private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<NamespaceURI,Prefix>();
-  private static final Map<QName,UniqueQName> instances = new HashMap<QName,UniqueQName>();
+  private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<>();
+  private static final Map<QName,UniqueQName> instances = new HashMap<>();
 
   // subjectively chosen
   public static final UniqueQName XS = linkPrefixNamespace(UniqueQName.getInstance(NamespaceURI.XS));

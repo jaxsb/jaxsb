@@ -69,7 +69,7 @@ public final class BindingEntityResolver implements LSResourceResolver {
     return schemaReferences.get(namespaceURI);
   }
 
-  protected static final Map<String,CachedURL> schemaReferences = new HashMap<String,CachedURL>();
+  protected static final Map<String,CachedURL> schemaReferences = new HashMap<>();
 
   @Override
   public LSInput resolveResource(final String type, final String namespaceURI, final String publicId, final String systemId, final String baseURI) {

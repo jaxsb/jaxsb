@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Form {
-  private static final Map<String,Form> enums = new HashMap<String,Form>();
+  private static final Map<String,Form> enums = new HashMap<>();
 
   public static final Form QUALIFIED = new Form("qualified");
   public static final Form UNQUALIFIED = new Form("unqualified");

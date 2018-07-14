@@ -195,7 +195,7 @@ public class ElementModel extends ComplexTypeModel<SimpleTypeModel<?>> implement
   }
 
   public static final class Reference extends ElementModel implements Referenceable {
-    private static final Map<UniqueQName,Reference> all = new HashMap<UniqueQName,Reference>();
+    private static final Map<UniqueQName,Reference> all = new HashMap<>();
 
     protected Reference(final Model parent) {
       super(null, parent);

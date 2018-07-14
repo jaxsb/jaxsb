@@ -32,7 +32,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public class AttributeGroupModel extends NamedModel implements AttributableModel, RedefineableModel<AttributeGroupModel>, ReferableModel<AttributeGroupModel> {
-  private final LinkedHashSet<AttributeModel> attributes = new LinkedHashSet<AttributeModel>();
+  private final LinkedHashSet<AttributeModel> attributes = new LinkedHashSet<>();
   private AttributeGroupModel ref = null;
   private AttributeGroupModel redefine = null;
 
@@ -94,7 +94,7 @@ public class AttributeGroupModel extends NamedModel implements AttributableModel
   }
 
   public static final class Reference extends AttributeGroupModel implements Referenceable {
-    private static final Map<UniqueQName,Reference> all = new HashMap<UniqueQName,Reference>();
+    private static final Map<UniqueQName,Reference> all = new HashMap<>();
 
     protected Reference(final Model parent) {
       super(null, parent);

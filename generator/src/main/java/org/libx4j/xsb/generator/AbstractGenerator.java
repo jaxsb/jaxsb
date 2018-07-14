@@ -35,7 +35,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 public abstract class AbstractGenerator {
-  private static final Map<String,SchemaDocument> parsedDocuments = new HashMap<String,SchemaDocument>();
+  private static final Map<String,SchemaDocument> parsedDocuments = new HashMap<>();
 
   public static SchemaDocument parse(final SchemaReference schemaReference) {
     try {

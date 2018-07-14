@@ -34,8 +34,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeModel<T> implements AttributableModel, ElementableModel, MixableModel {
-  private final LinkedHashSet<AttributeModel> attributes = new LinkedHashSet<AttributeModel>();
-  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<MultiplicableModel>();
+  private final LinkedHashSet<AttributeModel> attributes = new LinkedHashSet<>();
+  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<>();
   private Boolean _abstract = false;
   private Block block = null;
   private Boolean mixed = null;
@@ -108,7 +108,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
   }
 
   public static final class Reference extends ComplexTypeModel<SimpleTypeModel<?>> implements Referenceable {
-    private static final Map<UniqueQName,Reference> all = new HashMap<UniqueQName,Reference>();
+    private static final Map<UniqueQName,Reference> all = new HashMap<>();
 
     protected Reference(final Model parent) {
       super(null, parent);
@@ -127,7 +127,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
   }
 
   public static final class Undefined extends ComplexTypeModel<SimpleTypeModel<?>> implements Undefineable {
-    private static final Map<UniqueQName,Undefined> all = new HashMap<UniqueQName,Undefined>();
+    private static final Map<UniqueQName,Undefined> all = new HashMap<>();
 
     protected Undefined(final Model parent) {
       super(null, parent);

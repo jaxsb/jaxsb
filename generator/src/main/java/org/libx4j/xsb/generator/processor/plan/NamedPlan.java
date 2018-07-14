@@ -30,7 +30,7 @@ public abstract class NamedPlan<T extends NamedModel> extends Plan<T> implements
     return all.get(name);
   }
 
-  private static final Map<UniqueQName,NamedPlan<?>> all = new HashMap<UniqueQName,NamedPlan<?>>();
+  private static final Map<UniqueQName,NamedPlan<?>> all = new HashMap<>();
 
   private final UniqueQName name;
 

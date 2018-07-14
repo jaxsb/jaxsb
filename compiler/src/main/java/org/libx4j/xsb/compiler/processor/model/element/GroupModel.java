@@ -32,7 +32,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public class GroupModel extends NamedModel implements MultiplicableModel, RedefineableModel<GroupModel>, ReferableModel<GroupModel> {
-  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<MultiplicableModel>();
+  private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<>();
   private Occurs maxOccurs = Occurs.parseOccurs("1");
   private Occurs minOccurs = Occurs.parseOccurs("1");
   private GroupModel ref = null;
@@ -112,7 +112,7 @@ public class GroupModel extends NamedModel implements MultiplicableModel, Redefi
   }
 
   public static final class Reference extends GroupModel implements Referenceable {
-    private static final Map<UniqueQName,Reference> all = new HashMap<UniqueQName,Reference>();
+    private static final Map<UniqueQName,Reference> all = new HashMap<>();
 
     protected Reference(final Model parent) {
       super(null, parent);

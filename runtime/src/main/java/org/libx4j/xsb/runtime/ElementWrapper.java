@@ -31,9 +31,9 @@ import org.libx4j.xsb.compiler.processor.model.element.ElementModel;
 @SuppressWarnings("rawtypes")
 public final class ElementWrapper extends Model implements Nameable {
   public static LinkedHashSet<ElementWrapper> asSet(final Collection<MultiplicableModel> multiplicableModels) {
-    final LinkedHashMap<ElementWrapper,ElementWrapper> elementWrappers = new LinkedHashMap<ElementWrapper,ElementWrapper>();
+    final LinkedHashMap<ElementWrapper,ElementWrapper> elementWrappers = new LinkedHashMap<>();
     asSet(multiplicableModels, elementWrappers, 1, 1, new HashSet<UniqueQName>());
-    return new LinkedHashSet<ElementWrapper>(elementWrappers.values());
+    return new LinkedHashSet<>(elementWrappers.values());
   }
 
   private static void asSet(final Collection<MultiplicableModel> multiplicableModels, final LinkedHashMap<ElementWrapper,ElementWrapper> elementWrappers, int min, final int max, final Collection<UniqueQName> redefines) {

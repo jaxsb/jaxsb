@@ -51,7 +51,7 @@ public class NotationModel extends AliasModel {
   }
 
   public static final class Reference extends NotationModel implements Referenceable {
-    private static final Map<UniqueQName,Reference> all = new HashMap<UniqueQName,Reference>();
+    private static final Map<UniqueQName,Reference> all = new HashMap<>();
 
     protected Reference(final Model parent) {
       super(null, parent);

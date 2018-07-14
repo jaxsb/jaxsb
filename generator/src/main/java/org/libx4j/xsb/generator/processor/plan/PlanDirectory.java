@@ -116,7 +116,7 @@ import org.libx4j.xsb.generator.processor.plan.element.WhiteSpacePlan;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 
 public final class PlanDirectory implements PipelineDirectory<GeneratorContext,Model,Plan<?>> {
-  private final Map<Class<?>,Class<?>> classes = new HashMap<Class<?>,Class<?>>(39);
+  private final Map<Class<?>,Class<?>> classes = new HashMap<>(39);
   private final Collection<Class<?>> keys;
   private final PlanProcessor processor = new PlanProcessor();
 

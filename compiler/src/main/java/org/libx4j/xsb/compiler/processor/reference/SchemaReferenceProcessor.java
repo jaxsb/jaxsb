@@ -46,7 +46,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
     final File destDir = pipelineContext.getDestDir();
     logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
 
-    final Collection<SchemaReference> selectedSchemas = new LinkedHashSet<SchemaReference>(3);
+    final Collection<SchemaReference> selectedSchemas = new LinkedHashSet<>(3);
     try {
       // select schemas that should be generated based on timestamps
 //      final Counter counter = new Counter();

@@ -29,7 +29,7 @@ import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 
 public final class WriterProcessor implements PipelineProcessor<GeneratorContext,Plan<?>,Writer<?>> {
-  private final Writer<?> root = new Writer<Plan<?>>() {
+  private final Writer<?> root = new Writer<>() {
     @Override
     protected void appendRegistration(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {
     }

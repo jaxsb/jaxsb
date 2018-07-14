@@ -41,8 +41,8 @@ import org.xml.sax.SAXException;
 
 public final class SchemaReference implements PipelineEntity {
   private static final Logger logger = LoggerFactory.getLogger(SchemaReference.class);
-  private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<NamespaceURI,Prefix>();
-  private static final Map<Prefix,NamespaceURI> prefixToNamespaceURI = new HashMap<Prefix,NamespaceURI>();
+  private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<>();
+  private static final Map<Prefix,NamespaceURI> prefixToNamespaceURI = new HashMap<>();
 
   // to dereference the schemaReference to a targetNamespace
   private final AtomicBoolean isConnected = new AtomicBoolean();

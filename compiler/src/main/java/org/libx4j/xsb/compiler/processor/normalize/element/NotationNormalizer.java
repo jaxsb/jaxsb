@@ -25,7 +25,7 @@ import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
 import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class NotationNormalizer extends Normalizer<NotationModel> {
-  private final Map<UniqueQName,NotationModel> all = new HashMap<UniqueQName,NotationModel>();
+  private final Map<UniqueQName,NotationModel> all = new HashMap<>();
 
   public NotationNormalizer(final NormalizerDirectory directory) {
     super(directory);

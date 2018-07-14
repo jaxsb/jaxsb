@@ -51,25 +51,25 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
     if (selectedSchemas == null || selectedSchemas.size() == 0)
       return null;
 
-    final Collection<SchemaDocument> schemas = new LinkedHashSet<SchemaDocument>();
-    final Map<NamespaceURI,URL> importLoopCheck = new HashMap<NamespaceURI,URL>();
-    final Map<NamespaceURI,Collection<URL>> includeLoopCheck = new HashMap<NamespaceURI,Collection<URL>>();
+    final Collection<SchemaDocument> schemas = new LinkedHashSet<>();
+    final Map<NamespaceURI,URL> importLoopCheck = new HashMap<>();
+    final Map<NamespaceURI,Collection<URL>> includeLoopCheck = new HashMap<>();
 
     for (final SchemaReference schemaReference : selectedSchemas) {
       if (schemaReference == null)
         continue;
 
-      final Stack<SchemaDocument> schemasToGenerate = new Stack<SchemaDocument>();
+      final Stack<SchemaDocument> schemasToGenerate = new Stack<>();
 
       try {
         URL url = URLs.canonicalizeURL(schemaReference.getURL());
         // First we need to find all of the imports and includes
-        Collection<SchemaDocument> outer = new Stack<SchemaDocument>();
+        Collection<SchemaDocument> outer = new Stack<>();
         outer.add(AbstractGenerator.parse(schemaReference));
         importLoopCheck.put(schemaReference.getNamespaceURI(), url);
         while (outer.size() != 0) {
           schemasToGenerate.addAll(0, outer);
-          final Stack<SchemaDocument> inner = new Stack<SchemaDocument>();
+          final Stack<SchemaDocument> inner = new Stack<>();
           for (final SchemaDocument schemaDocument : outer) {
             NodeList includeNodeList = null;
             for (final String includeString : includeStrings) {
@@ -86,7 +86,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
                 final SchemaReference includeSchemaReference = new SchemaReference(schemaLocationURL, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getSchemaReference().getPrefix(), true);
                 inner.insertElementAt(AbstractGenerator.parse(includeSchemaReference), 0);
                 if (duplicates == null)
-                    duplicates = new ArrayList<URL>();
+                    duplicates = new ArrayList<>();
 
                 duplicates.add(schemaLocationURL);
                 logger.info("Adding " + new File(schemaLocationURL.getFile()).getName() + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}");
@@ -129,7 +129,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
       if (includes == null || includes.size() == 0)
         continue;
 
-      final Collection<URL> externalIncludes = new ArrayList<URL>(includes.size());
+      final Collection<URL> externalIncludes = new ArrayList<>(includes.size());
       for (final URL include : includes)
         if (!include.equals(schema.getSchemaReference().getURL()))
           externalIncludes.add(include);

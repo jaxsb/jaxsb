@@ -53,7 +53,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     this.owner = owner;
     if (_default != null) {
       this._default = _default;
-      this.defaultProxy = new BindingProxy<B>(null);
+      this.defaultProxy = new BindingProxy<>(null);
       owner._$$addElement(this, (B)this.defaultProxy);
     }
     else {

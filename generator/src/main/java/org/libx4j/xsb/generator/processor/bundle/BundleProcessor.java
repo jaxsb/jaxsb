@@ -58,7 +58,7 @@ import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException {
-    final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<File>(2);
+    final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<>(2);
     final File[] requiredLibs = Resources.getLocationBases(Collections.class, Validator.class, Binding.class, NamespaceBinding.class);
     for (final File file : requiredLibs)
       classpath.add(file);
@@ -73,8 +73,8 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   }
 
   private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) throws IOException, SAXException {
-    final Set<NamespaceURI> namespaceURIsAdded = new HashSet<NamespaceURI>();
-    final Collection<File> jarFiles = new HashSet<File>();
+    final Set<NamespaceURI> namespaceURIsAdded = new HashSet<>();
+    final Collection<File> jarFiles = new HashSet<>();
 
     for (final SchemaComposite schemaComposite : schemaComposites) {
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
@@ -195,7 +195,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       if (pipelineContext.getCompileDir() != null)
         BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
 
-      final Collection<Bundle> bundles = new ArrayList<Bundle>();
+      final Collection<Bundle> bundles = new ArrayList<>();
       final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes());
       for (final File jarFile : jarFiles)
         bundles.add(new Bundle(jarFile));

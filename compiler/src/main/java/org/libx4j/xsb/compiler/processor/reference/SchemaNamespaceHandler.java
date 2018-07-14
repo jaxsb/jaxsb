@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public final class SchemaNamespaceHandler extends DefaultHandler {
-  private final BiMap<String,String> xmlns = new HashBiMap<String,String>();
+  private final BiMap<String,String> xmlns = new HashBiMap<>();
 
   @Override
   public void startElement(final String uri, String localName, final String qName, final Attributes attributes) throws SAXException {

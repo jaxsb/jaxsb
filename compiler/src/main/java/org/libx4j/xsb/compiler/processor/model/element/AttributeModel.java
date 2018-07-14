@@ -167,7 +167,7 @@ public class AttributeModel extends SimpleTypeModel<SimpleTypeModel<?>> implemen
   }
 
   public static final class Reference extends AttributeModel implements Referenceable {
-    private static final Map<UniqueQName,Reference> all = new HashMap<UniqueQName,Reference>();
+    private static final Map<UniqueQName,Reference> all = new HashMap<>();
 
     protected Reference(final Model parent) {
       super(null, parent);

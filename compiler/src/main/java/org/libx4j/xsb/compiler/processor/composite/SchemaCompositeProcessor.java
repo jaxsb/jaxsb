@@ -28,7 +28,7 @@ import org.libx4j.xsb.compiler.processor.document.SchemaDocument;
 public final class SchemaCompositeProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaDocument,SchemaComposite> {
   @Override
   public Collection<SchemaComposite> process(final GeneratorContext pipelineContext, final Collection<SchemaDocument> documents, final PipelineDirectory<GeneratorContext,SchemaDocument,SchemaComposite> directory) {
-    final Collection<SchemaComposite> selectors = new ArrayList<SchemaComposite>();
+    final Collection<SchemaComposite> selectors = new ArrayList<>();
     for (final SchemaDocument schemaDocument : documents)
       selectors.add(new SchemaModelComposite(schemaDocument));
 

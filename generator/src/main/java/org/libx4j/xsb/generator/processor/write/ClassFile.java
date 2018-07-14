@@ -37,8 +37,8 @@ public class ClassFile {
 
   private final File file;
   private final NamespaceBinding namespaceBinding;
-  private List<String> registrationTexts = new ArrayList<String>();
-  private List<String> classTexts = new ArrayList<String>();
+  private List<String> registrationTexts = new ArrayList<>();
+  private List<String> classTexts = new ArrayList<>();
 
   public ClassFile(final File file, final NamespaceBinding namespaceBinding) {
     this.file = file;

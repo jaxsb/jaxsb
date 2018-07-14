@@ -116,8 +116,8 @@ import org.libx4j.xsb.runtime.CompilerFailureException;
 
 @SuppressWarnings("rawtypes")
 public final class WriterDirectory implements PipelineDirectory<GeneratorContext,Plan<?>,Writer<?>> {
-  private final Map<Class<? extends Plan>,Class<? extends Writer>> classes = new HashMap<Class<? extends Plan>,Class<? extends Writer>>(39);
-  private final Map<Class<? extends Plan>,Writer> instances = new HashMap<Class<? extends Plan>,Writer>(39);
+  private final Map<Class<? extends Plan>,Class<? extends Writer>> classes = new HashMap<>(39);
+  private final Map<Class<? extends Plan>,Writer> instances = new HashMap<>(39);
   private final Collection<Class<? extends Plan>> keys;
   private final WriterProcessor processor;
 

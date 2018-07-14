@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Prefix {
-  private static final Map<String,Prefix> instances = new HashMap<String,Prefix>();
+  private static final Map<String,Prefix> instances = new HashMap<>();
 
   public static final Prefix EMPTY = getInstance("");
   public static final Prefix DEFAULT = getInstance("$");

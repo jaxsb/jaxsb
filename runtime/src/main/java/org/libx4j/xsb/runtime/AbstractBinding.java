@@ -43,9 +43,9 @@ public abstract class AbstractBinding implements Cloneable {
   protected static final QName XMLNS = new QName(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns");
   protected static final QName XML = new QName(XMLConstants.XML_NS_URI, "xml");
 
-  private static final Map<QName,Class<? extends Binding>> elementBindings = new HashMap<QName,Class<? extends Binding>>();
-  private static final Map<QName,Class<? extends Binding>> typeBindings = new HashMap<QName,Class<? extends Binding>>();
-  private static final Map<String,Object> notations = new HashMap<String,Object>();
+  private static final Map<QName,Class<? extends Binding>> elementBindings = new HashMap<>();
+  private static final Map<QName,Class<? extends Binding>> typeBindings = new HashMap<>();
+  private static final Map<String,Object> notations = new HashMap<>();
 
   protected static NotationType _$$getNotation(final String name) {
     final Object object = notations.get(name);

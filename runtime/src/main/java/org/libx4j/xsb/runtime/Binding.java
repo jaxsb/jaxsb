@@ -376,7 +376,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   protected final void _$$registerElementAudit(final ElementAudit<?> elementAudit) {
     if (nameToAudit == null)
-      nameToAudit = new HashMap<QName,ElementAudit<?>>();
+      nameToAudit = new HashMap<>();
 
     nameToAudit.put(elementAudit.getName() != null ? elementAudit.getName() : ElementSuperList.ANY, elementAudit);
   }
@@ -430,7 +430,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return null;
   }
 
-  private static final Map<Class<? extends Binding>,Binding> nulls = new HashMap<Class<? extends Binding>,Binding>();
+  private static final Map<Class<? extends Binding>,Binding> nulls = new HashMap<>();
 
   protected static Binding NULL(final Class<? extends Binding> clazz) {
     Binding NULL = nulls.get(clazz);

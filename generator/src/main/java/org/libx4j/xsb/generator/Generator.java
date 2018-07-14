@@ -68,7 +68,7 @@ public final class Generator extends AbstractGenerator {
     File compile = null;
     boolean pack = false;
     File destDir = null;
-    final Collection<SchemaReference> schemas = new HashSet<SchemaReference>();
+    final Collection<SchemaReference> schemas = new HashSet<>();
     for (int i = 0; i < args.length; i++) {
       if ("--overwrite".equals(args[i]))
         overwrite = true;
@@ -105,36 +105,36 @@ public final class Generator extends AbstractGenerator {
   }
 
   public Collection<Bundle> generate() {
-    final Pipeline<GeneratorContext> pipeline = new Pipeline<GeneratorContext>(generatorContext);
+    final Pipeline<GeneratorContext> pipeline = new Pipeline<>(generatorContext);
 
     // select the schemas to be generated and exit if no schemas need work
-    final Collection<SchemaReference> schemaReferences = new ArrayList<SchemaReference>();
+    final Collection<SchemaReference> schemaReferences = new ArrayList<>();
     pipeline.<SchemaReference,SchemaReference>addProcessor(schemas, schemaReferences, new SchemaReferenceDirectory());
 
     // prepare the schemas to be worked on and build the dependency graph
-    final Collection<SchemaDocument> schemaDocuments = new ArrayList<SchemaDocument>();
+    final Collection<SchemaDocument> schemaDocuments = new ArrayList<>();
     pipeline.<SchemaReference,SchemaDocument>addProcessor(schemaReferences, schemaDocuments, new SchemaDocumentDirectory());
 
     // bridge the dependency structure within the framework
-    final Collection<SchemaComposite> schemaComposites = new ArrayList<SchemaComposite>();
+    final Collection<SchemaComposite> schemaComposites = new ArrayList<>();
     pipeline.<SchemaDocument,SchemaComposite>addProcessor(schemaDocuments, schemaComposites, new SchemaCompositeDirectory());
 
     // model the schema elements using Model objects
-    final Collection<Model> models = new ArrayList<Model>();
+    final Collection<Model> models = new ArrayList<>();
     pipeline.<SchemaComposite,Model>addProcessor(schemaComposites, models, new ModelDirectory());
 
     // normalize the models
     pipeline.<Model,Normalizer<?>>addProcessor(models, null, new NormalizerDirectory());
 
     // plan the schema elements using Plan objects
-    final Collection<Plan<?>> plans = new ArrayList<Plan<?>>();
+    final Collection<Plan<?>> plans = new ArrayList<>();
     pipeline.<Model,Plan<?>>addProcessor(models, plans, new PlanDirectory());
 
     // write the plans to files
     pipeline.<Plan<?>,Writer<?>>addProcessor(plans, null, new WriterDirectory());
 
     // compile and jar the bindings
-    final Collection<Bundle> bundles = new ArrayList<Bundle>();
+    final Collection<Bundle> bundles = new ArrayList<>();
     pipeline.<SchemaComposite,Bundle>addProcessor(schemaComposites, bundles, new BundleDirectory(sourcePath));
 
     // timestamp the generated files and directories

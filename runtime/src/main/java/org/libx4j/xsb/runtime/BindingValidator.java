@@ -44,7 +44,7 @@ public final class BindingValidator extends Validator {
     BindingValidator.validator = validator;
   }
 
-  private final Map<String,URL> schemaReferences = new HashMap<String,URL>();
+  private final Map<String,URL> schemaReferences = new HashMap<>();
   private boolean validateOnMarshal = false;
   private boolean validateOnParse = false;
 

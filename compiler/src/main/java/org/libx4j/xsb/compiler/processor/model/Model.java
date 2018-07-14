@@ -39,7 +39,7 @@ public abstract class Model implements PipelineEntity {
 
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private final Collection<Model> children = new ArrayList<Model>();
+  private final Collection<Model> children = new ArrayList<>();
   private Map<NamespaceURI,URL> schemaReferences = null;
 
   private Model parent = null;
@@ -76,7 +76,7 @@ public abstract class Model implements PipelineEntity {
     }
 
     if (schemaReferences == null)
-      schemaReferences = new HashMap<NamespaceURI,URL>();
+      schemaReferences = new HashMap<>();
 
     if (schemaReferences.containsKey(namespaceURI))
       return;

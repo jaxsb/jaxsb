@@ -40,7 +40,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
   public Collection<Model> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Model> directory) {
     root = new Model(null, null) {};
     // Then we parse all of the schemas that have been included and imported
-    final Collection<Model> schemaModels = new ArrayList<Model>();
+    final Collection<Model> schemaModels = new ArrayList<>();
 
     for (final SchemaComposite schemaComposite : documents) {
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;

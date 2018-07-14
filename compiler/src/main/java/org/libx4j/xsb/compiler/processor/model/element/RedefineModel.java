@@ -23,10 +23,10 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class RedefineModel extends Model {
-  private final LinkedHashSet<SimpleTypeModel<?>> simpleTypeModels = new LinkedHashSet<SimpleTypeModel<?>>();
-  private final LinkedHashSet<ComplexTypeModel<?>> complexTypeModels = new LinkedHashSet<ComplexTypeModel<?>>();
-  private final LinkedHashSet<GroupModel> groupModels = new LinkedHashSet<GroupModel>();
-  private final LinkedHashSet<AttributeGroupModel> attributeGroupModels = new LinkedHashSet<AttributeGroupModel>();
+  private final LinkedHashSet<SimpleTypeModel<?>> simpleTypeModels = new LinkedHashSet<>();
+  private final LinkedHashSet<ComplexTypeModel<?>> complexTypeModels = new LinkedHashSet<>();
+  private final LinkedHashSet<GroupModel> groupModels = new LinkedHashSet<>();
+  private final LinkedHashSet<AttributeGroupModel> attributeGroupModels = new LinkedHashSet<>();
   private String schemaLocation = null;
 
   protected RedefineModel(final Node node, final Model parent) {

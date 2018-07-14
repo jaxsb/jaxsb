@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class FinalDefault {
-  private static final Map<String,FinalDefault> enums = new HashMap<String,FinalDefault>();
+  private static final Map<String,FinalDefault> enums = new HashMap<>();
 
   public static final FinalDefault ALL = new FinalDefault("#all");
   public static final FinalDefault EXTENSION = new FinalDefault("extension");
