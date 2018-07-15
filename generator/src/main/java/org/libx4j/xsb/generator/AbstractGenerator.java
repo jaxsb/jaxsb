@@ -16,7 +16,6 @@
 
 package org.libx4j.xsb.generator;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -29,7 +28,6 @@ import org.lib4j.net.URLs;
 import org.lib4j.xml.dom.DOMParsers;
 import org.libx4j.xsb.compiler.processor.document.SchemaDocument;
 import org.libx4j.xsb.compiler.processor.reference.SchemaReference;
-import org.libx4j.xsb.runtime.BindingError;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -37,7 +35,7 @@ import org.xml.sax.SAXException;
 public abstract class AbstractGenerator {
   private static final Map<String,SchemaDocument> parsedDocuments = new HashMap<>();
 
-  public static SchemaDocument parse(final SchemaReference schemaReference) {
+  public static SchemaDocument parse(final SchemaReference schemaReference) throws IOException {
     try {
       final URL url = URLs.canonicalizeURL(schemaReference.getURL());
       final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
@@ -46,10 +44,7 @@ public abstract class AbstractGenerator {
       parsedDocuments.put(schemaReference.getNamespaceURI() + url.toString(), parsedDocument);
       return parsedDocument;
     }
-    catch (final FileNotFoundException e) {
-      throw new BindingError(e.getMessage());
-    }
-    catch (final IOException | SAXException | URISyntaxException e) {
+    catch (final SAXException | URISyntaxException e) {
       throw new CompilerFailureException(e);
     }
   }

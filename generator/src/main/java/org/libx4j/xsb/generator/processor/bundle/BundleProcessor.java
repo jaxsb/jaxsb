@@ -48,7 +48,6 @@ import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.composite.SchemaComposite;
 import org.libx4j.xsb.compiler.processor.composite.SchemaModelComposite;
 import org.libx4j.xsb.runtime.Binding;
-import org.libx4j.xsb.runtime.BindingError;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -86,7 +85,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         if (isJar) {
           final File jarFile = new File(destDir, packageName + ".jar");
           if (jarFile.exists() && !jarFile.delete())
-            throw new BindingError("Unable to delete the existing jar: " + jarFile.getAbsolutePath());
+            throw new IOException("Unable to delete existing jar: " + jarFile.getAbsolutePath());
 
           jar = new Jar(jarFile);
           jarFiles.add(jarFile);

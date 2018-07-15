@@ -17,6 +17,7 @@
 package org.libx4j.xsb.generator.schema;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,7 +37,6 @@ import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.document.SchemaDocument;
 import org.libx4j.xsb.compiler.processor.reference.SchemaReference;
 import org.libx4j.xsb.generator.AbstractGenerator;
-import org.libx4j.xsb.generator.GeneratorError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -117,8 +117,8 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
           outer = inner;
         }
       }
-      catch (final MalformedURLException e) {
-        throw new GeneratorError(e);
+      catch (final IOException e) {
+        throw new IllegalStateException(e);
       }
 
       schemas.addAll(schemasToGenerate);
