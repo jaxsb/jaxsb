@@ -17,8 +17,9 @@
 package org.libx4j.xsb.generator.processor.write;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +71,9 @@ public class ClassFile {
 
     final String text = SourceFormat.getDefaultFormat().format(buffer.toString());
     file.getParentFile().mkdirs();
-    try (final FileOutputStream out = new FileOutputStream(file)) {
-      out.write(license.toString().getBytes());
-      out.write(text.getBytes());
+    try (final OutputStreamWriter out = new FileWriter(file)) {
+      out.write(license.toString());
+      out.write(text);
     }
   }
 }
