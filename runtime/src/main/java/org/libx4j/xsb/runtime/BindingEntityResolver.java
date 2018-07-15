@@ -33,14 +33,10 @@ import org.w3c.dom.ls.LSResourceResolver;
 public final class BindingEntityResolver implements LSResourceResolver {
   public static void registerSchemaLocation(final String namespaceURI, final URL schemaReference) {
     final CachedURL present = schemaReferences.get(namespaceURI);
-    if (present != null) {
-      if (!present.toURL().equals(schemaReference))
-        throw new ValidatorError("We should not be resetting {" + namespaceURI + "} from " + present + " to " + schemaReference);
-
-      return;
-    }
-
-    schemaReferences.put(namespaceURI, new CachedURL(schemaReference));
+    if (present == null)
+      schemaReferences.put(namespaceURI, new CachedURL(schemaReference));
+    else if (!present.toURL().equals(schemaReference))
+      throw new IllegalStateException("Attempted to reset {" + namespaceURI + "} from " + present + " to " + schemaReference);
   }
 
   public static CachedURL lookupSchemaLocation(final String namespaceURI) {
@@ -73,25 +69,13 @@ public final class BindingEntityResolver implements LSResourceResolver {
 
   @Override
   public LSInput resolveResource(final String type, final String namespaceURI, final String publicId, final String systemId, final String baseURI) {
-    if (systemId == null) {
-//      systemId = resourceIdentifier.getExpandedSystemId();
-    }
-
     // for some reason, this happens every once in a while
     if (namespaceURI == null && systemId == null)
       return null;
 
-    final CachedURL url;
-//    if (((XSDDescription)resourceIdentifier).getContextType() == XSDDescription.CONTEXT_INCLUDE) {
-//      final String localName = Paths.getName(resourceIdentifier.getExpandedSystemId());
-//      schemaReference = new URL(Paths.getCanonicalParent(systemId) + "/" + localName);
-//    }
-//    else {
-      url = lookupSchemaLocation(namespaceURI);
-//    }
-
+    final CachedURL url = lookupSchemaLocation(namespaceURI);
     if (url == null)
-      throw new ValidatorError("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null!");
+      throw new IllegalStateException("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null!");
 
     try {
       final LSInput input = new LSInputImpl(URLs.toExternalForm(url), publicId, baseURI);
@@ -99,7 +83,7 @@ public final class BindingEntityResolver implements LSResourceResolver {
       return input;
     }
     catch (final IOException e) {
-      throw new RuntimeException("Cannot obtain externalForm of " + url, e);
+      throw new IllegalArgumentException("Cannot obtain externalForm of " + url, e);
     }
   }
 }

@@ -46,15 +46,12 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   private static final long serialVersionUID = -1760699437761774773L;
 
   protected static DocumentBuilder newDocumentBuilder() {
-    final DocumentBuilder documentBuilder;
     try {
-      documentBuilder = documentBuilderFactory.newDocumentBuilder();
+      return documentBuilderFactory.newDocumentBuilder();
     }
     catch (final ParserConfigurationException e) {
-      throw new BindingError(e);
+      throw new IllegalStateException(e);
     }
-
-    return documentBuilder;
   }
 
   protected static Element createElementNS(final String namespaceURI, final String localName) {
@@ -82,18 +79,16 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   protected static Binding _$$parseAttr(final Class<?> xmlClass, final Element parent, final Node attribute) {
-    final Binding binding;
     try {
       final Constructor<?> constructor = xmlClass.getDeclaredConstructor();
       constructor.setAccessible(true);
-      binding = (Binding)constructor.newInstance();
+      final Binding binding = (Binding)constructor.newInstance();
       binding._$$decode(parent, attribute.getNodeValue());
+      return binding;
     }
     catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException | ParseException e) {
-      throw new BindingError(e);
+      throw new IllegalStateException(e);
     }
-
-    return binding;
   }
 
   protected static void _$$decode(final Binding binding, final Element element, final String value) throws ParseException {
@@ -315,7 +310,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
               return (BindingList<? extends Binding>)method.invoke(this);
             }
             catch (final IllegalAccessException | InvocationTargetException e) {
-              throw new BindingError(e);
+              throw new IllegalStateException(e);
             }
           }
         }
@@ -449,7 +444,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       return NULL;
     }
     catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-      throw new BindingError(e);
+      throw new IllegalStateException(e);
     }
   }
 
@@ -467,7 +462,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws MarshalException
    */
   protected Attr marshalAttr(final String name, final Element parent) throws MarshalException {
-    throw new BindingError("This is a template that must be overridden");
+    throw new UnsupportedOperationException("This is a template that must be overridden");
   }
 
   /**
@@ -549,14 +544,14 @@ public abstract class Binding extends AbstractBinding implements Serializable {
    * @throws ParseException
    */
   protected void _$$decode(final Element parent, final String value) throws ParseException {
-    throw new BindingError("This is a template that must be overridden, otherwise it shouldn't be called");
+    throw new UnsupportedOperationException("This is a template that must be overridden, otherwise it shouldn't be called");
   }
 
   /**
    * @throws MarshalException
    */
   protected String _$$encode(final Element parent) throws MarshalException {
-    throw new BindingError("This is a template that must be overridden, otherwise it shouldn't be called");
+    throw new UnsupportedOperationException("This is a template that must be overridden, otherwise it shouldn't be called");
   }
 
   protected String[] _$$getPattern() {
