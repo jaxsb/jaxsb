@@ -21,8 +21,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import org.lib4j.xml.binding.Date;
-import org.lib4j.xml.binding.Time;
+import org.lib4j.xml.datatype.Date;
+import org.lib4j.xml.datatype.Time;
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.Bindings;
 import org.libx4j.xsb.sample.list.xAA.$EmployeeType;

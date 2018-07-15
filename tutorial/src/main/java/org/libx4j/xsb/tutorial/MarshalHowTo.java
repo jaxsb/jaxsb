@@ -18,7 +18,7 @@ package org.libx4j.xsb.tutorial;
 
 import java.math.BigDecimal;
 
-import org.lib4j.xml.binding.Date;
+import org.lib4j.xml.datatype.Date;
 import org.libx4j.xsb.tutorial.invoice.xAA.Invoice;
 
 public class MarshalHowTo {

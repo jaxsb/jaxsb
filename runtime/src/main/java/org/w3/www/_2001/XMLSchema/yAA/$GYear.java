@@ -16,7 +16,7 @@
 
 package org.w3.www._2001.XMLSchema.yAA;
 
-import org.lib4j.xml.binding.Year;
+import org.lib4j.xml.datatype.Year;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Element;

@@ -22,7 +22,7 @@ import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.lib4j.xml.binding.Date;
+import org.lib4j.xml.datatype.Date;
 import org.libx4j.xsb.runtime.Bindings;
 import org.libx4j.xsb.tutorial.invoice.xAA.$ItemType;
 import org.libx4j.xsb.tutorial.invoice.xAA.Invoice;

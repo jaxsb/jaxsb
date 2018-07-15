@@ -58,7 +58,7 @@
     </dependency>
     <dependency>
       <groupId>org.lib4j.xml</groupId>
-      <artifactId>xml-binding</artifactId>
+      <artifactId>xml-datatype</artifactId>
     </dependency>
     <dependency>
       <groupId>org.lib4j.xml</groupId>
