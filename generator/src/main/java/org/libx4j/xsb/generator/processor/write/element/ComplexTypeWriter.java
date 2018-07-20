@@ -299,7 +299,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
 
     // ATTRIBUTE ITERATORS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + Iterator.class.getName() + "<? extends " + $AnySimpleType.class.getName() + "> attributeIterator()\n");
+    writer.write("public " + Iterator.class.getName() + "<? extends " + $AnySimpleType.class.getCanonicalName() + "> attributeIterator()\n");
     writer.write("{\n");
     writer.write("return super.attributeIterator();\n");
     writer.write("}\n");

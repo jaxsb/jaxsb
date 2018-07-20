@@ -483,7 +483,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
     // ATTRIBUTE ITERATORS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + Iterator.class.getName() + "<? extends " + $AnySimpleType.class.getName() + "> attributeIterator()\n");
+    writer.write("public " + Iterator.class.getName() + "<? extends " + $AnySimpleType.class.getCanonicalName() + "> attributeIterator()\n");
     writer.write("{\n");
     writer.write("return super.attributeIterator();\n");
     writer.write("}\n");
@@ -607,7 +607,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       if (plan.isNillable()) {
         writer.write("else if (XSI_NIL.getNamespaceURI().equals(attribute.getNamespaceURI()) && XSI_NIL.getLocalPart().equals(attribute.getLocalName()))\n");
         writer.write("{\n");
-        writer.write("this.nil = " + $Boolean.class.getName() + ".parse(attribute.getNodeValue());\n");
+        writer.write("this.nil = " + $Boolean.class.getCanonicalName() + ".parse(attribute.getNodeValue());\n");
         writer.write("return true;\n");
         writer.write("}\n");
       }

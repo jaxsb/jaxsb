@@ -36,26 +36,26 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("private " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + $AnySimpleType.class.getName() + ">> anyAttribute = new " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + $AnySimpleType.class.getName() + ">>(this, null, null, " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + ");\n");
+    writer.write("private " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + ">> anyAttribute = new " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + ">>(this, null, null, " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + ");\n");
   }
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("public " + List.class.getName() + "<" +  $AnySimpleType.class.getName() + "> getAny$()\n");
+    writer.write("public " + List.class.getName() + "<" +  $AnySimpleType.class.getCanonicalName() + "> getAny$()\n");
     writer.write("{\n");
     writer.write("return anyAttribute.getAttribute();\n");
     writer.write("}\n");
 
-    writer.write("public " + $AnySimpleType.class.getName() + " any$(final int index)\n");
+    writer.write("public " + $AnySimpleType.class.getCanonicalName() + " any$(final int index)\n");
     writer.write("{\n");
-    writer.write("final " + List.class.getName() + "<" + $AnySimpleType.class.getName() + "> values = getAny$();\n");
+    writer.write("final " + List.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> values = getAny$();\n");
     writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : null;\n");
     writer.write("}\n");
   }
 
   @Override
   protected void appendSetMethod(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("public void addAny$(final " + $AnySimpleType.class.getName() + " anyAttribute)\n");
+    writer.write("public void addAny$(final " + $AnySimpleType.class.getCanonicalName() + " anyAttribute)\n");
     writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
     writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + ">());\n");
@@ -73,8 +73,8 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 //      writer.write("else\n");
 //      writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
-    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<" + $AnySimpleType.class.getName() + ">());\n");
-    writer.write("this.anyAttribute.getAttribute().add(" + $AnySimpleType.class.getName() + ".parseAttr((" + Element.class.getName() + ")attribute.getParentNode(), attribute));\n");
+    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + ">());\n");
+    writer.write("this.anyAttribute.getAttribute().add(" + $AnySimpleType.class.getCanonicalName() + ".parseAttr((" + Element.class.getName() + ")attribute.getParentNode(), attribute));\n");
 //      writer.write("}\n");
   }
 

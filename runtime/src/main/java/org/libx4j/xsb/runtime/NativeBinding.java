@@ -78,8 +78,8 @@ public final class NativeBinding {
     if (!(obj instanceof NativeBinding))
       return false;
 
-    final NativeBinding nativeBinding = (NativeBinding)obj;
-    return name.equals(nativeBinding.name) && baseClass.equals(nativeBinding.baseClass) && nativeClass.equals(nativeBinding.nativeClass);
+    final NativeBinding that = (NativeBinding)obj;
+    return name.equals(that.name) && baseClass.equals(that.baseClass) && nativeClass.equals(that.nativeClass);
   }
 
   @Override
@@ -129,8 +129,8 @@ public final class NativeBinding {
       if (!(obj instanceof GenericClass))
         return false;
 
-      final GenericClass genericClass = (GenericClass)obj;
-      return cls.equals(genericClass.cls) && (type == null && genericClass.type == null || type != null && type.equals(genericClass.type));
+      final GenericClass that = (GenericClass)obj;
+      return cls.equals(that.cls) && (type != null ? type.equals(that.type) : that.type != null);
     }
 
     @Override
@@ -140,7 +140,7 @@ public final class NativeBinding {
 
     @Override
     public String toString() {
-      return type != null ? cls.getName() + "<" + type.getName() + ">" : cls.getName();
+      return type == null ? cls.getCanonicalName() : cls.getCanonicalName() + "<" + type.getCanonicalName() + ">";
     }
   }
 }

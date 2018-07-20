@@ -71,11 +71,11 @@ public abstract class AbstractBinding implements Cloneable {
     notations.put(publicName, notation);
   }
 
-  protected static void _$$registerSchemaLocation(final String namespaceURI, final Class<?> className, final String schemaReference) {
-    final String simpleName = className.getName().replace('.', '/') + ".class";
+  protected static void _$$registerSchemaLocation(final String namespaceURI, final Class<?> cls, final String schemaReference) {
+    final String simpleName = cls.getName().replace('.', '/') + ".class";
     final URL url = Thread.currentThread().getContextClassLoader().getResource(simpleName);
     if (url == null) {
-      logger.debug("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
+      logger.debug("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + cls.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
       return;
     }
 
@@ -84,7 +84,7 @@ public abstract class AbstractBinding implements Cloneable {
       BindingEntityResolver.registerSchemaLocation(namespaceURI, new URL(parent + "/" + schemaReference));
     }
     catch (final MalformedURLException e) {
-      logger.error("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
+      logger.error("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + cls.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
     }
   }
 

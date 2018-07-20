@@ -229,19 +229,19 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
       throw new CompilerFailureException("Should always be able to resolve the type for name: " + getName());
 
     if (this.list = baseXSItemTypeDirectory.getNativeBinding().isList()) {
-      nativeItemClassName = baseXSItemTypeDirectory.getNativeBinding().getNativeClass().getType().getName();
+      nativeItemClassName = baseXSItemTypeDirectory.getNativeBinding().getNativeClass().getType().getCanonicalName();
     }
     else {
       this.list = digList(getModel());
-      nativeItemClassName = baseXSItemTypeDirectory.getNativeBinding().getNativeClass().getCls().getName();
+      nativeItemClassName = baseXSItemTypeDirectory.getNativeBinding().getNativeClass().getCls().getCanonicalName();
     }
 
     if (this.list = baseXSNonEnumItemTypeDirectory.getNativeBinding().isList()) {
-      nativeNonEnumItemClassName = baseXSNonEnumItemTypeDirectory.getNativeBinding().getNativeClass().getType().getName();
+      nativeNonEnumItemClassName = baseXSNonEnumItemTypeDirectory.getNativeBinding().getNativeClass().getType().getCanonicalName();
     }
     else {
       this.list = digList(getModel());
-      nativeNonEnumItemClassName = baseXSNonEnumItemTypeDirectory.getNativeBinding().getNativeClass().getCls().getName();
+      nativeNonEnumItemClassName = baseXSNonEnumItemTypeDirectory.getNativeBinding().getNativeClass().getCls().getCanonicalName();
     }
 
     nativeFactory = baseXSItemTypeDirectory.getNativeFactory();

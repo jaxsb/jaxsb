@@ -62,7 +62,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
   }*/
 
   protected static void writeIdLookup(final StringWriter writer, final SimpleTypePlan<?> plan, final Plan<?> parent) {
-    if (!$ID.class.getName().equals(plan.getSuperClassNameWithoutType()))
+    if (!$ID.class.getCanonicalName().equals(plan.getSuperClassNameWithoutType()))
       return;
 
     final String className;
@@ -82,10 +82,10 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     writer.write("public static " + plan.getClassName(parent) + " lookupId(final " + className + " id)\n");
     writer.write("{\n");
-    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
+    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $ID.class.getCanonicalName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
     writer.write("if (idMap == null)\n");
     writer.write("return null;\n");
-    writer.write("final " + $ID.class.getName() + " value = idMap.get(" + instanceName + ");\n");
+    writer.write("final " + $ID.class.getCanonicalName() + " value = idMap.get(" + instanceName + ");\n");
     writer.write("if (value instanceof " + plan.getClassName(parent) + ")\n");
     writer.write("return (" + plan.getClassName(parent) + ")value;\n");
     writer.write("return null;\n");
@@ -93,11 +93,11 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     writer.write("public static " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> lookupId()\n");
     writer.write("{\n");
-    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $ID.class.getName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
+    writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $ID.class.getCanonicalName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
     writer.write("if (idMap == null)\n");
     writer.write("return null;\n");
     writer.write("final " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> ids = new " + ArrayList.class.getName() + "<" + plan.getClassName(parent) + ">();\n");
-    writer.write("for(" + $ID.class.getName() + " id : idMap.values())\n");
+    writer.write("for(" + $ID.class.getCanonicalName() + " id : idMap.values())\n");
     writer.write("if (id.getClass().equals(" + plan.getClassName(parent) + ".class))\n");
     writer.write("ids.add((" + plan.getClassName(parent) + ")id);\n");
     writer.write("return ids;\n");

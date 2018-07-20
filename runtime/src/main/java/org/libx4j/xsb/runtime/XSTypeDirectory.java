@@ -179,11 +179,11 @@ public final class XSTypeDirectory {
     }
     else {
       if (nativeBinding.getFactoryMethod() instanceof Method)
-        this.nativeFactory = ((Method)nativeBinding.getFactoryMethod()).getDeclaringClass().getName() + "." + ((Method)nativeBinding.getFactoryMethod()).getName();
+        this.nativeFactory = ((Method)nativeBinding.getFactoryMethod()).getDeclaringClass().getCanonicalName() + "." + ((Method)nativeBinding.getFactoryMethod()).getName();
       else if (nativeBinding.getFactoryMethod() instanceof Constructor<?>)
-        this.nativeFactory = "new " + ((Constructor<?>)nativeBinding.getFactoryMethod()).getDeclaringClass().getName();
+        this.nativeFactory = "new " + ((Constructor<?>)nativeBinding.getFactoryMethod()).getDeclaringClass().getCanonicalName();
       else
-        throw new UnsupportedOperationException("Unknown native binding factoryMethod type: " + nativeBinding.getFactoryMethod().getClass().getName());
+        throw new UnsupportedOperationException("Unknown native binding factoryMethod type: " + nativeBinding.getFactoryMethod().getClass().getCanonicalName());
     }
 
     defaultTypes.put(nativeBinding.getName(), this);
