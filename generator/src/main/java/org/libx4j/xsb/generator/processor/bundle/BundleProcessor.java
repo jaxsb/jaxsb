@@ -18,6 +18,7 @@ package org.libx4j.xsb.generator.processor.bundle;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +32,6 @@ import org.lib4j.io.Files;
 import org.lib4j.jci.CompilationException;
 import org.lib4j.jci.JavaCompiler;
 import org.lib4j.lang.Paths;
-import org.lib4j.lang.Resources;
 import org.lib4j.net.URLs;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
@@ -56,11 +56,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
-  private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException {
+  private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<>(2);
-    final File[] requiredLibs = Resources.getLocationBases(Collections.class, Validator.class, Binding.class, NamespaceBinding.class);
-    for (final File file : requiredLibs)
-      classpath.add(file);
+    final Class<?>[] requiredLibs = {Collections.class, Validator.class, Binding.class, NamespaceBinding.class};
+    for (final Class<?> file : requiredLibs)
+      classpath.add(new File(file.getProtectionDomain().getCodeSource().getLocation().toURI()));
 
     final File[] sources = new File[documents.size()];
     final Iterator<SchemaComposite> iterator = documents.iterator();
@@ -97,7 +97,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
             if (files != null)
               for (final File file : files)
                 if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
-                  jar.addEntry(Files.relativePath(destDir.getAbsoluteFile(), file.getAbsoluteFile()), Files.getBytes(file));
+                  jar.addEntry(Files.relativePath(destDir.getAbsoluteFile(), file.getAbsoluteFile()), java.nio.file.Files.readAllBytes(file.toPath()));
           }
         }
         else {
@@ -179,7 +179,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     if (jar != null)
       jar.addEntry(filePath, bytes);
 
-    Files.writeFile(new File(destDir, filePath), bytes);
+    java.nio.file.Files.write(new File(destDir, filePath).toPath(), bytes);
   }
 
   private final Set<File> sourcePath;
@@ -201,7 +201,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
       return bundles;
     }
-    catch (final CompilationException | IOException | SAXException e) {
+    catch (final CompilationException | IOException | SAXException | URISyntaxException e) {
       throw new CompilerFailureException(e);
     }
   }
