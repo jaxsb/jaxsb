@@ -23,7 +23,6 @@ import java.util.Map;
 
 import org.lib4j.lang.PackageLoader;
 import org.lib4j.lang.PackageNotFoundException;
-import org.lib4j.net.CachedURL;
 import org.lib4j.net.URLs;
 import org.lib4j.xml.sax.LSInputImpl;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
@@ -32,18 +31,18 @@ import org.w3c.dom.ls.LSResourceResolver;
 
 public final class BindingEntityResolver implements LSResourceResolver {
   public static void registerSchemaLocation(final String namespaceURI, final URL schemaReference) {
-    final CachedURL present = schemaReferences.get(namespaceURI);
+    final URL present = schemaReferences.get(namespaceURI);
     if (present == null)
-      schemaReferences.put(namespaceURI, new CachedURL(schemaReference));
-    else if (!present.toURL().equals(schemaReference))
+      schemaReferences.put(namespaceURI, schemaReference);
+    else if (!present.equals(schemaReference))
       throw new IllegalStateException("Attempted to reset {" + namespaceURI + "} from " + present + " to " + schemaReference);
   }
 
-  public static CachedURL lookupSchemaLocation(final String namespaceURI) {
+  public static URL lookupSchemaLocation(final String namespaceURI) {
     if (namespaceURI == null)
       return null;
 
-    final CachedURL schemaReference = schemaReferences.get(namespaceURI);
+    final URL schemaReference = schemaReferences.get(namespaceURI);
     if (schemaReference != null)
       return schemaReference;
 
@@ -65,7 +64,7 @@ public final class BindingEntityResolver implements LSResourceResolver {
     return schemaReferences.get(namespaceURI);
   }
 
-  protected static final Map<String,CachedURL> schemaReferences = new HashMap<>();
+  protected static final Map<String,URL> schemaReferences = new HashMap<>();
 
   @Override
   public LSInput resolveResource(final String type, final String namespaceURI, final String publicId, final String systemId, final String baseURI) {
@@ -73,7 +72,7 @@ public final class BindingEntityResolver implements LSResourceResolver {
     if (namespaceURI == null && systemId == null)
       return null;
 
-    final CachedURL url = lookupSchemaLocation(namespaceURI);
+    final URL url = lookupSchemaLocation(namespaceURI);
     if (url == null)
       throw new IllegalStateException("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null!");
 

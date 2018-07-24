@@ -16,15 +16,14 @@
 
 package org.libx4j.xsb.runtime;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.transform.stream.StreamSource;
 
-import org.lib4j.net.CachedURL;
 import org.lib4j.xml.ValidationException;
 import org.lib4j.xml.dom.DOMs;
 import org.lib4j.xml.dom.Validator;
@@ -71,19 +70,19 @@ public final class BindingValidator extends Validator {
 
   @Override
   protected URL getSchemaLocation(final String namespaceURI) {
-    return BindingEntityResolver.lookupSchemaLocation(namespaceURI).toURL();
+    return BindingEntityResolver.lookupSchemaLocation(namespaceURI);
   }
 
   @Override
   protected void parse(final Element element) throws IOException, ValidationException {
     final String output = DOMs.domToString(element);
     try {
-      org.lib4j.xml.sax.Validator.validate(new StreamSource(new ByteArrayInputStream(output.getBytes())), new XMLCatalog() {
+      org.lib4j.xml.sax.Validator.validate(new StreamSource(new StringReader(output)), new XMLCatalog() {
         @Override
         public SchemaLocation getSchemaLocation(final String namespaceURI) {
           return new SchemaLocation(namespaceURI) {
             @Override
-            public Map<String,CachedURL> getDirectory() {
+            public Map<String,URL> getDirectory() {
               return BindingEntityResolver.schemaReferences;
             }
           };
