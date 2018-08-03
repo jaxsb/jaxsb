@@ -427,7 +427,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     }
 
     // IS_NULL
-    //writeIsNull(writer, plan);
+    writeIsNull(writer);
 
     // CLONE
     writer.write("@" + Override.class.getName() + "\n");

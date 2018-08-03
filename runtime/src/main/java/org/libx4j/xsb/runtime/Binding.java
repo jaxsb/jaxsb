@@ -450,12 +450,8 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   private volatile boolean isNull = false;
 
-  public final boolean isNull() {
+  protected boolean isNull() {
     return isNull;
-  }
-
-  protected static void s() {
-
   }
 
   /**

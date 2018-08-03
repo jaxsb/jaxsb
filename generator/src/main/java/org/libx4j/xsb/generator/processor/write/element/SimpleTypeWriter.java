@@ -54,12 +54,12 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("@" + org.libx4j.xsb.runtime.QName.class.getName() + "(namespaceURI=\"" + plan.getName().getNamespaceURI() +"\", localPart=\"" + plan.getName().getLocalPart() +"\", prefix=\"" + plan.getName().getPrefix() +"\")\n");
   }
 
-  /*protected static void writeIsNull(final StringWriter writer, final SimpleTypePlan<?> plan) {
+  protected static void writeIsNull(final StringWriter writer) {
     writer.write("public boolean isNull()\n");
     writer.write("{\n");
     writer.write("return super.isNull();\n");
     writer.write("}\n");
-  }*/
+  }
 
   protected static void writeIdLookup(final StringWriter writer, final SimpleTypePlan<?> plan, final Plan<?> parent) {
     if (!$ID.class.getCanonicalName().equals(plan.getSuperClassNameWithoutType()))
@@ -115,7 +115,6 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     else {
       // DOCUMENTATION
       writer.write(plan.getDocumentation());
-
       visibility = "public ";
     }
 

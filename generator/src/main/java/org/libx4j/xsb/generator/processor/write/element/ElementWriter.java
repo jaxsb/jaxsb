@@ -693,7 +693,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     }
 
     // IS_NULL
-    //writeIsNull(writer, plan);
+    writeIsNull(writer);
 
     // CLONE
     writer.write("@" + Override.class.getName() + "\n");
