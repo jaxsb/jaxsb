@@ -138,7 +138,7 @@ public abstract class Bindings {
     final StringBuilder builder = new StringBuilder();
     Binding owner = binding;
     do
-      builder.insert(0, "/" + function.apply(owner));
+      builder.insert(0, (owner instanceof Attribute ? "/@" : "/") + function.apply(owner));
     while ((owner = owner.owner()) != null);
     return builder.toString();
   }
