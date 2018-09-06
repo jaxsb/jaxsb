@@ -27,10 +27,10 @@ import java.util.Set;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.lib4j.lang.Classes;
 import org.lib4j.lang.PackageLoader;
 import org.lib4j.lang.PackageNotFoundException;
 import org.lib4j.net.URLs;
+import org.lib4j.util.Classes;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,29 +137,23 @@ public abstract class AbstractBinding implements Cloneable {
 
   protected static QName getClassQName(final Class<? extends Binding> binding) {
     final org.libx4j.xsb.runtime.QName name = Classes.getDeclaredAnnotation(binding, org.libx4j.xsb.runtime.QName.class);
-    return new QName(name.namespaceURI().intern(), name.localPart().intern(), name.prefix().intern());
+    return new QName(name.namespaceURI(), name.localPart(), name.prefix());
   }
 
   protected static QName stringToQName(final java.lang.String name) {
     if (name == null || name.length() == 0)
       return null;
 
-    int index = name.indexOf(":");
-    if (index != -1)
-      return new QName(null, name.substring(index + 1).intern(), name.substring(0, index).intern());
-
-    return new QName(name.intern());
+    final int index = name.indexOf(":");
+    return index == -1 ? new QName(name) : new QName(null, name.substring(index + 1), name.substring(0, index));
   }
 
   protected static String parsePrefix(final String name) {
     if (name == null)
       return null;
 
-    int index = name.indexOf(":");
-    if (index != -1)
-      return name.substring(0, index);
-
-    return null;
+    final int index = name.indexOf(":");
+    return index == -1 ? null : name.substring(0, index);
   }
 
   protected static String parseLocalName(final String name) {
@@ -174,9 +168,6 @@ public abstract class AbstractBinding implements Cloneable {
     }
 
     start = name.indexOf(":");
-    if (start != -1)
-      return name.substring(start + 1);
-
-    return name;
+    return start == -1 ? name : name.substring(start + 1);
   }
 }

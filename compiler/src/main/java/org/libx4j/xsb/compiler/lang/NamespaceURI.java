@@ -63,10 +63,10 @@ public final class NamespaceURI {
   private final NamespaceBinding namespaceBinding;
 
   private NamespaceURI(final String namespaceURI) {
+    this.namespaceURI = namespaceURI;
     if (namespaceURI == null)
       throw new IllegalArgumentException("namespaceURI == null");
 
-    this.namespaceURI = namespaceURI.intern();
     this.namespaceBinding = NamespaceBinding.parseNamespace(namespaceURI);
   }
 

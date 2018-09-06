@@ -59,11 +59,11 @@ public abstract class Bindings {
    * @return Binding instance.
    * @throws ValidationException
    */
-  public static Binding parse(final Element element) throws ParseException, ValidationException {
+  public static Binding parse(final Element element) throws ValidationException {
     return parse(element, Thread.currentThread().getContextClassLoader());
   }
 
-  public static Binding parse(final Element element, final ClassLoader classLoader) throws ParseException, ValidationException {
+  public static Binding parse(final Element element, final ClassLoader classLoader) throws ValidationException {
     final Binding binding = Binding.parseElement(element, null, classLoader);
     if (BindingValidator.getSystemValidator() != null)
       BindingValidator.getSystemValidator().validateParse(element);
@@ -77,21 +77,21 @@ public abstract class Bindings {
    * @param url URL pointing to xml.
    * @return Binding instance.
    */
-  public static Binding parse(final URL url) throws IOException, ParseException, ValidationException {
+  public static Binding parse(final URL url) throws IOException, ValidationException {
     return parse(url, Thread.currentThread().getContextClassLoader());
   }
 
-  public static Binding parse(final URL url, final ClassLoader classLoader) throws IOException, ParseException, ValidationException {
+  public static Binding parse(final URL url, final ClassLoader classLoader) throws IOException, ValidationException {
     try (final InputStream in = url.openStream()) {
       return parse(new InputSource(in), classLoader);
     }
   }
 
-  public static Binding parse(final InputStream in) throws IOException, ParseException, ValidationException {
+  public static Binding parse(final InputStream in) throws IOException, ValidationException {
     return parse(in, Thread.currentThread().getContextClassLoader());
   }
 
-  public static Binding parse(final InputStream in, final ClassLoader classLoader) throws IOException, ParseException, ValidationException {
+  public static Binding parse(final InputStream in, final ClassLoader classLoader) throws IOException, ValidationException {
     if (in == null)
       throw new IllegalArgumentException("in == null");
 
@@ -104,23 +104,23 @@ public abstract class Bindings {
    * @param inputSource InputSource pointing to xml.
    * @return Binding instance.
    */
-  public static Binding parse(final InputSource inputSource) throws IOException, ParseException, ValidationException {
+  public static Binding parse(final InputSource inputSource) throws IOException, ValidationException {
     return parse(inputSource, Thread.currentThread().getContextClassLoader());
   }
 
-  public static Binding parse(final String xml) throws IOException, ParseException, ValidationException {
+  public static Binding parse(final String xml) throws IOException, ValidationException {
     try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
       return parse(new InputSource(in), Thread.currentThread().getContextClassLoader());
     }
   }
 
-  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, ParseException, ValidationException {
+  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, ValidationException {
     final Element element;
     try {
       element = Binding.newDocumentBuilder().parse(inputSource).getDocumentElement();
     }
     catch (final SAXException e) {
-      throw new ParseException(e);
+      throw new IllegalArgumentException(e);
     }
 
     if (BindingValidator.getSystemValidator() != null)

@@ -39,7 +39,6 @@ import org.libx4j.xsb.generator.processor.write.Writer;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.libx4j.xsb.runtime.Enum;
 import org.libx4j.xsb.runtime.MarshalException;
-import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.SimpleType;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
 import org.w3.www._2001.XMLSchema.yAA.$ID;
@@ -282,7 +281,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     // DECODE & ENCODE
     if (plan.isList()) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected void _$$decode(final " + Element.class.getName() + " node, " + String.class.getName() + " value) throws " + ParseException.class.getName() + "\n");
+      writer.write("protected void _$$decode(final " + Element.class.getName() + " node, " + String.class.getName() + " value)\n");
       writer.write("{\n");
       writer.write("if (value == null || value.length() == 0)\n");
       writer.write("return;\n");

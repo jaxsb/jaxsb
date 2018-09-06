@@ -151,14 +151,14 @@ public abstract class Model implements PipelineEntity {
       ns = NamespaceURI.lookupNamespaceURI(parent, prefix);
       if (ns != null) {
         final NamespaceURI namespaceURI = NamespaceURI.getInstance(ns);
-        return new QName(namespaceURI.toString().intern(), nodeValue.substring(i + 1, nodeValue.length()).intern(), prefix.intern());
+        return new QName(namespaceURI.toString(), nodeValue.substring(i + 1, nodeValue.length()), prefix);
       }
     }
 
     Node xs = null;
     do {
       if (parent.getAttributes() == null)
-        return new QName(getTargetNamespace().toString().intern(), nodeValue.intern());
+        return new QName(getTargetNamespace().toString(), nodeValue);
 
       xs = parent.getAttributes().getNamedItem(UniqueQName.XMLNS.getPrefix().toString());
       if (xs == null)
@@ -171,7 +171,7 @@ public abstract class Model implements PipelineEntity {
     if (xs == null)
       throw new LexerFailureException("Namespace problem");
 
-    return new QName(xs.getNodeValue().intern(), nodeValue.intern());
+    return new QName(xs.getNodeValue(), nodeValue);
   }
 
   public boolean isQualified(final boolean nested) {

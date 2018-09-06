@@ -26,7 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import javax.xml.namespace.QName;
-import org.lib4j.lang.Numbers;
+
+import org.lib4j.util.Numbers;
 import org.lib4j.xml.datatype.Base64Binary;
 import org.lib4j.xml.datatype.Date;
 import org.lib4j.xml.datatype.DateTime;
@@ -44,7 +45,6 @@ import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.BindingRuntimeException;
 import org.libx4j.xsb.runtime.MarshalException;
 import org.libx4j.xsb.runtime.NotationType;
-import org.libx4j.xsb.runtime.ParseException;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -91,7 +91,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         this.text = value;
       }
 
@@ -127,7 +127,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void parseText(final Text text) throws ParseException {
+      protected void parseText(final Text text) {
         // Ignore all attributes that have a xsi prefix because these are
         // controlled implicitly by the framework
         if (XSI_NIL.getPrefix().equals(text.getPrefix()))
@@ -318,7 +318,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(value);
       }
 
@@ -358,7 +358,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Base64Binary.parse(String.valueOf(value)));
       }
 
@@ -414,7 +414,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Boolean.valueOf("true".equals(value) || "1".equals(value)));
       }
 
@@ -468,7 +468,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Byte.parseByte(String.valueOf(value)));
       }
 
@@ -508,7 +508,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Date.parse(value));
       }
 
@@ -559,7 +559,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(DateTime.parse(value));
       }
 
@@ -603,7 +603,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(new BigDecimal(value));
       }
 
@@ -643,7 +643,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Double.parseDouble(value));
       }
 
@@ -683,7 +683,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Duration.parse(value));
       }
 
@@ -724,7 +724,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         if (value == null || value.length() == 0)
           return;
 
@@ -778,7 +778,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(value);
       }
 
@@ -818,7 +818,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Float.parseFloat(value));
       }
 
@@ -858,7 +858,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Day.parse(value));
       }
 
@@ -898,7 +898,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Month.parse(value));
       }
 
@@ -938,7 +938,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(MonthDay.parse(value));
       }
 
@@ -978,7 +978,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Year.parse(value));
       }
 
@@ -1018,7 +1018,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(YearMonth.parse(value));
       }
 
@@ -1058,7 +1058,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(HexBinary.parse(value));
       }
 
@@ -1130,7 +1130,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         persist(parent.getNamespaceURI(), value, this);
         super.text(value);
       }
@@ -1172,7 +1172,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(value);
       }
 
@@ -1213,7 +1213,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         if (value == null || value.length() == 0)
           return;
 
@@ -1270,7 +1270,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Integer.parseInt(String.valueOf(value)));
       }
 
@@ -1314,7 +1314,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(new BigInteger(value));
       }
 
@@ -1354,7 +1354,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Language.parse(value));
       }
 
@@ -1398,7 +1398,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Long.parseLong(String.valueOf(value)));
       }
 
@@ -1438,7 +1438,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(MonthDay.parse(value));
       }
 
@@ -1479,7 +1479,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(value);
       }
 
@@ -1520,7 +1520,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         if (value == null || value.length() == 0)
           return;
 
@@ -1573,10 +1573,10 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(NotationType.parse(value));
         if (super.text() == null)
-          throw new ParseException("Notation \"" + value + "\" is not registered. The code that instantiates the Notation binding for \"" + value + "\" must be run before it is possible for the Binding engine to have to know about it.");
+          throw new IllegalStateException("Notation \"" + value + "\" is not registered. The code that instantiates the Notation binding for \"" + value + "\" must be run before it is possible for the Binding engine to have to know about it.");
       }
 
       @Override
@@ -1616,7 +1616,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Long.parseLong(value));
       }
 
@@ -1665,7 +1665,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Integer.parseInt(value));
       }
 
@@ -1709,7 +1709,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Long.parseLong(value));
       }
 
@@ -1794,7 +1794,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Integer.parseInt(value));
       }
 
@@ -1838,7 +1838,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Short.parseShort(String.valueOf(value)));
       }
 
@@ -1878,7 +1878,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(value);
       }
 
@@ -1918,7 +1918,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Time.parse(value));
       }
 
@@ -1959,7 +1959,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(value);
       }
 
@@ -1999,7 +1999,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Short.parseShort(value));
       }
 
@@ -2044,7 +2044,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Long.parseLong(value));
       }
 
@@ -2089,7 +2089,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(new BigInteger(value));
       }
 
@@ -2133,7 +2133,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(Integer.parseInt(value));
       }
 
@@ -2174,7 +2174,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(value);
       }
 
@@ -2215,7 +2215,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) throws ParseException {
+      protected void _$$decode(final Element parent, final String value) {
         super.text(value);
       }
 
@@ -2255,7 +2255,7 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element element, final String value) throws ParseException {
+      protected void _$$decode(final Element element, final String value) {
         final QName temp = stringToQName(value);
         super.text(temp);
         if (element != null)

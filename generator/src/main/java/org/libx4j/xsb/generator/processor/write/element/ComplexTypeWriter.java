@@ -38,7 +38,6 @@ import org.libx4j.xsb.runtime.BindingValidator;
 import org.libx4j.xsb.runtime.CompilerFailureException;
 import org.libx4j.xsb.runtime.ComplexType;
 import org.libx4j.xsb.runtime.MarshalException;
-import org.libx4j.xsb.runtime.ParseException;
 import org.libx4j.xsb.runtime.XSTypeDirectory;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Attr;
@@ -362,7 +361,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     // PARSE ATTRIBUTE
     if (plan.getAttributes() != null) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected boolean parseAttribute(final " + Attr.class.getName() + " attribute) throws " + ParseException.class.getName() + "\n");
+      writer.write("protected boolean parseAttribute(final " + Attr.class.getName() + " attribute)\n");
       writer.write("{\n");
       writer.write("if (attribute == null || XMLNS.getLocalPart().equals(attribute.getPrefix()))\n");
       writer.write("{\n");
@@ -381,7 +380,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
 
       if (any != null) {
         writer.write("@" + Override.class.getName() + "\n");
-        writer.write("protected void parseAnyAttribute(final " + Attr.class.getName() + " attribute) throws " + ParseException.class.getName() + ", " + ValidationException.class.getName() + "\n");
+        writer.write("protected void parseAnyAttribute(final " + Attr.class.getName() + " attribute)\n");
         writer.write("{\n");
         Writer.writeParse(writer, any, plan);
         writer.write("}\n");
@@ -391,7 +390,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     // PARSE ELEMENT
     if (plan.getElements() != null || (plan.getNativeItemClassNameInterface() == null && plan.getMixed() != null && plan.getMixed())) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected boolean parseElement(final " + Element.class.getName() + " element) throws " + ParseException.class.getName() + ", " + ValidationException.class.getName() + "\n");
+      writer.write("protected boolean parseElement(final " + Element.class.getName() + " element) throws " + ValidationException.class.getName() + "\n");
       writer.write("{\n");
       if (plan.getNativeItemClassNameInterface() == null && plan.getMixed() != null && plan.getMixed()) {
         writer.write("if (element.getNodeType() == " + Node.class.getName() + ".TEXT_NODE)\n");
@@ -419,7 +418,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
 
       if (any != null) {
         writer.write("@" + Override.class.getName() + "\n");
-        writer.write("protected void parseAny(final " + Element.class.getName() + " element) throws " + ParseException.class.getName() + ", " + ValidationException.class.getName() + "\n");
+        writer.write("protected void parseAny(final " + Element.class.getName() + " element) throws " + ValidationException.class.getName() + "\n");
         writer.write("{\n");
         Writer.writeParse(writer, any, plan);
         writer.write("}\n");

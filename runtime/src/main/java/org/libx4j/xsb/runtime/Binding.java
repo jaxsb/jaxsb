@@ -86,12 +86,12 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       binding._$$decode(parent, attribute.getNodeValue());
       return binding;
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException | ParseException e) {
+    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new IllegalStateException(e);
     }
   }
 
-  protected static void _$$decode(final Binding binding, final Element element, final String value) throws ParseException {
+  protected static void _$$decode(final Binding binding, final Element element, final String value) {
     binding._$$decode(element, value);
   }
 
@@ -99,7 +99,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return binding._$$encode(parent);
   }
 
-  protected static void parse(final Binding binding, final Element node) throws ParseException, ValidationException {
+  protected static void parse(final Binding binding, final Element node) throws ValidationException {
     final NamedNodeMap attributes = node.getAttributes();
     for (int i = 0; i < attributes.getLength(); i++)
       if (attributes.item(i) instanceof Attr && !binding.parseAttribute((Attr)attributes.item(i)))
@@ -131,7 +131,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return binding.owner;
   }
 
-  protected static boolean _$$iSsubstitutionGroup(final QName elementName, final String namespaceURI, final String localName) throws ParseException {
+  protected static boolean _$$iSsubstitutionGroup(final QName elementName, final String namespaceURI, final String localName) {
     if (elementName == null || namespaceURI == null || localName == null)
       return false;
 
@@ -151,35 +151,35 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       }
     }
     catch (final IllegalAccessException e) {
-      throw new ParseException(e);
+      throw new UnsupportedOperationException(e);
     }
 
     return false;
   }
 
-  protected static Binding parse(final Element element, Class<? extends Binding> defaultClass) throws ParseException, ValidationException {
+  protected static Binding parse(final Element element, Class<? extends Binding> defaultClass) throws ValidationException {
     return parseElement(element, defaultClass, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static Binding parse(final Element element) throws ParseException, ValidationException {
+  protected static Binding parse(final Element element) throws ValidationException {
     return parseElement(element, null, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static Binding parseAttr(final Element element, final Node node) throws ParseException {
+  protected static Binding parseAttr(final Element element, final Node node) {
     final String localName = node.getLocalName();
     final String namespaceURI = node.getNamespaceURI();
-    final Class<?> classBinding = lookupElement(new QName(namespaceURI != null ? namespaceURI.intern() : null, localName.intern()), Thread.currentThread().getContextClassLoader());
+    final Class<?> classBinding = lookupElement(new QName(namespaceURI != null ? namespaceURI : null, localName), Thread.currentThread().getContextClassLoader());
     if (classBinding == null) {
       if (namespaceURI != null)
-        throw new ParseException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
+        throw new IllegalStateException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
 
-      throw new ParseException("Unable to find class binding for <" + localName + "/>");
+      throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
     }
 
     return Binding._$$parseAttr(classBinding, element, node);
   }
 
-  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ParseException, ValidationException {
+  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ValidationException {
     final String localName = node.getLocalName();
     String namespaceURI = node.getNamespaceURI();
 
@@ -197,7 +197,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
     Class<? extends Binding> classBinding = null;
     try {
-      classBinding = defaultClass != null ? defaultClass : lookupElement(new QName(namespaceURI.intern(), localName.intern()), classLoader);
+      classBinding = defaultClass != null ? defaultClass : lookupElement(new QName(namespaceURI, localName), classLoader);
       Binding binding = null;
       if (classBinding != null) {
         final Constructor<?> constructor = classBinding.getDeclaredConstructor();
@@ -209,12 +209,12 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         if (xsiPrefix != null)
           namespaceURI = node.getOwnerDocument().getDocumentElement().lookupNamespaceURI(xsiPrefix);
 
-        final Class<? extends Binding> xsiBinding = lookupType(new QName(namespaceURI, xsiTypeName.intern()), classLoader);
+        final Class<? extends Binding> xsiBinding = lookupType(new QName(namespaceURI, xsiTypeName), classLoader);
         if (xsiBinding == null) {
           if (namespaceURI != null)
-            throw new ParseException("Unable to find class binding for xsi:type <" + xsiTypeName + " xmlns=\"" + namespaceURI + "\">");
+            throw new IllegalStateException("Unable to find class binding for xsi:type <" + xsiTypeName + " xmlns=\"" + namespaceURI + "\">");
 
-          throw new ParseException("Unable to find class binding for xsi:type <" + xsiTypeName + "/>");
+          throw new IllegalStateException("Unable to find class binding for xsi:type <" + xsiTypeName + "/>");
         }
 
         Method method = null;
@@ -232,16 +232,16 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
       if (binding == null) {
         if (namespaceURI != null)
-          throw new ParseException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
+          throw new IllegalStateException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
 
-        throw new ParseException("Unable to find class binding for <" + localName + "/>");
+        throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
       }
 
       Binding.parse(binding, node);
       return binding;
     }
     catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-      throw new ParseException(e);
+      throw new UnsupportedOperationException(e);
     }
   }
 
@@ -294,9 +294,6 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   @SuppressWarnings("unchecked")
   protected BindingList<? extends Binding> fetchChild(final QName name) {
-    if (name == null)
-      throw new IllegalArgumentException("name == null");
-
     if (name.getLocalPart() == null)
       throw new IllegalArgumentException("name.getLocalPart() == null");
 
@@ -502,44 +499,32 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   /**
-   * @throws ParseException
    * @throws ValidationException
    */
-  protected boolean parseElement(final Element element) throws ParseException, ValidationException {
+  protected boolean parseElement(final Element element) throws ValidationException {
     return false;
   }
 
-  /**
-   * @throws ParseException
-   */
-  protected boolean parseAttribute(final Attr attribute) throws ParseException {
+  protected boolean parseAttribute(final Attr attribute) {
     return false;
   }
 
-  /**
-   * @throws ParseException
-   */
-  protected void parseText(final Text text) throws ParseException {
+  protected void parseText(final Text text) {
   }
 
   /**
-   * @throws ParseException
    * @throws ValidationException
    */
-  protected void parseAny(final Element element) throws ParseException, ValidationException {
+  protected void parseAny(final Element element) throws ValidationException {
   }
 
   /**
-   * @throws ParseException
    * @throws ValidationException
    */
-  protected void parseAnyAttribute(final Attr attribute) throws ParseException, ValidationException {
+  protected void parseAnyAttribute(final Attr attribute) throws ValidationException {
   }
 
-  /**
-   * @throws ParseException
-   */
-  protected void _$$decode(final Element parent, final String value) throws ParseException {
+  protected void _$$decode(final Element parent, final String value) {
     throw new UnsupportedOperationException("This is a template that must be overridden, otherwise it shouldn't be called");
   }
 

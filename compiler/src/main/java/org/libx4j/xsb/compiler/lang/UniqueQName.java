@@ -50,7 +50,7 @@ public final class UniqueQName {
   }
 
   public static UniqueQName getInstance(final String namespaceURI, final String localPart) {
-    final QName name = new QName(namespaceURI != null ? namespaceURI.intern() : null, localPart.intern());
+    final QName name = new QName(namespaceURI != null ? namespaceURI : null, localPart);
     final UniqueQName bindingQName = new UniqueQName(name);
     UniqueQName instance = instances.get(name);
     if (instance == null)
@@ -60,8 +60,8 @@ public final class UniqueQName {
   }
 
   public static UniqueQName getInstance(final NamespaceURI namespaceURI, final String localPart) {
-    final QName name = new QName(namespaceURI.toString().intern(), localPart.intern());
-    final UniqueQName bindingQName = new UniqueQName(new QName(namespaceURI.toString().intern(), localPart.intern()));
+    final QName name = new QName(namespaceURI.toString(), localPart);
+    final UniqueQName bindingQName = new UniqueQName(new QName(namespaceURI.toString(), localPart));
     UniqueQName instance = instances.get(name);
     if (instance == null)
       instances.put(name, instance = bindingQName);
@@ -70,8 +70,8 @@ public final class UniqueQName {
   }
 
   public static UniqueQName getInstance(final String namespaceURI, final String localPart, final String prefix) {
-    final QName name = new QName(namespaceURI != null ? namespaceURI.intern() : null, localPart.intern());
-    final UniqueQName bindingQName = new UniqueQName(new QName(namespaceURI != null ? namespaceURI.intern() : null, localPart.intern(), prefix.intern()));
+    final QName name = new QName(namespaceURI != null ? namespaceURI : null, localPart);
+    final UniqueQName bindingQName = new UniqueQName(new QName(namespaceURI != null ? namespaceURI : null, localPart, prefix));
     UniqueQName instance = instances.get(name);
     if (instance == null)
       instances.put(name, instance = bindingQName);
@@ -80,8 +80,8 @@ public final class UniqueQName {
   }
 
   public static UniqueQName getInstance(final NamespaceURI namespaceURI, final String localPart, final String prefix) {
-    final QName name = new QName(namespaceURI.toString().intern(), localPart.intern());
-    final UniqueQName bindingQName = new UniqueQName(new QName(namespaceURI.toString().intern(), localPart.intern(), prefix.intern()));
+    final QName name = new QName(namespaceURI.toString(), localPart);
+    final UniqueQName bindingQName = new UniqueQName(new QName(namespaceURI.toString(), localPart, prefix));
     UniqueQName instance = instances.get(name);
     if (instance == null)
       instances.put(name, instance = bindingQName);

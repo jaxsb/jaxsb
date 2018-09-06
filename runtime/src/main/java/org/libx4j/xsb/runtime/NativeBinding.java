@@ -29,17 +29,17 @@ public final class NativeBinding {
   private final boolean list;
 
   public NativeBinding(final UniqueQName name, final GenericClass baseClass, GenericClass nativeClass, final AccessibleObject factoryMethod) {
+    this.name = name;
     if (name == null)
       throw new IllegalArgumentException("name == null");
 
+    this.baseClass = baseClass;
     if (baseClass == null)
       throw new IllegalArgumentException("baseClass<?> == null");
 
-    this.name = name;
-    this.baseClass = baseClass;
     this.nativeClass = nativeClass;
     this.factoryMethod = factoryMethod;
-    this.list = nativeClass != null ? nativeClass.isList() : false;
+    this.list = nativeClass != null && nativeClass.isList();
   }
 
   public NativeBinding(final UniqueQName name, final GenericClass baseClass, final GenericClass nativeClass) {

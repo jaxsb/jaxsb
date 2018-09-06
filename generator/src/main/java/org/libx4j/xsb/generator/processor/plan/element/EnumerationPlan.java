@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 import javax.xml.namespace.QName;
 
-import org.lib4j.lang.Strings;
+import org.lib4j.util.Strings;
 import org.libx4j.xsb.compiler.processor.model.element.EnumerationModel;
 import org.libx4j.xsb.generator.processor.plan.Plan;
 import org.libx4j.xsb.runtime.CompilerFailureException;

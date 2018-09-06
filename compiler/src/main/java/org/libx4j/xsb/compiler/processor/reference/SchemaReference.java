@@ -55,12 +55,13 @@ public final class SchemaReference implements PipelineEntity {
   private InputStream inputStream = null;
 
   public SchemaReference(final URL location, final boolean isInclude) {
+    this.location = location;
     if (location == null)
       throw new IllegalArgumentException("location == null");
 
-    this.location = location;
     this.isInclude = isInclude;
-    logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", " + isInclude + ")");
+    if (logger.isDebugEnabled())
+      logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", " + isInclude + ")");
   }
 
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {

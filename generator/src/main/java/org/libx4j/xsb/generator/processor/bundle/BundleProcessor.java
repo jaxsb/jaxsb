@@ -31,13 +31,15 @@ import javax.xml.XMLConstants;
 import org.lib4j.io.Files;
 import org.lib4j.jci.CompilationException;
 import org.lib4j.jci.JavaCompiler;
-import org.lib4j.lang.Paths;
 import org.lib4j.net.URLs;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
 import org.lib4j.pipeline.PipelineProcessor;
 import org.lib4j.util.Collections;
+import org.lib4j.util.Paths;
 import org.lib4j.util.jar.Jar;
+import org.lib4j.xml.ValidationException;
+import org.lib4j.xml.datatype.HexBinary;
 import org.lib4j.xml.dom.DOMParsers;
 import org.lib4j.xml.dom.DOMStyle;
 import org.lib4j.xml.dom.DOMs;
@@ -58,7 +60,7 @@ import org.xml.sax.SAXException;
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<>(2);
-    final Class<?>[] requiredLibs = {Collections.class, Validator.class, Binding.class, NamespaceBinding.class};
+    final Class<?>[] requiredLibs = {Binding.class, Collections.class, HexBinary.class, NamespaceBinding.class, ValidationException.class, Validator.class};
     for (final Class<?> file : requiredLibs)
       classpath.add(new File(file.getProtectionDomain().getCodeSource().getLocation().toURI()));
 

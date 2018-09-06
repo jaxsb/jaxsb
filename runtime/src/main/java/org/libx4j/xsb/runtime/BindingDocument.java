@@ -25,7 +25,7 @@ public final class BindingDocument {
   private final URL url;
   private final Binding document;
 
-  public BindingDocument(final URL url) throws IOException, ParseException, ValidationException {
+  public BindingDocument(final URL url) throws IOException, ValidationException {
     this.url = url;
     url.openConnection();
     document = Bindings.parse(url);
