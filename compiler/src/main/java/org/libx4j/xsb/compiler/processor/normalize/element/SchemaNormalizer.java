@@ -20,7 +20,7 @@ import java.io.File;
 import java.net.URL;
 
 import org.lib4j.io.Files;
-import org.lib4j.net.URLs;
+import org.fastjax.net.URLs;
 import org.libx4j.xsb.compiler.processor.model.element.SchemaModel;
 import org.libx4j.xsb.compiler.processor.normalize.Normalizer;
 import org.libx4j.xsb.compiler.processor.normalize.NormalizerDirectory;

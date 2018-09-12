@@ -24,7 +24,7 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import org.lib4j.net.URLs;
+import org.fastjax.net.URLs;
 import org.lib4j.xml.dom.DOMParsers;
 import org.libx4j.xsb.compiler.processor.document.SchemaDocument;
 import org.libx4j.xsb.compiler.processor.reference.SchemaReference;

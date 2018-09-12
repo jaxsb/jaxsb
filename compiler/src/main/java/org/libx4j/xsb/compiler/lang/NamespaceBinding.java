@@ -19,8 +19,8 @@ package org.libx4j.xsb.compiler.lang;
 import java.net.URI;
 import java.util.Base64;
 
-import org.lib4j.net.Service;
-import org.lib4j.net.Services;
+import org.fastjax.net.Service;
+import org.fastjax.net.Services;
 import org.fastjax.util.Diff;
 import org.fastjax.util.JavaIdentifiers;
 

@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.lib4j.io.Files;
-import org.lib4j.net.URLs;
+import org.fastjax.net.URLs;
 import org.lib4j.pipeline.Pipeline;
 import org.fastjax.util.Paths;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;

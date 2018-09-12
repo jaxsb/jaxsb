@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.fastjax.lang.PackageLoader;
 import org.fastjax.lang.PackageNotFoundException;
-import org.lib4j.net.URLs;
+import org.fastjax.net.URLs;
 import org.lib4j.xml.sax.LSInputImpl;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.w3c.dom.ls.LSInput;

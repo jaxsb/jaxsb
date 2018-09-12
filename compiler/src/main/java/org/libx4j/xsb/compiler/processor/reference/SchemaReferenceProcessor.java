@@ -22,7 +22,7 @@ import java.net.URLConnection;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.lib4j.net.URLs;
+import org.fastjax.net.URLs;
 import org.lib4j.pipeline.PipelineDirectory;
 import org.lib4j.pipeline.PipelineEntity;
 import org.lib4j.pipeline.PipelineProcessor;
