@@ -21,8 +21,8 @@ import java.util.Base64;
 
 import org.lib4j.net.Service;
 import org.lib4j.net.Services;
-import org.lib4j.util.Diff;
-import org.lib4j.util.JavaIdentifiers;
+import org.fastjax.util.Diff;
+import org.fastjax.util.JavaIdentifiers;
 
 /**
  * This class models the binding between an XML namespace URI and a Java

@@ -27,10 +27,10 @@ import java.util.Set;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.lib4j.lang.PackageLoader;
-import org.lib4j.lang.PackageNotFoundException;
+import org.fastjax.lang.PackageLoader;
+import org.fastjax.lang.PackageNotFoundException;
 import org.lib4j.net.URLs;
-import org.lib4j.util.Classes;
+import org.fastjax.util.Classes;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

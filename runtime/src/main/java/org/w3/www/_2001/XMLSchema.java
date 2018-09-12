@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import javax.xml.namespace.QName;
 
-import org.lib4j.util.Numbers;
+import org.fastjax.util.Numbers;
 import org.lib4j.xml.datatype.Base64Binary;
 import org.lib4j.xml.datatype.Date;
 import org.lib4j.xml.datatype.DateTime;

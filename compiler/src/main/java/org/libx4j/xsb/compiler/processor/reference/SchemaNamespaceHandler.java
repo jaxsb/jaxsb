@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.compiler.processor.reference;
 
-import org.lib4j.util.BiMap;
-import org.lib4j.util.HashBiMap;
+import org.fastjax.util.BiMap;
+import org.fastjax.util.HashBiMap;
 import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

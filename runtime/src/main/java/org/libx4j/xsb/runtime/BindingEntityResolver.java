@@ -21,8 +21,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.lib4j.lang.PackageLoader;
-import org.lib4j.lang.PackageNotFoundException;
+import org.fastjax.lang.PackageLoader;
+import org.fastjax.lang.PackageNotFoundException;
 import org.lib4j.net.URLs;
 import org.lib4j.xml.sax.LSInputImpl;
 import org.libx4j.xsb.compiler.lang.NamespaceBinding;
