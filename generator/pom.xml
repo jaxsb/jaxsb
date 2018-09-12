@@ -45,8 +45,9 @@
       <artifactId>xsb-runtime</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.lib4j</groupId>
-      <artifactId>lib4j-jci</artifactId>
+      <groupId>org.fastjax</groupId>
+      <artifactId>fastjax-jci</artifactId>
+      <version>1.2.3-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
