@@ -18,8 +18,8 @@ package org.libx4j.xsb.sample;
 
 import java.io.StringReader;
 
-import org.lib4j.xml.dom.DOMStyle;
-import org.lib4j.xml.dom.DOMs;
+import org.fastjax.xml.dom.DOMStyle;
+import org.fastjax.xml.dom.DOMs;
 import org.libx4j.xsb.runtime.Binding;
 import org.libx4j.xsb.runtime.BindingValidator;
 import org.libx4j.xsb.runtime.Bindings;

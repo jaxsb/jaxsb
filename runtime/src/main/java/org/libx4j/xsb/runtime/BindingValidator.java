@@ -24,11 +24,11 @@ import java.util.Map;
 
 import javax.xml.transform.stream.StreamSource;
 
-import org.lib4j.xml.ValidationException;
-import org.lib4j.xml.dom.DOMs;
-import org.lib4j.xml.dom.Validator;
-import org.lib4j.xml.sax.SchemaLocation;
-import org.lib4j.xml.sax.XMLCatalog;
+import org.fastjax.xml.ValidationException;
+import org.fastjax.xml.dom.DOMs;
+import org.fastjax.xml.dom.Validator;
+import org.fastjax.xml.sax.SchemaLocation;
+import org.fastjax.xml.sax.XMLCatalog;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -77,7 +77,7 @@ public final class BindingValidator extends Validator {
   protected void parse(final Element element) throws IOException, ValidationException {
     final String output = DOMs.domToString(element);
     try {
-      org.lib4j.xml.sax.Validator.validate(new StreamSource(new StringReader(output)), new XMLCatalog() {
+      org.fastjax.xml.sax.Validator.validate(new StreamSource(new StringReader(output)), new XMLCatalog() {
         @Override
         public SchemaLocation getSchemaLocation(final String namespaceURI) {
           return new SchemaLocation(namespaceURI) {

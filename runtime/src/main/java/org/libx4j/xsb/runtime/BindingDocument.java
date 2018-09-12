@@ -19,7 +19,7 @@ package org.libx4j.xsb.runtime;
 import java.io.IOException;
 import java.net.URL;
 
-import org.lib4j.xml.ValidationException;
+import org.fastjax.xml.ValidationException;
 
 public final class BindingDocument {
   private final URL url;

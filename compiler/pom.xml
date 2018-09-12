@@ -34,8 +34,9 @@
       <artifactId>lib4j-pipeline</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.lib4j.xml</groupId>
+      <groupId>org.fastjax.xml</groupId>
       <artifactId>xml-sax</artifactId>
+      <version>1.0.4-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>

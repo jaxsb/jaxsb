@@ -20,8 +20,8 @@ import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.xni.parser.XMLEntityResolver;
 import org.junit.Assert;
 import org.junit.Test;
-import org.lib4j.xml.ValidationException;
-import org.lib4j.xml.dom.DOMParsers;
+import org.fastjax.xml.ValidationException;
+import org.fastjax.xml.dom.DOMParsers;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

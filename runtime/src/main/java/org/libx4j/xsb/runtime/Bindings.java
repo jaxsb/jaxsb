@@ -23,8 +23,8 @@ import java.io.StringReader;
 import java.net.URL;
 import java.util.function.Function;
 
-import org.lib4j.xml.ValidationException;
-import org.lib4j.xml.dom.DOMs;
+import org.fastjax.xml.ValidationException;
+import org.fastjax.xml.dom.DOMs;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
