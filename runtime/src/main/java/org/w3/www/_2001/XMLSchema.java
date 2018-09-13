@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 lib4j
+/* Copyright (c) 2006 OpenJAX
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,11 +40,11 @@ import org.fastjax.xml.datatype.MonthDay;
 import org.fastjax.xml.datatype.Time;
 import org.fastjax.xml.datatype.Year;
 import org.fastjax.xml.datatype.YearMonth;
-import org.libx4j.xsb.compiler.lang.UniqueQName;
-import org.libx4j.xsb.runtime.Binding;
-import org.libx4j.xsb.runtime.BindingRuntimeException;
-import org.libx4j.xsb.runtime.MarshalException;
-import org.libx4j.xsb.runtime.NotationType;
+import org.openjax.xsb.compiler.lang.UniqueQName;
+import org.openjax.xsb.runtime.Binding;
+import org.openjax.xsb.runtime.BindingRuntimeException;
+import org.openjax.xsb.runtime.MarshalException;
+import org.openjax.xsb.runtime.NotationType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
