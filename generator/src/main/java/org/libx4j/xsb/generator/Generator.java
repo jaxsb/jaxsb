@@ -25,7 +25,7 @@ import java.util.Set;
 
 import org.lib4j.io.Files;
 import org.fastjax.net.URLs;
-import org.lib4j.pipeline.Pipeline;
+import org.libx4j.xsb.helper.pipeline.Pipeline;
 import org.fastjax.util.Paths;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.composite.SchemaComposite;

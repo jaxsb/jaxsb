@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.compiler.processor;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 import org.libx4j.xsb.compiler.schema.attribute.Form;
 
 public interface Formable<T extends PipelineEntity> {

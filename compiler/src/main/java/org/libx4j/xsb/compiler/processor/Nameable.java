@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.compiler.processor;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
 
 public interface Nameable<T extends PipelineEntity> {

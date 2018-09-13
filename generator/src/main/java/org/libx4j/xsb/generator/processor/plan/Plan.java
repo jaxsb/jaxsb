@@ -21,7 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.libx4j.xsb.compiler.processor.model.EnumerableModel;
 import org.libx4j.xsb.compiler.processor.model.Model;

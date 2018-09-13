@@ -19,8 +19,8 @@ package org.libx4j.xsb.generator.processor.write;
 import java.io.StringWriter;
 import java.util.Collection;
 
-import org.lib4j.pipeline.PipelineDirectory;
-import org.lib4j.pipeline.PipelineProcessor;
+import org.libx4j.xsb.helper.pipeline.PipelineDirectory;
+import org.libx4j.xsb.helper.pipeline.PipelineProcessor;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.Nameable;
 import org.libx4j.xsb.generator.processor.plan.AliasPlan;

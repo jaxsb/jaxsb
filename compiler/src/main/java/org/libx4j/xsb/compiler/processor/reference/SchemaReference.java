@@ -29,7 +29,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 import org.libx4j.xsb.compiler.lang.LexerFailureException;
 import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.Prefix;

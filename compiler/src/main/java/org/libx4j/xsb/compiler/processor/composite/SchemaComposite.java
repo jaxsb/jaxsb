@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.compiler.processor.composite;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 
 public interface SchemaComposite extends PipelineEntity {
 }

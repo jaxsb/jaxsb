@@ -18,7 +18,7 @@ package org.libx4j.xsb.generator.processor.bundle;
 
 import java.io.File;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 
 public final class Bundle implements PipelineEntity {
   private final File file;

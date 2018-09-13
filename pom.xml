@@ -30,7 +30,7 @@
   <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>
-    Xml Schema Binding.
+    Xml Schema Binding
   </description>
   <properties>
     <maven.compiler.source>9</maven.compiler.source>
@@ -40,6 +40,7 @@
   <modules>
     <module>compiler</module>
     <module>generator</module>
+    <module>helper</module>
     <module>runtime</module>
     <module>sample</module>
     <module>tutorial</module>

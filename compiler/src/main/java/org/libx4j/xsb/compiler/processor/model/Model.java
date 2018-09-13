@@ -24,7 +24,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 import org.libx4j.xsb.compiler.lang.LexerFailureException;
 import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.UniqueQName;

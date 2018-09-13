@@ -20,8 +20,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.lib4j.pipeline.PipelineDirectory;
-import org.lib4j.pipeline.PipelineProcessor;
+import org.libx4j.xsb.helper.pipeline.PipelineDirectory;
+import org.libx4j.xsb.helper.pipeline.PipelineProcessor;
 import org.libx4j.xsb.compiler.lang.LexerFailureException;
 import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;

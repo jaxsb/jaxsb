@@ -16,8 +16,8 @@
 
 package org.libx4j.xsb.generator.schema;
 
-import org.lib4j.pipeline.PipelineDirectory;
-import org.lib4j.pipeline.PipelineProcessor;
+import org.libx4j.xsb.helper.pipeline.PipelineDirectory;
+import org.libx4j.xsb.helper.pipeline.PipelineProcessor;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;
 import org.libx4j.xsb.compiler.processor.document.SchemaDocument;
 import org.libx4j.xsb.compiler.processor.reference.SchemaReference;

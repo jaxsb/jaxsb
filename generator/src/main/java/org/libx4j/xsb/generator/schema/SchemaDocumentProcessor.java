@@ -28,9 +28,9 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.fastjax.net.URLs;
-import org.lib4j.pipeline.PipelineDirectory;
-import org.lib4j.pipeline.PipelineEntity;
-import org.lib4j.pipeline.PipelineProcessor;
+import org.libx4j.xsb.helper.pipeline.PipelineDirectory;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineProcessor;
 import org.libx4j.xsb.compiler.lang.NamespaceURI;
 import org.libx4j.xsb.compiler.lang.UniqueQName;
 import org.libx4j.xsb.compiler.processor.GeneratorContext;

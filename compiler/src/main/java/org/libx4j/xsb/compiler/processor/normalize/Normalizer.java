@@ -16,7 +16,7 @@
 
 package org.libx4j.xsb.compiler.processor.normalize;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 import org.libx4j.xsb.compiler.processor.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

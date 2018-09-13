@@ -19,7 +19,7 @@ package org.libx4j.xsb.compiler.processor.document;
 import java.net.URL;
 import java.util.Collection;
 
-import org.lib4j.pipeline.PipelineEntity;
+import org.libx4j.xsb.helper.pipeline.PipelineEntity;
 import org.libx4j.xsb.compiler.processor.reference.SchemaReference;
 import org.w3c.dom.Document;
 
