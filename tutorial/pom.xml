@@ -33,12 +33,20 @@
       <plugin>
         <groupId>org.openjax.maven.plugin</groupId>
         <artifactId>xsb-maven-plugin</artifactId>
-        <configuration>
-          <destDir>${project.build.directory}/generated-sources/xsb</destDir>
-          <schemas>
-            <schema>src/main/resources/invoice.xsd</schema>
-          </schemas>
-        </configuration>
+        <version>2.1.4-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <destDir>${project.build.directory}/generated-sources/xsb</destDir>
+              <schemas>
+                <schema>src/main/resources/invoice.xsd</schema>
+              </schemas>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

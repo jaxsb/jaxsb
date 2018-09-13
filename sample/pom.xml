@@ -33,18 +33,26 @@
       <plugin>
         <groupId>org.openjax.maven.plugin</groupId>
         <artifactId>xsb-maven-plugin</artifactId>
-        <configuration>
-          <destDir>${project.build.directory}/generated-sources/xsb</destDir>
-          <schemas>
-            <schema>src/main/resources/substitutionGroup.xsd</schema>
-            <schema>src/main/resources/xsitype.xsd</schema>
-            <schema>src/main/resources/simple.xsd</schema>
-            <schema>src/main/resources/enums.xsd</schema>
-            <schema>src/main/resources/list.xsd</schema>
-            <schema>src/main/resources/any.xsd</schema>
-            <schema>src/main/resources/id.xsd</schema>
-          </schemas>
-        </configuration>
+        <version>2.1.4-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <destDir>${project.build.directory}/generated-sources/xsb</destDir>
+              <schemas>
+                <schema>src/main/resources/substitutionGroup.xsd</schema>
+                <schema>src/main/resources/xsitype.xsd</schema>
+                <schema>src/main/resources/simple.xsd</schema>
+                <schema>src/main/resources/enums.xsd</schema>
+                <schema>src/main/resources/list.xsd</schema>
+                <schema>src/main/resources/any.xsd</schema>
+                <schema>src/main/resources/id.xsd</schema>
+              </schemas>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

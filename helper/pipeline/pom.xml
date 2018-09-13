@@ -31,9 +31,4 @@
   <description>
     Strongly-typed pipeline of processes and entities.
   </description>
-  <properties>
-    <maven.compiler.source>9</maven.compiler.source>
-    <maven.compiler.target>9</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 </project>
