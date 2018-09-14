@@ -24,8 +24,8 @@ import java.util.List;
 
 import org.fastjax.xml.datatype.Date;
 import org.openjax.xsb.runtime.Bindings;
-import org.libx4j.xsb.tutorial.invoice.xAA.$ItemType;
-import org.libx4j.xsb.tutorial.invoice.xAA.Invoice;
+import org.openjax.xsb.tutorial.invoice.xAA.$ItemType;
+import org.openjax.xsb.tutorial.invoice.xAA.Invoice;
 import org.xml.sax.InputSource;
 
 public class ParseHowTo {

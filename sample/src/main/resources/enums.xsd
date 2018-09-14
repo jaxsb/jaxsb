@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2006 lib4j
+  Copyright (c) 2006 OpenJAX
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -16,12 +16,12 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
-  targetNamespace="http://xsb.libx4j.org/sample/enums.xsd"
-  xmlns:enums="http://xsb.libx4j.org/sample/enums.xsd"
-  xmlns:simple="http://xsb.libx4j.org/sample/simple.xsd"
+  targetNamespace="http://xsb.openjax.org/sample/enums.xsd"
+  xmlns:enums="http://xsb.openjax.org/sample/enums.xsd"
+  xmlns:simple="http://xsb.openjax.org/sample/simple.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:import namespace="http://xsb.libx4j.org/sample/simple.xsd" schemaLocation="simple.xsd"/>
+  <xs:import namespace="http://xsb.openjax.org/sample/simple.xsd" schemaLocation="simple.xsd"/>
 
   <xs:attribute name="color">
     <xs:annotation>

@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2017 lib4j
+  Copyright (c) 2017 OpenJAX
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -16,12 +16,12 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
-  targetNamespace="http://www.libx4j.org/do/abstract/n$a*m(e)1.xsd"
-  xmlns:n1="http://www.libx4j.org/do/abstract/n$a*m(e)1.xsd"
-  xmlns:n2="http://www.libx4j.org/do/abstract/n$a*m(e)2.xsd"
+  targetNamespace="http://www.openjax.org/do/abstract/n$a*m(e)1.xsd"
+  xmlns:n1="http://www.openjax.org/do/abstract/n$a*m(e)1.xsd"
+  xmlns:n2="http://www.openjax.org/do/abstract/n$a*m(e)2.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
-  <xs:import namespace="http://www.libx4j.org/do/abstract/n$a*m(e)2.xsd" schemaLocation="name2.xsd"/>
+  <xs:import namespace="http://www.openjax.org/do/abstract/n$a*m(e)2.xsd" schemaLocation="name2.xsd"/>
   
   <xs:complexType name="class">
     <xs:sequence minOccurs="0">

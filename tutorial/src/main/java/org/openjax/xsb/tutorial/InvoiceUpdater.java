@@ -21,7 +21,7 @@ import java.io.FileInputStream;
 import java.math.BigDecimal;
 
 import org.openjax.xsb.runtime.Bindings;
-import org.libx4j.xsb.tutorial.invoice.xAA.Invoice;
+import org.openjax.xsb.tutorial.invoice.xAA.Invoice;
 import org.xml.sax.InputSource;
 
 public class InvoiceUpdater {

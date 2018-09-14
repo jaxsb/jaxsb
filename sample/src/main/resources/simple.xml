@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2006 lib4j
+  Copyright (c) 2006 OpenJAX
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -15,9 +15,9 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <fruitBasket
-  xmlns="http://xsb.libx4j.org/sample/simple.xsd"
+  xmlns="http://xsb.openjax.org/sample/simple.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xsb.libx4j.org/sample/simple.xsd simple.xsd">
+  xsi:schemaLocation="http://xsb.openjax.org/sample/simple.xsd simple.xsd">
   <fruits>
     <fruit name="strawberry" sweet="true"/>
     <fruit name="jackfruit" sweet="false" dry="false"/>

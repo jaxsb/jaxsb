@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2006 lib4j
+  Copyright (c) 2006 OpenJAX
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -14,7 +14,7 @@
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
-<xs:schema elementFormDefault="qualified" targetNamespace="http://xsb.libx4j.org/generator/html.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:html="http://xsb.libx4j.org/generator/html.xsd">
+<xs:schema elementFormDefault="qualified" targetNamespace="http://xsb.openjax.org/generator/html.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:html="http://xsb.openjax.org/generator/html.xsd">
 
   <!--xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://schemas.geneabase.com/w3c/namespace.xsd"/-->
 

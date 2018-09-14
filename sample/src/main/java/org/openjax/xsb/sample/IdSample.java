@@ -23,8 +23,8 @@ import java.util.List;
 
 import org.openjax.xsb.runtime.Binding;
 import org.openjax.xsb.runtime.Bindings;
-import org.libx4j.xsb.sample.id.xAA.$BookType;
-import org.libx4j.xsb.sample.id.xAA.Directory;
+import org.openjax.xsb.sample.id.xAA.$BookType;
+import org.openjax.xsb.sample.id.xAA.Directory;
 import org.w3.www._2001.XMLSchema.yAA.$IDREFS;
 import org.xml.sax.InputSource;
 
