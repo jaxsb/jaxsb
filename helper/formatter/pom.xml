@@ -26,7 +26,6 @@
   </parent>
   <groupId>org.openjax.xsb.helper</groupId>
   <artifactId>helper-formatter</artifactId>
-  <version>2.1.4-SNAPSHOT</version>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>
     A source formatting component that formats generated source-code.
