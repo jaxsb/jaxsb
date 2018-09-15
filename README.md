@@ -1,17 +1,17 @@
-<img src="https://www.cohesionfirst.org/logo.png" align="right">
+<img src="https://images.cooltext.com/5195722.png" align="right">
 
-## XSB<br>![java-enterprise][java-enterprise] <a href="https://www.cohesionfirst.org/"><img src="https://img.shields.io/badge/CohesionFirst%E2%84%A2--blue.svg"></a>
+## XSB<br><a href="https://www.openjax.org/"><img src="https://img.shields.io/badge/OpenJAX--blue.svg"></a>
 > Xml Schema Binding
 
 ### Introduction
 
-**XSB** is a Java framework for binding to XML Schemas. Based on the CohesionFirst™ approach, the **XSB** framework provides a complete solution for cohesive integration of Java applications to XML Documents via XML Schemas. The framework provides a [XSB Java Source Code Generator][generator] and a [XSB Runtime][runtime] to parse and marshal XML Documents to and from Java objects. The **XSB** framework is a complete implementation and covers the entirety of the [XSD 1.1 Specification][xsd-spec].
+**XSB** is a Java framework for binding to XML Schemas. Based on the CohesionFirst approach, the **XSB** framework provides a complete solution for cohesive integration of Java applications to XML Documents via XML Schemas. The framework provides a [XSB Java Source Code Generator][generator] and a [XSB Runtime][runtime] to parse and marshal XML Documents to and from Java objects. The **XSB** framework is a complete implementation and covers the entirety of the [XSD 1.1 Specification][xsd-spec].
 
 ### Why **XSB**?
 
-#### CohesionFirst™
+#### CohesionFirst
 
-Developed with the CohesionFirst™ approach, **XSB** is reliably designed, consistently implemented, and straightforward to use. Made possible by the rigorous conformance to design patterns and best practices in every line of its implementation, **XSB** is a complete binding solution of the entire XSD specification. The **XSB** solution differentiates itself from the rest with the strength of its cohesion to the Java language and the XML Schema model.
+Developed with the CohesionFirst approach, **XSB** is reliably designed, consistently implemented, and straightforward to use. Made possible by the rigorous conformance to design patterns and best practices in every line of its implementation, **XSB** is a complete binding solution of the entire XSD specification. The **XSB** solution differentiates itself from the rest with the strength of its cohesion to the Java language and the XML Schema model.
 
 #### Supports entire XSD Specification
 
@@ -188,13 +188,14 @@ The **XSB** framework is not suitable for processing of large XML Documents (in 
 
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 
+<a href="http://cooltext.com" target="_top"><img src="https://cooltext.com/images/ct_pixel.gif" width="80" height="15" alt="Cool Text: Logo and Graphics Generator" border="0" /></a>
+
 [dom3]: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407
-[java-enterprise]: https://img.shields.io/badge/java-enterprise-blue.svg
 [jdk8-download]: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 [maven-archetype-quickstart]: http://maven.apache.org/archetypes/maven-archetype-quickstart/
 [maven]: https://maven.apache.org/
 [sax-parser]: https://docs.oracle.com/javase/tutorial/jaxp/sax/
-[generator]: https://github.com/openjax/xsb/tree/master/generator
-[xsb-maven-plugin]: https://github.com/openjax/xsb-maven-plugin
-[runtime]: https://github.com/openjax/xsb/tree/master/runtime
+[generator]: /openjax/xsb/tree/master/generator
+[xsb-maven-plugin]: /openjax/xsb-maven-plugin
+[runtime]: /openjax/xsb/tree/master/runtime
 [xsd-spec]: https://www.w3.org/TR/xmlschema11-1/
