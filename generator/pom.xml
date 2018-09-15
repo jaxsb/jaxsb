@@ -38,11 +38,14 @@
     that maintains the logical structure of the original document but now fully complies to best-practices. This is just one of many
     tools that will be available shortly. In the meantime, check out the binding application.
   </description>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.fastjax</groupId>
       <artifactId>fastjax-jci</artifactId>
-      <version>1.2.3-SNAPSHOT</version>
+      <version>0.8.3-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.openjax.xsb</groupId>

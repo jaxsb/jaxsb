@@ -30,4 +30,7 @@
   <description>
     A source formatting component that formats generated source-code.
   </description>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>

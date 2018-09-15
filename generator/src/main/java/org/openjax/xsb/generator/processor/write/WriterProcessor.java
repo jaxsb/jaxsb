@@ -29,7 +29,7 @@ import org.openjax.xsb.generator.processor.plan.NestablePlan;
 import org.openjax.xsb.generator.processor.plan.Plan;
 
 public final class WriterProcessor implements PipelineProcessor<GeneratorContext,Plan<?>,Writer<?>> {
-  private final Writer<?> root = new Writer<>() {
+  private final Writer<?> root = new Writer<Plan<?>>() {
     @Override
     protected void appendRegistration(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {
     }
