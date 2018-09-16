@@ -195,7 +195,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 [maven-archetype-quickstart]: http://maven.apache.org/archetypes/maven-archetype-quickstart/
 [maven]: https://maven.apache.org/
 [sax-parser]: https://docs.oracle.com/javase/tutorial/jaxp/sax/
-[generator]: /openjax/xsb/tree/master/generator
-[xsb-maven-plugin]: /openjax/xsb-maven-plugin
-[runtime]: /openjax/xsb/tree/master/runtime
+[generator]: /../../../../openjax/xsb/tree/master/generator
+[xsb-maven-plugin]: /../../../../openjax/xsb-maven-plugin
+[runtime]: /../../../../openjax/xsb/tree/master/runtime
 [xsd-spec]: https://www.w3.org/TR/xmlschema11-1/
