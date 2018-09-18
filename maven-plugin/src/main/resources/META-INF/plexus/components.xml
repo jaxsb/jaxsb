@@ -23,7 +23,7 @@
       <configuration>
         <id>xsb</id>
         <default-phases>
-          <generate-sources>org.openjax.jsonx:xsb-maven-plugin:generate</generate-sources>
+          <generate-sources>org.openjax.xsb:xsb-maven-plugin:generate</generate-sources>
         </default-phases>
       </configuration>
     </component>
@@ -37,7 +37,7 @@
           <phase>xsb</phase>
         </phases>
         <default-phases>
-          <xsb>org.openjax.jsonx:xsb-maven-plugin:generate</xsb>
+          <xsb>org.openjax.xsb:xsb-maven-plugin:generate</xsb>
         </default-phases>
       </configuration>
     </component>

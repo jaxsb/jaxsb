@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.openjax.maven.plugin.xsb;
+package org.openjax.xsb;
 
 import java.io.File;
 import java.net.URL;

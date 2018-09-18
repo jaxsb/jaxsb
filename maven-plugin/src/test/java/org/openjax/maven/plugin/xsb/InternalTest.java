@@ -22,7 +22,7 @@ import org.fastjax.exec.Processes;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openjax.maven.plugin.xsb.XSBMojo;
+import org.openjax.xsb.XSBMojo;
 import org.fastjax.io.Files;
 
 public class InternalTest {
