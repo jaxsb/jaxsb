@@ -100,11 +100,11 @@ Developed with the CohesionFirst approach, **XSB** is reliably designed, consist
   </xs:schema>
   ```
   
-4. Add the [`org.openjax.maven.plugin:xsb-maven-plugin`][xsb-maven-plugin] to the POM.
+4. Add the [`org.openjax.xsb:xsb-maven-plugin`][xsb-maven-plugin] to the POM.
 
   ```xml
   <plugin>
-    <groupId>org.openjax.maven.plugin</groupId>
+    <groupId>org.openjax.xsb</groupId>
     <artifactId>xsb-maven-plugin</artifactId>
     <version>2.1.4-SNAPSHOT</version>
     <executions>
@@ -195,7 +195,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 [maven-archetype-quickstart]: http://maven.apache.org/archetypes/maven-archetype-quickstart/
 [maven]: https://maven.apache.org/
 [sax-parser]: https://docs.oracle.com/javase/tutorial/jaxp/sax/
-[generator]: /../../../../openjax/openjax-xsb/tree/master/generator
+[generator]: /../../../../openjax/xsb/tree/master/generator
 [xsb-maven-plugin]: /../../../../openjax/xsb-maven-plugin
-[runtime]: /../../../../openjax/openjax-xsb/tree/master/runtime
+[runtime]: /../../../../openjax/xsb/tree/master/runtime
 [xsd-spec]: https://www.w3.org/TR/xmlschema11-1/
