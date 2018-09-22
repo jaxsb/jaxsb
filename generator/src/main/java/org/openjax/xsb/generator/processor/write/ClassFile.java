@@ -23,12 +23,12 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openjax.xsb.helper.formatter.SourceFormat;
 import org.openjax.xsb.compiler.lang.NamespaceBinding;
+import org.openjax.xsb.helper.formatter.SourceFormat;
 import org.openjax.xsb.runtime.Schema;
 
 public class ClassFile {
-  private static final StringBuffer license = new StringBuffer();
+  private static final StringBuilder license = new StringBuilder();
 
   static {
     license.append("/* .--------------------------------------------------------------------. */\n");

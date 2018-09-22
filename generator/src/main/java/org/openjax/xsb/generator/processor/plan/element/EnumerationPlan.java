@@ -45,13 +45,13 @@ public final class EnumerationPlan extends Plan<EnumerationModel> {
     if (Arrays.binarySearch(illegalWords, string) >= 0)
       string = "_" + string;
 
-    final StringBuffer buffer = new StringBuffer();
-    for (int i = 0; i < string.length(); i++) {
-      char ch = string.charAt(i);
-      buffer.append(Arrays.binarySearch(illegalChars, ch) >= 0 ? "_" + Strings.toUTF8Literal(ch).substring(2, 4) : ch);
+    final StringBuilder builder = new StringBuilder();
+    for (int i = 0; i < string.length(); ++i) {
+      final char ch = string.charAt(i);
+      builder.append(Arrays.binarySearch(illegalChars, ch) >= 0 ? "_" + Strings.toUTF8Literal(ch).substring(2, 4) : ch);
     }
 
-    return buffer.toString();
+    return builder.toString();
   }
 
   public EnumerationPlan(final EnumerationModel model, final Plan<?> parent) {
