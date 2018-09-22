@@ -16,28 +16,19 @@
 
 package org.openjax.xsb.tutorial;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.util.List;
 
 import org.fastjax.xml.datatype.Date;
 import org.openjax.xsb.runtime.Bindings;
 import org.openjax.xsb.tutorial.invoice.xAA.$ItemType;
 import org.openjax.xsb.tutorial.invoice.xAA.Invoice;
-import org.xml.sax.InputSource;
 
 public class ParseHowTo {
   public static void main(final String[] args) throws Exception {
-    final File file = new File("src/main/resources/xml/invoice.xml");
-    if (!file.exists())
-      throw new FileNotFoundException("File " + file.getAbsolutePath() + " does not exist.");
-
-    if (!file.canRead())
-      throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
-
-    final Invoice invoice = (Invoice)Bindings.parse(new InputSource(new FileInputStream(file)));
+    final URL url = ParseHowTo.class.getResource("invoice.xml");
+    final Invoice invoice = (Invoice)Bindings.parse(url.openStream());
 
     final Integer number = invoice.getNumber().text();
     System.out.print("This invoice # " + number + " ");

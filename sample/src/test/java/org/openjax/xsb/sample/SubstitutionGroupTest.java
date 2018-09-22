@@ -18,7 +18,6 @@ package org.openjax.xsb.sample;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openjax.xsb.sample.SubstitutionGroupSample;
 
 public class SubstitutionGroupTest extends SampleTest {
   @Test

@@ -16,9 +16,7 @@
 
 package org.openjax.xsb.sample;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.List;
 
 import org.openjax.xsb.runtime.Binding;
@@ -28,7 +26,6 @@ import org.openjax.xsb.sample.substitutionGroup.xAA.Hat;
 import org.openjax.xsb.sample.substitutionGroup.xAA.Shirt;
 import org.openjax.xsb.sample.substitutionGroup.xAA.StockList;
 import org.openjax.xsb.sample.substitutionGroup.xAA.Umbrella;
-import org.xml.sax.InputSource;
 
 public class SubstitutionGroupSample {
   public static void main(final String[] args) throws Exception {
@@ -36,14 +33,8 @@ public class SubstitutionGroupSample {
   }
 
   public Binding runSample() throws Exception {
-    final File file = new File("src/main/resources/substitutionGroup.xml");
-    if (!file.exists())
-      throw new FileNotFoundException("File " + file.getAbsolutePath() + " does not exist.");
-
-    if (!file.canRead())
-      throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
-
-    final StockList stockList = (StockList)Bindings.parse(new InputSource(new FileInputStream(file)));
+    final URL url = getClass().getResource("/substitutionGroup.xml");
+    final StockList stockList = (StockList)Bindings.parse(url.openStream());
     final List<$ProductType> products = stockList.getSgProduct();
     for (final $ProductType product : products) {
       if (product instanceof Shirt) {

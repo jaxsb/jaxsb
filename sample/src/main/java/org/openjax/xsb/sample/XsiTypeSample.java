@@ -101,7 +101,6 @@ public class XsiTypeSample {
     };
     nut.setName$(new $IndehiscentDryFruitType.Name$($IndehiscentDryFruitType.Name$.Nut));
     nut.setDry$(new $IndehiscentDryFruitType.Dry$($IndehiscentDryFruitType.Dry$._5Ftrue));
-//      nut.addDry$(new ITypesimple_fruitType.Dry$(false));
 
     final FruitBasket.Fruits fruits = new FruitBasket.Fruits();
     fruits.addSimpleFruit(berry);

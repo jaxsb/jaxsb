@@ -25,15 +25,11 @@ import org.openjax.xsb.tutorial.invoice.xAA.Invoice;
 import org.xml.sax.InputSource;
 
 public class InvoiceUpdater {
-  private static Invoice addItem(final File invoiceFile, final Invoice.BilledItems.Item item) throws Exception {
-    final Invoice invoice = (Invoice)Bindings.parse(new InputSource(new FileInputStream(invoiceFile)));
-    invoice.getBilledItems().addItem(item);
-    return invoice;
-  }
-
   public static void main(final String[] args) throws Exception {
-    if (args.length == 0)
-      trapPrintUsage();
+    if (args.length == 0) {
+      System.err.println("Usage: InvoiceUpdater <invoice.xml>");
+      System.exit(1);
+    }
 
     final File file = new File(args[0]);
 
@@ -47,8 +43,9 @@ public class InvoiceUpdater {
     System.out.println(invoice.toString());
   }
 
-  private static void trapPrintUsage() {
-    System.err.println("Usage: InvoiceUpdater <invoice.xml>");
-    System.exit(1);
+  private static Invoice addItem(final File invoiceFile, final Invoice.BilledItems.Item item) throws Exception {
+    final Invoice invoice = (Invoice)Bindings.parse(new InputSource(new FileInputStream(invoiceFile)));
+    invoice.getBilledItems().addItem(item);
+    return invoice;
   }
 }

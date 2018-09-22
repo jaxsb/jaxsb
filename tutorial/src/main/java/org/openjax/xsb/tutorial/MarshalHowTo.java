@@ -48,21 +48,21 @@ public class MarshalHowTo {
 
     final Invoice.BilledItems billedItems = new Invoice.BilledItems();
 
-    Invoice.BilledItems.Item item = new Invoice.BilledItems.Item();
-    item.setDescription(new Invoice.BilledItems.Item.Description("Studded Collar"));
-    item.setCode(new Invoice.BilledItems.Item.Code(45342));
-    item.setQuantity(new Invoice.BilledItems.Item.Quantity(10));
-    item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(11.95)));
+    final Invoice.BilledItems.Item item1 = new Invoice.BilledItems.Item();
+    item1.setDescription(new Invoice.BilledItems.Item.Description("Studded Collar"));
+    item1.setCode(new Invoice.BilledItems.Item.Code(45342));
+    item1.setQuantity(new Invoice.BilledItems.Item.Quantity(10));
+    item1.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(11.95)));
 
-    billedItems.addItem(item);
+    billedItems.addItem(item1);
 
-    item = new Invoice.BilledItems.Item();
-    item.setDescription(new Invoice.BilledItems.Item.Description("K9 Pet Coat"));
-    item.setCode(new Invoice.BilledItems.Item.Code(25233));
-    item.setQuantity(new Invoice.BilledItems.Item.Quantity(5));
-    item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(25.01)));
+    final Invoice.BilledItems.Item item2 = new Invoice.BilledItems.Item();
+    item2.setDescription(new Invoice.BilledItems.Item.Description("K9 Pet Coat"));
+    item2.setCode(new Invoice.BilledItems.Item.Code(25233));
+    item2.setQuantity(new Invoice.BilledItems.Item.Quantity(5));
+    item2.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(25.01)));
 
-    billedItems.addItem(item);
+    billedItems.addItem(item2);
 
     invoice.setBilledItems(billedItems);
 

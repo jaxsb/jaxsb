@@ -16,9 +16,7 @@
 
 package org.openjax.xsb.sample;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.List;
 
 import org.openjax.xsb.runtime.Binding;
@@ -26,7 +24,6 @@ import org.openjax.xsb.runtime.Bindings;
 import org.openjax.xsb.sample.id.xAA.$BookType;
 import org.openjax.xsb.sample.id.xAA.Directory;
 import org.w3.www._2001.XMLSchema.yAA.$IDREFS;
-import org.xml.sax.InputSource;
 
 public class IdSample {
   public static void main(final String[] args) throws Exception {
@@ -34,14 +31,8 @@ public class IdSample {
   }
 
   public Binding runSample() throws Exception {
-    final File file = new File("src/main/resources/id.xml");
-    if (!file.exists())
-      throw new FileNotFoundException("File " + file.getAbsolutePath() + " does not exist.");
-
-    if (!file.canRead())
-      throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
-
-    final Directory directory = (Directory)Bindings.parse(new InputSource(new FileInputStream(file)));
+    final URL url = getClass().getResource("/id.xml");
+    final Directory directory = (Directory)Bindings.parse(url.openStream());
     final List<$BookType> books = directory.getBook();
     for (final $BookType book : books) {
       final String shortName = book.getAuthor().text();
@@ -51,18 +42,15 @@ public class IdSample {
       if (book.getCo$_authors() != null) {
         final $IDREFS coAuthors = book.getCo$_authors();
         if (coAuthors.text() != null) {
-          StringBuffer buffer = new StringBuffer();
+          final StringBuilder builder = new StringBuilder();
           for (final Object coAuthorIdString : coAuthors.text()) {
             final Directory.Author.Id$ coAuthorId = Directory.Author.Id$.lookupId((String)coAuthorIdString);
             final Directory.Author coAuthor = (Directory.Author)coAuthorId.owner();
-            buffer.append(", ").append(coAuthor.getName().text());
+            builder.append(", ").append(coAuthor.getName().text());
           }
 
-          System.out.print(" " + buffer.substring(2));
-          if (coAuthors.text().size() == 1)
-            System.out.print(" is the co-author.");
-          else
-            System.out.print(" are co-authors.");
+          System.out.print(" " + builder.substring(2));
+          System.out.print(coAuthors.text().size() == 1 ? " is the co-author." : " are co-authors.");
         }
       }
 

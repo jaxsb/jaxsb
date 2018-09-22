@@ -18,7 +18,6 @@ package org.openjax.xsb.sample;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openjax.xsb.sample.ListSample;
 
 public class ListTest extends SampleTest {
   @Test

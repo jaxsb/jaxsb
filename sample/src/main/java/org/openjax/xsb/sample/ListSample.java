@@ -16,9 +16,7 @@
 
 package org.openjax.xsb.sample;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.List;
 
 import org.fastjax.xml.datatype.Date;
@@ -31,7 +29,6 @@ import org.openjax.xsb.sample.list.xAA.$VolunteerType;
 import org.openjax.xsb.sample.list.xAA.Roster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
 
 public class ListSample {
   private static final Logger logger = LoggerFactory.getLogger(ListSample.class);
@@ -47,14 +44,8 @@ public class ListSample {
   }
 
   public Binding runSample() throws Exception {
-    final File file = new File("src/main/resources/list.xml");
-    if (!file.exists())
-      throw new FileNotFoundException("File " + file.getAbsolutePath() + " does not exist.");
-
-    if (!file.canRead())
-      throw new IllegalStateException("File " + file.getAbsolutePath() + " is not readable.");
-
-    final Roster roster = (Roster)Bindings.parse(new InputSource(new FileInputStream(file)));
+    final URL url = getClass().getResource("/list.xml");
+    final Roster roster = (Roster)Bindings.parse(url.openStream());
     if (roster.getEmployees() != null && roster.getEmployees().size() != -1) {
       final List<$EmployeeType> employees = roster.getEmployees(0).getEmployee();
       for (final $EmployeeType employee : employees) {
