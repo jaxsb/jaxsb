@@ -20,11 +20,11 @@ import java.io.StringWriter;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.xsb.runtime.CompilerFailureException;
-import org.openjax.xsb.runtime.NotationType;
 import org.openjax.xsb.generator.processor.plan.Plan;
 import org.openjax.xsb.generator.processor.plan.element.NotationPlan;
 import org.openjax.xsb.generator.processor.write.Writer;
+import org.openjax.xsb.runtime.CompilerFailureException;
+import org.openjax.xsb.runtime.NotationType;
 
 public final class NotationWriter extends Writer<NotationPlan> {
   @Override

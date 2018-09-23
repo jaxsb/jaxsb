@@ -31,13 +31,13 @@ import org.openjax.xsb.compiler.processor.model.element.ElementModel;
 import org.openjax.xsb.compiler.processor.model.element.SchemaModel;
 import org.openjax.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.openjax.xsb.compiler.schema.attribute.Form;
-import org.openjax.xsb.runtime.CompilerFailureException;
-import org.openjax.xsb.runtime.JavaBinding;
-import org.openjax.xsb.runtime.XSTypeDirectory;
 import org.openjax.xsb.generator.processor.plan.AliasPlan;
 import org.openjax.xsb.generator.processor.plan.NestablePlan;
 import org.openjax.xsb.generator.processor.plan.Plan;
 import org.openjax.xsb.generator.processor.plan.RestrictablePlan;
+import org.openjax.xsb.runtime.CompilerFailureException;
+import org.openjax.xsb.runtime.JavaBinding;
+import org.openjax.xsb.runtime.XSTypeDirectory;
 
 public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formable<Plan<?>>, NestablePlan, RestrictablePlan {
   private final boolean ref;

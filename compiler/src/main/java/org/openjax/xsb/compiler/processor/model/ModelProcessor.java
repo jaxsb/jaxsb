@@ -20,8 +20,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.lang.LexerFailureException;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
@@ -30,6 +28,8 @@ import org.openjax.xsb.compiler.processor.composite.SchemaModelComposite;
 import org.openjax.xsb.compiler.processor.composite.SchemaNodeComposite;
 import org.openjax.xsb.compiler.processor.document.SchemaDocument;
 import org.openjax.xsb.compiler.processor.model.element.SchemaModel;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

@@ -19,11 +19,11 @@ package org.openjax.xsb.compiler.processor.composite;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.openjax.xsb.compiler.processor.GeneratorContext;
+import org.openjax.xsb.compiler.processor.document.SchemaDocument;
 import org.openjax.xsb.helper.pipeline.PipelineDirectory;
 import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.openjax.xsb.helper.pipeline.PipelineProcessor;
-import org.openjax.xsb.compiler.processor.GeneratorContext;
-import org.openjax.xsb.compiler.processor.document.SchemaDocument;
 
 public final class SchemaCompositeProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaDocument,SchemaComposite> {
   @Override

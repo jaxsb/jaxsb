@@ -29,15 +29,15 @@ import org.openjax.xsb.compiler.processor.model.NamedModel;
 import org.openjax.xsb.compiler.processor.model.element.ComplexTypeModel;
 import org.openjax.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.openjax.xsb.compiler.processor.model.element.UnionModel;
-import org.openjax.xsb.runtime.CompilerFailureException;
-import org.openjax.xsb.runtime.JavaBinding;
-import org.openjax.xsb.runtime.XSTypeDirectory;
 import org.openjax.xsb.generator.processor.plan.AliasPlan;
 import org.openjax.xsb.generator.processor.plan.EnumerablePlan;
 import org.openjax.xsb.generator.processor.plan.ExtensiblePlan;
 import org.openjax.xsb.generator.processor.plan.NamedPlan;
 import org.openjax.xsb.generator.processor.plan.NativeablePlan;
 import org.openjax.xsb.generator.processor.plan.Plan;
+import org.openjax.xsb.runtime.CompilerFailureException;
+import org.openjax.xsb.runtime.JavaBinding;
+import org.openjax.xsb.runtime.XSTypeDirectory;
 
 public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> implements EnumerablePlan, ExtensiblePlan, NativeablePlan {
   private static SimpleTypeModel<?> getGreatestCommonType(final Collection<SimpleTypeModel<?>> types, final boolean includeEnums) {

@@ -16,8 +16,8 @@
 
 package org.openjax.xsb.compiler.processor;
 
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.lang.UniqueQName;
+import org.openjax.xsb.helper.pipeline.PipelineEntity;
 
 public interface Nameable<T extends PipelineEntity> {
   public UniqueQName getName();

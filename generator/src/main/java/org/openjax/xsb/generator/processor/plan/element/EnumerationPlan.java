@@ -22,8 +22,8 @@ import javax.xml.namespace.QName;
 
 import org.fastjax.util.Strings;
 import org.openjax.xsb.compiler.processor.model.element.EnumerationModel;
-import org.openjax.xsb.runtime.CompilerFailureException;
 import org.openjax.xsb.generator.processor.plan.Plan;
+import org.openjax.xsb.runtime.CompilerFailureException;
 
 public final class EnumerationPlan extends Plan<EnumerationModel> {
   private static final char[] illegalChars = {' ', '!', '"', '#', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '.', '/', ':', ';', '<', '=', '>', '?', '@', '@', '[', '\\', ']', '^', '_', '{', '|', '|', '}', '~'};

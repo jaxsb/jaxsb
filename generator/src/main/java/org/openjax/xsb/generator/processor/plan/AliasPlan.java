@@ -19,9 +19,9 @@ package org.openjax.xsb.generator.processor.plan;
 import org.openjax.xsb.compiler.processor.model.AliasModel;
 import org.openjax.xsb.compiler.processor.model.Model;
 import org.openjax.xsb.compiler.processor.model.element.SchemaModel;
+import org.openjax.xsb.generator.processor.plan.element.DocumentationPlan;
 import org.openjax.xsb.runtime.JavaBinding;
 import org.openjax.xsb.runtime.XSTypeDirectory;
-import org.openjax.xsb.generator.processor.plan.element.DocumentationPlan;
 
 public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> implements DocumentablePlan {
   protected static String getClassName(final AliasModel model, Plan<?> parent) {

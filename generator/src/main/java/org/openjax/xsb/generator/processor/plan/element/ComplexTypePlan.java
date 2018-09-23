@@ -25,12 +25,12 @@ import org.openjax.xsb.compiler.processor.model.TypeableModel;
 import org.openjax.xsb.compiler.processor.model.element.ComplexTypeModel;
 import org.openjax.xsb.compiler.processor.model.element.SimpleContentModel;
 import org.openjax.xsb.compiler.processor.model.element.SimpleTypeModel;
-import org.openjax.xsb.runtime.ElementWrapper;
-import org.openjax.xsb.runtime.XSTypeDirectory;
 import org.openjax.xsb.generator.processor.plan.AttributablePlan;
 import org.openjax.xsb.generator.processor.plan.ElementablePlan;
 import org.openjax.xsb.generator.processor.plan.MixablePlan;
 import org.openjax.xsb.generator.processor.plan.Plan;
+import org.openjax.xsb.runtime.ElementWrapper;
+import org.openjax.xsb.runtime.XSTypeDirectory;
 
 public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePlan<T> implements AttributablePlan, ElementablePlan, MixablePlan {
   private final Boolean mixed;

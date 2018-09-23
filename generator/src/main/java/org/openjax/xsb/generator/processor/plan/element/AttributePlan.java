@@ -26,12 +26,12 @@ import org.openjax.xsb.compiler.processor.model.element.AttributeModel;
 import org.openjax.xsb.compiler.processor.model.element.SchemaModel;
 import org.openjax.xsb.compiler.schema.attribute.Form;
 import org.openjax.xsb.compiler.schema.attribute.Use;
-import org.openjax.xsb.runtime.JavaBinding;
-import org.openjax.xsb.runtime.XSTypeDirectory;
 import org.openjax.xsb.generator.processor.plan.AliasPlan;
 import org.openjax.xsb.generator.processor.plan.NestablePlan;
 import org.openjax.xsb.generator.processor.plan.Plan;
 import org.openjax.xsb.generator.processor.plan.RestrictablePlan;
+import org.openjax.xsb.runtime.JavaBinding;
+import org.openjax.xsb.runtime.XSTypeDirectory;
 
 public class AttributePlan extends SimpleTypePlan<AttributeModel> implements Formable<Plan<?>>, NestablePlan, RestrictablePlan {
   private final boolean ref;

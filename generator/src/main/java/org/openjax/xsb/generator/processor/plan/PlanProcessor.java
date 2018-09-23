@@ -23,10 +23,10 @@ import java.util.Collection;
 
 import org.fastjax.io.Files;
 import org.fastjax.net.URLs;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.model.Model;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,13 +48,13 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
       logger.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
 
       for (final Model child : model.getChildren())
-        disclose(child, root, plans, pipelineContext, directory);
+        disclose(child, root, plans, directory);
     }
 
     return plans;
   }
 
-  protected static void disclose(final Model model, final Plan<?> parent, Collection<Plan<?>> plans, final GeneratorContext pipelineContext, final PipelineDirectory<GeneratorContext,Model,Plan<?>> directory) {
+  protected static void disclose(final Model model, final Plan<?> parent, Collection<Plan<?>> plans, final PipelineDirectory<GeneratorContext,Model,Plan<?>> directory) {
     final Plan<?> plan = (Plan<?>)directory.getEntity(model, parent);
     plans.add(plan);
   }

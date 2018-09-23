@@ -19,8 +19,8 @@ package org.openjax.xsb.compiler.processor.document;
 import java.net.URL;
 import java.util.Collection;
 
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.processor.reference.SchemaReference;
+import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.w3c.dom.Document;
 
 public final class SchemaDocument implements PipelineEntity {

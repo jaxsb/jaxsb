@@ -23,15 +23,15 @@ import javax.xml.namespace.QName;
 
 import org.openjax.xsb.compiler.schema.attribute.Form;
 import org.openjax.xsb.compiler.schema.attribute.Use;
+import org.openjax.xsb.generator.processor.plan.Plan;
+import org.openjax.xsb.generator.processor.plan.element.AttributePlan;
+import org.openjax.xsb.generator.processor.plan.element.SimpleTypePlan;
 import org.openjax.xsb.runtime.Attribute;
 import org.openjax.xsb.runtime.AttributeAudit;
 import org.openjax.xsb.runtime.AttributeSpec;
 import org.openjax.xsb.runtime.Binding;
 import org.openjax.xsb.runtime.SimpleType;
 import org.openjax.xsb.runtime.XSTypeDirectory;
-import org.openjax.xsb.generator.processor.plan.Plan;
-import org.openjax.xsb.generator.processor.plan.element.AttributePlan;
-import org.openjax.xsb.generator.processor.plan.element.SimpleTypePlan;
 
 public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
   @Override

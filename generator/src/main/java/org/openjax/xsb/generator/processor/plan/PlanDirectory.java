@@ -22,9 +22,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.model.Model;
 import org.openjax.xsb.compiler.processor.model.element.AllModel;
@@ -70,7 +67,6 @@ import org.openjax.xsb.compiler.processor.model.element.SimpleTypeModel;
 import org.openjax.xsb.compiler.processor.model.element.UnionModel;
 import org.openjax.xsb.compiler.processor.model.element.UniqueModel;
 import org.openjax.xsb.compiler.processor.model.element.WhiteSpaceModel;
-import org.openjax.xsb.runtime.CompilerFailureException;
 import org.openjax.xsb.generator.processor.plan.element.AllPlan;
 import org.openjax.xsb.generator.processor.plan.element.AnnotationPlan;
 import org.openjax.xsb.generator.processor.plan.element.AnyAttributePlan;
@@ -114,6 +110,10 @@ import org.openjax.xsb.generator.processor.plan.element.SimpleTypePlan;
 import org.openjax.xsb.generator.processor.plan.element.UnionPlan;
 import org.openjax.xsb.generator.processor.plan.element.UniquePlan;
 import org.openjax.xsb.generator.processor.plan.element.WhiteSpacePlan;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineEntity;
+import org.openjax.xsb.helper.pipeline.PipelineProcessor;
+import org.openjax.xsb.runtime.CompilerFailureException;
 
 public final class PlanDirectory implements PipelineDirectory<GeneratorContext,Model,Plan<?>> {
   private final Map<Class<?>,Class<?>> classes = new HashMap<>(39);

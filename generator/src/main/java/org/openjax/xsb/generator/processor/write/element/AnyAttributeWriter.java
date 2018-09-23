@@ -22,10 +22,10 @@ import java.util.List;
 
 import org.openjax.xsb.compiler.schema.attribute.Form;
 import org.openjax.xsb.compiler.schema.attribute.Use;
-import org.openjax.xsb.runtime.AttributeAudit;
 import org.openjax.xsb.generator.processor.plan.Plan;
 import org.openjax.xsb.generator.processor.plan.element.AnyAttributePlan;
 import org.openjax.xsb.generator.processor.write.Writer;
+import org.openjax.xsb.runtime.AttributeAudit;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Element;
 

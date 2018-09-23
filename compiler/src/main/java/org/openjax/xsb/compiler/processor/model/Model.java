@@ -24,11 +24,11 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.lang.LexerFailureException;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.lang.UniqueQName;
 import org.openjax.xsb.compiler.processor.model.element.SchemaModel;
+import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.NamedNodeMap;

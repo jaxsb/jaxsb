@@ -25,15 +25,6 @@ import java.util.Set;
 
 import org.fastjax.io.Files;
 import org.fastjax.net.URLs;
-import org.openjax.xsb.helper.pipeline.Pipeline;
-import org.openjax.xsb.generator.processor.bundle.Bundle;
-import org.openjax.xsb.generator.processor.bundle.BundleDirectory;
-import org.openjax.xsb.generator.processor.plan.Plan;
-import org.openjax.xsb.generator.processor.plan.PlanDirectory;
-import org.openjax.xsb.generator.processor.timestamp.TimestampDirectory;
-import org.openjax.xsb.generator.processor.write.Writer;
-import org.openjax.xsb.generator.processor.write.WriterDirectory;
-import org.openjax.xsb.generator.schema.SchemaDocumentDirectory;
 import org.fastjax.util.Paths;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.composite.SchemaComposite;
@@ -45,6 +36,15 @@ import org.openjax.xsb.compiler.processor.normalize.Normalizer;
 import org.openjax.xsb.compiler.processor.normalize.NormalizerDirectory;
 import org.openjax.xsb.compiler.processor.reference.SchemaReference;
 import org.openjax.xsb.compiler.processor.reference.SchemaReferenceDirectory;
+import org.openjax.xsb.generator.processor.bundle.Bundle;
+import org.openjax.xsb.generator.processor.bundle.BundleDirectory;
+import org.openjax.xsb.generator.processor.plan.Plan;
+import org.openjax.xsb.generator.processor.plan.PlanDirectory;
+import org.openjax.xsb.generator.processor.timestamp.TimestampDirectory;
+import org.openjax.xsb.generator.processor.write.Writer;
+import org.openjax.xsb.generator.processor.write.WriterDirectory;
+import org.openjax.xsb.generator.schema.SchemaDocumentDirectory;
+import org.openjax.xsb.helper.pipeline.Pipeline;
 
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {

@@ -19,11 +19,11 @@ package org.openjax.xsb.generator.processor.write.element;
 import java.io.StringWriter;
 import java.util.List;
 
+import org.openjax.xsb.generator.processor.plan.Plan;
+import org.openjax.xsb.generator.processor.plan.element.AnyPlan;
 import org.openjax.xsb.runtime.Binding;
 import org.openjax.xsb.runtime.Bindings;
 import org.openjax.xsb.runtime.ElementAudit;
-import org.openjax.xsb.generator.processor.plan.Plan;
-import org.openjax.xsb.generator.processor.plan.element.AnyPlan;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

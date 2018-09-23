@@ -23,14 +23,14 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.fastjax.net.URLs;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
-import org.openjax.xsb.compiler.lang.LexerFailureException;
-import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.fastjax.xml.sax.DocumentHandler;
 import org.fastjax.xml.sax.SAXInterruptException;
 import org.fastjax.xml.sax.XMLDocuments;
+import org.openjax.xsb.compiler.lang.LexerFailureException;
+import org.openjax.xsb.compiler.processor.GeneratorContext;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineEntity;
+import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

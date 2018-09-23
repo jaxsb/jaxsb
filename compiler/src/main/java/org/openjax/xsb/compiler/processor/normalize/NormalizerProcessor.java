@@ -20,11 +20,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.lang.LexerFailureException;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.model.Model;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 
 public final class NormalizerProcessor implements PipelineProcessor<GeneratorContext,Model,Normalizer<?>> {
   private int stage = 0;
@@ -35,10 +35,10 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
 
     for (final Model model : models)
       if (model != null)
-        tailRecurse(pipelineContext, disclose(pipelineContext, model, directory), directory);
+        tailRecurse(pipelineContext, disclose(model, directory), directory);
   }
 
-  private Collection<Model> disclose(final GeneratorContext pipelineContext, final Model model, final PipelineDirectory<GeneratorContext,Model,Normalizer<?>> directory) {
+  private Collection<Model> disclose(final Model model, final PipelineDirectory<GeneratorContext,Model,Normalizer<?>> directory) {
     final Normalizer<?> normalizer = (Normalizer<?>)directory.getEntity(model, null);
     try {
       final Method method = normalizer.getClass().getDeclaredMethod("stage" + (stage + 1), Model.class);
@@ -60,7 +60,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
       if (method.getName().startsWith("stage"))
         stages++;
 
-    for (int stage = 0; stage < stages; stage++) {
+    for (int stage = 0; stage < stages; ++stage) {
       this.stage = stage;
       tailRecurse(pipelineContext, models, directory);
     }

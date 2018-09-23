@@ -20,8 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
-import org.openjax.xsb.helper.pipeline.PipelineContext;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
+import org.openjax.xsb.helper.pipeline.PipelineContext;
 
 public final class GeneratorContext implements PipelineContext {
   private final File destDir;

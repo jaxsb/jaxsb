@@ -27,15 +27,15 @@ import java.util.Map;
 
 import org.fastjax.io.Files;
 import org.fastjax.net.URLs;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.lang.NamespaceBinding;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.Nameable;
-import org.openjax.xsb.runtime.CompilerFailureException;
 import org.openjax.xsb.generator.processor.plan.AliasPlan;
 import org.openjax.xsb.generator.processor.plan.NestablePlan;
 import org.openjax.xsb.generator.processor.plan.Plan;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineEntity;
+import org.openjax.xsb.runtime.CompilerFailureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
   private static final Map<File,ClassFile> fileToClassFile = new HashMap<>();
 
-  private File getFile(final Writer<T> writer, final T plan, final File destDir) {
+  private File getFile(final T plan, final File destDir) {
     final URL url = plan.getModel().getSchema().getURL();
     final String display = URLs.isLocal(url) ? Files.relativePath(Files.getCwd().getAbsoluteFile(), new File(url.getFile()).getAbsoluteFile()) : url.toExternalForm();
     final String message = "Compiling {" + plan.getModel().getTargetNamespace() + "} from " + display;
@@ -70,11 +70,11 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     }
   }
 
-  protected void closeFile(final Writer<T> writer, final T plan, final File destDir) {
+  protected void closeFile(final T plan, final File destDir) {
     if (!(plan instanceof AliasPlan) || (plan instanceof NestablePlan && ((NestablePlan)plan).isNested()))
       return;
 
-    final File file = getFile(writer, plan, destDir);
+    final File file = getFile(plan, destDir);
     final ClassFile classFile = fileToClassFile.get(file);
     if (classFile == null)
       return;
