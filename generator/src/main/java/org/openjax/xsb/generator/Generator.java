@@ -69,7 +69,7 @@ public final class Generator extends AbstractGenerator {
     boolean pack = false;
     File destDir = null;
     final Collection<SchemaReference> schemas = new HashSet<>();
-    for (int i = 0; i < args.length; i++) {
+    for (int i = 0; i < args.length; ++i) {
       if ("--overwrite".equals(args[i]))
         overwrite = true;
       else if ("--compile".equals(args[i]))
@@ -82,29 +82,10 @@ public final class Generator extends AbstractGenerator {
         schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.makeCanonicalUrlFromPath(args[i]) : new File(Files.getCwd(), args[i]).toURI().toURL(), false));
     }
 
-    if (destDir == null)
-      destDir = Files.getCwd();
-
-    final GeneratorContext generatorContext = new GeneratorContext(destDir, overwrite, compile, pack, null, null);
-    final Generator generator = new Generator(generatorContext, schemas, null);
-    generator.generate();
+    generate(new GeneratorContext(destDir == null ? Files.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null);
   }
 
-  private final GeneratorContext generatorContext;
-  private final Collection<SchemaReference> schemas;
-  private final Set<File> sourcePath;
-
-  public Generator(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath) {
-    this.generatorContext = generatorContext;
-    this.schemas = schemas;
-    this.sourcePath = sourcePath;
-  }
-
-  public GeneratorContext getGeneratorContext() {
-    return generatorContext;
-  }
-
-  public Collection<Bundle> generate() {
+  public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath) {
     final Pipeline<GeneratorContext> pipeline = new Pipeline<>(generatorContext);
 
     // select the schemas to be generated and exit if no schemas need work
@@ -144,5 +125,8 @@ public final class Generator extends AbstractGenerator {
     pipeline.begin();
 
     return bundles;
+  }
+
+  private Generator() {
   }
 }
