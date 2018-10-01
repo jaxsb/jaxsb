@@ -22,6 +22,7 @@ import java.util.HashMap;
 import javax.xml.namespace.QName;
 
 import org.fastjax.util.PartitionedList;
+import org.slf4j.Logger;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
 public class ElementSuperList extends PartitionedList<Binding,QName> implements Serializable {
@@ -135,8 +136,8 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
   }
 
   @Override
-  protected void print() {
-    super.print();
+  protected void print(final Logger logger) {
+    super.print(logger);
   }
 
   @Override

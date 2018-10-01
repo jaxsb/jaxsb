@@ -22,11 +22,15 @@ import org.fastjax.xml.ValidationException;
 import org.junit.Test;
 import org.openjax.www._do._abstract.n$a_m_e_1.xLwQ40OyCVYYJRhglIA.Class;
 import org.openjax.xsb.runtime.Bindings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NameTest {
+  private static final Logger logger = LoggerFactory.getLogger(NameTest.class);
+
   @Test
   public void test() throws IOException, ValidationException {
     final Class name = (Class)Bindings.parse(Thread.currentThread().getContextClassLoader().getResource("name.xml"));
-    System.out.println(name.toString());
+    logger.info(name.toString());
   }
 }

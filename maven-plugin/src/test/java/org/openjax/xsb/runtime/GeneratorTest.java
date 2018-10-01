@@ -31,20 +31,24 @@ import org.openjax.xsb.generator.html.xAA.Div;
 import org.openjax.xsb.generator.html.xAA.Hr;
 import org.openjax.xsb.generator.html.xAA.P;
 import org.openjax.xsb.generator.html.xAA.Pre;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Category(IntegrationTest.class)
 public class GeneratorTest {
+  private static final Logger logger = LoggerFactory.getLogger(GeneratorTest.class);
+
   private static void assertElementCount(final String description, final List<Binding> expected, final int expectedLength, final BindingList<?> elements) {
     Assert.assertEquals(expectedLength, elements.size());
     final Iterator<? extends Binding> iterator = elements.getOwner().elementIterator();
-    for (int i = 0; iterator.hasNext(); i++) {
+    for (int i = 0; iterator.hasNext(); ++i) {
       final Binding next = iterator.next();
       Assert.assertEquals("Index " + i, expected.get(i), next);
     }
 
     if (description != null) {
       System.err.println(description + " " + Strings.repeat("=", 34 - description.length()));
-      ((ElementSuperList)((ElementSuperList.ElementSubList)elements).getSuperList()).print();
+      ((ElementSuperList)((ElementSuperList.ElementSubList)elements).getSuperList()).print(logger);
     }
   }
 
