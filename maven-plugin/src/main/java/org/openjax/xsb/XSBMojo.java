@@ -32,7 +32,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.fastjax.maven.mojo.GeneratorMojo;
-import org.fastjax.maven.mojo.ResourceLabel;
+import org.fastjax.maven.mojo.SourceInput;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.reference.SchemaReference;
@@ -63,21 +63,15 @@ public class XSBMojo extends GeneratorMojo {
     return set;
   }
 
+  @SourceInput
   @Parameter(property="schemas", required=true)
   private List<String> schemas;
 
   @Override
-  @SuppressWarnings("unchecked")
-  @ResourceLabel(label="schemas", nonEmpty=true)
-  protected List<String>[] getResources() {
-    return new List[] {schemas};
-  }
-
-  @Override
   public void execute(final Configuration configuration) throws MojoExecutionException, MojoFailureException {
     final Collection<SchemaReference> generatorBindings = new ArrayList<>();
-    for (final URL resource : configuration.getResources(0))
-      generatorBindings.add(new SchemaReference(resource, false));
+    for (final URL schema : configuration.getSourceInputs("schemas"))
+      generatorBindings.add(new SchemaReference(schema, false));
 
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
     final Set<NamespaceURI> excludes = buildNamespaceSet(this.excludes);
