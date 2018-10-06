@@ -76,7 +76,7 @@ public class XSBMojo extends GeneratorMojo {
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
     final Set<NamespaceURI> excludes = buildNamespaceSet(this.excludes);
 
-    Generator.generate(new GeneratorContext(configuration.getDestDir(), configuration.isOverwrite(), null, false, includes, excludes), generatorBindings, sourcePath);
+    Generator.generate(new GeneratorContext(configuration.getDestDir(), configuration.getOverwrite(), null, false, includes, excludes), generatorBindings, sourcePath);
     sourcePath.add(configuration.getDestDir());
 
     final Resource resource = new Resource();

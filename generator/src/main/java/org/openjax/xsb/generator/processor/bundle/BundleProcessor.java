@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -28,13 +29,9 @@ import java.util.Set;
 
 import javax.xml.XMLConstants;
 
-import org.fastjax.io.Files;
 import org.fastjax.jci.CompilationException;
 import org.fastjax.jci.JavaCompiler;
 import org.fastjax.net.URLs;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.fastjax.util.Collections;
 import org.fastjax.util.Paths;
 import org.fastjax.util.jar.Jar;
@@ -49,6 +46,9 @@ import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.composite.SchemaComposite;
 import org.openjax.xsb.compiler.processor.composite.SchemaModelComposite;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineEntity;
+import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.openjax.xsb.runtime.Binding;
 import org.openjax.xsb.runtime.CompilerFailureException;
 import org.w3c.dom.Element;
@@ -95,11 +95,17 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           if (!namespaceURIsAdded.contains(namespaceURI)) {
             namespaceURIsAdded.add(namespaceURI);
 
-            final Collection<File> files = Files.listAll(new File(destDir, packagePath));
-            if (files != null)
-              for (final File file : files)
-                if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
-                  jar.addEntry(Files.relativePath(destDir.getAbsoluteFile(), file.getAbsoluteFile()), java.nio.file.Files.readAllBytes(file.toPath()));
+            Files.walk(new File(destDir, packagePath).toPath()).forEach(p -> {
+              final File file = p.toFile();
+              if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class"))) {
+                try {
+                  jar.addEntry(destDir.toPath().relativize(file.toPath()).toString(), Files.readAllBytes(file.toPath()));
+                }
+                catch (IOException e) {
+                  throw new IllegalStateException(e);
+                }
+              }
+            });
           }
         }
         else {

@@ -16,12 +16,12 @@
 
 package org.openjax.xsb.generator.processor.timestamp;
 
-import java.io.File;
-import java.io.FileFilter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
-import java.util.List;
+import java.util.function.Predicate;
 
-import org.fastjax.io.Files;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.generator.processor.bundle.Bundle;
 import org.openjax.xsb.helper.pipeline.PipelineDirectory;
@@ -29,17 +29,17 @@ import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 
 public final class TimestampProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,Bundle,Bundle> {
-  private static final FileFilter fileFilter = new FileFilter() {
+  private static final Predicate<Path> fileFilter = new Predicate<Path>() {
     @Override
-    public boolean accept(final File pathname) {
-      return pathname != null && pathname.isFile();
+    public boolean test(final Path t) {
+      return t != null && t.toFile().isFile();
     }
   };
 
-  private static final FileFilter dirFileFilter = new FileFilter() {
+  private static final Predicate<Path> dirFileFilter = new Predicate<Path>() {
     @Override
-    public boolean accept(final File pathname) {
-      return pathname != null && pathname.isDirectory();
+    public boolean test(final Path t) {
+      return t != null && t.toFile().isDirectory();
     }
   };
 
@@ -48,19 +48,23 @@ public final class TimestampProcessor implements PipelineEntity, PipelineProcess
 
   @Override
   public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<Bundle> documents, final PipelineDirectory<GeneratorContext,Bundle,Bundle> directory) {
-    // Get the earliest lastModified time of all the files
-    long lastModified = Long.MAX_VALUE;
-    final List<File> files = Files.listAll(pipelineContext.getDestDir(), fileFilter);
-    if (files != null)
-      for (final File file : files)
-        if (file.lastModified() < lastModified)
-          lastModified = file.lastModified();
+    try {
+      // Get the earliest lastModified time of all the files
+      final long lastModified = Files.
+        walk(pipelineContext.getDestDir().toPath()).
+        filter(fileFilter).
+        map(p -> p.toFile().lastModified()).
+        reduce(Math::min).get();
 
-    // Set the lastModified time of all directories to just before the value from above
-    final List<File> dirs = Files.listAll(pipelineContext.getDestDir(), dirFileFilter);
-    if (dirs != null)
-      for (final File dir : dirs)
-        dir.setLastModified(lastModified - 100);
+      // Set the lastModified time of all directories to just before the value from above
+      Files.
+        walk(pipelineContext.getDestDir().toPath()).
+        filter(dirFileFilter).
+        forEach(p -> p.toFile().setLastModified(lastModified - 100));
+    }
+    catch (final IOException e) {
+      throw new IllegalStateException(e);
+    }
 
     return null;
   }

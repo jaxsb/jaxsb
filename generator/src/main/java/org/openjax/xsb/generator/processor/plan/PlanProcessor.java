@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.fastjax.io.Files;
+import org.fastjax.io.FileUtils;
 import org.fastjax.net.URLs;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.model.Model;
@@ -44,7 +44,7 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
         continue;
 
       final URL url = model.getSchema().getURL();
-      final String display = URLs.isLocal(url) ? Files.relativePath(Files.getCwd().getAbsoluteFile(), new File(url.getFile()).getAbsoluteFile()) : url.toExternalForm();
+      final String display = URLs.isLocal(url) ? FileUtils.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
       logger.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
 
       for (final Model child : model.getChildren())

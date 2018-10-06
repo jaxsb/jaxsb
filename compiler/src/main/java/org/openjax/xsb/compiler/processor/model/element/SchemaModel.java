@@ -19,7 +19,7 @@ package org.openjax.xsb.compiler.processor.model.element;
 import java.io.File;
 import java.net.URL;
 
-import org.fastjax.io.Files;
+import org.fastjax.io.FileUtils;
 import org.fastjax.net.URLs;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.lang.UniqueQName;
@@ -65,7 +65,7 @@ public final class SchemaModel extends Model {
 
   public final void setURL(final URL url) {
     this.url = url;
-    final String display = URLs.isLocal(url) ? Files.relativePath(Files.getCwd().getAbsoluteFile(), new File(url.getFile()).getAbsoluteFile()) : url.toExternalForm();
+    final String display = URLs.isLocal(url) ? FileUtils.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
     logger.info("Scanning {" + getTargetNamespace() + "} from " + display);
   }
 
