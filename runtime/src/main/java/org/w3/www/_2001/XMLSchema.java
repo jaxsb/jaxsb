@@ -389,8 +389,12 @@ public final class XMLSchema {
       }
 
       static {
-        valueMap.put(true, new String[] {"true", "1"});
-        valueMap.put(false, new String[] {"false", "0"});
+        valueMap.put(true, new String[] {
+          "true", "1"
+        });
+        valueMap.put(false, new String[] {
+          "false", "0"
+        });
       }
 
       public $Boolean(final $Boolean binding) {
@@ -523,8 +527,10 @@ public final class XMLSchema {
         return ($Date)super.clone();
       }
     }
+
     /**
-     * This final class represents the Java binding of the dateTime instance of time.
+     * This final class represents the Java binding of the dateTime instance of
+     * time.
      *
      * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">Definition</a>
      */
@@ -540,11 +546,11 @@ public final class XMLSchema {
       }
 
       /**
-       * Allocates a <code>Date</code> object and initializes it so that it
+       * Allocates a {@code Date} object and initializes it so that it
        * represents the time at which it was allocated. Milliseconds are
        * <b>NOT</b> significant figures and are not represented.
        *
-       * @see java.lang.System#currentTimeMillis()
+       * @see System#currentTimeMillis()
        */
       protected $DateTime() {
         super();
@@ -720,7 +726,7 @@ public final class XMLSchema {
         return (List<String>)super.text();
       }
 
-      public <T extends List<String> & Serializable>void text(final T text) {
+      public <T extends List<String> & Serializable> void text(final T text) {
         super.text(text);
       }
 
@@ -1209,7 +1215,7 @@ public final class XMLSchema {
         return (List<String>)super.text();
       }
 
-      public <T extends List<String> & Serializable>void text(final T text) {
+      public <T extends List<String> & Serializable> void text(final T text) {
         super.text(text);
       }
 
@@ -1516,7 +1522,7 @@ public final class XMLSchema {
         return (List<String>)super.text();
       }
 
-      public <T extends List<String> & Serializable>void text(final T text) {
+      public <T extends List<String> & Serializable> void text(final T text) {
         super.text(text);
       }
 

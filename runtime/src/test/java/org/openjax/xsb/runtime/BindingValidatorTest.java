@@ -33,7 +33,7 @@ public class BindingValidatorTest {
    * org.safris.xml.generator.compiler.runtime.XMLSchemaResolver cannot be cast
    * to org.apache.xerces.xni.parser.XMLEntityResolver.
    *
-   * @exception Exception If any <code>Exception</code> is thrown.
+   * @exception Exception If any {@code Exception} is thrown.
    */
   @Test
   public void testSAXParser() throws Exception {

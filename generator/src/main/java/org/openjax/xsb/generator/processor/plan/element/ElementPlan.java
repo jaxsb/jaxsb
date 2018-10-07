@@ -89,7 +89,8 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
       superClassNameWithoutType = AliasPlan.getClassName(element.getSuperType(), null);
 
     superClassNameWithType = superClassNameWithoutType;
-    // If we are directly inheriting from another element via the substitutionGroup, then don't add the type
+    // If we are directly inheriting from another element via the
+    // substitutionGroup, then don't add the type
     if (substitutionGroup == null || !substitutionGroup.equals(element.getSuperType().getName()))
       isComplexType = isComplexType(element.getSuperType());
     else
@@ -110,13 +111,13 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
   }
 
   /**
-   * States whether this element is a duplicate of an element in the
-   * inheritance hierarchy of the owning parent element or complexType. This
-   * information means that since the element is being repeated twice its
-   * methods will mask those of the first occurrence in the parent type.
+   * States whether this element is a duplicate of an element in the inheritance
+   * hierarchy of the owning parent element or complexType. This information
+   * means that since the element is being repeated twice its methods will mask
+   * those of the first occurrence in the parent type.
    *
-   * @return <code>true</code> if the name of this element exists in the
-   * hierarchy of the parent element or complexType.
+   * @return {@code true} if the name of this element exists in the hierarchy of
+   *         the parent element or complexType.
    */
   public final ElementPlan getRepeatedExtension() {
     if (repeatedExtensionRun)
@@ -241,7 +242,8 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
       return declarationGeneric;
 
     final AliasModel model;
-    //if (!UniqueQName.XS.getNamespaceURI().equals(getModel().getSuperType().getName().getNamespaceURI()))
+    // if
+    // (!UniqueQName.XS.getNamespaceURI().equals(getModel().getSuperType().getName().getNamespaceURI()))
     if (!getModel().isExtension() && !getModel().isRestriction())
       model = getModel().getSuperType();
     else
@@ -255,7 +257,8 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
       return declarationGeneric;
 
     final AliasModel model;
-    //if (!UniqueQName.XS.getNamespaceURI().equals(getModel().getSuperType().getName().getNamespaceURI()))
+    // if
+    // (!UniqueQName.XS.getNamespaceURI().equals(getModel().getSuperType().getName().getNamespaceURI()))
     if (!getModel().isExtension() && !getModel().isRestriction())
       model = getModel().getSuperType();
     else
