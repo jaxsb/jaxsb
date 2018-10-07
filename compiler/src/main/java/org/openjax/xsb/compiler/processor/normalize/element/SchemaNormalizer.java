@@ -19,7 +19,7 @@ package org.openjax.xsb.compiler.processor.normalize.element;
 import java.io.File;
 import java.net.URL;
 
-import org.fastjax.io.FileUtils;
+import org.fastjax.io.FastFiles;
 import org.fastjax.net.URLs;
 import org.openjax.xsb.compiler.processor.model.element.SchemaModel;
 import org.openjax.xsb.compiler.processor.normalize.Normalizer;
@@ -35,13 +35,13 @@ public final class SchemaNormalizer extends Normalizer<SchemaModel> {
   @Override
   protected void stage1(final SchemaModel model) {
     if (CWD == null)
-      CWD = FileUtils.getCwd();
+      CWD = FastFiles.getCwd();
 
     final URL url = model.getURL();
     if (url == null)
       return;
 
-    final String display = URLs.isLocal(url) ? FileUtils.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+    final String display = URLs.isLocal(url) ? FastFiles.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
     logger.info("Lexing {" + model.getTargetNamespace() + "} from " + display);
   }
 

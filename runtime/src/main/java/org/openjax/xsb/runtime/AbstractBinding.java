@@ -136,7 +136,7 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   protected static QName getClassQName(final Class<? extends Binding> binding) {
-    final org.openjax.xsb.runtime.QName name = Classes.getDeclaredAnnotation(binding, org.openjax.xsb.runtime.QName.class);
+    final org.openjax.xsb.runtime.QName name = binding.getDeclaredAnnotation(org.openjax.xsb.runtime.QName.class);
     return new QName(name.namespaceURI(), name.localPart(), name.prefix());
   }
 

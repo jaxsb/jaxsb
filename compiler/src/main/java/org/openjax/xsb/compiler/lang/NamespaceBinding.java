@@ -25,9 +25,10 @@ import org.fastjax.util.Diff;
 import org.fastjax.util.JavaIdentifiers;
 
 /**
- * This class models the binding between an XML namespace URI and a Java
- * package name. This model asserts that a unique package exists for every
- * different XML namespace.
+ * This class models the binding between an XML namespace URI and a Java package
+ * name. This model asserts that a unique package exists for every different XML
+ * namespace.
+ *
  * @see NamespaceBinding#parseNamespace(URI)
  * @see NamespaceBinding#parseClassName(String)
  */
@@ -49,25 +50,26 @@ public final class NamespaceBinding {
     }
 
     /**
-     * If the start of <code>builder</code> does not match <code>start</code>,
-     * then there is no match.
+     * If the start of {@code builder} does not match {@code start}, then there
+     * is no match.
      * <p>
-     * If the end of <code>builder</code> does not match, then encode the
-     * start, and return <code>prefix1</code>.
+     * If the end of {@code builder} does not match, then encode the start, and
+     * return {@code prefix1}.
      * <p>
-     * If the end of <code>builder</code> matches, then encode the start and
-     * end, and return <code>prefix2</code>.
+     * If the end of {@code builder} matches, then encode the start and end, and
+     * return {@code prefix2}.
      *
      * @param builder The builder.
-     * @return '\0' if there is no match. <code>prefix1</code> if only the
-     *         start matches. <code>prefix2</code> if the start and end match.
+     * @return '\0' if there is no match. {@code prefix1} if only the start
+     *         matches. {@code prefix2} if the start and end match.
      */
     protected char encode(final StringBuilder builder) {
       if (start == null) {
         int index = builder.indexOf(":");
         if (index > -1 && index + 1 < builder.length() && builder.charAt(index + 1) == '/') {
           final String scheme = builder.substring(0, index);
-          while (builder.charAt(++index) == '/');
+          while (builder.charAt(++index) == '/')
+            ;
           final Service service = Services.getService(scheme);
           if (service != null) {
             builder.delete(0, index);
@@ -90,17 +92,17 @@ public final class NamespaceBinding {
     }
 
     /**
-     * If <code>prefix == prefix1</code>, then prepend <code>start</code>, and
-     * return the string.
+     * If {@code prefix == prefix1}, then prepend {@code start}, and return the
+     * string.
      * <p>
-     * If <code>prefix == prefix2</code>, then prepend <code>start</code> and
-     * append <code>end</code>, and return the string.
+     * If {@code prefix == prefix2}, then prepend {@code start} and append
+     * {@code end}, and return the string.
      * <p>
-     * Otherwise, return <code>null</code>.
+     * Otherwise, return {@code null}.
      *
      * @param prefix The prefix to the encoding.
      * @param builder The string to decode.
-     * @return The string translated with respect to <code>prefix</code>.
+     * @return The string translated with respect to {@code prefix}.
      */
     protected StringBuilder decode(final char prefix, final StringBuilder builder) {
       return prefix == prefix1 ? (start == null ? builder : builder.insert(0, start)) : prefix == prefix2 ? (start == null ? builder : builder.insert(0, start)).append(end) : null;
@@ -183,7 +185,8 @@ public final class NamespaceBinding {
       return uri;
 
     int start = colon;
-    while (uri.charAt(++start) == '/');
+    while (uri.charAt(++start) == '/')
+      ;
     final int end = uri.indexOf('/', start + 1);
     final StringBuilder builder = new StringBuilder();
     buildHost(builder, uri.substring(start, end));
@@ -260,18 +263,17 @@ public final class NamespaceBinding {
   }
 
   /**
-   * Create a <code>NamespaceBinding</code> from a fully qualified class name.
-   * This method is intended for class names created by
-   * <code>NamespaceBinding.getClassName()<code>, which contain a simple class
-   * name as a Base64-encoded diff between the package name and the original
+   * Create a {@code NamespaceBinding} from a fully qualified class name. This
+   * method is intended for class names created by
+   * {@code NamespaceBinding.getClassName()}, which contain a simple class name
+   * as a Base64-encoded diff between the package name and the original
    * namespace URI. If such a class name is inputted to this method, the
-   * resulting <code>NamespaceBinding</code> is guaranteed to the unique
-   * binding between that class name and the namespace URI from which it
-   * originated.
+   * resulting {@code NamespaceBinding} is guaranteed to the unique binding
+   * between that class name and the namespace URI from which it originated.
+   *
    * @param className The fully qualified class name previously encoded by
-   *        <code>NamespaceBinding.getClassName()<code>.
-   * @return A guaranteed unique <code>NamespaceBinding</code> for the package
-   *         name.
+   *          {@code NamespaceBinding.getClassName()}.
+   * @return A guaranteed unique {@code NamespaceBinding} for the package name.
    * @see NamespaceBinding#getClassName()
    * @see NamespaceBinding#parseNamespace(URI)
    */
@@ -313,32 +315,33 @@ public final class NamespaceBinding {
   }
 
   /**
-   * Create a <code>NamespaceBinding</code> from a <code>URI</code>. This
-   * method guarantees that a unique package name will be created for each
-   * unique <code>URI</code>. Examples of namespaces that would otherwise
-   * seem to result in the same package name are:
+   * Create a {@code NamespaceBinding} from a {@code URI}. This method
+   * guarantees that a unique package name will be created for each unique
+   * {@code URI}. Examples of namespaces that would otherwise seem to result in
+   * the same package name are:
    * <p>
-   * <code>http://www.foo.com/bar.xsd</code>
+   * {@code http://www.foo.com/bar.xsd}
    * <p>
-   * <code>http://www.foo.com/bar</code>
+   * {@code http://www.foo.com/bar}
    * <p>
-   * <code>https://www.foo.com/bar.xsd</code>
+   * {@code https://www.foo.com/bar.xsd}
    * <p>
-   * <code>https://www.foo.com/bar</code>
+   * {@code https://www.foo.com/bar}
    * <p>
-   * <code>file://www.foo.com/bar.xsd</code>
+   * {@code file://www.foo.com/bar.xsd}
    * <p>
    * The resulting package name for each of these namespaces is:
    * <p>
-   * <code>com.foo.www.bar</code>
+   * {@code com.foo.www.bar}
    * <p>
    * The simple class name is based on a Base64 string representation of a diff
    * between the original namespace URI and the resulting package name. The
    * package name carries enough information within itself to be able to
    * translate directly back to the unique namespace URI from which it was
    * generated.
+   *
    * @param uri The namespace URI.
-   * @return A guaranteed unique <code>NamespaceBinding</code> to the uri.
+   * @return A guaranteed unique {@code NamespaceBinding} to the uri.
    */
   public static NamespaceBinding parseNamespace(final URI uri) {
     if (uri == null)
@@ -360,32 +363,33 @@ public final class NamespaceBinding {
   }
 
   /**
-   * Create a <code>NamespaceBinding</code> from a <code>String</code> uri.
-   * This method guarantees that a unique package name will be created for each
-   * unique <code>URI</code>. Examples of namespaces that would otherwise
-   * seem to result in the same package name are:
+   * Create a {@code NamespaceBinding} from a {@code String} uri. This method
+   * guarantees that a unique package name will be created for each unique
+   * {@code URI}. Examples of namespaces that would otherwise seem to result in
+   * the same package name are:
    * <p>
-   * <code>http://www.foo.com/bar.xsd</code>
+   * {@code http://www.foo.com/bar.xsd}
    * <p>
-   * <code>http://www.foo.com/bar</code>
+   * {@code http://www.foo.com/bar}
    * <p>
-   * <code>https://www.foo.com/bar.xsd</code>
+   * {@code https://www.foo.com/bar.xsd}
    * <p>
-   * <code>https://www.foo.com/bar</code>
+   * {@code https://www.foo.com/bar}
    * <p>
-   * <code>file://www.foo.com/bar.xsd</code>
+   * {@code file://www.foo.com/bar.xsd}
    * <p>
    * The resulting package name for each of these namespaces is:
    * <p>
-   * <code>com.foo.www.bar</code>
+   * {@code com.foo.www.bar}
    * <p>
    * The simple class name is based on a Base64 string representation of a diff
    * between the original namespace URI and the resulting package name. The
    * package name carries enough information within itself to be able to
    * translate directly back to the unique namespace URI from which it was
    * generated.
+   *
    * @param uri The namespace URI.
-   * @return A guaranteed unique <code>NamespaceBinding</code> to the uri.
+   * @return A guaranteed unique {@code NamespaceBinding} to the uri.
    * @see NamespaceBinding#parseNamespace(URI)
    */
   public static NamespaceBinding parseNamespace(final String uri) {
@@ -424,7 +428,7 @@ public final class NamespaceBinding {
 
   /**
    * @return The simple class name (i.e. class name without the package name)
-   * for this binding.
+   *         for this binding.
    */
   public String getSimpleClassName() {
     return this.simpleClassName;

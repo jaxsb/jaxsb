@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import org.fastjax.io.FileUtils;
+import org.fastjax.io.FastFiles;
 import org.fastjax.net.URLs;
 import org.openjax.xsb.compiler.lang.NamespaceBinding;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
@@ -49,7 +49,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
   private File getFile(final T plan, final File destDir) {
     final URL url = plan.getModel().getSchema().getURL();
-    final String display = URLs.isLocal(url) ? FileUtils.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+    final String display = URLs.isLocal(url) ? FastFiles.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
     final String message = "Compiling {" + plan.getModel().getTargetNamespace() + "} from " + display;
 
     if (!messages.contains(message)) {
@@ -94,7 +94,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
       return;
 
     final URL url = plan.getModel().getSchema().getURL();
-    final String display = URLs.isLocal(url) ? FileUtils.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+    final String display = URLs.isLocal(url) ? FastFiles.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
     final String message = "Compiling {" + plan.getModel().getTargetNamespace() + "} from " + display;
 
     if (!messages.contains(message)) {

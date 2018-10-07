@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.fastjax.io.FileUtils;
+import org.fastjax.io.FastFiles;
 import org.fastjax.net.URLs;
 import org.fastjax.util.Paths;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
@@ -79,10 +79,10 @@ public final class Generator extends AbstractGenerator {
       else if ("-d".equals(args[i]) && i < args.length)
         destDir = new File(args[++i]).getAbsoluteFile();
       else
-        schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.makeCanonicalUrlFromPath(args[i]) : new File(FileUtils.getCwd(), args[i]).toURI().toURL(), false));
+        schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.makeCanonicalUrlFromPath(args[i]) : new File(FastFiles.getCwd(), args[i]).toURI().toURL(), false));
     }
 
-    generate(new GeneratorContext(destDir == null ? FileUtils.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null);
+    generate(new GeneratorContext(destDir == null ? FastFiles.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null);
   }
 
   public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath) {

@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
-import org.fastjax.util.Collections;
+import org.fastjax.util.FastCollections;
 import org.openjax.xsb.generator.processor.plan.EnumerablePlan;
 import org.openjax.xsb.generator.processor.plan.ExtensiblePlan;
 import org.openjax.xsb.generator.processor.plan.Plan;
@@ -298,7 +298,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       writer.write("@" + Override.class.getName() + "\n");
       writer.write("protected " + String.class.getName() + " _$$encode(final " + Element.class.getName() + " parent) throws " + MarshalException.class.getName() + "\n");
       writer.write("{\n");
-      writer.write("return super.text() != null && ((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).size() != 0 ? " + Collections.class.getName() + ".toString((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text(), \" \") : null;\n");
+      writer.write("return super.text() != null && ((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).size() != 0 ? " + FastCollections.class.getName() + ".toString((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text(), \" \") : null;\n");
       writer.write("}\n");
     }
   }
