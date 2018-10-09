@@ -68,8 +68,7 @@ public final class NamespaceBinding {
         int index = builder.indexOf(":");
         if (index > -1 && index + 1 < builder.length() && builder.charAt(index + 1) == '/') {
           final String scheme = builder.substring(0, index);
-          while (builder.charAt(++index) == '/')
-            ;
+          while (builder.charAt(++index) == '/');
           final Service service = Services.getService(scheme);
           if (service != null) {
             builder.delete(0, index);
@@ -185,8 +184,7 @@ public final class NamespaceBinding {
       return uri;
 
     int start = colon;
-    while (uri.charAt(++start) == '/')
-      ;
+    while (uri.charAt(++start) == '/');
     final int end = uri.indexOf('/', start + 1);
     final StringBuilder builder = new StringBuilder();
     buildHost(builder, uri.substring(start, end));
