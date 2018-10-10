@@ -30,7 +30,6 @@ import javax.xml.namespace.QName;
 import org.fastjax.lang.PackageLoader;
 import org.fastjax.lang.PackageNotFoundException;
 import org.fastjax.net.URLs;
-import org.fastjax.util.Classes;
 import org.openjax.xsb.compiler.lang.NamespaceBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
