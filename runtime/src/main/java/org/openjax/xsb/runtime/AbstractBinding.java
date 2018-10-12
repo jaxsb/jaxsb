@@ -139,7 +139,7 @@ public abstract class AbstractBinding implements Cloneable {
     return new QName(name.namespaceURI(), name.localPart(), name.prefix());
   }
 
-  protected static QName stringToQName(final java.lang.String name) {
+  protected static QName stringToQName(final String name) {
     if (name == null || name.length() == 0)
       return null;
 
@@ -161,7 +161,7 @@ public abstract class AbstractBinding implements Cloneable {
 
     int start = name.indexOf("{");
     if (start != -1) {
-      int end = name.indexOf("}", start);
+      final int end = name.indexOf("}", start);
       if (end != -1)
         return name.substring(end + 1);
     }
