@@ -97,7 +97,7 @@ public final class NamespaceBinding {
      * If {@code prefix == prefix2}, then prepend {@code start} and append
      * {@code end}, and return the string.
      * <p>
-     * Otherwise, return {@code null}.
+     * Otherwise, return null.
      *
      * @param prefix The prefix to the encoding.
      * @param builder The string to decode.
