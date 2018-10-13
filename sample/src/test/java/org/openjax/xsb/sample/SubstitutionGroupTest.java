@@ -16,13 +16,14 @@
 
 package org.openjax.xsb.sample;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class SubstitutionGroupTest extends SampleTest {
   @Test
   @Override
   public void testSample() throws Exception {
-    Assert.assertTrue(verifyBinding(new SubstitutionGroupSample().runSample()));
+    assertTrue(verifyBinding(new SubstitutionGroupSample().runSample()));
   }
 }

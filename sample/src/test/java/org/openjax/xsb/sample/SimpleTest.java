@@ -16,13 +16,14 @@
 
 package org.openjax.xsb.sample;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class SimpleTest extends SampleTest {
   @Test
   @Override
   public void testSample() throws Exception {
-    Assert.assertTrue(verifyBinding(new SimpleSample().runSample()));
+    assertTrue(verifyBinding(new SimpleSample().runSample()));
   }
 }

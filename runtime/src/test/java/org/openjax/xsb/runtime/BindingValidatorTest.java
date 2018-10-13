@@ -16,12 +16,13 @@
 
 package org.openjax.xsb.runtime;
 
+import static org.junit.Assert.*;
+
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.xni.parser.XMLEntityResolver;
-import org.junit.Assert;
-import org.junit.Test;
 import org.fastjax.xml.ValidationException;
 import org.fastjax.xml.dom.DOMParsers;
+import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -40,7 +41,7 @@ public class BindingValidatorTest {
     System.setProperty("org.xml.sax.driver", SAXParser.class.getName());
     final Document document = DOMParsers.newDocumentBuilder().parse(Thread.currentThread().getContextClassLoader().getResourceAsStream("empty.xml"));
     if (document == null)
-      Assert.fail("document == null");
+      fail("document == null");
 
     final Element element = document.getDocumentElement();
     try {
@@ -48,7 +49,7 @@ public class BindingValidatorTest {
     }
     catch (final ValidationException e) {
       if (e.getMessage().startsWith(BindingEntityResolver.class.getName() + " cannot be cast to " + XMLEntityResolver.class.getName()))
-        Assert.fail(e.getMessage());
+        fail(e.getMessage());
       else if (e.getCause() == null || e.getCause().getMessage() == null || !e.getCause().getMessage().startsWith("cvc-elt.1.a: Cannot find the declaration of element 'empty'."))
         throw e;
     }

@@ -16,6 +16,8 @@
 
 package org.openjax.xsb.runtime;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +25,6 @@ import java.util.ListIterator;
 
 import org.fastjax.test.IntegrationTest;
 import org.fastjax.util.Strings;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openjax.xsb.generator.html.xAA.Body;
@@ -39,11 +40,11 @@ public class GeneratorTest {
   private static final Logger logger = LoggerFactory.getLogger(GeneratorTest.class);
 
   private static void assertElementCount(final String description, final List<Binding> expected, final int expectedLength, final BindingList<?> elements) {
-    Assert.assertEquals(expectedLength, elements.size());
+    assertEquals(expectedLength, elements.size());
     final Iterator<? extends Binding> iterator = elements.getOwner().elementIterator();
     for (int i = 0; iterator.hasNext(); ++i) {
       final Binding next = iterator.next();
-      Assert.assertEquals("Index " + i, expected.get(i), next);
+      assertEquals("Index " + i, expected.get(i), next);
     }
 
     if (description != null) {
@@ -233,6 +234,6 @@ public class GeneratorTest {
     assertElementCount(null, expected, 0, body.getHtmlDiv());
     assertElementCount(null, expected, 1, body.getHtmlPre());
     assertElementCount(null, expected, 1, body.getHtmlHr());
-    Assert.assertNull(body.getHtmlH2());
+    assertNull(body.getHtmlH2());
   }
 }

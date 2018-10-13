@@ -16,13 +16,14 @@
 
 package org.openjax.xsb.sample;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class XsiTypeTest extends SampleTest {
   @Test
   @Override
   public void testSample() throws Exception {
-    Assert.assertTrue(verifyBinding(new XsiTypeSample().runSample()));
+    assertTrue(verifyBinding(new XsiTypeSample().runSample()));
   }
 }
