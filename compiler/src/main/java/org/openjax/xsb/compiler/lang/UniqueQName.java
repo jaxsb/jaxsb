@@ -123,8 +123,9 @@ public final class UniqueQName {
         else
           throw new IllegalArgumentException("Unknown prefix used: \"" + name.getPrefix() + "\"");
       }
-      else
-        throw new IllegalArgumentException("Both namespaceURI and prefix are null.");
+      else {
+        throw new IllegalArgumentException("Both namespaceURI and prefix are null");
+      }
     }
 
     this.localPart = name.getLocalPart();

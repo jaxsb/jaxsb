@@ -28,15 +28,16 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.fastjax.net.URLs;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
-import org.openjax.xsb.generator.AbstractGenerator;
+import org.fastjax.util.Paths;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.lang.UniqueQName;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.document.SchemaDocument;
 import org.openjax.xsb.compiler.processor.reference.SchemaReference;
+import org.openjax.xsb.generator.AbstractGenerator;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineEntity;
+import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -62,7 +63,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
       final Stack<SchemaDocument> schemasToGenerate = new Stack<>();
 
       try {
-        URL url = URLs.canonicalizeURL(schemaReference.getURL());
+        URL url = URLs.canonicalize(schemaReference.getURL());
         // First we need to find all of the imports and includes
         Collection<SchemaDocument> outer = new Stack<>();
         outer.add(AbstractGenerator.parse(schemaReference));
@@ -143,11 +144,11 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
 
   private static URL getSchemaLocation(final URL baseURL, final Element element) throws MalformedURLException {
     final String schemaLocation = element.getAttribute("schemaLocation");
-    if (URLs.isAbsolute(schemaLocation))
+    if (Paths.isAbsolute(schemaLocation))
       return new URL(schemaLocation);
 
     final String externalUrl = baseURL.toExternalForm();
     final String basedir = externalUrl.substring(0, externalUrl.lastIndexOf('/') + 1);
-    return URLs.makeCanonicalUrlFromPath(basedir, schemaLocation);
+    return URLs.toCanonicalURL(basedir, schemaLocation);
   }
 }

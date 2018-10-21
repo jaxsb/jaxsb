@@ -73,7 +73,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
 
   public boolean setAttribute(final T value) {
     if (owner.isNull())
-      throw new BindingRuntimeException("NULL Object is immutable.");
+      throw new BindingRuntimeException("NULL Object is immutable");
 
     this.value = value;
     return true;

@@ -77,7 +77,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
   @Override
   protected void stage5(final UnionModel model) {
     if (model.getMemberTypes() == null || model.getMemberTypes().size() == 0)
-      throw new LexerFailureException("I dont think this can happen.");
+      throw new LexerFailureException("I dont think this can happen");
 
     Model parent = model;
     while ((parent = parent.getParent()) != null) {
@@ -100,7 +100,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
   @Override
   protected void stage6(final UnionModel model) {
     if (model.getMemberTypes() == null || model.getMemberTypes().size() == 0)
-      throw new LexerFailureException("I dont think this can happen.");
+      throw new LexerFailureException("I dont think this can happen");
 
     Model parent = model;
     while ((parent = parent.getParent()) != null) {

@@ -37,7 +37,7 @@ public abstract class AbstractGenerator {
 
   public static SchemaDocument parse(final SchemaReference schemaReference) throws IOException {
     try {
-      final URL url = URLs.canonicalizeURL(schemaReference.getURL());
+      final URL url = URLs.canonicalize(schemaReference.getURL());
       final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
       final Document document = documentBuilder.parse(url.toURI().toString());
       final SchemaDocument parsedDocument = new SchemaDocument(schemaReference, document);

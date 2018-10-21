@@ -76,7 +76,7 @@ public final class XMLSchema {
 
       public void text(final Serializable text) {
         if (isNull())
-          throw new BindingRuntimeException("NULL Object is immutable.");
+          throw new BindingRuntimeException("NULL Object is immutable");
 
         this.text = text;
       }
@@ -102,7 +102,7 @@ public final class XMLSchema {
           return "";
 
         if (text() instanceof Collection)
-          throw new IllegalArgumentException("Why is this a Collection? The collection logic should be in the appropriate subclass.");
+          throw new IllegalArgumentException("Why is this a Collection? The collection logic should be in the appropriate subclass");
 
         return text().toString();
       }

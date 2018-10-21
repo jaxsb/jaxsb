@@ -102,7 +102,7 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
       return null;
 
     if (((Nameable<?>)plan).getName().getNamespaceURI() == null)
-      throw new CompilerFailureException("Cannot generate classes for schema with no targetNamespace.");
+      throw new CompilerFailureException("Cannot generate classes for schema with no targetNamespace");
 
     if ((pipelineContext.getIncludes() == null || pipelineContext.getIncludes().contains(plan.getModel().getTargetNamespace())) && (pipelineContext.getExcludes() == null || !pipelineContext.getExcludes().contains(plan.getModel().getTargetNamespace())))
       ((Writer)root).writeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestDir());

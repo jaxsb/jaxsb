@@ -93,7 +93,7 @@ public final class ListNormalizer extends Normalizer<ListModel> {
   @Override
   protected void stage6(final ListModel model) {
     if (model.getItemType() == null)
-      throw new LexerFailureException("This can't happen.");
+      throw new LexerFailureException("This can't happen");
 
     Model parent = model;
     while ((parent = parent.getParent()) != null) {
