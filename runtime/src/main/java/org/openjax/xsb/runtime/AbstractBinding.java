@@ -16,13 +16,12 @@
 
 package org.openjax.xsb.runtime;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -83,7 +82,7 @@ public abstract class AbstractBinding implements Cloneable {
       BindingEntityResolver.registerSchemaLocation(namespaceURI, new URL(parent + "/" + schemaReference));
     }
     catch (final MalformedURLException e) {
-      logger.error("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + cls.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
+      logger.error("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + cls.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"", e);
     }
   }
 
@@ -94,24 +93,17 @@ public abstract class AbstractBinding implements Cloneable {
   private static void loadPackage(final String namespaceURI, final ClassLoader classLoader) {
     // FIXME: Look this over. Also make a dedicated RuntimeException for this.
     try {
-      final Set<Class<?>> classes = PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
-      for (final Class<?> cls : classes) {
-        if (Schema.class.isAssignableFrom(cls)) {
-          final Method method = cls.getDeclaredMethod("_$$register");
-          method.setAccessible(true);
-          method.invoke(null);
-        }
-      }
+      PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName(), c -> Schema.class.isAssignableFrom(c));
     }
-    catch (final IllegalAccessException | InvocationTargetException | NoSuchMethodException | PackageNotFoundException e) {
+    catch (final IOException | PackageNotFoundException e) {
       throw new BindingRuntimeException(e);
     }
   }
 
   protected static Class<? extends Binding> lookupElement(final QName name, final ClassLoader classLoader) {
-    final Class<? extends Binding> clazz = elementBindings.get(name);
-    if (clazz != null)
-      return clazz;
+    final Class<? extends Binding> cls = elementBindings.get(name);
+    if (cls != null)
+      return cls;
 
     loadPackage(name.getNamespaceURI(), classLoader);
     return elementBindings.get(name);
@@ -122,9 +114,9 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   protected static Class<? extends Binding> lookupType(final QName name, final ClassLoader classLoader) {
-    final Class<? extends Binding> clazz = typeBindings.get(name);
-    if (clazz != null)
-      return clazz;
+    final Class<? extends Binding> cls = typeBindings.get(name);
+    if (cls != null)
+      return cls;
 
     loadPackage(name.getNamespaceURI(), classLoader);
     return typeBindings.get(name);

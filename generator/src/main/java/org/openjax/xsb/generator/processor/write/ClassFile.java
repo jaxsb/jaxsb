@@ -28,12 +28,14 @@ import org.openjax.xsb.helper.formatter.SourceFormat;
 import org.openjax.xsb.runtime.Schema;
 
 public class ClassFile {
-  private static final StringBuilder license = new StringBuilder();
+  private static final String license;
 
   static {
-    license.append("/* .--------------------------------------------------------------------. */\n");
-    license.append("/* | GENERATED CODE - Xml Shema Binding [xsb.openjax.org] - DO NOT EDIT | */\n");
-    license.append("/* '--------------------------------------------------------------------' */\n\n");
+    final StringBuilder notice = new StringBuilder();
+    notice.append("/* .--------------------------------------------------------------------. */\n");
+    notice.append("/* | GENERATED CODE - Xml Shema Binding [xsb.openjax.org] - DO NOT EDIT | */\n");
+    notice.append("/* '--------------------------------------------------------------------' */\n\n");
+    license = notice.toString();
   }
 
   private final File file;
@@ -55,24 +57,24 @@ public class ClassFile {
   }
 
   public void close() throws IOException {
-    final StringBuilder buffer = new StringBuilder();
-    buffer.append("package " + namespaceBinding.getPackageName() + ";\n\n");
-    buffer.append("@" + SuppressWarnings.class.getName() + "(\"all\")\n");
-    buffer.append("public class " + namespaceBinding.getSimpleClassName() + " extends " + Schema.class.getName() + " {\n\n");
-    buffer.append("protected static void _$$register() {");
+    final StringBuilder builder = new StringBuilder();
+    builder.append("package " + namespaceBinding.getPackageName() + ";\n\n");
+    builder.append("@" + SuppressWarnings.class.getName() + "(\"all\")\n");
+    builder.append("public class " + namespaceBinding.getSimpleClassName() + " extends " + Schema.class.getName() + " {\n\n");
+    builder.append("static {");
     for (final String registrationText : registrationTexts)
-      buffer.append("\n" + registrationText);
-    buffer.append('}');
+      builder.append("\n" + registrationText);
+    builder.append('}');
 
     for (final String classText : classTexts)
-      buffer.append("\n" + classText);
+      builder.append("\n" + classText);
 
-    buffer.append("\n}");
+    builder.append("\n}");
 
-    final String text = SourceFormat.getDefaultFormat().format(buffer.toString());
+    final String text = SourceFormat.getDefaultFormat().format(builder.toString());
     file.getParentFile().mkdirs();
     try (final OutputStreamWriter out = new FileWriter(file)) {
-      out.write(license.toString());
+      out.write(license);
       out.write(text);
     }
   }

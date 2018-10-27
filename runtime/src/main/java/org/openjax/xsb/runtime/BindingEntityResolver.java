@@ -54,7 +54,7 @@ public final class BindingEntityResolver implements LSResourceResolver {
         try {
           PackageLoader.getContextPackageLoader().loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
         }
-        catch (final PackageNotFoundException e) {
+        catch (final IOException | PackageNotFoundException e) {
           throw new UnsupportedOperationException(e);
         }
       }

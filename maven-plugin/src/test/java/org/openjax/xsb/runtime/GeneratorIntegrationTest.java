@@ -23,10 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.fastjax.test.IntegrationTest;
 import org.fastjax.util.Strings;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.openjax.xsb.generator.html.xAA.Body;
 import org.openjax.xsb.generator.html.xAA.Div;
 import org.openjax.xsb.generator.html.xAA.Hr;
@@ -35,9 +33,8 @@ import org.openjax.xsb.generator.html.xAA.Pre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Category(IntegrationTest.class)
-public class GeneratorTest {
-  private static final Logger logger = LoggerFactory.getLogger(GeneratorTest.class);
+public class GeneratorIntegrationTest {
+  private static final Logger logger = LoggerFactory.getLogger(GeneratorIntegrationTest.class);
 
   private static void assertElementCount(final String description, final List<Binding> expected, final int expectedLength, final BindingList<?> elements) {
     assertEquals(expectedLength, elements.size());

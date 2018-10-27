@@ -62,7 +62,7 @@
   </build>
   <profiles>
     <profile>
-      <id>default</id>
+      <id>!maven.test.skip</id>
       <activation>
         <property>
           <name>!maven.test.skip</name>
