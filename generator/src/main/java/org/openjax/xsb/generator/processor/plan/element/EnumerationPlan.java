@@ -48,7 +48,7 @@ public final class EnumerationPlan extends Plan<EnumerationModel> {
     final StringBuilder builder = new StringBuilder();
     for (int i = 0; i < string.length(); ++i) {
       final char ch = string.charAt(i);
-      builder.append(Arrays.binarySearch(illegalChars, ch) >= 0 ? "_" + Strings.toUTF8Literal(ch).substring(2, 4) : ch);
+      builder.append(Arrays.binarySearch(illegalChars, ch) >= 0 ? "_" + Strings.toUTF8Literal(ch).substring(2, 4).toUpperCase() : ch);
     }
 
     return builder.toString();
