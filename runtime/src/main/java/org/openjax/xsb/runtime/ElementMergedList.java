@@ -21,20 +21,20 @@ import java.util.HashMap;
 
 import javax.xml.namespace.QName;
 
-import org.fastjax.util.PartitionedList;
+import org.fastjax.util.MergedList;
 import org.slf4j.Logger;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
-public class ElementSuperList extends PartitionedList<Binding,QName> implements Serializable {
+public class ElementMergedList extends MergedList<Binding,QName> implements Serializable {
   private static final long serialVersionUID = -6869927461811501469L;
 
   protected static final QName ANY = new QName("##any", "##any");
 
-  protected class ElementSubList extends PartitionedList<Binding,QName>.PartitionList<Binding> implements BindingList<Binding> {
+  protected class ElementPartList extends PartList<Binding> implements BindingList<Binding> {
     private static final long serialVersionUID = -9155837408220305718L;
     private ElementAudit<? extends Binding> audit;
 
-    public ElementSubList(final ElementAudit<? extends Binding> audit) {
+    public ElementPartList(final ElementAudit<? extends Binding> audit) {
       super(audit.getName() == null ? ANY : audit.getName());
       this.audit = audit;
     }
@@ -55,8 +55,8 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
     }
 
     @Override
-    protected PartitionedList<Binding,QName> getSuperList() {
-      return super.getSuperList();
+    protected MergedList<Binding,QName> getMergedList() {
+      return super.getMergedList();
     }
 
     @Override
@@ -65,15 +65,15 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
     }
 
     @Override
-    public ElementSubList clone() {
-      return (ElementSubList)super.clone();
+    public ElementPartList clone() {
+      return (ElementPartList)super.clone();
     }
   }
 
   protected HashMap<QName,ElementAudit<? extends Binding>> nameToAudit;
   private $AnySimpleType owner;
 
-  public ElementSuperList(final $AnySimpleType owner, final HashMap<QName,ElementAudit<?>> nameToAudit) {
+  public ElementMergedList(final $AnySimpleType owner, final HashMap<QName,ElementAudit<?>> nameToAudit) {
     super(nameToAudit == null ? null : nameToAudit.keySet());
     this.nameToAudit = nameToAudit;
     this.owner = owner;
@@ -83,56 +83,56 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
     return owner;
   }
 
-  protected <T extends Binding>ElementSubList newPartition(final ElementAudit<T> audit) {
-    final ElementSubList subList = new ElementSubList(audit);
-    typeToSubList.put(audit.getName() == null ? ANY : audit.getName(), subList);
-    return subList;
+  protected <T extends Binding>ElementPartList newPartList(final ElementAudit<T> audit) {
+    final ElementPartList partList = new ElementPartList(audit);
+    typeToPartList.put(audit.getName() == null ? ANY : audit.getName(), partList);
+    return partList;
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  protected PartitionList<Binding> newPartition(final QName name) {
+  protected PartList<Binding> newPartList(final QName name) {
     final ElementAudit<Binding> audit = (ElementAudit<Binding>)nameToAudit.get(name);
-    final ElementSubList subList = new ElementSubList(audit);
-    audit.setElements(subList);
-    return subList;
+    final ElementPartList partList = new ElementPartList(audit);
+    audit.setElements(partList);
+    return partList;
   }
 
   @SuppressWarnings("unchecked")
-  protected PartitionedList<Binding,QName>.PartitionList<Binding> getPartition(final QName name) {
-    if (!typeToSubList.containsKey(name))
+  protected PartList<Binding> getPartList(final QName name) {
+    if (!typeToPartList.containsKey(name))
       return null;
 
-    PartitionList<Binding> partitionList = (PartitionedList<Binding,QName>.PartitionList<Binding>)typeToSubList.get(name);
-    if (partitionList == null)
-      typeToSubList.put(name, partitionList = newPartition(name));
+    PartList<Binding> partialList = (PartList<Binding>)typeToPartList.get(name);
+    if (partialList == null)
+      typeToPartList.put(name, partialList = newPartList(name));
 
-    return partitionList;
+    return partialList;
   }
 
-  protected PartitionedList<Binding,QName>.PartitionList<Binding> getPartition(final QName name, final Class<? extends Binding> type) {
-    final PartitionedList<Binding,QName>.PartitionList<Binding> partition = getPartition(name);
-    return partition != null ? partition : getPartition(type);
+  protected PartList<Binding> getPartList(final QName name, final Class<? extends Binding> type) {
+    final PartList<Binding> partialList = getPartList(name);
+    return partialList != null ? partialList : getPartList(type);
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  protected PartitionedList<Binding,QName>.PartitionList<Binding> getPartition(Class<? extends Binding> type) {
+  protected PartList<Binding> getPartList(Class<? extends Binding> type) {
     do {
       final org.openjax.xsb.runtime.QName annotation = type.getAnnotation(org.openjax.xsb.runtime.QName.class);
       if (annotation == null)
         return null;
 
-      final PartitionedList<Binding,QName>.PartitionList<Binding> partition = getPartition(new QName(annotation.namespaceURI(), annotation.localPart()));
-      if (partition != null)
-        return partition;
+      final PartList<Binding> partialList = getPartList(new QName(annotation.namespaceURI(), annotation.localPart()));
+      if (partialList != null)
+        return partialList;
     }
     while ((type = (Class<? extends Binding>)type.getSuperclass()) != null);
     return null;
   }
 
-  public ElementSubList getPartition(final int index) {
-    return (ElementSubList)subLists.get(index);
+  public ElementPartList getPartList(final int index) {
+    return (ElementPartList)partLists.get(index);
   }
 
   @Override
@@ -145,12 +145,12 @@ public class ElementSuperList extends PartitionedList<Binding,QName> implements 
     return item.clone();
   }
 
-  protected ElementSuperList clone(final $AnySimpleType owner) {
-    final ElementSuperList clone = (ElementSuperList)super.clone();
+  protected ElementMergedList clone(final $AnySimpleType owner) {
+    final ElementMergedList clone = (ElementMergedList)super.clone();
     clone.owner = owner;
     clone.nameToAudit = new HashMap<QName,ElementAudit<?>>();
     for (final HashMap.Entry<QName,ElementAudit<?>> entry : nameToAudit.entrySet()) {
-      final ElementAudit<?> copy = new ElementAudit<>(owner, entry.getValue(), (ElementSuperList.ElementSubList)clone.getPartition(entry.getValue().getName()));
+      final ElementAudit<?> copy = new ElementAudit<>(owner, entry.getValue(), (ElementMergedList.ElementPartList)clone.getPartList(entry.getValue().getName()));
       clone.nameToAudit.put(entry.getKey(), copy);
     }
 

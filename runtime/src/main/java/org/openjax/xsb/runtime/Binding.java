@@ -252,7 +252,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     documentBuilderFactory.setValidating(false);
   }
 
-  private ElementSuperList elements = null;
+  private ElementMergedList elements = null;
   private CompositeAttributeStore attributeDirectory = null;
   private Binding inherits;
   private $AnySimpleType owner;
@@ -347,13 +347,13 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       if (element instanceof BindingProxy)
         element = ((BindingProxy<Binding>)element).getBinding();
 
-      final ElementAudit<Binding> elementAudit = (ElementAudit<Binding>)elements.getPartition(i).getAudit();
+      final ElementAudit<Binding> elementAudit = (ElementAudit<Binding>)elements.getPartList(i).getAudit();
       elementAudit.marshal(parent, element);
     }
   }
 
-  protected ElementSuperList getCreateElementDirectory() {
-    return elements == null ? elements = new ElementSuperList(($AnySimpleType)this, nameToAudit) : elements;
+  protected ElementMergedList getCreateElementDirectory() {
+    return elements == null ? elements = new ElementMergedList(($AnySimpleType)this, nameToAudit) : elements;
   }
 
   protected final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
@@ -370,7 +370,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     if (nameToAudit == null)
       nameToAudit = new HashMap<>();
 
-    nameToAudit.put(elementAudit.getName() != null ? elementAudit.getName() : ElementSuperList.ANY, elementAudit);
+    nameToAudit.put(elementAudit.getName() != null ? elementAudit.getName() : ElementMergedList.ANY, elementAudit);
   }
 
   @SuppressWarnings("unchecked")

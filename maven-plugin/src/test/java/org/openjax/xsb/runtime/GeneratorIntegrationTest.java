@@ -46,7 +46,7 @@ public class GeneratorIntegrationTest {
 
     if (description != null) {
       System.err.println(description + " " + Strings.repeat("=", 34 - description.length()));
-      ((ElementSuperList)((ElementSuperList.ElementSubList)elements).getSuperList()).print(logger);
+      ((ElementMergedList)((ElementMergedList.ElementPartList)elements).getMergedList()).print(logger);
     }
   }
 
