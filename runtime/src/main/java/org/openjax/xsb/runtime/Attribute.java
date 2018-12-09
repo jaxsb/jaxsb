@@ -19,5 +19,5 @@ package org.openjax.xsb.runtime;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
 public interface Attribute extends SimpleType {
-  public $AnySimpleType owner();
+  $AnySimpleType owner();
 }

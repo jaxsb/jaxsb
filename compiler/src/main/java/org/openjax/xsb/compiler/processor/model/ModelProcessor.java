@@ -34,11 +34,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public final class ModelProcessor implements PipelineProcessor<GeneratorContext,SchemaComposite,Model> {
-  private Model root;
-
   @Override
   public Collection<Model> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Model> directory) {
-    root = new Model(null, null) {};
+    final Model root = new Model(null, null) {};
     // Then we parse all of the schemas that have been included and imported
     final Collection<Model> schemaModels = new ArrayList<>();
 
@@ -56,7 +54,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
     return schemaModels;
   }
 
-  private final SchemaModel recurse(final Model model, final NamespaceURI targetNamespace, NodeList children, URL url, final PipelineDirectory<GeneratorContext,SchemaComposite,Model> directory) {
+  private SchemaModel recurse(final Model model, final NamespaceURI targetNamespace, NodeList children, URL url, final PipelineDirectory<GeneratorContext,SchemaComposite,Model> directory) {
     if (children == null || children.getLength() == 0)
       return null;
 
@@ -80,7 +78,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
     }
 
     Model current = null;
-    for (int i = 0; i < children.getLength(); i++) {
+    for (int i = 0; i < children.getLength(); ++i) {
       final Node child = children.item(i);
       if (child.getLocalName() == null)
         continue;

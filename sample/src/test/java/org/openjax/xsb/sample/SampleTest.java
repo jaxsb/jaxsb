@@ -36,7 +36,7 @@ public abstract class SampleTest {
     BindingValidator.setSystemValidator(validator);
   }
 
-  protected static final boolean verifyBinding(final Binding binding) throws Exception {
+  protected static boolean verifyBinding(final Binding binding) throws Exception {
     boolean success = true;
     final Element element = Bindings.marshal(binding);
     final String xml = DOMs.domToString(element, DOMStyle.INDENT);

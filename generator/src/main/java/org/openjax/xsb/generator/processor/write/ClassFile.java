@@ -58,16 +58,16 @@ public class ClassFile {
 
   public void close() throws IOException {
     final StringBuilder builder = new StringBuilder();
-    builder.append("package " + namespaceBinding.getPackageName() + ";\n\n");
-    builder.append("@" + SuppressWarnings.class.getName() + "(\"all\")\n");
-    builder.append("public class " + namespaceBinding.getSimpleClassName() + " extends " + Schema.class.getName() + " {\n\n");
+    builder.append("package ").append(namespaceBinding.getPackageName()).append(";\n\n");
+    builder.append("@").append(SuppressWarnings.class.getName()).append("(\"all\")\n");
+    builder.append("public class ").append(namespaceBinding.getSimpleClassName()).append(" extends ").append(Schema.class.getName()).append(" {\n\n");
     builder.append("static {");
     for (final String registrationText : registrationTexts)
-      builder.append("\n" + registrationText);
+      builder.append("\n").append(registrationText);
     builder.append('}');
 
     for (final String classText : classTexts)
-      builder.append("\n" + classText);
+      builder.append("\n").append(classText);
 
     builder.append("\n}");
 

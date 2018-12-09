@@ -16,11 +16,6 @@
 
 package org.openjax.xsb.generator.processor.plan;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
 import org.openjax.xsb.compiler.lang.UniqueQName;
 import org.openjax.xsb.compiler.processor.model.EnumerableModel;
 import org.openjax.xsb.compiler.processor.model.Model;
@@ -30,6 +25,11 @@ import org.openjax.xsb.generator.processor.plan.element.ElementPlan;
 import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.openjax.xsb.runtime.CompilerFailureException;
 import org.openjax.xsb.runtime.ElementWrapper;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
 public abstract class Plan<T extends Model> implements PipelineEntity {
   public ElementPlan elementRefExistsInParent(final UniqueQName name) {
@@ -98,7 +98,7 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
       return false;
 
     SimpleTypeModel<?> restrictionType = (SimpleTypeModel<?>)model;
-    while ((restrictionType = restrictionType.getSuperType()) != null)
+    if ((restrictionType = restrictionType.getSuperType()) != null)
       return hasEnumerations(restrictionType);
 
     return hasEnumerations;

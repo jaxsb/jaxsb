@@ -33,11 +33,9 @@ import org.slf4j.LoggerFactory;
 public final class PlanProcessor implements PipelineProcessor<GeneratorContext,Model,Plan<?>> {
   private static final Logger logger = LoggerFactory.getLogger(PlanProcessor.class);
 
-  private Plan<?> root;
-
   @Override
   public final Collection<Plan<?>> process(final GeneratorContext pipelineContext, final Collection<Model> documents, final PipelineDirectory<GeneratorContext,Model,Plan<?>> directory) {
-    root = new Plan<Model>(null, null) {};
+    final Plan<?> root = new Plan<Model>(null, null) {};
     final Collection<Plan<?>> plans = new ArrayList<>();
     for (final Model model : documents) {
       if (model.getChildren() == null || model.getChildren().size() == 0)

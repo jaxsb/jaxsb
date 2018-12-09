@@ -16,21 +16,6 @@
 
 package org.openjax.xsb.runtime;
 
-import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.Map;
-
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.fastjax.xml.ValidationException;
 import org.fastjax.xml.dom.DOMStyle;
 import org.fastjax.xml.dom.DOMs;
@@ -41,6 +26,20 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.Map;
 
 public abstract class Binding extends AbstractBinding implements Serializable {
   private static final long serialVersionUID = -1760699437761774773L;
@@ -168,7 +167,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   protected static Binding parseAttr(final Element element, final Node node) {
     final String localName = node.getLocalName();
     final String namespaceURI = node.getNamespaceURI();
-    final Class<?> classBinding = lookupElement(new QName(namespaceURI != null ? namespaceURI : null, localName), Thread.currentThread().getContextClassLoader());
+    final Class<?> classBinding = lookupElement(new QName(namespaceURI, localName), Thread.currentThread().getContextClassLoader());
     if (classBinding == null) {
       if (namespaceURI != null)
         throw new IllegalStateException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
@@ -553,13 +552,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == this)
-      return true;
-
-    if (!(obj instanceof Binding))
-      return false;
-
-    return true;
+    return obj == this || obj instanceof Binding;
   }
 
   @Override

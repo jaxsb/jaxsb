@@ -40,7 +40,7 @@ public final class UnionModel extends Model {
     }
   }
 
-  private final void parseMemberTypes(final String memberTypes, final Node node) {
+  private void parseMemberTypes(final String memberTypes, final Node node) {
     final StringTokenizer tokenizer = new StringTokenizer(memberTypes);
     while (tokenizer.hasMoreTokens())
       this.memberTypes.add(SimpleTypeModel.Reference.parseSimpleType(UniqueQName.getInstance(parseQNameValue(tokenizer.nextToken(), node))));

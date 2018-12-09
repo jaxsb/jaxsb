@@ -82,7 +82,7 @@ public class ListSample {
       final Roster.Volunteers.Volunteer volunteer = new Roster.Volunteers.Volunteer();
       volunteer.setName(new Roster.Employees.Employee.Name("Michelle Smith"));
       volunteer.setWorkDays(new Roster.Employees.Employee.WorkDays(Roster.Employees.Employee.WorkDays.mon, Roster.Employees.Employee.WorkDays.tue, Roster.Employees.Employee.WorkDays.wed));
-      volunteer.setBreakTimes(new Roster.Volunteers.Volunteer.BreakTimes(new Time(10, 15, 00), new Time(12, 00, 00), new Time(15, 30, 00)));
+      volunteer.setBreakTimes(new Roster.Volunteers.Volunteer.BreakTimes(new Time(10, 15, 0), new Time(12, 0, 0), new Time(15, 30, 0)));
       volunteers.add(volunteer);
     }
 

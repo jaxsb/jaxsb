@@ -17,7 +17,7 @@
 <xs:schema
   elementFormDefault="qualified"
   targetNamespace="http://xsb.openjax.org/sample/xsitype.xsd"
-  xmlns:type="http://xsb.openjax.org/sample/xsitype.xsd"
+  xmlns:xsitype="http://xsb.openjax.org/sample/xsitype.xsd"
   xmlns:simple="http://xsb.openjax.org/sample/simple.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
@@ -50,7 +50,7 @@
       <xs:documentation>A complexType declaration of a Fleshy Fruit that can be directly instantiated.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="type:fleshyFruitTypeAbstract">
+      <xs:extension base="xsitype:fleshyFruitTypeAbstract">
         <xs:attribute name="pericarp">
           <xs:simpleType>
             <xs:restriction base="xs:NCName">
@@ -79,7 +79,7 @@
       <xs:documentation>A complexType declaration of a specialized type of simple fruit, the Dehiscent Dry Fruit: "Pericarp splits open along definite seams."</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:restriction base="type:dryFruitType">
+      <xs:restriction base="xsitype:dryFruitType">
         <xs:attribute name="name" use="required">
           <xs:simpleType>
             <xs:restriction base="xs:NCName">
@@ -99,7 +99,7 @@
       <xs:documentation>A complexType declaration of a specialized type of simple fruit, the Indehiscent Dry Fruit: "Pericarp does not split open. These fruits usually contain only one seed."</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:restriction base="type:dryFruitType">
+      <xs:restriction base="xsitype:dryFruitType">
         <xs:attribute name="name" use="required">
           <xs:simpleType>
             <xs:restriction base="xs:NCName">

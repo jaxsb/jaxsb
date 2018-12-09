@@ -17,7 +17,6 @@
 <xs:schema elementFormDefault="qualified"
   targetNamespace="http://xsb.openjax.org/sample/any.xsd"
   xmlns:any="http://xsb.openjax.org/sample/any.xsd"
-  xmlns:simple="http://xsb.openjax.org/sample/simple.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:import namespace="http://xsb.openjax.org/sample/simple.xsd" schemaLocation="simple.xsd"/>

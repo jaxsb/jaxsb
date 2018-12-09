@@ -378,7 +378,7 @@ public final class XMLSchema {
       private static final long serialVersionUID = 5805207783730082952L;
       private static final Map<Boolean,String[]> valueMap = new HashMap<>();
 
-      public static final Boolean parse(final String s) {
+      public static Boolean parse(final String s) {
         if (s == null)
           return false;
 

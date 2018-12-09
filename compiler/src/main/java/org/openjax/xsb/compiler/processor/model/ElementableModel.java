@@ -19,6 +19,6 @@ package org.openjax.xsb.compiler.processor.model;
 import java.util.ArrayList;
 
 public interface ElementableModel {
-  public void addMultiplicableModel(final MultiplicableModel multiplicable);
-  public ArrayList<MultiplicableModel> getMultiplicableModels();
+  void addMultiplicableModel(MultiplicableModel multiplicable);
+  ArrayList<MultiplicableModel> getMultiplicableModels();
 }

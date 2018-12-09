@@ -16,14 +16,13 @@
 
 package org.openjax.xsb.runtime;
 
-import java.util.Iterator;
-
 import javax.xml.namespace.QName;
+import java.util.Iterator;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
 public interface ComplexType {
-  public Iterator<? extends $AnySimpleType> attributeIterator();
-  public Iterator<? extends Binding> elementIterator();
-  public BindingList<? extends Binding> fetchChild(final QName name);
+  Iterator<? extends $AnySimpleType> attributeIterator();
+  Iterator<? extends Binding> elementIterator();
+  BindingList<? extends Binding> fetchChild(QName name);
 }

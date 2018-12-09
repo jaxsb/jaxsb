@@ -17,6 +17,6 @@
 package org.openjax.xsb.runtime;
 
 public interface Enum<T> {
-  public int ordinal();
-  public T text();
+  int ordinal();
+  T text();
 }

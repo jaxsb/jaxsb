@@ -16,6 +16,7 @@
 
 package org.openjax.xsb.runtime;
 
+import javax.xml.namespace.QName;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -24,8 +25,6 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.namespace.QName;
 
 import org.fastjax.xml.datatype.Base64Binary;
 import org.fastjax.xml.datatype.Date;
@@ -153,7 +152,7 @@ public final class XSTypeDirectory {
     }
   }
 
-  public static final XSTypeDirectory parseType(final UniqueQName name) {
+  public static XSTypeDirectory parseType(final UniqueQName name) {
     return defaultTypes.get(name);
   }
 

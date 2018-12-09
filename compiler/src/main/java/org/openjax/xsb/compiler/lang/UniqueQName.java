@@ -16,11 +16,10 @@
 
 package org.openjax.xsb.compiler.lang;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class UniqueQName {
   private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<>();
@@ -50,7 +49,7 @@ public final class UniqueQName {
   }
 
   public static UniqueQName getInstance(final String namespaceURI, final String localPart) {
-    final QName name = new QName(namespaceURI != null ? namespaceURI : null, localPart);
+    final QName name = new QName(namespaceURI, localPart);
     final UniqueQName bindingQName = new UniqueQName(name);
     UniqueQName instance = instances.get(name);
     if (instance == null)
@@ -70,8 +69,8 @@ public final class UniqueQName {
   }
 
   public static UniqueQName getInstance(final String namespaceURI, final String localPart, final String prefix) {
-    final QName name = new QName(namespaceURI != null ? namespaceURI : null, localPart);
-    final UniqueQName bindingQName = new UniqueQName(new QName(namespaceURI != null ? namespaceURI : null, localPart, prefix));
+    final QName name = new QName(namespaceURI, localPart);
+    final UniqueQName bindingQName = new UniqueQName(new QName(namespaceURI, localPart, prefix));
     UniqueQName instance = instances.get(name);
     if (instance == null)
       instances.put(name, instance = bindingQName);
