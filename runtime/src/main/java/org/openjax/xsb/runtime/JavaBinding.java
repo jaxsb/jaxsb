@@ -16,6 +16,7 @@
 
 package org.openjax.xsb.runtime;
 
+import org.fastjax.util.Strings;
 import org.openjax.xsb.compiler.lang.Prefix;
 import org.openjax.xsb.compiler.lang.UniqueQName;
 import org.openjax.xsb.compiler.processor.Nameable;
@@ -36,7 +37,7 @@ public final class JavaBinding {
   private static String toJavaIdentifier(final String ncName) {
     final StringBuilder builder = new StringBuilder(ncName.length());
     final char[] chars = ncName.toCharArray();
-    for (int i = 0; i < chars.length; i++) {
+    for (int i = 0; i < chars.length; ++i) {
      final char ch = chars[i];
      if (ch == '-')
        builder.append('$').append('_');
@@ -108,12 +109,12 @@ public final class JavaBinding {
     if (!(model instanceof Nameable) || ((Nameable<?>)model).getName() == null)
       throw new CompilerFailureException("Method being called on a model with no name");
 
-    String simpleName = flipCap(toJavaIdentifier(((NamedModel)model).getName().getLocalPart()));
+    String simpleName = Strings.flipFirstCap(toJavaIdentifier(((NamedModel)model).getName().getLocalPart()));
     if (fixReserved && isReserved(simpleName))
       simpleName = "_" + simpleName;
 
     if (withPrefix)
-      simpleName = flipCap(getPrefix(model).toString()) + simpleName;
+      simpleName = Strings.flipFirstCap(getPrefix(model).toString()) + simpleName;
 
     if (model instanceof AttributeModel)
       return simpleName + ATTRIBUTE_SUFFIX;
@@ -130,26 +131,6 @@ public final class JavaBinding {
     throw new CompilerFailureException("model is not instanceof {AttributeModel,ElementModel,NotationModel,SimpleTypeModel}");
   }
 
-  private static String flipCap(final String string) {
-    if (string.length() == 0)
-      return string;
-
-    boolean hasLower = false;
-    boolean hasUpper = false;
-    for (int i = 0; i < string.length(); i++) {
-      hasLower = hasLower || Character.isLowerCase(string.charAt(i));
-      hasUpper = hasUpper || Character.isUpperCase(string.charAt(i));
-      if (hasLower && hasUpper)
-        break;
-    }
-
-    // If the string is ALLUPPER then don't modify it
-    if (hasUpper && !hasLower)
-      return string;
-
-    final char ch = string.charAt(0);
-    return (Character.isLowerCase(ch) ? Character.toUpperCase(ch) : Character.toLowerCase(ch)) + string.substring(1);
-  }
 
   private JavaBinding() {
   }
