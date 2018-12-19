@@ -44,10 +44,11 @@ public abstract class Bindings {
    *
    * @param binding Binding instance to marshal.
    * @return Element DOM object.
+   * @throws MarshalException If the specified binding does not inherit from an element of attribute.
    */
   public static Element marshal(final Binding binding) throws MarshalException {
     if (binding.inherits() == null)
-      throw new MarshalException("Binding must inherit from an instantiable element or attribute to be marshaled!");
+      throw new MarshalException("Binding must inherit from an instantiable element or attribute to be marshaled");
 
     return binding.marshal();
   }
@@ -57,7 +58,7 @@ public abstract class Bindings {
    *
    * @param element Element object to parse.
    * @return Binding instance.
-   * @throws ValidationException
+   * @throws ValidationException If a validation error has occurred.
    */
   public static Binding parse(final Element element) throws ValidationException {
     return parse(element, Thread.currentThread().getContextClassLoader());
@@ -76,6 +77,8 @@ public abstract class Bindings {
    *
    * @param url URL pointing to xml.
    * @return Binding instance.
+   * @throws IOException If an I/O error has occurred.
+   * @throws ValidationException If a validation error has occurred.
    */
   public static Binding parse(final URL url) throws IOException, ValidationException {
     return parse(url, Thread.currentThread().getContextClassLoader());
@@ -103,6 +106,8 @@ public abstract class Bindings {
    *
    * @param inputSource InputSource pointing to xml.
    * @return Binding instance.
+   * @throws IOException If an I/O error has occurred.
+   * @throws ValidationException If a validation error has occurred.
    */
   public static Binding parse(final InputSource inputSource) throws IOException, ValidationException {
     return parse(inputSource, Thread.currentThread().getContextClassLoader());
