@@ -22,7 +22,7 @@ import java.util.Base64;
 import org.fastjax.net.Service;
 import org.fastjax.net.Services;
 import org.fastjax.util.Diff;
-import org.fastjax.util.JavaIdentifiers;
+import org.fastjax.util.Identifiers;
 
 /**
  * This class models the binding between an XML namespace URI and a Java package
@@ -126,7 +126,7 @@ public final class NamespaceBinding {
     int start = host.lastIndexOf('.');
     do {
       final String word = host.substring(start + 1, end);
-      builder.append('.').append(JavaIdentifiers.toIdentifier(word, '_'));
+      builder.append('.').append(Identifiers.toIdentifier(word, '_'));
       end = start;
       start = host.lastIndexOf('.', start - 1);
     }
@@ -149,7 +149,7 @@ public final class NamespaceBinding {
     do {
       final String word = end == -1 ? (start == len - 1 ? null : path.substring(start + 1)) : start != end ? path.substring(start + 1, end) : null;
       if (word != null)
-        builder.append('.').append(JavaIdentifiers.toIdentifier(end == -1 ? formatFileName(word) : word, '_', '_'));
+        builder.append('.').append(Identifiers.toIdentifier(end == -1 ? formatFileName(word) : word, '_', '_'));
 
       start = end;
       end = path.indexOf('/', start + 1);
@@ -164,7 +164,7 @@ public final class NamespaceBinding {
     final int len = urn.length();
     do {
       if (end != -1 || start != len - 1) {
-        final String word = JavaIdentifiers.toIdentifier(end == -1 ? urn.substring(start + 1) : urn.substring(start + 1, end), '\0', '_');
+        final String word = Identifiers.toIdentifier(end == -1 ? urn.substring(start + 1) : urn.substring(start + 1, end), '\0', '_');
         if (start > 0 || !"urn".equals(word))
           builder.append('_').append(word);
       }
