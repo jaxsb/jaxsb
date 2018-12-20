@@ -16,6 +16,21 @@
 
 package org.openjax.xsb.runtime;
 
+import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.Map;
+
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.fastjax.xml.ValidationException;
 import org.fastjax.xml.dom.DOMStyle;
 import org.fastjax.xml.dom.DOMs;
@@ -26,20 +41,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.Map;
 
 public abstract class Binding extends AbstractBinding implements Serializable {
   private static final long serialVersionUID = -1760699437761774773L;
@@ -100,12 +101,12 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   protected static void parse(final Binding binding, final Element node) throws ValidationException {
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++)
+    for (int i = 0; i < attributes.getLength(); ++i)
       if (attributes.item(i) instanceof Attr && !binding.parseAttribute((Attr)attributes.item(i)))
         binding.parseAnyAttribute((Attr)attributes.item(i));
 
     final NodeList elements = node.getChildNodes();
-    for (int i = 0; i < elements.getLength(); i++) {
+    for (int i = 0; i < elements.getLength(); ++i) {
       final Node child = elements.item(i);
       if (child instanceof Text)
         binding.parseText((Text)child);
@@ -186,7 +187,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     String xsiPrefix = null;
 
     final NamedNodeMap rootAttributes = node.getAttributes();
-    for (int i = 0; i < rootAttributes.getLength(); i++) {
+    for (int i = 0; i < rootAttributes.getLength(); ++i) {
       final Node attribute = rootAttributes.item(i);
       if (XSI_TYPE.getNamespaceURI().equals(attribute.getNamespaceURI()) && XSI_TYPE.getLocalPart().equals(attribute.getLocalName())) {
         xsiPrefix = parsePrefix(attribute.getNodeValue());
@@ -218,7 +219,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
         Method method = null;
         final Method[] methods = xsiBinding.getDeclaredMethods();
-        for (int i = 0; i < methods.length; i++) {
+        for (int i = 0; i < methods.length; ++i) {
           if ("newInstance".equals(methods[i].getName())) {
             method = methods[i];
             break;
@@ -251,7 +252,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     documentBuilderFactory.setValidating(false);
   }
 
-  private ElementMergedList elements = null;
+  private ElementCompositeList elements = null;
   private CompositeAttributeStore attributeDirectory = null;
   private Binding inherits;
   private $AnySimpleType owner;
@@ -272,7 +273,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
     boolean legalInheritance = false;
     final Constructor<?>[] constructors = _$$inheritsInstance().getClass().getDeclaredConstructors();
-    for (int i = 0; i < constructors.length; i++) {
+    for (int i = 0; i < constructors.length; ++i) {
       if (constructors[i].getParameterTypes().length > 0 && constructors[i].getParameterTypes()[0].isAssignableFrom(getClass())) {
         legalInheritance = true;
         break;
@@ -341,18 +342,18 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     if (elements == null || elements.size() == 0)
       return;
 
-    for (int i = 0; i < elements.size(); i++) {
+    for (int i = 0; i < elements.size(); ++i) {
       Binding element = elements.get(i);
       if (element instanceof BindingProxy)
         element = ((BindingProxy<Binding>)element).getBinding();
 
-      final ElementAudit<Binding> elementAudit = (ElementAudit<Binding>)elements.getPartList(i).getAudit();
+      final ElementAudit<Binding> elementAudit = (ElementAudit<Binding>)elements.getComponentList(i).getAudit();
       elementAudit.marshal(parent, element);
     }
   }
 
-  protected ElementMergedList getCreateElementDirectory() {
-    return elements == null ? elements = new ElementMergedList(($AnySimpleType)this, nameToAudit) : elements;
+  protected ElementCompositeList getCreateElementDirectory() {
+    return elements == null ? elements = new ElementCompositeList(($AnySimpleType)this, nameToAudit) : elements;
   }
 
   protected final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
@@ -369,7 +370,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     if (nameToAudit == null)
       nameToAudit = new HashMap<>();
 
-    nameToAudit.put(elementAudit.getName() != null ? elementAudit.getName() : ElementMergedList.ANY, elementAudit);
+    nameToAudit.put(elementAudit.getName() != null ? elementAudit.getName() : ElementCompositeList.ANY, elementAudit);
   }
 
   @SuppressWarnings("unchecked")

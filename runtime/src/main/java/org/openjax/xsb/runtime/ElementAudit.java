@@ -46,7 +46,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   private final boolean nillable;
   private final int minOccurs;
   private final int maxOccurs;
-  private ElementMergedList.ElementPartList elements;
+  private ElementCompositeList.ElementComponentList elements;
 
   public ElementAudit(final Class<? extends Binding> type, final Binding owner, final B _default, QName name, final QName typeName, boolean qualified, final boolean nillable, int minOccurs, final int maxOccurs) {
     this.type = (Class<B>)type;
@@ -70,7 +70,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     owner._$$registerElementAudit(this);
   }
 
-  protected ElementAudit(final Binding owner, final ElementAudit<B> copy, final ElementMergedList.ElementPartList elements) {
+  protected ElementAudit(final Binding owner, final ElementAudit<B> copy, final ElementCompositeList.ElementComponentList elements) {
     this.owner = owner;
     this.type = copy.type;
     this._default = copy._default == null ? null : (B)copy._default.clone();
@@ -132,13 +132,13 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     return elements.indexOf(element);
   }
 
-  protected void setElements(final ElementMergedList.ElementPartList elements) {
+  protected void setElements(final ElementCompositeList.ElementComponentList elements) {
     this.elements = elements;
   }
 
   public boolean addElement(final B element) {
     if (elements == null)
-      elements = owner.getCreateElementDirectory().newPartList(this);
+      elements = owner.getCreateElementDirectory().newComponentList(this);
 
     if (maxOccurs > 1 || elements.size() == 0)
       elements.add(element);
