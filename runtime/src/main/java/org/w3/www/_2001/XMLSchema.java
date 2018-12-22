@@ -28,7 +28,6 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
-import org.fastjax.util.Numbers;
 import org.fastjax.xml.datatype.Base64Binary;
 import org.fastjax.xml.datatype.Date;
 import org.fastjax.xml.datatype.DateTime;
@@ -656,7 +655,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? Numbers.roundInsignificant(super.text().toString()) : "";
+        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -831,7 +830,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? Numbers.roundInsignificant(super.text().toString()) : "";
+        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
