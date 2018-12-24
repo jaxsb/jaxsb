@@ -35,7 +35,7 @@ public abstract class Bindings {
       return Bindings.parse(new InputSource(new StringReader(DOMs.domToString(binding.marshal()))));
     }
     catch (final IOException | ValidationException e) {
-      throw new RuntimeException(e);
+      throw new IllegalStateException(e);
     }
   }
 

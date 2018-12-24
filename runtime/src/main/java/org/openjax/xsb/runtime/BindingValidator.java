@@ -103,7 +103,7 @@ public final class BindingValidator extends Validator {
         validate(element);
       }
       catch (final ValidationException e) {
-        throw new RuntimeException(e);
+        throw new IllegalStateException(e);
       }
     }
   }

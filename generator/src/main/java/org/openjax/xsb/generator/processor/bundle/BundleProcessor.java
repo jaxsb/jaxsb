@@ -21,18 +21,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.jar.JarOutputStream;
+import java.util.stream.Collectors;
+
+import static org.fastjax.util.function.Throwing.*;
 
 import javax.xml.XMLConstants;
 
 import org.fastjax.jci.CompilationException;
-import org.fastjax.jci.JavaCompiler;
+import org.fastjax.jci.InMemoryCompiler;
 import org.fastjax.net.URLs;
 import org.fastjax.util.FastCollections;
 import org.fastjax.util.Paths;
@@ -72,7 +77,11 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       // FIXME: This is duplicated in SchemaReferenceProcessor[62]
       sources[i] = new File(sourceDir, ((SchemaModelComposite)iterator.next()).getSchemaModel().getTargetNamespace().getNamespaceBinding().getClassName().replace('.', File.separatorChar) + ".java");
 
-    new JavaCompiler(destDir, classpath).compile(sources);
+    final InMemoryCompiler compiler = new InMemoryCompiler();
+    for (final File source : sources)
+      compiler.addSource(new String(Files.readAllBytes(source.toPath())));
+
+    compiler.compile(new URLClassLoader(classpath.stream().map(rethrow((File f) -> f.toURI().toURL())).toArray(URL[]::new)), Arrays.asList("-g"), destDir);
   }
 
   @SuppressWarnings("resource")
