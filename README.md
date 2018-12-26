@@ -184,6 +184,16 @@ mvn install
 
 The **XSB** framework is not suitable for processing of large XML Documents (in the 100s of MBs). Built on top of Java's `org.w3c.dom` implementation of the [Document Object Model (DOM) Level 3 Core Specification][dom3], XML Documents parsed and marshalled by **XSB** consume a significant amount of memory. Work is underway for **XSB** v3 to use [Java's SAX Parser][sax-parser], which will allow the framework to process XML Documents of unbounded size.
 
+### JavaDocs
+
+JavaDocs are available [here](https://xsb.openjax.org/javadocs/).
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
