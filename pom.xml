@@ -29,6 +29,7 @@
   <version>2.1.4-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
+  <url>https://xsb.openjax.org/</url>
   <description>
     Xml Schema Binding
   </description>
