@@ -30,9 +30,6 @@
   <description>
     Plugin to generate binding classes for XSD schemas.
   </description>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
   <build>
     <plugins>
       <plugin>
