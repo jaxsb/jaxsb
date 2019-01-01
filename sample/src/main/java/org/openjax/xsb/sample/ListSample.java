@@ -19,8 +19,8 @@ package org.openjax.xsb.sample;
 import java.net.URL;
 import java.util.List;
 
-import org.fastjax.xml.datatype.Date;
-import org.fastjax.xml.datatype.Time;
+import org.openjax.classic.xml.datatype.Date;
+import org.openjax.classic.xml.datatype.Time;
 import org.openjax.xsb.runtime.Binding;
 import org.openjax.xsb.runtime.Bindings;
 import org.openjax.xsb.sample.list.xAA.$EmployeeType;

@@ -16,10 +16,11 @@
 
 package org.openjax.xsb.compiler.lang;
 
-import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
 
 public final class UniqueQName {
   private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<>();

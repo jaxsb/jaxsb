@@ -21,33 +21,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.jar.JarOutputStream;
-import java.util.stream.Collectors;
-
-import static org.fastjax.util.function.Throwing.*;
 
 import javax.xml.XMLConstants;
 
-import org.fastjax.jci.CompilationException;
-import org.fastjax.jci.InMemoryCompiler;
-import org.fastjax.net.URLs;
-import org.fastjax.util.FastCollections;
-import org.fastjax.util.Paths;
-import org.fastjax.util.zip.ZipWriter;
-import org.fastjax.xml.ValidationException;
-import org.fastjax.xml.datatype.HexBinary;
-import org.fastjax.xml.dom.DOMParsers;
-import org.fastjax.xml.dom.DOMStyle;
-import org.fastjax.xml.dom.DOMs;
-import org.fastjax.xml.dom.Validator;
+import org.openjax.classic.jci.CompilationException;
+import org.openjax.classic.jci.InMemoryCompiler;
+import org.openjax.classic.net.URLs;
+import org.openjax.classic.util.FastCollections;
+import org.openjax.classic.util.Paths;
+import org.openjax.classic.util.zip.ZipWriter;
+import org.openjax.classic.xml.api.ValidationException;
+import org.openjax.classic.xml.datatype.HexBinary;
+import org.openjax.classic.xml.dom.DOMParsers;
+import org.openjax.classic.xml.dom.DOMStyle;
+import org.openjax.classic.xml.dom.DOMs;
+import org.openjax.classic.xml.dom.Validator;
 import org.openjax.xsb.compiler.lang.NamespaceBinding;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
@@ -66,7 +62,7 @@ import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
-    final Collection<File> classpath = sourcePath != null ? sourcePath : new ArrayList<>(2);
+    final List<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
     final Class<?>[] requiredLibs = {Binding.class, FastCollections.class, HexBinary.class, NamespaceBinding.class, ValidationException.class, Validator.class};
     for (final Class<?> file : requiredLibs)
       classpath.add(new File(file.getProtectionDomain().getCodeSource().getLocation().toURI()));
@@ -81,7 +77,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     for (final File source : sources)
       compiler.addSource(new String(Files.readAllBytes(source.toPath())));
 
-    compiler.compile(new URLClassLoader(classpath.stream().map(rethrow((File f) -> f.toURI().toURL())).toArray(URL[]::new)), Arrays.asList("-g"), destDir);
+    compiler.compile(classpath, destDir, "-g");
   }
 
   @SuppressWarnings("resource")

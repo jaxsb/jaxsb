@@ -16,7 +16,6 @@
 
 package org.openjax.xsb.runtime;
 
-import javax.xml.namespace.QName;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -26,18 +25,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.fastjax.xml.datatype.Base64Binary;
-import org.fastjax.xml.datatype.Date;
-import org.fastjax.xml.datatype.DateTime;
-import org.fastjax.xml.datatype.Day;
-import org.fastjax.xml.datatype.Duration;
-import org.fastjax.xml.datatype.HexBinary;
-import org.fastjax.xml.datatype.Language;
-import org.fastjax.xml.datatype.Month;
-import org.fastjax.xml.datatype.MonthDay;
-import org.fastjax.xml.datatype.Time;
-import org.fastjax.xml.datatype.Year;
-import org.fastjax.xml.datatype.YearMonth;
+import javax.xml.namespace.QName;
+
+import org.openjax.classic.xml.datatype.Base64Binary;
+import org.openjax.classic.xml.datatype.Date;
+import org.openjax.classic.xml.datatype.DateTime;
+import org.openjax.classic.xml.datatype.Day;
+import org.openjax.classic.xml.datatype.Duration;
+import org.openjax.classic.xml.datatype.HexBinary;
+import org.openjax.classic.xml.datatype.Language;
+import org.openjax.classic.xml.datatype.Month;
+import org.openjax.classic.xml.datatype.MonthDay;
+import org.openjax.classic.xml.datatype.Time;
+import org.openjax.classic.xml.datatype.Year;
+import org.openjax.classic.xml.datatype.YearMonth;
 import org.openjax.xsb.compiler.lang.UniqueQName;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$AnyURI;

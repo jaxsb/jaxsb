@@ -185,7 +185,7 @@ The **XSB** framework is not suitable for processing of large XML Documents (in 
 
 ### JavaDocs
 
-JavaDocs are available [here](https://xsb.openjax.org/javadocs/).
+JavaDocs are available [here](https://xsb.openjax.org/apidocs/).
 
 ## Contributing
 

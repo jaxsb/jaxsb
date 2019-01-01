@@ -19,7 +19,7 @@ package org.openjax.xsb.runtime;
 import java.io.IOException;
 import java.net.URL;
 
-import org.fastjax.xml.ValidationException;
+import org.openjax.classic.xml.api.ValidationException;
 
 public final class BindingDocument {
   private final URL url;

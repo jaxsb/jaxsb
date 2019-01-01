@@ -14,12 +14,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.openjax.maven.plugin.xsb;
+package org.openjax.xsb;
 
 import java.io.IOException;
 
-import org.fastjax.xml.ValidationException;
 import org.junit.Test;
+import org.openjax.classic.xml.api.ValidationException;
 import org.openjax.www._do._abstract.n$a_m_e_1.xLwQ40OyCVYYJRhglIA.Class;
 import org.openjax.xsb.runtime.Bindings;
 import org.slf4j.Logger;

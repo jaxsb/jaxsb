@@ -16,11 +16,11 @@
 
 package org.openjax.xsb.generator.schema;
 
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.document.SchemaDocument;
 import org.openjax.xsb.compiler.processor.reference.SchemaReference;
+import org.openjax.xsb.helper.pipeline.PipelineDirectory;
+import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 
 public final class SchemaDocumentDirectory implements PipelineDirectory<GeneratorContext,SchemaReference,SchemaDocument> {
   private final SchemaDocumentProcessor processor = new SchemaDocumentProcessor();

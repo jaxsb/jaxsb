@@ -16,7 +16,7 @@
 
 package org.openjax.xsb.runtime;
 
-import org.fastjax.util.Strings;
+import org.openjax.classic.util.Strings;
 import org.openjax.xsb.compiler.lang.Prefix;
 import org.openjax.xsb.compiler.lang.UniqueQName;
 import org.openjax.xsb.compiler.processor.Nameable;

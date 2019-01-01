@@ -23,8 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.fastjax.util.Strings;
 import org.junit.Test;
+import org.openjax.classic.util.Strings;
 import org.openjax.xsb.generator.html.xAA.Body;
 import org.openjax.xsb.generator.html.xAA.Div;
 import org.openjax.xsb.generator.html.xAA.Hr;

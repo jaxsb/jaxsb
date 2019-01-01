@@ -16,8 +16,9 @@
 
 package org.openjax.xsb.runtime;
 
-import javax.xml.namespace.QName;
 import java.util.Iterator;
+
+import javax.xml.namespace.QName;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 

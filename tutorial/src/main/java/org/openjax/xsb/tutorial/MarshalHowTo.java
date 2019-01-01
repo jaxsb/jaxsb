@@ -18,7 +18,7 @@ package org.openjax.xsb.tutorial;
 
 import java.math.BigDecimal;
 
-import org.fastjax.xml.datatype.Date;
+import org.openjax.classic.xml.datatype.Date;
 import org.openjax.xsb.tutorial.invoice.xAA.Invoice;
 
 public class MarshalHowTo {

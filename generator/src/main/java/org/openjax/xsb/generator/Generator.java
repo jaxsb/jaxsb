@@ -23,9 +23,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.fastjax.io.FastFiles;
-import org.fastjax.net.URLs;
-import org.fastjax.util.Paths;
+import org.openjax.classic.io.FastFiles;
+import org.openjax.classic.net.URLs;
+import org.openjax.classic.util.Paths;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.composite.SchemaComposite;
 import org.openjax.xsb.compiler.processor.composite.SchemaCompositeDirectory;

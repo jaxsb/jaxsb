@@ -21,8 +21,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.fastjax.io.FastFiles;
-import org.fastjax.net.URLs;
+import org.openjax.classic.io.FastFiles;
+import org.openjax.classic.net.URLs;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.model.Model;
 import org.openjax.xsb.helper.pipeline.PipelineDirectory;
