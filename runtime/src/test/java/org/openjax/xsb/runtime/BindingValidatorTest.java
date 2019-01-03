@@ -21,8 +21,8 @@ import static org.junit.Assert.*;
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.xni.parser.XMLEntityResolver;
 import org.junit.Test;
-import org.openjax.classic.xml.api.ValidationException;
-import org.openjax.classic.xml.dom.DOMParsers;
+import org.openjax.standard.xml.api.ValidationException;
+import org.openjax.standard.xml.dom.DOMParsers;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

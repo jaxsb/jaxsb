@@ -19,10 +19,10 @@ package org.openjax.xsb.compiler.lang;
 import java.net.URI;
 import java.util.Base64;
 
-import org.openjax.classic.net.Service;
-import org.openjax.classic.net.Services;
-import org.openjax.classic.util.Diff;
-import org.openjax.classic.util.Identifiers;
+import org.openjax.standard.net.Service;
+import org.openjax.standard.net.Services;
+import org.openjax.standard.util.Diff;
+import org.openjax.standard.util.Identifiers;
 
 /**
  * This class models the binding between an XML namespace URI and a Java package

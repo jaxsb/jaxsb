@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.classic.util.CompositeList;
+import org.openjax.standard.util.CompositeList;
 import org.slf4j.Logger;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 

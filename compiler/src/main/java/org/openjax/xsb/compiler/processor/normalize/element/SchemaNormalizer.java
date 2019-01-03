@@ -19,8 +19,8 @@ package org.openjax.xsb.compiler.processor.normalize.element;
 import java.io.File;
 import java.net.URL;
 
-import org.openjax.classic.io.FastFiles;
-import org.openjax.classic.net.URLs;
+import org.openjax.standard.io.FastFiles;
+import org.openjax.standard.net.URLs;
 import org.openjax.xsb.compiler.processor.model.element.SchemaModel;
 import org.openjax.xsb.compiler.processor.normalize.Normalizer;
 import org.openjax.xsb.compiler.processor.normalize.NormalizerDirectory;

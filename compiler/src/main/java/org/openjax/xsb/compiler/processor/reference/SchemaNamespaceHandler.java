@@ -16,8 +16,8 @@
 
 package org.openjax.xsb.compiler.processor.reference;
 
-import org.openjax.classic.util.BiMap;
-import org.openjax.classic.util.HashBiMap;
+import org.openjax.standard.util.BiMap;
+import org.openjax.standard.util.HashBiMap;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

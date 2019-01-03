@@ -22,10 +22,10 @@ import java.net.URLConnection;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.openjax.classic.net.URLs;
-import org.openjax.classic.xml.sax.DocumentHandler;
-import org.openjax.classic.xml.sax.SAXInterruptException;
-import org.openjax.classic.xml.sax.XMLDocuments;
+import org.openjax.standard.net.URLs;
+import org.openjax.standard.xml.sax.DocumentHandler;
+import org.openjax.standard.xml.sax.SAXInterruptException;
+import org.openjax.standard.xml.sax.XMLDocuments;
 import org.openjax.xsb.compiler.lang.LexerFailureException;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.helper.pipeline.PipelineDirectory;
