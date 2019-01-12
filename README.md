@@ -1,6 +1,8 @@
 # OpenJAX XSB
 
-**Xml Schema Binding**
+> Xml Schema Binding
+
+[![Build Status](https://travis-ci.org/openjax/xsb.png)](https://travis-ci.org/openjax/xsb)
 
 ### Introduction
 
