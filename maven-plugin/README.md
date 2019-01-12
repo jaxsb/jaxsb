@@ -1,6 +1,8 @@
 # OpenJAX XSB Maven Plugin
 
-**Maven Plugin for [XSB][xsb] framework**
+> Maven Plugin for [XSB][xsb] framework
+
+[![Build Status](https://travis-ci.org/openjax/xsb.png)](https://travis-ci.org/openjax/xsb)
 
 ### Introduction
 
