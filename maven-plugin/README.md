@@ -3,6 +3,7 @@
 > Maven Plugin for [XSB][xsb] framework
 
 [![Build Status](https://travis-ci.org/openjax/xsb.png)](https://travis-ci.org/openjax/xsb)
+[![Coverage Status](https://coveralls.io/repos/github/openjax/xsb/badge.svg)](https://coveralls.io/github/openjax/xsb)
 
 ### Introduction
 
