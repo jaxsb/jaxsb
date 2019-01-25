@@ -17,7 +17,7 @@
 package org.openjax.xsb.helper.formatter;
 
 public abstract class FormatModule {
-  protected static String TAB = "  ";
+  protected static final String TAB = "  ";
   private static int depth = 0;
   private static FormatModule lastModule = null;
 
@@ -26,11 +26,11 @@ public abstract class FormatModule {
   }
 
   protected void increaseDepth() {
-    depth++;
+    ++depth;
   }
 
   protected void decreaseDepth() {
-    depth--;
+    --depth;
   }
 
   protected int getDepth() {
@@ -45,5 +45,5 @@ public abstract class FormatModule {
     FormatModule.lastModule = module;
   }
 
-  abstract String format(final String formated, final String token);
+  abstract String format(String formated, String token);
 }

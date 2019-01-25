@@ -163,15 +163,15 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
   protected static PipelineDirectory<GeneratorContext,Plan<?>,Writer<?>> directory = null;
 
-  protected abstract void appendRegistration(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendDeclaration(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendGetMethod(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendSetMethod(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendMarshal(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendParse(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendCopy(final StringWriter writer, final T plan, final Plan<?> parent, final String variable);
-  protected abstract void appendEquals(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendHashCode(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendClone(final StringWriter writer, final T plan, final Plan<?> parent);
-  protected abstract void appendClass(final StringWriter writer, final T plan, final Plan<?> parent);
+  protected abstract void appendRegistration(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendDeclaration(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendGetMethod(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendSetMethod(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendMarshal(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendParse(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendCopy(StringWriter writer, T plan, Plan<?> parent, String variable);
+  protected abstract void appendEquals(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendHashCode(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendClone(StringWriter writer, T plan, Plan<?> parent);
+  protected abstract void appendClass(StringWriter writer, T plan, Plan<?> parent);
 }
