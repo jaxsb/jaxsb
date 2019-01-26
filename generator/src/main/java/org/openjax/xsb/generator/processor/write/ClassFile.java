@@ -24,11 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openjax.xsb.compiler.lang.NamespaceBinding;
-import org.openjax.xsb.helper.formatter.SourceFormat;
 import org.openjax.xsb.runtime.Schema;
 
-public class ClassFile {
+import com.google.googlejavaformat.java.Formatter;
+import com.google.googlejavaformat.java.FormatterException;
+
+public class ClassFile implements AutoCloseable {
   private static final String license;
+  private static final Formatter formatter = new Formatter();
 
   static {
     final StringBuilder notice = new StringBuilder();
@@ -56,22 +59,23 @@ public class ClassFile {
     this.classTexts.add(classText);
   }
 
-  public void close() throws IOException {
+  @Override
+  public void close() throws FormatterException, IOException {
     final StringBuilder builder = new StringBuilder();
     builder.append("package ").append(namespaceBinding.getPackageName()).append(";\n\n");
     builder.append("@").append(SuppressWarnings.class.getName()).append("(\"all\")\n");
     builder.append("public class ").append(namespaceBinding.getSimpleClassName()).append(" extends ").append(Schema.class.getName()).append(" {\n\n");
     builder.append("static {");
     for (final String registrationText : registrationTexts)
-      builder.append("\n").append(registrationText);
+      builder.append('\n').append(registrationText);
     builder.append('}');
 
     for (final String classText : classTexts)
-      builder.append("\n").append(classText);
+      builder.append('\n').append(classText);
 
     builder.append("\n}");
 
-    final String text = SourceFormat.getDefaultFormat().format(builder.toString());
+    final String text = formatter.formatSource(builder.toString());
     file.getParentFile().mkdirs();
     try (final OutputStreamWriter out = new FileWriter(file)) {
       out.write(license);

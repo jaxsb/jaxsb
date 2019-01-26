@@ -39,6 +39,8 @@ import org.openjax.xsb.runtime.CompilerFailureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.googlejavaformat.java.FormatterException;
+
 @SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
   private static final Logger logger = LoggerFactory.getLogger(Writer.class);
@@ -82,7 +84,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     try {
       classFile.close();
     }
-    catch (final IOException e) {
+    catch (final FormatterException | IOException e) {
       throw new CompilerFailureException(e);
     }
 
