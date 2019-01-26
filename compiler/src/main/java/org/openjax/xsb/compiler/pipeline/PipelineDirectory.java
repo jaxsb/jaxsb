@@ -14,10 +14,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.openjax.xsb.helper.pipeline;
+package org.openjax.xsb.compiler.pipeline;
 
-import java.util.Collection;
-
-public interface PipelineProcessor<C extends PipelineContext,I extends PipelineEntity,O extends PipelineEntity> {
-  Collection<O> process(C pipelineContext, Collection<I> documents, PipelineDirectory<C,I,O> directory);
+public interface PipelineDirectory<C extends PipelineContext,K extends PipelineEntity,V extends PipelineEntity> {
+  PipelineEntity getEntity(K entity, V parent);
+  PipelineProcessor<C,K,V> getProcessor();
+  void clear();
 }

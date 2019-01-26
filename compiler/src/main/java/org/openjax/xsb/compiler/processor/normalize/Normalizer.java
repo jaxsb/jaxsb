@@ -16,8 +16,8 @@
 
 package org.openjax.xsb.compiler.processor.normalize;
 
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.processor.model.Model;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

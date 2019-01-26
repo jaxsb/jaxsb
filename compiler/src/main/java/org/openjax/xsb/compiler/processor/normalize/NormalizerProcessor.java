@@ -21,10 +21,10 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 import org.openjax.xsb.compiler.lang.LexerFailureException;
+import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
+import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.model.Model;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 
 public final class NormalizerProcessor implements PipelineProcessor<GeneratorContext,Model,Normalizer<?>> {
   private int stage = 0;

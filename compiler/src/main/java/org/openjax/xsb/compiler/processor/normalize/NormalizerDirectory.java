@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.openjax.xsb.compiler.lang.LexerFailureException;
+import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
+import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.model.Model;
 import org.openjax.xsb.compiler.processor.model.element.AllModel;
@@ -113,9 +116,6 @@ import org.openjax.xsb.compiler.processor.normalize.element.UnionNormalizer;
 import org.openjax.xsb.compiler.processor.normalize.element.UniqueNormalizer;
 import org.openjax.xsb.compiler.processor.normalize.element.UnknownNormalizer;
 import org.openjax.xsb.compiler.processor.normalize.element.WhiteSpaceNormalizer;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 
 public final class NormalizerDirectory implements PipelineDirectory<GeneratorContext,Model,Normalizer<?>> {
   private final Map<Class<? extends Model>,Class<? extends Normalizer<?>>> classes = new HashMap<>(39);

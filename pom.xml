@@ -34,7 +34,6 @@
     Xml Schema Binding
   </description>
   <modules>
-    <module>helper</module>
     <module>compiler</module>
     <module>generator</module>
     <module>runtime</module>

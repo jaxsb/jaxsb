@@ -16,8 +16,8 @@
 
 package org.openjax.xsb.compiler.processor;
 
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.schema.attribute.Form;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
 
 public interface Formable<T extends PipelineEntity> {
   Form getFormDefault();

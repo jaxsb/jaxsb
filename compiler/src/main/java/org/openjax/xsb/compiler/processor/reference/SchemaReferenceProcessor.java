@@ -27,10 +27,10 @@ import org.openjax.standard.xml.sax.DocumentHandler;
 import org.openjax.standard.xml.sax.SAXInterruptException;
 import org.openjax.standard.xml.sax.XMLDocuments;
 import org.openjax.xsb.compiler.lang.LexerFailureException;
+import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
+import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

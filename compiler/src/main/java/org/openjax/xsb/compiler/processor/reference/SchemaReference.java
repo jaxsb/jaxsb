@@ -33,7 +33,7 @@ import org.openjax.xsb.compiler.lang.LexerFailureException;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.lang.Prefix;
 import org.openjax.xsb.compiler.lang.UniqueQName;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;

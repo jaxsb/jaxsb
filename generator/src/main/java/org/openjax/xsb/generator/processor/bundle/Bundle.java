@@ -18,7 +18,7 @@ package org.openjax.xsb.generator.processor.bundle;
 
 import java.io.File;
 
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
 
 public final class Bundle implements PipelineEntity {
   private final File file;

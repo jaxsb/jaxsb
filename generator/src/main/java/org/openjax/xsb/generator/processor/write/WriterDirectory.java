@@ -109,9 +109,9 @@ import org.openjax.xsb.generator.processor.write.element.SimpleTypeWriter;
 import org.openjax.xsb.generator.processor.write.element.UnionWriter;
 import org.openjax.xsb.generator.processor.write.element.UniqueWriter;
 import org.openjax.xsb.generator.processor.write.element.WhiteSpaceWriter;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
+import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
+import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.runtime.CompilerFailureException;
 
 @SuppressWarnings("rawtypes")

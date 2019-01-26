@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.openjax.xsb.helper.pipeline;
+package org.openjax.xsb.compiler.pipeline;
 
 import java.util.ArrayList;
 import java.util.Collection;

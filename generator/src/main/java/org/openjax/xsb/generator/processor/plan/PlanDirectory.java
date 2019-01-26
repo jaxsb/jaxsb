@@ -110,9 +110,9 @@ import org.openjax.xsb.generator.processor.plan.element.SimpleTypePlan;
 import org.openjax.xsb.generator.processor.plan.element.UnionPlan;
 import org.openjax.xsb.generator.processor.plan.element.UniquePlan;
 import org.openjax.xsb.generator.processor.plan.element.WhiteSpacePlan;
-import org.openjax.xsb.helper.pipeline.PipelineDirectory;
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
-import org.openjax.xsb.helper.pipeline.PipelineProcessor;
+import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
+import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.runtime.CompilerFailureException;
 
 public final class PlanDirectory implements PipelineDirectory<GeneratorContext,Model,Plan<?>> {

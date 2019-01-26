@@ -16,7 +16,7 @@
 
 package org.openjax.xsb.compiler.processor.composite;
 
-import org.openjax.xsb.helper.pipeline.PipelineEntity;
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
 
 public interface SchemaComposite extends PipelineEntity {
 }

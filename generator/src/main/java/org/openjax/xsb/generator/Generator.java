@@ -44,7 +44,7 @@ import org.openjax.xsb.generator.processor.timestamp.TimestampDirectory;
 import org.openjax.xsb.generator.processor.write.Writer;
 import org.openjax.xsb.generator.processor.write.WriterDirectory;
 import org.openjax.xsb.generator.schema.SchemaDocumentDirectory;
-import org.openjax.xsb.helper.pipeline.Pipeline;
+import org.openjax.xsb.compiler.pipeline.Pipeline;
 
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {
