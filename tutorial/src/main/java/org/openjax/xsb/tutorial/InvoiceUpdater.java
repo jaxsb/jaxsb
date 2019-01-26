@@ -26,8 +26,8 @@ import org.xml.sax.InputSource;
 
 public class InvoiceUpdater {
   public static void main(final String[] args) throws Exception {
-    if (args.length == 0) {
-      System.err.println("Usage: InvoiceUpdater <invoice.xml>");
+    if (args.length != 5) {
+      System.err.println("Usage: InvoiceUpdater <invoice.xml> <description> <code> <quantity> <price>");
       System.exit(1);
     }
 
@@ -37,7 +37,7 @@ public class InvoiceUpdater {
     item.setDescription(new Invoice.BilledItems.Item.Description(args[1]));
     item.setCode(new Invoice.BilledItems.Item.Code(Integer.parseInt(args[2])));
     item.setQuantity(new Invoice.BilledItems.Item.Quantity(Integer.parseInt(args[3])));
-    item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(Float.parseFloat(args[4]))));
+    item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(args[4])));
 
     final Invoice invoice = addItem(file, item);
     System.out.println(invoice.toString());

@@ -27,7 +27,7 @@ import org.openjax.xsb.tutorial.invoice.xAA.Invoice;
 
 public class ParseHowTo {
   public static void main(final String[] args) throws Exception {
-    final URL url = ParseHowTo.class.getResource("invoice.xml");
+    final URL url = ParseHowTo.class.getResource("/invoice.xml");
     final Invoice invoice = (Invoice)Bindings.parse(url.openStream());
 
     final Integer number = invoice.getNumber().text();
