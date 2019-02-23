@@ -49,10 +49,10 @@ import org.openjax.xsb.compiler.pipeline.Pipeline;
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {
     System.err.println("Usage: Generator [OPTIONS] <-d DEST_DIR> <SCHEMA_XSD>");
-    System.err.println("");
+    System.err.println();
     System.err.println("Mandatory arguments:");
     System.err.println("  -d <destDir>    Specify the destination directory.");
-    System.err.println("");
+    System.err.println();
     System.err.println("Optional arguments:");
     System.err.println("  --overwrite     Overwrite all existing generated classes.");
     System.err.println("  --compile       Compile generated source.");
