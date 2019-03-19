@@ -212,7 +212,7 @@ public final class XMLSchema {
       }
 
       protected $AnyType(final String text) {
-        super();
+        super(text);
       }
 
       protected $AnyType() {
@@ -672,7 +672,7 @@ public final class XMLSchema {
       }
 
       public $Duration(final Duration value) {
-        super();
+        super(value);
       }
 
       protected $Duration() {

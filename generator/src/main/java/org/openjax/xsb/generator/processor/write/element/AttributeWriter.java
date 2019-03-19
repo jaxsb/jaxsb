@@ -193,13 +193,12 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     getNativeConstructors(writer, plan, parent);
 
     // DEFAULT CONSTRUCTOR
+    writer.write(plan.getDocumentation());
     if (plan.hasEnumerations())
       writer.write("protected ");
-    else {
-      // DOCUMENTATION
-      writer.write(plan.getDocumentation());
+    else
       writer.write("public ");
-    }
+
     writer.write(plan.getClassSimpleName() + "()\n");
     writer.write("{\n");
     writer.write("super();\n");
@@ -267,7 +266,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
         writer.write("}\n");
       }
       else {
-        writer.write("public void text(" + plan.getNativeItemClassNameInterface() + " text)\n");
+        writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
         writer.write("{\n");
         writer.write("super.text(text);\n");
         writer.write("}\n");

@@ -107,13 +107,13 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     if (plan.getNativeItemClassNameInterface() == null || (plan.isList() && plan.hasEnumerations()))
       return;
 
+    writer.write(plan.getDocumentation());
     final String visibility;
     if (((EnumerablePlan)plan).hasEnumerations() && !plan.isUnionWithNonEnumeration()) {
       visibility = "protected ";
     }
     else {
       // DOCUMENTATION
-      writer.write(plan.getDocumentation());
       visibility = "public ";
     }
 

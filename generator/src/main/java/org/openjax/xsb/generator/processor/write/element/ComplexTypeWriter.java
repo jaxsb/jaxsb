@@ -253,7 +253,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
       writer.write("return (" + String.class.getName() + ")super.text();\n");
       writer.write("}\n");
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public void text(" + String.class.getName() + " text)\n");
+      writer.write("public void text(final " + String.class.getName() + " text)\n");
       writer.write("{\n");
       writer.write("super.text(text);\n");
       writer.write("}\n");

@@ -177,8 +177,8 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
   private boolean isUnionWithNonEnumeration = false;
 
   private void digItemTypes(final SimpleTypeModel<?> baseNonXSType) {
-    SimpleTypeModel<?> baseXSItemType = digBaseXSItemTypeName(getModel(), true);
-    SimpleTypeModel<?> baseXSNonEnumItemType = digBaseXSItemTypeName(getModel(), false);
+    final SimpleTypeModel<?> baseXSItemType = digBaseXSItemTypeName(getModel(), true);
+    final SimpleTypeModel<?> baseXSNonEnumItemType = digBaseXSItemTypeName(getModel(), false);
 
     if (baseXSItemType != null)
       baseXSItemTypeName = getItemName(baseXSItemType);
@@ -260,7 +260,14 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
     }
 
     isUnionWithNonEnumeration = getSuperType() != null && ((SimpleTypePlan<?>)getSuperType()).isUnionWithNonEnumeration();
+    analyzeUnion(model);
+  }
+
+  private void analyzeUnion(final SimpleTypeModel<?> model) {
     for (final Model child : model.getChildren()) {
+      if (child instanceof SimpleTypeModel)
+        analyzeUnion((SimpleTypeModel<?>)child);
+
       if (!(child instanceof UnionModel))
         continue;
 
