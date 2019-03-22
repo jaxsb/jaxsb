@@ -63,7 +63,7 @@ public class ClassFile implements AutoCloseable {
   public void close() throws FormatterException, IOException {
     final StringBuilder builder = new StringBuilder();
     builder.append("package ").append(namespaceBinding.getPackageName()).append(";\n\n");
-    builder.append("@").append(SuppressWarnings.class.getName()).append("(\"all\")\n");
+    builder.append('@').append(SuppressWarnings.class.getName()).append("(\"all\")\n");
     builder.append("public class ").append(namespaceBinding.getSimpleClassName()).append(" extends ").append(Schema.class.getName()).append(" {\n\n");
     builder.append("static {");
     for (final String registrationText : registrationTexts)
