@@ -18,6 +18,7 @@ package org.openjax.xsb.compiler.lang;
 
 import java.net.URI;
 import java.util.Base64;
+import java.util.function.Function;
 
 import org.openjax.standard.net.Service;
 import org.openjax.standard.net.Services;
@@ -33,6 +34,8 @@ import org.openjax.standard.util.Identifiers;
  * @see NamespaceBinding#parseClassName(String)
  */
 public final class NamespaceBinding {
+  private static final Function<Character,String> substitutes = c -> Character.isJavaIdentifierPart(c) ? "_" + c : "_";
+
   /**
    * Utility class for optimization of diff compression.
    */
@@ -126,7 +129,7 @@ public final class NamespaceBinding {
     int start = host.lastIndexOf('.');
     do {
       final String word = host.substring(start + 1, end);
-      builder.append('.').append(Identifiers.toIdentifier(word, '_'));
+      builder.append('.').append(Identifiers.toIdentifier(word, '_', substitutes));
       end = start;
       start = host.lastIndexOf('.', start - 1);
     }
@@ -149,7 +152,7 @@ public final class NamespaceBinding {
     do {
       final String word = end == -1 ? (start == len - 1 ? null : path.substring(start + 1)) : start != end ? path.substring(start + 1, end) : null;
       if (word != null)
-        builder.append('.').append(Identifiers.toIdentifier(end == -1 ? formatFileName(word) : word, '_', '_'));
+        builder.append('.').append(Identifiers.toIdentifier(end == -1 ? formatFileName(word) : word, '_', substitutes));
 
       start = end;
       end = path.indexOf('/', start + 1);
@@ -164,9 +167,13 @@ public final class NamespaceBinding {
     final int len = urn.length();
     do {
       if (end != -1 || start != len - 1) {
-        final String word = Identifiers.toIdentifier(end == -1 ? urn.substring(start + 1) : urn.substring(start + 1, end), '\0', '_');
-        if (start > 0 || !"urn".equals(word))
-          builder.append('_').append(word);
+        final String word = Identifiers.toIdentifier(end == -1 ? urn.substring(start + 1) : urn.substring(start + 1, end), '\0', substitutes);
+        if (start > 0 || !"urn".equals(word)) {
+          if (word.startsWith("_"))
+            builder.append(word);
+          else
+            builder.append('_').append(word);
+        }
       }
 
       start = end;
