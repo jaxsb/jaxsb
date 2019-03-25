@@ -165,8 +165,9 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
       if (!isUnionWithNonEnumeration() || !testNativeFactory(getNativeFactoryNonEnum(), _default))
         _default = getClassName(parent) + "." + EnumerationPlan.getDeclarationName(getDefault());
     }
-    else
+    else {
       _default = "\"" + _default + "\"";
+    }
 
     String defaultInstance = "new " + getClassName(parent) + "(";
     if (!hasEnumerations() && getNativeFactory() != null)
@@ -178,9 +179,9 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
   }
 
   private static boolean testNativeFactory(final String nativeFactory, final String defaultValue) {
-    final int index = nativeFactory.lastIndexOf(".");
-    final String nativeFactoryClass = nativeFactory.substring(0, index);
-    final String nativeFactoryMethod = nativeFactory.substring(index + 1);
+    final int dot = nativeFactory.lastIndexOf('.');
+    final String nativeFactoryClass = nativeFactory.substring(0, dot);
+    final String nativeFactoryMethod = nativeFactory.substring(dot + 1);
     try {
       Class.forName(nativeFactoryClass).getMethod(nativeFactoryMethod, String.class).invoke(null, defaultValue);
     }

@@ -169,10 +169,10 @@ public final class NamespaceBinding {
       if (end != -1 || start != len - 1) {
         final String word = Identifiers.toIdentifier(end == -1 ? urn.substring(start + 1) : urn.substring(start + 1, end), '\0', substitutes);
         if (start > 0 || !"urn".equals(word)) {
-          if (word.startsWith("_"))
-            builder.append(word);
-          else
-            builder.append('_').append(word);
+          if (!word.startsWith("_"))
+            builder.append('_');
+
+          builder.append(word);
         }
       }
 
