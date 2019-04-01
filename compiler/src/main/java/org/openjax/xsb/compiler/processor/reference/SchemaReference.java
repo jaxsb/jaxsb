@@ -48,11 +48,11 @@ public final class SchemaReference implements PipelineEntity {
   private final AtomicBoolean isConnected = new AtomicBoolean();
   private final AtomicBoolean isResolved = new AtomicBoolean();
   private final URL location;
+  private final boolean isInclude;
   private NamespaceURI namespaceURI;
   private Prefix prefix;
-  private final boolean isInclude;
   private long lastModified = Long.MIN_VALUE;
-  private InputStream inputStream = null;
+  private InputStream inputStream;
 
   public SchemaReference(final URL location, final boolean isInclude) {
     this.location = location;
