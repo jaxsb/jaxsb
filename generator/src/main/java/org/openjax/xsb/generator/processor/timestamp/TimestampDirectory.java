@@ -16,11 +16,11 @@
 
 package org.openjax.xsb.generator.processor.timestamp;
 
-import org.openjax.xsb.compiler.processor.GeneratorContext;
-import org.openjax.xsb.generator.processor.bundle.Bundle;
 import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
 import org.openjax.xsb.compiler.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
+import org.openjax.xsb.compiler.processor.GeneratorContext;
+import org.openjax.xsb.generator.processor.bundle.Bundle;
 
 public final class TimestampDirectory implements PipelineDirectory<GeneratorContext,Bundle,Bundle> {
   private TimestampProcessor processor = new TimestampProcessor();

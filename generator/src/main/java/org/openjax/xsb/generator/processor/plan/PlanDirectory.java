@@ -22,6 +22,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
+import org.openjax.xsb.compiler.pipeline.PipelineEntity;
+import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.model.Model;
 import org.openjax.xsb.compiler.processor.model.element.AllModel;
@@ -110,9 +113,6 @@ import org.openjax.xsb.generator.processor.plan.element.SimpleTypePlan;
 import org.openjax.xsb.generator.processor.plan.element.UnionPlan;
 import org.openjax.xsb.generator.processor.plan.element.UniquePlan;
 import org.openjax.xsb.generator.processor.plan.element.WhiteSpacePlan;
-import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
-import org.openjax.xsb.compiler.pipeline.PipelineEntity;
-import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.runtime.CompilerFailureException;
 
 public final class PlanDirectory implements PipelineDirectory<GeneratorContext,Model,Plan<?>> {

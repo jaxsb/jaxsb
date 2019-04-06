@@ -23,10 +23,10 @@ import java.util.Collection;
 
 import org.openjax.standard.io.FastFiles;
 import org.openjax.standard.net.URLs;
-import org.openjax.xsb.compiler.processor.GeneratorContext;
-import org.openjax.xsb.compiler.processor.model.Model;
 import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
 import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
+import org.openjax.xsb.compiler.processor.GeneratorContext;
+import org.openjax.xsb.compiler.processor.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

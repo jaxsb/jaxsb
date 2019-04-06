@@ -19,11 +19,11 @@ package org.openjax.xsb.generator.processor.bundle;
 import java.io.File;
 import java.util.Set;
 
-import org.openjax.xsb.compiler.processor.GeneratorContext;
-import org.openjax.xsb.compiler.processor.composite.SchemaComposite;
 import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
 import org.openjax.xsb.compiler.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
+import org.openjax.xsb.compiler.processor.GeneratorContext;
+import org.openjax.xsb.compiler.processor.composite.SchemaComposite;
 
 public final class BundleDirectory implements PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> {
   private BundleProcessor processor;

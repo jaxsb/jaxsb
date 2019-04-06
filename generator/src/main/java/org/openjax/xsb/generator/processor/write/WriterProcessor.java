@@ -19,13 +19,13 @@ package org.openjax.xsb.generator.processor.write;
 import java.io.StringWriter;
 import java.util.Collection;
 
+import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
+import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.compiler.processor.GeneratorContext;
 import org.openjax.xsb.compiler.processor.Nameable;
 import org.openjax.xsb.generator.processor.plan.AliasPlan;
 import org.openjax.xsb.generator.processor.plan.NestablePlan;
 import org.openjax.xsb.generator.processor.plan.Plan;
-import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
-import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
 import org.openjax.xsb.runtime.CompilerFailureException;
 
 public final class WriterProcessor implements PipelineProcessor<GeneratorContext,Plan<?>,Writer<?>> {

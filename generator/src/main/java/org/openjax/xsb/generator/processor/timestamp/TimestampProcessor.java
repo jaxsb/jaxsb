@@ -22,11 +22,11 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import org.openjax.xsb.compiler.processor.GeneratorContext;
-import org.openjax.xsb.generator.processor.bundle.Bundle;
 import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
 import org.openjax.xsb.compiler.pipeline.PipelineEntity;
 import org.openjax.xsb.compiler.pipeline.PipelineProcessor;
+import org.openjax.xsb.compiler.processor.GeneratorContext;
+import org.openjax.xsb.generator.processor.bundle.Bundle;
 
 public final class TimestampProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,Bundle,Bundle> {
   private static final Predicate<Path> fileFilter = new Predicate<Path>() {
