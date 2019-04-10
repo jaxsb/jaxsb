@@ -30,7 +30,7 @@ public class NameTest {
 
   @Test
   public void test() throws IOException, ValidationException {
-    final Class name = (Class)Bindings.parse(Thread.currentThread().getContextClassLoader().getResource("name.xml"));
+    final Class name = (Class)Bindings.parse(ClassLoader.getSystemClassLoader().getResource("name.xml"));
     logger.info(name.toString());
   }
 }

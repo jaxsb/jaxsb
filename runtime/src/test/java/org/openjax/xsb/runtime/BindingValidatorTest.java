@@ -39,7 +39,7 @@ public class BindingValidatorTest {
   @Test
   public void testSAXParser() throws Exception {
     System.setProperty("org.xml.sax.driver", SAXParser.class.getName());
-    final Document document = DOMParsers.newDocumentBuilder().parse(Thread.currentThread().getContextClassLoader().getResourceAsStream("empty.xml"));
+    final Document document = DOMParsers.newDocumentBuilder().parse(ClassLoader.getSystemClassLoader().getResourceAsStream("empty.xml"));
     if (document == null)
       fail("document == null");
 

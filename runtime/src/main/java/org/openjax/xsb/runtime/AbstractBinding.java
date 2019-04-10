@@ -70,8 +70,8 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   protected static void _$$registerSchemaLocation(final String namespaceURI, final Class<?> cls, final String schemaReference) {
-    final String simpleName = cls.getName().replace('.', '/') + ".class";
-    final URL url = Thread.currentThread().getContextClassLoader().getResource(simpleName);
+    final String classPath = cls.getName().replace('.', '/') + ".class";
+    final URL url = Thread.currentThread().getContextClassLoader().getResource(classPath);
     if (url == null) {
       logger.debug("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + cls.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"");
       return;
