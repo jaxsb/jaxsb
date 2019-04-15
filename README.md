@@ -58,7 +58,7 @@ Developed with the CohesionFirst approach, **XSB** is reliably designed, consist
 
 1. In your preferred development directory, create a [`maven-archetype-quickstart`][maven-archetype-quickstart] project.
 
-  ```tcsh
+  ```bash
   mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
   ```
 
@@ -166,7 +166,7 @@ Developed with the CohesionFirst approach, **XSB** is reliably designed, consist
 
 Samples are provided in the XSB source code:
 
-```tcsh
+```bash
 git clone git@github.com:openjax/xsb.git
 cd xsb/sample
 mvn install
@@ -176,7 +176,7 @@ mvn install
 
 Tutorials are provided in the XSB source code:
 
-```tcsh
+```bash
 git clone git@github.com:openjax/xsb.git
 cd xsb/tutorial
 mvn install
