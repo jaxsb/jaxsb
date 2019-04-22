@@ -62,8 +62,8 @@ public final class DocumentationPlan extends Plan<DocumentationModel> {
     int start = 0;
     int end = 0;
 
-    while ((end = text.indexOf(" ", end + 74)) != -1) {
-      int index = text.indexOf("\n", start);
+    while ((end = text.indexOf(' ', end + 74)) != -1) {
+      int index = text.indexOf('\n', start);
       if (index != -1 && index < end)
         end = index;
 

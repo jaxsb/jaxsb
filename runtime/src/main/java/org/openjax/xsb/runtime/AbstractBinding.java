@@ -135,7 +135,7 @@ public abstract class AbstractBinding implements Cloneable {
     if (name == null || name.length() == 0)
       return null;
 
-    final int index = name.indexOf(":");
+    final int index = name.indexOf(':');
     return index == -1 ? new QName(name) : new QName(null, name.substring(index + 1), name.substring(0, index));
   }
 
@@ -143,7 +143,7 @@ public abstract class AbstractBinding implements Cloneable {
     if (name == null)
       return null;
 
-    final int index = name.indexOf(":");
+    final int index = name.indexOf(':');
     return index == -1 ? null : name.substring(0, index);
   }
 
@@ -151,14 +151,14 @@ public abstract class AbstractBinding implements Cloneable {
     if (name == null)
       return null;
 
-    int start = name.indexOf("{");
+    int start = name.indexOf('{');
     if (start != -1) {
-      final int end = name.indexOf("}", start);
+      final int end = name.indexOf('}', start);
       if (end != -1)
         return name.substring(end + 1);
     }
 
-    start = name.indexOf(":");
+    start = name.indexOf(':');
     return start == -1 ? name : name.substring(start + 1);
   }
 }

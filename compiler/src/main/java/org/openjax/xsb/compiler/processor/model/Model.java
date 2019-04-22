@@ -143,7 +143,7 @@ public abstract class Model implements PipelineEntity {
   }
 
   public final QName parseQNameValue(final String nodeValue, Node parent) {
-    int i = nodeValue.indexOf(":");
+    final int i = nodeValue.indexOf(':');
     final String prefix;
     final String ns;
     if (i != -1) {
