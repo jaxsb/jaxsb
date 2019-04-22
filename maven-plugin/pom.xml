@@ -148,17 +148,17 @@
     </dependency>
     <dependency>
       <groupId>org.openjax.standard.maven</groupId>
-      <artifactId>maven-mojo</artifactId>
+      <artifactId>mojo</artifactId>
       <version>0.3.5-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.openjax.xsb</groupId>
-      <artifactId>xsb-generator</artifactId>
+      <artifactId>generator</artifactId>
       <version>2.1.4-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.openjax.xsb</groupId>
-      <artifactId>xsb-generator</artifactId>
+      <artifactId>generator</artifactId>
       <version>2.1.4-SNAPSHOT</version>
       <type>test-jar</type>
       <scope>test</scope>

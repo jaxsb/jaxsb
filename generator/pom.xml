@@ -24,7 +24,7 @@
     <artifactId>xsb</artifactId>
     <version>2.1.4-SNAPSHOT</version>
   </parent>
-  <artifactId>xsb-generator</artifactId>
+  <artifactId>generator</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>
     XML Toolkit is a comprehensive framework to facilitate the use of XML in software languages such as Java. This framework
@@ -80,12 +80,12 @@
     </dependency>
     <dependency>
       <groupId>org.openjax.standard</groupId>
-      <artifactId>standard-jci</artifactId>
+      <artifactId>jci</artifactId>
       <version>0.8.3-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.openjax.xsb</groupId>
-      <artifactId>xsb-runtime</artifactId>
+      <artifactId>runtime</artifactId>
       <version>2.1.4-SNAPSHOT</version>
     </dependency>
   </dependencies>
