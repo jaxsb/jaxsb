@@ -18,15 +18,15 @@ package org.openjax.xsb.compiler.processor.normalize.element;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
 
-import org.openjax.standard.io.FastFiles;
 import org.openjax.standard.net.URLs;
 import org.openjax.xsb.compiler.processor.model.element.SchemaModel;
 import org.openjax.xsb.compiler.processor.normalize.Normalizer;
 import org.openjax.xsb.compiler.processor.normalize.NormalizerDirectory;
 
 public final class SchemaNormalizer extends Normalizer<SchemaModel> {
-  private static File CWD = null;
+  private static final Path CWD = new File("").getAbsoluteFile().toPath();
 
   public SchemaNormalizer(final NormalizerDirectory directory) {
     super(directory);
@@ -34,14 +34,11 @@ public final class SchemaNormalizer extends Normalizer<SchemaModel> {
 
   @Override
   protected void stage1(final SchemaModel model) {
-    if (CWD == null)
-      CWD = FastFiles.getCwd();
-
     final URL url = model.getURL();
     if (url == null)
       return;
 
-    final String display = URLs.isLocal(url) ? FastFiles.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+    final String display = URLs.isLocal(url) ? CWD.relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
     logger.info("Lexing {" + model.getTargetNamespace() + "} from " + display);
   }
 

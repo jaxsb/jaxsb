@@ -18,8 +18,8 @@ package org.openjax.xsb.compiler.processor.model.element;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
 
-import org.openjax.standard.io.FastFiles;
 import org.openjax.standard.net.URLs;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.lang.UniqueQName;
@@ -31,6 +31,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class SchemaModel extends Model {
+  private static final Path CWD = new File("").getAbsoluteFile().toPath();
   private Form attributeFormDefault = Form.UNQUALIFIED;
   private BlockDefault blockDefault = null;
   private Form elementFormDefault = Form.UNQUALIFIED;
@@ -65,7 +66,7 @@ public final class SchemaModel extends Model {
 
   public final void setURL(final URL url) {
     this.url = url;
-    final String display = URLs.isLocal(url) ? FastFiles.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+    final String display = URLs.isLocal(url) ? CWD.relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
     logger.info("Scanning {" + getTargetNamespace() + "} from " + display);
   }
 
