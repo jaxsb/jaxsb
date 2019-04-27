@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/openjax/xsb.png)](https://travis-ci.org/openjax/xsb)
 [![Coverage Status](https://coveralls.io/repos/github/openjax/xsb/badge.svg)](https://coveralls.io/github/openjax/xsb)
+[![Javadocs](https://www.javadoc.io/badge/org.openjax.xsb/xsb.svg)](https://www.javadoc.io/doc/org.openjax.xsb/xsb)
+[![Released Version](https://img.shields.io/maven-central/v/org.openjax.xsb/xsb.svg)](https://mvnrepository.com/artifact/org.openjax.xsb/xsb)
 
 ### Introduction
 
@@ -33,7 +35,7 @@ Developed with the CohesionFirst approach, **XSB** is reliably designed, consist
 
 ##### Relational
 
-**XSB** provides binding to `xs:type`, `xs:ref`, `all`, `sequence`, `choice`, 
+**XSB** provides binding to `xs:type`, `xs:ref`, `all`, `sequence`, `choice`,
 
 ##### Definition facets
 
@@ -101,7 +103,7 @@ Developed with the CohesionFirst approach, **XSB** is reliably designed, consist
 
   </xs:schema>
   ```
-  
+
 4. Add the [`org.openjax.xsb:xsb-maven-plugin`][xsb-maven-plugin] to the POM.
 
   ```xml
@@ -185,10 +187,6 @@ mvn install
 ### Known Issues
 
 The **XSB** framework is not suitable for processing of large XML Documents (in the 100s of MBs). Built on top of Java's `org.w3c.dom` implementation of the [Document Object Model (DOM) Level 3 Core Specification][dom3], XML Documents parsed and marshalled by **XSB** consume a significant amount of memory. Work is underway for **XSB** v3 to use [Java's SAX Parser][sax-parser], which will allow the framework to process XML Documents of unbounded size.
-
-### JavaDocs
-
-JavaDocs are available [here](https://xsb.openjax.org/apidocs/).
 
 ## Contributing
 

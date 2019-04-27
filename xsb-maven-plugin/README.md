@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/openjax/xsb.png)](https://travis-ci.org/openjax/xsb)
 [![Coverage Status](https://coveralls.io/repos/github/openjax/xsb/badge.svg)](https://coveralls.io/github/openjax/xsb)
+[![Javadocs](https://www.javadoc.io/badge/org.openjax.xsb/xsb-maven-plugin.svg)](https://www.javadoc.io/doc/org.openjax.xsb/xsb-maven-plugin)
+[![Released Version](https://img.shields.io/maven-central/v/org.openjax.xsb/xsb-maven-plugin.svg)](https://mvnrepository.com/artifact/org.openjax.xsb/xsb-maven-plugin)
 
 ### Introduction
 
@@ -42,10 +44,6 @@ The `xsb:generate` goal is bound to the `generate-sources` phase, and is used to
 | `/destDir`        | String  | Required | Destination path of generated bindings.                                       |
 | `/schemas`        | List    | Required | List of `resource` elements.                                                  |
 | `/schemas/schema` | String  | Required | File path of XML Schema.                                                      |
-
-### JavaDocs
-
-JavaDocs are available [here](https://xsb.openjax.org/apidocs/).
 
 ## Contributing
 
