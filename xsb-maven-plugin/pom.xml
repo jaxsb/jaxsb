@@ -93,6 +93,9 @@
               <execution>
                 <configuration>
                   <profiles>
+                    <profile>!report</profile>
+                    <profile>!report</profile>
+                    <profile>!javadoc</profile>
                     <profile>!maven-invoker-plugin</profile>
                     <profile>plugin-test</profile>
                   </profiles>
