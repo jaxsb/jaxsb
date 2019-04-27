@@ -18,8 +18,8 @@ package org.openjax.xsb.sample;
 
 import java.io.StringReader;
 
-import org.openjax.standard.xml.dom.DOMStyle;
-import org.openjax.standard.xml.dom.DOMs;
+import org.openjax.ext.xml.dom.DOMStyle;
+import org.openjax.ext.xml.dom.DOMs;
 import org.openjax.xsb.runtime.Binding;
 import org.openjax.xsb.runtime.BindingValidator;
 import org.openjax.xsb.runtime.Bindings;

@@ -25,8 +25,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import org.openjax.standard.io.FastFiles;
-import org.openjax.standard.net.URLs;
+import org.openjax.ext.io.FastFiles;
+import org.openjax.ext.net.URLs;
 import org.openjax.xsb.compiler.lang.NamespaceBinding;
 import org.openjax.xsb.compiler.pipeline.PipelineDirectory;
 import org.openjax.xsb.compiler.pipeline.PipelineEntity;

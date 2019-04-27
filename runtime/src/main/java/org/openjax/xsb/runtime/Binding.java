@@ -31,9 +31,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openjax.standard.xml.api.ValidationException;
-import org.openjax.standard.xml.dom.DOMStyle;
-import org.openjax.standard.xml.dom.DOMs;
+import org.openjax.ext.xml.api.ValidationException;
+import org.openjax.ext.xml.dom.DOMStyle;
+import org.openjax.ext.xml.dom.DOMs;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;

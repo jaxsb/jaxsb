@@ -27,8 +27,8 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Stack;
 
-import org.openjax.standard.net.URLs;
-import org.openjax.standard.util.Paths;
+import org.openjax.ext.net.URLs;
+import org.openjax.ext.util.Paths;
 import org.openjax.xsb.compiler.lang.NamespaceURI;
 import org.openjax.xsb.compiler.lang.UniqueQName;
 import org.openjax.xsb.compiler.pipeline.PipelineDirectory;

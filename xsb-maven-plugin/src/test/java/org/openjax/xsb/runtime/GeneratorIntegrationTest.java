@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.junit.Test;
-import org.openjax.standard.util.Strings;
+import org.openjax.ext.util.Strings;
 import org.openjax.xsb.generator.html.xAA.Body;
 import org.openjax.xsb.generator.html.xAA.Div;
 import org.openjax.xsb.generator.html.xAA.Hr;

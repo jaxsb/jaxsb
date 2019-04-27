@@ -24,8 +24,8 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import org.openjax.standard.net.URLs;
-import org.openjax.standard.xml.dom.DOMParsers;
+import org.openjax.ext.net.URLs;
+import org.openjax.ext.xml.dom.DOMParsers;
 import org.openjax.xsb.compiler.processor.document.SchemaDocument;
 import org.openjax.xsb.compiler.processor.reference.SchemaReference;
 import org.openjax.xsb.runtime.CompilerFailureException;

@@ -21,9 +21,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openjax.standard.lang.PackageLoader;
-import org.openjax.standard.lang.PackageNotFoundException;
-import org.openjax.standard.xml.sax.LSInputImpl;
+import org.openjax.ext.lang.PackageLoader;
+import org.openjax.ext.lang.PackageNotFoundException;
+import org.openjax.ext.xml.sax.LSInputImpl;
 import org.openjax.xsb.compiler.lang.NamespaceBinding;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
