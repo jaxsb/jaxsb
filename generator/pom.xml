@@ -25,9 +25,9 @@
     <version>2.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>generator</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
+  <name>OpenJAX XSB Generator</name>
   <description>
-    XML Toolkit is a comprehensive framework to facilitate the use of XML in software languages such as Java. This framework
+    The XSB Generator is a comprehensive framework to facilitate the use of XML in software languages such as Java. This framework
     intends to provide tools that will allow a developer to easily integrate XML interoperability, bind XML Schemas,
     and analyze XML Schemas for use with any software. Currently there is only one language and one application
     that is supported: XML Binding in Java. Next on the agenda is the development of analysis tools for XML Schema Documents.

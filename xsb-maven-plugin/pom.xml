@@ -26,9 +26,9 @@
   </parent>
   <artifactId>xsb-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <name>${project.groupId}:${project.artifactId}</name>
+  <name>OpenJAX XSB Maven Plugin</name>
   <description>
-    Plugin to generate binding classes for XSD schemas.
+    Maven Plugin for generation of XSB binding classes for XSD schemas.
   </description>
   <build>
     <plugins>

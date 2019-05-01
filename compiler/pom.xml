@@ -25,7 +25,10 @@
     <version>2.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>compiler</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
+  <name>OpenJAX XSB Compiler</name>
+  <description>
+    The XSB Compiler, which is responsible for the compilation stage of the binding generation process.
+  </description>
   <dependencies>
     <dependency>
       <groupId>org.openjax.ext.xml</groupId>

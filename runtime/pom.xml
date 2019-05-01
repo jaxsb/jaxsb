@@ -25,7 +25,10 @@
     <version>2.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>runtime</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
+  <name>OpenJAX XSB Runtime</name>
+  <description>
+    The XSB Runtime, which provides the base abstractions and functionalities for binding classes created by the XSB framework.
+  </description>
   <build>
     <plugins>
       <plugin>
