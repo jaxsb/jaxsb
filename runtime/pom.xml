@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2006 OpenJAX
+  Copyright (c) 2006 JAX-SB
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -20,14 +20,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.openjax.xsb</groupId>
-    <artifactId>xsb</artifactId>
+    <groupId>org.jaxsb</groupId>
+    <artifactId>jaxsb</artifactId>
     <version>2.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>runtime</artifactId>
-  <name>OpenJAX XSB Runtime</name>
+  <name>JAX-SB Runtime</name>
   <description>
-    The XSB Runtime, which provides the base abstractions and functionalities for binding classes created by the XSB framework.
+    The JAX-SB Runtime, which provides the base abstractions and functionalities for binding classes created by the JAX-SB framework.
   </description>
   <build>
     <plugins>
@@ -63,7 +63,7 @@
       <version>0.9.2-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>org.openjax.xsb</groupId>
+      <groupId>org.jaxsb</groupId>
       <artifactId>compiler</artifactId>
       <version>2.1.4-SNAPSHOT</version>
     </dependency>

@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2006 OpenJAX
+  Copyright (c) 2006 JAX-SB
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -16,10 +16,10 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
-  targetNamespace="http://xsb.openjax.org/sample/substitutionGroup.xsd"
-  xmlns:sg="http://xsb.openjax.org/sample/substitutionGroup.xsd"
+  targetNamespace="http://www.jaxsb.org/sample/substitutionGroup.xsd"
+  xmlns:sg="http://www.jaxsb.org/sample/substitutionGroup.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
+
   <xs:element name="stockList">
     <xs:complexType>
       <xs:sequence>
@@ -27,9 +27,9 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="product" type="sg:productType" abstract="true"/>
-  
+
   <xs:complexType name="productType">
     <xs:sequence>
       <xs:element name="amount" type="xs:positiveInteger"/>
@@ -49,7 +49,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="hat" substitutionGroup="sg:product">
     <xs:complexType>
       <xs:complexContent>
@@ -61,7 +61,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="umbrella" substitutionGroup="sg:product"/>
 
   <xs:simpleType name="shirtSizeType">
@@ -93,5 +93,5 @@
       <xs:enumeration value="RED"/>
     </xs:restriction>
   </xs:simpleType>
-  
+
 </xs:schema>

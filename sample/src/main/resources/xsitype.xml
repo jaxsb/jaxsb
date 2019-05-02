@@ -1,26 +1,26 @@
 <!--
-  Copyright (c) 2006 OpenJAX
-  
+  Copyright (c) 2006 JAX-SB
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
-  
+
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
-  
+
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <enums:coloredFruitBasket
   enums:color="red"
-  xmlns:simple="http://xsb.openjax.org/sample/simple.xsd"
-  xmlns:enums="http://xsb.openjax.org/sample/enums.xsd"
-  xmlns:xsitype="http://xsb.openjax.org/sample/xsitype.xsd"
+  xmlns:simple="http://www.jaxsb.org/sample/simple.xsd"
+  xmlns:enums="http://www.jaxsb.org/sample/enums.xsd"
+  xmlns:xsitype="http://www.jaxsb.org/sample/xsitype.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xsb.openjax.org/sample/simple.xsd simple.xsd http://xsb.openjax.org/sample/enums.xsd enums.xsd http://xsb.openjax.org/sample/xsitype.xsd xsitype.xsd">
+  xsi:schemaLocation="http://www.jaxsb.org/sample/simple.xsd simple.xsd http://www.jaxsb.org/sample/enums.xsd enums.xsd http://www.jaxsb.org/sample/xsitype.xsd xsitype.xsd">
   <simple:fruits>
     <simple:fruit xsi:type="xsitype:fleshyFruitType" name="Berry" pericarp="soft"/>
     <simple:fruit xsi:type="xsitype:fleshyFruitType" name="Drupe" pericarp="fleshy"/>

@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2008 OpenJAX
+  Copyright (c) 2008 JAX-SB
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -16,8 +16,8 @@
 -->
 <xs:schema
   elementFormDefault="qualified"
-  targetNamespace="http://xsb.openjax.org/sample/list.xsd"
-  xmlns:li="http://xsb.openjax.org/sample/list.xsd"
+  targetNamespace="http://www.jaxsb.org/sample/list.xsd"
+  xmlns:li="http://www.jaxsb.org/sample/list.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:complexType name="staffType" abstract="true">
@@ -42,7 +42,7 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  
+
   <xs:complexType name="employeeType">
     <xs:complexContent>
       <xs:extension base="li:staffType">
@@ -62,11 +62,11 @@
               <xs:list itemType="xs:date"/>
             </xs:simpleType>
           </xs:element>
-        </xs:sequence>			
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
+
   <xs:complexType name="volunteerType">
     <xs:complexContent>
       <xs:extension base="li:staffType">
@@ -101,5 +101,5 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
+
 </xs:schema>

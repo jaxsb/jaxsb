@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 OpenJAX
+/* Copyright (c) 2006 JAX-SB
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,11 +40,11 @@ import org.openjax.ext.xml.datatype.MonthDay;
 import org.openjax.ext.xml.datatype.Time;
 import org.openjax.ext.xml.datatype.Year;
 import org.openjax.ext.xml.datatype.YearMonth;
-import org.openjax.xsb.compiler.lang.UniqueQName;
-import org.openjax.xsb.runtime.Binding;
-import org.openjax.xsb.runtime.BindingRuntimeException;
-import org.openjax.xsb.runtime.MarshalException;
-import org.openjax.xsb.runtime.NotationType;
+import org.jaxsb.compiler.lang.UniqueQName;
+import org.jaxsb.runtime.Binding;
+import org.jaxsb.runtime.BindingRuntimeException;
+import org.jaxsb.runtime.MarshalException;
+import org.jaxsb.runtime.NotationType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;

@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2006 OpenJAX
+  Copyright (c) 2006 JAX-SB
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,17 +24,17 @@
     <artifactId>openjax</artifactId>
     <version>2.5.3-SNAPSHOT</version>
   </parent>
-  <groupId>org.openjax.xsb</groupId>
-  <artifactId>xsb</artifactId>
+  <groupId>org.jaxsb</groupId>
+  <artifactId>jaxsb</artifactId>
   <version>2.1.4-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <url>https://xsb.openjax.org/</url>
-  <name>OpenJAX XSB</name>
+  <url>https://www.jaxsb.org/</url>
+  <name>JAX-SB</name>
   <description>
-    XSB is a Java framework for binding to XML Schemas. Based on the CohesionFirst approach, the
-    XSB framework provides a complete solution for cohesive integration of Java applications to XML
-    Documents via XML Schemas. The framework provides a XSB Java Source Code Generator and a XSB
-    Runtime to parse and marshal XML Documents to and from Java objects. The XSB framework is a
+    JAX-SB is a Java framework for binding to XML Schemas. Based on the CohesionFirst approach, the
+    JAX-SB framework provides a complete solution for cohesive integration of Java applications to XML
+    Documents via XML Schemas. The framework provides a JAX-SB Java Source Code Generator and a JAX-SB
+    Runtime to parse and marshal XML Documents to and from Java objects. The JAX-SB framework is a
     complete implementation and covers the entirety of the XSD 1.1 Specification.
   </description>
   <modules>
@@ -43,7 +43,7 @@
     <module>runtime</module>
     <module>sample</module>
     <module>tutorial</module>
-    <module>xsb-maven-plugin</module>
+    <module>jaxsb-maven-plugin</module>
   </modules>
   <build>
     <plugins>

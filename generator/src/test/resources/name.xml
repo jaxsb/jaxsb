@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2017 OpenJAX
+  Copyright (c) 2017 JAX-SB
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -16,10 +16,10 @@
 -->
 <n1:class
   class="class0" n1:class="class1" n2:class="class2" Class="Class3" n2:Class="Class4"
-  xmlns:n1="http://www.openjax.org/do/abstract/n$a*m(e)1.xsd"
-  xmlns:n2="http://www.openjax.org/do/abstract/n$a*m(e)2.xsd"
+  xmlns:n1="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd"
+  xmlns:n2="http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.openjax.org/do/abstract/n$a*m(e)1.xsd name1.xsd">
+  xsi:schemaLocation="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd name1.xsd">
   <n1:class class="class1" n1:class="class1" n2:class="class1" Class="Class1" n2:Class="Class1"/>
   <n1:class class="class2" n1:class="class2" n2:class="class2" Class="Class2" n2:Class="Class2"/>
   <n2:class>class2</n2:class>

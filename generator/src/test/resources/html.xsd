@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2006 OpenJAX
+  Copyright (c) 2006 JAX-SB
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -14,7 +14,7 @@
   You should have received a copy of The MIT License (MIT) along with this
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
-<xs:schema elementFormDefault="qualified" targetNamespace="http://xsb.openjax.org/generator/html.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:html="http://xsb.openjax.org/generator/html.xsd">
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.jaxsb.org/generator/html.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:html="http://www.jaxsb.org/generator/html.xsd">
 
   <!--xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://schemas.geneabase.com/w3c/namespace.xsd"/-->
 
@@ -537,7 +537,7 @@
 		<xs:annotation>
 			<xs:documentation>
         Relationship values can be used in principle:
-        
+
         a) for document specific toolbars/menus when used
            with the link element in document head e.g.
            start, contents, previous, next, index, end, help
@@ -1135,7 +1135,7 @@
 	<xs:annotation>
 		<xs:documentation>
       ==================== Object ======================================
-  
+
       object is used to embed objects as part of HTML pages.
       param elements should precede other content. Parameters
       can also be expressed as attribute/value pairs on the
@@ -1231,7 +1231,7 @@
 	<xs:annotation>
 		<xs:documentation>
       ================== Client-side image maps ============================
-  
+
       These can be placed in the same document or grouped in a
       separate document although this isn't yet widely supported
     </xs:documentation>
@@ -1487,7 +1487,7 @@
         The fieldset element is used to group form fields.
         Only one legend element should occur in the content
         and if present should only be preceded by whitespace.
-        
+
         NOTE: this content model is different from the XHTML 1.0 DTD,
         closer to the intended content model in HTML4 DTD
       </xs:documentation>
