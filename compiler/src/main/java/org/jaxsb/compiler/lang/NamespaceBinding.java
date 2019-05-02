@@ -20,10 +20,10 @@ import java.net.URI;
 import java.util.Base64;
 import java.util.function.Function;
 
-import org.openjax.ext.net.Service;
-import org.openjax.ext.net.Services;
-import org.openjax.ext.util.Diff;
-import org.openjax.ext.util.Identifiers;
+import org.openjax.net.Service;
+import org.openjax.net.Services;
+import org.openjax.util.Diff;
+import org.openjax.util.Identifiers;
 
 /**
  * This class models the binding between an XML namespace URI and a Java package

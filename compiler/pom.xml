@@ -31,7 +31,7 @@
   </description>
   <dependencies>
     <dependency>
-      <groupId>org.openjax.ext.xml</groupId>
+      <groupId>org.openjax.xml</groupId>
       <artifactId>sax</artifactId>
       <version>0.9.2-SNAPSHOT</version>
     </dependency>

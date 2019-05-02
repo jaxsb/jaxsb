@@ -20,7 +20,7 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 
-import org.openjax.ext.net.URLs;
+import org.openjax.net.URLs;
 import org.jaxsb.compiler.processor.model.element.SchemaModel;
 import org.jaxsb.compiler.processor.normalize.Normalizer;
 import org.jaxsb.compiler.processor.normalize.NormalizerDirectory;

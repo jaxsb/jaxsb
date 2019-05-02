@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.jaxsb.www.tutorial.invoice.xAA.$ItemType;
 import org.jaxsb.www.tutorial.invoice.xAA.Invoice;
-import org.openjax.ext.xml.datatype.Date;
+import org.openjax.xml.datatype.Date;
 import org.jaxsb.runtime.Bindings;
 
 public class ParseHowTo {

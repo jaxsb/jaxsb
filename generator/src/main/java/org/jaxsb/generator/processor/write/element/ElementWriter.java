@@ -25,7 +25,7 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.ext.xml.api.ValidationException;
+import org.openjax.xml.api.ValidationException;
 import org.jaxsb.compiler.schema.attribute.Form;
 import org.jaxsb.generator.processor.plan.EnumerablePlan;
 import org.jaxsb.generator.processor.plan.ExtensiblePlan;

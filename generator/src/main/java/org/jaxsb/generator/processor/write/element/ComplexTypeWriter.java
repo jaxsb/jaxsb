@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.ext.xml.api.ValidationException;
+import org.openjax.xml.api.ValidationException;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.generator.processor.plan.element.AnyAttributePlan;
 import org.jaxsb.generator.processor.plan.element.AnyPlan;

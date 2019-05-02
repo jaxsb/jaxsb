@@ -79,12 +79,12 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.openjax.ext</groupId>
+      <groupId>org.openjax</groupId>
       <artifactId>io</artifactId>
       <version>0.7.5-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>org.openjax.ext</groupId>
+      <groupId>org.openjax</groupId>
       <artifactId>jci</artifactId>
       <version>0.8.3-SNAPSHOT</version>
     </dependency>

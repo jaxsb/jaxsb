@@ -19,7 +19,7 @@ package org.jaxsb.tutorial;
 import java.math.BigDecimal;
 
 import org.jaxsb.www.tutorial.invoice.xAA.Invoice;
-import org.openjax.ext.xml.datatype.Date;
+import org.openjax.xml.datatype.Date;
 
 public class MarshalHowTo {
   public static void main(final String[] args) throws Exception {

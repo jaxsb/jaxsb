@@ -19,7 +19,7 @@ package org.jaxsb;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.openjax.ext.xml.api.ValidationException;
+import org.openjax.xml.api.ValidationException;
 import org.openjax.www._do._abstract.n$a_m_e_1.xLwQ40OyCVYYJRhglIA.Class;
 import org.jaxsb.runtime.Bindings;
 import org.slf4j.Logger;

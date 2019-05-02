@@ -26,9 +26,9 @@ import java.util.Map;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.openjax.ext.lang.PackageLoader;
-import org.openjax.ext.lang.PackageNotFoundException;
-import org.openjax.ext.net.URLs;
+import org.openjax.lang.PackageLoader;
+import org.openjax.lang.PackageNotFoundException;
+import org.openjax.net.URLs;
 import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
