@@ -55,22 +55,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>default-testCompile</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-            <configuration>
-              <skip>true</skip>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
   <profiles>
@@ -93,7 +77,6 @@
               <execution>
                 <configuration>
                   <profiles>
-                    <profile>!report</profile>
                     <profile>!report</profile>
                     <profile>!javadoc</profile>
                     <profile>!maven-invoker-plugin</profile>

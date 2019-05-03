@@ -23,13 +23,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.jaxsb.www.generator.html.xAA.Body;
+import org.jaxsb.www.generator.html.xAA.Div;
+import org.jaxsb.www.generator.html.xAA.Hr;
+import org.jaxsb.www.generator.html.xAA.P;
+import org.jaxsb.www.generator.html.xAA.Pre;
 import org.junit.Test;
 import org.openjax.util.Strings;
-import org.jaxsb.generator.html.xAA.Body;
-import org.jaxsb.generator.html.xAA.Div;
-import org.jaxsb.generator.html.xAA.Hr;
-import org.jaxsb.generator.html.xAA.P;
-import org.jaxsb.generator.html.xAA.Pre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

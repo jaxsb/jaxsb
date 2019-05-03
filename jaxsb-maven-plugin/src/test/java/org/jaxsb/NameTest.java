@@ -18,10 +18,10 @@ package org.jaxsb;
 
 import java.io.IOException;
 
+import org.jaxsb.runtime.Bindings;
+import org.jaxsb.www._do._abstract.n$a_m_e_1.xJ8jmj5CVYwlGMJSA.Class;
 import org.junit.Test;
 import org.openjax.xml.api.ValidationException;
-import org.openjax.www._do._abstract.n$a_m_e_1.xLwQ40OyCVYYJRhglIA.Class;
-import org.jaxsb.runtime.Bindings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -23,11 +23,11 @@ import org.junit.Test;
 public class GeneratorTest {
   @Test
   public void testHtml() throws MalformedURLException {
-    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/xsb", "src/test/resources/html.xsd"});
+    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/html.xsd"});
   }
 
   @Test
   public void testName() throws MalformedURLException {
-    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/xsb", "src/test/resources/name1.xsd"});
+    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/name1.xsd"});
   }
 }
