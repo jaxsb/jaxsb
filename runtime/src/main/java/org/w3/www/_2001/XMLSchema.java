@@ -28,6 +28,11 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
+import org.jaxsb.compiler.lang.UniqueQName;
+import org.jaxsb.runtime.Binding;
+import org.jaxsb.runtime.BindingRuntimeException;
+import org.jaxsb.runtime.MarshalException;
+import org.jaxsb.runtime.NotationType;
 import org.openjax.xml.datatype.Base64Binary;
 import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.DateTime;
@@ -40,11 +45,6 @@ import org.openjax.xml.datatype.MonthDay;
 import org.openjax.xml.datatype.Time;
 import org.openjax.xml.datatype.Year;
 import org.openjax.xml.datatype.YearMonth;
-import org.jaxsb.compiler.lang.UniqueQName;
-import org.jaxsb.runtime.Binding;
-import org.jaxsb.runtime.BindingRuntimeException;
-import org.jaxsb.runtime.MarshalException;
-import org.jaxsb.runtime.NotationType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;

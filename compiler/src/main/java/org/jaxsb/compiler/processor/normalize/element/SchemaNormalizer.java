@@ -20,10 +20,10 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 
-import org.openjax.net.URLs;
 import org.jaxsb.compiler.processor.model.element.SchemaModel;
 import org.jaxsb.compiler.processor.normalize.Normalizer;
 import org.jaxsb.compiler.processor.normalize.NormalizerDirectory;
+import org.libj.net.URLs;
 
 public final class SchemaNormalizer extends Normalizer<SchemaModel> {
   private static final Path CWD = new File("").getAbsoluteFile().toPath();

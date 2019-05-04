@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.util.FastCollections;
+import org.libj.util.FastCollections;
 import org.jaxsb.generator.processor.plan.EnumerablePlan;
 import org.jaxsb.generator.processor.plan.ExtensiblePlan;
 import org.jaxsb.generator.processor.plan.Plan;

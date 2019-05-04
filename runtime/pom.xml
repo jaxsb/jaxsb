@@ -48,7 +48,7 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.openjax</groupId>
+      <groupId>org.libj</groupId>
       <artifactId>lang</artifactId>
       <version>0.7.3-SNAPSHOT</version>
     </dependency>

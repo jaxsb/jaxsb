@@ -25,7 +25,6 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.xml.api.ValidationException;
 import org.jaxsb.compiler.schema.attribute.Form;
 import org.jaxsb.generator.processor.plan.EnumerablePlan;
 import org.jaxsb.generator.processor.plan.ExtensiblePlan;
@@ -45,6 +44,7 @@ import org.jaxsb.runtime.ElementAudit;
 import org.jaxsb.runtime.ElementSpec;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.SimpleType;
+import org.openjax.xml.api.ValidationException;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$Boolean;
 import org.w3c.dom.Attr;

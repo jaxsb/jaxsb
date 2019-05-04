@@ -20,13 +20,13 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 
-import org.openjax.net.URLs;
 import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.model.Model;
 import org.jaxsb.compiler.schema.attribute.BlockDefault;
 import org.jaxsb.compiler.schema.attribute.FinalDefault;
 import org.jaxsb.compiler.schema.attribute.Form;
+import org.libj.net.URLs;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

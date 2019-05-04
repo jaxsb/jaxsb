@@ -27,6 +27,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.jaxsb.compiler.lang.UniqueQName;
 import org.openjax.xml.datatype.Base64Binary;
 import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.DateTime;
@@ -39,7 +40,6 @@ import org.openjax.xml.datatype.MonthDay;
 import org.openjax.xml.datatype.Time;
 import org.openjax.xml.datatype.Year;
 import org.openjax.xml.datatype.YearMonth;
-import org.jaxsb.compiler.lang.UniqueQName;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$AnyURI;
 import org.w3.www._2001.XMLSchema.yAA.$Base64Binary;

@@ -25,8 +25,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import org.openjax.io.FastFiles;
-import org.openjax.net.URLs;
 import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.jaxsb.compiler.pipeline.PipelineDirectory;
 import org.jaxsb.compiler.pipeline.PipelineEntity;
@@ -36,6 +34,8 @@ import org.jaxsb.generator.processor.plan.AliasPlan;
 import org.jaxsb.generator.processor.plan.NestablePlan;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.runtime.CompilerFailureException;
+import org.libj.io.FastFiles;
+import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

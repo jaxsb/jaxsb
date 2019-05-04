@@ -18,11 +18,11 @@ package org.jaxsb.sample;
 
 import java.io.StringReader;
 
-import org.openjax.xml.dom.DOMStyle;
-import org.openjax.xml.dom.DOMs;
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.BindingValidator;
 import org.jaxsb.runtime.Bindings;
+import org.openjax.xml.dom.DOMStyle;
+import org.openjax.xml.dom.DOMs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;

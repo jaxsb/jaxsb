@@ -24,11 +24,11 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import org.openjax.net.URLs;
-import org.openjax.xml.dom.DOMParsers;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.runtime.CompilerFailureException;
+import org.libj.net.URLs;
+import org.openjax.xml.dom.DOMParsers;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 

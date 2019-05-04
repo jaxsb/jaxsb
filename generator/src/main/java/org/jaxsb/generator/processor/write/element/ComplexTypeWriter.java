@@ -23,7 +23,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.xml.api.ValidationException;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.generator.processor.plan.element.AnyAttributePlan;
 import org.jaxsb.generator.processor.plan.element.AnyPlan;
@@ -39,6 +38,7 @@ import org.jaxsb.runtime.CompilerFailureException;
 import org.jaxsb.runtime.ComplexType;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.XSTypeDirectory;
+import org.openjax.xml.api.ValidationException;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;

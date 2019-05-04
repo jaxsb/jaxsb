@@ -23,9 +23,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.openjax.io.FastFiles;
-import org.openjax.net.URLs;
-import org.openjax.util.Paths;
+import org.libj.util.Paths;
 import org.jaxsb.compiler.pipeline.Pipeline;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.composite.SchemaComposite;
@@ -45,6 +43,8 @@ import org.jaxsb.generator.processor.timestamp.TimestampDirectory;
 import org.jaxsb.generator.processor.write.Writer;
 import org.jaxsb.generator.processor.write.WriterDirectory;
 import org.jaxsb.generator.schema.SchemaDocumentDirectory;
+import org.libj.io.FastFiles;
+import org.libj.net.URLs;
 
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {

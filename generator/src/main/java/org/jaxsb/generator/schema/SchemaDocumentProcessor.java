@@ -27,8 +27,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Stack;
 
-import org.openjax.net.URLs;
-import org.openjax.util.Paths;
+import org.libj.util.Paths;
 import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.pipeline.PipelineDirectory;
@@ -38,6 +37,7 @@ import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.generator.AbstractGenerator;
+import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;

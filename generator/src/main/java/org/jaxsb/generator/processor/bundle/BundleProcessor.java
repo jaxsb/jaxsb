@@ -32,12 +32,9 @@ import java.util.jar.JarOutputStream;
 
 import javax.xml.XMLConstants;
 
-import org.openjax.jci.CompilationException;
-import org.openjax.jci.InMemoryCompiler;
-import org.openjax.net.URLs;
-import org.openjax.util.FastCollections;
-import org.openjax.util.Paths;
-import org.openjax.util.zip.ZipWriter;
+import org.libj.util.FastCollections;
+import org.libj.util.Paths;
+import org.libj.util.zip.ZipWriter;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.datatype.HexBinary;
 import org.openjax.xml.dom.DOMParsers;
@@ -54,6 +51,9 @@ import org.jaxsb.compiler.processor.composite.SchemaComposite;
 import org.jaxsb.compiler.processor.composite.SchemaModelComposite;
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.CompilerFailureException;
+import org.libj.jci.CompilationException;
+import org.libj.jci.InMemoryCompiler;
+import org.libj.net.URLs;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

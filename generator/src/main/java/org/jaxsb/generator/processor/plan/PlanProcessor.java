@@ -21,12 +21,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.openjax.io.FastFiles;
-import org.openjax.net.URLs;
 import org.jaxsb.compiler.pipeline.PipelineDirectory;
 import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.model.Model;
+import org.libj.io.FastFiles;
+import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

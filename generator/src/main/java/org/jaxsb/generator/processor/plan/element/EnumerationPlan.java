@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 import javax.xml.namespace.QName;
 
-import org.openjax.util.Strings;
+import org.libj.util.Strings;
 import org.jaxsb.compiler.processor.model.element.EnumerationModel;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.runtime.CompilerFailureException;
