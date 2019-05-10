@@ -25,7 +25,7 @@ import org.jaxsb.compiler.pipeline.PipelineDirectory;
 import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.model.Model;
-import org.libj.io.FastFiles;
+import org.libj.io.FileUtil;
 import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,7 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
         continue;
 
       final URL url = model.getSchema().getURL();
-      final String display = URLs.isLocal(url) ? FastFiles.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+      final String display = URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
       logger.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
 
       for (final Model child : model.getChildren())

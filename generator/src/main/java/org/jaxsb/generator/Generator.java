@@ -43,7 +43,7 @@ import org.jaxsb.generator.processor.timestamp.TimestampDirectory;
 import org.jaxsb.generator.processor.write.Writer;
 import org.jaxsb.generator.processor.write.WriterDirectory;
 import org.jaxsb.generator.schema.SchemaDocumentDirectory;
-import org.libj.io.FastFiles;
+import org.libj.io.FileUtil;
 import org.libj.net.URLs;
 
 public final class Generator extends AbstractGenerator {
@@ -79,10 +79,10 @@ public final class Generator extends AbstractGenerator {
       else if ("-d".equals(args[i]) && i < args.length)
         destDir = new File(args[++i]).getAbsoluteFile();
       else
-        schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.toCanonicalURL(args[i]) : new File(FastFiles.getCwd(), args[i]).toURI().toURL(), false));
+        schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.toCanonicalURL(args[i]) : new File(FileUtil.getCwd(), args[i]).toURI().toURL(), false));
     }
 
-    generate(new GeneratorContext(destDir == null ? FastFiles.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null);
+    generate(new GeneratorContext(destDir == null ? FileUtil.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null);
   }
 
   public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath) {

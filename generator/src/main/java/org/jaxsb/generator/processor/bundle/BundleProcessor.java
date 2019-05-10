@@ -32,7 +32,7 @@ import java.util.jar.JarOutputStream;
 
 import javax.xml.XMLConstants;
 
-import org.libj.util.FastCollections;
+import org.libj.util.CollectionUtil;
 import org.libj.util.Paths;
 import org.libj.util.zip.ZipWriter;
 import org.openjax.xml.api.ValidationException;
@@ -63,7 +63,7 @@ import org.xml.sax.SAXException;
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final List<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
-    final Class<?>[] requiredLibs = {Binding.class, FastCollections.class, HexBinary.class, NamespaceBinding.class, ValidationException.class, Validator.class};
+    final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, HexBinary.class, NamespaceBinding.class, ValidationException.class, Validator.class};
     for (final Class<?> file : requiredLibs)
       classpath.add(new File(file.getProtectionDomain().getCodeSource().getLocation().toURI()));
 
