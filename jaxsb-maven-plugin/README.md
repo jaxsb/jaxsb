@@ -7,21 +7,21 @@
 [![Javadocs](https://www.javadoc.io/badge/org.jaxsb/jaxsb-maven-plugin.svg)](https://www.javadoc.io/doc/org.jaxsb/jaxsb-maven-plugin)
 [![Released Version](https://img.shields.io/maven-central/v/org.jaxsb/jaxsb-maven-plugin.svg)](https://mvnrepository.com/artifact/org.jaxsb/jaxsb-maven-plugin)
 
-### Introduction
+## Introduction
 
 The `jaxsb-maven-plugin` plugin is used to generate XML bindings with the [JAX-SB][jaxsb] framework.
 
-### Goals Overview
+## Goals Overview
 
 * [`jaxsb:generate`](#jaxsbgenerate) generates JAX-SB bindings.
 
-### Usage
+## Usage
 
-#### `jaxsb:generate`
+### `jaxsb:generate`
 
 The `jaxsb:generate` goal is bound to the `generate-sources` phase, and is used to generate JAX-SB bindings for XSD documents in the `manifest`. To configure the generation of JAX-SB bindings for desired XML Schemas, add a `manifest` element to the plugin's configuration.
 
-##### Example
+#### Example
 
 ```xml
 <plugin>
@@ -37,7 +37,7 @@ The `jaxsb:generate` goal is bound to the `generate-sources` phase, and is used 
 </plugin>
 ```
 
-#### Configuration Parameters
+### Configuration Parameters
 
 | Name              | Type    | Use      | Description                                                                   |
 |:------------------|:--------|:---------|:------------------------------------------------------------------------------|
@@ -51,7 +51,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-### License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 

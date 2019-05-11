@@ -7,56 +7,56 @@
 [![Javadocs](https://www.javadoc.io/badge/org.jaxsb/jaxsb.svg)](https://www.javadoc.io/doc/org.jaxsb/jaxsb)
 [![Released Version](https://img.shields.io/maven-central/v/org.jaxsb/jaxsb.svg)](https://mvnrepository.com/artifact/org.jaxsb/jaxsb)
 
-### Introduction
+## Introduction
 
 **JAX-SB** is a Java framework for binding to XML Schemas. Based on the CohesionFirst approach, the **JAX-SB** framework provides a complete solution for cohesive integration of Java applications to XML Documents via XML Schemas. The framework provides a [JAX-SB Java Source Code Generator][generator] and a [JAX-SB Runtime][runtime] to parse and marshal XML Documents to and from Java objects. The **JAX-SB** framework is a complete implementation and covers the entirety of the [XSD 1.1 Specification][xsd-spec].
 
-### Why **JAX-SB**?
+## Why **JAX-SB**?
 
-#### CohesionFirst
+### CohesionFirst
 
 Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, consistently implemented, and straightforward to use. Made possible by the rigorous conformance to design patterns and best practices in every line of its implementation, **JAX-SB** is a complete binding solution of the entire XSD specification. The **JAX-SB** solution differentiates itself from the rest with the strength of its cohesion to the Java language and the XML Schema model.
 
-#### Supports entire XSD Specification
+### Supports entire XSD Specification
 
 **JAX-SB** supports all directives of the XSD Specification, and generates bindings with highest degree of cohesion possible with the Java language. **JAX-SB** supports the following:
 
-##### Namespaces
+#### Namespaces
 
 **JAX-SB** provides complete binding to the namespaces and types defined in XML Schemas (`import` and `include`), and preserves prefix definitions.
 
-##### Structural
+#### Structural
 
 **JAX-SB** provides binding to `simpleType`, `complexType`, `element`, `group`, `attribute`, `attributeGroup`, `notation`, `any` and `anyAttribute` structural types.
 
-##### Non-structural
+#### Non-structural
 
 **JAX-SB** provides binding to `annotation`, `documentation`, `key`, `keyref` and `unique`.
 
-##### Relational
+#### Relational
 
 **JAX-SB** provides binding to `xs:type`, `xs:ref`, `all`, `sequence`, `choice`,
 
-##### Definition facets
+#### Definition facets
 
 **JAX-SB** provides binding to the `complexContent`, `restriction`, `extension`, `list` and `union` facets.
 
-##### `restriction` facets
+#### `restriction` facets
 
 **JAX-SB** provides binding to the `enumeration`, `pattern` and `[min|max][Inclusive|Exclusive]`.
 
-##### `xsi:type` and `redefine` facets
+#### `xsi:type` and `redefine` facets
 
 **JAX-SB** properly binds to elements that use the `xsi:type` and `redefine` directives, which is represented by Java's class inheritance model.
 
-### Getting Started
+## Getting Started
 
-#### Prerequisites
+### Prerequisites
 
 * [Java 8][jdk8-download] - The minimum required JDK version.
 * [Maven][maven] - The dependency management system.
 
-#### Example
+### Example
 
 1. In your preferred development directory, create a [`maven-archetype-quickstart`][maven-archetype-quickstart] project.
 
@@ -147,7 +147,7 @@ Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, cons
   System.out.println(DOMs.domToString(Bindings.marshal(example), DOMStyle.INDENT));
   ```
 
-#### Samples
+### Samples
 
 Samples are provided in the JAX-SB source code:
 
@@ -157,7 +157,7 @@ cd jaxsb/sample
 mvn install
 ```
 
-#### Tutorials
+### Tutorials
 
 Tutorials are provided in the JAX-SB source code:
 
@@ -167,7 +167,7 @@ cd jaxsb/tutorial
 mvn install
 ```
 
-### Known Issues
+## Known Issues
 
 The **JAX-SB** framework is not suitable for processing of large XML Documents (in the 100s of MBs). Built on top of Java's `org.w3c.dom` implementation of the [Document Object Model (DOM) Level 3 Core Specification][dom3], XML Documents parsed and marshalled by **JAX-SB** consume a significant amount of memory. Work is underway for **JAX-SB** v3 to use [Java's SAX Parser][sax-parser], which will allow the framework to process XML Documents of unbounded size.
 
@@ -177,7 +177,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-### License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 
