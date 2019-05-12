@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.safris.maven</groupId>
     <artifactId>rootpom</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
   </parent>
   <groupId>org.jaxsb</groupId>
   <artifactId>jaxsb</artifactId>
@@ -37,6 +37,30 @@
     Runtime to parse and marshal XML Documents to and from Java objects. The JAX-SB framework is a
     complete implementation and covers the entirety of the XSD 1.1 Specification.
   </description>
+  <organization>
+    <name>JAX-SB</name>
+    <url>https://www.jaxsb.org/</url>
+  </organization>
+  <scm>
+    <url>https://github.com/jaxsb/jaxsb</url>
+    <connection>scm:git:https://github.com/jaxsb/jaxsb.git</connection>
+    <developerConnection>scm:git:https://github.com/jaxsb/jaxsb.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <licenses>
+    <license>
+      <name>The MIT License (MIT)</name>
+      <url>https://opensource.org/licenses/MIT/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>sevasafris</id>
+      <name>Seva Safris</name>
+      <email>seva@safris.org</email>
+    </developer>
+  </developers>
   <modules>
     <module>compiler</module>
     <module>generator</module>
