@@ -93,7 +93,7 @@ Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, cons
   <plugin>
     <groupId>org.jaxsb</groupId>
     <artifactId>jaxsb-maven-plugin</artifactId>
-    <version>2.1.4-SNAPSHOT</version>
+    <version>2.1.4</version>
     <executions>
       <execution>
         <goals>
@@ -116,7 +116,7 @@ Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, cons
   <dependency>
     <groupId>org.jaxsb</groupId>
     <artifactId>runtime</artifactId>
-    <version>2.1.4-SNAPSHOT</version>
+    <version>2.1.4</version>
   </dependency>
   ```
 

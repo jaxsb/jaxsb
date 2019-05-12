@@ -27,7 +27,7 @@ The `jaxsb:generate` goal is bound to the `generate-sources` phase, and is used 
 <plugin>
   <groupId>org.jaxsb</groupId>
   <artifactId>jaxsb-maven-plugin</artifactId>
-  <version>2.1.4-SNAPSHOT</version>
+  <version>2.1.4</version>
   <configuration>
     <destDir>${project.build.directory}/generated-sources/jaxsb</destDir>
     <schemas>
