@@ -58,13 +58,7 @@ Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, cons
 
 ### Example
 
-1. In your preferred development directory, create a [`maven-archetype-quickstart`][maven-archetype-quickstart] project.
-
-  ```bash
-  mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
-  ```
-
-2. Create a `example.xsd` XML Schema and put it in `src/main/resources/`.
+1. Create a `example.xsd` XML Schema and put it in `src/main/resources/`.
 
   ```xml
   <xs:schema
@@ -87,7 +81,7 @@ Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, cons
   </xs:schema>
   ```
 
-3. Add the [`org.jaxsb:jaxsb-maven-plugin`][jaxsb-maven-plugin] to the POM.
+1. Add the [`org.jaxsb:jaxsb-maven-plugin`][jaxsb-maven-plugin] to the POM.
 
   ```xml
   <plugin>
@@ -110,7 +104,7 @@ Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, cons
   </plugin>
   ```
 
-4. Add the `org.jaxsb:jaxsb-runtime` dependency to the POM.
+1. Add the `org.jaxsb:jaxsb-runtime` dependency to the POM.
 
   ```xml
   <dependency>
@@ -120,9 +114,9 @@ Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, cons
   </dependency>
   ```
 
-5. Run `mvn install`. Upon successful execution of the `jaxsb-maven-plugin`, a new path will be generated in `target/generated-sources/jaxsb`. Add this path to your Build Paths in your IDE to integrate into your project. A class by the name of `com.mycompany.app.example.xe` contains the bindings to `example.xsd`.
+1. Run `mvn install`. Upon successful execution of the `jaxsb-maven-plugin`, a new path will be generated in `target/generated-sources/jaxsb`. Add this path to your Build Paths in your IDE to integrate into your project. A class by the name of `com.mycompany.app.example.xe` contains the bindings to `example.xsd`.
 
-6. Create a XML Document in `src/test/resources`.
+1. Create a XML Document in `src/test/resources`.
 
   ```xml
   <example
@@ -135,13 +129,13 @@ Developed with the CohesionFirst approach, **JAX-SB** is reliably designed, cons
   </example>
   ```
 
-7. To parse the XML file into Java objects. In your `App.java`:
+1. To parse the XML file into Java objects. In your `App.java`:
 
   ```java
   final ex_example example = (ex_example)Bindings.parse(new InputSource(Resources.getResourceOrFile("example.xml").getURL().openStream());
   ```
 
-8. To marshal JAX-SB Java objects to a XML String:
+1. To marshal JAX-SB Java objects to a XML String:
 
   ```java
   System.out.println(DOMs.domToString(Bindings.marshal(example), DOMStyle.INDENT));
@@ -173,7 +167,7 @@ The **JAX-SB** framework is not suitable for processing of large XML Documents (
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. For major changes, please [open an issue](../../issues) first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
