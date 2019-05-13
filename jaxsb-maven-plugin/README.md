@@ -1,7 +1,5 @@
 # JAX-SB Maven Plugin
 
-> Maven Plugin for [JAX-SB][jaxsb] framework
-
 [![Build Status](https://travis-ci.org/jaxsb/jaxsb.png)](https://travis-ci.org/jaxsb/jaxsb)
 [![Coverage Status](https://coveralls.io/repos/github/jaxsb/jaxsb/badge.svg)](https://coveralls.io/github/jaxsb/jaxsb)
 [![Javadocs](https://www.javadoc.io/badge/org.jaxsb/jaxsb-maven-plugin.svg)](https://www.javadoc.io/doc/org.jaxsb/jaxsb-maven-plugin)
@@ -13,13 +11,13 @@ The `jaxsb-maven-plugin` plugin is used to generate XML bindings with the [JAX-S
 
 ## Goals Overview
 
-* [`jaxsb:generate`](#jaxsbgenerate) generates JAX-SB bindings.
+* [`jaxsb:generate`](#jaxsbgenerate) generates <ins>JAX-SB</ins> bindings.
 
 ## Usage
 
 ### `jaxsb:generate`
 
-The `jaxsb:generate` goal is bound to the `generate-sources` phase, and is used to generate JAX-SB bindings for XSD documents in the `manifest`. To configure the generation of JAX-SB bindings for desired XML Schemas, add a `manifest` element to the plugin's configuration.
+The `jaxsb:generate` goal is bound to the `generate-sources` phase, and is used to generate <ins>JAX-SB</ins> bindings for XSD documents in the `manifest`. To configure the generation of <ins>JAX-SB</ins> bindings for desired XML Schemas, add a `manifest` element to the plugin's configuration.
 
 #### Example
 
@@ -39,11 +37,16 @@ The `jaxsb:generate` goal is bound to the `generate-sources` phase, and is used 
 
 ### Configuration Parameters
 
-| Name              | Type    | Use      | Description                                                                   |
-|:------------------|:--------|:---------|:------------------------------------------------------------------------------|
-| `/destDir`        | String  | Required | Destination path of generated bindings.                                       |
-| `/schemas`        | List    | Required | List of `resource` elements.                                                  |
-| `/schemas/schema` | String  | Required | File path of XML Schema.                                                      |
+| Name                               | Type              | Use                | Description                                                                                   |
+|:-----------------------------------|:------------------|:-------------------|:----------------------------------------------------------------------------------------------|
+| <samp>/overwrite¹</samp><br>&nbsp; | boolean<br>&nbsp; | Optional<br>&nbsp; | Whether existing files are to be overwritten.<br>&nbsp;&nbsp;&nbsp;&nbsp;**Default:** `true`. |
+| <samp>/destDir¹</samp>             | String            | Required           | Destination path of generated bindings.                                                       |
+| <samp>/schemas¹</samp>             | List              | Required           | List of `schema` elements.                                                                    |
+| <samp>/schemas/schemaⁿ</samp>      | String            | Required           | File path of XML Schema.                                                                      |
+| <samp>/includes¹</samp>            | List              | Optional           | List of namespace URIs to include.                                                            |
+| <samp>/includes/includeⁿ</samp>    | String            | Optional           | Namespace URI to include during generation of bindings.                                       |
+| <samp>/excludes¹</samp>            | List              | Optional           | List of namespace URIs to exclude.                                                            |
+| <samp>/excludes/excludeⁿ</samp>    | String            | Optional           | Namespace URI to exclude during generation of bindings.                                       |
 
 ## Contributing
 
@@ -55,5 +58,4 @@ Please make sure to update tests as appropriate.
 
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 
-[mvn-plugin]: https://img.shields.io/badge/mvn-plugin-lightgrey.svg
 [jaxsb]: /
