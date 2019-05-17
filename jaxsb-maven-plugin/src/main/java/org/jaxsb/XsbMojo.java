@@ -17,7 +17,6 @@
 package org.jaxsb;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -31,16 +30,18 @@ import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.openjax.maven.mojo.GeneratorMojo;
-import org.openjax.maven.mojo.SourceInput;
 import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.generator.Generator;
+import org.libj.net.URLs;
+import org.openjax.maven.mojo.GeneratorMojo;
+import org.openjax.maven.mojo.FilterParameter;
+import org.openjax.maven.mojo.FilterType;
 
 @Mojo(name="generate", defaultPhase=LifecyclePhase.GENERATE_SOURCES)
 @Execute(goal="generate")
-public class XSBMojo extends GeneratorMojo {
+public class XsbMojo extends GeneratorMojo {
   @Parameter(property="includes")
   private List<String> includes;
 
@@ -63,15 +64,15 @@ public class XSBMojo extends GeneratorMojo {
     return set;
   }
 
-  @SourceInput
+  @FilterParameter(FilterType.URL)
   @Parameter(property="schemas", required=true)
   private List<String> schemas;
 
   @Override
   public void execute(final Configuration configuration) throws MojoExecutionException, MojoFailureException {
     final Collection<SchemaReference> generatorBindings = new ArrayList<>();
-    for (final URL schema : configuration.getSourceInputs("schemas"))
-      generatorBindings.add(new SchemaReference(schema, false));
+    for (final String schema : schemas)
+      generatorBindings.add(new SchemaReference(URLs.create(schema), false));
 
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
     final Set<NamespaceURI> excludes = buildNamespaceSet(this.excludes);
