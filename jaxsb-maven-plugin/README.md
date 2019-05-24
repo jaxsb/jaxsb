@@ -39,7 +39,7 @@ The `jaxsb:generate` goal is bound to the `generate-sources` phase, and is used 
 
 | Name                               | Type              | Use                | Description                                                                                   |
 |:-----------------------------------|:------------------|:-------------------|:----------------------------------------------------------------------------------------------|
-| <samp>/overwrite¹</samp><br>&nbsp; | boolean<br>&nbsp; | Optional<br>&nbsp; | Whether existing files are to be overwritten.<br>&nbsp;&nbsp;&nbsp;&nbsp;**Default:** `true`. |
+| <samp>/overwrite¹</samp><br>&nbsp; | Boolean<br>&nbsp; | Optional<br>&nbsp; | Whether existing files are to be overwritten.<br>&nbsp;&nbsp;&nbsp;&nbsp;**Default:** `true`. |
 | <samp>/destDir¹</samp>             | String            | Required           | Destination path of generated bindings.                                                       |
 | <samp>/schemas¹</samp>             | List              | Required           | List of `schema` elements.                                                                    |
 | <samp>/schemas/schemaⁿ</samp>      | String            | Required           | File path of XML Schema.                                                                      |
