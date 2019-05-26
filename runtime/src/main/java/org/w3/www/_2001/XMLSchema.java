@@ -263,7 +263,7 @@ public final class XMLSchema {
         final $AnyType that = ($AnyType)obj;
         if (anys != null) {
           if (that.anys != null && anys.size() == that.anys.size()) {
-            for (int i = 0; i < anys.size(); i++)
+            for (int i = 0; i < anys.size(); ++i)
               if (!anys.get(i).equals(that.anys.get(i)))
                 return false;
           }
@@ -277,7 +277,7 @@ public final class XMLSchema {
 
         if (anys$ != null) {
           if (that.anys$ != null && anys$.size() == that.anys$.size()) {
-            for (int i = 0; i < anys$.size(); i++)
+            for (int i = 0; i < anys$.size(); ++i)
               if (!anys$.get(i).equals(that.anys$.get(i)))
                 return false;
           }
@@ -432,7 +432,7 @@ public final class XMLSchema {
 
         for (final String pattern : _$$getPattern()) {
           String[] ret = valueMap.get(super.text());
-          for (int i = 0; i < ret.length; i++) {
+          for (int i = 0; i < ret.length; ++i) {
             if (ret[i].matches(pattern))
               return ret[i];
           }
