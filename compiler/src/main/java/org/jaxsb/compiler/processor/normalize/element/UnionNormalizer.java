@@ -89,7 +89,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
       // Or there is a list that of a union
       else if (parent instanceof ListModel) {
         if (((ListModel)parent).getItemType() != null)
-          throw new LexerFailureException("Dont know how this happened, but the <list> has a memberType already and it has a union under it also.");
+          throw new LexerFailureException("Don't know how this happened, but the <list> has a memberType already and it has a union under it also.");
 
         ((ListModel)parent).setItemType(model);
         break;

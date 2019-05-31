@@ -1582,7 +1582,7 @@ public final class XMLSchema {
       protected void _$$decode(final Element parent, final String value) {
         super.text(NotationType.parse(value));
         if (super.text() == null)
-          throw new IllegalStateException("Notation \"" + value + "\" is not registered. The code that instantiates the Notation binding for \"" + value + "\" must be run before it is possible for the Binding engine to have to know about it.");
+          throw new IllegalStateException("Notation \"" + value + "\" is not registered. The code that instantiates the Notation binding for \"" + value + "\" must be run before it is possible for the Binding engine to know about it.");
       }
 
       @Override
