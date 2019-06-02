@@ -23,9 +23,12 @@ import java.io.StringReader;
 import java.net.URL;
 import java.util.function.Function;
 
+import javax.xml.parsers.DocumentBuilder;
+
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.w3c.dom.Element;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -73,10 +76,11 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an URL pointing to xml into a Binding instance.
+   * Parse an {@code URL} pointing to XML content into a {@code Binding}
+   * instance.
    *
-   * @param url URL pointing to xml.
-   * @return Binding instance.
+   * @param url {@code URL} pointing to XML content.
+   * @return {@code Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws ValidationException If a validation error has occurred.
    */
@@ -84,9 +88,29 @@ public abstract class Bindings {
     return parse(url, Thread.currentThread().getContextClassLoader());
   }
 
+  /**
+   * Parse an {@code URL} pointing to XML content into a {@code Binding}
+   * instance.
+   *
+   * @param url {@code URL} pointing to XML content.
+   * @param errorHandler Specify the {@link ErrorHandler} to be used by the
+   *          parser. Setting this to null will result in the underlying
+   *          implementation using it's own default implementation and behavior.
+   * @return {@code Binding} instance.
+   * @throws IOException If an I/O error has occurred.
+   * @throws ValidationException If a validation error has occurred.
+   */
+  public static Binding parse(final URL url, final ErrorHandler errorHandler) throws IOException, ValidationException {
+    return parse(url, Thread.currentThread().getContextClassLoader(), errorHandler);
+  }
+
   public static Binding parse(final URL url, final ClassLoader classLoader) throws IOException, ValidationException {
+    return parse(url, classLoader, null);
+  }
+
+  public static Binding parse(final URL url, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, ValidationException {
     try (final InputStream in = url.openStream()) {
-      return parse(new InputSource(in), classLoader);
+      return parse(new InputSource(in), classLoader, errorHandler);
     }
   }
 
@@ -94,35 +118,72 @@ public abstract class Bindings {
     return parse(in, Thread.currentThread().getContextClassLoader());
   }
 
+  public static Binding parse(final InputStream in, final ErrorHandler errorHandler) throws IOException, ValidationException {
+    return parse(in, Thread.currentThread().getContextClassLoader(), errorHandler);
+  }
+
   public static Binding parse(final InputStream in, final ClassLoader classLoader) throws IOException, ValidationException {
+    return parse(in, classLoader, null);
+  }
+
+  public static Binding parse(final InputStream in, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, ValidationException {
     if (in == null)
       throw new IllegalArgumentException("in == null");
 
-    return parse(new InputSource(in), classLoader);
+    return parse(new InputSource(in), classLoader, errorHandler);
   }
 
   /**
-   * Parse an InputSource pointing to xml into a Binding instance.
+   * Parse an {@code InputSource} pointing to XML content into a {@code Binding}
+   * instance.
    *
-   * @param inputSource InputSource pointing to xml.
-   * @return Binding instance.
+   * @param inputSource {@code InputSource} pointing to XML content.
+   * @return {@code Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws ValidationException If a validation error has occurred.
    */
   public static Binding parse(final InputSource inputSource) throws IOException, ValidationException {
-    return parse(inputSource, Thread.currentThread().getContextClassLoader());
+    return parse(inputSource, (ErrorHandler)null);
+  }
+
+  /**
+   * Parse an {@code InputSource} pointing to XML content into a {@code Binding}
+   * instance.
+   *
+   * @param inputSource {@code InputSource} pointing to XML content.
+   * @param errorHandler Specify the {@link ErrorHandler} to be used by the
+   *          parser. Setting this to null will result in the underlying
+   *          implementation using it's own default implementation and behavior.
+   * @return {@code Binding} instance.
+   * @throws IOException If an I/O error has occurred.
+   * @throws ValidationException If a validation error has occurred.
+   */
+  public static Binding parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, ValidationException {
+    return parse(inputSource, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static Binding parse(final String xml) throws IOException, ValidationException {
+    return parse(xml, null);
+  }
+
+  public static Binding parse(final String xml, final ErrorHandler errorHandler) throws IOException, ValidationException {
     try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
-      return parse(new InputSource(in), Thread.currentThread().getContextClassLoader());
+      return parse(new InputSource(in), Thread.currentThread().getContextClassLoader(), errorHandler);
     }
   }
 
   public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, ValidationException {
+    return parse(inputSource, classLoader, null);
+  }
+
+  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, ValidationException {
     final Element element;
     try {
-      element = Binding.newDocumentBuilder().parse(inputSource).getDocumentElement();
+      final DocumentBuilder builder = Binding.newDocumentBuilder();
+      if (errorHandler != null)
+        builder.setErrorHandler(errorHandler);
+
+      element = builder.parse(inputSource).getDocumentElement();
     }
     catch (final SAXException e) {
       throw new IllegalArgumentException(e);
