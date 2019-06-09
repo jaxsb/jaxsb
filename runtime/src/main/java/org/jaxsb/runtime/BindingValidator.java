@@ -97,13 +97,13 @@ public final class BindingValidator extends Validator {
     }
   }
 
-  public void validateMarshal(final Element element) {
+  public void validateMarshal(final Element element) throws MarshalException {
     if (validateOnMarshal) {
       try {
         validate(element);
       }
       catch (final ValidationException e) {
-        throw new IllegalStateException(e);
+        throw new MarshalException(e);
       }
     }
   }

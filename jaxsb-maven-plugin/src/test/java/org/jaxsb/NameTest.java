@@ -21,15 +21,15 @@ import java.io.IOException;
 import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www._do._abstract.n$a_m_e_1.xJ8jmj5CVYwlGMJSA.Class;
 import org.junit.Test;
-import org.openjax.xml.api.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 public class NameTest {
   private static final Logger logger = LoggerFactory.getLogger(NameTest.class);
 
   @Test
-  public void test() throws IOException, ValidationException {
+  public void test() throws IOException, SAXException {
     final Class name = (Class)Bindings.parse(ClassLoader.getSystemClassLoader().getResource("name.xml"));
     logger.info(name.toString());
   }
