@@ -34,7 +34,7 @@
       <plugin>
         <groupId>org.jaxsb</groupId>
         <artifactId>jaxsb-maven-plugin</artifactId>
-        <version>2.1.5-SNAPSHOT</version>
+        <version>${project.version}</version>
         <executions>
           <execution>
             <goals>
@@ -55,7 +55,7 @@
     <dependency>
       <groupId>org.jaxsb</groupId>
       <artifactId>runtime</artifactId>
-      <version>2.1.5-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 </project>
