@@ -577,7 +577,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       return clone;
     }
     catch (final CloneNotSupportedException e) {
-      throw new UnsupportedOperationException(e);
+      throw new IllegalStateException(e);
     }
   }
 
