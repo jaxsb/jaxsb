@@ -151,7 +151,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       }
     }
     catch (final IllegalAccessException e) {
-      throw new UnsupportedOperationException(e);
+      throw new IllegalStateException(e);
     }
 
     return false;
