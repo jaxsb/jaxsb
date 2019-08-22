@@ -49,13 +49,13 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
 
         if (model instanceof ElementWrapper) {
           final ElementWrapper element = (ElementWrapper)model;
-          final A plan = Plan.<A>analyze(element.getElementModel(), owner);
+          final A plan = Plan.analyze(element.getElementModel(), owner);
           ((ElementPlan)plan).setMinOccurs(element.getMinOccurs());
           ((ElementPlan)plan).setMaxOccurs(element.getMaxOccurs());
           plans.add(plan);
         }
         else if (model instanceof Model) {
-          plans.add(Plan.<A>analyze((Model)model, owner));
+          plans.add(Plan.analyze((Model)model, owner));
         }
       }
     }

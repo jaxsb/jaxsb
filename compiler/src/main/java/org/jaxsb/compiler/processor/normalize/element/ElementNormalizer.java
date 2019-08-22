@@ -130,7 +130,7 @@ public final class ElementNormalizer extends Normalizer<ElementModel> {
 
     boolean def = false;
     for (final Model child : model.getChildren()) {
-      if (child instanceof ComplexTypeModel || child instanceof SimpleTypeModel) {
+      if (child instanceof SimpleTypeModel) {
         def = true;
         break;
       }
@@ -142,7 +142,7 @@ public final class ElementNormalizer extends Normalizer<ElementModel> {
     else {
       final SimpleTypeModel<?> type = ComplexTypeModel.Undefined.parseComplexType(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anyType"));
       model.setSuperType(type);
-      model.setItemTypes(Arrays.<SimpleTypeModel<?>>asList(type));
+      model.setItemTypes(Arrays.asList(type));
     }
   }
 }

@@ -340,7 +340,7 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
 
   @Override
   public final LinkedHashSet<EnumerationPlan> getEnumerations() {
-    return enumerations == null ? enumerations = Plan.<EnumerationPlan>analyze(getModel().getEnumerations(), this) : enumerations;
+    return enumerations == null ? enumerations = Plan.analyze(getModel().getEnumerations(), this) : enumerations;
   }
 
   public final String getNativeItemClassName() {
@@ -365,7 +365,7 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
   }
 
   public final Collection<PatternPlan> getPatterns() {
-    return patterns == null ? patterns = Plan.<PatternPlan>analyze(getModel().getPatterns(), this) : patterns;
+    return patterns == null ? patterns = Plan.analyze(getModel().getPatterns(), this) : patterns;
   }
 
   @Override

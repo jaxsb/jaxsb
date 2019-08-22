@@ -71,7 +71,7 @@ public final class DocumentationPlan extends Plan<DocumentationModel> {
       start = end + 1;
     }
 
-    preparedDocumentation = formatted + "\t * " + text.substring(start, text.length()).replace(" * ", "") + "\n\n *\n" + getMetaDocumentation() + "\t */\n";
+    preparedDocumentation = formatted + "\t * " + text.substring(start).replace(" * ", "") + "\n\n *\n" + getMetaDocumentation() + "\t */\n";
     preparedDocumentation = preparedDocumentation.replaceAll("\n[ \t]*\n", "\n");
     do {
       fixedSpaces = preparedDocumentation;

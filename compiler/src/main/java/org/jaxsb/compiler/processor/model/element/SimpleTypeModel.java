@@ -110,8 +110,7 @@ public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel im
 
   @Override
   public final void addEnumeration(final EnumerationModel enumeration) {
-    if (!enumerations.contains(enumeration))
-      enumerations.add(enumeration);
+    enumerations.add(enumeration);
   }
 
   @Override

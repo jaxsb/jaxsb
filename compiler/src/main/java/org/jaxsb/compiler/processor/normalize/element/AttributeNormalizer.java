@@ -112,7 +112,7 @@ public final class AttributeNormalizer extends Normalizer<AttributeModel> {
     if (model.getSuperType() == null) {
       final SimpleTypeModel<?> type = ComplexTypeModel.Undefined.parseComplexType(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anySimpleType"));
       model.setSuperType(type);
-      model.setItemTypes(Arrays.<SimpleTypeModel<?>>asList(type));
+      model.setItemTypes(Arrays.asList(type));
     }
   }
 }

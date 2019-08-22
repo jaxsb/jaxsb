@@ -20,10 +20,10 @@ import java.util.Arrays;
 
 import javax.xml.namespace.QName;
 
-import org.libj.util.Strings;
 import org.jaxsb.compiler.processor.model.element.EnumerationModel;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.runtime.CompilerFailureException;
+import org.libj.util.Strings;
 
 public final class EnumerationPlan extends Plan<EnumerationModel> {
   private static final char[] illegalChars = {' ', '!', '"', '#', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '.', '/', ':', ';', '<', '=', '>', '?', '@', '@', '[', '\\', ']', '^', '_', '{', '|', '|', '}', '~'};
@@ -39,7 +39,7 @@ public final class EnumerationPlan extends Plan<EnumerationModel> {
     else
       string = value.getLocalPart();
 
-    if (value.getPrefix() != null && value.getPrefix().toString().length() != 0)
+    if (value.getPrefix() != null && value.getPrefix().length() != 0)
       string = value.getPrefix() + "_" + string;
 
     if (Arrays.binarySearch(illegalWords, string) >= 0)

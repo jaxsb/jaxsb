@@ -60,7 +60,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
   public AliasPlan(final T model, final Plan<?> parent) {
     super(model, parent);
     if (getModel() != null)
-      documentation = Plan.<DocumentationPlan>analyze(getModel().getDocumentation(), this);
+      documentation = Plan.analyze(getModel().getDocumentation(), this);
 
 //    schemaReference = model.getSchema().getURL().toString();
     xsdLocation = model.getSchema().getTargetNamespace().getNamespaceBinding().getPackageName() + ".xsd";

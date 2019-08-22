@@ -29,19 +29,9 @@ import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.generator.processor.bundle.Bundle;
 
 public final class TimestampProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,Bundle,Bundle> {
-  private static final Predicate<Path> fileFilter = new Predicate<Path>() {
-    @Override
-    public boolean test(final Path t) {
-      return t != null && t.toFile().isFile();
-    }
-  };
+  private static final Predicate<Path> fileFilter = t -> t != null && t.toFile().isFile();
 
-  private static final Predicate<Path> dirFileFilter = new Predicate<Path>() {
-    @Override
-    public boolean test(final Path t) {
-      return t != null && t.toFile().isDirectory();
-    }
-  };
+  private static final Predicate<Path> dirFileFilter = t -> t != null && t.toFile().isDirectory();
 
   protected TimestampProcessor() {
   }

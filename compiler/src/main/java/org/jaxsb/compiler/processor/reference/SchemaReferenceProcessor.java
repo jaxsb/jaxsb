@@ -18,7 +18,6 @@ package org.jaxsb.compiler.processor.reference;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLConnection;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -28,7 +27,6 @@ import org.jaxsb.compiler.pipeline.PipelineEntity;
 import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.libj.net.URLs;
-import org.openjax.xml.sax.DocumentHandler;
 import org.openjax.xml.sax.SAXInterruptException;
 import org.openjax.xml.sax.XMLDocuments;
 import org.slf4j.Logger;
@@ -67,12 +65,9 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
               }
               else {
                 try {
-                  XMLDocuments.parse(schemaReference.getURL(), new DocumentHandler() {
-                    @Override
-                    public void schemaLocation(final URLConnection connection) throws SAXInterruptException {
-                      if (containerClass.lastModified() < connection.getLastModified())
-                        throw new SAXInterruptException();
-                    }
+                  XMLDocuments.parse(schemaReference.getURL(), connection -> {
+                    if (containerClass.lastModified() < connection.getLastModified())
+                      throw new SAXInterruptException();
                   }, false, false);
                 }
                 catch (final SAXInterruptException e) {

@@ -73,12 +73,12 @@ public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePl
 
   @Override
   public final LinkedHashSet<AttributePlan> getAttributes() {
-    return attributes == null ? attributes = Plan.<AttributePlan>analyze(getModel().getAttributes(), this) : attributes;
+    return attributes == null ? attributes = Plan.analyze(getModel().getAttributes(), this) : attributes;
   }
 
   @Override
   public final LinkedHashSet<ElementPlan> getElements() {
-    return elements == null ? elements = Plan.<ElementPlan>analyze(ElementWrapper.asSet(getModel().getMultiplicableModels()), this) : elements;
+    return elements == null ? elements = Plan.analyze(ElementWrapper.asSet(getModel().getMultiplicableModels()), this) : elements;
   }
 
   @Override

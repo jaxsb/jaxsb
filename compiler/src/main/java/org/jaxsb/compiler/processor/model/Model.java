@@ -151,7 +151,7 @@ public abstract class Model implements PipelineEntity {
       ns = NamespaceURI.lookupNamespaceURI(parent, prefix);
       if (ns != null) {
         final NamespaceURI namespaceURI = NamespaceURI.getInstance(ns);
-        return new QName(namespaceURI.toString(), nodeValue.substring(i + 1, nodeValue.length()), prefix);
+        return new QName(namespaceURI.toString(), nodeValue.substring(i + 1), prefix);
       }
     }
 

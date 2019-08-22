@@ -790,7 +790,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1143,7 +1143,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1184,7 +1184,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1491,7 +1491,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1761,7 +1761,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1971,7 +1971,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -2186,7 +2186,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -2227,7 +2227,7 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        return super.text() != null ? super.text() : "";
       }
 
       @Override

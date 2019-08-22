@@ -26,9 +26,9 @@ import java.util.Map;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
+import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.libj.lang.PackageLoader;
 import org.libj.lang.PackageNotFoundException;
-import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +93,7 @@ public abstract class AbstractBinding implements Cloneable {
   private static void loadPackage(final String namespaceURI, final ClassLoader classLoader) {
     // FIXME: Look this over. Also make a dedicated RuntimeException for this.
     try {
-      PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName(), c -> Schema.class.isAssignableFrom(c));
+      PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName(), Schema.class::isAssignableFrom);
     }
     catch (final IOException | PackageNotFoundException e) {
       throw new BindingRuntimeException(e);

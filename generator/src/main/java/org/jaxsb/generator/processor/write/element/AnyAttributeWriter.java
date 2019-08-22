@@ -58,7 +58,7 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
     writer.write("public void addAny$(final " + $AnySimpleType.class.getCanonicalName() + " anyAttribute)\n");
     writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
-    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + ">());\n");
+    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + ">());\n");
     writer.write("this.anyAttribute.getAttribute().add(anyAttribute);\n");
     writer.write("}\n");
   }

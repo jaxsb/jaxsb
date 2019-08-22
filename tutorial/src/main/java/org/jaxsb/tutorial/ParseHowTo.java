@@ -67,7 +67,7 @@ public class ParseHowTo {
     System.out.println(shippingCountry + ".");
 
     System.out.println("The following items are included in this invoice:");
-    for (final $ItemType item : (List<$ItemType>)invoice.getBilledItems().getItem()) {
+    for (final $ItemType item : invoice.getBilledItems().getItem()) {
       final Integer quantity = item.getQuantity().text();
       System.out.print(quantity + " ");
 

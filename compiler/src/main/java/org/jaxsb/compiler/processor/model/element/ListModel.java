@@ -51,7 +51,7 @@ public final class ListModel extends SimpleTypeModel<SimpleTypeModel<?>> {
       return unionType.getNormalizedMemberTypes();
 
     if (itemType != null)
-      return Arrays.<SimpleTypeModel<?>>asList(itemType);
+      return Arrays.asList(itemType);
 
     return null;
   }
