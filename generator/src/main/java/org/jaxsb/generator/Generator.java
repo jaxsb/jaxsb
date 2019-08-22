@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.libj.util.Paths;
 import org.jaxsb.compiler.pipeline.Pipeline;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.composite.SchemaComposite;
@@ -31,7 +30,6 @@ import org.jaxsb.compiler.processor.composite.SchemaCompositeDirectory;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.model.Model;
 import org.jaxsb.compiler.processor.model.ModelDirectory;
-import org.jaxsb.compiler.processor.normalize.Normalizer;
 import org.jaxsb.compiler.processor.normalize.NormalizerDirectory;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.compiler.processor.reference.SchemaReferenceDirectory;
@@ -40,11 +38,11 @@ import org.jaxsb.generator.processor.bundle.BundleDirectory;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.generator.processor.plan.PlanDirectory;
 import org.jaxsb.generator.processor.timestamp.TimestampDirectory;
-import org.jaxsb.generator.processor.write.Writer;
 import org.jaxsb.generator.processor.write.WriterDirectory;
 import org.jaxsb.generator.schema.SchemaDocumentDirectory;
 import org.libj.io.FileUtil;
 import org.libj.net.URLs;
+import org.libj.util.Paths;
 
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {

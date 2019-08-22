@@ -18,12 +18,11 @@ package org.jaxsb.tutorial;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.List;
 
+import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.tutorial.invoice.xAA.$ItemType;
 import org.jaxsb.www.tutorial.invoice.xAA.Invoice;
 import org.openjax.xml.datatype.Date;
-import org.jaxsb.runtime.Bindings;
 
 public class ParseHowTo {
   public static void main(final String[] args) throws Exception {
