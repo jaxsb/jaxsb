@@ -1,0 +1,66 @@
+<!--
+  Copyright (c) 2019 JAX-SB
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  You should have received a copy of The MIT License (MIT) along with this
+  program. If not, see <http://opensource.org/licenses/MIT/>.
+-->
+<xs:schema
+  elementFormDefault="qualified"
+  targetNamespace="http://www.jaxsb.org/test/anyAttribute.xsd"
+  xmlns:ns1="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd"
+  xmlns:ns2="http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import namespace="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd" schemaLocation="name1.xsd"/>
+  <xs:import namespace="http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd" schemaLocation="name2.xsd"/>
+
+  <xs:attribute name="attr1"/>
+  <xs:attribute name="attr2"/>
+  
+  <xs:element name="anyAttribute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="any">
+          <xs:complexType>
+            <xs:anyAttribute/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="local">
+          <xs:complexType>
+            <xs:anyAttribute namespace="##local" processContents="lax"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="other">
+          <xs:complexType>
+            <xs:anyAttribute namespace="##other"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="targetNamespace">
+          <xs:complexType>
+            <xs:anyAttribute namespace="##targetNamespace"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ns1">
+          <xs:complexType>
+            <xs:anyAttribute namespace="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ns2">
+          <xs:complexType>
+            <xs:anyAttribute namespace="http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -166,7 +166,7 @@ public abstract class Model implements PipelineEntity {
       else
         break;
     }
-    while(parent != null);
+    while (parent != null);
 
     if (xs == null)
       throw new LexerFailureException("Namespace problem");

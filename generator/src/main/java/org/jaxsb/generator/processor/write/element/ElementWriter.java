@@ -75,7 +75,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       return;
 
     final String className = plan.getDeclarationGenericWithInconvertible(parent);
-    writer.write("private " + ElementAudit.class.getName() + "<" + className + "> " + plan.getInstanceName() + " = new " + ElementAudit.class.getName() + "<" + className + ">(" + className + ".class, this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), new " + QName.class.getName() + "(\"" + plan.getTypeName().getNamespaceURI() + "\", \"" + plan.getTypeName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + (!plan.isNested() || Form.QUALIFIED.equals(plan.getFormDefault())) + ", " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
+    writer.write("private " + ElementAudit.class.getName() + "<" + className + "> " + plan.getInstanceName() + " = new " + ElementAudit.class.getName() + "<>(" + className + ".class, this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), new " + QName.class.getName() + "(\"" + plan.getTypeName().getNamespaceURI() + "\", \"" + plan.getTypeName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + (!plan.isNested() || Form.QUALIFIED.equals(plan.getFormDefault())) + ", " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
   }
 
   @Override
@@ -671,7 +671,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
       writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
       writer.write("final " + StringTokenizer.class.getName() + " tokenizer = new " + StringTokenizer.class.getName() + "(value);\n");
-      writer.write("while(tokenizer.hasMoreTokens())\n");
+      writer.write("while (tokenizer.hasMoreTokens())\n");
       if (plan.getNativeFactory() != null)
         writer.write("((" + plan.getNativeItemClassNameInterface() + ")super.text()).add(" + plan.getNativeFactory() + "(tokenizer.nextToken()));\n");
       else

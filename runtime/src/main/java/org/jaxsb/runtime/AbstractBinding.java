@@ -41,6 +41,7 @@ public abstract class AbstractBinding implements Cloneable {
   protected static final QName XMLNS = new QName(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns");
   protected static final QName XML = new QName(XMLConstants.XML_NS_URI, "xml");
 
+  private static final Map<QName,Class<? extends Binding>> attributeBindings = new HashMap<>();
   private static final Map<QName,Class<? extends Binding>> elementBindings = new HashMap<>();
   private static final Map<QName,Class<? extends Binding>> typeBindings = new HashMap<>();
   private static final Map<String,Object> notations = new HashMap<>();
@@ -86,6 +87,10 @@ public abstract class AbstractBinding implements Cloneable {
     }
   }
 
+  protected static void _$$registerAttribute(final QName name, final Class<? extends Binding> cls) {
+    attributeBindings.put(name, cls);
+  }
+
   protected static void _$$registerElement(final QName name, final Class<? extends Binding> cls) {
     elementBindings.put(name, cls);
   }
@@ -98,6 +103,15 @@ public abstract class AbstractBinding implements Cloneable {
     catch (final IOException | PackageNotFoundException e) {
       throw new BindingRuntimeException(e);
     }
+  }
+
+  protected static Class<? extends Binding> lookupAttribute(final QName name, final ClassLoader classLoader) {
+    final Class<? extends Binding> cls = attributeBindings.get(name);
+    if (cls != null)
+      return cls;
+
+    loadPackage(name.getNamespaceURI(), classLoader);
+    return attributeBindings.get(name);
   }
 
   protected static Class<? extends Binding> lookupElement(final QName name, final ClassLoader classLoader) {

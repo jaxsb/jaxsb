@@ -28,7 +28,6 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
-import org.libj.util.CollectionUtil;
 import org.jaxsb.generator.processor.plan.EnumerablePlan;
 import org.jaxsb.generator.processor.plan.ExtensiblePlan;
 import org.jaxsb.generator.processor.plan.Plan;
@@ -41,6 +40,7 @@ import org.jaxsb.runtime.Enum;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.SimpleType;
 import org.jaxsb.runtime.XSTypeDirectory;
+import org.libj.util.CollectionUtil;
 import org.w3.www._2001.XMLSchema.yAA.$ID;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -95,7 +95,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("final " + Map.class.getName() + "<" + String.class.getName() + ",? extends " + $ID.class.getCanonicalName() + "> idMap = namespaceIds.get(NAME.getNamespaceURI());\n");
     writer.write("if (idMap == null)\n");
     writer.write("return null;\n");
-    writer.write("final " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> ids = new " + ArrayList.class.getName() + "<" + plan.getClassName(parent) + ">();\n");
+    writer.write("final " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> ids = new " + ArrayList.class.getName() + "<>();\n");
     writer.write("for(" + $ID.class.getCanonicalName() + " id : idMap.values())\n");
     writer.write("if (id.getClass().equals(" + plan.getClassName(parent) + ".class))\n");
     writer.write("ids.add((" + plan.getClassName(parent) + ")id);\n");
@@ -171,7 +171,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     }
     else {
       writer.write(" implements " + Enum.class.getName() + "<" + plan.getNativeItemClassName() + ">\n{\n");
-      writer.write("protected static final " + Map.class.getName() + "<" + String.class.getName() + ",Enum> values = new " + HashMap.class.getName() + "<" + String.class.getName() + ",Enum>();\n");
+      writer.write("protected static final " + Map.class.getName() + "<" + String.class.getName() + ",Enum> values = new " + HashMap.class.getName() + "<>();\n");
       writer.write("protected static " + Map.class.getName() + "<" + String.class.getName() + ",Enum> values()\n{\nreturn values;\n};\n");
       writer.write("public static Enum valueOf(final " + String.class.getName() + " s)\n{\nreturn values.get(s);\n};\n");
     }
@@ -287,7 +287,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       writer.write("return;\n");
       writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
       writer.write(StringTokenizer.class.getName() + " tokenizer = new " + StringTokenizer.class.getName() + "(value);\n");
-      writer.write("while(tokenizer.hasMoreTokens())\n");
+      writer.write("while (tokenizer.hasMoreTokens())\n");
       String factoryEntry = "tokenizer.nextToken()";
       if (plan.getNativeFactory() != null)
         factoryEntry = plan.getNativeFactory() + "(" + factoryEntry + ")";

@@ -37,14 +37,16 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
   @Override
   protected void appendRegistration(final StringWriter writer, final AttributePlan plan, final Plan<?> parent) {
     // REASON: Attributes that are not defined globally do not need to be resolvable globally.
-    if (!plan.isNested())
+    if (!plan.isNested()) {
+      writer.write("_$$registerAttribute(" + plan.getClassName(parent) + ".NAME, " + plan.getClassName(parent) + ".class);\n");
       writer.write("_$$registerSchemaLocation(" + plan.getClassName(parent) + ".NAME.getNamespaceURI(), " + plan.getClassName(null) + ".class, \"" + plan.getXsdLocation() + "\");\n");
+    }
   }
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final AttributePlan plan, final Plan<?> parent) {
     if (!plan.isRestriction())
-      writer.write("private " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + "> " + plan.getInstanceName() + " = __$$registerAttributeAudit(new " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + ">(this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + "));\n");
+      writer.write("private " + AttributeAudit.class.getName() + "<" + plan.getThisClassNameWithType(parent) + "> " + plan.getInstanceName() + " = __$$registerAttributeAudit(new " + AttributeAudit.class.getName() + "<>(this, " + plan.getDefaultInstance(parent) + ", new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\"), " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + "));\n");
   }
 
   @Override

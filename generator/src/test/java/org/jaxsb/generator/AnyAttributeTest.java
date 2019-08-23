@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 JAX-SB
+/* Copyright (c) 2019 JAX-SB
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -16,23 +16,22 @@
 
 package org.jaxsb.generator;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 
+import org.jaxsb.runtime.Binding;
+import org.jaxsb.runtime.Bindings;
 import org.junit.Test;
+import org.openjax.xml.api.ValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
-public class GeneratorTest {
-  @Test
-  public void testHtml() throws MalformedURLException {
-    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/html.xsd"});
-  }
-
-  @Test
-  public void testName() throws MalformedURLException {
-    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/name1.xsd"});
-  }
+public class AnyAttributeTest {
+  private static final Logger logger = LoggerFactory.getLogger(AnyAttributeTest.class);
 
   @Test
-  public void testAnyAttribute() throws MalformedURLException {
-    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/anyAttribute.xsd"});
+  public void test() throws ValidationException, IOException, SAXException {
+    final Binding binding = Bindings.parse(ClassLoader.getSystemClassLoader().getResource("anyAttribute.xml"));
+    logger.info(binding.toString());
   }
 }

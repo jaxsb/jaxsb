@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 JAX-SB
+/* Copyright (c) 2019 JAX-SB
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -17,50 +17,34 @@
 package org.jaxsb.runtime;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Element;
 
-public final class AttributeAudit<T extends $AnySimpleType> implements Serializable {
-  private static final long serialVersionUID = 4793561156708612350L;
+public final class AnyAttributeAudit<T extends $AnySimpleType> implements Serializable {
+  private static final long serialVersionUID = 5515619573188162795L;
 
   private final $AnySimpleType owner;
-  private final T _default;
-  private final QName name;
   private final boolean qualified;
   private final boolean required;
-  private T value = null;
+  private ArrayList<T> value = null;
 
-  public AttributeAudit(final $AnySimpleType owner, final T _default, final QName name, final boolean qualified, final boolean required) {
+  public AnyAttributeAudit(final $AnySimpleType owner, final boolean qualified, final boolean required) {
     this.owner = owner;
-    this._default = _default;
-    if (_default != null)
-      Binding.markDefault(_default);
-
-    this.name = name;
     this.qualified = qualified;
     this.required = required;
   }
 
   @SuppressWarnings("unchecked")
-  private AttributeAudit(final $AnySimpleType owner, final AttributeAudit<T> copy) {
+  private AnyAttributeAudit(final $AnySimpleType owner, final AnyAttributeAudit<T> copy) {
     this.owner = owner;
-    this._default = copy._default == null ? null : (T)copy._default.clone();
-    this.name = copy.name;
     this.qualified = copy.qualified;
     this.required = copy.required;
-    this.value = copy.value == null ? null : (T)copy.value.clone();
-  }
-
-  public T getDefault() {
-    return _default;
-  }
-
-  public QName getName() {
-    return name;
+    this.value = copy.value == null ? null : (ArrayList<T>)copy.value.clone();
   }
 
   public boolean isQualified() {
@@ -71,7 +55,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
     return required;
   }
 
-  public boolean setAttribute(final T value) {
+  public boolean setAttribute(final ArrayList<T> value) {
     if (owner.isNull())
       throw new BindingRuntimeException("NULL Object is immutable");
 
@@ -79,24 +63,31 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
     return true;
   }
 
-  public T getAttribute() {
-    return value != null ? value : getDefault();
+  public List<T> getAttribute() {
+    return value;
   }
 
   public void marshal(final Element parent) throws MarshalException {
-    if (value == null || value.equals(getDefault()))
+    if (value == null)
       return;
 
-    QName name = getName();
-    if (name == null)
-      name = ((Binding)value).name();
+    for (final Binding binding : value) {
+      final QName qName = Binding.name(binding);
+      final String name;
+      if (qName.getPrefix().length() > 0) {
+        name = qName.getPrefix() + ":" + qName.getLocalPart();
+        parent.setAttributeNS(AbstractBinding.XMLNS.getNamespaceURI(), AbstractBinding.XMLNS.getLocalPart() + ":" + qName.getPrefix(), qName.getNamespaceURI());
+      }
+      else {
+        name = qName.getLocalPart();
+      }
 
-    final String marshalName = isQualified() ? Binding._$$getPrefix(parent, name) + ":" + name.getLocalPart() :  name.getLocalPart();
-    parent.setAttributeNodeNS(((Binding)value).marshalAttr(marshalName, parent));
+      parent.setAttributeNodeNS(binding.marshalAttr(name, parent));
+    }
   }
 
-  public AttributeAudit<T> clone(final $AnySimpleType owner) {
-    return new AttributeAudit<>(owner, this);
+  public AnyAttributeAudit<T> clone(final $AnySimpleType owner) {
+    return new AnyAttributeAudit<>(owner, this);
   }
 
   @Override

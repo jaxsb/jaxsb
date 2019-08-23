@@ -35,7 +35,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
       do
         if (parent instanceof AliasPlan && ((AliasPlan<?>)parent).getName() != null)
           return ((AliasPlan<?>)parent).getClassName(null) + "." + JavaBinding.getClassSimpleName(model);
-      while((parent = parent.getParent()) != null);
+      while ((parent = parent.getParent()) != null);
 
     Model check = model;
     while ((check = check.getParent()) != null)

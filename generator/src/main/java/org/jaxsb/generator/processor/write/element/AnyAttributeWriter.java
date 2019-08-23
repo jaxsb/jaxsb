@@ -25,7 +25,7 @@ import org.jaxsb.compiler.schema.attribute.Use;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.generator.processor.plan.element.AnyAttributePlan;
 import org.jaxsb.generator.processor.write.Writer;
-import org.jaxsb.runtime.AttributeAudit;
+import org.jaxsb.runtime.AnyAttributeAudit;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Element;
 
@@ -36,7 +36,7 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("private " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + ">> anyAttribute = new " + AttributeAudit.class.getName() + "<" + List.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + ">>(this, null, null, " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + ");\n");
+    writer.write("private " + AnyAttributeAudit.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> anyAttribute = new " + AnyAttributeAudit.class.getName() + "<>(this, " + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + ");\n");
   }
 
   @Override
@@ -58,7 +58,7 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
     writer.write("public void addAny$(final " + $AnySimpleType.class.getCanonicalName() + " anyAttribute)\n");
     writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
-    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + ">());\n");
+    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<>());\n");
     writer.write("this.anyAttribute.getAttribute().add(anyAttribute);\n");
     writer.write("}\n");
   }
@@ -73,8 +73,8 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 //      writer.write("else\n");
 //      writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
-    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + ">());\n");
-    writer.write("this.anyAttribute.getAttribute().add(" + $AnySimpleType.class.getCanonicalName() + ".parseAttr((" + Element.class.getName() + ")attribute.getParentNode(), attribute));\n");
+    writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<>());\n");
+    writer.write("this.anyAttribute.getAttribute().add(" + $AnySimpleType.class.getCanonicalName() + "._$$parseAnyAttr((" + Element.class.getName() + ")attribute.getParentNode(), attribute));\n");
 //      writer.write("}\n");
   }
 

@@ -78,17 +78,25 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return prefix;
   }
 
-  protected static Binding _$$parseAttr(final Class<?> xmlClass, final Element parent, final Node attribute) {
+  protected static $AnySimpleType _$$parseAnyAttr(final Element parent, final Node attribute) {
+    final QName qName = attribute.getPrefix() != null ? new QName(attribute.getNamespaceURI(), attribute.getLocalName(), attribute.getPrefix()) : new QName(attribute.getNamespaceURI(), attribute.getLocalName());
+    return _$$parseAttr(new AnyAttribute(qName), parent, attribute);
+  }
+
+  protected static $AnySimpleType _$$parseAttr(final Class<?> cls, final Element parent, final Node attribute) {
     try {
-      final Constructor<?> constructor = xmlClass.getDeclaredConstructor();
+      final Constructor<?> constructor = cls.getDeclaredConstructor();
       constructor.setAccessible(true);
-      final Binding binding = (Binding)constructor.newInstance();
-      binding._$$decode(parent, attribute.getNodeValue());
-      return binding;
+      return _$$parseAttr(($AnySimpleType)constructor.newInstance(), parent, attribute);
     }
     catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new IllegalStateException(e);
     }
+  }
+
+  private static $AnySimpleType _$$parseAttr(final $AnySimpleType binding, final Element parent, final Node attribute) {
+    Binding._$$decode(binding, parent, attribute.getNodeValue());
+    return binding;
   }
 
   protected static void _$$decode(final Binding binding, final Element element, final String value) {
@@ -165,18 +173,17 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return parseElement(element, null, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static Binding parseAttr(final Element element, final Node node) {
+  protected static $AnySimpleType parseAttr(final Element element, final Node node) {
     final String localName = node.getLocalName();
     final String namespaceURI = node.getNamespaceURI();
-    final Class<?> classBinding = lookupElement(new QName(namespaceURI, localName), Thread.currentThread().getContextClassLoader());
-    if (classBinding == null) {
-      if (namespaceURI != null)
-        throw new IllegalStateException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
+    final Class<? extends Binding> classBinding = lookupAttribute(new QName(namespaceURI, localName), Thread.currentThread().getContextClassLoader());
+    if (classBinding != null)
+      return Binding._$$parseAttr(classBinding, element, node);
 
-      throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
-    }
+    if (namespaceURI != null)
+      throw new IllegalStateException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
 
-    return Binding._$$parseAttr(classBinding, element, node);
+    throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
   }
 
   protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ValidationException {
