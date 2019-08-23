@@ -16,6 +16,9 @@
 
 package org.jaxsb.generator;
 
+import static org.junit.Assert.*;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.jaxsb.runtime.Binding;
@@ -26,12 +29,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-public class AnyAttributeTest {
-  private static final Logger logger = LoggerFactory.getLogger(AnyAttributeTest.class);
+public class AnyAttributeITest {
+  private static final Logger logger = LoggerFactory.getLogger(AnyAttributeITest.class);
 
   @Test
-  public void test() throws ValidationException, IOException, SAXException {
+  public void testParseMarshal() throws ValidationException, IOException, SAXException {
     final Binding binding = Bindings.parse(ClassLoader.getSystemClassLoader().getResource("anyAttribute.xml"));
-    logger.info(binding.toString());
+    final String xml = binding.toString();
+    logger.info(xml);
+
+    final Binding b2 = Bindings.parse(new ByteArrayInputStream(xml.getBytes()));
+    assertEquals(binding, b2);
   }
 }
