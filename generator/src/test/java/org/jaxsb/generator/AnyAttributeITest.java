@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.Bindings;
+import org.jaxsb.www.test.anyAttribute.xAA.AnyAttribute;
 import org.junit.Test;
 import org.openjax.xml.api.ValidationException;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class AnyAttributeITest {
 
   @Test
   public void testParseMarshal() throws ValidationException, IOException, SAXException {
-    final Binding binding = Bindings.parse(ClassLoader.getSystemClassLoader().getResource("anyAttribute.xml"));
+    final AnyAttribute binding = (AnyAttribute)Bindings.parse(ClassLoader.getSystemClassLoader().getResource("anyAttribute.xml"));
     final String xml = binding.toString();
     logger.info(xml);
 
