@@ -1,0 +1,113 @@
+<!--
+  Copyright (c) 2019 JAX-SB
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  You should have received a copy of The MIT License (MIT) along with this
+  program. If not, see <http://opensource.org/licenses/MIT/>.
+-->
+<!DOCTYPE catalog [
+<!NOTATION jpeg SYSTEM "JPG">
+<!ENTITY prod557 SYSTEM "prod557.jpg" NDATA jpeg>
+<!ENTITY prod563 SYSTEM "prod563.jpg" NDATA jpeg>
+]>
+<at:attribute
+  xmlns:at="http://www.jaxsb.org/test/attribute.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ns1="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd"
+  xsi:schemaLocation="http://www.jaxsb.org/test/attribute.xsd attribute.xsd">
+  <at:local
+    localAnyURI="http://example.com"
+    localBase64Binary="aGVsbG8K"
+    localBoolean="true"
+    localByte="127"
+    localDate="2019-08-24"
+    localDateTime="2019-08-24T17:58:49Z"
+    localDecimal="3.24"
+    localDouble=".48392"
+    localDuration="P2Y6M5DT12H35M30S"
+    localENTITIES="prod557 prod563"
+    localENTITY="prod563"
+    localFloat=".3"
+    localGDay="---13"
+    localGMonth="--07"
+    localGMonthDay="--12-31"
+    localGYear="2019"
+    localGYearMonth="2020-10"
+    localHexBinary="3f3c6d78"
+    localID="local"
+    localIDREF="local"
+    localIDREFS="local ref"
+    localInt="321"
+    localInteger="13"
+    localLanguage="en"
+    localLong="981832"
+    localName="name"
+    localNCName="ncname"
+    localNegativeInteger="-34"
+    localNMTOKEN="nm_token"
+    localNMTOKENS="nm_token1 nm_token2"
+    localNonNegativeInteger="432"
+    localNonPositiveInteger="-12"
+    localNOTATION="ns1:class"
+    localPositiveInteger="432"
+    localQName="xsi:type"
+    localShort="4343"
+    localTime="17:58:49Z"
+    localToken="token"
+    localUnsignedByte="255"
+    localUnsignedInt="74832"
+    localUnsignedLong="21341"
+    localUnsignedShort="65535"/>
+  <at:ref
+    at:anyURI="http://example.com"
+    at:base64Binary="aGVsbG8K"
+    at:boolean="true"
+    at:byte="127"
+    at:date="2019-08-24"
+    at:dateTime="2019-08-24T17:58:49Z"
+    at:decimal="3.24"
+    at:double=".48392"
+    at:duration="P2Y6M5DT12H35M30S"
+    at:ENTITIES="prod557 prod563"
+    at:ENTITY="prod563"
+    at:float=".3"
+    at:gDay="---13"
+    at:gMonth="--07"
+    at:gMonthDay="--12-31"
+    at:gYear="2019"
+    at:gYearMonth="2020-10"
+    at:hexBinary="3f3c6d78"
+    at:ID="ref"
+    at:IDREF="ref"
+    at:IDREFS="local ref"
+    at:int="321"
+    at:integer="13"
+    at:language="en"
+    at:long="981832"
+    at:Name="name"
+    at:NCName="ncname"
+    at:negativeInteger="-34"
+    at:NMTOKEN="nm_token"
+    at:NMTOKENS="nm_token1 nm_token2"
+    at:nonNegativeInteger="432"
+    at:nonPositiveInteger="-12"
+    at:NOTATION="ns1:class"
+    at:positiveInteger="432"
+    at:QName="xsi:type"
+    at:short="4343"
+    at:time="17:58:49Z"
+    at:token="token"
+    at:unsignedByte="255"
+    at:unsignedInt="74832"
+    at:unsignedLong="21341"
+    at:unsignedShort="65535"/>
+</at:attribute>
