@@ -17,7 +17,6 @@
 package org.jaxsb.runtime;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.xml.namespace.QName;
 

@@ -38,6 +38,7 @@ import org.jaxsb.generator.processor.write.Writer;
 import org.jaxsb.runtime.CompilerFailureException;
 import org.jaxsb.runtime.Enum;
 import org.jaxsb.runtime.MarshalException;
+import org.jaxsb.runtime.NotationType;
 import org.jaxsb.runtime.SimpleType;
 import org.jaxsb.runtime.XSTypeDirectory;
 import org.libj.util.CollectionUtil;
@@ -155,25 +156,41 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     boolean hasEnumerations = ((EnumerablePlan)plan).hasEnumerations();
     boolean hasSuperEnumerations = ((EnumerablePlan)plan).hasSuperEnumerations();
 
+    final boolean isNotation = NotationType.class.getName().equals(plan.getNativeItemClassName());
     if (hasEnumerations) {
+      if (isNotation) {
+        writer.write("static {\n");
+        for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations())
+          writer.write("lookupElement(new " + QName.class.getName() + "(\"" + enumeration.getValue().getNamespaceURI() + "\", \"" + enumeration.getValue().getLocalPart() + "\"), " + Thread.class.getName() + ".currentThread().getContextClassLoader());\n");
+
+        writer.write("}\n");
+      }
+
       for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations()) {
-        if (XSTypeDirectory.QNAME.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
-          writer.write("public static final Enum " + enumeration.getDeclarationName() + " = new Enum(\"" +  enumeration.getValue() + "\");\n");
+        final String value;
+        if (isNotation)
+          value = "new " + QName.class.getName() + "(\"" + enumeration.getValue().getNamespaceURI() + "\", \"" + enumeration.getValue().getLocalPart() + "\")";
+        else if (XSTypeDirectory.QNAME.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
+          value = "\"" + enumeration.getValue().toString() + "\"";
         else
-          writer.write("public static final Enum " + enumeration.getDeclarationName() + " = new Enum(\"" +  enumeration.getValue().getLocalPart() + "\");\n");
+          value = "\"" + enumeration.getValue().getLocalPart() + "\"";
+
+        writer.write("public static final Enum " + enumeration.getDeclarationName() + " = new Enum(" + value + ");\n");
       }
     }
+
+    final String enumType = isNotation ? QName.class.getName() : String.class.getName();
 
     writer.write("public static class Enum");
     if (hasSuperEnumerations) {
       writer.write(" extends " + ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum\n{\n");
-      writer.write("protected static " + Map.class.getName() + "<" + String.class.getName() + "," + ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum> values()\n{\nreturn " + ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum.values();\n};\n");
+      writer.write("protected static " + Map.class.getName() + "<" + enumType + "," + ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum> values()\n{\nreturn " + ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum.values();\n};\n");
     }
     else {
       writer.write(" implements " + Enum.class.getName() + "<" + plan.getNativeItemClassName() + ">\n{\n");
-      writer.write("protected static final " + Map.class.getName() + "<" + String.class.getName() + ",Enum> values = new " + HashMap.class.getName() + "<>();\n");
-      writer.write("protected static " + Map.class.getName() + "<" + String.class.getName() + ",Enum> values()\n{\nreturn values;\n};\n");
-      writer.write("public static Enum valueOf(final " + String.class.getName() + " s)\n{\nreturn values.get(s);\n};\n");
+      writer.write("protected static final " + Map.class.getName() + "<" + enumType + ",Enum> values = new " + HashMap.class.getName() + "<>();\n");
+      writer.write("protected static " + Map.class.getName() + "<" + enumType + ",Enum> values()\n{\nreturn values;\n};\n");
+      writer.write("public static Enum valueOf(final " + enumType + " s)\n{\nreturn values.get(s);\n};\n");
     }
 
     if (hasEnumerations) {
@@ -191,14 +208,13 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       }
     }
 
-    writer.write("protected Enum(final " + String.class.getName() + " text)\n");
+    writer.write("protected Enum(final " + enumType + " text)\n");
     writer.write("{\n");
 
     if (hasSuperEnumerations) {
       writer.write("super(text);\n");
     }
     else if (hasEnumerations) {
-
       if (plan.getNativeFactory() != null)
         writer.write("this.text = " + plan.getNativeFactory() + "(text);\n");
       else

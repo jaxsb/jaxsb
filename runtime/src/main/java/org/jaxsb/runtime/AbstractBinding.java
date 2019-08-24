@@ -17,6 +17,7 @@
 package org.jaxsb.runtime;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -44,19 +45,20 @@ public abstract class AbstractBinding implements Cloneable {
   private static final Map<QName,Class<? extends Binding>> attributeBindings = new HashMap<>();
   private static final Map<QName,Class<? extends Binding>> elementBindings = new HashMap<>();
   private static final Map<QName,Class<? extends Binding>> typeBindings = new HashMap<>();
-  private static final Map<String,Object> notations = new HashMap<>();
+  private static final Map<QName,Object> notations = new HashMap<>();
 
-  protected static NotationType _$$getNotation(final String name) {
+  protected static NotationType _$$getNotation(final QName name) {
     final Object object = notations.get(name);
     if (object instanceof NotationType)
       return (NotationType)object;
-
 
     if (!(object instanceof Class))
       throw new UnsupportedOperationException("Unsupported object type in notations map: " + object.getClass().getName());
 
     try {
-      final NotationType notation = (NotationType)((Class<?>)object).getDeclaredConstructor().newInstance();
+      final Constructor<?> constructor = ((Class<?>)object).getDeclaredConstructor();
+      constructor.setAccessible(true);
+      final NotationType notation = (NotationType)constructor.newInstance();
       notations.put(name, notation);
       return notation;
     }
@@ -66,8 +68,8 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   // FIXME: How does systemName play into this?
-  protected static void _$$registerNotation(final String publicName, final String systemName, final Class<? extends NotationType> notation) {
-    notations.put(publicName, notation);
+  protected static void _$$registerNotation(final QName name, final String publicName, final String systemName, final Class<? extends NotationType> notation) {
+    notations.put(name, notation);
   }
 
   protected static void _$$registerSchemaLocation(final String namespaceURI, final Class<?> cls, final String schemaReference) {

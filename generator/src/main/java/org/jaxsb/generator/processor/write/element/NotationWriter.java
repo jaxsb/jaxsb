@@ -29,7 +29,7 @@ import org.jaxsb.runtime.NotationType;
 public final class NotationWriter extends Writer<NotationPlan> {
   @Override
   protected void appendRegistration(final StringWriter writer, final NotationPlan plan, final Plan<?> parent) {
-    writer.write("_$$registerNotation(\"" + plan.getPublic() + "\", \"" + plan.getSystem() + "\", " + plan.getClassName(plan) + ".class);\n");
+    writer.write("_$$registerNotation(new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\"), \"" + plan.getPublic() + "\", \"" + plan.getSystem() + "\", " + plan.getClassName(plan) + ".class);\n");
     writer.write("_$$registerSchemaLocation(" + plan.getClassName(parent) + ".NAME.getNamespaceURI(), " + plan.getClassName(null) + ".class, \"" + plan.getXsdLocation() + "\");\n");
   }
 

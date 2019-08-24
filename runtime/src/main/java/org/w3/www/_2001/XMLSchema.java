@@ -154,7 +154,7 @@ public final class XMLSchema {
       protected Attr marshalAttr(final String name, final Element parent) throws MarshalException {
         this.parent = parent;
         final Attr attr = parent.getOwnerDocument().createAttribute(name);
-        attr.setNodeValue(String.valueOf(_$$encode(parent)));
+        attr.setNodeValue(_$$encode(parent));
         return attr;
       }
 
@@ -1382,8 +1382,25 @@ public final class XMLSchema {
       }
 
       @Override
+      protected String _$$encode(final Element parent) throws MarshalException {
+        final String name = super._$$encode(parent);
+        if (parent.getNamespaceURI().equals(text().name().getNamespaceURI()))
+          return name;
+
+        final String prefix = _$$getPrefix(parent, text().name());
+        return prefix + ":" + name;
+      }
+
+      @Override
       protected void _$$decode(final Element parent, final String value) {
-        super.text(NotationType.parse(value));
+        final int colon = value.indexOf(':');
+        final QName qName;
+        if (colon == -1)
+          qName = new QName(parent.getOwnerDocument().getNamespaceURI(), value);
+        else
+          qName = new QName(parent.getOwnerDocument().lookupNamespaceURI(value.substring(0, colon)), value.substring(colon + 1));
+
+        super.text(NotationType.parse(qName));
         if (super.text() == null)
           throw new IllegalStateException("Notation \"" + value + "\" is not registered. The code that instantiates the Notation binding for \"" + value + "\" must be run before it is possible for the Binding engine to know about it.");
       }

@@ -17,15 +17,18 @@
 <xs:schema
   elementFormDefault="qualified"
   targetNamespace="http://www.jaxsb.org/test/attribute.xsd"
+  xmlns="http://www.jaxsb.org/test/attribute.xsd"
   xmlns:ns1="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd"
   xmlns:ns2="http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
+
   <xs:import namespace="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd" schemaLocation="name1.xsd"/>
   <xs:import namespace="http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd" schemaLocation="name2.xsd"/>
+
+  <xs:notation name="attrNotation" public="Attribute notation"/>
   
   <xs:attribute name="raw"/>
-  
+
   <!-- Primitive -->
   <xs:attribute name="boolean" type="xs:boolean"/>
   <xs:attribute name="float" type="xs:float"/>
@@ -48,10 +51,11 @@
     <xs:simpleType>
       <xs:restriction base="xs:NOTATION">
         <xs:enumeration value="ns1:class"/>
+        <xs:enumeration value="attrNotation"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:attribute>
-  
+
   <!-- Derived -->
   <xs:attribute name="token" type="xs:token"/>
   <xs:attribute name="language" type="xs:language"/>
@@ -77,5 +81,116 @@
   <xs:attribute name="unsignedShort" type="xs:unsignedShort"/>
   <xs:attribute name="unsignedByte" type="xs:unsignedByte"/>
   <xs:attribute name="positiveInteger" type="xs:positiveInteger"/>
-  
+
+  <xs:element name="attribute">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="local">
+          <xs:complexType>
+            <xs:attribute name="localRaw"/>
+
+            <!-- Primitive -->
+            <xs:attribute name="localBoolean" type="xs:boolean" use="required"/>
+            <xs:attribute name="localFloat" type="xs:float" use="required"/>
+            <xs:attribute name="localDouble" type="xs:double" use="required"/>
+            <xs:attribute name="localDecimal" type="xs:decimal" use="required"/>
+            <xs:attribute name="localDuration" type="xs:duration" use="required"/>
+            <xs:attribute name="localDateTime" type="xs:dateTime" use="required"/>
+            <xs:attribute name="localTime" type="xs:time" use="required"/>
+            <xs:attribute name="localDate" type="xs:date" use="required"/>
+            <xs:attribute name="localGYearMonth" type="xs:gYearMonth" use="required"/>
+            <xs:attribute name="localGYear" type="xs:gYear" use="required"/>
+            <xs:attribute name="localGMonthDay" type="xs:gMonthDay" use="required"/>
+            <xs:attribute name="localGDay" type="xs:gDay" use="required"/>
+            <xs:attribute name="localGMonth" type="xs:gMonth" use="required"/>
+            <xs:attribute name="localHexBinary" type="xs:hexBinary" use="required"/>
+            <xs:attribute name="localBase64Binary" type="xs:base64Binary" use="required"/>
+            <xs:attribute name="localAnyURI" type="xs:anyURI" use="required"/>
+            <xs:attribute name="localQName" type="xs:QName" use="required"/>
+            <xs:attribute name="localNOTATION" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:NOTATION">
+                  <xs:enumeration value="ns1:class"/>
+                  <xs:enumeration value="attrNotation"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+
+            <!-- Derived -->
+            <xs:attribute name="localToken" type="xs:token" use="required"/>
+            <xs:attribute name="localLanguage" type="xs:language" use="required"/>
+            <xs:attribute name="localIDREFS" type="xs:IDREFS" use="required"/>
+            <xs:attribute name="localENTITIES" type="xs:ENTITIES" use="required"/>
+            <xs:attribute name="localNMTOKEN" type="xs:NMTOKEN" use="required"/>
+            <xs:attribute name="localNMTOKENS" type="xs:NMTOKENS" use="required"/>
+            <xs:attribute name="localName" type="xs:Name" use="required"/>
+            <xs:attribute name="localNCName" type="xs:NCName" use="required"/>
+            <xs:attribute name="localID" type="xs:ID" use="required"/>
+            <xs:attribute name="localIDREF" type="xs:IDREF" use="required"/>
+            <xs:attribute name="localENTITY" type="xs:ENTITY" use="required"/>
+            <xs:attribute name="localInteger" type="xs:integer" use="required"/>
+            <xs:attribute name="localNonPositiveInteger" type="xs:nonPositiveInteger" use="required"/>
+            <xs:attribute name="localNegativeInteger" type="xs:negativeInteger" use="required"/>
+            <xs:attribute name="localLong" type="xs:long" use="required"/>
+            <xs:attribute name="localInt" type="xs:int" use="required"/>
+            <xs:attribute name="localShort" type="xs:short" use="required"/>
+            <xs:attribute name="localByte" type="xs:byte" use="required"/>
+            <xs:attribute name="localNonNegativeInteger" type="xs:nonNegativeInteger" use="required"/>
+            <xs:attribute name="localUnsignedLong" type="xs:unsignedLong" use="required"/>
+            <xs:attribute name="localUnsignedInt" type="xs:unsignedInt" use="required"/>
+            <xs:attribute name="localUnsignedShort" type="xs:unsignedShort" use="required"/>
+            <xs:attribute name="localUnsignedByte" type="xs:unsignedByte" use="required"/>
+            <xs:attribute name="localPositiveInteger" type="xs:positiveInteger" use="required"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="ref">
+          <xs:complexType>
+            <xs:attribute ref="boolean" use="required"/>
+            <xs:attribute ref="float" use="required"/>
+            <xs:attribute ref="double" use="required"/>
+            <xs:attribute ref="decimal" use="required"/>
+            <xs:attribute ref="duration" use="required"/>
+            <xs:attribute ref="dateTime" use="required"/>
+            <xs:attribute ref="time" use="required"/>
+            <xs:attribute ref="date" use="required"/>
+            <xs:attribute ref="gYearMonth" use="required"/>
+            <xs:attribute ref="gYear" use="required"/>
+            <xs:attribute ref="gMonthDay" use="required"/>
+            <xs:attribute ref="gDay" use="required"/>
+            <xs:attribute ref="gMonth" use="required"/>
+            <xs:attribute ref="hexBinary" use="required"/>
+            <xs:attribute ref="base64Binary" use="required"/>
+            <xs:attribute ref="anyURI" use="required"/>
+            <xs:attribute ref="QName" use="required"/>
+            <xs:attribute ref="NOTATION" use="required"/>
+            <xs:attribute ref="token" use="required"/>
+            <xs:attribute ref="language" use="required"/>
+            <xs:attribute ref="IDREFS" use="required"/>
+            <xs:attribute ref="ENTITIES" use="required"/>
+            <xs:attribute ref="NMTOKEN" use="required"/>
+            <xs:attribute ref="NMTOKENS" use="required"/>
+            <xs:attribute ref="Name" use="required"/>
+            <xs:attribute ref="NCName" use="required"/>
+            <xs:attribute ref="ID" use="required"/>
+            <xs:attribute ref="IDREF" use="required"/>
+            <xs:attribute ref="ENTITY" use="required"/>
+            <xs:attribute ref="integer" use="required"/>
+            <xs:attribute ref="nonPositiveInteger" use="required"/>
+            <xs:attribute ref="negativeInteger" use="required"/>
+            <xs:attribute ref="long" use="required"/>
+            <xs:attribute ref="int" use="required"/>
+            <xs:attribute ref="short" use="required"/>
+            <xs:attribute ref="byte" use="required"/>
+            <xs:attribute ref="nonNegativeInteger" use="required"/>
+            <xs:attribute ref="unsignedLong" use="required"/>
+            <xs:attribute ref="unsignedInt" use="required"/>
+            <xs:attribute ref="unsignedShort" use="required"/>
+            <xs:attribute ref="unsignedByte" use="required"/>
+            <xs:attribute ref="positiveInteger" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
