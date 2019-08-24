@@ -35,8 +35,8 @@ public class InvoiceUpdater {
 
     final Invoice.BilledItems.Item item = new Invoice.BilledItems.Item();
     item.setDescription(new Invoice.BilledItems.Item.Description(args[1]));
-    item.setCode(new Invoice.BilledItems.Item.Code(Integer.parseInt(args[2])));
-    item.setQuantity(new Invoice.BilledItems.Item.Quantity(Integer.parseInt(args[3])));
+    item.setCode(new Invoice.BilledItems.Item.Code(Long.parseLong(args[2])));
+    item.setQuantity(new Invoice.BilledItems.Item.Quantity(Long.parseLong(args[3])));
     item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(args[4])));
 
     final Invoice invoice = addItem(file, item);

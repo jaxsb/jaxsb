@@ -32,6 +32,11 @@ public class GeneratorTest {
   }
 
   @Test
+  public void testAttribute() throws MalformedURLException {
+    Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/attribute.xsd"});
+  }
+
+  @Test
   public void testAnyAttribute() throws MalformedURLException {
     Generator.main(new String[] {"--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/anyAttribute.xsd"});
   }

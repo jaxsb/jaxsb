@@ -23,7 +23,7 @@
   <xs:element name="invoice">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="number" type="xs:positiveInteger"/>
+        <xs:element name="number" type="xs:unsignedInt"/>
         <xs:element name="date" type="xs:date"/>
         <xs:element name="billingAddress" type="pv:addressType"/>
         <xs:element name="shippingAddress" type="pv:addressType"/>
@@ -37,7 +37,7 @@
       <xs:element name="name" type="xs:string"/>
       <xs:element name="address" type="xs:string"/>
       <xs:element name="city" type="xs:string"/>
-      <xs:element name="postalCode" type="xs:positiveInteger"/>
+      <xs:element name="postalCode" type="xs:unsignedInt"/>
       <xs:element name="country" type="xs:string"/>
     </xs:all>
   </xs:complexType>
@@ -51,8 +51,8 @@
   <xs:complexType name="itemType">
     <xs:sequence>
       <xs:element name="description" type="xs:string"/>
-      <xs:element name="code" type="xs:positiveInteger"/>
-      <xs:element name="quantity" type="xs:positiveInteger"/>
+      <xs:element name="code" type="xs:unsignedInt"/>
+      <xs:element name="quantity" type="xs:unsignedInt"/>
       <xs:element name="price" type="pv:positiveDecimal"/>
     </xs:sequence>
   </xs:complexType>

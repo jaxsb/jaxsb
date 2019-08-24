@@ -22,6 +22,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -92,18 +93,49 @@ public final class XMLSchema {
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        this.text = value;
+        text(decode(value, false));
+      }
+
+      protected static Serializable decode(final String value, final boolean collectionable) {
+        if (value == null || !collectionable)
+          return value;
+
+        final ArrayList<String> list = new ArrayList<>();
+        final StringTokenizer tokenizer = new StringTokenizer(value);
+        while (tokenizer.hasMoreTokens())
+          list.add(tokenizer.nextToken());
+
+        return list;
       }
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        if (text() == null)
+        return encode(text(), false);
+      }
+
+      protected static String encode(final Object value, final boolean collectionable) {
+        if (value == null)
           return "";
 
-        if (text() instanceof Collection)
+        if (!(value instanceof Collection))
+          return value.toString();
+
+        if (!collectionable)
           throw new IllegalArgumentException("Why is this a Collection? The collection logic should be in the appropriate subclass");
 
-        return text().toString();
+        if (((Collection<?>)value).size() == 0)
+          return null;
+
+        final StringBuilder builder = new StringBuilder();
+        final Iterator<?> iterator = ((Collection<?>)value).iterator();
+        for (int i = 0; iterator.hasNext(); ++i) {
+          if (i > 0)
+            builder.append(' ');
+
+          builder.append(iterator.next());
+        }
+
+        return builder.toString();
       }
 
       private transient Element parent = null;
@@ -318,16 +350,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $AnyURI clone() {
         return ($AnyURI)super.clone();
       }
@@ -360,11 +382,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Base64Binary.parse(String.valueOf(value)));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -419,7 +436,7 @@ public final class XMLSchema {
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        super.text(Boolean.valueOf("true".equals(value) || "1".equals(value)));
+        super.text("true".equals(value) || "1".equals(value));
       }
 
       @Override
@@ -477,11 +494,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $Byte clone() {
         return ($Byte)super.clone();
       }
@@ -514,11 +526,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Date.parse(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -570,11 +577,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $DateTime clone() {
         return ($DateTime)super.clone();
       }
@@ -614,11 +616,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $Decimal clone() {
         return ($Decimal)super.clone();
       }
@@ -651,11 +648,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Double.parseDouble(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -694,11 +686,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $Duration clone() {
         return ($Duration)super.clone();
       }
@@ -725,31 +712,18 @@ public final class XMLSchema {
         return (List<String>)super.text();
       }
 
-      public <T extends List<String> & Serializable> void text(final T text) {
+      public <T extends List<String> & Serializable>void text(final T text) {
         super.text(text);
       }
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        if (value == null || value.length() == 0)
-          return;
-
-        super.text(new ArrayList<String>());
-        final StringTokenizer tokenizer = new StringTokenizer(value);
-        while (tokenizer.hasMoreTokens())
-          ((List<String>)super.text()).add(tokenizer.nextToken());
+        text(decode(value, true));
       }
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        if (super.text() == null || ((List<?>)super.text()).size() == 0)
-          return null;
-
-        String value = "";
-        for (final String temp : (List<String>)super.text())
-          value += " " + temp;
-
-        return value.substring(1);
+        return encode(text(), true);
       }
 
       @Override
@@ -771,26 +745,6 @@ public final class XMLSchema {
 
       protected $ENTITY() {
         super();
-      }
-
-      @Override
-      public String text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final String text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -829,11 +783,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $Float clone() {
         return ($Float)super.clone();
       }
@@ -866,11 +815,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Day.parse(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -909,11 +853,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $GMonth clone() {
         return ($GMonth)super.clone();
       }
@@ -946,11 +885,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(MonthDay.parse(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -989,11 +923,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $GYear clone() {
         return ($GYear)super.clone();
       }
@@ -1026,11 +955,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(YearMonth.parse(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -1069,11 +993,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $HexBinary clone() {
         return ($HexBinary)super.clone();
       }
@@ -1093,18 +1012,13 @@ public final class XMLSchema {
 
       private static void remove(final String namespace, final Object value) {
         final Map<String,$ID> ids = namespaceIds.get(namespace);
-        if (ids == null)
-          return;
-
-        ids.remove(value);
+        if (ids != null)
+          ids.remove(value);
       }
 
       public static $ID lookupId(final Object id) {
         final Map<String,$ID> ids = namespaceIds.get(UniqueQName.XS.getNamespaceURI().toString());
-        if (ids == null)
-          return null;
-
-        return ids.get(id);
+        return ids == null ? null : ids.get(id);
       }
 
       public $ID(final $ID binding) {
@@ -1121,11 +1035,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public String text() {
-        return super.text();
-      }
-
-      @Override
       public void text(final String text) {
         final String old = text();
         super.text(text);
@@ -1139,11 +1048,6 @@ public final class XMLSchema {
       protected void _$$decode(final Element parent, final String value) {
         persist(parent.getNamespaceURI(), value, this);
         super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1165,26 +1069,6 @@ public final class XMLSchema {
 
       protected $IDREF() {
         super();
-      }
-
-      @Override
-      public String text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final String text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1214,31 +1098,18 @@ public final class XMLSchema {
         return (List<String>)super.text();
       }
 
-      public <T extends List<String> & Serializable> void text(final T text) {
+      public <T extends List<String> & Serializable>void text(final T text) {
         super.text(text);
       }
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        if (value == null || value.length() == 0)
-          return;
-
-        super.text(new ArrayList<String>());
-        final StringTokenizer tokenizer = new StringTokenizer(value);
-        while (tokenizer.hasMoreTokens())
-          ((List<String>)super.text()).add(tokenizer.nextToken());
+        text(decode(value, true));
       }
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        if (super.text() == null || ((List<String>)super.text()).size() == 0)
-          return null;
-
-        String value = "";
-        for (final String temp : (List<String>)super.text())
-          value += " " + temp;
-
-        return value.substring(1);
+        return encode(text(), true);
       }
 
       @Override
@@ -1266,11 +1137,6 @@ public final class XMLSchema {
         super();
       }
 
-      @Override
-      public Number text() {
-        return super.text();
-      }
-
       public void text(final Integer text) {
         super.text(text);
       }
@@ -1278,11 +1144,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Integer.parseInt(String.valueOf(value)));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -1311,8 +1172,8 @@ public final class XMLSchema {
       }
 
       @Override
-      public Number text() {
-        return super.text();
+      protected Binding inherits() {
+        return null;
       }
 
       public void text(final BigInteger text) {
@@ -1322,11 +1183,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(new BigInteger(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -1365,11 +1221,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $Language clone() {
         return ($Language)super.clone();
       }
@@ -1394,11 +1245,6 @@ public final class XMLSchema {
         super();
       }
 
-      @Override
-      public Number text() {
-        return super.text();
-      }
-
       public void text(final Long text) {
         super.text(text);
       }
@@ -1406,11 +1252,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Long.parseLong(String.valueOf(value)));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -1449,11 +1290,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $MonthDay clone() {
         return ($MonthDay)super.clone();
       }
@@ -1472,26 +1308,6 @@ public final class XMLSchema {
 
       protected $NMTOKEN() {
         super();
-      }
-
-      @Override
-      public String text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final String text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1521,31 +1337,18 @@ public final class XMLSchema {
         return (List<String>)super.text();
       }
 
-      public <T extends List<String> & Serializable> void text(final T text) {
+      public <T extends List<String> & Serializable>void text(final T text) {
         super.text(text);
       }
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        if (value == null || value.length() == 0)
-          return;
-
-        super.text(new ArrayList<String>());
-        final StringTokenizer tokenizer = new StringTokenizer(value);
-        while (tokenizer.hasMoreTokens())
-          ((List<String>)super.text()).add(tokenizer.nextToken());
+        text(decode(value, true));
       }
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        if (super.text() == null || ((List<String>)super.text()).size() == 0)
-          return null;
-
-        String value = "";
-        for (final String temp : (List<String>)super.text())
-          value += " " + temp;
-
-        return value.substring(1);
+        return encode(text(), true);
       }
 
       @Override
@@ -1586,11 +1389,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $NOTATION clone() {
         return ($NOTATION)super.clone();
       }
@@ -1603,32 +1401,16 @@ public final class XMLSchema {
         super(binding);
       }
 
-      public $NegativeInteger(final Long value) {
+      public $NegativeInteger(final BigInteger value) {
         super(value);
+      }
+
+      protected $NegativeInteger(final Number number) {
+        super(number);
       }
 
       protected $NegativeInteger() {
         super();
-      }
-
-      @Override
-      public Integer text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final Long text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(Long.parseLong(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -1644,7 +1426,7 @@ public final class XMLSchema {
         super(binding);
       }
 
-      public $NonNegativeInteger(final Long value) {
+      public $NonNegativeInteger(final BigInteger value) {
         super(value);
       }
 
@@ -1654,30 +1436,6 @@ public final class XMLSchema {
 
       protected $NonNegativeInteger() {
         super();
-      }
-
-      @Override
-      public Number text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final BigInteger text) {
-        super.text(text != null ? text.longValue() : null);
-      }
-
-      public void text(final Long text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(Integer.parseInt(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -1693,7 +1451,7 @@ public final class XMLSchema {
         super(binding);
       }
 
-      public $NonPositiveInteger(final Long value) {
+      public $NonPositiveInteger(final BigInteger value) {
         super(value);
       }
 
@@ -1706,22 +1464,8 @@ public final class XMLSchema {
       }
 
       @Override
-      public Integer text() {
-        return (Integer)super.text();
-      }
-
-      public void text(final Long text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(Long.parseLong(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+      public BigInteger text() {
+        return (BigInteger)super.text();
       }
 
       @Override
@@ -1746,25 +1490,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public String text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final String text) {
-        super.text(text);
-      }
-
-      protected void _$$decode(final String element, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text() : "";
-      }
-
-      @Override
       public $NormalizedString clone() {
         return ($NormalizedString)super.clone();
       }
@@ -1777,7 +1502,7 @@ public final class XMLSchema {
         super(binding);
       }
 
-      public $PositiveInteger(final Long value) {
+      public $PositiveInteger(final BigInteger value) {
         super(value);
       }
 
@@ -1787,26 +1512,6 @@ public final class XMLSchema {
 
       protected $PositiveInteger() {
         super();
-      }
-
-      @Override
-      public Integer text() {
-        return (Integer)super.text();
-      }
-
-      @Override
-      public void text(final Long text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(Integer.parseInt(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -1834,23 +1539,13 @@ public final class XMLSchema {
         super();
       }
 
-      @Override
-      public Number text() {
-        return super.text();
-      }
-
       public void text(final Short text) {
         super.text(text);
       }
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        super.text(Short.parseShort(String.valueOf(value)));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
+        super.text(Short.parseShort(value));
       }
 
       @Override
@@ -1881,16 +1576,6 @@ public final class XMLSchema {
 
       public void text(final String text) {
         super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -1929,11 +1614,6 @@ public final class XMLSchema {
       }
 
       @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
-      }
-
-      @Override
       public $Time clone() {
         return ($Time)super.clone();
       }
@@ -1952,26 +1632,6 @@ public final class XMLSchema {
 
       protected $Token() {
         super();
-      }
-
-      @Override
-      public String text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final String text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -1995,11 +1655,6 @@ public final class XMLSchema {
         super();
       }
 
-      @Override
-      public Number text() {
-        return super.text();
-      }
-
       public void text(final Short text) {
         super.text(text);
       }
@@ -2007,11 +1662,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Short.parseShort(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -2039,12 +1689,6 @@ public final class XMLSchema {
         super();
       }
 
-      @Override
-      public Number text() {
-        return super.text();
-      }
-
-      @Override
       public void text(final Long text) {
         super.text(text);
       }
@@ -2052,11 +1696,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Long.parseLong(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -2085,23 +1724,8 @@ public final class XMLSchema {
       }
 
       @Override
-      public Number text() {
-        return super.text();
-      }
-
-      @Override
       public void text(final BigInteger text) {
         super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(new BigInteger(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -2129,11 +1753,6 @@ public final class XMLSchema {
         super();
       }
 
-      @Override
-      public Number text() {
-        return super.text();
-      }
-
       public void text(final Integer text) {
         super.text(text);
       }
@@ -2141,11 +1760,6 @@ public final class XMLSchema {
       @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Integer.parseInt(value));
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text().toString() : "";
       }
 
       @Override
@@ -2170,26 +1784,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public String text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final String text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text() : "";
-      }
-
-      @Override
       public $nCName clone() {
         return ($nCName)super.clone();
       }
@@ -2208,26 +1802,6 @@ public final class XMLSchema {
 
       protected $name() {
         super();
-      }
-
-      @Override
-      public String text() {
-        return super.text();
-      }
-
-      @Override
-      public void text(final String text) {
-        super.text(text);
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(value);
-      }
-
-      @Override
-      protected String _$$encode(final Element parent) throws MarshalException {
-        return super.text() != null ? super.text() : "";
       }
 
       @Override
@@ -2262,15 +1836,15 @@ public final class XMLSchema {
 
       @Override
       protected void _$$decode(final Element element, final String value) {
-        final QName temp = stringToQName(value);
-        super.text(temp);
+        final QName qName = stringToQName(value);
+        super.text(qName);
         if (element != null)
-          super.text(new javax.xml.namespace.QName(element.getOwnerDocument().getDocumentElement().lookupNamespaceURI(temp.getPrefix()), temp.getLocalPart()));
+          super.text(new javax.xml.namespace.QName(element.getOwnerDocument().getDocumentElement().lookupNamespaceURI(qName.getPrefix()), qName.getLocalPart()));
       }
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        final QName value = (QName)super.text();
+        final QName value = text();
         if (value == null)
           return "";
 

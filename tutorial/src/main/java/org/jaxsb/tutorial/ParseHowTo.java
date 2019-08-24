@@ -29,7 +29,7 @@ public class ParseHowTo {
     final URL url = ParseHowTo.class.getResource("/invoice.xml");
     final Invoice invoice = (Invoice)Bindings.parse(url.openStream());
 
-    final Integer number = invoice.getNumber().text();
+    final Number number = invoice.getNumber().text();
     System.out.print("This invoice # " + number + " ");
 
     final Date date = invoice.getDate().text();
@@ -44,7 +44,7 @@ public class ParseHowTo {
     final String billingCity = invoice.getBillingAddress().getCity().text();
     System.out.print(billingCity + ", ");
 
-    final Integer billingPostalCode = invoice.getBillingAddress().getPostalCode().text();
+    final Number billingPostalCode = invoice.getBillingAddress().getPostalCode().text();
     System.out.print(billingPostalCode + ", ");
 
     final String billingCountry = invoice.getBillingAddress().getCountry().text();
@@ -59,7 +59,7 @@ public class ParseHowTo {
     final String shippingCity = invoice.getShippingAddress().getCity().text();
     System.out.print(shippingCity + ", ");
 
-    final Integer shippingPostalCode = invoice.getShippingAddress().getPostalCode().text();
+    final Number shippingPostalCode = invoice.getShippingAddress().getPostalCode().text();
     System.out.print(shippingPostalCode + ", ");
 
     final String shippingCountry = invoice.getShippingAddress().getCountry().text();
@@ -67,13 +67,13 @@ public class ParseHowTo {
 
     System.out.println("The following items are included in this invoice:");
     for (final $ItemType item : invoice.getBilledItems().getItem()) {
-      final Integer quantity = item.getQuantity().text();
+      final Number quantity = item.getQuantity().text();
       System.out.print(quantity + " ");
 
       final String description = item.getDescription().text();
       System.out.print(description + " ");
 
-      final Integer code = item.getCode().text();
+      final Number code = item.getCode().text();
       System.out.print("(#" + code + ") ");
 
       final BigDecimal price = item.getPrice().text();
