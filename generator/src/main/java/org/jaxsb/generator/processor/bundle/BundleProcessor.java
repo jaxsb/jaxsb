@@ -41,6 +41,7 @@ import org.openjax.xml.dom.DOMParsers;
 import org.openjax.xml.dom.DOMStyle;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
+import org.apache.xerces.jaxp.JAXPConstants;
 import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.pipeline.PipelineDirectory;
@@ -63,7 +64,7 @@ import org.xml.sax.SAXException;
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final List<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
-    final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, HexBinary.class, NamespaceBinding.class, ValidationException.class, Validator.class};
+    final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
     for (final Class<?> file : requiredLibs)
       classpath.add(new File(file.getProtectionDomain().getCodeSource().getLocation().toURI()));
 

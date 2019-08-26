@@ -15,9 +15,9 @@
   program. If not, see <http://opensource.org/licenses/MIT/>.
 -->
 <!DOCTYPE catalog [
-<!NOTATION jpeg SYSTEM "JPG">
-<!ENTITY prod557 SYSTEM "prod557.jpg" NDATA jpeg>
-<!ENTITY prod563 SYSTEM "prod563.jpg" NDATA jpeg>
+  <!NOTATION jpeg SYSTEM "JPG">
+  <!ENTITY prod557 SYSTEM "prod557.jpg" NDATA jpeg>
+  <!ENTITY prod563 SYSTEM "prod563.jpg" NDATA jpeg>
 ]>
 <at:attribute
   xmlns:at="http://www.jaxsb.org/test/attribute.xsd"

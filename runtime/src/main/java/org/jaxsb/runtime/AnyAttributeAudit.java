@@ -57,7 +57,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> implements Serial
 
   public boolean setAttribute(final ArrayList<T> value) {
     if (owner.isNull())
-      throw new BindingRuntimeException("NULL Object is immutable");
+      throw new UnsupportedOperationException("NULL Object is immutable");
 
     this.value = value;
     return true;

@@ -32,7 +32,6 @@ import org.jaxsb.generator.processor.plan.element.ElementPlan;
 import org.jaxsb.generator.processor.write.Writer;
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.BindingList;
-import org.jaxsb.runtime.BindingRuntimeException;
 import org.jaxsb.runtime.BindingValidator;
 import org.jaxsb.runtime.CompilerFailureException;
 import org.jaxsb.runtime.ComplexType;
@@ -242,7 +241,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
       writer.write("public void text(final " + String.class.getName() + " text)\n");
       writer.write("{\n");
       writer.write("if (isNull())\n");
-      writer.write("throw new " + BindingRuntimeException.class.getName() + "(\"NULL Object is immutable.\");\n");
+      writer.write("throw new " + UnsupportedOperationException.class.getName() + "(\"NULL Object is immutable.\");\n");
       writer.write("this.text = text;\n");
       writer.write("}\n");
     }

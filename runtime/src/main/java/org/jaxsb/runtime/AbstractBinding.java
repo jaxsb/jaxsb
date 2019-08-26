@@ -52,6 +52,9 @@ public abstract class AbstractBinding implements Cloneable {
     if (object instanceof NotationType)
       return (NotationType)object;
 
+    if (object == null)
+      throw new IllegalArgumentException("Notation not found: " + name);
+
     if (!(object instanceof Class))
       throw new UnsupportedOperationException("Unsupported object type in notations map: " + object.getClass().getName());
 
@@ -103,7 +106,7 @@ public abstract class AbstractBinding implements Cloneable {
       PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName(), Schema.class::isAssignableFrom);
     }
     catch (final IOException | PackageNotFoundException e) {
-      throw new BindingRuntimeException(e);
+      throw new IllegalStateException(e);
     }
   }
 

@@ -304,21 +304,18 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     if (name.getLocalPart() == null)
       throw new IllegalArgumentException("name.getLocalPart() == null");
 
-    final Method[] methods = getClass().getDeclaredMethods();
-    for (final Method method : methods) {
-      if (method.getReturnType() != null && method.getParameterTypes().length == 0) {
-        org.jaxsb.runtime.QName qName = method.getAnnotation(org.jaxsb.runtime.QName.class);
-        if (qName != null) {
-          if (name.getLocalPart().equals(qName.localPart()) && (name.getNamespaceURI() != null ? name.getNamespaceURI().equals(qName.namespaceURI()) : qName.namespaceURI() == null)) {
-            try {
-              return (BindingList<? extends Binding>)method.invoke(this);
-            }
-            catch (final IllegalAccessException | InvocationTargetException e) {
-              throw new IllegalStateException(e);
-            }
-          }
+    try {
+      final Method[] methods = getClass().getDeclaredMethods();
+      for (final Method method : methods) {
+        if (method.getReturnType() != null && method.getParameterTypes().length == 0) {
+          final org.jaxsb.runtime.QName qName = method.getAnnotation(org.jaxsb.runtime.QName.class);
+          if (qName != null && name.getLocalPart().equals(qName.localPart()) && (name.getNamespaceURI() != null ? name.getNamespaceURI().equals(qName.namespaceURI()) : qName.namespaceURI() == null))
+            return (BindingList<? extends Binding>)method.invoke(this);
         }
       }
+    }
+    catch (final IllegalAccessException | InvocationTargetException e) {
+      throw new IllegalStateException(e);
     }
 
     return null;

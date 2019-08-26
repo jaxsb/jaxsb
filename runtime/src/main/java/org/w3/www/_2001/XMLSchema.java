@@ -29,16 +29,15 @@ import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
+import org.apache.xerces.jaxp.datatype.Duration;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.runtime.Binding;
-import org.jaxsb.runtime.BindingRuntimeException;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.NotationType;
 import org.openjax.xml.datatype.Base64Binary;
 import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.DateTime;
 import org.openjax.xml.datatype.Day;
-import org.openjax.xml.datatype.Duration;
 import org.openjax.xml.datatype.HexBinary;
 import org.openjax.xml.datatype.Language;
 import org.openjax.xml.datatype.Month;
@@ -76,7 +75,7 @@ public final class XMLSchema {
 
       public void text(final Serializable text) {
         if (isNull())
-          throw new BindingRuntimeException("NULL Object is immutable");
+          throw new UnsupportedOperationException("NULL Object is immutable");
 
         this.text = text;
       }

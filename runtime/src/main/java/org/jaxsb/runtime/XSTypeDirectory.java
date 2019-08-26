@@ -27,12 +27,12 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.apache.xerces.jaxp.datatype.Duration;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.openjax.xml.datatype.Base64Binary;
 import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.DateTime;
 import org.openjax.xml.datatype.Day;
-import org.openjax.xml.datatype.Duration;
 import org.openjax.xml.datatype.HexBinary;
 import org.openjax.xml.datatype.Language;
 import org.openjax.xml.datatype.Month;

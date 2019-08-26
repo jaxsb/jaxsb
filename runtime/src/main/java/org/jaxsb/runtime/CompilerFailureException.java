@@ -16,7 +16,7 @@
 
 package org.jaxsb.runtime;
 
-public class CompilerFailureException extends RuntimeException {
+public class CompilerFailureException extends BindingRuntimeException {
   private static final long serialVersionUID = -4619096950067417903L;
 
   public CompilerFailureException() {

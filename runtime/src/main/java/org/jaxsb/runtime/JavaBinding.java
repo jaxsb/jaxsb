@@ -16,7 +16,6 @@
 
 package org.jaxsb.runtime;
 
-import org.libj.util.Strings;
 import org.jaxsb.compiler.lang.Prefix;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.Nameable;
@@ -28,6 +27,7 @@ import org.jaxsb.compiler.processor.model.element.NotationModel;
 import org.jaxsb.compiler.processor.model.element.RedefineModel;
 import org.jaxsb.compiler.processor.model.element.SchemaModel;
 import org.jaxsb.compiler.processor.model.element.SimpleTypeModel;
+import org.libj.util.Strings;
 
 public final class JavaBinding {
   private static final String ATTRIBUTE_SUFFIX = "$";

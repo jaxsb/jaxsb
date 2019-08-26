@@ -16,6 +16,8 @@
 
 package org.jaxsb.compiler.processor.reference;
 
+import java.util.Objects;
+
 import org.xml.sax.SAXException;
 
 public class ReferenceSAXException extends SAXException {
@@ -25,13 +27,8 @@ public class ReferenceSAXException extends SAXException {
   private final String prefix;
 
   public ReferenceSAXException(final String namespaceURI, final String prefix) {
-    this.namespaceURI = namespaceURI;
-    if (namespaceURI == null)
-      throw new IllegalArgumentException("namespaceURI == null");
-
-    this.prefix = prefix;
-    if (prefix == null)
-      throw new IllegalArgumentException("prefix == null");
+    this.namespaceURI = Objects.requireNonNull(namespaceURI);
+    this.prefix = Objects.requireNonNull(prefix);
   }
 
   public String getNamespaceURI() {
