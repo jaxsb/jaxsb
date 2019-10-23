@@ -57,7 +57,7 @@ public final class SchemaNamespaceHandler extends DefaultHandler {
 
     final int index = attributes.getIndex("targetNamespace");
     final String namespaceURI = index != -1 ? attributes.getValue(index) : "";
-    final String nsPrefix = xmlns.inverse().get(namespaceURI);
+    final String nsPrefix = xmlns.reverse().get(namespaceURI);
     throw new ReferenceSAXException(namespaceURI, nsPrefix != null ? nsPrefix : "");
   }
 }
