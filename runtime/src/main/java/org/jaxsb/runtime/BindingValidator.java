@@ -17,18 +17,13 @@
 package org.jaxsb.runtime;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.transform.stream.StreamSource;
-
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
-import org.openjax.xml.sax.SchemaLocation;
-import org.openjax.xml.sax.XMLCatalog;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -75,25 +70,16 @@ public final class BindingValidator extends Validator {
 
   @Override
   protected void parse(final Element element) throws IOException, ValidationException {
-    final String output = DOMs.domToString(element);
+    final String xml = DOMs.domToString(element);
     try {
-      org.openjax.xml.sax.Validator.validate(new StreamSource(new StringReader(output)), new XMLCatalog() {
-        @Override
-        public SchemaLocation getSchemaLocation(final String namespaceURI) {
-          return new SchemaLocation(namespaceURI) {
-            @Override
-            public Map<String,URL> getDirectory() {
-              return BindingEntityResolver.schemaReferences;
-            }
-          };
-        }
-      }, false, null);
+      final BindingCatalogHandler catalogHandler = new BindingCatalogHandler(null, BindingEntityResolver.schemaReferences);
+      catalogHandler.validate(xml);
     }
     catch (final IOException e) {
       throw e;
     }
     catch (final SAXException e) {
-      throw new ValidationException("\n" + e.getMessage() + "\n" + output, e);
+      throw new ValidationException("\n" + e.getMessage() + "\n" + xml, e);
     }
   }
 

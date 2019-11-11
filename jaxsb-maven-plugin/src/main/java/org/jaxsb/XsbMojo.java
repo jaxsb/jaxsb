@@ -48,6 +48,9 @@ public class XsbMojo extends GeneratorMojo {
   @Parameter(property="excludes")
   private List<String> excludes;
 
+  @Parameter(property="skipXsd")
+  private boolean skipXsd;
+
   // Contains all source paths for all executions of the generator in the single VM, such
   // that subsequent executions have a reference to the source paths of previous executions
   // so as to allow for bindings of excluded namespaces to be generated in prior executions
@@ -77,7 +80,7 @@ public class XsbMojo extends GeneratorMojo {
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
     final Set<NamespaceURI> excludes = buildNamespaceSet(this.excludes);
 
-    Generator.generate(new GeneratorContext(configuration.getDestDir(), configuration.getOverwrite(), null, false, includes, excludes), generatorBindings, sourcePath);
+    Generator.generate(new GeneratorContext(configuration.getDestDir(), configuration.getOverwrite(), null, false, includes, excludes), generatorBindings, sourcePath, skipXsd);
     sourcePath.add(configuration.getDestDir());
 
     final Resource resource = new Resource();

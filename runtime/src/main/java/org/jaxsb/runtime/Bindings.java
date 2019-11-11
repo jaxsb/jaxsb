@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
-import java.util.Objects;
 import java.util.function.Function;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -34,6 +33,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public abstract class Bindings {
+  // FIXME: This is so inefficient!
   public static Binding clone(final Binding binding) {
     try {
       return Bindings.parse(new InputSource(new StringReader(DOMs.domToString(binding.marshal()))));
@@ -55,6 +55,16 @@ public abstract class Bindings {
       throw new MarshalException("Binding must inherit from an instantiable element or attribute to be marshaled");
 
     return binding.marshal();
+  }
+
+  public static Binding parse(final String xml) throws IOException, SAXException, ValidationException {
+    return parse(xml, null);
+  }
+
+  public static Binding parse(final String xml, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
+    try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
+      return parse(new InputSource(in), Thread.currentThread().getContextClassLoader(), errorHandler);
+    }
   }
 
   /**
@@ -113,24 +123,10 @@ public abstract class Bindings {
 
   public static Binding parse(final URL url, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
     try (final InputStream in = url.openStream()) {
-      return parse(new InputSource(in), classLoader, errorHandler);
+      final InputSource inputSource = new InputSource(url.toString());
+      inputSource.setByteStream(in);
+      return parse(inputSource, classLoader, errorHandler);
     }
-  }
-
-  public static Binding parse(final InputStream in) throws IOException, SAXException, ValidationException {
-    return parse(in, Thread.currentThread().getContextClassLoader());
-  }
-
-  public static Binding parse(final InputStream in, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
-    return parse(in, Thread.currentThread().getContextClassLoader(), errorHandler);
-  }
-
-  public static Binding parse(final InputStream in, final ClassLoader classLoader) throws IOException, SAXException, ValidationException {
-    return parse(in, classLoader, null);
-  }
-
-  public static Binding parse(final InputStream in, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
-    return parse(new InputSource(Objects.requireNonNull(in)), classLoader, errorHandler);
   }
 
   /**
@@ -162,16 +158,6 @@ public abstract class Bindings {
    */
   public static Binding parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
     return parse(inputSource, Thread.currentThread().getContextClassLoader(), errorHandler);
-  }
-
-  public static Binding parse(final String xml) throws IOException, SAXException, ValidationException {
-    return parse(xml, null);
-  }
-
-  public static Binding parse(final String xml, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
-    try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
-      return parse(new InputSource(in), Thread.currentThread().getContextClassLoader(), errorHandler);
-    }
   }
 
   public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, SAXException, ValidationException {

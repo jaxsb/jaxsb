@@ -16,6 +16,7 @@
 
 package org.jaxsb.runtime;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -34,6 +35,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMStyle;
 import org.openjax.xml.dom.DOMs;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -41,13 +44,27 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public abstract class Binding extends AbstractBinding implements Serializable {
   private static final long serialVersionUID = -1760699437761774773L;
+  private static final Logger logger = LoggerFactory.getLogger(Binding.class);
 
   protected static DocumentBuilder newDocumentBuilder() {
     try {
-      return documentBuilderFactory.newDocumentBuilder();
+      final DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
+      if (logger.isDebugEnabled()) {
+        builder.setEntityResolver(new EntityResolver() {
+          @Override
+          public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException {
+            logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
+            return null;
+          }
+        });
+      }
+      return builder;
     }
     catch (final ParserConfigurationException e) {
       throw new IllegalStateException(e);
@@ -257,6 +274,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   static {
     documentBuilderFactory.setNamespaceAware(true);
     documentBuilderFactory.setValidating(false);
+    documentBuilderFactory.setXIncludeAware(true);
   }
 
   private ElementCompositeList elements = null;
