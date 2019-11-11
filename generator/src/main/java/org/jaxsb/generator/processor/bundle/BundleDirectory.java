@@ -28,8 +28,8 @@ import org.jaxsb.compiler.processor.composite.SchemaComposite;
 public final class BundleDirectory implements PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> {
   private BundleProcessor processor;
 
-  public BundleDirectory(final Set<File> sourcePath) {
-    this.processor = new BundleProcessor(sourcePath);
+  public BundleDirectory(final Set<File> sourcePath, final boolean skipXsd) {
+    this.processor = new BundleProcessor(sourcePath, skipXsd);
   }
 
   @Override

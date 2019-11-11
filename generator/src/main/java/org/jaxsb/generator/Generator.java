@@ -55,6 +55,7 @@ public final class Generator extends AbstractGenerator {
     System.err.println("  --overwrite     Overwrite all existing generated classes.");
     System.err.println("  --compile       Compile generated source.");
     System.err.println("  --package       Package generated jars into a jar.");
+    System.err.println("  --skip-xsd      Do not copy source XSD to destination directory.");
     System.exit(1);
   }
 
@@ -65,6 +66,7 @@ public final class Generator extends AbstractGenerator {
     boolean overwrite = false;
     File compile = null;
     boolean pack = false;
+    boolean skipXsd = false;
     File destDir = null;
     final Collection<SchemaReference> schemas = new HashSet<>();
     for (int i = 0; i < args.length; ++i) {
@@ -74,16 +76,22 @@ public final class Generator extends AbstractGenerator {
         compile = new File(args[++i]).getAbsoluteFile();
       else if ("--package".equals(args[i]))
         pack = true;
+      else if ("--skip-xsd".equals(args[i]))
+        skipXsd = true;
       else if ("-d".equals(args[i]) && i < args.length)
         destDir = new File(args[++i]).getAbsoluteFile();
       else
         schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.toCanonicalURL(args[i]) : new File(FileUtil.getCwd(), args[i]).toURI().toURL(), false));
     }
 
-    generate(new GeneratorContext(destDir == null ? FileUtil.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null);
+    generate(destDir, overwrite, compile, pack, schemas, skipXsd);
   }
 
-  public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath) {
+  public static Collection<Bundle> generate(final File destDir, final boolean overwrite, final File compile, final boolean pack, final Collection<SchemaReference> schemas, final boolean skipXsd) {
+    return generate(new GeneratorContext(destDir == null ? FileUtil.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null, skipXsd);
+  }
+
+  public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath, final boolean skipXsd) {
     final Pipeline<GeneratorContext> pipeline = new Pipeline<>(generatorContext);
 
     // select the schemas to be generated and exit if no schemas need work
@@ -114,7 +122,7 @@ public final class Generator extends AbstractGenerator {
 
     // compile and jar the bindings
     final Collection<Bundle> bundles = new ArrayList<>();
-    pipeline.addProcessor(schemaComposites, bundles, new BundleDirectory(sourcePath));
+    pipeline.addProcessor(schemaComposites, bundles, new BundleDirectory(sourcePath, skipXsd));
 
     // timestamp the generated files and directories
     pipeline.addProcessor(bundles, null, new TimestampDirectory());

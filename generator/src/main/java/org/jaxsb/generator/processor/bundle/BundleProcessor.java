@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.jar.JarOutputStream;
 
+import javax.annotation.Generated;
 import javax.xml.XMLConstants;
 
 import org.libj.util.CollectionUtil;
@@ -64,7 +65,7 @@ import org.xml.sax.SAXException;
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final List<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
-    final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
+    final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, Generated.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
     for (final Class<?> file : requiredLibs)
       classpath.add(new File(file.getProtectionDomain().getCodeSource().getLocation().toURI()));
 
@@ -82,7 +83,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   }
 
   @SuppressWarnings("resource")
-  private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) throws IOException, SAXException {
+  private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes, final boolean skipXsd) throws IOException, SAXException {
     final Set<NamespaceURI> namespaceURIsAdded = new HashSet<>();
     final Collection<File> jarFiles = new HashSet<>();
 
@@ -124,7 +125,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           destJar = null;
         }
 
-        if (!schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
+        if (!skipXsd && !schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
           addXSDs(schemaModelComposite.getSchemaDocument().getSchemaReference().getURL(), packagePath + '/' + packageName + ".xsd", destJar, destDir, 0);
 
         if (destJar != null)
@@ -203,9 +204,11 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   }
 
   private final Set<File> sourcePath;
+  private final boolean skipXsd;
 
-  public BundleProcessor(final Set<File> sourcePath) {
+  public BundleProcessor(final Set<File> sourcePath, final boolean skipXsd) {
     this.sourcePath = sourcePath;
+    this.skipXsd = skipXsd;
   }
 
   @Override
@@ -215,7 +218,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
 
       final Collection<Bundle> bundles = new ArrayList<>();
-      final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes());
+      final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes(), skipXsd);
       for (final File jarFile : jarFiles)
         bundles.add(new Bundle(jarFile));
 

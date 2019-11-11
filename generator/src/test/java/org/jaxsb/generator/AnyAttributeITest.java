@@ -18,7 +18,6 @@ package org.jaxsb.generator;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.jaxsb.runtime.Binding;
@@ -39,7 +38,7 @@ public class AnyAttributeITest {
     final String xml = binding.toString();
     logger.info(xml);
 
-    final Binding b2 = Bindings.parse(new ByteArrayInputStream(xml.getBytes()));
+    final Binding b2 = Bindings.parse(xml);
     assertEquals(binding, b2);
   }
 }
