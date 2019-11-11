@@ -18,6 +18,7 @@ package org.jaxsb.compiler.processor.normalize.element;
 
 import org.jaxsb.compiler.processor.model.ElementableModel;
 import org.jaxsb.compiler.processor.model.Model;
+import org.jaxsb.compiler.processor.model.MultiplicableModel;
 import org.jaxsb.compiler.processor.model.element.AnyModel;
 import org.jaxsb.compiler.processor.normalize.Normalizer;
 import org.jaxsb.compiler.processor.normalize.NormalizerDirectory;
@@ -41,11 +42,14 @@ public final class AnyNormalizer extends Normalizer<AnyModel> {
 
   @Override
   protected void stage4(final AnyModel model) {
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       if (parent instanceof ElementableModel) {
+        for (final MultiplicableModel multiplicableModel : ((ElementableModel)parent).getMultiplicableModels())
+          if (multiplicableModel instanceof AnyModel)
+            return;
+
         ((ElementableModel)parent).addMultiplicableModel(model);
-        break;
+        return;
       }
     }
   }
