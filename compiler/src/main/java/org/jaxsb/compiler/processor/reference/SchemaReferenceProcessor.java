@@ -18,6 +18,8 @@ package org.jaxsb.compiler.processor.reference;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -27,8 +29,6 @@ import org.jaxsb.compiler.pipeline.PipelineEntity;
 import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.libj.net.URLs;
-import org.openjax.xml.sax.SAXInterruptException;
-import org.openjax.xml.sax.XMLDocuments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,19 +64,15 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
                 selectedSchemas.add(schemaReference);
               }
               else {
-                try {
-                  XMLDocuments.parse(schemaReference.getURL(), connection -> {
-                    if (containerClass.lastModified() < connection.getLastModified())
-                      throw new SAXInterruptException();
-                  }, false, false);
+                final URL url = schemaReference.getURL();
+                final URLConnection connection = url.openConnection();
+                if (containerClass.lastModified() >= connection.getLastModified()) {
+                  logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
                 }
-                catch (final SAXInterruptException e) {
+                else {
                   logger.debug("adding: " + containerClass.getAbsolutePath());
                   selectedSchemas.add(schemaReference);
-                  continue;
                 }
-
-                logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
               }
 
 //              synchronized (counter) {
