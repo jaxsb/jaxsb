@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -33,15 +34,6 @@ import java.util.jar.JarOutputStream;
 import javax.annotation.Generated;
 import javax.xml.XMLConstants;
 
-import org.libj.util.CollectionUtil;
-import org.libj.util.Paths;
-import org.libj.util.zip.ZipWriter;
-import org.openjax.xml.api.ValidationException;
-import org.openjax.xml.datatype.HexBinary;
-import org.openjax.xml.dom.DOMParsers;
-import org.openjax.xml.dom.DOMStyle;
-import org.openjax.xml.dom.DOMs;
-import org.openjax.xml.dom.Validator;
 import org.apache.xerces.jaxp.JAXPConstants;
 import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.jaxsb.compiler.lang.NamespaceURI;
@@ -56,6 +48,15 @@ import org.jaxsb.runtime.CompilerFailureException;
 import org.libj.jci.CompilationException;
 import org.libj.jci.InMemoryCompiler;
 import org.libj.net.URLs;
+import org.libj.util.CollectionUtil;
+import org.libj.util.Paths;
+import org.libj.util.zip.ZipWriter;
+import org.openjax.xml.api.ValidationException;
+import org.openjax.xml.datatype.HexBinary;
+import org.openjax.xml.dom.DOMParsers;
+import org.openjax.xml.dom.DOMStyle;
+import org.openjax.xml.dom.DOMs;
+import org.openjax.xml.dom.Validator;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -66,8 +67,11 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final List<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
     final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, Generated.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
-    for (final Class<?> file : requiredLibs)
-      classpath.add(new File(file.getProtectionDomain().getCodeSource().getLocation().toURI()));
+    for (final Class<?> cls : requiredLibs) {
+      final CodeSource codeSource = cls.getProtectionDomain().getCodeSource();
+      if (codeSource != null)
+        classpath.add(new File(codeSource.getLocation().toURI()));
+    }
 
     final File[] sources = new File[documents.size()];
     final Iterator<SchemaComposite> iterator = documents.iterator();
