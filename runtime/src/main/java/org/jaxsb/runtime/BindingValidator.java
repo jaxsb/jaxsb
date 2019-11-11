@@ -17,6 +17,7 @@
 package org.jaxsb.runtime;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,11 @@ import java.util.Map;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
+import org.openjax.xml.sax.SchemaLocation;
+import org.openjax.xml.sax.XMLCatalog;
+import org.openjax.xml.sax.XMLManifest;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public final class BindingValidator extends Validator {
@@ -71,9 +76,23 @@ public final class BindingValidator extends Validator {
   @Override
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
-    try {
-      final BindingCatalogHandler catalogHandler = new BindingCatalogHandler(null, BindingEntityResolver.schemaReferences);
-      catalogHandler.validate(xml);
+    try (final StringReader reader = new StringReader(xml)) {
+      org.openjax.xml.sax.Validator.validate(new InputSource(reader), new XMLManifest(null, null, new XMLCatalog() {
+        @Override
+        public SchemaLocation getSchemaLocation(final String namespaceURI) {
+          return new SchemaLocation(namespaceURI) {
+            @Override
+            public Map<String,URL> getDirectory() {
+              return BindingEntityResolver.schemaReferences;
+            }
+          };
+        }
+      }) {
+        @Override
+        public boolean isSchema() {
+          return false;
+        }
+      }, null);
     }
     catch (final IOException e) {
       throw e;
