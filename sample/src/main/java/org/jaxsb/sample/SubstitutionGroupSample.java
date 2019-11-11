@@ -19,13 +19,13 @@ package org.jaxsb.sample;
 import java.net.URL;
 import java.util.List;
 
+import org.jaxsb.runtime.Binding;
+import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.sample.substitutionGroup.xAA.$ProductType;
 import org.jaxsb.www.sample.substitutionGroup.xAA.Hat;
 import org.jaxsb.www.sample.substitutionGroup.xAA.Shirt;
 import org.jaxsb.www.sample.substitutionGroup.xAA.StockList;
 import org.jaxsb.www.sample.substitutionGroup.xAA.Umbrella;
-import org.jaxsb.runtime.Binding;
-import org.jaxsb.runtime.Bindings;
 
 public class SubstitutionGroupSample {
   public static void main(final String[] args) throws Exception {
@@ -34,7 +34,7 @@ public class SubstitutionGroupSample {
 
   public Binding runSample() throws Exception {
     final URL url = getClass().getResource("/substitutionGroup.xml");
-    final StockList stockList = (StockList)Bindings.parse(url.openStream());
+    final StockList stockList = (StockList)Bindings.parse(url);
     final List<$ProductType> products = stockList.getSgProduct();
     for (final $ProductType product : products) {
       if (product instanceof Shirt) {

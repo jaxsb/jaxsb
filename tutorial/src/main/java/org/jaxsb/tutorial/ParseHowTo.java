@@ -27,7 +27,7 @@ import org.openjax.xml.datatype.Date;
 public class ParseHowTo {
   public static void main(final String[] args) throws Exception {
     final URL url = ParseHowTo.class.getResource("/invoice.xml");
-    final Invoice invoice = (Invoice)Bindings.parse(url.openStream());
+    final Invoice invoice = (Invoice)Bindings.parse(url);
 
     final Number number = invoice.getNumber().text();
     System.out.print("This invoice # " + number + " ");

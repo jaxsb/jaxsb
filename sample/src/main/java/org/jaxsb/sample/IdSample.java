@@ -19,10 +19,10 @@ package org.jaxsb.sample;
 import java.net.URL;
 import java.util.List;
 
-import org.jaxsb.www.sample.id.xAA.$BookType;
-import org.jaxsb.www.sample.id.xAA.Directory;
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.Bindings;
+import org.jaxsb.www.sample.id.xAA.$BookType;
+import org.jaxsb.www.sample.id.xAA.Directory;
 import org.w3.www._2001.XMLSchema.yAA.$IDREFS;
 
 public class IdSample {
@@ -32,7 +32,7 @@ public class IdSample {
 
   public Binding runSample() throws Exception {
     final URL url = getClass().getResource("/id.xml");
-    final Directory directory = (Directory)Bindings.parse(url.openStream());
+    final Directory directory = (Directory)Bindings.parse(url);
     final List<$BookType> books = directory.getBook();
     for (final $BookType book : books) {
       final String shortName = book.getAuthor().text();

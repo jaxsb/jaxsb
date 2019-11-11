@@ -19,14 +19,14 @@ package org.jaxsb.sample;
 import java.net.URL;
 import java.util.List;
 
+import org.jaxsb.runtime.Binding;
+import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.sample.list.xAA.$EmployeeType;
 import org.jaxsb.www.sample.list.xAA.$StaffType;
 import org.jaxsb.www.sample.list.xAA.$VolunteerType;
 import org.jaxsb.www.sample.list.xAA.Roster;
 import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.Time;
-import org.jaxsb.runtime.Binding;
-import org.jaxsb.runtime.Bindings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class ListSample {
 
   public Binding runSample() throws Exception {
     final URL url = getClass().getResource("/list.xml");
-    final Roster roster = (Roster)Bindings.parse(url.openStream());
+    final Roster roster = (Roster)Bindings.parse(url);
     if (roster.getEmployees() != null && roster.getEmployees().size() != -1) {
       final List<$EmployeeType> employees = roster.getEmployees(0).getEmployee();
       for (final $EmployeeType employee : employees) {
