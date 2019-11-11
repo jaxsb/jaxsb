@@ -45,8 +45,7 @@ public final class EnumerationNormalizer extends Normalizer<EnumerationModel> {
     if (model.getValue() == null || model.getValue().getLocalPart().length() == 0)
       return;
 
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       if (parent instanceof EnumerableModel && parent instanceof Nameable) {
         ((EnumerableModel)parent).addEnumeration(model);
         if (((Nameable<?>)parent).getName() != null)

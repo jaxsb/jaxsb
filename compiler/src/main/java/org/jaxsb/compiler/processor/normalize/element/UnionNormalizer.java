@@ -79,8 +79,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
     if (model.getMemberTypes() == null || model.getMemberTypes().size() == 0)
       throw new LexerFailureException("I dont think this can happen");
 
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       // Either there is a higher level union that we want to combine into this union
       if (parent instanceof UnionModel) {
         ((UnionModel)parent).addUnion(model);
@@ -102,8 +101,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
     if (model.getMemberTypes() == null || model.getMemberTypes().size() == 0)
       throw new LexerFailureException("I dont think this can happen");
 
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       // If this union defines a named simpleType
       if (parent instanceof SimpleTypeModel && ((SimpleTypeModel<?>)parent).getName() != null) {
         final SimpleTypeModel<?> simpleTypeModel = (SimpleTypeModel<?>)parent;

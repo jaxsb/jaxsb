@@ -74,8 +74,7 @@ public final class ListNormalizer extends Normalizer<ListModel> {
     // throw new LexerError("This can't happen."); // This happens in XMLSchema.xsd .. returning may not be a good idea, as UnionModel and ListModel have
     // intricate relationship wrt the stages in the normalizers
 
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       // If there is a higher level union, then this list is one of the memberTypes
       if (parent instanceof UnionModel) {
         ((UnionModel)parent).getMemberTypes().addAll(model.getItemType());
@@ -95,8 +94,7 @@ public final class ListNormalizer extends Normalizer<ListModel> {
     if (model.getItemType() == null)
       throw new LexerFailureException("This can't happen");
 
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       // If this list defines a named simpleType
       if (parent instanceof SimpleTypeModel && ((SimpleTypeModel<?>)parent).getName() != null) {
         final SimpleTypeModel<?> simpleTypeModel = (SimpleTypeModel<?>)parent;

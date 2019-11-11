@@ -47,8 +47,7 @@ public final class AnyAttributeNormalizer extends Normalizer<AnyAttributeModel> 
   @Override
   protected void stage4(final AnyAttributeModel model) {
     // Add the handler to the Attributable final class with a name
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       if (parent instanceof AttributableModel && parent instanceof Nameable && ((Nameable<?>)parent).getName() != null) {
         ((AttributableModel)parent).addAttribute(model);
         break;

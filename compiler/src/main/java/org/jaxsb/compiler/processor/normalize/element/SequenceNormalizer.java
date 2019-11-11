@@ -42,8 +42,7 @@ public final class SequenceNormalizer extends Normalizer<SequenceModel> {
 
   @Override
   protected void stage4(final SequenceModel model) {
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       if (parent instanceof ElementableModel && (!(parent instanceof Nameable) || ((Nameable<?>)parent).getName() != null)) {
         ((ElementableModel)parent).addMultiplicableModel(model);
         break;

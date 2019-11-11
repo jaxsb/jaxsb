@@ -85,8 +85,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
 
     model.setBase(base);
 
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       if (parent instanceof SimpleTypeModel) {
         if (parent instanceof ListModel) {
           ((ListModel)parent).setItemType(base);
@@ -163,8 +162,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     if (model.getBase() == null || model.getBase().getName() == null)
       return;
 
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       if (parent instanceof SimpleTypeModel && model.getBase().getName().equals(((Nameable<?>)parent).getName()) && parent.getParent() instanceof RedefineModel) {
         model.getBase().setRedefine((SimpleTypeModel<?>)parent);
 
@@ -231,7 +229,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     if (name == null || typeModel == null || UniqueQName.XS.getNamespaceURI().equals(typeModel.getName().getNamespaceURI()))
       return null;
 
-    // FIXME: Can I equate on just the localPart of the QName???
+    // FIXME: Can I equate on just the localName of the QName???
     if (typeModel instanceof ComplexTypeModel)
       for (final AttributeModel attribute : ((AttributableModel)typeModel).getAttributes())
         if (name.getLocalPart().equals(attribute.getName().getLocalPart()))
@@ -262,7 +260,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
       for (final MultiplicableModel multiplicableModel : ((ComplexTypeModel<?>)typeModel).getMultiplicableModels())
         findChildElements(elements, ((Model)multiplicableModel).getChildren());
 
-      // FIXME: Can I equate on just the localPart of the QName???
+      // FIXME: Can I equate on just the localName of the QName???
       for (final ElementModel element : elements)
         if (name.getLocalPart().equals(element.getName().getLocalPart()))
           return new RestrictionPair<>(element, typeModel);

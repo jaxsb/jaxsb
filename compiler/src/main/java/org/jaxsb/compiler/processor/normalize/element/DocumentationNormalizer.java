@@ -42,8 +42,7 @@ public final class DocumentationNormalizer extends Normalizer<DocumentationModel
 
   @Override
   protected void stage4(final DocumentationModel model) {
-    Model parent = model;
-    while ((parent = parent.getParent()) != null) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) {
       if (parent instanceof DocumentableModel && parent instanceof Nameable && ((Nameable<?>)parent).getName() != null) {
         final DocumentationModel documentationModel = ((DocumentableModel)parent).getDocumentation();
         if (documentationModel != null)
