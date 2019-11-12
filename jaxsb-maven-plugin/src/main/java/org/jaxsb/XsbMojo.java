@@ -20,6 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -74,7 +75,7 @@ public class XsbMojo extends GeneratorMojo {
   @Override
   public void execute(final Configuration configuration) throws MojoExecutionException, MojoFailureException {
     final Collection<SchemaReference> generatorBindings = new ArrayList<>();
-    for (final String schema : schemas)
+    for (final String schema : new LinkedHashSet<>(schemas))
       generatorBindings.add(new SchemaReference(URLs.create(schema), false));
 
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
