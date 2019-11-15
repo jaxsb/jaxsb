@@ -76,7 +76,7 @@ public final class BindingEntityResolver implements LSResourceResolver {
       throw new IllegalStateException("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null!");
 
     try {
-      final LSInput input = new LSInputImpl(url.toString(), publicId, baseURI);
+      final LSInput input = new LSInputImpl(publicId, url.toString(), baseURI);
       input.setByteStream(url.openStream());
       return input;
     }

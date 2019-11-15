@@ -77,7 +77,7 @@ public final class BindingValidator extends Validator {
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
     try (final StringReader reader = new StringReader(xml)) {
-      org.openjax.xml.sax.Validator.validate(new InputSource(reader), new XMLManifest(null, null, new XMLCatalog() {
+      org.openjax.xml.sax.Validator.validate(new InputSource(reader), new XMLManifest(null, null, null, new XMLCatalog() {
         @Override
         public SchemaLocation getSchemaLocation(final String namespaceURI) {
           return new SchemaLocation(namespaceURI) {
