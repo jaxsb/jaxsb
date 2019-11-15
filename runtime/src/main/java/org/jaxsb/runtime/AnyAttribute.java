@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import javax.xml.namespace.QName;
 
-import org.w3.www._2001.XMLSchema.yAA.*;
+import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
 public class AnyAttribute extends $AnySimpleType {
   private static final long serialVersionUID = -3821161497069887361L;

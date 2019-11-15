@@ -16,6 +16,7 @@
 
 package org.jaxsb.compiler.pipeline;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -63,7 +64,7 @@ public final class Pipeline<C extends PipelineContext> {
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})
-  public void begin() {
+  public void begin() throws IOException {
     final Collection<PipelineDirectory<?,?,?>> directories = new ArrayList<>();
     synchronized (entries) {
       for (final Entry modulePair : entries) {

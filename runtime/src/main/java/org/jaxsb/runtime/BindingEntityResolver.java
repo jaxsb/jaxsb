@@ -17,18 +17,19 @@
 package org.jaxsb.runtime;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.libj.lang.PackageLoader;
 import org.libj.lang.PackageNotFoundException;
 import org.openjax.xml.sax.LSInputImpl;
-import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
-public final class BindingEntityResolver implements LSResourceResolver {
+public class BindingEntityResolver implements LSResourceResolver {
   public static void registerSchemaLocation(final String namespaceURI, final URL schemaReference) {
     final URL present = schemaReferences.get(namespaceURI);
     if (present == null)
@@ -41,7 +42,7 @@ public final class BindingEntityResolver implements LSResourceResolver {
     if (namespaceURI == null)
       return null;
 
-    final URL schemaReference = schemaReferences.get(namespaceURI);
+    URL schemaReference = schemaReferences.get(namespaceURI);
     if (schemaReference != null)
       return schemaReference;
 
@@ -50,13 +51,18 @@ public final class BindingEntityResolver implements LSResourceResolver {
       // When loading the classes, the static block of each binding will call the
       // registerSchemaLocation() function.
       // FIXME: Look this over. Also make a dedicated RuntimeException for this.
-      if (!schemaReferences.containsKey(namespaceURI)) {
-        try {
-          PackageLoader.getContextPackageLoader().loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
-        }
-        catch (final IOException | PackageNotFoundException e) {
-          throw new IllegalStateException(e);
-        }
+      schemaReference = schemaReferences.get(namespaceURI);
+      if (schemaReference != null)
+        return schemaReference;
+
+      try {
+        PackageLoader.getContextPackageLoader().loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName());
+      }
+      catch (final IOException e) {
+        throw new UncheckedIOException(e);
+      }
+      catch (final PackageNotFoundException e) {
+        throw new IllegalStateException(e);
       }
     }
 
@@ -67,13 +73,12 @@ public final class BindingEntityResolver implements LSResourceResolver {
 
   @Override
   public LSInput resolveResource(final String type, final String namespaceURI, final String publicId, final String systemId, final String baseURI) {
-    // for some reason, this happens every once in a while
     if (namespaceURI == null && systemId == null)
       return null;
 
     final URL url = lookupSchemaLocation(namespaceURI);
     if (url == null)
-      throw new IllegalStateException("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null!");
+      throw new IllegalStateException("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null");
 
     try {
       final LSInput input = new LSInputImpl(publicId, url.toString(), baseURI);

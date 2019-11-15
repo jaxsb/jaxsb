@@ -50,6 +50,7 @@ import org.libj.jci.InMemoryCompiler;
 import org.libj.net.URLs;
 import org.libj.util.CollectionUtil;
 import org.libj.util.Paths;
+import org.libj.util.function.Throwing;
 import org.libj.util.zip.ZipWriter;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.datatype.HexBinary;
@@ -112,17 +113,11 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           if (!namespaceURIsAdded.contains(namespaceURI)) {
             namespaceURIsAdded.add(namespaceURI);
 
-            Files.walk(new File(destDir, packagePath).toPath()).forEach(p -> {
+            Files.walk(new File(destDir, packagePath).toPath()).forEach(Throwing.rethrow(p -> {
               final File file = p.toFile();
-              if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class"))) {
-                try {
-                  destJar.write(destDir.toPath().relativize(file.toPath()).toString(), Files.readAllBytes(file.toPath()));
-                }
-                catch (final IOException e) {
-                  throw new IllegalStateException(e);
-                }
-              }
-            });
+              if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
+                destJar.write(destDir.toPath().relativize(file.toPath()).toString(), Files.readAllBytes(file.toPath()));
+            }));
           }
         }
         else {
@@ -216,7 +211,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   }
 
   @Override
-  public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> directory) {
+  public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> directory) throws IOException {
     try {
       if (pipelineContext.getCompileDir() != null)
         BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
@@ -228,7 +223,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
       return bundles;
     }
-    catch (final CompilationException | IOException | SAXException | URISyntaxException e) {
+    catch (final CompilationException | SAXException | URISyntaxException e) {
       throw new CompilerFailureException(e);
     }
   }

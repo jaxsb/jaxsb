@@ -17,6 +17,7 @@
 package org.jaxsb;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -81,7 +82,13 @@ public class XsbMojo extends GeneratorMojo {
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
     final Set<NamespaceURI> excludes = buildNamespaceSet(this.excludes);
 
-    Generator.generate(new GeneratorContext(configuration.getDestDir(), configuration.getOverwrite(), null, false, includes, excludes), generatorBindings, sourcePath, skipXsd);
+    try {
+      Generator.generate(new GeneratorContext(configuration.getDestDir(), configuration.getOverwrite(), null, false, includes, excludes), generatorBindings, sourcePath, skipXsd);
+    }
+    catch (final IOException e) {
+      throw new MojoExecutionException(e.getMessage(), e);
+    }
+
     sourcePath.add(configuration.getDestDir());
 
     final Resource resource = new Resource();

@@ -18,6 +18,7 @@ package org.jaxsb.runtime;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.UncheckedIOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,6 +108,9 @@ public final class BindingValidator extends Validator {
       try {
         validate(element);
       }
+      catch (final IOException e) {
+        throw new UncheckedIOException(e);
+      }
       catch (final ValidationException e) {
         throw new MarshalException(e);
       }
@@ -114,7 +118,13 @@ public final class BindingValidator extends Validator {
   }
 
   public void validateParse(final Element element) throws ValidationException {
-    if (validateOnParse)
-      validate(element);
+    if (validateOnParse) {
+      try {
+        validate(element);
+      }
+      catch (final IOException e) {
+        throw new UncheckedIOException(e);
+      }
+    }
   }
 }

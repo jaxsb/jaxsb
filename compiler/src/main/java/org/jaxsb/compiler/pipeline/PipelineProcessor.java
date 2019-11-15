@@ -16,8 +16,9 @@
 
 package org.jaxsb.compiler.pipeline;
 
+import java.io.IOException;
 import java.util.Collection;
 
 public interface PipelineProcessor<C extends PipelineContext,I extends PipelineEntity,O extends PipelineEntity> {
-  Collection<O> process(C pipelineContext, Collection<I> documents, PipelineDirectory<C,I,O> directory);
+  Collection<O> process(C pipelineContext, Collection<I> documents, PipelineDirectory<C,I,O> directory) throws IOException;
 }

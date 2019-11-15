@@ -17,7 +17,7 @@
 package org.jaxsb.generator;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -59,7 +59,7 @@ public final class Generator extends AbstractGenerator {
     System.exit(1);
   }
 
-  public static void main(final String[] args) throws MalformedURLException {
+  public static void main(final String[] args) throws IOException {
     if (args.length == 0 || args[0] == null || args[0].length() == 0)
       trapPrintUsage();
 
@@ -87,11 +87,11 @@ public final class Generator extends AbstractGenerator {
     generate(destDir, overwrite, compile, pack, schemas, skipXsd);
   }
 
-  public static Collection<Bundle> generate(final File destDir, final boolean overwrite, final File compile, final boolean pack, final Collection<SchemaReference> schemas, final boolean skipXsd) {
+  public static Collection<Bundle> generate(final File destDir, final boolean overwrite, final File compile, final boolean pack, final Collection<SchemaReference> schemas, final boolean skipXsd) throws IOException {
     return generate(new GeneratorContext(destDir == null ? FileUtil.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null, skipXsd);
   }
 
-  public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath, final boolean skipXsd) {
+  public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath, final boolean skipXsd) throws IOException {
     final Pipeline<GeneratorContext> pipeline = new Pipeline<>(generatorContext);
 
     // select the schemas to be generated and exit if no schemas need work

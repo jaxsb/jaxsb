@@ -79,7 +79,10 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     final File file = getFile(plan, destDir);
     try (final ClassFile classFile = fileToClassFile.remove(file)) {
     }
-    catch (final FormatterException | IOException e) {
+    catch (final IOException e) {
+      logger.info(e.getMessage(), e);
+    }
+    catch (final FormatterException e) {
       throw new CompilerFailureException(e);
     }
   }

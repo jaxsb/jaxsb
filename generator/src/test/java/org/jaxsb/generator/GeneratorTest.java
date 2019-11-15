@@ -16,28 +16,28 @@
 
 package org.jaxsb.generator;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 
 import org.junit.Test;
 
 public class GeneratorTest {
   @Test
-  public void testHtml() throws MalformedURLException {
+  public void testHtml() throws IOException {
     Generator.main(new String[] {"--overwrite", "--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/html.xsd"});
   }
 
   @Test
-  public void testName() throws MalformedURLException {
+  public void testName() throws IOException {
     Generator.main(new String[] {"--overwrite", "--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/name1.xsd"});
   }
 
   @Test
-  public void testAttribute() throws MalformedURLException {
+  public void testAttribute() throws IOException {
     Generator.main(new String[] {"--overwrite", "--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/attribute.xsd"});
   }
 
   @Test
-  public void testAnyAttribute() throws MalformedURLException {
+  public void testAnyAttribute() throws IOException {
     Generator.main(new String[] {"--overwrite", "--compile", "target/test-classes", "-d", "target/generated-test-sources/jaxsb", "src/test/resources/anyAttribute.xsd"});
   }
 }
