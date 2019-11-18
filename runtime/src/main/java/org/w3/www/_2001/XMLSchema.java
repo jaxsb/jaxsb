@@ -551,7 +551,7 @@ public final class XMLSchema {
       }
 
       /**
-       * Allocates a {@code Date} object and initializes it so that it
+       * Allocates a {@link Date} object and initializes it so that it
        * represents the time at which it was allocated. Milliseconds are
        * <b>NOT</b> significant figures and are not represented.
        *

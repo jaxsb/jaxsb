@@ -79,6 +79,8 @@ public final class BindingValidator extends Validator {
     final String xml = DOMs.domToString(element);
     try (final StringReader reader = new StringReader(xml)) {
       org.openjax.xml.sax.Validator.validate(new InputSource(reader), new XMLManifest(null, null, null, new XMLCatalog() {
+        private static final long serialVersionUID = -7218751770616654694L;
+
         @Override
         public SchemaLocation getSchemaLocation(final String namespaceURI) {
           return new SchemaLocation(namespaceURI) {

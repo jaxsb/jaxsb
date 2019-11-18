@@ -268,17 +268,17 @@ public final class NamespaceBinding {
   }
 
   /**
-   * Create a {@code NamespaceBinding} from a fully qualified class name. This
+   * Create a {@link NamespaceBinding} from a fully qualified class name. This
    * method is intended for class names created by
-   * {@code NamespaceBinding.getClassName()}, which contain a simple class name
+   * {@link NamespaceBinding#getClassName()}, which contain a simple class name
    * as a Base64-encoded diff between the package name and the original
    * namespace URI. If such a class name is inputted to this method, the
-   * resulting {@code NamespaceBinding} is guaranteed to the unique binding
+   * resulting {@link NamespaceBinding} is guaranteed to the unique binding
    * between that class name and the namespace URI from which it originated.
    *
    * @param className The fully qualified class name previously encoded by
-   *          {@code NamespaceBinding.getClassName()}.
-   * @return A guaranteed unique {@code NamespaceBinding} for the package name.
+   *          {{@link NamespaceBinding#getClassName()}.
+   * @return A guaranteed unique {@link NamespaceBinding} for the package name.
    * @see NamespaceBinding#getClassName()
    * @see NamespaceBinding#parseNamespace(URI)
    */
@@ -320,9 +320,9 @@ public final class NamespaceBinding {
   }
 
   /**
-   * Create a {@code NamespaceBinding} from a {@code URI}. This method
+   * Create a {@link NamespaceBinding} from a {@link URI}. This method
    * guarantees that a unique package name will be created for each unique
-   * {@code URI}. Examples of namespaces that would otherwise seem to result in
+   * {@link URI}. Examples of namespaces that would otherwise seem to result in
    * the same package name are:
    * <p>
    * {@code http://www.foo.com/bar.xsd}
@@ -346,7 +346,7 @@ public final class NamespaceBinding {
    * generated.
    *
    * @param uri The namespace URI.
-   * @return A guaranteed unique {@code NamespaceBinding} to the uri.
+   * @return A guaranteed unique {@link NamespaceBinding} to the uri.
    */
   public static NamespaceBinding parseNamespace(final URI uri) {
     if (uri == null)
@@ -368,9 +368,9 @@ public final class NamespaceBinding {
   }
 
   /**
-   * Create a {@code NamespaceBinding} from a {@code String} uri. This method
+   * Create a {@link NamespaceBinding} from a {@link String} uri. This method
    * guarantees that a unique package name will be created for each unique
-   * {@code URI}. Examples of namespaces that would otherwise seem to result in
+   * {@link URI}. Examples of namespaces that would otherwise seem to result in
    * the same package name are:
    * <p>
    * {@code http://www.foo.com/bar.xsd}
@@ -394,7 +394,7 @@ public final class NamespaceBinding {
    * generated.
    *
    * @param uri The namespace URI.
-   * @return A guaranteed unique {@code NamespaceBinding} to the uri.
+   * @return A guaranteed unique {@link NamespaceBinding} to the uri.
    * @see NamespaceBinding#parseNamespace(URI)
    */
   public static NamespaceBinding parseNamespace(final String uri) {
@@ -418,6 +418,8 @@ public final class NamespaceBinding {
   }
 
   /**
+   * Returns the namespace URI for this binding.
+   *
    * @return The namespace URI for this binding.
    */
   public URI getNamespaceUri() {
@@ -425,6 +427,8 @@ public final class NamespaceBinding {
   }
 
   /**
+   * Returns the package name for this binding.
+   *
    * @return The package name for this binding.
    */
   public String getPackageName() {
@@ -432,6 +436,9 @@ public final class NamespaceBinding {
   }
 
   /**
+   * Returns the simple class name (i.e. class name without the package name)
+   * for this binding.
+   *
    * @return The simple class name (i.e. class name without the package name)
    *         for this binding.
    */
@@ -440,6 +447,8 @@ public final class NamespaceBinding {
   }
 
   /**
+   * Returns the fully qualified class name for this binding.
+   *
    * @return The fully qualified class name for this binding.
    */
   public String getClassName() {

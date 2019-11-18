@@ -87,11 +87,11 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an {@code URL} pointing to XML content into a {@code Binding}
+   * Parse an {@link URL} pointing to XML content into a {@link Binding}
    * instance.
    *
-   * @param url {@code URL} pointing to XML content.
-   * @return {@code Binding} instance.
+   * @param url {@link URL} pointing to XML content.
+   * @return {@link Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
@@ -101,14 +101,14 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an {@code URL} pointing to XML content into a {@code Binding}
+   * Parse an {@link URL} pointing to XML content into a {@link Binding}
    * instance.
    *
-   * @param url {@code URL} pointing to XML content.
+   * @param url {@link URL} pointing to XML content.
    * @param errorHandler Specify the {@link ErrorHandler} to be used by the
    *          parser. Setting this to null will result in the underlying
    *          implementation using it's own default implementation and behavior.
-   * @return {@code Binding} instance.
+   * @return {@link Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
@@ -130,11 +130,11 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an {@code InputSource} pointing to XML content into a {@code Binding}
+   * Parse an {@link InputSource} pointing to XML content into a {@link Binding}
    * instance.
    *
-   * @param inputSource {@code InputSource} pointing to XML content.
-   * @return {@code Binding} instance.
+   * @param inputSource {@link InputSource} pointing to XML content.
+   * @return {@link Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
@@ -144,14 +144,14 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an {@code InputSource} pointing to XML content into a {@code Binding}
+   * Parse an {@link InputSource} pointing to XML content into a {@link Binding}
    * instance.
    *
-   * @param inputSource {@code InputSource} pointing to XML content.
+   * @param inputSource {@link InputSource} pointing to XML content.
    * @param errorHandler Specify the {@link ErrorHandler} to be used by the
    *          parser. Setting this to null will result in the underlying
    *          implementation using it's own default implementation and behavior.
-   * @return {@code Binding} instance.
+   * @return {@link Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
