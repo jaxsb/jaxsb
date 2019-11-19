@@ -26,9 +26,8 @@ import java.util.Map;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
-import org.openjax.xml.sax.SchemaLocation;
-import org.openjax.xml.sax.XMLCatalog;
-import org.openjax.xml.sax.XMLManifest;
+import org.openjax.xml.sax.XmlCatalog;
+import org.openjax.xml.sax.XmlDigest;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -78,17 +77,12 @@ public final class BindingValidator extends Validator {
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
     try (final StringReader reader = new StringReader(xml)) {
-      org.openjax.xml.sax.Validator.validate(new InputSource(reader), new XMLManifest(null, null, null, new XMLCatalog() {
+      org.openjax.xml.sax.Validator.validate(new InputSource(reader), new XmlDigest(null, null, null, new XmlCatalog.Tree(null, null) {
         private static final long serialVersionUID = -7218751770616654694L;
 
         @Override
-        public SchemaLocation getSchemaLocation(final String namespaceURI) {
-          return new SchemaLocation(namespaceURI) {
-            @Override
-            public Map<String,URL> getDirectory() {
-              return BindingEntityResolver.schemaReferences;
-            }
-          };
+        public URL matchURI(final String uri) {
+          return BindingEntityResolver.schemaReferences.get(uri);
         }
       }) {
         @Override
