@@ -77,8 +77,8 @@ public final class BindingValidator extends Validator {
   @Override
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
-    try (final CachedInputSource inputSource = new CachedInputSource(null, "" + System.identityHashCode(element), null, new StringReader(xml))) {
-      final XmlAudit xmlAudit = new XmlAudit(false, false, new XmlCatalog(null, inputSource) {
+    try (final CachedInputSource inputSource = new CachedInputSource(null, String.valueOf(System.identityHashCode(element)), null, new StringReader(xml))) {
+      final XmlAudit xmlAudit = new XmlAudit(new XmlCatalog(null, inputSource) {
         private static final long serialVersionUID = -7218751770616654694L;
 
         @Override
@@ -86,7 +86,7 @@ public final class BindingValidator extends Validator {
           final URL url = BindingEntityResolver.schemaReferences.get(uri);
           return url == null ? null : new XmlEntity(url, new CachedInputSource(null, uri, null, url.openStream()));
         }
-      }, null, null, BindingEntityResolver.schemaReferences, null) {
+      }, false, false, null, null, BindingEntityResolver.schemaReferences, null) {
         @Override
         public boolean isSchema() {
           return false;
