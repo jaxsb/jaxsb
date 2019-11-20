@@ -25,7 +25,8 @@ import java.util.Map;
 import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.libj.lang.PackageLoader;
 import org.libj.lang.PackageNotFoundException;
-import org.openjax.xml.sax.LSInputImpl;
+import org.libj.util.function.Throwing;
+import org.openjax.xml.sax.CachedInputSource;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
@@ -81,12 +82,11 @@ public class BindingEntityResolver implements LSResourceResolver {
       throw new IllegalStateException("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null");
 
     try {
-      final LSInput input = new LSInputImpl(publicId, url.toString(), baseURI);
-      input.setByteStream(url.openStream());
-      return input;
+      return new CachedInputSource(publicId, url.toString(), baseURI, url.openStream());
     }
     catch (final IOException e) {
-      throw new IllegalArgumentException("Cannot obtain externalForm of " + url, e);
+      Throwing.rethrow(e);
+      throw new Error("Will never get here");
     }
   }
 }

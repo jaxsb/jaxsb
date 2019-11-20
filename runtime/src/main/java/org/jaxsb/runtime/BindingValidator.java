@@ -26,10 +26,11 @@ import java.util.Map;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
+import org.openjax.xml.sax.CachedInputSource;
+import org.openjax.xml.sax.XmlAudit;
 import org.openjax.xml.sax.XmlCatalog;
-import org.openjax.xml.sax.XmlDigest;
+import org.openjax.xml.sax.XmlEntity;
 import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public final class BindingValidator extends Validator {
@@ -76,20 +77,22 @@ public final class BindingValidator extends Validator {
   @Override
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
-    try (final StringReader reader = new StringReader(xml)) {
-      org.openjax.xml.sax.Validator.validate(new InputSource(reader), new XmlDigest(null, null, null, new XmlCatalog.Tree(null, null) {
+    try (final CachedInputSource inputSource = new CachedInputSource(null, "" + System.identityHashCode(element), null, new StringReader(xml))) {
+      final XmlAudit xmlAudit = new XmlAudit(false, false, new XmlCatalog(null, inputSource) {
         private static final long serialVersionUID = -7218751770616654694L;
 
         @Override
-        public URL matchURI(final String uri) {
-          return BindingEntityResolver.schemaReferences.get(uri);
+        public XmlEntity getEntity(final String uri) throws IOException {
+          final URL url = BindingEntityResolver.schemaReferences.get(uri);
+          return url == null ? null : new XmlEntity(url, new CachedInputSource(null, uri, null, url.openStream()));
         }
-      }) {
+      }, null, null, BindingEntityResolver.schemaReferences, null) {
         @Override
         public boolean isSchema() {
           return false;
         }
-      }, null);
+      };
+      org.openjax.xml.sax.Validator.validate(inputSource, xmlAudit, null);
     }
     catch (final IOException e) {
       throw e;
