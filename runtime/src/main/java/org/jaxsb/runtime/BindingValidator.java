@@ -27,7 +27,7 @@ import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
 import org.openjax.xml.sax.CachedInputSource;
-import org.openjax.xml.sax.XmlAudit;
+import org.openjax.xml.sax.XmlPreview;
 import org.openjax.xml.sax.XmlCatalog;
 import org.openjax.xml.sax.XmlEntity;
 import org.w3c.dom.Element;
@@ -78,7 +78,7 @@ public final class BindingValidator extends Validator {
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
     try (final CachedInputSource inputSource = new CachedInputSource(null, String.valueOf(System.identityHashCode(element)), null, new StringReader(xml))) {
-      final XmlAudit xmlAudit = new XmlAudit(new XmlCatalog(null, inputSource) {
+      final XmlPreview preview = new XmlPreview(new XmlCatalog(null, inputSource) {
         private static final long serialVersionUID = -7218751770616654694L;
 
         @Override
@@ -92,7 +92,7 @@ public final class BindingValidator extends Validator {
           return false;
         }
       };
-      org.openjax.xml.sax.Validator.validate(inputSource, xmlAudit, null);
+      org.openjax.xml.sax.Validator.validate(inputSource, preview, null);
     }
     catch (final IOException e) {
       throw e;
