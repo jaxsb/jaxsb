@@ -129,7 +129,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
       Writer.writeDeclaration(writer, (ElementPlan)element, plan);
 
     // ENUMERATIONS CONSTRUCTOR
-    getRestrictions(writer, plan, parent);
+    getRestrictions(writer, plan);
 
     // COPY CONSTRUCTOR
     writer.write(plan.getDocumentation());

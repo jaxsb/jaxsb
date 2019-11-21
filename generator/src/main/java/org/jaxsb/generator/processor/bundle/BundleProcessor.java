@@ -113,11 +113,11 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           if (!namespaceURIsAdded.contains(namespaceURI)) {
             namespaceURIsAdded.add(namespaceURI);
 
-            Files.walk(new File(destDir, packagePath).toPath()).forEach(Throwing.rethrow(p -> {
-              final File file = p.toFile();
-              if (!file.isDirectory() && (file.getName().endsWith(".java") || file.getName().endsWith(".class")))
-                destJar.write(destDir.toPath().relativize(file.toPath()).toString(), Files.readAllBytes(file.toPath()));
-            }));
+            Files.walk(new File(destDir, packagePath).toPath())
+              .filter(p -> (p.getFileName().toString().endsWith(".java") || p.getFileName().toString().endsWith(".class")) && p.toFile().isFile())
+              .forEach(Throwing.rethrow(p -> {
+                 destJar.write(destDir.toPath().relativize(p).toString(), Files.readAllBytes(p));
+               }));
           }
         }
         else {

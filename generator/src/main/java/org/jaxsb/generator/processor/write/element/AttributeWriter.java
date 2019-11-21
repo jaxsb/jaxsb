@@ -179,7 +179,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     writeIdLookup(writer, plan, parent);
 
     // ENUMERATIONS CONSTRUCTOR
-    getRestrictions(writer, plan, parent);
+    getRestrictions(writer, plan);
 
     // COPY CONSTRUCTOR
     writer.write(plan.getDocumentation());
@@ -192,7 +192,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     writer.write("}\n");
 
     // NATIVE CONSTRUCTORS
-    getNativeConstructors(writer, plan, parent);
+    getNativeConstructors(writer, plan);
 
     // DEFAULT CONSTRUCTOR
     writer.write(plan.getDocumentation());
@@ -207,7 +207,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     writer.write("}\n");
 
     // DECODE & ENCODE
-    getEncodeDecode(writer, plan, parent);
+    getEncodeDecode(writer, plan);
 
     // INHERITS
     writer.write("@" + Override.class.getName() + "\n");

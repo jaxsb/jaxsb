@@ -104,7 +104,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("}\n");
   }
 
-  protected static void getNativeConstructors(final StringWriter writer, final SimpleTypePlan<?> plan, final Plan<?> parent) {
+  protected static void getNativeConstructors(final StringWriter writer, final SimpleTypePlan<?> plan) {
     if (plan.getNativeItemClassNameInterface() == null || (plan.isList() && plan.hasEnumerations()))
       return;
 
@@ -146,7 +146,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 //      }
   }
 
-  protected static void getRestrictions(final StringWriter writer, final SimpleTypePlan<?> plan, final Plan<?> parent) {
+  protected static void getRestrictions(final StringWriter writer, final SimpleTypePlan<?> plan) {
     if (!plan.hasEnumerations())
       return;
 
@@ -293,7 +293,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     }
   }
 
-  protected static void getEncodeDecode(final StringWriter writer, final SimpleTypePlan<?> plan, final Plan<?> parent) {
+  protected static void getEncodeDecode(final StringWriter writer, final SimpleTypePlan<?> plan) {
     // DECODE & ENCODE
     if (plan.isList()) {
       writer.write("@" + Override.class.getName() + "\n");
@@ -424,10 +424,10 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("}\n");
 
     // ENUMERATIONS CONSTRUCTOR
-    getRestrictions(writer, plan, parent);
+    getRestrictions(writer, plan);
 
     // NATIVE CONSTRUCTORS
-    getNativeConstructors(writer, plan, parent);
+    getNativeConstructors(writer, plan);
 
     // DEFAULT CONSTRUCTOR
     if (!plan.hasEnumerations()) {
@@ -510,7 +510,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     }
 
     // DECODE & ENCODE
-    getEncodeDecode(writer, plan, parent);
+    getEncodeDecode(writer, plan);
 
     // INHERITS
     writer.write("@" + Override.class.getName() + "\n");

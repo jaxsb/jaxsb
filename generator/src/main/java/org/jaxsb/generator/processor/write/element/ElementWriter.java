@@ -226,7 +226,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       Writer.writeDeclaration(writer, element, plan);
 
     // ENUMERATIONS CONSTRUCTOR
-    getRestrictions(writer, plan, parent);
+    getRestrictions(writer, plan);
 
     // COPY CONSTRUCTOR
     writer.write(plan.getDocumentation());
@@ -423,7 +423,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
     // NATIVE CONSTRUCTORS
     if (plan.writeNativeConstructor())
-      getNativeConstructors(writer, plan, parent);
+      getNativeConstructors(writer, plan);
 
     for (final AttributePlan attribute : plan.getAttributes()) {
       Writer.writeSetMethod(writer, attribute, plan);
