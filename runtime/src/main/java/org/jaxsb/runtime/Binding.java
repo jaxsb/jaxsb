@@ -508,6 +508,12 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return element;
   }
 
+  /**
+   * Specifies whether the provided {@link QName} is a substitution group.
+   *
+   * @param name The {@link QName}.
+   * @return Whether the provided {@link QName} is a substitution group.
+   */
   protected boolean _$$isSubstitutionGroup(final QName name) {
     return false;
   }
@@ -521,27 +527,46 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   /**
-   * @throws ValidationException
+   * Parse the specified {@code <element>}.
+   *
+   * @param element The {@code <element>}.
+   * @throws ValidationException If a validation error has occurred.
    */
   protected boolean parseElement(final Element element) throws ValidationException {
     return false;
   }
 
+  /**
+   * Parse the specified {@code <attribute>}.
+   *
+   * @param attribute The {@code <attribute>}.
+   */
   protected boolean parseAttribute(final Attr attribute) {
     return false;
   }
 
+  /**
+   * Parse the specified TEXT content.
+   *
+   * @param text The TEXT content.
+   */
   protected void parseText(final Text text) {
   }
 
   /**
-   * @throws ValidationException
+   * Parse the specified {@code <any>}.
+   *
+   * @param element The {@code <any>}.
+   * @throws ValidationException If a validation error has occurred.
    */
   protected void parseAny(final Element element) throws ValidationException {
   }
 
   /**
-   * @throws ValidationException
+   * Parse the specified {@code <anyAttribute>}.
+   *
+   * @param attribute The {@code <anyAttribute>}.
+   * @throws ValidationException If a validation error has occurred.
    */
   protected void parseAnyAttribute(final Attr attribute) throws ValidationException {
   }

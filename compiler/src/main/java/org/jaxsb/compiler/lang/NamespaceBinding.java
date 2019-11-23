@@ -16,6 +16,7 @@
 
 package org.jaxsb.compiler.lang;
 
+import java.io.File;
 import java.net.URI;
 import java.util.Base64;
 import java.util.function.Function;
@@ -405,12 +406,14 @@ public final class NamespaceBinding {
   private final String packageName;
   private final String simpleClassName;
   private final String className;
+  private final String javaPath;
 
   private NamespaceBinding(final URI namespaceUri, final String packageName, final String simpleClassName) {
     this.namespaceUri = namespaceUri;
     this.packageName = packageName;
     this.simpleClassName = simpleClassName;
     this.className = packageName + "." + simpleClassName;
+    this.javaPath = className.replace('.', File.separatorChar).concat(".java");
   }
 
   private NamespaceBinding(final URI namespaceUri, final String packageName) {
@@ -453,6 +456,15 @@ public final class NamespaceBinding {
    */
   public String getClassName() {
     return this.className;
+  }
+
+  /**
+   * Returns the relative path of the {@code .java} file for this binding.
+   *
+   * @return The relative path of the {@code .java} file for this binding.
+   */
+  public String getJavaPath() {
+    return this.javaPath;
   }
 
   @Override

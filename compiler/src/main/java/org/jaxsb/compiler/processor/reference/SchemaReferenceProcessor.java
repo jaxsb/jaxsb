@@ -19,7 +19,6 @@ package org.jaxsb.compiler.processor.reference;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -35,63 +34,37 @@ import org.slf4j.LoggerFactory;
 public final class SchemaReferenceProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaReference> {
   private static final Logger logger = LoggerFactory.getLogger(SchemaReferenceProcessor.class);
 
-  //  private static final class Counter {
-//    protected volatile int count = 0;
-//  }
-
   @Override
   public Collection<SchemaReference> process(final GeneratorContext pipelineContext, final Collection<SchemaReference> schemaReferences, final PipelineDirectory<GeneratorContext,SchemaReference,SchemaReference> directory) {
     final File destDir = pipelineContext.getDestDir();
-    logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
+    if (logger.isDebugEnabled())
+      logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
 
     final Collection<SchemaReference> selectedSchemas = new LinkedHashSet<>(3);
     try {
-      // select schemas that should be generated based on timestamps
-//      final Counter counter = new Counter();
-
-//      final ThreadGroup threadGroup = new ThreadGroup("SchemaReferenceProcess");
-//      logger.debug("created SchemaReferenceProcess ThreadGroup");
-      // download and cache the schemas into a temporary directory
       for (final SchemaReference schemaReference : schemaReferences) {
-//        new Thread(threadGroup, schemaReference.getURL().toString()) {
-//          @Override
-//          public void run() {
-            try {
-              final File containerClass = new File(destDir, schemaReference.getNamespaceURI().getNamespaceBinding().getClassName().replace('.', File.separatorChar) + ".java");
-              logger.debug("checking whether class is up-to-date: " + containerClass.getAbsolutePath());
-              if (pipelineContext.getOverwrite() || !containerClass.exists()) {
-                logger.debug("adding: " + containerClass.getAbsolutePath());
-                selectedSchemas.add(schemaReference);
-              }
-              else {
-                final URL url = schemaReference.getURL();
-                final URLConnection connection = url.openConnection();
-                if (containerClass.lastModified() >= connection.getLastModified()) {
-                  logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
-                }
-                else {
-                  logger.debug("adding: " + containerClass.getAbsolutePath());
-                  selectedSchemas.add(schemaReference);
-                }
-              }
+        try {
+          final File javaFile = new File(destDir, schemaReference.getNamespaceURI().getNamespaceBinding().getJavaPath());
+          if (logger.isDebugEnabled())
+            logger.debug("checking whether class is up-to-date: " + javaFile.getAbsolutePath());
 
-//              synchronized (counter) {
-//                ++counter.count;
-//                counter.notify();
-//              }
+          if (!pipelineContext.getOverwrite() && javaFile.exists()) {
+            final URL url = schemaReference.getURL();
+            final long lastModified = url.openConnection().getLastModified();
+            if (lastModified != 0 && javaFile.lastModified() >= lastModified) {
+              logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
+              continue;
             }
-            catch (final IOException e) {
-              throw new LexerFailureException(e);
-            }
-//          }
-//        }.start();
-//      }
+          }
 
-//      synchronized (schemas) {
-//        synchronized (counter) {
-//          while (counter.count != schemas.size())
-//            counter.wait();
-//        }
+          if (logger.isDebugEnabled())
+            logger.debug("adding: " + javaFile.getAbsolutePath());
+
+          selectedSchemas.add(schemaReference);
+        }
+        catch (final IOException e) {
+          throw new LexerFailureException(e);
+        }
       }
     }
     catch (final Exception e) {

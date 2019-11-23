@@ -41,7 +41,7 @@ public final class SchemaModel extends Model {
   private String version = null;
   private URL url = null;
 
-  protected SchemaModel(final Node node, final Model parent) {
+  protected SchemaModel(final Node node, @SuppressWarnings("unused") final Model parent) {
     // NOTE: A SchemaModel does not have a parent.
     super(node, null);
     final NamedNodeMap attributes = node.getAttributes();
