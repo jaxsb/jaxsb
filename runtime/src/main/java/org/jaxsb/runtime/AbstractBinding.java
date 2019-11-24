@@ -70,6 +70,14 @@ public abstract class AbstractBinding implements Cloneable {
     }
   }
 
+  /**
+   * Registers a {@code NOTATION} with the specified parameters.
+   *
+   * @param name The {@link QName} of the {@code NOTATION}.
+   * @param publicName The {@code publicName} of the {@code NOTATION}.
+   * @param systemName The {@code systemName} of the {@code NOTATION}.
+   * @param notation The {@link NotationType Class} of the notation.
+   */
   // FIXME: How does systemName play into this?
   protected static void _$$registerNotation(final QName name, final String publicName, final String systemName, final Class<? extends NotationType> notation) {
     notations.put(name, notation);

@@ -58,7 +58,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
     final Method[] methods = Normalizer.class.getDeclaredMethods();
     for (final Method method : methods)
       if (method.getName().startsWith("stage"))
-        stages++;
+        ++stages;
 
     for (int stage = 0; stage < stages; ++stage) {
       this.stage = stage;

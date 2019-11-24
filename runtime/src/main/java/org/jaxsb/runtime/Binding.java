@@ -474,14 +474,32 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   /**
-   * @throws MarshalException
+   * Returns a new {@link Attr} representing the marshaled attribute of the
+   * specified name, corresponding to the provided parent {@link Element}.
+   *
+   * @param name The name of the attribute.
+   * @param parent The parent {@link Element} of the attribute.
+   * @return A new {@link Attr} representing the marshaled attribute of the
+   *         specified name, corresponding to the provided parent
+   *         {@link Element}.
+   * @throws MarshalException If a marshal exception has occurred.
    */
   protected Attr marshalAttr(final String name, final Element parent) throws MarshalException {
     throw new UnsupportedOperationException("This is a template that must be overridden");
   }
 
   /**
-   * @throws MarshalException
+   * Returns a new {@link Element} representing the marshaled element of the
+   * specified name and type, corresponding to the provided parent
+   * {@link Element}.
+   *
+   * @param parent The parent {@link Element}.
+   * @param name The name of the element.
+   * @param type The type name of the element.
+   * @return A new {@link Element} representing the marshaled element of the
+   *         specified name and type, corresponding to the provided parent
+   *         {@link Element}.
+   * @throws MarshalException If a marshal exception has occurred.
    */
   protected Element marshal(final Element parent, QName name, final QName type) throws MarshalException {
     final boolean substitutionGroup = _$$isSubstitutionGroup(name) || _$$isSubstitutionGroup(name(inherits()));
@@ -519,7 +537,10 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   /**
-   * @throws MarshalException
+   * Returns a new {@link Element} representing this binding.
+   *
+   * @return A new {@link Element} representing this binding.
+   * @throws MarshalException If a marshal exception has occurred.
    */
   protected Element marshal() throws MarshalException {
     final Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
@@ -527,9 +548,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   /**
-   * Parse the specified {@code <element>}.
+   * Parse the specified {@link Element}.
    *
-   * @param element The {@code <element>}.
+   * @param element The {@link Element}.
+   * @return {@code true} if the specified {@link Element} was parsed
+   *         successfully, otherwise {@code false}.
    * @throws ValidationException If a validation error has occurred.
    */
   protected boolean parseElement(final Element element) throws ValidationException {
@@ -537,9 +560,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   /**
-   * Parse the specified {@code <attribute>}.
+   * Parse the specified {@link Attr}.
    *
-   * @param attribute The {@code <attribute>}.
+   * @param attribute The {@link Attr}.
+   * @return {@code true} if the specified {@link Attr} was parsed successfully,
+   *         otherwise {@code false}.
    */
   protected boolean parseAttribute(final Attr attribute) {
     return false;
@@ -571,12 +596,25 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   protected void parseAnyAttribute(final Attr attribute) throws ValidationException {
   }
 
+  /**
+   * Decodes the specified string value, corresponding to the provided parent
+   * {@link Element}.
+   *
+   * @param parent The parent {@link Element}.
+   * @param value The string value to be decoded.
+   */
   protected void _$$decode(final Element parent, final String value) {
     throw new UnsupportedOperationException("This is a template that must be overridden, otherwise it shouldn't be called");
   }
 
   /**
-   * @throws MarshalException
+   * Returns a string representation of the encoded value of this binding,
+   * corresponding to the provided parent {@link Element}.
+   *
+   * @param parent The parent {@link Element}.
+   * @return A string representation of the encoded value of this binding,
+   *         corresponding to the provided parent {@link Element}.
+   * @throws MarshalException If a marshal exception has occurred.
    */
   protected String _$$encode(final Element parent) throws MarshalException {
     throw new UnsupportedOperationException("This is a template that must be overridden, otherwise it shouldn't be called");
