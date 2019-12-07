@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.libj.net.MemoryURLStreamHandler;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
@@ -77,8 +78,9 @@ public final class BindingValidator extends Validator {
   @Override
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
+    final URL url = MemoryURLStreamHandler.createURL(xml.getBytes());
     try (final CachedInputSource inputSource = new CachedInputSource(null, String.valueOf(System.identityHashCode(element)), null, new StringReader(xml))) {
-      final XmlPreview preview = new XmlPreview(new XmlCatalog(null, inputSource) {
+      final XmlPreview preview = new XmlPreview(new XmlCatalog(url, inputSource) {
         private static final long serialVersionUID = -7218751770616654694L;
 
         @Override
