@@ -16,7 +16,6 @@
 
 package org.jaxsb.compiler.schema.attribute;
 
-
 public final class Occurs {
   public static final Occurs UNBOUNDED = new Occurs(Integer.MAX_VALUE);
 
@@ -38,11 +37,11 @@ public final class Occurs {
   }
 
   @Override
-  public boolean equals(final Object o) {
-    if (!(o instanceof Occurs))
+  public boolean equals(final Object obj) {
+    if (!(obj instanceof Occurs))
       return false;
 
-    return getValue() == ((Occurs)o).getValue();
+    return getValue() == ((Occurs)obj).getValue();
   }
 
   @Override

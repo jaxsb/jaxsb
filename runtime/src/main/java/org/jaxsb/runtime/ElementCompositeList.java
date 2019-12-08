@@ -48,10 +48,10 @@ public class ElementCompositeList extends CompositeList<Binding,QName> implement
     }
 
     @Override
-    protected void afterAdd(final int index, final Binding e, final RuntimeException re) {
-      super.afterAdd(index, e, re);
-      if (e.owner() != owner)
-        e._$$setOwner(owner);
+    protected void afterAdd(final int index, final Binding element, final RuntimeException e) {
+      super.afterAdd(index, element, e);
+      if (element.owner() != owner)
+        element._$$setOwner(owner);
     }
 
     @Override
