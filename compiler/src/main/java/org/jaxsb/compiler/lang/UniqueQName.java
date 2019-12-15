@@ -180,7 +180,7 @@ public final class UniqueQName {
 
   @Override
   public int hashCode() {
-    return (namespaceURI != null ? namespaceURI.hashCode() : XMLConstants.NULL_NS_URI.hashCode()) * localPart.hashCode();
+    return 31 * localPart.hashCode() + (namespaceURI != null ? namespaceURI.hashCode() : XMLConstants.NULL_NS_URI.hashCode());
   }
 
   @Override

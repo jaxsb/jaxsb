@@ -643,7 +643,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   @Override
   public int hashCode() {
-    return getClass().getName().hashCode();
+    return 31 + getClass().getName().hashCode();
   }
 
   @Override

@@ -53,6 +53,9 @@ public final class SchemaModelComposite implements SchemaComposite {
 
   @Override
   public int hashCode() {
-    return (schemaDocument != null ? schemaDocument.hashCode() : -7) * (schemaModel != null ? schemaModel.hashCode() : -3);
+    int hashCode = 1;
+    hashCode = 31 * hashCode + (schemaDocument == null ? 0 : schemaDocument.hashCode());
+    hashCode = 31 * hashCode + (schemaModel == null ? 0 : schemaModel.hashCode());
+    return hashCode;
   }
 }

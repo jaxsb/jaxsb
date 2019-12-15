@@ -63,6 +63,6 @@ public final class SchemaDocument implements PipelineEntity {
 
   @Override
   public int hashCode() {
-    return (schemaReference != null ? schemaReference.hashCode() : -1) + (document != null ? 1 : -1);
+    return (schemaReference == null ? 0 : schemaReference.hashCode()) * (document != null ? 1 : -1);
   }
 }

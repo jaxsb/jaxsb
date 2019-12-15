@@ -69,7 +69,7 @@ public final class Prefix {
 
   @Override
   public int hashCode() {
-    return prefix.hashCode();
+    return 31 + prefix.hashCode();
   }
 
   @Override

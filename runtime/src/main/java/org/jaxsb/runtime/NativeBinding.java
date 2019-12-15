@@ -84,7 +84,11 @@ public final class NativeBinding {
 
   @Override
   public int hashCode() {
-    return toString().hashCode();
+    int hashCode = 1;
+    hashCode = 31 * hashCode + name.hashCode();
+    hashCode = 31 * hashCode + baseClass.hashCode();
+    hashCode = 31 * hashCode + nativeClass.hashCode();
+    return hashCode;
   }
 
   @Override

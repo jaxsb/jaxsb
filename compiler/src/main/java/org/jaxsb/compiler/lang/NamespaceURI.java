@@ -87,7 +87,7 @@ public final class NamespaceURI {
 
   @Override
   public int hashCode() {
-    return namespaceURI.hashCode();
+    return 31 + namespaceURI.hashCode();
   }
 
   @Override

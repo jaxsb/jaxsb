@@ -91,7 +91,7 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendHashCode(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("hashCode += anyAttribute != null ? anyAttribute.hashCode() : -1;\n");
+    writer.write("hashCode = 31 * hashCode + (anyAttribute == null ? 0 : anyAttribute.hashCode());\n");
   }
 
   @Override

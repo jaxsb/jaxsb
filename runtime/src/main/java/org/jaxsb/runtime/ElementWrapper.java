@@ -117,6 +117,6 @@ public final class ElementWrapper extends Model implements Nameable {
 
   @Override
   public int hashCode() {
-    return elementModel.hashCode();
+    return 31 + elementModel.hashCode();
   }
 }

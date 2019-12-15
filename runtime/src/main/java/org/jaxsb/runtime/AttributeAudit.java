@@ -105,7 +105,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
 
   @Override
   public int hashCode() {
-    return value != null ? value.hashCode() : 0;
+    return 31 + (value != null ? value.hashCode() : 0);
   }
 
   @Override

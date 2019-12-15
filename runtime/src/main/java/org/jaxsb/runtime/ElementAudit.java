@@ -184,7 +184,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
 
   @Override
   public int hashCode() {
-    return elements != null ? elements.hashCode() : 0;
+    return 31 + (elements == null ? 0 : elements.hashCode());
   }
 
   @Override
