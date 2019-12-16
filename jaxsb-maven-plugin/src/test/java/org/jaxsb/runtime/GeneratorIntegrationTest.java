@@ -29,7 +29,7 @@ import org.jaxsb.www.generator.html.xAA.Hr;
 import org.jaxsb.www.generator.html.xAA.P;
 import org.jaxsb.www.generator.html.xAA.Pre;
 import org.junit.Test;
-import org.libj.util.Strings;
+import org.libj.lang.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

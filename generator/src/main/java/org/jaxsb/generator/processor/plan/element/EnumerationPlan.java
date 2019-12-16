@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 import org.jaxsb.compiler.processor.model.element.EnumerationModel;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.runtime.CompilerFailureException;
-import org.libj.util.Strings;
+import org.libj.lang.Strings;
 
 public final class EnumerationPlan extends Plan<EnumerationModel> {
   private static final char[] illegalChars = {' ', '!', '"', '#', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '.', '/', ':', ';', '<', '=', '>', '?', '@', '@', '[', '\\', ']', '^', '_', '{', '|', '|', '}', '~'};

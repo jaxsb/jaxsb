@@ -27,7 +27,7 @@ import org.jaxsb.compiler.processor.model.element.NotationModel;
 import org.jaxsb.compiler.processor.model.element.RedefineModel;
 import org.jaxsb.compiler.processor.model.element.SchemaModel;
 import org.jaxsb.compiler.processor.model.element.SimpleTypeModel;
-import org.libj.util.Strings;
+import org.libj.lang.Strings;
 
 public final class JavaBinding {
   private static final String ATTRIBUTE_SUFFIX = "$";
