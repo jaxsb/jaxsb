@@ -25,13 +25,13 @@ import org.jaxsb.compiler.processor.Referenceable;
 import org.jaxsb.compiler.processor.model.Model;
 import org.jaxsb.compiler.processor.model.MultiplicableModel;
 import org.jaxsb.compiler.processor.model.NamedModel;
-import org.jaxsb.compiler.processor.model.RedefineableModel;
+import org.jaxsb.compiler.processor.model.RedefinableModel;
 import org.jaxsb.compiler.processor.model.ReferableModel;
 import org.jaxsb.compiler.schema.attribute.Occurs;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-public class GroupModel extends NamedModel implements MultiplicableModel, RedefineableModel<GroupModel>, ReferableModel<GroupModel> {
+public class GroupModel extends NamedModel implements MultiplicableModel, RedefinableModel<GroupModel>, ReferableModel<GroupModel> {
   private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<>();
   private Occurs maxOccurs = Occurs.parseOccurs("1");
   private Occurs minOccurs = Occurs.parseOccurs("1");

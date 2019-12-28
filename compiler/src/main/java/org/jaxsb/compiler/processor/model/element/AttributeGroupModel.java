@@ -26,12 +26,12 @@ import org.jaxsb.compiler.processor.Referenceable;
 import org.jaxsb.compiler.processor.model.AttributableModel;
 import org.jaxsb.compiler.processor.model.Model;
 import org.jaxsb.compiler.processor.model.NamedModel;
-import org.jaxsb.compiler.processor.model.RedefineableModel;
+import org.jaxsb.compiler.processor.model.RedefinableModel;
 import org.jaxsb.compiler.processor.model.ReferableModel;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-public class AttributeGroupModel extends NamedModel implements AttributableModel, RedefineableModel<AttributeGroupModel>, ReferableModel<AttributeGroupModel> {
+public class AttributeGroupModel extends NamedModel implements AttributableModel, RedefinableModel<AttributeGroupModel>, ReferableModel<AttributeGroupModel> {
   private final LinkedHashSet<AttributeModel> attributes = new LinkedHashSet<>();
   private AttributeGroupModel ref;
   private AttributeGroupModel redefine;

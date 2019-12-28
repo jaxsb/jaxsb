@@ -60,7 +60,7 @@ public final class AttributeGroupNormalizer extends Normalizer<AttributeGroupMod
 
     model.setRef(ref);
 
-    // If the parent of this attributeGroup is also an attributeGroup, then propogate the attributes
+    // If the parent of this attributeGroup is also an attributeGroup, then propagate the attributes
     if (model.getParent() instanceof AttributeGroupModel)
       ((AttributeGroupModel)model.getParent()).getAttributes().addAll(model.getRef().getAttributes());
   }

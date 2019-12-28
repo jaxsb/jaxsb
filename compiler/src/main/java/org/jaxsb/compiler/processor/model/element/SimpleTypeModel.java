@@ -23,18 +23,18 @@ import java.util.Map;
 
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.Referenceable;
-import org.jaxsb.compiler.processor.Undefineable;
+import org.jaxsb.compiler.processor.Undefinable;
 import org.jaxsb.compiler.processor.model.AliasModel;
 import org.jaxsb.compiler.processor.model.EnumerableModel;
 import org.jaxsb.compiler.processor.model.Model;
 import org.jaxsb.compiler.processor.model.PatternableModel;
-import org.jaxsb.compiler.processor.model.RedefineableModel;
+import org.jaxsb.compiler.processor.model.RedefinableModel;
 import org.jaxsb.compiler.processor.model.TypeableModel;
 import org.jaxsb.compiler.schema.attribute.Final;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel implements EnumerableModel, PatternableModel, RedefineableModel<T>, TypeableModel<T> {
+public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel implements EnumerableModel, PatternableModel, RedefinableModel<T>, TypeableModel<T> {
   private final LinkedHashSet<EnumerationModel> enumerations = new LinkedHashSet<>();
   private final LinkedHashSet<PatternModel> patterns = new LinkedHashSet<>();
 
@@ -147,7 +147,7 @@ public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel im
     }
   }
 
-  public static final class Undefined extends SimpleTypeModel<SimpleTypeModel<?>> implements Undefineable {
+  public static final class Undefined extends SimpleTypeModel<SimpleTypeModel<?>> implements Undefinable {
     private static final Map<UniqueQName,Undefined> all = new HashMap<>();
 
     public static Undefined parseSimpleType(final UniqueQName name) {

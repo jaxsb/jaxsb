@@ -16,7 +16,7 @@
 
 package org.jaxsb.compiler.processor.model;
 
-public interface RedefineableModel<T extends NamedModel> {
+public interface RedefinableModel<T extends NamedModel> {
   void setRedefine(T model);
   T getRedefine();
 }

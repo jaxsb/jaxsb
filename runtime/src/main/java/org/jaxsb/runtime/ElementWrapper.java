@@ -25,7 +25,7 @@ import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.Nameable;
 import org.jaxsb.compiler.processor.model.Model;
 import org.jaxsb.compiler.processor.model.MultiplicableModel;
-import org.jaxsb.compiler.processor.model.RedefineableModel;
+import org.jaxsb.compiler.processor.model.RedefinableModel;
 import org.jaxsb.compiler.processor.model.element.ElementModel;
 
 @SuppressWarnings("rawtypes")
@@ -39,8 +39,8 @@ public final class ElementWrapper extends Model implements Nameable {
   private static void asSet(final Collection<? extends MultiplicableModel> multiplicableModels, final LinkedHashMap<? super ElementWrapper,ElementWrapper> elementWrappers, final int min, final int max, final Collection<? super UniqueQName> redefines) {
     for (MultiplicableModel multiplicableModel : multiplicableModels) {
       // FIXME: the list used to track redefines seems BAD!!!
-      if (multiplicableModel instanceof RedefineableModel && ((RedefineableModel<?>)multiplicableModel).getRedefine() != null && !redefines.contains(((Nameable<?>)multiplicableModel).getName())) {
-        multiplicableModel = (MultiplicableModel)((RedefineableModel<?>)multiplicableModel).getRedefine();
+      if (multiplicableModel instanceof RedefinableModel && ((RedefinableModel<?>)multiplicableModel).getRedefine() != null && !redefines.contains(((Nameable<?>)multiplicableModel).getName())) {
+        multiplicableModel = (MultiplicableModel)((RedefinableModel<?>)multiplicableModel).getRedefine();
         redefines.add(((Nameable<?>)multiplicableModel).getName());
       }
 

@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.Referenceable;
-import org.jaxsb.compiler.processor.Undefineable;
+import org.jaxsb.compiler.processor.Undefinable;
 import org.jaxsb.compiler.processor.model.AttributableModel;
 import org.jaxsb.compiler.processor.model.ElementableModel;
 import org.jaxsb.compiler.processor.model.MixableModel;
@@ -126,7 +126,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
     }
   }
 
-  public static final class Undefined extends ComplexTypeModel<SimpleTypeModel<?>> implements Undefineable {
+  public static final class Undefined extends ComplexTypeModel<SimpleTypeModel<?>> implements Undefinable {
     private static final Map<UniqueQName,Undefined> all = new HashMap<>();
 
     protected Undefined(final Model parent) {

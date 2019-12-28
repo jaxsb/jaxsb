@@ -193,7 +193,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     for (final AttributeModel restrictionAttribute : restrictionAttributes) {
       final RestrictionPair<AttributeModel> baseAttributePair = findBaseAttribute(restrictionAttribute.getName(), model.getBase());
       if (baseAttributePair == null)
-        throw new LexerFailureException("we should have found an attribute we're restricting! what's goin on?");
+        throw new LexerFailureException("we should have found an attribute we're restricting! what's going on?");
 
       restrictionAttribute.setRestriction(baseAttributePair.getModel());
       restrictionAttribute.setRestrictionOwner(baseAttributePair.getParent());
@@ -205,7 +205,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     for (final ElementModel restrictionElement : restrictionElements) {
       final RestrictionPair<ElementModel> baseElementPair = findBaseElement(restrictionElement.getName(), model.getBase());
       if (baseElementPair == null)
-        throw new LexerFailureException("we should have found an element we're restricting! what's goin on?");
+        throw new LexerFailureException("we should have found an element we're restricting! what's going on?");
 
       restrictionElement.setRestriction(baseElementPair.getModel());
       restrictionElement.setRestrictionOwner(baseElementPair.getParent());

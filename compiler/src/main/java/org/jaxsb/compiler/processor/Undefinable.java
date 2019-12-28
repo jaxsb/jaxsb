@@ -16,5 +16,5 @@
 
 package org.jaxsb.compiler.processor;
 
-public interface Undefineable {
+public interface Undefinable {
 }
