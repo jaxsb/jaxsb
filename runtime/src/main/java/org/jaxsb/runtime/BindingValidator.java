@@ -28,14 +28,14 @@ import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
 import org.openjax.xml.sax.CachedInputSource;
-import org.openjax.xml.sax.XmlPreview;
 import org.openjax.xml.sax.XmlCatalog;
 import org.openjax.xml.sax.XmlEntity;
+import org.openjax.xml.sax.XmlPreview;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 public final class BindingValidator extends Validator {
-  private static BindingValidator validator = null;
+  private static BindingValidator validator;
 
   public static BindingValidator getSystemValidator() {
     return validator;
@@ -46,8 +46,8 @@ public final class BindingValidator extends Validator {
   }
 
   private final Map<String,URL> schemaReferences = new HashMap<>();
-  private boolean validateOnMarshal = false;
-  private boolean validateOnParse = false;
+  private boolean validateOnMarshal;
+  private boolean validateOnParse;
 
   public void setValidateOnMarshal(final boolean validateOnMarshal) {
     this.validateOnMarshal = validateOnMarshal;
@@ -75,20 +75,35 @@ public final class BindingValidator extends Validator {
     return BindingEntityResolver.lookupSchemaLocation(namespaceURI);
   }
 
+  private static final class BindingXmlCatalog extends XmlCatalog {
+    private static final long serialVersionUID = -7218751770616654694L;
+
+    /**
+     * Creates a new {@link BindingXmlCatalog} with the specified {@link URL}
+     * and {@link CachedInputSource}.
+     *
+     * @param location The {@link URL}.
+     * @param inputSource The {@link CachedInputSource}.
+     * @throws NullPointerException If the specified {@link URL} or
+     *           {@link CachedInputSource} is null.
+     */
+    private BindingXmlCatalog(final URL location, final CachedInputSource inputSource) {
+      super(location, inputSource);
+    }
+
+    @Override
+    public XmlEntity getEntity(final String uri) throws IOException {
+      final URL url = BindingEntityResolver.schemaReferences.get(uri);
+      return url == null ? null : new XmlEntity(url, new CachedInputSource(null, uri, null, url.openStream()));
+    }
+  }
+
   @Override
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
     final URL url = MemoryURLStreamHandler.createURL(xml.getBytes());
     try (final CachedInputSource inputSource = new CachedInputSource(null, String.valueOf(System.identityHashCode(element)), null, new StringReader(xml))) {
-      final XmlPreview preview = new XmlPreview(new XmlCatalog(url, inputSource) {
-        private static final long serialVersionUID = -7218751770616654694L;
-
-        @Override
-        public XmlEntity getEntity(final String uri) throws IOException {
-          final URL url = BindingEntityResolver.schemaReferences.get(uri);
-          return url == null ? null : new XmlEntity(url, new CachedInputSource(null, uri, null, url.openStream()));
-        }
-      }, false, false, null, null, BindingEntityResolver.schemaReferences, null) {
+      final XmlPreview preview = new XmlPreview(new BindingXmlCatalog(url, inputSource), false, false, null, null, BindingEntityResolver.schemaReferences, null) {
         @Override
         public boolean isSchema() {
           return false;

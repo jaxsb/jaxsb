@@ -23,7 +23,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class EnumerationModel extends Model {
-  private QName value = null;
+  private QName value;
 
   protected EnumerationModel(final Node node, final Model parent) {
     super(node, parent);
@@ -40,7 +40,7 @@ public final class EnumerationModel extends Model {
     this.value = value;
   }
 
-  public final QName getValue() {
+  public QName getValue() {
     return value;
   }
 
@@ -53,7 +53,7 @@ public final class EnumerationModel extends Model {
       return false;
 
     final EnumerationModel that = (EnumerationModel)obj;
-    return (getValue() == null && that.getValue() == null) || (getValue() != null && getValue().equals(that.getValue()));
+    return getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
   }
 
   @Override

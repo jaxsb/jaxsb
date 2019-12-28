@@ -45,17 +45,17 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
     return model.getName().getNamespaceURI().getNamespaceBinding().getClassName() + "." + JavaBinding.getClassSimpleName(model);
   }
 
-  private DocumentationPlan documentation = null;
+  private DocumentationPlan documentation;
 
-//  private String packageName = null;
-  private String instanceName = null;
+//  private String packageName;
+  private String instanceName;
 
-  private String className = null;
-  private String classInconvertibleName = null;
-  private String classSimpleName = null;
-  private String methodName = null;
-//  private String schemaReference = null;
-  private String xsdLocation = null;
+  private String className;
+  private String classInconvertibleName;
+  private String classSimpleName;
+  private String methodName;
+//  private String schemaReference;
+  private String xsdLocation;
 
   public AliasPlan(final T model, final Plan<?> parent) {
     super(model, parent);

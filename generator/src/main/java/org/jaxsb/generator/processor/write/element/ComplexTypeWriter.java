@@ -76,7 +76,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
   }
 
   @Override
-  public void appendCopy(final StringWriter writer, final T plan, Plan<?> parent, final String variable) {
+  public void appendCopy(final StringWriter writer, final T plan, final Plan<?> parent, final String variable) {
     throw new CompilerFailureException("complexType cannot have a copy statement");
   }
 
@@ -98,7 +98,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
   @Override
   protected void appendClass(final StringWriter writer, final T plan, final Plan<?> parent) {
     writeQualifiedName(writer, plan);
-    writer.write("public static abstract class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + ComplexType.class.getName() + "\n");
+    writer.write("public abstract static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + ComplexType.class.getName() + "\n");
     writer.write("{\n");
     writer.write("private static final " + QName.class.getName() + " NAME = getClassQName(" + plan.getClassName(parent) + ".class);\n");
 

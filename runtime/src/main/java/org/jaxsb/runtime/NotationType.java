@@ -36,4 +36,9 @@ public abstract class NotationType extends Binding {
   public String toString() {
     return getName();
   }
+
+  @Override
+  public NotationType clone() {
+    return (NotationType)super.clone();
+  }
 }

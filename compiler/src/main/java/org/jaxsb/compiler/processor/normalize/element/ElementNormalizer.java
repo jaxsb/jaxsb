@@ -16,7 +16,7 @@
 
 package org.jaxsb.compiler.processor.normalize.element;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +40,7 @@ public final class ElementNormalizer extends Normalizer<ElementModel> {
     super(directory);
   }
 
-  public final ElementModel parseElement(final UniqueQName name) {
+  public ElementModel parseElement(final UniqueQName name) {
     return all.get(name);
   }
 
@@ -142,7 +142,7 @@ public final class ElementNormalizer extends Normalizer<ElementModel> {
     else {
       final SimpleTypeModel<?> type = ComplexTypeModel.Undefined.parseComplexType(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anyType"));
       model.setSuperType(type);
-      model.setItemTypes(Arrays.asList(type));
+      model.setItemTypes(Collections.singletonList(type));
     }
   }
 }

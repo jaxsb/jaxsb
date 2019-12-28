@@ -37,9 +37,9 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
   private final LinkedHashSet<AttributeModel> attributes = new LinkedHashSet<>();
   private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<>();
   private Boolean _abstract = false;
-  private Block block = null;
-  private Boolean mixed = null;
-  private boolean extension = false;
+  private Block block;
+  private Boolean mixed;
+  private boolean extension;
 
   protected ComplexTypeModel(final Node node, final Model parent) {
     super(node, parent);
@@ -121,7 +121,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
 
       type = new Reference(null);
       type.setName(name);
-      Reference.all.put(name, type);
+      all.put(name, type);
       return type;
     }
   }
@@ -143,7 +143,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
 
       type = new Undefined(null);
       type.setName(name);
-      Undefined.all.put(name, type);
+      all.put(name, type);
       return type;
     }
   }

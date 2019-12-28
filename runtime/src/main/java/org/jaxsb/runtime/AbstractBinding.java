@@ -188,4 +188,14 @@ public abstract class AbstractBinding implements Cloneable {
     start = name.indexOf(':');
     return start == -1 ? name : name.substring(start + 1);
   }
+
+  @Override
+  public AbstractBinding clone() {
+    try {
+      return (AbstractBinding)super.clone();
+    }
+    catch (final CloneNotSupportedException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

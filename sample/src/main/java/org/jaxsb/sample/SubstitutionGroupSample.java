@@ -16,6 +16,7 @@
 
 package org.jaxsb.sample;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -26,13 +27,14 @@ import org.jaxsb.www.sample.substitutionGroup.xAA.Hat;
 import org.jaxsb.www.sample.substitutionGroup.xAA.Shirt;
 import org.jaxsb.www.sample.substitutionGroup.xAA.StockList;
 import org.jaxsb.www.sample.substitutionGroup.xAA.Umbrella;
+import org.xml.sax.SAXException;
 
 public class SubstitutionGroupSample {
   public static void main(final String[] args) throws Exception {
     new SubstitutionGroupSample().runSample();
   }
 
-  public Binding runSample() throws Exception {
+  public Binding runSample() throws IOException, SAXException {
     final URL url = getClass().getResource("/substitutionGroup.xml");
     final StockList stockList = (StockList)Bindings.parse(url);
     final List<$ProductType> products = stockList.getSgProduct();

@@ -22,17 +22,17 @@ import org.jaxsb.www.tutorial.invoice.xAA.Invoice;
 import org.openjax.xml.datatype.Date;
 
 public class MarshalHowTo {
-  public static void main(final String[] args) throws Exception {
+  public static void main(final String[] args) {
     final Invoice invoice = new Invoice();
     invoice.setDate(new Invoice.Date(new Date(2003, 1, 7)));
 
-    invoice.setNumber(new Invoice.Number(1458l));
+    invoice.setNumber(new Invoice.Number(1458L));
 
     final Invoice.BillingAddress billingAddress = new Invoice.BillingAddress();
     billingAddress.setName(new Invoice.BillingAddress.Name("Ian Barking"));
     billingAddress.setAddress(new Invoice.BillingAddress.Address("123 Kennel Street"));
     billingAddress.setCity(new Invoice.BillingAddress.City("Dachshund City"));
-    billingAddress.setPostalCode(new Invoice.BillingAddress.PostalCode(98765l));
+    billingAddress.setPostalCode(new Invoice.BillingAddress.PostalCode(98765L));
     billingAddress.setCountry(new Invoice.BillingAddress.Country("US"));
 
     invoice.setBillingAddress(billingAddress);
@@ -41,7 +41,7 @@ public class MarshalHowTo {
     shippingAddress.setName(new Invoice.BillingAddress.Name("Retail Dept."));
     shippingAddress.setAddress(new Invoice.BillingAddress.Address("888 Dogbowl Street"));
     shippingAddress.setCity(new Invoice.BillingAddress.City("Pet City"));
-    shippingAddress.setPostalCode(new Invoice.BillingAddress.PostalCode(98765l));
+    shippingAddress.setPostalCode(new Invoice.BillingAddress.PostalCode(98765L));
     shippingAddress.setCountry(new Invoice.BillingAddress.Country("US"));
 
     invoice.setShippingAddress(shippingAddress);
@@ -50,22 +50,22 @@ public class MarshalHowTo {
 
     final Invoice.BilledItems.Item item1 = new Invoice.BilledItems.Item();
     item1.setDescription(new Invoice.BilledItems.Item.Description("Studded Collar"));
-    item1.setCode(new Invoice.BilledItems.Item.Code(45342l));
-    item1.setQuantity(new Invoice.BilledItems.Item.Quantity(10l));
-    item1.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(11.95)));
+    item1.setCode(new Invoice.BilledItems.Item.Code(45342L));
+    item1.setQuantity(new Invoice.BilledItems.Item.Quantity(10L));
+    item1.setPrice(new Invoice.BilledItems.Item.Price(BigDecimal.valueOf(11.95)));
 
     billedItems.addItem(item1);
 
     final Invoice.BilledItems.Item item2 = new Invoice.BilledItems.Item();
     item2.setDescription(new Invoice.BilledItems.Item.Description("K9 Pet Coat"));
-    item2.setCode(new Invoice.BilledItems.Item.Code(25233l));
-    item2.setQuantity(new Invoice.BilledItems.Item.Quantity(5l));
-    item2.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(25.01)));
+    item2.setCode(new Invoice.BilledItems.Item.Code(25233L));
+    item2.setQuantity(new Invoice.BilledItems.Item.Quantity(5L));
+    item2.setPrice(new Invoice.BilledItems.Item.Price(BigDecimal.valueOf(25.01)));
 
     billedItems.addItem(item2);
 
     invoice.setBilledItems(billedItems);
 
-    System.out.println(invoice.toString());
+    System.out.println(invoice);
   }
 }

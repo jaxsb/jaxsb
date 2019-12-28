@@ -51,7 +51,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
   @Override
   protected void stage2(final ExtensionModel model) {
     // First de-reference the base
-    SimpleTypeModel<?> base = null;
+    SimpleTypeModel<?> base;
     if (model.getBase() instanceof SimpleTypeModel.Reference) {
       base = simpleTypeNormalizer.parseSimpleType(model.getBase().getName());
       if (base == null)
@@ -129,7 +129,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
         model.getBase().setRedefine((SimpleTypeModel<?>)parent);
 
         if (parent instanceof SimpleTypeModel) {
-          SimpleTypeModel<?> redefine = (SimpleTypeModel<?>)parent;
+          final SimpleTypeModel<?> redefine = (SimpleTypeModel<?>)parent;
           redefine.setSuperType(model.getBase().getSuperType());
         }
       }
@@ -152,7 +152,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
           if (!(model.getBase() instanceof ComplexTypeModel))
             throw new LexerFailureException("complexType redefinition done by something other than a complexType");
 
-          ComplexTypeModel<?> redefine = (ComplexTypeModel<?>)parent;
+          final ComplexTypeModel<?> redefine = (ComplexTypeModel<?>)parent;
           if (redefine.getAttributes().size() != 0) {
             final LinkedHashSet<AttributeModel> attributes = (LinkedHashSet<AttributeModel>)((ComplexTypeModel<?>)model.getBase()).getAttributes().clone();
             attributes.addAll(redefine.getAttributes());

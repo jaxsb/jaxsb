@@ -23,7 +23,7 @@ import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 
 public final class SchemaCompositeDirectory implements PipelineDirectory<GeneratorContext,SchemaDocument,SchemaComposite> {
-  private SchemaCompositeProcessor processor = new SchemaCompositeProcessor();
+  private final SchemaCompositeProcessor processor = new SchemaCompositeProcessor();
 
   @Override
   public PipelineEntity getEntity(final SchemaDocument entity, final SchemaComposite parent) {

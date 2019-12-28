@@ -38,14 +38,14 @@ public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel im
   private final LinkedHashSet<EnumerationModel> enumerations = new LinkedHashSet<>();
   private final LinkedHashSet<PatternModel> patterns = new LinkedHashSet<>();
 
-  private T redefine = null;
-  private SimpleTypeModel<?> superType = null;
-  private Collection<SimpleTypeModel<?>> itemType = null;
+  private T redefine;
+  private SimpleTypeModel<?> superType;
+  private Collection<SimpleTypeModel<?>> itemType;
 
-  private boolean restriction = false;
-  private boolean list = false;
+  private boolean restriction;
+  private boolean list;
 
-  private Final _final = null;
+  private Final _final;
 
   protected SimpleTypeModel(final Node node, final Model parent) {
     super(node, parent);

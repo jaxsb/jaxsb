@@ -16,9 +16,9 @@
 
 package org.jaxsb.sample;
 
+import org.jaxsb.runtime.Binding;
 import org.jaxsb.www.sample.simple.xAA.Fruit;
 import org.jaxsb.www.sample.simple.xAA.FruitBasket;
-import org.jaxsb.runtime.Binding;
 
 public class SimpleSample {
   public static void main(final String[] args) {

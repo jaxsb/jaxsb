@@ -16,18 +16,17 @@
 
 package org.jaxsb.compiler.processor.reference;
 
+import org.jaxsb.compiler.lang.NamespaceURI;
 import org.libj.util.BiMap;
 import org.libj.util.HashBiMap;
-import org.jaxsb.compiler.lang.NamespaceURI;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public final class SchemaNamespaceHandler extends DefaultHandler {
   private final BiMap<String,String> xmlns = new HashBiMap<>();
 
   @Override
-  public void startElement(final String uri, String localName, final String qName, final Attributes attributes) throws SAXException {
+  public void startElement(final String uri, String localName, final String qName, final Attributes attributes) throws ReferenceSAXException {
     if (xmlns.isEmpty()) {
       for (int i = 0; i < attributes.getLength(); i++) {
         final String name = attributes.getQName(i);

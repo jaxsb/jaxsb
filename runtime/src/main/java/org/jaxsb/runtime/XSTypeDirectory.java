@@ -88,8 +88,8 @@ import org.w3.www._2001.XMLSchema.yAA.$qName;
 
 @SuppressWarnings("unused")
 public final class XSTypeDirectory {
-  private static final Map<UniqueQName,XSTypeDirectory> defaultTypes = new HashMap<UniqueQName,XSTypeDirectory>();
-  private static final Map<UniqueQName,UniqueQName> typeHierarchy = new HashMap<UniqueQName,UniqueQName>();
+  private static final Map<UniqueQName,XSTypeDirectory> defaultTypes = new HashMap<>();
+  private static final Map<UniqueQName,UniqueQName> typeHierarchy = new HashMap<>();
 
   // may not need this...
   public static final XSTypeDirectory TYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "Type"), new NativeBinding.GenericClass(Binding.class)), null);
@@ -102,7 +102,8 @@ public final class XSTypeDirectory {
   static {
     // This section creates simpleType bindings for all of the base xs simple types.
     try {
-      // FIXME: Have the nativeClasses hardcoded here be looked up using reflection during the generation process!!!!
+      // FIXME: Have the nativeClasses hardcoded here be looked up using
+      // FIXME: reflection during the generation process!!!!
       final XSTypeDirectory ENTITIES = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "ENTITIES"), new NativeBinding.GenericClass($ENTITIES.class), new NativeBinding.GenericClass(List.class, String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory string = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "string"), new NativeBinding.GenericClass($String.class), new NativeBinding.GenericClass(String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory normalizedString = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "normalizedString"), new NativeBinding.GenericClass($NormalizedString.class), new NativeBinding.GenericClass(String.class)), string);

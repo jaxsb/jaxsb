@@ -17,6 +17,7 @@
 package org.jaxsb.runtime;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.xml.namespace.QName;
 
@@ -48,7 +49,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   private final int maxOccurs;
   private ElementCompositeList.ElementComponentList elements;
 
-  public ElementAudit(final Class<? extends Binding> type, final Binding owner, final B _default, QName name, final QName typeName, boolean qualified, final boolean nillable, int minOccurs, final int maxOccurs) {
+  public ElementAudit(final Class<? extends Binding> type, final Binding owner, final B _default, final QName name, final QName typeName, final boolean qualified, final boolean nillable, final int minOccurs, final int maxOccurs) {
     this.type = (Class<B>)type;
     this.owner = owner;
     if (_default != null) {
@@ -179,7 +180,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     if (!(obj instanceof ElementAudit))
       return false;
 
-    return elements != null ? elements.equals(((ElementAudit<?>)obj).elements) : ((ElementAudit<?>)obj).elements == null;
+    return Objects.equals(elements, ((ElementAudit<?>)obj).elements);
   }
 
   @Override

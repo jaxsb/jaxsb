@@ -18,6 +18,7 @@ package org.jaxsb.compiler.lang;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -91,7 +92,7 @@ public final class UniqueQName {
 
   private final String localPart;
   private final NamespaceURI namespaceURI;
-  private Prefix prefix = null;
+  private Prefix prefix;
 
   private UniqueQName(final QName name) {
     if (name.getNamespaceURI() != null) {
@@ -175,7 +176,7 @@ public final class UniqueQName {
       return false;
 
     final UniqueQName that = (UniqueQName)obj;
-    return (namespaceURI != null ? namespaceURI.equals(that.namespaceURI) : that.namespaceURI == null) && localPart.equals(that.localPart);
+    return (Objects.equals(namespaceURI, that.namespaceURI)) && localPart.equals(that.localPart);
   }
 
   @Override

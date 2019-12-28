@@ -22,7 +22,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class HasPropertyModel extends NamedModel {
-  private String value = null;
+  private String value;
 
   protected HasPropertyModel(final Node node, final Model parent) {
     super(node, parent);
@@ -34,7 +34,7 @@ public final class HasPropertyModel extends NamedModel {
     }
   }
 
-  public final String getValue() {
+  public String getValue() {
     return value;
   }
 }

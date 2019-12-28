@@ -22,7 +22,7 @@ import org.w3c.dom.Node;
 
 public final class MaxInclusiveModel extends Model {
   private Boolean fixed = false;
-  private String value = null;
+  private String value;
 
   protected MaxInclusiveModel(final Node node, final Model parent) {
     super(node, parent);
@@ -36,11 +36,11 @@ public final class MaxInclusiveModel extends Model {
     }
   }
 
-  public final Boolean getFixed() {
+  public Boolean getFixed() {
     return fixed;
   }
 
-  public final String getValue() {
+  public String getValue() {
     return value;
   }
 }

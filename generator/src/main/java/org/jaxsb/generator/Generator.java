@@ -78,7 +78,7 @@ public final class Generator extends AbstractGenerator {
         pack = true;
       else if ("--skip-xsd".equals(args[i]))
         skipXsd = true;
-      else if ("-d".equals(args[i]) && i < args.length)
+      else if ("-d".equals(args[i]))
         destDir = new File(args[++i]).getAbsoluteFile();
       else
         schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.toCanonicalURL(args[i]) : new File(FileUtil.getCwd(), args[i]).toURI().toURL(), false));

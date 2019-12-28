@@ -35,7 +35,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
   private static final Logger logger = LoggerFactory.getLogger(SchemaReferenceProcessor.class);
 
   @Override
-  public Collection<SchemaReference> process(final GeneratorContext pipelineContext, final Collection<SchemaReference> schemaReferences, final PipelineDirectory<GeneratorContext,SchemaReference,SchemaReference> directory) {
+  public Collection<SchemaReference> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaReference> schemaReferences, final PipelineDirectory<GeneratorContext,? super SchemaReference,SchemaReference> directory) {
     final File destDir = pipelineContext.getDestDir();
     if (logger.isDebugEnabled())
       logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
@@ -66,6 +66,9 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
           throw new LexerFailureException(e);
         }
       }
+    }
+    catch (final LexerFailureException e) {
+      throw e;
     }
     catch (final Exception e) {
       throw new LexerFailureException(e);

@@ -40,23 +40,23 @@ public class ClassFile implements AutoCloseable {
 
   static {
     final StringBuilder builder = new StringBuilder();
-    builder.append("/**\n");
-    builder.append(" * ").append(GENERATED_VALUE).append('\n');
-    builder.append(" *\n");
-    builder.append(" * THIS FILE SHOULD NOT BE EDITED\n");
-    builder.append(" * @generated\n");
-    builder.append(" */\n");
+    builder.append("/* ").append(GENERATED_VALUE).append('\n');
+    builder.append(" * THIS FILE SHOULD NOT BE EDITED */\n");
     HEADER_COMMENT = builder.toString();
   }
 
   private final File file;
   private final NamespaceBinding namespaceBinding;
-  private List<String> registrationTexts = new ArrayList<>();
-  private List<String> classTexts = new ArrayList<>();
+  private final List<String> registrationTexts = new ArrayList<>();
+  private final List<String> classTexts = new ArrayList<>();
 
   public ClassFile(final File file, final NamespaceBinding namespaceBinding) {
     this.file = file;
     this.namespaceBinding = namespaceBinding;
+  }
+
+  public File getFile() {
+    return file;
   }
 
   public void addRegistrationText(final String registrationText) {
@@ -72,7 +72,7 @@ public class ClassFile implements AutoCloseable {
     final StringBuilder builder = new StringBuilder();
     builder.append("package ").append(namespaceBinding.getPackageName()).append(";\n\n");
     builder.append('@').append(SuppressWarnings.class.getName()).append("(\"all\")\n");
-    builder.append('@').append(Generated.class.getName()).append("(value=\"" + GENERATED_VALUE + "\", date=\"" + GENERATED_DATE + "\")\n");
+    builder.append('@').append(Generated.class.getName()).append("(value=\"").append(GENERATED_VALUE).append("\", date=\"").append(GENERATED_DATE).append("\")\n");
     builder.append("public class ").append(namespaceBinding.getSimpleClassName()).append(" extends ").append(Schema.class.getName()).append(" {\n\n");
     builder.append("static {");
     for (final String registrationText : registrationTexts)

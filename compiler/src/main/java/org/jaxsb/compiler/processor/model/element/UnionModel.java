@@ -46,15 +46,15 @@ public final class UnionModel extends Model {
       this.memberTypes.add(SimpleTypeModel.Reference.parseSimpleType(UniqueQName.getInstance(parseQNameValue(tokenizer.nextToken(), node))));
   }
 
-  public final Collection<SimpleTypeModel<?>> getMemberTypes() {
+  public Collection<SimpleTypeModel<?>> getMemberTypes() {
     return memberTypes;
   }
 
-  public final void addUnion(final UnionModel unionModel) {
+  public void addUnion(final UnionModel unionModel) {
     unions.add(unionModel);
   }
 
-  public final Collection<SimpleTypeModel<?>> getNormalizedMemberTypes() {
+  public Collection<SimpleTypeModel<?>> getNormalizedMemberTypes() {
     final Collection<SimpleTypeModel<?>> allMemberTypes = new ArrayList<>(getMemberTypes());
     for (final UnionModel union : unions)
       allMemberTypes.addAll(union.getNormalizedMemberTypes());

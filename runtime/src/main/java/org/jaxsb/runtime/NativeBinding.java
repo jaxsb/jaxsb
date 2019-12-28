@@ -28,7 +28,7 @@ public final class NativeBinding {
   private final AccessibleObject factoryMethod;
   private final boolean list;
 
-  public NativeBinding(final UniqueQName name, final GenericClass baseClass, GenericClass nativeClass, final AccessibleObject factoryMethod) {
+  public NativeBinding(final UniqueQName name, final GenericClass baseClass, final GenericClass nativeClass, final AccessibleObject factoryMethod) {
     this.name = name;
     if (name == null)
       throw new IllegalArgumentException("name == null");
@@ -93,13 +93,13 @@ public final class NativeBinding {
 
   @Override
   public String toString() {
-    return name.toString() + "\n" + baseClass.toString() + "\n" + nativeClass.toString();
+    return name + "\n" + baseClass + "\n" + nativeClass;
   }
 
   public static final class GenericClass {
     private final Class<?> cls;
     private final Class<?> type;
-    private Boolean list = null;
+    private Boolean list;
 
     public GenericClass(final Class<?> cls, final Class<?> type) {
       if (cls == null)
@@ -113,11 +113,11 @@ public final class NativeBinding {
       this(cls, null);
     }
 
-    public final Class<?> getCls() {
+    public Class<?> getCls() {
       return cls;
     }
 
-    public final Class<?> getType() {
+    public Class<?> getType() {
       return type;
     }
 

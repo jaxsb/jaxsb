@@ -22,8 +22,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public final class DocumentationModel extends Model {
-  private String source = null;
-  private String lang = null;
+  private String source;
+  private String lang;
   private String text = " ";
 
   protected DocumentationModel(final Node node, final Model parent) {
@@ -49,19 +49,19 @@ public final class DocumentationModel extends Model {
       this.text = text.substring(1);
   }
 
-  public final String getText() {
+  public String getText() {
     return text;
   }
 
-  public final String getSource() {
+  public String getSource() {
     return source;
   }
 
-  public final String getLang() {
+  public String getLang() {
     return lang;
   }
 
-  public final void merge(final DocumentationModel model) {
+  public void merge(final DocumentationModel model) {
     this.text += "\n" + model.text;
   }
 }

@@ -32,9 +32,9 @@ public final class ChoiceModel extends Model implements MultiplicableModel {
 
   protected ChoiceModel(final Node node, final Model parent) {
     super(node, parent);
-    NamedNodeMap attributes = node.getAttributes();
+    final NamedNodeMap attributes = node.getAttributes();
     for (int i = 0; i < attributes.getLength(); i++) {
-      Node attribute = attributes.item(i);
+      final Node attribute = attributes.item(i);
       if ("maxOccurs".equals(attribute.getLocalName()))
         maxOccurs = Occurs.parseOccurs(attribute.getNodeValue());
       else if ("minOccurs".equals(attribute.getLocalName()))
@@ -43,23 +43,23 @@ public final class ChoiceModel extends Model implements MultiplicableModel {
   }
 
   @Override
-  public final void addMultiplicableModel(final MultiplicableModel multiplicableModel) {
+  public void addMultiplicableModel(final MultiplicableModel multiplicableModel) {
     if (!this.equals(multiplicableModel))
       this.multiplicableModels.add(multiplicableModel);
   }
 
   @Override
-  public final ArrayList<MultiplicableModel> getMultiplicableModels() {
+  public ArrayList<MultiplicableModel> getMultiplicableModels() {
     return multiplicableModels;
   }
 
   @Override
-  public final Occurs getMaxOccurs() {
+  public Occurs getMaxOccurs() {
     return maxOccurs;
   }
 
   @Override
-  public final Occurs getMinOccurs() {
+  public Occurs getMinOccurs() {
     return minOccurs;
   }
 

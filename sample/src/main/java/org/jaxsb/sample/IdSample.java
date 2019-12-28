@@ -16,6 +16,7 @@
 
 package org.jaxsb.sample;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -24,13 +25,14 @@ import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.sample.id.xAA.$BookType;
 import org.jaxsb.www.sample.id.xAA.Directory;
 import org.w3.www._2001.XMLSchema.yAA.$IDREFS;
+import org.xml.sax.SAXException;
 
 public class IdSample {
   public static void main(final String[] args) throws Exception {
     new IdSample().runSample();
   }
 
-  public Binding runSample() throws Exception {
+  public Binding runSample() throws IOException, SAXException {
     final URL url = getClass().getResource("/id.xml");
     final Directory directory = (Directory)Bindings.parse(url);
     final List<$BookType> books = directory.getBook();

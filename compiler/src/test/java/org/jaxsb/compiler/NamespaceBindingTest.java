@@ -16,9 +16,9 @@
 
 package org.jaxsb.compiler;
 
+import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.junit.Assert;
 import org.junit.Test;
-import org.jaxsb.compiler.lang.NamespaceBinding;
 
 public class NamespaceBindingTest {
   private static void assertEquals(final String expected, final String uri) {

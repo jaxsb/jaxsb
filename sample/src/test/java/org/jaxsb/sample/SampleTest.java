@@ -41,7 +41,7 @@ public abstract class SampleTest {
     final Element element = Bindings.marshal(binding);
     final String xml = DOMs.domToString(element, DOMStyle.INDENT);
     logger.info(xml + "\n");
-    Binding reparsed = Bindings.parse(new InputSource(new StringReader(xml)));
+    final Binding reparsed = Bindings.parse(new InputSource(new StringReader(xml)));
     String message = "SUCCESS";
     String not = "---";
     if (!binding.equals(reparsed)) {

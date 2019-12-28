@@ -40,15 +40,15 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
   private final QName _default;
   private final Use use;
 
-  private String thisClassNameWithType = null;
-  private String declarationRestrictionGeneric = null;
-  private String declarationRestrictionSimpleName = null;
+  private String thisClassNameWithType;
+  private String declarationRestrictionGeneric;
+  private String declarationRestrictionSimpleName;
 
-  private String superClassNameWithType = null;
-  private String superClassNameWithoutType = null;
+  private String superClassNameWithType;
+  private String superClassNameWithoutType;
 
-  private boolean nested = false;
-  private Form formDefault = null;
+  private boolean nested;
+  private Form formDefault;
 
   public AttributePlan(final AttributeModel model, final Plan<?> parent) {
     super(model, parent);
@@ -96,7 +96,7 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
     if (!hasEnumerations() && getNativeFactory() != null)
       defaultInstance += getNativeFactory() + "(" + _default + "))";
     else
-      defaultInstance += "" + _default + ")";
+      defaultInstance += _default + ")";
 
     return defaultInstance;
   }
@@ -105,7 +105,7 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
     if (!fixed)
       return "";
 
-    String defaultInstance = getDefaultInstance(parent);
+    final String defaultInstance = getDefaultInstance(parent);
     if (isRestriction())
       return "super.set" + getDeclarationRestrictionSimpleName() + "(" + defaultInstance + ");\n";
 

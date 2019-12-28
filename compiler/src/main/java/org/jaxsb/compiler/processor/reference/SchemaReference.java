@@ -23,6 +23,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -55,17 +56,14 @@ public final class SchemaReference implements PipelineEntity {
   private InputStream inputStream;
 
   public SchemaReference(final URL location, final boolean isInclude) {
-    this.location = location;
-    if (location == null)
-      throw new IllegalArgumentException("location == null");
-
+    this.location = Objects.requireNonNull(location);
     this.isInclude = isInclude;
     if (logger.isDebugEnabled())
       logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", " + isInclude + ")");
   }
 
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
-    this.location = location;
+    this.location = Objects.requireNonNull(location);
     this.namespaceURI = namespaceURI;
     this.prefix = prefix;
     this.isInclude = isInclude;
@@ -73,7 +71,7 @@ public final class SchemaReference implements PipelineEntity {
   }
 
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final boolean isInclude) {
-    this.location = location;
+    this.location = Objects.requireNonNull(location);
     this.namespaceURI = namespaceURI;
     this.isInclude = isInclude;
     logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", \"" + namespaceURI + "\")");
@@ -107,9 +105,7 @@ public final class SchemaReference implements PipelineEntity {
       }
     }
     else if (prefix != null) {
-      if (namespaceURI == null)
-        namespaceURI = prefixToNamespaceURI.get(prefix);
-
+      namespaceURI = prefixToNamespaceURI.get(prefix);
       if (namespaceURI != null) {
         isResolved.set(true);
         return;
@@ -144,7 +140,9 @@ public final class SchemaReference implements PipelineEntity {
           throw new LexerFailureException("This should never happen: " + namespaceURI + " != " + e.getNamespaceURI());
 
         this.prefix = Prefix.getInstance(e.getPrefix());
-        logger.debug("linking \"" + namespaceURI + "\" to \"" + this.prefix + "\"");
+        if (logger.isDebugEnabled())
+          logger.debug("linking \"" + namespaceURI + "\" to \"" + this.prefix + "\"");
+
         UniqueQName.linkPrefixNamespace(namespaceURI, this.prefix);
         isResolved.set(true);
       }
@@ -194,14 +192,14 @@ public final class SchemaReference implements PipelineEntity {
       return false;
 
     final SchemaReference that = (SchemaReference)obj;
-    return location.equals(that.location) && namespaceURI.equals(that.namespaceURI);
+    return location.equals(that.location) && Objects.equals(namespaceURI, that.namespaceURI);
   }
 
   @Override
   public int hashCode() {
     int hashCode = 1;
     hashCode = 31 * hashCode + location.hashCode();
-    hashCode = 31 * hashCode + (namespaceURI == null ? 0 : namespaceURI.hashCode());
+    hashCode = 31 * hashCode + Objects.hashCode(namespaceURI);
     return hashCode;
   }
 }

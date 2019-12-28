@@ -23,4 +23,9 @@ public class AnyAttribute extends $AnySimpleType {
   protected Binding inherits() {
     return null;
   }
+
+  @Override
+  public AnyAttribute clone() {
+    return (AnyAttribute)super.clone();
+  }
 }

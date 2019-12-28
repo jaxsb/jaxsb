@@ -35,8 +35,8 @@ public class GroupModel extends NamedModel implements MultiplicableModel, Redefi
   private final ArrayList<MultiplicableModel> multiplicableModels = new ArrayList<>();
   private Occurs maxOccurs = Occurs.parseOccurs("1");
   private Occurs minOccurs = Occurs.parseOccurs("1");
-  private GroupModel ref = null;
-  private GroupModel redefine = null;
+  private GroupModel ref;
+  private GroupModel redefine;
 
   protected GroupModel(final Node node, final Model parent) {
     super(node, parent);

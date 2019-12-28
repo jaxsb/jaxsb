@@ -31,7 +31,7 @@ public final class FinalDefault {
     return enums.get(value);
   }
 
-  private String value;
+  private final String value;
 
   private FinalDefault(final String value) {
     this.value = value;

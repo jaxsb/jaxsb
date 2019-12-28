@@ -33,8 +33,8 @@ import org.w3c.dom.Node;
 
 public class AttributeGroupModel extends NamedModel implements AttributableModel, RedefineableModel<AttributeGroupModel>, ReferableModel<AttributeGroupModel> {
   private final LinkedHashSet<AttributeModel> attributes = new LinkedHashSet<>();
-  private AttributeGroupModel ref = null;
-  private AttributeGroupModel redefine = null;
+  private AttributeGroupModel ref;
+  private AttributeGroupModel redefine;
 
   protected AttributeGroupModel(final Node node, final Model parent) {
     super(node, parent);
@@ -42,7 +42,7 @@ public class AttributeGroupModel extends NamedModel implements AttributableModel
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("ref".equals(attribute.getLocalName()))
         ref = AttributeGroupModel.Reference.parseAttributeGroup(UniqueQName.getInstance(parseQNameValue(attribute.getNodeValue(), node)));
@@ -64,8 +64,8 @@ public class AttributeGroupModel extends NamedModel implements AttributableModel
     attributes.add(attribute);
   }
 
-  public static void addAllAttributes(final Collection<AttributeModel> attributes) {
-    attributes.addAll(attributes);
+  public void addAllAttributes(final Collection<? extends AttributeModel> attributes) {
+    this.attributes.addAll(attributes);
   }
 
   @Override

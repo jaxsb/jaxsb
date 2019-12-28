@@ -23,7 +23,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class RestrictionModel extends ElementModel {
-  private SimpleTypeModel<?> base = null;
+  private SimpleTypeModel<?> base;
 
   protected RestrictionModel(final Node node, final Model parent) {
     super(node, parent);
@@ -42,12 +42,12 @@ public final class RestrictionModel extends ElementModel {
     }
   }
 
-  public final void setBase(final SimpleTypeModel<?> base) {
+  public void setBase(final SimpleTypeModel<?> base) {
     this.base = base;
   }
 
   @SuppressWarnings("rawtypes")
-  public final SimpleTypeModel getBase() {
+  public SimpleTypeModel getBase() {
     return base;
   }
 }

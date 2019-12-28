@@ -16,7 +16,6 @@
 
 package org.jaxsb.runtime;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -44,9 +43,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 public abstract class Binding extends AbstractBinding implements Serializable {
   private static final long serialVersionUID = -1760699437761774773L;
@@ -56,12 +52,9 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     try {
       final DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
       if (logger.isDebugEnabled()) {
-        builder.setEntityResolver(new EntityResolver() {
-          @Override
-          public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException {
-            logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
-            return null;
-          }
+        builder.setEntityResolver((publicId, systemId) -> {
+          logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
+          return null;
         });
       }
       return builder;
@@ -182,7 +175,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return false;
   }
 
-  protected static Binding parse(final Element element, Class<? extends Binding> defaultClass) throws ValidationException {
+  protected static Binding parse(final Element element, final Class<? extends Binding> defaultClass) throws ValidationException {
     return parseElement(element, defaultClass, Thread.currentThread().getContextClassLoader());
   }
 
@@ -203,7 +196,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
   }
 
-  protected static Binding parseElement(final Element node, Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ValidationException {
+  protected static Binding parseElement(final Element node, final Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ValidationException {
     final String localName = node.getLocalName();
     String namespaceURI = node.getNamespaceURI();
 
@@ -219,7 +212,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       }
     }
 
-    Class<? extends Binding> classBinding = null;
+    Class<? extends Binding> classBinding;
     try {
       classBinding = defaultClass != null ? defaultClass : lookupElement(new QName(namespaceURI, localName), classLoader);
       Binding binding = null;
@@ -277,8 +270,8 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     documentBuilderFactory.setXIncludeAware(true);
   }
 
-  private ElementCompositeList elements = null;
-  private CompositeAttributeStore attributeDirectory = null;
+  private ElementCompositeList elements;
+  private CompositeAttributeStore attributeDirectory;
   private Binding inherits;
   private $AnySimpleType owner;
   private boolean isDefault;
@@ -467,7 +460,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     }
   }
 
-  private volatile boolean isNull = false;
+  private volatile boolean isNull;
 
   protected boolean isNull() {
     return isNull;
@@ -648,22 +641,17 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   @Override
   public Binding clone() {
-    try {
-      final Binding clone = (Binding)super.clone();
-      if (elements != null) {
-        clone.elements = elements.clone(($AnySimpleType)clone);
-        clone.nameToAudit = elements.nameToAudit;
-      }
+    final Binding clone = (Binding)super.clone();
+    if (elements != null) {
+      clone.elements = elements.clone(($AnySimpleType)clone);
+      clone.nameToAudit = elements.nameToAudit;
+    }
 
-      clone.attributeDirectory = attributeDirectory == null ? null : attributeDirectory.clone(($AnySimpleType)clone);
-      clone.inherits = inherits;
-      clone.isNull = isNull;
-      clone.owner = null;
-      return clone;
-    }
-    catch (final CloneNotSupportedException e) {
-      throw new RuntimeException(e);
-    }
+    clone.attributeDirectory = attributeDirectory == null ? null : attributeDirectory.clone(($AnySimpleType)clone);
+    clone.inherits = inherits;
+    clone.isNull = isNull;
+    clone.owner = null;
+    return clone;
   }
 
   @Override

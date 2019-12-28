@@ -54,12 +54,12 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
   private String superClassNameWithType;
   private String superClassNameWithoutType;
   private String declarationGeneric;
-  private String declarationRestrictionGeneric = null;
+  private String declarationRestrictionGeneric;
 
   private boolean nested;
-  private boolean isComplexType = false;
-  private boolean repeatedExtensionRun = false;
-  private ElementPlan repeatedExtension = null;
+  private boolean isComplexType;
+  private boolean repeatedExtensionRun;
+  private ElementPlan repeatedExtension;
   private Form formDefault;
 
   private int minOccurs = 1;
@@ -173,7 +173,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
     if (!hasEnumerations() && getNativeFactory() != null)
       defaultInstance += getNativeFactory() + "(" + _default + "))";
     else
-      defaultInstance += "" + _default + ")";
+      defaultInstance +=  _default + ")";
 
     return defaultInstance;
   }

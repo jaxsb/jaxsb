@@ -35,6 +35,7 @@ public class BindingEntityResolver implements LSResourceResolver {
     final URL present = schemaReferences.get(namespaceURI);
     if (present == null)
       schemaReferences.put(namespaceURI, schemaReference);
+    // FIXME: URL.equals() being called. Need to use a custom Handler.
     else if (!present.equals(schemaReference))
       throw new IllegalStateException("Attempted to reset {" + namespaceURI + "} from " + present + " to " + schemaReference);
   }

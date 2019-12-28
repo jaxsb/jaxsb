@@ -27,9 +27,9 @@ import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.model.Model;
 
 public final class NormalizerProcessor implements PipelineProcessor<GeneratorContext,Model,Normalizer<?>> {
-  private int stage = 0;
+  private int stage;
 
-  protected final void tailRecurse(final GeneratorContext pipelineContext, final Collection<Model> models, final PipelineDirectory<GeneratorContext,Model,Normalizer<?>> directory) {
+  protected void tailRecurse(final GeneratorContext pipelineContext, final Collection<? extends Model> models, final PipelineDirectory<GeneratorContext,? super Model,Normalizer<?>> directory) {
     if (models == null || models.size() == 0)
       return;
 
@@ -38,7 +38,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
         tailRecurse(pipelineContext, disclose(model, directory), directory);
   }
 
-  private Collection<Model> disclose(final Model model, final PipelineDirectory<GeneratorContext,Model,Normalizer<?>> directory) {
+  private Collection<Model> disclose(final Model model, final PipelineDirectory<GeneratorContext,? super Model,Normalizer<?>> directory) {
     final Normalizer<?> normalizer = (Normalizer<?>)directory.getEntity(model, null);
     try {
       final Method method = normalizer.getClass().getDeclaredMethod("stage" + (stage + 1), Model.class);
@@ -53,7 +53,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
   }
 
   @Override
-  public Collection<Normalizer<?>> process(final GeneratorContext pipelineContext, final Collection<Model> models, final PipelineDirectory<GeneratorContext,Model,Normalizer<?>> directory) {
+  public Collection<Normalizer<?>> process(final GeneratorContext pipelineContext, final Collection<? extends Model> models, final PipelineDirectory<GeneratorContext,? super Model,Normalizer<?>> directory) {
     int stages = 0;
     final Method[] methods = Normalizer.class.getDeclaredMethods();
     for (final Method method : methods)

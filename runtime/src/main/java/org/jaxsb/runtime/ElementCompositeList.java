@@ -142,14 +142,19 @@ public class ElementCompositeList extends CompositeList<Binding,QName> implement
   }
 
   protected ElementCompositeList clone(final $AnySimpleType owner) {
-    final ElementCompositeList clone = (ElementCompositeList)super.clone();
+    final ElementCompositeList clone = clone();
     clone.owner = owner;
-    clone.nameToAudit = new HashMap<QName,ElementAudit<?>>();
+    clone.nameToAudit = new HashMap<>();
     for (final HashMap.Entry<QName,ElementAudit<?>> entry : nameToAudit.entrySet()) {
       final ElementAudit<?> copy = new ElementAudit<>(owner, entry.getValue(), (ElementCompositeList.ElementComponentList)clone.getOrCreateComponentList(entry.getValue().getName()));
       clone.nameToAudit.put(entry.getKey(), copy);
     }
 
     return clone;
+  }
+
+  @Override
+  public ElementCompositeList clone() {
+    return (ElementCompositeList)super.clone();
   }
 }

@@ -21,7 +21,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class KeyModel extends Model {
-  private String xpath = null;
+  private String xpath;
 
   protected KeyModel(final Node node, final Model parent) {
     super(node, parent);
@@ -33,7 +33,7 @@ public final class KeyModel extends Model {
     }
   }
 
-  public final String getXpath() {
+  public String getXpath() {
     return xpath;
   }
 }

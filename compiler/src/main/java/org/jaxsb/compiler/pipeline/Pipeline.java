@@ -26,7 +26,7 @@ public final class Pipeline<C extends PipelineContext> {
     private final Collection<O> output;
     private final PipelineDirectory<C,I,O> directory;
 
-    public Entry(final Collection<I> input, final Collection<O> output, final PipelineDirectory<C,I,O> directory) {
+    private Entry(final Collection<I> input, final Collection<O> output, final PipelineDirectory<C,I,O> directory) {
       this.input = input;
       this.output = output;
       this.directory = directory;

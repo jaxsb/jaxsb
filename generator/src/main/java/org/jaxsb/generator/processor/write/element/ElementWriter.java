@@ -137,7 +137,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       return;
 
     if (!plan.isNested() || Form.QUALIFIED.equals(plan.getFormDefault())) {
-      if ("".equals(plan.getName().getNamespaceURI().toString()))
+      if (plan.getName().getNamespaceURI().toString().isEmpty())
         writer.write("if (element.getNamespaceURI() == null && \"" + plan.getName().getLocalPart() + "\".equals(element.getLocalName()))\n");
       else
         writer.write("if (\"" + plan.getName().getNamespaceURI() + "\".equals(element.getNamespaceURI()) && \"" + plan.getName().getLocalPart() + "\".equals(element.getLocalName()))\n");
@@ -148,14 +148,13 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("if (" + Binding.class.getName() + "._$$iSsubstitutionGroup(new " + QName.class.getName() + "(element.getNamespaceURI(), element.getLocalName()), \"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\"))\n");
       writer.write("{\n");
       writer.write("return _$$addElement(this." + plan.getInstanceName() + ", (" + plan.getDeclarationGeneric(parent) + ")" + Binding.class.getName() + ".parse(element));\n");
-      writer.write("}\n");
     }
     else {
       writer.write("if (\"" + plan.getName().getLocalPart() + "\".equals(element.getLocalName()))\n");
       writer.write("{\n");
       writer.write("return _$$addElement(this." + plan.getInstanceName() + ", (" + plan.getDeclarationGeneric(parent) + ")" + Binding.class.getName() + ".parse(element, " + plan.getClassName(parent) + ".class));\n");
-      writer.write("}\n");
     }
+    writer.write("}\n");
   }
 
   @Override
@@ -293,7 +292,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       }
       else if (plan.getNativeItemClassNameInterface() != null) {
         if (plan.hasEnumerations()) {
-          boolean hasSuperEnumerations = ((EnumerablePlan)plan).hasSuperEnumerations();
+          final boolean hasSuperEnumerations = ((EnumerablePlan)plan).hasSuperEnumerations();
           final String enumClassName;
           if (hasSuperEnumerations)
             enumClassName = ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum";

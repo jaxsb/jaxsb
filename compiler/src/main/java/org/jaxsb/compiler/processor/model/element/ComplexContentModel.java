@@ -22,7 +22,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class ComplexContentModel extends Model implements MixableModel {
-  private Boolean mixed = null;
+  private Boolean mixed;
 
   protected ComplexContentModel(final Node node, final Model parent) {
     super(node, parent);
@@ -35,7 +35,7 @@ public final class ComplexContentModel extends Model implements MixableModel {
   }
 
   @Override
-  public final Boolean getMixed() {
+  public Boolean getMixed() {
     return mixed;
   }
 }

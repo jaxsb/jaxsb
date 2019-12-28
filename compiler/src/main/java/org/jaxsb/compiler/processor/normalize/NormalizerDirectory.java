@@ -176,7 +176,7 @@ public final class NormalizerDirectory implements PipelineDirectory<GeneratorCon
     return lookup(entity.getClass());
   }
 
-  public PipelineEntity lookup(Class<? extends Model> clazz) {
+  public PipelineEntity lookup(final Class<? extends Model> clazz) {
     if (!keys.contains(clazz))
       throw new IllegalArgumentException("Unknown key: " + clazz.getSimpleName());
 

@@ -21,8 +21,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class ImportModel extends Model {
-  private String namespace = null;
-  private String schemaLocation = null;
+  private String namespace;
+  private String schemaLocation;
 
   protected ImportModel(final Node node, final Model parent) {
     super(node, parent);
@@ -36,11 +36,11 @@ public final class ImportModel extends Model {
     }
   }
 
-  public final String getNamespace() {
+  public String getNamespace() {
     return namespace;
   }
 
-  public final String getSchemaLocation() {
+  public String getSchemaLocation() {
     return schemaLocation;
   }
 }

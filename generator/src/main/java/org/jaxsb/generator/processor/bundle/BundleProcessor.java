@@ -17,8 +17,10 @@
 package org.jaxsb.generator.processor.bundle;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -30,6 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.jar.JarOutputStream;
+import java.util.zip.ZipException;
 
 import javax.annotation.Generated;
 import javax.xml.XMLConstants;
@@ -65,7 +68,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
-  private static void compile(final Collection<SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> sourcePath) throws CompilationException, IOException, URISyntaxException {
+  private static void compile(final Collection<? extends SchemaComposite> documents, final File destDir, final File sourceDir, final Set<? extends File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final List<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
     final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, Generated.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
     for (final Class<?> cls : requiredLibs) {
@@ -75,7 +78,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     }
 
     final File[] sources = new File[documents.size()];
-    final Iterator<SchemaComposite> iterator = documents.iterator();
+    final Iterator<? extends SchemaComposite> iterator = documents.iterator();
     for (int i = 0; i < sources.length; ++i)
       // FIXME: This is duplicated in SchemaReferenceProcessor[62]
       sources[i] = new File(sourceDir, ((SchemaModelComposite)iterator.next()).getSchemaModel().getTargetNamespace().getNamespaceBinding().getClassName().replace('.', File.separatorChar) + ".java");
@@ -88,7 +91,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   }
 
   @SuppressWarnings("resource")
-  private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes, final boolean skipXsd) throws IOException, SAXException {
+  private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<? extends SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes, final boolean skipXsd) throws IOException, SAXException, FileNotFoundException {
     final Set<NamespaceURI> namespaceURIsAdded = new HashSet<>();
     final Collection<File> jarFiles = new HashSet<>();
 
@@ -135,9 +138,9 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     return jarFiles;
   }
 
-  private static void addXSDs(final URL url, final String filePath, final ZipWriter ZipWriter, final File destDir, int includeCount) throws IOException, SAXException {
+  private static void addXSDs(final URL url, final String filePath, final ZipWriter ZipWriter, final File destDir, int includeCount) throws IOException, MalformedURLException, SAXException, ZipException {
     final String baseDir = Paths.getCanonicalParent(filePath);
-    String relativeRootPath = null;
+    StringBuilder relativeRootPath = null;
     final Element element = DOMParsers.newDocumentBuilder().parse(url.openStream()).getDocumentElement();
     final NodeList children = element.getChildNodes();
     for (int i = 0; i < children.getLength(); ++i) {
@@ -165,9 +168,9 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
             }
             else {
               if (relativeRootPath == null) {
-                relativeRootPath = "";
+                relativeRootPath = new StringBuilder();
                 for (int k = 0; k != -1; k = baseDir.indexOf('/', k + 1))
-                  relativeRootPath += "../";
+                  relativeRootPath.append("../");
               }
 
               schemaPath = Paths.canonicalize(relativeRootPath + packagePath);
@@ -202,16 +205,16 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     Files.write(new File(destDir, filePath).toPath(), bytes);
   }
 
-  private final Set<File> sourcePath;
+  private final Set<? extends File> sourcePath;
   private final boolean skipXsd;
 
-  public BundleProcessor(final Set<File> sourcePath, final boolean skipXsd) {
+  public BundleProcessor(final Set<? extends File> sourcePath, final boolean skipXsd) {
     this.sourcePath = sourcePath;
     this.skipXsd = skipXsd;
   }
 
   @Override
-  public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> directory) throws IOException {
+  public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaComposite> documents, final PipelineDirectory<GeneratorContext,? super SchemaComposite,Bundle> directory) throws IOException {
     try {
       if (pipelineContext.getCompileDir() != null)
         BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);

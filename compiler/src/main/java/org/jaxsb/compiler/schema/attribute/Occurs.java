@@ -20,13 +20,10 @@ public final class Occurs {
   public static final Occurs UNBOUNDED = new Occurs(Integer.MAX_VALUE);
 
   public static Occurs parseOccurs(final String value) {
-    if ("unbounded".equals(value))
-      return UNBOUNDED;
-
-    return new Occurs(Integer.parseInt(value));
+    return "unbounded".equals(value) ?  UNBOUNDED : new Occurs(Integer.parseInt(value));
   }
 
-  private int value = 1;
+  private final int value;
 
   private Occurs(final int value) {
     this.value = value;
@@ -38,15 +35,18 @@ public final class Occurs {
 
   @Override
   public boolean equals(final Object obj) {
+    if (obj == this)
+      return true;
+
     if (!(obj instanceof Occurs))
       return false;
 
-    return getValue() == ((Occurs)obj).getValue();
+    return value == ((Occurs)obj).value;
   }
 
   @Override
   public int hashCode() {
-    return (getClass().getName() + toString()).hashCode();
+    return 31 * getClass().getName().hashCode() + Integer.hashCode(value);
   }
 
   @Override

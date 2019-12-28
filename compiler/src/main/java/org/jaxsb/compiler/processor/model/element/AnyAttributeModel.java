@@ -40,12 +40,12 @@ public final class AnyAttributeModel extends AttributeModel implements AnyableMo
   }
 
   @Override
-  public final Namespace getNamespace() {
+  public Namespace getNamespace() {
     return namespace;
   }
 
   @Override
-  public final ProcessContents getProcessContents() {
+  public ProcessContents getProcessContents() {
     return processContents;
   }
 

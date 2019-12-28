@@ -18,6 +18,7 @@ package org.jaxsb.compiler.processor.document;
 
 import java.net.URL;
 import java.util.Collection;
+import java.util.Objects;
 
 import org.jaxsb.compiler.pipeline.PipelineEntity;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
@@ -58,11 +59,11 @@ public final class SchemaDocument implements PipelineEntity {
       return false;
 
     final SchemaDocument that = (SchemaDocument)obj;
-    return schemaReference != null ? schemaReference.equals(that.schemaReference) : that.schemaReference == null;
+    return Objects.equals(schemaReference, that.schemaReference);
   }
 
   @Override
   public int hashCode() {
-    return (schemaReference == null ? 0 : schemaReference.hashCode()) * (document != null ? 1 : -1);
+    return 31 + Objects.hashCode(schemaReference) * (document != null ? 1 : -1);
   }
 }

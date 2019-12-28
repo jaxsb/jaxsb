@@ -21,8 +21,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class KeyrefModel extends Model {
-  private String xpath = null;
-  private String refer = null;
+  private String xpath;
+  private String refer;
 
   protected KeyrefModel(final Node node, final Model parent) {
     super(node, parent);
@@ -36,11 +36,11 @@ public final class KeyrefModel extends Model {
     }
   }
 
-  public final String getXpath() {
+  public String getXpath() {
     return xpath;
   }
 
-  public final String getRefer() {
+  public String getRefer() {
     return refer;
   }
 }

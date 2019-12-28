@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
@@ -51,7 +52,7 @@ import org.w3c.dom.Text;
 
 public final class XMLSchema {
   public static final class yAA {
-    public static abstract class $AnySimpleType extends Binding {
+    public abstract static class $AnySimpleType extends Binding {
       private static final long serialVersionUID = 3006785147423317837L;
 
       private Serializable text;
@@ -137,7 +138,7 @@ public final class XMLSchema {
         return builder.toString();
       }
 
-      private transient Element parent = null;
+      private transient Element parent;
 
       @Override
       protected Element marshal(final Element parent, final QName name, final QName typeName) throws MarshalException {
@@ -183,11 +184,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public QName type() {
-        return null;
-      }
-
-      @Override
       public $AnySimpleType clone() {
         return ($AnySimpleType)super.clone();
       }
@@ -204,7 +200,7 @@ public final class XMLSchema {
         try {
           final String thisEncoded = _$$encode(parent);
           final String thatEncoded = that._$$encode(parent);
-          return thisEncoded != null ? thisEncoded.equals(thatEncoded) : thatEncoded == null;
+          return Objects.equals(thisEncoded, thatEncoded);
         }
         catch (final MarshalException e) {
           return false;
@@ -228,7 +224,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $AnyType extends $AnySimpleType {
+    public abstract static class $AnyType extends $AnySimpleType {
       private static final long serialVersionUID = -6510869738097560771L;
 
       private final List<Binding> anys = new ArrayList<>(7);
@@ -273,7 +269,7 @@ public final class XMLSchema {
 
           @Override
           public QName name() {
-            return this.name();
+            return $AnyType.this.name();
           }
 
           @Override
@@ -322,9 +318,17 @@ public final class XMLSchema {
 
         return true;
       }
+
+      @Override
+      public int hashCode() {
+        int hashCode = 1;
+        hashCode = 31 * hashCode + Objects.hashCode(anys);
+        hashCode = 31 * hashCode + Objects.hashCode(anys$);
+        return hashCode;
+      }
     }
 
-    public static abstract class $AnyURI extends $AnySimpleType {
+    public abstract static class $AnyURI extends $AnySimpleType {
       private static final long serialVersionUID = 7515449882634738035L;
 
       public $AnyURI(final $AnyURI binding) {
@@ -354,7 +358,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Base64Binary extends $AnySimpleType {
+    public abstract static class $Base64Binary extends $AnySimpleType {
       private static final long serialVersionUID = -5862425707789169319L;
 
       public $Base64Binary(final $Base64Binary binding) {
@@ -389,7 +393,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Boolean extends $AnySimpleType {
+    public abstract static class $Boolean extends $AnySimpleType {
       private static final long serialVersionUID = 5805207783730082952L;
       private static final Map<Boolean,String[]> valueMap = new HashMap<>();
 
@@ -447,7 +451,7 @@ public final class XMLSchema {
           return String.valueOf(super.text());
 
         for (final String pattern : _$$getPattern()) {
-          String[] ret = valueMap.get(super.text());
+          final String[] ret = valueMap.get(super.text());
           for (int i = 0; i < ret.length; ++i) {
             if (ret[i].matches(pattern))
               return ret[i];
@@ -463,7 +467,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Byte extends $Short {
+    public abstract static class $Byte extends $Short {
       private static final long serialVersionUID = 8992563175185047222L;
 
       public $Byte(final $Byte binding) {
@@ -498,7 +502,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Date extends $AnySimpleType {
+    public abstract static class $Date extends $AnySimpleType {
       private static final long serialVersionUID = -1955542798279135254L;
 
       public $Date(final $Date binding) {
@@ -539,7 +543,7 @@ public final class XMLSchema {
      *
      * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">Definition</a>
      */
-    public static abstract class $DateTime extends $AnySimpleType {
+    public abstract static class $DateTime extends $AnySimpleType {
       private static final long serialVersionUID = 2247372411847607768L;
 
       public $DateTime(final $DateTime binding) {
@@ -581,7 +585,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Decimal extends $AnySimpleType {
+    public abstract static class $Decimal extends $AnySimpleType {
       private static final long serialVersionUID = 2611735387171278709L;
 
       public $Decimal(final $Decimal binding) {
@@ -620,7 +624,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Double extends $AnySimpleType {
+    public abstract static class $Double extends $AnySimpleType {
       private static final long serialVersionUID = 5696304973581941043L;
 
       public $Double(final $Double binding) {
@@ -655,7 +659,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Duration extends $AnySimpleType {
+    public abstract static class $Duration extends $AnySimpleType {
       private static final long serialVersionUID = 4604277237345201267L;
 
       public $Duration(final $Duration binding) {
@@ -691,7 +695,7 @@ public final class XMLSchema {
     }
 
     @SuppressWarnings("unchecked")
-    public static abstract class $ENTITIES extends $AnySimpleType {
+    public abstract static class $ENTITIES extends $AnySimpleType {
       private static final long serialVersionUID = -4444456617105792286L;
 
       public $ENTITIES(final $ENTITIES binding) {
@@ -731,7 +735,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $ENTITY extends $nCName {
+    public abstract static class $ENTITY extends $nCName {
       private static final long serialVersionUID = 2131270403814548561L;
 
       public $ENTITY(final $ENTITY binding) {
@@ -752,7 +756,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Float extends $AnySimpleType {
+    public abstract static class $Float extends $AnySimpleType {
       private static final long serialVersionUID = 8396002187294788098L;
 
       public $Float(final $Float binding) {
@@ -787,7 +791,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $GDay extends $AnySimpleType {
+    public abstract static class $GDay extends $AnySimpleType {
       private static final long serialVersionUID = -7306738302337538690L;
 
       public $GDay(final $GDay binding) {
@@ -822,7 +826,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $GMonth extends $AnySimpleType {
+    public abstract static class $GMonth extends $AnySimpleType {
       private static final long serialVersionUID = -9051270336948297692L;
 
       public $GMonth(final $GMonth binding) {
@@ -857,7 +861,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $GMonthDay extends $AnySimpleType {
+    public abstract static class $GMonthDay extends $AnySimpleType {
       private static final long serialVersionUID = 2892185404567465759L;
 
       public $GMonthDay(final $GMonthDay binding) {
@@ -892,7 +896,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $GYear extends $AnySimpleType {
+    public abstract static class $GYear extends $AnySimpleType {
       private static final long serialVersionUID = 7929109327684024810L;
 
       public $GYear(final $GYear binding) {
@@ -927,7 +931,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $GYearMonth extends $AnySimpleType {
+    public abstract static class $GYearMonth extends $AnySimpleType {
       private static final long serialVersionUID = -6730855611061489701L;
 
       public $GYearMonth(final $GYearMonth binding) {
@@ -962,7 +966,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $HexBinary extends $AnySimpleType {
+    public abstract static class $HexBinary extends $AnySimpleType {
       private static final long serialVersionUID = -3672541717905058784L;
 
       public $HexBinary(final $HexBinary binding) {
@@ -997,7 +1001,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $ID extends $nCName {
+    public abstract static class $ID extends $nCName {
       private static final long serialVersionUID = 8671692505211063717L;
       protected static final Map<String,Map<String,$ID>> namespaceIds = new HashMap<>();
 
@@ -1055,7 +1059,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $IDREF extends $nCName {
+    public abstract static class $IDREF extends $nCName {
       private static final long serialVersionUID = 3413021684301501386L;
 
       public $IDREF(final $IDREF binding) {
@@ -1077,7 +1081,7 @@ public final class XMLSchema {
     }
 
     @SuppressWarnings("unchecked")
-    public static abstract class $IDREFS extends $AnySimpleType {
+    public abstract static class $IDREFS extends $AnySimpleType {
       private static final long serialVersionUID = 8278637562824948791L;
 
       public $IDREFS(final $IDREFS binding) {
@@ -1117,7 +1121,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Int extends $Long {
+    public abstract static class $Int extends $Long {
       private static final long serialVersionUID = 6845008408792068840L;
 
       public $Int(final $Int binding) {
@@ -1151,7 +1155,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Integer extends $Decimal {
+    public abstract static class $Integer extends $Decimal {
       private static final long serialVersionUID = 4688966863845290706L;
 
       public $Integer(final $Integer binding) {
@@ -1190,7 +1194,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Language extends $AnySimpleType {
+    public abstract static class $Language extends $AnySimpleType {
       private static final long serialVersionUID = -2141452623750225147L;
 
       public $Language(final $Language binding) {
@@ -1225,7 +1229,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Long extends $Integer {
+    public abstract static class $Long extends $Integer {
       private static final long serialVersionUID = 3110685220531748900L;
 
       public $Long(final $Long binding) {
@@ -1259,7 +1263,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $MonthDay extends $AnySimpleType {
+    public abstract static class $MonthDay extends $AnySimpleType {
       private static final long serialVersionUID = -5881188958964982827L;
 
       public $MonthDay(final $MonthDay binding) {
@@ -1294,7 +1298,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $NMTOKEN extends $Token {
+    public abstract static class $NMTOKEN extends $Token {
       private static final long serialVersionUID = -8208935544015142206L;
 
       public $NMTOKEN(final $NMTOKEN binding) {
@@ -1316,7 +1320,7 @@ public final class XMLSchema {
     }
 
     @SuppressWarnings("unchecked")
-    public static abstract class $NMTOKENS extends $AnySimpleType {
+    public abstract static class $NMTOKENS extends $AnySimpleType {
       private static final long serialVersionUID = -5260386241351935007L;
 
       public $NMTOKENS(final $NMTOKENS binding) {
@@ -1356,7 +1360,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $NOTATION extends $AnySimpleType {
+    public abstract static class $NOTATION extends $AnySimpleType {
       private static final long serialVersionUID = 5701767081230621619L;
 
       public $NOTATION(final $NOTATION binding) {
@@ -1410,7 +1414,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $NegativeInteger extends $NonPositiveInteger {
+    public abstract static class $NegativeInteger extends $NonPositiveInteger {
       private static final long serialVersionUID = -1150394155850884963L;
 
       public $NegativeInteger(final $NegativeInteger binding) {
@@ -1435,7 +1439,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $NonNegativeInteger extends $Integer {
+    public abstract static class $NonNegativeInteger extends $Integer {
       private static final long serialVersionUID = 7211473945782812029L;
 
       public $NonNegativeInteger(final $NonNegativeInteger binding) {
@@ -1460,7 +1464,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $NonPositiveInteger extends $Integer {
+    public abstract static class $NonPositiveInteger extends $Integer {
       private static final long serialVersionUID = 6601655744973800161L;
 
       public $NonPositiveInteger(final $NonPositiveInteger binding) {
@@ -1490,7 +1494,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $NormalizedString extends $String {
+    public abstract static class $NormalizedString extends $String {
       private static final long serialVersionUID = 3288734660660079355L;
 
       public $NormalizedString(final $NormalizedString binding) {
@@ -1511,7 +1515,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $PositiveInteger extends $NonNegativeInteger {
+    public abstract static class $PositiveInteger extends $NonNegativeInteger {
       private static final long serialVersionUID = 2815146494897113558L;
 
       public $PositiveInteger(final $PositiveInteger binding) {
@@ -1536,7 +1540,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Short extends $Int {
+    public abstract static class $Short extends $Int {
       private static final long serialVersionUID = 2591829673501941175L;
 
       public $Short(final $Short binding) {
@@ -1570,7 +1574,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $String extends $AnySimpleType {
+    public abstract static class $String extends $AnySimpleType {
       private static final long serialVersionUID = 8341193547169457336L;
 
       public $String(final $String binding) {
@@ -1600,7 +1604,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Time extends $AnySimpleType {
+    public abstract static class $Time extends $AnySimpleType {
       private static final long serialVersionUID = -3591270457108634772L;
 
       public $Time(final $Time binding) {
@@ -1635,7 +1639,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $Token extends $NormalizedString {
+    public abstract static class $Token extends $NormalizedString {
       private static final long serialVersionUID = 9075199116743643063L;
 
       public $Token(final $Token binding) {
@@ -1656,7 +1660,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $UnsignedByte extends $UnsignedShort {
+    public abstract static class $UnsignedByte extends $UnsignedShort {
       private static final long serialVersionUID = -1366687334956097755L;
 
       public $UnsignedByte(final $UnsignedByte binding) {
@@ -1686,7 +1690,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $UnsignedInt extends $UnsignedLong {
+    public abstract static class $UnsignedInt extends $UnsignedLong {
       private static final long serialVersionUID = -6858787856727414457L;
 
       public $UnsignedInt(final $UnsignedInt binding) {
@@ -1720,7 +1724,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $UnsignedLong extends $NonNegativeInteger {
+    public abstract static class $UnsignedLong extends $NonNegativeInteger {
       private static final long serialVersionUID = 2576671958539402360L;
 
       public $UnsignedLong(final $UnsignedLong binding) {
@@ -1740,17 +1744,12 @@ public final class XMLSchema {
       }
 
       @Override
-      public void text(final BigInteger text) {
-        super.text(text);
-      }
-
-      @Override
       public $UnsignedLong clone() {
         return ($UnsignedLong)super.clone();
       }
     }
 
-    public static abstract class $UnsignedShort extends $UnsignedInt {
+    public abstract static class $UnsignedShort extends $UnsignedInt {
       private static final long serialVersionUID = -1117185446138982528L;
 
       public $UnsignedShort(final $UnsignedShort binding) {
@@ -1784,7 +1783,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $nCName extends $name {
+    public abstract static class $nCName extends $name {
       private static final long serialVersionUID = 7261736605051866911L;
 
       public $nCName(final $nCName binding) {
@@ -1805,7 +1804,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $name extends $Token {
+    public abstract static class $name extends $Token {
       private static final long serialVersionUID = 636502937738084071L;
 
       public $name(final $name binding) {
@@ -1826,7 +1825,7 @@ public final class XMLSchema {
       }
     }
 
-    public static abstract class $qName extends $AnySimpleType {
+    public abstract static class $qName extends $AnySimpleType {
       private static final long serialVersionUID = -6159227210752729335L;
 
       public $qName(final $qName binding) {

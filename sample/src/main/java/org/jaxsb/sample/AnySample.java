@@ -16,6 +16,7 @@
 
 package org.jaxsb.sample;
 
+import org.jaxsb.runtime.Binding;
 import org.jaxsb.www.sample.any.xAA.Trash;
 import org.jaxsb.www.sample.enums.xAA.Color$;
 import org.jaxsb.www.sample.enums.xAA.ColoredFruitBasket;
@@ -24,7 +25,6 @@ import org.jaxsb.www.sample.simple.xAA.Fruit;
 import org.jaxsb.www.sample.simple.xAA.FruitBasket;
 import org.jaxsb.www.sample.xsitype.xAA.$FleshyFruitType;
 import org.jaxsb.www.sample.xsitype.xAA.$IndehiscentDryFruitType;
-import org.jaxsb.runtime.Binding;
 
 public class AnySample {
   public static void main(final String[] args) {

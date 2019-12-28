@@ -48,7 +48,8 @@ public abstract class Bindings {
    *
    * @param binding Binding instance to marshal.
    * @return Element DOM object.
-   * @throws MarshalException If the specified binding does not inherit from an element of attribute.
+   * @throws MarshalException If the specified binding does not inherit from an
+   *           element of attribute.
    */
   public static Element marshal(final Binding binding) throws MarshalException {
     if (binding.inherits() == null)
@@ -57,11 +58,11 @@ public abstract class Bindings {
     return binding.marshal();
   }
 
-  public static Binding parse(final String xml) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final String xml) throws IOException, SAXException {
     return parse(xml, null);
   }
 
-  public static Binding parse(final String xml, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final String xml, final ErrorHandler errorHandler) throws IOException, SAXException {
     try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
       return parse(new InputSource(in), Thread.currentThread().getContextClassLoader(), errorHandler);
     }
@@ -96,7 +97,7 @@ public abstract class Bindings {
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
    */
-  public static Binding parse(final URL url) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final URL url) throws IOException, SAXException {
     return parse(url, Thread.currentThread().getContextClassLoader());
   }
 
@@ -113,15 +114,15 @@ public abstract class Bindings {
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
    */
-  public static Binding parse(final URL url, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final URL url, final ErrorHandler errorHandler) throws IOException, SAXException {
     return parse(url, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
-  public static Binding parse(final URL url, final ClassLoader classLoader) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final URL url, final ClassLoader classLoader) throws IOException, SAXException {
     return parse(url, classLoader, null);
   }
 
-  public static Binding parse(final URL url, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final URL url, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
     try (final InputStream in = url.openStream()) {
       final InputSource inputSource = new InputSource(url.toString());
       inputSource.setByteStream(in);
@@ -139,7 +140,7 @@ public abstract class Bindings {
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
    */
-  public static Binding parse(final InputSource inputSource) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final InputSource inputSource) throws IOException, SAXException {
     return parse(inputSource, (ErrorHandler)null);
   }
 
@@ -156,15 +157,15 @@ public abstract class Bindings {
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
    */
-  public static Binding parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, SAXException {
     return parse(inputSource, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
-  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, SAXException {
     return parse(inputSource, classLoader, null);
   }
 
-  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException, ValidationException {
+  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
     final DocumentBuilder builder = Binding.newDocumentBuilder();
     if (errorHandler != null)
       builder.setErrorHandler(errorHandler);
@@ -181,7 +182,7 @@ public abstract class Bindings {
     return name != null ? new javax.xml.namespace.QName(name.namespaceURI(), name.localPart(), name.prefix()) : null;
   }
 
-  public static String getXPath(final Binding binding, final Function<Binding,String> function) {
+  public static String getXPath(final Binding binding, final Function<? super Binding,String> function) {
     final StringBuilder builder = new StringBuilder();
     Binding owner = binding;
     do

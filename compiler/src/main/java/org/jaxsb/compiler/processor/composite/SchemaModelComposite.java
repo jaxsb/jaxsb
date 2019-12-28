@@ -16,12 +16,14 @@
 
 package org.jaxsb.compiler.processor.composite;
 
+import java.util.Objects;
+
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.model.element.SchemaModel;
 
 public final class SchemaModelComposite implements SchemaComposite {
   private final SchemaDocument schemaDocument;
-  private SchemaModel schemaModel = null;
+  private SchemaModel schemaModel;
 
   public SchemaModelComposite(final SchemaDocument schemaDocument) {
     this.schemaDocument = schemaDocument;
@@ -48,7 +50,7 @@ public final class SchemaModelComposite implements SchemaComposite {
       return false;
 
     final SchemaModelComposite that = (SchemaModelComposite)obj;
-    return (schemaDocument != null ? schemaDocument.equals(that.schemaDocument) : that.schemaDocument == null) && (schemaModel != null ? schemaModel.equals(that.schemaModel) : that.schemaModel == null);
+    return (Objects.equals(schemaDocument, that.schemaDocument)) && (Objects.equals(schemaModel, that.schemaModel));
   }
 
   @Override

@@ -58,7 +58,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
       return;
 
     // First de-reference the base
-    SimpleTypeModel<?> base = null;
+    SimpleTypeModel<?> base;
     if (model.getBase() instanceof SimpleTypeModel.Reference) {
       base = simpleTypeNormalizer.parseSimpleType(model.getBase().getName());
       if (base == null)
@@ -80,8 +80,9 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
         base = ComplexTypeModel.Undefined.parseComplexType(model.getBase().getName());
       }
     }
-    else
+    else {
       throw new LexerFailureException(getClass().getName());
+    }
 
     model.setBase(base);
 
@@ -165,7 +166,6 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     for (Model parent = model; (parent = parent.getParent()) != null;) {
       if (parent instanceof SimpleTypeModel && model.getBase().getName().equals(((Nameable<?>)parent).getName()) && parent.getParent() instanceof RedefineModel) {
         model.getBase().setRedefine((SimpleTypeModel<?>)parent);
-
         if (parent instanceof SimpleTypeModel) {
           final SimpleTypeModel<?> redefine = (SimpleTypeModel<?>)parent;
           redefine.setSuperType(model.getBase().getSuperType());
@@ -216,8 +216,8 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
   protected void stage6(final RestrictionModel model) {
   }
 
-  private static Collection<AttributeModel> findChildAttributes(final Collection<Model> children) {
-    Collection<AttributeModel> attributes = new ArrayList<>();
+  private static Collection<AttributeModel> findChildAttributes(final Collection<? extends Model> children) {
+    final Collection<AttributeModel> attributes = new ArrayList<>();
     for (final Model model : children)
       if (model instanceof AttributeModel)
         attributes.add((AttributeModel)model);
@@ -238,7 +238,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     return findBaseAttribute(name, typeModel.getSuperType());
   }
 
-  private static void findChildElements(final Collection<ElementModel> elements, final Collection<Model> children) {
+  private static void findChildElements(final Collection<? super ElementModel> elements, final Collection<? extends Model> children) {
     for (final Model model : children) {
       if (model instanceof ElementModel) {
         elements.add((ElementModel)model);
@@ -273,7 +273,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     private final T model;
     private final SimpleTypeModel<?> parent;
 
-    public RestrictionPair(final T model, final SimpleTypeModel<?> parent) {
+    private RestrictionPair(final T model, final SimpleTypeModel<?> parent) {
       this.model = model;
       this.parent = parent;
     }

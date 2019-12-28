@@ -20,7 +20,7 @@ import org.jaxsb.compiler.processor.model.element.DocumentationModel;
 import org.w3c.dom.Node;
 
 public abstract class AliasModel extends NamedModel implements DocumentableModel {
-  private DocumentationModel documentation = null;
+  private DocumentationModel documentation;
 
   protected AliasModel(final Node node, final Model parent) {
     super(node, parent);

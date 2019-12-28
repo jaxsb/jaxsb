@@ -16,8 +16,8 @@
 
 package org.jaxsb.compiler.processor.model.element;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.model.Model;
@@ -25,8 +25,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class ListModel extends SimpleTypeModel<SimpleTypeModel<?>> {
-  private SimpleTypeModel<?> itemType = null;
-  private UnionModel unionType = null;
+  private SimpleTypeModel<?> itemType;
+  private UnionModel unionType;
 
   protected ListModel(final Node node, final Model parent) {
     super(node, parent);
@@ -38,20 +38,20 @@ public final class ListModel extends SimpleTypeModel<SimpleTypeModel<?>> {
     }
   }
 
-  public final void setItemType(final SimpleTypeModel<?> itemType) {
+  public void setItemType(final SimpleTypeModel<?> itemType) {
     this.itemType = itemType;
   }
 
-  public final void setItemType(final UnionModel unionType) {
+  public void setItemType(final UnionModel unionType) {
     this.unionType = unionType;
   }
 
-  public final Collection<SimpleTypeModel<?>> getItemType() {
+  public Collection<SimpleTypeModel<?>> getItemType() {
     if (unionType != null)
       return unionType.getNormalizedMemberTypes();
 
     if (itemType != null)
-      return Arrays.asList(itemType);
+      return Collections.singletonList(itemType);
 
     return null;
   }

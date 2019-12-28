@@ -19,6 +19,7 @@ package org.jaxsb.runtime;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.xml.namespace.QName;
 
@@ -31,7 +32,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> implements Serial
   private final $AnySimpleType owner;
   private final boolean qualified;
   private final boolean required;
-  private ArrayList<T> value = null;
+  private ArrayList<T> value;
 
   public AnyAttributeAudit(final $AnySimpleType owner, final boolean qualified, final boolean required) {
     this.owner = owner;
@@ -92,7 +93,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> implements Serial
 
   @Override
   public boolean equals(final Object obj) {
-    return obj != null ? obj.equals(value) : value == null;
+    return Objects.equals(obj, value);
   }
 
   @Override

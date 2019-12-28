@@ -17,6 +17,7 @@
 package org.jaxsb.runtime;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.xml.namespace.QName;
 
@@ -31,7 +32,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
   private final QName name;
   private final boolean qualified;
   private final boolean required;
-  private T value = null;
+  private T value;
 
   public AttributeAudit(final $AnySimpleType owner, final T _default, final QName name, final boolean qualified, final boolean required) {
     this.owner = owner;
@@ -100,7 +101,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
 
   @Override
   public boolean equals(final Object obj) {
-    return obj != null ? obj.equals(value) : value == null;
+    return Objects.equals(obj, value);
   }
 
   @Override

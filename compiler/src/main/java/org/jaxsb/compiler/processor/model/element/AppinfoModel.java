@@ -21,7 +21,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class AppinfoModel extends Model {
-  private String source = null;
+  private String source;
 
   protected AppinfoModel(final Node node, final Model parent) {
     super(node, parent);
@@ -33,7 +33,7 @@ public final class AppinfoModel extends Model {
     }
   }
 
-  public final String getSource() {
+  public String getSource() {
     return source;
   }
 

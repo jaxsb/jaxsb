@@ -18,11 +18,14 @@ package org.jaxsb.tutorial;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 
-import org.jaxsb.www.tutorial.invoice.xAA.Invoice;
 import org.jaxsb.runtime.Bindings;
+import org.jaxsb.www.tutorial.invoice.xAA.Invoice;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public class InvoiceUpdater {
   public static void main(final String[] args) throws Exception {
@@ -40,10 +43,10 @@ public class InvoiceUpdater {
     item.setPrice(new Invoice.BilledItems.Item.Price(new BigDecimal(args[4])));
 
     final Invoice invoice = addItem(file, item);
-    System.out.println(invoice.toString());
+    System.out.println(invoice);
   }
 
-  private static Invoice addItem(final File invoiceFile, final Invoice.BilledItems.Item item) throws Exception {
+  private static Invoice addItem(final File invoiceFile, final Invoice.BilledItems.Item item) throws IOException, SAXException, FileNotFoundException {
     final Invoice invoice = (Invoice)Bindings.parse(new InputSource(new FileInputStream(invoiceFile)));
     invoice.getBilledItems().addItem(item);
     return invoice;

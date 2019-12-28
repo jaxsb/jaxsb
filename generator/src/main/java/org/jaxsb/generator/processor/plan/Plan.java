@@ -36,7 +36,7 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
     return null;
   }
 
-  public static <A extends Plan<?>>LinkedHashSet<A> analyze(Collection<? extends Model> models, final Plan<?> owner) {
+  public static <A extends Plan<?>>LinkedHashSet<A> analyze(final Collection<? extends Model> models, final Plan<?> owner) {
     final LinkedHashSet<A> plans;
     if (models != null && models.size() != 0) {
       plans = new LinkedHashSet<>(models.size());
@@ -73,10 +73,9 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
       return null;
 
     final String planName = Plan.class.getPackage().getName() + ".element." + model.getClass().getSimpleName().substring(0, model.getClass().getSimpleName().indexOf("Model")) + "Plan";
-    A plan = null;
     try {
       final Constructor<?> constructor = Class.forName(planName).getConstructor(model.getClass(), Plan.class);
-      plan = (A)constructor.newInstance(model, owner);
+      return (A)constructor.newInstance(model, owner);
     }
     catch (final ClassNotFoundException e) {
       throw new CompilerFailureException("Class<?> not found for element [" + model.getClass().getSimpleName() + "]");
@@ -84,8 +83,6 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
     catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
     }
-
-    return plan;
   }
 
   protected static boolean hasEnumerations(final EnumerableModel model) {

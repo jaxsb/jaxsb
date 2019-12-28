@@ -16,6 +16,7 @@
 
 package org.jaxsb.tutorial;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 
@@ -23,9 +24,10 @@ import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.tutorial.invoice.xAA.$ItemType;
 import org.jaxsb.www.tutorial.invoice.xAA.Invoice;
 import org.openjax.xml.datatype.Date;
+import org.xml.sax.SAXException;
 
 public class ParseHowTo {
-  public static void main(final String[] args) throws Exception {
+  public static void main(final String[] args) throws IOException, SAXException {
     final URL url = ParseHowTo.class.getResource("/invoice.xml");
     final Invoice invoice = (Invoice)Bindings.parse(url);
 

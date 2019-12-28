@@ -27,7 +27,7 @@ public final class RedefineModel extends Model {
   private final LinkedHashSet<ComplexTypeModel<?>> complexTypeModels = new LinkedHashSet<>();
   private final LinkedHashSet<GroupModel> groupModels = new LinkedHashSet<>();
   private final LinkedHashSet<AttributeGroupModel> attributeGroupModels = new LinkedHashSet<>();
-  private String schemaLocation = null;
+  private String schemaLocation;
 
   protected RedefineModel(final Node node, final Model parent) {
     super(node, parent);
@@ -39,23 +39,23 @@ public final class RedefineModel extends Model {
     }
   }
 
-  public final String getSchemaLocation() {
+  public String getSchemaLocation() {
     return schemaLocation;
   }
 
-  public final LinkedHashSet<SimpleTypeModel<?>> getSimpleTypeModels() {
+  public LinkedHashSet<SimpleTypeModel<?>> getSimpleTypeModels() {
     return simpleTypeModels;
   }
 
-  public final LinkedHashSet<ComplexTypeModel<?>> getComplexTypeModels() {
+  public LinkedHashSet<ComplexTypeModel<?>> getComplexTypeModels() {
     return complexTypeModels;
   }
 
-  public final LinkedHashSet<GroupModel> getGroupModels() {
+  public LinkedHashSet<GroupModel> getGroupModels() {
     return groupModels;
   }
 
-  public final LinkedHashSet<AttributeGroupModel> getAttributeGroupModels() {
+  public LinkedHashSet<AttributeGroupModel> getAttributeGroupModels() {
     return attributeGroupModels;
   }
 }

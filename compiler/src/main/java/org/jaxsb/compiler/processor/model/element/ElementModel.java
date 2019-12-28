@@ -36,16 +36,16 @@ import org.w3c.dom.Node;
 
 public class ElementModel extends ComplexTypeModel<SimpleTypeModel<?>> implements Formable<Model>, MultiplicableModel, ReferableModel<ElementModel>, RestrictableModel<ElementModel> {
   private Boolean _abstract = false;
-  private QName _default = null;
-  private QName fixed = null;
+  private QName _default;
+  private QName fixed;
   private Occurs maxOccurs = Occurs.parseOccurs("1");
   private Occurs minOccurs = Occurs.parseOccurs("1");
   private Boolean nillable = false;
-  private ElementModel ref = null;
-  private UniqueQName substitutionGroup = null;
-  private Form formDefault = null;
-  private AliasModel restrictionOwner = null;
-  private ElementModel restriction = null;
+  private ElementModel ref;
+  private UniqueQName substitutionGroup;
+  private Form formDefault;
+  private AliasModel restrictionOwner;
+  private ElementModel restriction;
 
   protected ElementModel(final Node node, final Model parent) {
     super(node, parent);
@@ -208,7 +208,7 @@ public class ElementModel extends ComplexTypeModel<SimpleTypeModel<?>> implement
 
       type = new Reference(null);
       type.setName(name);
-      Reference.all.put(name, type);
+      all.put(name, type);
       return type;
     }
   }

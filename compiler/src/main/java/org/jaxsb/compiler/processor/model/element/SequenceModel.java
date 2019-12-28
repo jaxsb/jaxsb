@@ -42,23 +42,23 @@ public final class SequenceModel extends Model implements MultiplicableModel {
   }
 
   @Override
-  public final void addMultiplicableModel(final MultiplicableModel multiplicableModel) {
+  public void addMultiplicableModel(final MultiplicableModel multiplicableModel) {
     if (!this.equals(multiplicableModel))
       this.multiplicableModels.add(multiplicableModel);
   }
 
   @Override
-  public final ArrayList<MultiplicableModel> getMultiplicableModels() {
+  public ArrayList<MultiplicableModel> getMultiplicableModels() {
     return multiplicableModels;
   }
 
   @Override
-  public final Occurs getMaxOccurs() {
+  public Occurs getMaxOccurs() {
     return maxOccurs;
   }
 
   @Override
-  public final Occurs getMinOccurs() {
+  public Occurs getMinOccurs() {
     return minOccurs;
   }
 

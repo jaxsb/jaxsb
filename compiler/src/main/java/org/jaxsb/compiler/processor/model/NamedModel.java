@@ -16,6 +16,8 @@
 
 package org.jaxsb.compiler.processor.model;
 
+import java.util.Objects;
+
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.Nameable;
 import org.jaxsb.compiler.processor.model.element.RestrictionModel;
@@ -23,7 +25,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public abstract class NamedModel extends Model implements Nameable<Model> {
-  private UniqueQName name = null;
+  private UniqueQName name;
 
   protected NamedModel(final Node node, final Model parent) {
     super(node, parent);
@@ -56,7 +58,7 @@ public abstract class NamedModel extends Model implements Nameable<Model> {
       return false;
 
     final NamedModel that = (NamedModel)obj;
-    return name != null ? name.equals(that.name) : that.name == null;
+    return Objects.equals(name, that.name);
   }
 
   // FIXME: This is dirty!!
@@ -92,6 +94,6 @@ public abstract class NamedModel extends Model implements Nameable<Model> {
     if (name == null)
       return super.toString();
 
-    return super.toString() + name.toString();
+    return super.toString() + name;
   }
 }

@@ -35,7 +35,7 @@ import org.w3c.dom.NodeList;
 
 public final class ModelProcessor implements PipelineProcessor<GeneratorContext,SchemaComposite,Model> {
   @Override
-  public Collection<Model> process(final GeneratorContext pipelineContext, final Collection<SchemaComposite> documents, final PipelineDirectory<GeneratorContext,SchemaComposite,Model> directory) {
+  public Collection<Model> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaComposite> documents, final PipelineDirectory<GeneratorContext,? super SchemaComposite,Model> directory) {
     final Model root = new Model(null, null) {};
     // Then we parse all of the schemas that have been included and imported
     final Collection<Model> schemaModels = new ArrayList<>();
@@ -54,7 +54,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
     return schemaModels;
   }
 
-  private SchemaModel recurse(final Model model, final NamespaceURI targetNamespace, NodeList children, URL url, final PipelineDirectory<GeneratorContext,SchemaComposite,Model> directory) {
+  private SchemaModel recurse(final Model model, final NamespaceURI targetNamespace, final NodeList children, URL url, final PipelineDirectory<GeneratorContext,? super SchemaComposite,? super Model> directory) {
     if (children == null || children.getLength() == 0)
       return null;
 
@@ -65,9 +65,9 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
       if (model.getTargetNamespace() == null) {
         // This means that this is an included schema
         schema.setTargetNamespace(targetNamespace);
-        URL schemaReference = model.lookupSchemaLocation(targetNamespace);
+        final URL schemaReference = model.lookupSchemaLocation(targetNamespace);
         if (schemaReference == null)
-          model.registerSchemaLocation(targetNamespace, schemaReference = url);
+          model.registerSchemaLocation(targetNamespace, url);
       }
       else {
         model.registerSchemaLocation(targetNamespace, url);

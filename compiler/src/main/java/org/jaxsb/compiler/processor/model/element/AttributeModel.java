@@ -34,14 +34,14 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public class AttributeModel extends SimpleTypeModel<SimpleTypeModel<?>> implements Formable<Model>, ReferableModel<AttributeModel>, RestrictableModel<AttributeModel> {
-  private QName _default = null;
-  private QName fixed = null;
-  private Form form = null;
+  private QName _default;
+  private QName fixed;
+  private Form form;
   private Use use = Use.OPTIONAL;
-  private Form formDefault = null;
-  private AttributeModel ref = null;
-  private AliasModel restrictionOwner = null;
-  private AttributeModel restriction = null;
+  private Form formDefault;
+  private AttributeModel ref;
+  private AliasModel restrictionOwner;
+  private AttributeModel restriction;
 
   public AttributeModel(final Node node, final Model parent) {
     super(node, parent);
@@ -49,7 +49,7 @@ public class AttributeModel extends SimpleTypeModel<SimpleTypeModel<?>> implemen
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("default".equals(attribute.getLocalName()))
         _default = parseQNameValue(attribute.getNodeValue(), node);
@@ -138,7 +138,7 @@ public class AttributeModel extends SimpleTypeModel<SimpleTypeModel<?>> implemen
       return false;
 
     final AttributeModel that = (AttributeModel)obj;
-    return (getRef() == null && that.getRef() == null) || (getRef() != null && getRef().equals(that.getRef()));
+    return getRef() == null ? that.getRef() == null : getRef().equals(that.getRef());
   }
 
   @Override
@@ -180,7 +180,7 @@ public class AttributeModel extends SimpleTypeModel<SimpleTypeModel<?>> implemen
 
       type = new Reference(null);
       type.setName(name);
-      Reference.all.put(name, type);
+      all.put(name, type);
       return type;
     }
   }

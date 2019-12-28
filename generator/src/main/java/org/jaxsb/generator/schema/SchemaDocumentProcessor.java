@@ -27,7 +27,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Stack;
 
-import org.libj.util.Paths;
 import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.pipeline.PipelineDirectory;
@@ -38,6 +37,7 @@ import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.generator.AbstractGenerator;
 import org.libj.net.URLs;
+import org.libj.util.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -45,10 +45,10 @@ import org.w3c.dom.NodeList;
 
 public final class SchemaDocumentProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaDocument> {
   private static final Logger logger = LoggerFactory.getLogger(SchemaDocumentProcessor.class);
-  private static final String[] includeStrings = new String[] {"include","redefine"};
+  private static final String[] includeStrings = {"include", "redefine"};
 
   @Override
-  public Collection<SchemaDocument> process(final GeneratorContext pipelineContext, final Collection<SchemaReference> selectedSchemas, final PipelineDirectory<GeneratorContext,SchemaReference,SchemaDocument> directory) throws IOException {
+  public Collection<SchemaDocument> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaReference> selectedSchemas, final PipelineDirectory<GeneratorContext,? super SchemaReference,SchemaDocument> directory) throws IOException {
     if (selectedSchemas == null || selectedSchemas.size() == 0)
       return null;
 
@@ -62,7 +62,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
 
       final Stack<SchemaDocument> schemasToGenerate = new Stack<>();
 
-      URL url = URLs.canonicalize(schemaReference.getURL());
+      final URL url = URLs.canonicalize(schemaReference.getURL());
       // First we need to find all of the imports and includes
       Collection<SchemaDocument> outer = new Stack<>();
       outer.add(AbstractGenerator.parse(schemaReference));
@@ -71,7 +71,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
         schemasToGenerate.addAll(0, outer);
         final Stack<SchemaDocument> inner = new Stack<>();
         for (final SchemaDocument schemaDocument : outer) {
-          NodeList includeNodeList = null;
+          NodeList includeNodeList;
           for (final String includeString : includeStrings) {
             includeNodeList = schemaDocument.getDocument().getElementsByTagNameNS(UniqueQName.XS.getNamespaceURI().toString(), includeString);
             for (int i = 0; i < includeNodeList.getLength(); i++) {

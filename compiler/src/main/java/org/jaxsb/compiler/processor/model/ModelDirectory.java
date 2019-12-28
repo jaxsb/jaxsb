@@ -148,12 +148,10 @@ public final class ModelDirectory implements PipelineDirectory<GeneratorContext,
     }
 
     final Class<? extends Model> modelClass = classes.get(elementName);
-    Model handler = null;
     try {
       final Constructor<? extends Model> constructor = modelClass.getDeclaredConstructor(Node.class, Model.class);
       constructor.setAccessible(true);
-      handler = constructor.newInstance(schemaNodeComposite.getNode(), parent);
-      return handler;
+      return constructor.newInstance(schemaNodeComposite.getNode(), parent);
     }
     catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
       throw new LexerFailureException(e);

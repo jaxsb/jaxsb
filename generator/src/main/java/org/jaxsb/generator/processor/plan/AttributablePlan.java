@@ -20,6 +20,7 @@ import java.util.LinkedHashSet;
 
 import org.jaxsb.generator.processor.plan.element.AttributePlan;
 
+@FunctionalInterface
 public interface AttributablePlan {
   LinkedHashSet<AttributePlan> getAttributes();
 }

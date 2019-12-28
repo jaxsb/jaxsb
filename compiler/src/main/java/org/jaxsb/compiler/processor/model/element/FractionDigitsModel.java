@@ -21,8 +21,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class FractionDigitsModel extends Model {
-  private String fixed = null;
-  private String value = null;
+  private String fixed;
+  private String value;
 
   protected FractionDigitsModel(final Node node, final Model parent) {
     super(node, parent);
@@ -36,11 +36,11 @@ public final class FractionDigitsModel extends Model {
     }
   }
 
-  public final String getFixed() {
+  public String getFixed() {
     return fixed;
   }
 
-  public final String getValue() {
+  public String getValue() {
     return value;
   }
 }

@@ -25,7 +25,7 @@ public final class PatternModel extends Model {
     return string.replace("\\", "\\\\");
   }
 
-  private String value = null;
+  private String value;
 
   protected PatternModel(final Node node, final Model parent) {
     super(node, parent);
@@ -37,7 +37,7 @@ public final class PatternModel extends Model {
     }
   }
 
-  public final String getValue() {
+  public String getValue() {
     return value;
   }
 }

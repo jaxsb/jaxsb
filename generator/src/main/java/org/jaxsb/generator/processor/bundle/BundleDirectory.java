@@ -26,7 +26,7 @@ import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.composite.SchemaComposite;
 
 public final class BundleDirectory implements PipelineDirectory<GeneratorContext,SchemaComposite,Bundle> {
-  private BundleProcessor processor;
+  private final BundleProcessor processor;
 
   public BundleDirectory(final Set<File> sourcePath, final boolean skipXsd) {
     this.processor = new BundleProcessor(sourcePath, skipXsd);

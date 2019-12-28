@@ -34,7 +34,7 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
   private static final Logger logger = LoggerFactory.getLogger(PlanProcessor.class);
 
   @Override
-  public final Collection<Plan<?>> process(final GeneratorContext pipelineContext, final Collection<Model> documents, final PipelineDirectory<GeneratorContext,Model,Plan<?>> directory) {
+  public Collection<Plan<?>> process(final GeneratorContext pipelineContext, final Collection<? extends Model> documents, final PipelineDirectory<GeneratorContext,? super Model,Plan<?>> directory) {
     final Plan<?> root = new Plan<Model>(null, null) {};
     final Collection<Plan<?>> plans = new ArrayList<>();
     for (final Model model : documents) {
@@ -52,7 +52,7 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
     return plans;
   }
 
-  protected static void disclose(final Model model, final Plan<?> parent, Collection<Plan<?>> plans, final PipelineDirectory<GeneratorContext,Model,Plan<?>> directory) {
+  protected static void disclose(final Model model, final Plan<?> parent, final Collection<? super Plan<?>> plans, final PipelineDirectory<GeneratorContext,? super Model,? super Plan<?>> directory) {
     final Plan<?> plan = (Plan<?>)directory.getEntity(model, parent);
     plans.add(plan);
   }

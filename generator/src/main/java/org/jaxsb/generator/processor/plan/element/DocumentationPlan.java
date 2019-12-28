@@ -21,7 +21,7 @@ import org.jaxsb.generator.processor.plan.Plan;
 
 public final class DocumentationPlan extends Plan<DocumentationModel> {
   private final String text;
-  private String preparedDocumentation = null;
+  private String preparedDocumentation;
 
   public static String getMetaDocumentation() {
     return " * @author Source generated with: <u>org.jaxsb</u>\n";
@@ -58,16 +58,16 @@ public final class DocumentationPlan extends Plan<DocumentationModel> {
     while (!text.equals(fixedSpaces));
 
     text = text.trim();
-    String formatted = "\t/**\n";
+    final StringBuilder formatted = new StringBuilder("\t/**\n");
     int start = 0;
     int end = 0;
 
     while ((end = text.indexOf(' ', end + 74)) != -1) {
-      int index = text.indexOf('\n', start);
+      final int index = text.indexOf('\n', start);
       if (index != -1 && index < end)
         end = index;
 
-      formatted += "\t * " + text.substring(start, end) + "\n";
+      formatted.append("\t * ").append(text, start, end).append('\n');
       start = end + 1;
     }
 

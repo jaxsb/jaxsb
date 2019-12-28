@@ -16,10 +16,10 @@
 
 package org.jaxsb.sample;
 
+import org.jaxsb.runtime.Binding;
 import org.jaxsb.www.sample.enums.xAA.Color$;
 import org.jaxsb.www.sample.enums.xAA.ColoredFruitBasket;
 import org.jaxsb.www.sample.simple.xAA.Fruit;
-import org.jaxsb.runtime.Binding;
 
 public class EnumsSample {
   public static void main(final String[] args) {

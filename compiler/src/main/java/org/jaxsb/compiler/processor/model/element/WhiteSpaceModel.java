@@ -23,8 +23,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class WhiteSpaceModel extends NamedModel {
-  private Boolean fixed = null;
-  private Value value = null;
+  private Boolean fixed;
+  private Value value;
 
   protected WhiteSpaceModel(final Node node, final Model parent) {
     super(node, parent);
@@ -38,11 +38,11 @@ public final class WhiteSpaceModel extends NamedModel {
     }
   }
 
-  public final Boolean getFixed() {
+  public Boolean getFixed() {
     return fixed;
   }
 
-  public final Value getValue() {
+  public Value getValue() {
     return value;
   }
 }

@@ -35,8 +35,8 @@ import org.jaxsb.runtime.XSTypeDirectory;
 public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePlan<T> implements AttributablePlan, ElementablePlan, MixablePlan {
   private final Boolean mixed;
 
-  private Boolean mixedType = null;
-  private boolean simpleContent = false;
+  private Boolean mixedType;
+  private boolean simpleContent;
 
   private LinkedHashSet<AttributePlan> attributes;
   private LinkedHashSet<ElementPlan> elements;

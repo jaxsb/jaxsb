@@ -29,11 +29,11 @@ public final class EnumerationPlan extends Plan<EnumerationModel> {
   private static final char[] illegalChars = {' ', '!', '"', '#', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '.', '/', ':', ';', '<', '=', '>', '?', '@', '@', '[', '\\', ']', '^', '_', '{', '|', '|', '}', '~'};
   private static final String[] illegalWords = {"abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "false", "final", "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "void", "volatile", "while"};
 
-  private String declarationName = null;
+  private String declarationName;
   private final QName value;
 
   public static String getDeclarationName(final QName value) {
-    String string = null;
+    String string;
     if (47 < value.getLocalPart().charAt(0) && value.getLocalPart().charAt(0) < 58)
       string = "_" + value.getLocalPart();
     else

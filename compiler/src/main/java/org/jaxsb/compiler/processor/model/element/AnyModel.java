@@ -40,12 +40,12 @@ public final class AnyModel extends ElementModel implements AnyableModel {
   }
 
   @Override
-  public final Namespace getNamespace() {
+  public Namespace getNamespace() {
     return namespace;
   }
 
   @Override
-  public final ProcessContents getProcessContents() {
+  public ProcessContents getProcessContents() {
     return processContents;
   }
 
@@ -57,7 +57,7 @@ public final class AnyModel extends ElementModel implements AnyableModel {
     if (!(obj instanceof AnyModel))
       return false;
 
-    AnyModel any = (AnyModel)obj;
+    final AnyModel any = (AnyModel)obj;
     return namespace.equals(any.namespace) && processContents.equals(any.processContents) && getMaxOccurs().equals(any.getMaxOccurs()) && getMinOccurs().equals(any.getMinOccurs());
   }
 

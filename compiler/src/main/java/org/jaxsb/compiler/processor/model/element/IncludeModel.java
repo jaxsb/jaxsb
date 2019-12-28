@@ -21,7 +21,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class IncludeModel extends Model {
-  private String schemaLocation = null;
+  private String schemaLocation;
 
   protected IncludeModel(final Node node, final Model parent) {
     super(node, parent);
@@ -33,7 +33,7 @@ public final class IncludeModel extends Model {
     }
   }
 
-  public final String getSchemaLocation() {
+  public String getSchemaLocation() {
     return schemaLocation;
   }
 }

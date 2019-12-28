@@ -16,6 +16,7 @@
 
 package org.jaxsb.sample;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 public class ListSample {
   private static final Logger logger = LoggerFactory.getLogger(ListSample.class);
@@ -43,10 +45,10 @@ public class ListSample {
       logger.info("\t" + workDay);
   }
 
-  public Binding runSample() throws Exception {
+  public Binding runSample() throws IOException, SAXException {
     final URL url = getClass().getResource("/list.xml");
     final Roster roster = (Roster)Bindings.parse(url);
-    if (roster.getEmployees() != null && roster.getEmployees().size() != -1) {
+    if (roster.getEmployees() != null) {
       final List<$EmployeeType> employees = roster.getEmployees(0).getEmployee();
       for (final $EmployeeType employee : employees) {
         printCommon(employee);
@@ -68,7 +70,7 @@ public class ListSample {
       employees.add(employee);
     }
 
-    if (roster.getVolunteers() != null && roster.getVolunteers().size() != -1) {
+    if (roster.getVolunteers() != null) {
       final List<$VolunteerType> volunteers = roster.getVolunteers(0).getVolunteer();
       for (final $VolunteerType volunteer : volunteers) {
         printCommon(volunteer);

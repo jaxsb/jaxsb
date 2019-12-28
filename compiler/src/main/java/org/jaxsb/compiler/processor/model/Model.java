@@ -40,16 +40,16 @@ public abstract class Model implements PipelineEntity {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
   private final Collection<Model> children = new ArrayList<>();
-  private Map<NamespaceURI,URL> schemaReferences = null;
+  private Map<NamespaceURI,URL> schemaReferences;
 
-  private Model parent = null;
-  private Model previous = null;
-  private Model next = null;
+  private Model parent;
+  private Model previous;
+  private Model next;
 
-  private String id = null;
+  private String id;
 
-  private NamespaceURI targetNamespace = null;
-  private SchemaModel schema = null;
+  private NamespaceURI targetNamespace;
+  private SchemaModel schema;
 
   protected Model(final Node node, final Model parent) {
     if (node != null) {
@@ -155,7 +155,7 @@ public abstract class Model implements PipelineEntity {
       }
     }
 
-    Node xs = null;
+    Node xs;
     do {
       if (parent.getAttributes() == null)
         return new QName(getTargetNamespace().toString(), nodeValue);

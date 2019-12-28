@@ -153,8 +153,8 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     if (!((EnumerablePlan)plan).hasEnumerations())
       return;
 
-    boolean hasEnumerations = ((EnumerablePlan)plan).hasEnumerations();
-    boolean hasSuperEnumerations = ((EnumerablePlan)plan).hasSuperEnumerations();
+    final boolean hasEnumerations = ((EnumerablePlan)plan).hasEnumerations();
+    final boolean hasSuperEnumerations = ((EnumerablePlan)plan).hasSuperEnumerations();
 
     final boolean isNotation = NotationType.class.getName().equals(plan.getNativeItemClassName());
     if (hasEnumerations) {
@@ -171,7 +171,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
         if (isNotation)
           value = "new " + QName.class.getName() + "(\"" + enumeration.getValue().getNamespaceURI() + "\", \"" + enumeration.getValue().getLocalPart() + "\")";
         else if (XSTypeDirectory.QNAME.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
-          value = "\"" + enumeration.getValue().toString() + "\"";
+          value = "\"" + enumeration.getValue() + "\"";
         else
           value = "\"" + enumeration.getValue().getLocalPart() + "\"";
 
@@ -379,9 +379,9 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("{\n");
     writer.write("return new " + String.class.getName() + "[]\n");
     writer.write("{\n");
-    String buf = "";
+    final StringBuilder buf = new StringBuilder();
     for (final PatternPlan pattern : patterns)
-      buf += ",\n\"" + pattern.getValue() + "\"";
+      buf.append(",\n\"").append(pattern.getValue()).append("\"");
     writer.write(buf.substring(2) + "\n");
     writer.write("};\n");
     writer.write("}\n");
@@ -393,7 +393,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       throw new CompilerFailureException("Why are we trying to write a final class that has no name?");
 
     writeQualifiedName(writer, plan);
-    writer.write("public static abstract class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + SimpleType.class.getName() + "\n");
+    writer.write("public abstract static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + SimpleType.class.getName() + "\n");
     writer.write("{\n");
 
     writer.write("private static final " + QName.class.getName() + " NAME = getClassQName(" + plan.getClassName(parent) + ".class);\n");

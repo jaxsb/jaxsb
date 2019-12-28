@@ -16,11 +16,12 @@
 
 package org.jaxsb.runtime;
 
+import java.util.regex.Pattern;
+
 import org.jaxsb.compiler.lang.Prefix;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.Nameable;
 import org.jaxsb.compiler.processor.model.Model;
-import org.jaxsb.compiler.processor.model.NamedModel;
 import org.jaxsb.compiler.processor.model.element.AttributeModel;
 import org.jaxsb.compiler.processor.model.element.ElementModel;
 import org.jaxsb.compiler.processor.model.element.NotationModel;
@@ -30,6 +31,9 @@ import org.jaxsb.compiler.processor.model.element.SimpleTypeModel;
 import org.libj.lang.Strings;
 
 public final class JavaBinding {
+  private static final Pattern classPattern = Pattern.compile("Class_*"); // FIXME: I think this regex is wrong!
+  private static final Pattern keywordPattern = Pattern.compile("_*(abstract)|(assert)|(boolean)|(break)|(byte)|(case)|(catch)|(char)|(class)|(const)|(continue)|(default)|(do)|(double)|(else)|(enum)|(extends)|(false)|(final)|(finally)|(float)|(for)|(goto)|(if)|(implements)|(import)|(instanceof)|(int)|(interface)|(long)|(native)|(new)|(null)|(package)|(private)|(protected)|(public)|(return)|(short)|(static)|(strictfp)|(super)|(switch)|(synchronized)|(this)|(throw)|(throws)|(transient)|(true)|(try)|(void)|(volatile)|(while)");
+
   private static final String ATTRIBUTE_SUFFIX = "$";
   private static final String NOTATION_MIDFIX = "$";
   private static final String COMPLEXTYPE_PREFIX = "$";
@@ -58,16 +62,16 @@ public final class JavaBinding {
     final boolean nested = JavaBinding.isNested(model);
     final String local = nested ? "Local" : "Ref";
     if (model instanceof AttributeModel)
-      return "_" + prefix.toString() + toJavaIdentifier(((SimpleTypeModel<?>)model).getName().getLocalPart()) + ATTRIBUTE_SUFFIX + local;
+      return "_" + prefix + toJavaIdentifier(((SimpleTypeModel<?>)model).getName().getLocalPart()) + ATTRIBUTE_SUFFIX + local;
 
     if (model instanceof ElementModel)
-      return "_" + prefix.toString() + toJavaIdentifier(((SimpleTypeModel<?>)model).getName().getLocalPart()) + local;
+      return "_" + prefix + toJavaIdentifier(((SimpleTypeModel<?>)model).getName().getLocalPart()) + local;
 
     if (model instanceof NotationModel)
-      return "_" + prefix.toString() + NOTATION_MIDFIX + toJavaIdentifier(((NotationModel)model).getName().getLocalPart()) + local;
+      return "_" + prefix + NOTATION_MIDFIX + toJavaIdentifier(((NotationModel)model).getName().getLocalPart()) + local;
 
     if (model instanceof SimpleTypeModel)
-      return "_" + COMPLEXTYPE_PREFIX.toLowerCase() + prefix.toString() + toJavaIdentifier(((SimpleTypeModel<?>)model).getName().getLocalPart()) + local;
+      return "_" + COMPLEXTYPE_PREFIX.toLowerCase() + prefix + toJavaIdentifier(((SimpleTypeModel<?>)model).getName().getLocalPart()) + local;
 
     throw new CompilerFailureException("model is not instanceof {AttributeModel,ElementModel,NotationModel,SimpleTypeModel}");
   }
@@ -98,18 +102,18 @@ public final class JavaBinding {
 
   public static String getMethodName(final Model model) {
     final String methodName = getClassSimpleName(model, true, false);
-    return methodName.matches("Class_*") ? methodName + "_" : methodName;
+    return classPattern.matcher(methodName).matches() ? methodName + "_" : methodName;
   }
 
   private static boolean isReserved(final String string) {
-    return string.matches("_*(abstract)|(assert)|(boolean)|(break)|(byte)|(case)|(catch)|(char)|(class)|(const)|(continue)|(default)|(do)|(double)|(else)|(enum)|(extends)|(false)|(final)|(finally)|(float)|(for)|(goto)|(if)|(implements)|(import)|(instanceof)|(int)|(interface)|(long)|(native)|(new)|(null)|(package)|(private)|(protected)|(public)|(return)|(short)|(static)|(strictfp)|(super)|(switch)|(synchronized)|(this)|(throw)|(throws)|(transient)|(true)|(try)|(void)|(volatile)|(while)");
+    return keywordPattern.matcher(string).matches();
   }
 
   private static String getClassSimpleName(final Model model, final boolean withPrefix, final boolean fixReserved) {
     if (!(model instanceof Nameable) || ((Nameable<?>)model).getName() == null)
       throw new CompilerFailureException("Method being called on a model with no name");
 
-    String simpleName = Strings.flipFirstCap(toJavaIdentifier(((NamedModel)model).getName().getLocalPart()));
+    String simpleName = Strings.flipFirstCap(toJavaIdentifier(((Nameable<?>)model).getName().getLocalPart()));
     if (fixReserved && isReserved(simpleName))
       simpleName = "_" + simpleName;
 

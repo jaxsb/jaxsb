@@ -148,33 +148,33 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
   private String superClassNameWithType;
   private String superClassNameWithoutType;
 
-  private LinkedHashSet<PatternPlan> patterns = null;
-  private LinkedHashSet<EnumerationPlan> enumerations = null;
+  private LinkedHashSet<PatternPlan> patterns;
+  private LinkedHashSet<EnumerationPlan> enumerations;
   private Boolean hasEnumerations;
   private Boolean hasSuperEnumerations;
 
-  private String nativeItemClassName = null;
-  private String nativeNonEnumItemClassName = null;
-  private String nativeInterface = null;
-  private String nativeNonEnumInterface = null;
-  private String nativeImplementation = null;
-  private String nativeNonEnumImplementation = null;
-  private String nativeFactory = null;
-  private String nonEnumNativeFactory = null;
-  private boolean list = false;
-  private String baseNonXSTypeClassName = null;
+  private String nativeItemClassName;
+  private String nativeNonEnumItemClassName;
+  private String nativeInterface;
+  private String nativeNonEnumInterface;
+  private String nativeImplementation;
+  private String nativeNonEnumImplementation;
+  private String nativeFactory;
+  private String nonEnumNativeFactory;
+  private boolean list;
+  private String baseNonXSTypeClassName;
 
-  private UniqueQName superTypeName = null;
+  private UniqueQName superTypeName;
 //  private UniqueQName baseNonXSTypeName = null;
-  private UniqueQName baseXSTypeName = null;
-  private UniqueQName baseXSItemTypeName = null;
-  private UniqueQName baseXSNonEnumItemTypeName = null;
+  private UniqueQName baseXSTypeName;
+  private UniqueQName baseXSItemTypeName;
+  private UniqueQName baseXSNonEnumItemTypeName;
 
-  private boolean parsedSuperType = false;
-  private NamedPlan<?> superType = null;
+  private boolean parsedSuperType;
+  private NamedPlan<?> superType;
 
-  private boolean isUnion = false;
-  private boolean isUnionWithNonEnumeration = false;
+  private boolean isUnion;
+  private boolean isUnionWithNonEnumeration;
 
   private void digItemTypes(final SimpleTypeModel<?> baseNonXSType) {
     final SimpleTypeModel<?> baseXSItemType = digBaseXSItemTypeName(getModel(), true);

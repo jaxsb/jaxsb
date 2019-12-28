@@ -35,11 +35,11 @@ public class CompositeAttributeStore implements Serializable {
     this.audits = audits;
   }
 
-  private class AttributeIterator implements Iterator<$AnySimpleType> {
+  private static final class AttributeIterator implements Iterator<$AnySimpleType> {
     private final Iterator<AttributeAudit<?>> iterator;
     private $AnySimpleType next;
 
-    public AttributeIterator(final Iterator<AttributeAudit<?>> iterator) {
+    private AttributeIterator(final Iterator<AttributeAudit<?>> iterator) {
       this.iterator = iterator;
       setNext();
     }

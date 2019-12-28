@@ -55,7 +55,7 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
     }
 
     @Override
-    protected void appendCopy(final StringWriter writer, final Plan<?> plan, Plan<?> parent, final String variable) {
+    protected void appendCopy(final StringWriter writer, final Plan<?> plan, final Plan<?> parent, final String variable) {
     }
 
     @Override
@@ -76,14 +76,14 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
   };
 
   @Override
-  public Collection<Writer<?>> process(final GeneratorContext pipelineContext, final Collection<Plan<?>> documents, final PipelineDirectory<GeneratorContext,Plan<?>,Writer<?>> directory) {
+  public Collection<Writer<?>> process(final GeneratorContext pipelineContext, final Collection<? extends Plan<?>> documents, final PipelineDirectory<GeneratorContext,? super Plan<?>,Writer<?>> directory) {
     Writer.directory = directory;
     tailRecurse(pipelineContext, documents, directory);
     return null;
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})
-  protected final void tailRecurse(final GeneratorContext pipelineContext, final Collection<Plan<?>> plans, final PipelineDirectory<GeneratorContext,Plan<?>,Writer<?>> directory) {
+  protected void tailRecurse(final GeneratorContext pipelineContext, final Collection<? extends Plan<?>> plans, final PipelineDirectory<GeneratorContext,? super Plan<?>,Writer<?>> directory) {
     if (plans == null || plans.size() == 0)
       return;
 
@@ -97,7 +97,7 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})
-  protected Collection<Plan<?>> disclose(final GeneratorContext pipelineContext, final Plan<?> plan, final PipelineDirectory<GeneratorContext,Plan<?>,Writer<?>> directory) {
+  protected Collection<Plan<?>> disclose(final GeneratorContext pipelineContext, final Plan<?> plan, final PipelineDirectory<GeneratorContext,? super Plan<?>,Writer<?>> directory) {
     if (!(plan instanceof AliasPlan) || (plan instanceof NestablePlan && ((NestablePlan)plan).isNested()))
       return null;
 

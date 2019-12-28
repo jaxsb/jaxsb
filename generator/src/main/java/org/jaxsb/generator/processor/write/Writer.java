@@ -67,7 +67,10 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
       final NamespaceBinding namespaceBinding = nameable.getName().getNamespaceURI().getNamespaceBinding();
       return new File(new File(destDir, namespaceBinding.getPackageName().replace('.', '/')), namespaceBinding.getSimpleClassName() + ".java");
     }
-    catch (final Exception e) {
+    catch (final CompilerFailureException e) {
+      throw e;
+    }
+    catch (final RuntimeException e) {
       throw new CompilerFailureException(e);
     }
   }
@@ -78,6 +81,8 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     final File file = getFile(plan, destDir);
     try (final ClassFile classFile = fileToClassFile.remove(file)) {
+      if (logger.isDebugEnabled())
+        logger.debug("Closing: " + classFile.getFile().getAbsolutePath());
     }
     catch (final IOException e) {
       logger.info(e.getMessage(), e);
@@ -87,7 +92,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     }
   }
 
-  protected void writeFile(final Writer<T> writer, final T plan, final File destDir) {
+  protected void writeFile(final Writer<? super T> writer, final T plan, final File destDir) {
     if (!(plan instanceof AliasPlan) || (plan instanceof NestablePlan && ((NestablePlan)plan).isNested()))
       return;
 
@@ -139,7 +144,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     ((Writer)directory.getEntity(plan, null)).appendParse(writer, plan, parent);
   }
 
-  public static void writeCopy(final StringWriter writer, final Plan<?> plan, Plan<?> parent, final String variable) {
+  public static void writeCopy(final StringWriter writer, final Plan<?> plan, final Plan<?> parent, final String variable) {
     ((Writer)directory.getEntity(plan, null)).appendCopy(writer, plan, parent, variable);
   }
 
@@ -159,7 +164,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
     ((Writer)directory.getEntity(plan, null)).appendClass(writer, plan, parent);
   }
 
-  protected static PipelineDirectory<GeneratorContext,Plan<?>,Writer<?>> directory = null;
+  protected static PipelineDirectory<GeneratorContext,? super Plan<?>,Writer<?>> directory;
 
   protected abstract void appendRegistration(StringWriter writer, T plan, Plan<?> parent);
   protected abstract void appendDeclaration(StringWriter writer, T plan, Plan<?> parent);

@@ -27,8 +27,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public class NotationModel extends AliasModel {
-  private String _public = null;
-  private String system = null;
+  private String _public;
+  private String system;
 
   protected NotationModel(final Node node, final Model parent) {
     super(node, parent);

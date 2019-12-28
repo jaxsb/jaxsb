@@ -19,6 +19,7 @@ package org.jaxsb.compiler.processor.model.element;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.Objects;
 
 import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.lang.UniqueQName;
@@ -33,13 +34,13 @@ import org.w3c.dom.Node;
 public final class SchemaModel extends Model {
   private static final Path CWD = new File("").getAbsoluteFile().toPath();
   private Form attributeFormDefault = Form.UNQUALIFIED;
-  private BlockDefault blockDefault = null;
+  private BlockDefault blockDefault;
   private Form elementFormDefault = Form.UNQUALIFIED;
-  private FinalDefault finalDefault = null;
-  private String lang = null;
-  private NamespaceURI targetNamespace = null;
-  private String version = null;
-  private URL url = null;
+  private FinalDefault finalDefault;
+  private String lang;
+  private NamespaceURI targetNamespace;
+  private String version;
+  private URL url;
 
   protected SchemaModel(final Node node, @SuppressWarnings("unused") final Model parent) {
     // NOTE: A SchemaModel does not have a parent.
@@ -64,48 +65,48 @@ public final class SchemaModel extends Model {
     }
   }
 
-  public final void setURL(final URL url) {
+  public void setURL(final URL url) {
     this.url = url;
     final String display = URLs.isLocal(url) ? CWD.relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
     logger.info("Scanning {" + getTargetNamespace() + "} from " + display);
   }
 
-  public final URL getURL() {
+  public URL getURL() {
     return url;
   }
 
-  public final Form getAttributeFormDefault() {
+  public Form getAttributeFormDefault() {
     return attributeFormDefault;
   }
 
-  public final BlockDefault getBlockDefault() {
+  public BlockDefault getBlockDefault() {
     return blockDefault;
   }
 
-  public final Form getElementFormDefault() {
+  public Form getElementFormDefault() {
     return elementFormDefault;
   }
 
-  public final FinalDefault getFinalDefault() {
+  public FinalDefault getFinalDefault() {
     return finalDefault;
   }
 
-  public final String getLang() {
+  public String getLang() {
     return lang;
   }
 
-  public final void setTargetNamespace(final NamespaceURI targetNamespace) {
+  public void setTargetNamespace(final NamespaceURI targetNamespace) {
     this.targetNamespace = targetNamespace;
     if (targetNamespace == null)
       throw new IllegalArgumentException("targetNamespace == null");
   }
 
   @Override
-  public final NamespaceURI getTargetNamespace() {
+  public NamespaceURI getTargetNamespace() {
     return targetNamespace;
   }
 
-  public final String getVersion() {
+  public String getVersion() {
     return version;
   }
 
@@ -118,12 +119,15 @@ public final class SchemaModel extends Model {
       return false;
 
     final SchemaModel that = (SchemaModel)obj;
-    return (targetNamespace != null ? targetNamespace.equals(that.targetNamespace) : that.targetNamespace == null) && (url != null ? url.equals(that.url) : that.url == null);
+    return Objects.equals(targetNamespace, that.targetNamespace) && Objects.equals(url, that.url);
   }
 
   @Override
   public int hashCode() {
-    return (targetNamespace != null ? targetNamespace.hashCode() : -7) * (url != null ? url.hashCode() : -9);
+    int hashCode = 1;
+    hashCode = 31 * hashCode + Objects.hashCode(targetNamespace);
+    hashCode = 31 * hashCode + Objects.hashCode(url);
+    return hashCode;
   }
 
   @Override
