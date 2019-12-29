@@ -19,7 +19,7 @@ package org.jaxsb.compiler.processor.reference;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.net.URI;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,33 +48,32 @@ public final class SchemaReference implements PipelineEntity {
   // to dereference the schemaReference to a targetNamespace
   private final AtomicBoolean isConnected = new AtomicBoolean();
   private final AtomicBoolean isResolved = new AtomicBoolean();
-  private final URL location;
+  private final URI location;
   private final boolean isInclude;
   private NamespaceURI namespaceURI;
   private Prefix prefix;
   private long lastModified = Long.MIN_VALUE;
   private InputStream inputStream;
 
-  public SchemaReference(final URL location, final boolean isInclude) {
+  public SchemaReference(final URI location, final boolean isInclude) {
     this.location = Objects.requireNonNull(location);
     this.isInclude = isInclude;
     if (logger.isDebugEnabled())
-      logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", " + isInclude + ")");
+      logger.debug("new SchemaReference(\"" + this.location.toString() + "\", " + isInclude + ")");
   }
 
-  public SchemaReference(final URL location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
+  public SchemaReference(final URI location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
     this.location = Objects.requireNonNull(location);
     this.namespaceURI = namespaceURI;
+    if ("http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd".equals(namespaceURI.toString()))
+      System.out.println();
     this.prefix = prefix;
     this.isInclude = isInclude;
-    logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
+    logger.debug("new SchemaReference(\"" + this.location.toString() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
   }
 
-  public SchemaReference(final URL location, final NamespaceURI namespaceURI, final boolean isInclude) {
-    this.location = Objects.requireNonNull(location);
-    this.namespaceURI = namespaceURI;
-    this.isInclude = isInclude;
-    logger.debug("new SchemaReference(\"" + this.location.toExternalForm() + "\", \"" + namespaceURI + "\")");
+  public SchemaReference(final URI location, final NamespaceURI namespaceURI, final boolean isInclude) {
+    this(location, namespaceURI, null, isInclude);
   }
 
   public NamespaceURI getNamespaceURI() {
@@ -156,17 +155,17 @@ public final class SchemaReference implements PipelineEntity {
     if (isConnected.get())
       return;
 
-    synchronized (location.toString()) {
+    synchronized (isConnected) {
       if (isConnected.get())
         return;
 
-      final URLConnection connection = location.openConnection();
+      final URLConnection connection = location.toURL().openConnection();
       try {
         this.inputStream = connection.getInputStream();
-        logger.debug("opened connection to: " + location.toExternalForm());
+        logger.debug("opened connection to: " + location.toString());
       }
       catch (final FileNotFoundException e) {
-        throw new LexerFailureException("File not found: " + location.toExternalForm());
+        throw new LexerFailureException("File not found: " + location.toString());
       }
 
       this.lastModified = connection.getLastModified();
@@ -179,7 +178,7 @@ public final class SchemaReference implements PipelineEntity {
     return lastModified;
   }
 
-  public URL getURL() {
+  public URI getURI() {
     return location;
   }
 

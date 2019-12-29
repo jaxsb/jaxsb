@@ -33,21 +33,22 @@ public final class EnumerationPlan extends Plan<EnumerationModel> {
   private final QName value;
 
   public static String getDeclarationName(final QName value) {
-    String string;
-    if (47 < value.getLocalPart().charAt(0) && value.getLocalPart().charAt(0) < 58)
-      string = "_" + value.getLocalPart();
-    else
-      string = value.getLocalPart();
-
-    if (value.getPrefix() != null && value.getPrefix().length() != 0)
-      string = value.getPrefix() + "_" + string;
-
-    if (Arrays.binarySearch(illegalWords, string) >= 0)
-      string = "_" + string;
-
+    char ch = value.getLocalPart().charAt(0);
     final StringBuilder builder = new StringBuilder();
+    if (47 < ch && ch < 58)
+      builder.append('_');
+
+    builder.append(value.getLocalPart());
+    if (value.getPrefix() != null && value.getPrefix().length() != 0)
+      builder.insert(0, value.getPrefix() + "_");
+
+    if (Arrays.binarySearch(illegalWords, builder.toString()) >= 0)
+      builder.insert(0, "_");
+
+    final String string = builder.toString();
+    builder.setLength(0);
     for (int i = 0; i < string.length(); ++i) {
-      final char ch = string.charAt(i);
+      ch = string.charAt(i);
       builder.append(Arrays.binarySearch(illegalChars, ch) >= 0 ? "_" + Strings.toUTF8Literal(ch).substring(2, 4).toUpperCase() : ch);
     }
 

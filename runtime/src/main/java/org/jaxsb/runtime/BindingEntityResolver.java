@@ -18,6 +18,7 @@ package org.jaxsb.runtime;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,11 +34,18 @@ import org.w3c.dom.ls.LSResourceResolver;
 public class BindingEntityResolver implements LSResourceResolver {
   public static void registerSchemaLocation(final String namespaceURI, final URL schemaReference) {
     final URL present = schemaReferences.get(namespaceURI);
-    if (present == null)
+    if (present == null) {
       schemaReferences.put(namespaceURI, schemaReference);
-    // FIXME: URL.equals() being called. Need to use a custom Handler.
-    else if (!present.equals(schemaReference))
-      throw new IllegalStateException("Attempted to reset {" + namespaceURI + "} from " + present + " to " + schemaReference);
+    }
+    else {
+      try {
+        if (!present.toURI().equals(schemaReference.toURI()))
+          throw new IllegalStateException("Attempted to reset {" + namespaceURI + "} from " + present + " to " + schemaReference);
+      }
+      catch (final URISyntaxException e) {
+        throw new IllegalArgumentException(e);
+      }
+    }
   }
 
   public static URL lookupSchemaLocation(final String namespaceURI) {

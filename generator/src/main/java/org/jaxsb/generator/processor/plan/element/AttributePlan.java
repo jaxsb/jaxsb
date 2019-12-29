@@ -169,6 +169,9 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
       prior = prior.getRestriction();
     }
 
+    if (first == null)
+      throw new IllegalStateException("Should not get here");
+
     return declarationRestrictionGeneric = AliasPlan.getClassName(first.getRestrictionOwner(), null) + "." + JavaBinding.getClassSimpleName((Model)prior);
   }
 

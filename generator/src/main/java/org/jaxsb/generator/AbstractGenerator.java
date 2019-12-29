@@ -17,8 +17,7 @@
 package org.jaxsb.generator;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +26,6 @@ import javax.xml.parsers.DocumentBuilder;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.runtime.CompilerFailureException;
-import org.libj.net.URLs;
 import org.openjax.xml.dom.DOMParsers;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -37,14 +35,14 @@ public abstract class AbstractGenerator {
 
   public static SchemaDocument parse(final SchemaReference schemaReference) throws IOException {
     try {
-      final URL url = URLs.canonicalize(schemaReference.getURL());
+      final URI uri = schemaReference.getURI().normalize();
       final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
-      final Document document = documentBuilder.parse(url.toURI().toString());
+      final Document document = documentBuilder.parse(uri.toString());
       final SchemaDocument parsedDocument = new SchemaDocument(schemaReference, document);
-      parsedDocuments.put(schemaReference.getNamespaceURI() + url.toString(), parsedDocument);
+      parsedDocuments.put(schemaReference.getNamespaceURI() + uri.toString(), parsedDocument);
       return parsedDocument;
     }
-    catch (final SAXException | URISyntaxException e) {
+    catch (final SAXException e) {
       throw new CompilerFailureException(e);
     }
   }

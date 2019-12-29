@@ -18,8 +18,7 @@ package org.jaxsb.generator.schema;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,8 +35,8 @@ import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.generator.AbstractGenerator;
-import org.libj.net.URLs;
-import org.libj.util.Paths;
+import org.libj.net.URIs;
+import org.libj.util.StringPaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -52,9 +51,9 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
     if (selectedSchemas == null || selectedSchemas.size() == 0)
       return null;
 
-    final Collection<SchemaDocument> schemas = new LinkedHashSet<>();
-    final Map<NamespaceURI,URL> importLoopCheck = new HashMap<>();
-    final Map<NamespaceURI,Collection<URL>> includeLoopCheck = new HashMap<>();
+    final LinkedHashSet<SchemaDocument> schemas = new LinkedHashSet<>();
+    final Map<NamespaceURI,URI> importLoopCheck = new HashMap<>();
+    final Map<NamespaceURI,ArrayList<URI>> includeLoopCheck = new HashMap<>();
 
     for (final SchemaReference schemaReference : selectedSchemas) {
       if (schemaReference == null)
@@ -62,11 +61,10 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
 
       final Stack<SchemaDocument> schemasToGenerate = new Stack<>();
 
-      final URL url = URLs.canonicalize(schemaReference.getURL());
       // First we need to find all of the imports and includes
       Collection<SchemaDocument> outer = new Stack<>();
       outer.add(AbstractGenerator.parse(schemaReference));
-      importLoopCheck.put(schemaReference.getNamespaceURI(), url);
+      importLoopCheck.put(schemaReference.getNamespaceURI(), schemaReference.getURI().normalize());
       while (outer.size() != 0) {
         schemasToGenerate.addAll(0, outer);
         final Stack<SchemaDocument> inner = new Stack<>();
@@ -74,13 +72,13 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
           NodeList includeNodeList;
           for (final String includeString : includeStrings) {
             includeNodeList = schemaDocument.getDocument().getElementsByTagNameNS(UniqueQName.XS.getNamespaceURI().toString(), includeString);
-            for (int i = 0; i < includeNodeList.getLength(); i++) {
+            for (int i = 0; i < includeNodeList.getLength(); ++i) {
               final Element includeElement = (Element)includeNodeList.item(i);
-              final URL schemaLocationURL = SchemaDocumentProcessor.getSchemaLocation(schemaDocument.getSchemaReference().getURL(), includeElement);
+              final URI schemaLocationURL = SchemaDocumentProcessor.getSchemaLocation(schemaDocument.getSchemaReference().getURI(), includeElement);
 
               // Don't want to get into an infinite loop
-              Collection<URL> duplicates = includeLoopCheck.get(schemaDocument.getSchemaReference().getNamespaceURI());
-              if (schemaLocationURL.equals(schemaDocument.getSchemaReference().getURL()) || (duplicates != null && duplicates.contains(schemaLocationURL)))
+              ArrayList<URI> duplicates = includeLoopCheck.get(schemaDocument.getSchemaReference().getNamespaceURI());
+              if (schemaLocationURL.equals(schemaDocument.getSchemaReference().getURI()) || (duplicates != null && duplicates.contains(schemaLocationURL)))
                   continue;
 
               final SchemaReference includeSchemaReference = new SchemaReference(schemaLocationURL, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getSchemaReference().getPrefix(), true);
@@ -89,20 +87,20 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
                   duplicates = new ArrayList<>();
 
               duplicates.add(schemaLocationURL);
-              logger.info("Adding " + new File(schemaLocationURL.getFile()).getName() + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}");
+              logger.info("Adding " + URIs.getName(schemaLocationURL) + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}");
               includeLoopCheck.put(schemaDocument.getSchemaReference().getNamespaceURI(), duplicates);
             }
           }
 
           final NodeList importNodeList = schemaDocument.getDocument().getElementsByTagNameNS(UniqueQName.XS.getNamespaceURI().toString(), "import");
-          for (int i = 0; i < importNodeList.getLength(); i++) {
+          for (int i = 0; i < importNodeList.getLength(); ++i) {
             final Element importElement = (Element)importNodeList.item(i);
-            final URL schemaLocationURL = SchemaDocumentProcessor.getSchemaLocation(schemaDocument.getSchemaReference().getURL(), importElement);
+            final URI schemaLocationURL = SchemaDocumentProcessor.getSchemaLocation(schemaDocument.getSchemaReference().getURI(), importElement);
 
             // Check if we have two schemaReferences for a single targetNamespace
             // This should not happen for import, but can happen for include!
             final NamespaceURI importNamespaceURI = NamespaceURI.getInstance(importElement.getAttribute("namespace"));
-            final URL duplicate = importLoopCheck.get(importNamespaceURI);
+            final URI duplicate = importLoopCheck.get(importNamespaceURI);
             if (duplicate == null) {
               importLoopCheck.put(importNamespaceURI, schemaLocationURL);
               inner.insertElementAt(AbstractGenerator.parse(new SchemaReference(schemaLocationURL, importNamespaceURI, false)), 0);
@@ -110,7 +108,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
             }
 
             if (!duplicate.equals(schemaLocationURL))
-              logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + new File(schemaLocationURL.getFile()).getName() + " with " + new File(duplicate.getFile()).getName());
+              logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URIs.getName(schemaLocationURL) + " with " + new File(duplicate).getName());
           }
         }
 
@@ -121,13 +119,13 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
     }
 
     for (final SchemaDocument schema : schemas) {
-      final Collection<URL> includes = includeLoopCheck.get(schema.getSchemaReference().getNamespaceURI());
+      final ArrayList<URI> includes = includeLoopCheck.get(schema.getSchemaReference().getNamespaceURI());
       if (includes == null || includes.size() == 0)
         continue;
 
-      final Collection<URL> externalIncludes = new ArrayList<>(includes.size());
-      for (final URL include : includes)
-        if (!include.equals(schema.getSchemaReference().getURL()))
+      final ArrayList<URI> externalIncludes = new ArrayList<>(includes.size());
+      for (final URI include : includes)
+        if (!include.equals(schema.getSchemaReference().getURI()))
           externalIncludes.add(include);
 
       if (externalIncludes.size() != 0)
@@ -137,13 +135,11 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
     return schemas;
   }
 
-  private static URL getSchemaLocation(final URL baseURL, final Element element) throws MalformedURLException {
+  private static URI getSchemaLocation(final URI baseURI, final Element element) {
     final String schemaLocation = element.getAttribute("schemaLocation");
-    if (Paths.isAbsolute(schemaLocation))
-      return new URL(schemaLocation);
+    if (StringPaths.isAbsolute(schemaLocation))
+      return URI.create(schemaLocation);
 
-    final String externalUrl = baseURL.toExternalForm();
-    final String basedir = externalUrl.substring(0, externalUrl.lastIndexOf('/') + 1);
-    return URLs.toCanonicalURL(basedir, schemaLocation);
+    return URIs.toURI(URIs.getParent(baseURI), schemaLocation).normalize();
   }
 }

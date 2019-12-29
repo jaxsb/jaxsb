@@ -18,6 +18,7 @@ package org.jaxsb;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -36,7 +37,6 @@ import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.generator.Generator;
-import org.libj.net.URLs;
 import org.openjax.maven.mojo.FilterParameter;
 import org.openjax.maven.mojo.FilterType;
 import org.openjax.maven.mojo.GeneratorMojo;
@@ -77,7 +77,7 @@ public class XsbMojo extends GeneratorMojo {
   public void execute(final Configuration configuration) throws MojoExecutionException, MojoFailureException {
     final Collection<SchemaReference> generatorBindings = new ArrayList<>();
     for (final String schema : new LinkedHashSet<>(schemas))
-      generatorBindings.add(new SchemaReference(URLs.create(schema), false));
+      generatorBindings.add(new SchemaReference(URI.create(schema), false));
 
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
     final Set<NamespaceURI> excludes = buildNamespaceSet(this.excludes);

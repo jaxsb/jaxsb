@@ -19,6 +19,7 @@ package org.jaxsb.runtime;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
@@ -56,6 +57,9 @@ public class CompositeAttributeStore implements Serializable {
 
     @Override
     public $AnySimpleType next() {
+      if (next == null)
+        throw new NoSuchElementException();
+
       final $AnySimpleType current = next;
       next = null;
       setNext();

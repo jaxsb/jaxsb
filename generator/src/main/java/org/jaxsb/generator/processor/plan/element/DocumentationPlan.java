@@ -44,7 +44,7 @@ public final class DocumentationPlan extends Plan<DocumentationModel> {
     text = text.replace("\n\n", "^^^^");
     text = text.replace("\n", " ");
     text = text.replace("^^^^", "\n\n");
-    String fixedSpaces = null;
+    String fixedSpaces;
     do {
       fixedSpaces = text;
       text = fixedSpaces.replace("  ", " ");

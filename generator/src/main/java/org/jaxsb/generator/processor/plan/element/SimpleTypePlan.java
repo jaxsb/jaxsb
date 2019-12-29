@@ -55,6 +55,7 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
     return gct;
   }
 
+  @SuppressWarnings("null")
   private static SimpleTypeModel<?> getGreatestCommonType(final SimpleTypeModel<?> model1, final SimpleTypeModel<?> model2, final boolean includeEnums) {
     if (model1 == null || model2 == null)
       return null;

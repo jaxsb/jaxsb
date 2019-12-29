@@ -101,7 +101,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
 
   @Override
   public boolean equals(final Object obj) {
-    return Objects.equals(obj, value);
+    return obj == this || (obj instanceof AttributeAudit) ? Objects.equals(value, ((AttributeAudit)obj).value) : Objects.equals(obj, value);
   }
 
   @Override

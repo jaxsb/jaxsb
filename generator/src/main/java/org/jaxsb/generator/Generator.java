@@ -18,6 +18,7 @@ package org.jaxsb.generator;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -41,8 +42,7 @@ import org.jaxsb.generator.processor.timestamp.TimestampDirectory;
 import org.jaxsb.generator.processor.write.WriterDirectory;
 import org.jaxsb.generator.schema.SchemaDocumentDirectory;
 import org.libj.io.FileUtil;
-import org.libj.net.URLs;
-import org.libj.util.Paths;
+import org.libj.util.StringPaths;
 
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {
@@ -81,7 +81,7 @@ public final class Generator extends AbstractGenerator {
       else if ("-d".equals(args[i]))
         destDir = new File(args[++i]).getAbsoluteFile();
       else
-        schemas.add(new SchemaReference(Paths.isAbsolute(args[i]) ? URLs.toCanonicalURL(args[i]) : new File(FileUtil.getCwd(), args[i]).toURI().toURL(), false));
+        schemas.add(new SchemaReference(StringPaths.isAbsolute(args[i]) ? URI.create(args[i]).normalize() : new File(FileUtil.getCwd(), args[i]).toURI(), false));
     }
 
     generate(destDir, overwrite, compile, pack, schemas, skipXsd);

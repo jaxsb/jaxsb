@@ -18,7 +18,7 @@ package org.jaxsb.compiler.processor.reference;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -27,7 +27,7 @@ import org.jaxsb.compiler.pipeline.PipelineDirectory;
 import org.jaxsb.compiler.pipeline.PipelineEntity;
 import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
-import org.libj.net.URLs;
+import org.libj.net.URIs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,10 +49,10 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
             logger.debug("checking whether class is up-to-date: " + javaFile.getAbsolutePath());
 
           if (!pipelineContext.getOverwrite() && javaFile.exists()) {
-            final URL url = schemaReference.getURL();
-            final long lastModified = url.openConnection().getLastModified();
+            final URI uri = schemaReference.getURI();
+            final long lastModified = uri.toURL().openConnection().getLastModified();
             if (lastModified != 0 && javaFile.lastModified() >= lastModified) {
-              logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
+              logger.info("Bindings for " + URIs.getName(schemaReference.getURI()) + " are up-to-date.");
               continue;
             }
           }
