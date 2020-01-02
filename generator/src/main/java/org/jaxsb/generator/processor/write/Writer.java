@@ -51,7 +51,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
   private File getFile(final T plan, final File destDir) {
     final URL url = plan.getModel().getSchema().getURL();
-    final String display = URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+    final String display = (URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()) : url).toString();
     final String message = "Compiling {" + plan.getModel().getTargetNamespace() + "} from " + display;
 
     if (!messages.contains(message)) {
@@ -97,7 +97,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
       return;
 
     final URL url = plan.getModel().getSchema().getURL();
-    final String display = URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+    final String display = (URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()) : url).toString();
     final String message = "Compiling {" + plan.getModel().getTargetNamespace() + "} from " + display;
 
     if (!messages.contains(message)) {

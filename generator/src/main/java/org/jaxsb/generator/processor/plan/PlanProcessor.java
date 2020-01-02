@@ -42,7 +42,7 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
         continue;
 
       final URL url = model.getSchema().getURL();
-      final String display = URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+      final String display = (URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()) : url).toString();
       logger.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
 
       for (final Model child : model.getChildren())

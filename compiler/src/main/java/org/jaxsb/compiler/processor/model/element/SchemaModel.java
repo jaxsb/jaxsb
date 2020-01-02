@@ -67,7 +67,7 @@ public final class SchemaModel extends Model {
 
   public void setURL(final URL url) {
     this.url = url;
-    final String display = URLs.isLocal(url) ? CWD.relativize(new File(url.getFile()).getAbsoluteFile().toPath()).toString() : url.toExternalForm();
+    final String display = (URLs.isLocal(url) ? CWD.relativize(new File(url.getFile()).getAbsoluteFile().toPath()) : url).toString();
     logger.info("Scanning {" + getTargetNamespace() + "} from " + display);
   }
 
