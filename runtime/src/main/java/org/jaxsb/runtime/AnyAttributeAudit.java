@@ -93,7 +93,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> implements Serial
 
   @Override
   public boolean equals(final Object obj) {
-    return obj == this || (obj instanceof AnyAttributeAudit) ? Objects.equals(value, ((AnyAttributeAudit)obj).value) : Objects.equals(obj, value);
+    return obj == this || (obj instanceof AnyAttributeAudit) ? Objects.equals(value, ((AnyAttributeAudit<?>)obj).value) : Objects.equals(obj, value);
   }
 
   @Override
