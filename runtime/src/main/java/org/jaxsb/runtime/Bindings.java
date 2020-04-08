@@ -74,6 +74,7 @@ public abstract class Bindings {
    * @param element Element object to parse.
    * @return Binding instance.
    * @throws ValidationException If a validation error has occurred.
+   * @throws NullPointerException If {@code element} is null.
    */
   public static Binding parse(final Element element) throws ValidationException {
     return parse(element, Thread.currentThread().getContextClassLoader());
@@ -96,6 +97,7 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
+   * @throws NullPointerException If {@code url} is null.
    */
   public static Binding parse(final URL url) throws IOException, SAXException {
     return parse(url, Thread.currentThread().getContextClassLoader());
@@ -113,6 +115,7 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
+   * @throws NullPointerException If {@code url} is null.
    */
   public static Binding parse(final URL url, final ErrorHandler errorHandler) throws IOException, SAXException {
     return parse(url, Thread.currentThread().getContextClassLoader(), errorHandler);
@@ -139,6 +142,7 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
+   * @throws NullPointerException If {@code inputSource} is null.
    */
   public static Binding parse(final InputSource inputSource) throws IOException, SAXException {
     return parse(inputSource, (ErrorHandler)null);
@@ -156,6 +160,7 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
+   * @throws NullPointerException If {@code inputSource} is null.
    */
   public static Binding parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, SAXException {
     return parse(inputSource, Thread.currentThread().getContextClassLoader(), errorHandler);
