@@ -19,6 +19,8 @@ package org.jaxsb.generator.schema;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -37,6 +39,7 @@ import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.generator.AbstractGenerator;
 import org.libj.net.URIs;
 import org.libj.util.StringPaths;
+import org.openjax.xml.schema.SchemaResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -92,23 +95,31 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
             }
           }
 
-          final NodeList importNodeList = schemaDocument.getDocument().getElementsByTagNameNS(UniqueQName.XS.getNamespaceURI().toString(), "import");
-          for (int i = 0; i < importNodeList.getLength(); ++i) {
-            final Element importElement = (Element)importNodeList.item(i);
-            final URI schemaLocationURL = SchemaDocumentProcessor.getSchemaLocation(schemaDocument.getSchemaReference().getURI(), importElement);
+          try {
+            final NodeList importNodeList = schemaDocument.getDocument().getElementsByTagNameNS(UniqueQName.XS.getNamespaceURI().toString(), "import");
+            for (int i = 0; i < importNodeList.getLength(); ++i) {
+              final Element importElement = (Element)importNodeList.item(i);
+              final String namespaceUri = importElement.getAttribute("namespace");
+              final URI schemaUri = SchemaDocumentProcessor.getSchemaLocation(schemaDocument.getSchemaReference().getURI(), importElement);
+              final URL schemaUrl = SchemaResolver.resolve(namespaceUri, schemaUri.toString());
+              final URI schemaLocationURI = schemaUrl != null ? schemaUrl.toURI() : schemaUri;
 
-            // Check if we have two schemaReferences for a single targetNamespace
-            // This should not happen for import, but can happen for include!
-            final NamespaceURI importNamespaceURI = NamespaceURI.getInstance(importElement.getAttribute("namespace"));
-            final URI duplicate = importLoopCheck.get(importNamespaceURI);
-            if (duplicate == null) {
-              importLoopCheck.put(importNamespaceURI, schemaLocationURL);
-              inner.insertElementAt(AbstractGenerator.parse(new SchemaReference(schemaLocationURL, importNamespaceURI, false)), 0);
-              continue;
+              // Check if we have two schemaReferences for a single targetNamespace
+              // This should not happen for import, but can happen for include!
+              final NamespaceURI importNamespaceURI = NamespaceURI.getInstance(namespaceUri);
+              final URI duplicate = importLoopCheck.get(importNamespaceURI);
+              if (duplicate == null) {
+                importLoopCheck.put(importNamespaceURI, schemaLocationURI);
+                inner.insertElementAt(AbstractGenerator.parse(new SchemaReference(schemaLocationURI, importNamespaceURI, false)), 0);
+                continue;
+              }
+
+              if (!duplicate.equals(schemaLocationURI))
+                logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URIs.getName(schemaLocationURI) + " with " + new File(duplicate).getName());
             }
-
-            if (!duplicate.equals(schemaLocationURL))
-              logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URIs.getName(schemaLocationURL) + " with " + new File(duplicate).getName());
+          }
+          catch (final URISyntaxException e) {
+            throw new IllegalArgumentException(e);
           }
         }
 
@@ -137,8 +148,11 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
 
   private static URI getSchemaLocation(final URI baseURI, final Element element) {
     final String schemaLocation = element.getAttribute("schemaLocation");
-    if (StringPaths.isAbsolute(schemaLocation))
+    if (StringPaths.isAbsolutePublicId(schemaLocation))
       return URI.create(schemaLocation);
+
+    if (StringPaths.isAbsoluteSystemId(schemaLocation))
+      return new File(schemaLocation).toURI();
 
     return URIs.toURI(URIs.getParent(baseURI), schemaLocation).normalize();
   }

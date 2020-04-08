@@ -81,7 +81,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     final File file = getFile(plan, destDir);
     try (final ClassFile classFile = fileToClassFile.remove(file)) {
-      if (logger.isDebugEnabled())
+      if (logger.isDebugEnabled() && classFile != null)
         logger.debug("Closing: " + classFile.getFile().getAbsolutePath());
     }
     catch (final IOException e) {

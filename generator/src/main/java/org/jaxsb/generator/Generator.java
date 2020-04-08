@@ -81,7 +81,7 @@ public final class Generator extends AbstractGenerator {
       else if ("-d".equals(args[i]))
         destDir = new File(args[++i]).getAbsoluteFile();
       else
-        schemas.add(new SchemaReference(StringPaths.isAbsolute(args[i]) ? URI.create(args[i]).normalize() : new File(FileUtil.getCwd(), args[i]).toURI(), false));
+        schemas.add(new SchemaReference(StringPaths.isAbsoluteLocalURL(args[i]) ? URI.create(args[i]) : StringPaths.isAbsoluteSystemId(args[i]) ? new File(args[i]).toURI().normalize() : new File(FileUtil.getCwd(), args[i]).toURI(), false));
     }
 
     generate(destDir, overwrite, compile, pack, schemas, skipXsd);

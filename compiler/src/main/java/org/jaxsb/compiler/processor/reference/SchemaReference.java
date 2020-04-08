@@ -65,8 +65,6 @@ public final class SchemaReference implements PipelineEntity {
   public SchemaReference(final URI location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
     this.location = Objects.requireNonNull(location);
     this.namespaceURI = namespaceURI;
-    if ("http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd".equals(namespaceURI.toString()))
-      System.out.println();
     this.prefix = prefix;
     this.isInclude = isInclude;
     logger.debug("new SchemaReference(\"" + this.location.toString() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");

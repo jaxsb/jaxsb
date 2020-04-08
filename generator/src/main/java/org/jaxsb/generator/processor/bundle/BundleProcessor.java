@@ -184,7 +184,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           final Node attribute = attributes.item(j);
           if ("schemaLocation".equals(attribute.getLocalName())) {
             final String schemaLocation = attribute.getNodeValue();
-            final URI includeURL = StringPaths.isAbsolute(schemaLocation) ? URI.create(schemaLocation) : StringPaths.isAbsoluteLocal(schemaLocation) ? URI.create(schemaLocation).normalize() : URIs.toURI(URIs.getCanonicalParent(uri), schemaLocation);
+            final URI includeURL = StringPaths.isAbsolute(schemaLocation) ? URI.create(schemaLocation) : StringPaths.isAbsoluteSystemId(schemaLocation) ? new File(schemaLocation).toURI().normalize() : URIs.toURI(URIs.getCanonicalParent(uri), schemaLocation);
             final String includePath = filePath.replace(".xsd", "-" + ++includeCount + ".xsd");
             attribute.setNodeValue(StringPaths.getName(includePath));
             addXSDs(includeURL, includePath, ZipWriter, destDir, includeCount);
