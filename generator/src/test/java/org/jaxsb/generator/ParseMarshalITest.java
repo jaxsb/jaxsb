@@ -22,18 +22,27 @@ import java.io.IOException;
 
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.Bindings;
-import org.jaxsb.www.test.anyAttribute.xAA.AnyAttribute;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-public class AnyAttributeITest {
-  private static final Logger logger = LoggerFactory.getLogger(AnyAttributeITest.class);
+public class ParseMarshalITest {
+  private static final Logger logger = LoggerFactory.getLogger(ParseMarshalITest.class);
 
   @Test
-  public void testParseMarshal() throws IOException, SAXException {
-    final AnyAttribute binding = (AnyAttribute)Bindings.parse(ClassLoader.getSystemClassLoader().getResource("anyAttribute.xml"));
+  public void testAttribute() throws IOException, SAXException {
+    final Binding binding = Bindings.parse(ClassLoader.getSystemClassLoader().getResource("attribute.xml"));
+    final String xml = binding.toString();
+    logger.info(xml);
+
+    final Binding b2 = Bindings.parse(xml);
+    assertEquals(binding, b2);
+  }
+
+  @Test
+  public void testAnyAttribute() throws IOException, SAXException {
+    final Binding binding = Bindings.parse(ClassLoader.getSystemClassLoader().getResource("anyAttribute.xml"));
     final String xml = binding.toString();
     logger.info(xml);
 
