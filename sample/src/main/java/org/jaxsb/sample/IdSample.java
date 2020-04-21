@@ -56,7 +56,7 @@ public class IdSample {
         }
       }
 
-      System.out.println();
+      System.out.print('\n');
     }
 
     return directory;
