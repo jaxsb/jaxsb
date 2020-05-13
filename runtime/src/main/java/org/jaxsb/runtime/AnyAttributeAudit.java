@@ -98,7 +98,11 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> implements Serial
 
   @Override
   public int hashCode() {
-    return 31 + (value != null ? value.hashCode() : 0);
+    int hashCode = 1;
+    if (value != null)
+      hashCode = 31 * hashCode + value.hashCode();
+
+    return hashCode;
   }
 
   @Override

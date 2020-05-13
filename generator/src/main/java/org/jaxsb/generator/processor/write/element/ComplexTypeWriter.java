@@ -468,8 +468,10 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     writer.write("public int hashCode()\n");
     writer.write("{\n");
     writer.write("int hashCode = super.hashCode();\n");
-    if (plan.getMixed() != null && plan.getMixed())
-      writer.write("hashCode = 31 * hashCode + (text == null ? 0 : text.hashCode());\n");
+    if (plan.getMixed() != null && plan.getMixed()) {
+      writer.write("if (text != null)\n");
+      writer.write("hashCode = 31 * hashCode + text.hashCode();\n");
+    }
     for (final Object attribute : plan.getAttributes())
       Writer.writeHashCode(writer, (AttributePlan)attribute, plan);
     for (final Object element : plan.getElements())

@@ -107,7 +107,8 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
 
   @Override
   protected void appendHashCode(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
-    writer.write("hashCode = 31 * hashCode + (any == null ? 0 : any.hashCode());\n");
+    writer.write("if (any != null)\n");
+    writer.write("hashCode = 31 * hashCode + any.hashCode();\n");
   }
 
   @Override

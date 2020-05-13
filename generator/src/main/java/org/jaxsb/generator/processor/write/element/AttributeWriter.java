@@ -154,7 +154,8 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     if (plan.isRestriction())
       return;
 
-    writer.write("hashCode = 31 * hashCode + (" + plan.getInstanceName() + " == null ? 0 : " + plan.getInstanceName() + ".hashCode());\n");
+    writer.write("if (" + plan.getInstanceName() + " != null)\n");
+    writer.write("hashCode = 31 * hashCode + " + plan.getInstanceName() + ".hashCode();\n");
   }
 
   @Override

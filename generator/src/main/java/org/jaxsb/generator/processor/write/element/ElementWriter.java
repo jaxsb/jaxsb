@@ -179,7 +179,8 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.isRestriction() || plan.getRepeatedExtension() != null)
       return;
 
-    writer.write("hashCode = 31 * hashCode + (" + plan.getInstanceName() + " == null ? 0 : " + plan.getInstanceName() + ".hashCode());\n");
+    writer.write("if (" + plan.getInstanceName() + " != null)\n");
+    writer.write("hashCode = 31 * hashCode + " + plan.getInstanceName() + ".hashCode();\n");
   }
 
   @Override
@@ -730,8 +731,10 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("public int hashCode()\n");
     writer.write("{\n");
     writer.write("int hashCode = super.hashCode();\n");
-    if (plan.getMixed() != null && plan.getMixed())
-      writer.write("hashCode = 31 * hashCode + (text == null ? 0 : text.hashCode());\n");
+    if (plan.getMixed() != null && plan.getMixed()) {
+      writer.write("if (text != null)\n");
+      writer.write("hashCode = 31 * hashCode + text.hashCode();\n");
+    }
     for (final AttributePlan attribute : plan.getAttributes())
       Writer.writeHashCode(writer, attribute, plan);
     for (final ElementPlan element : plan.getElements())

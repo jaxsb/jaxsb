@@ -152,9 +152,12 @@ public final class NotationWriter extends Writer<NotationPlan> {
     writer.write("public int hashCode()\n");
     writer.write("{\n");
     writer.write("int hashCode = super.hashCode();\n");
-    writer.write("hashCode = 31 * hashCode + (_name == null ? 0 : _name.hashCode());\n");
-    writer.write("hashCode = 31 * hashCode + (_public == null ? 0 : _public.hashCode());\n");
-    writer.write("hashCode = 31 * hashCode + (_system == null ? 0 : _system.hashCode());\n");
+    writer.write("if (_name != null)\n");
+    writer.write("hashCode = 31 * hashCode + _name.hashCode();\n");
+    writer.write("if (_public != null)\n");
+    writer.write("hashCode = 31 * hashCode + _public.hashCode();\n");
+    writer.write("if (_system != null)\n");
+    writer.write("hashCode = 31 * hashCode + _system.hashCode();\n");
     writer.write("return hashCode;\n");
     writer.write("}\n");
 
