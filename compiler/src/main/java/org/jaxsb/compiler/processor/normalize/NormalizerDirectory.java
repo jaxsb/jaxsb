@@ -190,8 +190,14 @@ public final class NormalizerDirectory implements PipelineDirectory<GeneratorCon
       instances.put(clazz, normalizerInstance = constructor.newInstance(this));
       return normalizerInstance;
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
       throw new LexerFailureException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new LexerFailureException(e.getCause());
     }
   }
 

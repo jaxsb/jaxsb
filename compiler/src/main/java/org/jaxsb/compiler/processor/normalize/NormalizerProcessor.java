@@ -45,8 +45,14 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
       method.setAccessible(true);
       method.invoke(normalizer, model);
     }
-    catch (final IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+    catch (final IllegalAccessException | NoSuchMethodException e) {
       throw new LexerFailureException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new LexerFailureException(e.getCause());
     }
 
     return model.getChildren();

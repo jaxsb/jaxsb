@@ -177,8 +177,14 @@ public final class PlanDirectory implements PipelineDirectory<GeneratorContext,M
       final Constructor<?> constructor = parserClass.getConstructor(entity.getClass(), Plan.class);
       return (Plan<?>)constructor.newInstance(entity, parent);
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new CompilerFailureException(e.getCause());
     }
   }
 

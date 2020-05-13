@@ -99,8 +99,14 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       constructor.setAccessible(true);
       return _$$parseAttr(($AnySimpleType)constructor.newInstance(), parent, attribute);
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-      throw new IllegalStateException(e);
+    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
+      throw new RuntimeException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new RuntimeException(e.getCause());
     }
   }
 
@@ -257,8 +263,17 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       Binding.parse(binding, node);
       return binding;
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-      throw new UnsupportedOperationException(e);
+    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
+      throw new RuntimeException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      if (e.getCause() instanceof ValidationException)
+        throw (ValidationException)e.getCause();
+
+      throw new RuntimeException(e.getCause());
     }
   }
 
@@ -325,8 +340,14 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         }
       }
     }
-    catch (final IllegalAccessException | InvocationTargetException e) {
-      throw new IllegalStateException(e);
+    catch (final IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new RuntimeException(e.getCause());
     }
 
     return null;
@@ -455,8 +476,14 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       NULL.isNull = true;
       return NULL;
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-      throw new IllegalStateException(e);
+    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
+      throw new RuntimeException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new RuntimeException(e.getCause());
     }
   }
 

@@ -80,8 +80,14 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
     catch (final ClassNotFoundException e) {
       throw new CompilerFailureException("Class<?> not found for element [" + model.getClass().getSimpleName() + "]");
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new CompilerFailureException(e.getCause());
     }
   }
 

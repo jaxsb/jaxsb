@@ -153,8 +153,14 @@ public final class ModelDirectory implements PipelineDirectory<GeneratorContext,
       constructor.setAccessible(true);
       return constructor.newInstance(schemaNodeComposite.getNode(), parent);
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
       throw new LexerFailureException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new LexerFailureException(e.getCause());
     }
   }
 

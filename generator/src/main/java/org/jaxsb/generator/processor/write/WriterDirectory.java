@@ -183,8 +183,14 @@ public final class WriterDirectory implements PipelineDirectory<GeneratorContext
       instances.put(entity.getClass(), writerInstance = writerClass.getDeclaredConstructor().newInstance());
       return writerInstance;
     }
-    catch (final IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
+    }
+    catch (final InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+
+      throw new CompilerFailureException(e.getCause());
     }
   }
 
