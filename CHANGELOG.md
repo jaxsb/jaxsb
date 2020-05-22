@@ -1,6 +1,17 @@
 # Changes by Version
 
-## v2.1.5 (2019-07-21)
+## [v2.1.6](https://github.com/jaxsb/jaxsb/compare/b2173ee18fed62e354378733903324ce83c6be56..HEAD) (2020-05-23)
+* Improve handling of `InvocationTargetException`.
+* General API improvements across the codebase.
+* Add `Objects.requireNonNull` checks to most APIs.
+* Improve `SchemaReferenceProcessor` and `SchemaDocumentProcessor`.
+* Add `skipXsd` condition to `BundleProcessor`.
+* Improve binding API of `NotationWriter`.
+* Support XInclude.
+* Improve tests.
+* Improve javadocs and xmldocs.
+
+## [v2.1.5](https://github.com/jaxsb/jaxsb/compare/e2ffa1b50e5d95d5bad2cf78b8efb80605a0e2cd..b2173ee18fed62e354378733903324ce83c6be56) (2019-07-21)
 * Expand `Bindings` API.
 * Upgrade `org.openjax.xml:sax:0.9.2` to `0.9.3`.
 * Upgrade `org.libj:io:0.7.5` to `0.7.6`.
