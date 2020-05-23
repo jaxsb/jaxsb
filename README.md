@@ -81,7 +81,7 @@
    <plugin>
      <groupId>org.jaxsb</groupId>
      <artifactId>jaxsb-maven-plugin</artifactId>
-     <version>2.1.4</version>
+     <version>2.1.6</version>
      <executions>
        <execution>
          <goals>
@@ -104,7 +104,7 @@
    <dependency>
      <groupId>org.jaxsb</groupId>
      <artifactId>runtime</artifactId>
-     <version>2.1.4</version>
+     <version>2.1.6</version>
    </dependency>
    ```
 
