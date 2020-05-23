@@ -1,6 +1,8 @@
 # Changes by Version
 
-## [v2.1.6](https://github.com/jaxsb/jaxsb/compare/b2173ee18fed62e354378733903324ce83c6be56..HEAD) (2020-05-23)
+## [v2.1.7-SNAPSHOT](https://github.com/jaxsb/jaxsb/compare/c5841176083e1f68b6adebf5e3b20e492dd55bcc..HEAD)
+
+## [v2.1.6](https://github.com/jaxsb/jaxsb/compare/b2173ee18fed62e354378733903324ce83c6be56..c5841176083e1f68b6adebf5e3b20e492dd55bcc) (2020-05-23)
 * Improve handling of `InvocationTargetException`.
 * General API improvements across the codebase.
 * Add `Objects.requireNonNull` checks to most APIs.
