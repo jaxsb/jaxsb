@@ -40,9 +40,8 @@ public final class JavaBinding {
 
   private static String toJavaIdentifier(final String ncName) {
     final StringBuilder builder = new StringBuilder(ncName.length());
-    final char[] chars = ncName.toCharArray();
-    for (int i = 0; i < chars.length; ++i) {
-     final char ch = chars[i];
+    for (int i = 0, len = ncName.length(); i < len; ++i) {
+     final char ch = ncName.charAt(i);
      if (ch == '-')
        builder.append('$').append('_');
      else if (ch == '.')
