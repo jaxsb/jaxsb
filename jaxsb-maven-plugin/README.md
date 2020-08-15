@@ -1,9 +1,9 @@
 # JAX-SB Maven Plugin
 
-[![Build Status](https://travis-ci.org/jaxsb/jaxsb.svg?1)](https://travis-ci.org/jaxsb/jaxsb)
-[![Coverage Status](https://coveralls.io/repos/github/jaxsb/jaxsb/badge.svg?1)](https://coveralls.io/github/jaxsb/jaxsb)
-[![Javadocs](https://www.javadoc.io/badge/org.jaxsb/jaxsb-maven-plugin.svg?1)](https://www.javadoc.io/doc/org.jaxsb/jaxsb-maven-plugin)
-[![Released Version](https://img.shields.io/maven-central/v/org.jaxsb/jaxsb-maven-plugin.svg?1)](https://mvnrepository.com/artifact/org.jaxsb/jaxsb-maven-plugin)
+[![Build Status](https://travis-ci.org/jaxsb/jaxsb.svg?branch=master)](https://travis-ci.org/jaxsb/jaxsb)
+[![Coverage Status](https://coveralls.io/repos/github/jaxsb/jaxsb/badge.svg)](https://coveralls.io/github/jaxsb/jaxsb)
+[![Javadocs](https://www.javadoc.io/badge/org.jaxsb/jaxsb-maven-plugin.svg)](https://www.javadoc.io/doc/org.jaxsb/jaxsb-maven-plugin)
+[![Released Version](https://img.shields.io/maven-central/v/org.jaxsb/jaxsb-maven-plugin.svg)](https://mvnrepository.com/artifact/org.jaxsb/jaxsb-maven-plugin)
 ![Snapshot Version](https://img.shields.io/nexus/s/org.jaxsb/jaxsb-maven-plugin?label=maven-snapshot&server=https%3A%2F%2Foss.sonatype.org)
 
 ## Introduction
