@@ -27,7 +27,9 @@ import javax.xml.parsers.DocumentBuilder;
 
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
+import org.openjax.xml.dom.Documents;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -59,16 +61,6 @@ public abstract class Bindings {
     return binding.marshal();
   }
 
-  public static Binding parse(final String xml) throws IOException, SAXException {
-    return parse(xml, null);
-  }
-
-  public static Binding parse(final String xml, final ErrorHandler errorHandler) throws IOException, SAXException {
-    try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
-      return parse(new InputSource(in), Thread.currentThread().getContextClassLoader(), errorHandler);
-    }
-  }
-
   /**
    * Parse an Element object to a Binding instance.
    *
@@ -89,6 +81,24 @@ public abstract class Bindings {
     return binding;
   }
 
+  public static Binding parse(final String xml) throws IOException, SAXException {
+    return parse(xml, null, null);
+  }
+
+  public static Binding parse(final String xml, final String defaultNamespace) throws IOException, SAXException {
+    return parse(xml, defaultNamespace, null);
+  }
+
+  public static Binding parse(final String xml, final ErrorHandler errorHandler) throws IOException, SAXException {
+    return parse(xml, null, errorHandler);
+  }
+
+  public static Binding parse(final String xml, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
+    try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
+      return parse(new InputSource(in), defaultNamespace, Thread.currentThread().getContextClassLoader(), errorHandler);
+    }
+  }
+
   /**
    * Parse an {@link URL} pointing to XML content into a {@link Binding}
    * instance.
@@ -101,7 +111,11 @@ public abstract class Bindings {
    * @throws NullPointerException If {@code url} is null.
    */
   public static Binding parse(final URL url) throws IOException, SAXException {
-    return parse(url, Thread.currentThread().getContextClassLoader());
+    return parse(url, null, Thread.currentThread().getContextClassLoader());
+  }
+
+  public static Binding parse(final URL url, final String defaultNamespace) throws IOException, SAXException {
+    return parse(url, defaultNamespace, Thread.currentThread().getContextClassLoader());
   }
 
   /**
@@ -119,19 +133,31 @@ public abstract class Bindings {
    * @throws NullPointerException If {@code url} is null.
    */
   public static Binding parse(final URL url, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(url, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(url, null, Thread.currentThread().getContextClassLoader(), errorHandler);
+  }
+
+  public static Binding parse(final URL url, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
+    return parse(url, defaultNamespace, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static Binding parse(final URL url, final ClassLoader classLoader) throws IOException, SAXException {
-    return parse(url, classLoader, null);
+    return parse(url, null, classLoader, null);
   }
 
-  public static Binding parse(final URL url, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
+  public static Binding parse(final URL url, final String defaultNamespace, final ClassLoader classLoader) throws IOException, SAXException {
+    return parse(url, defaultNamespace, classLoader, null);
+  }
+
+  public static Binding parse(final URL url, final String defaultNamespace, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
     try (final InputStream in = url.openStream()) {
       final InputSource inputSource = new InputSource(url.toString());
       inputSource.setByteStream(in);
-      return parse(inputSource, classLoader, errorHandler);
+      return parse(inputSource, defaultNamespace, classLoader, errorHandler);
     }
+  }
+
+  public static Binding parse(final URL url, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
+    return parse(url, null, classLoader, errorHandler);
   }
 
   /**
@@ -146,7 +172,11 @@ public abstract class Bindings {
    * @throws NullPointerException If {@code inputSource} is null.
    */
   public static Binding parse(final InputSource inputSource) throws IOException, SAXException {
-    return parse(inputSource, (ErrorHandler)null);
+    return parse(inputSource, null, (ErrorHandler)null);
+  }
+
+  public static Binding parse(final InputSource inputSource, final String defaultNamespace) throws IOException, SAXException {
+    return parse(inputSource, defaultNamespace, (ErrorHandler)null);
   }
 
   /**
@@ -164,19 +194,32 @@ public abstract class Bindings {
    * @throws NullPointerException If {@code inputSource} is null.
    */
   public static Binding parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(inputSource, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(inputSource, null, Thread.currentThread().getContextClassLoader(), errorHandler);
+  }
+
+  public static Binding parse(final InputSource inputSource, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
+    return parse(inputSource, defaultNamespace, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static Binding parse(final InputSource inputSource, final ClassLoader classLoader) throws IOException, SAXException {
-    return parse(inputSource, classLoader, null);
+    return parse(inputSource, null, classLoader, null);
   }
 
-  public static Binding parse(final InputSource inputSource, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
+  public static Binding parse(final InputSource inputSource, final String defaultNamespace, final ClassLoader classLoader) throws IOException, SAXException {
+    return parse(inputSource, defaultNamespace, classLoader, null);
+  }
+
+  public static Binding parse(final InputSource inputSource, final String defaultNamespace, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
     final DocumentBuilder builder = Binding.newDocumentBuilder();
     if (errorHandler != null)
       builder.setErrorHandler(errorHandler);
 
-    final Element element = builder.parse(inputSource).getDocumentElement();
+    final Document document = builder.parse(inputSource);
+    if (defaultNamespace != null && document.isDefaultNamespace(null))
+      Documents.setNamespaceURI(document, defaultNamespace, false);
+
+    final Element element = document.getDocumentElement();
+
     if (BindingValidator.getSystemValidator() != null)
       BindingValidator.getSystemValidator().validateParse(element);
 

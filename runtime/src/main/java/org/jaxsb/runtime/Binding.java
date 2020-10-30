@@ -202,14 +202,17 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
   }
 
-  protected static Binding parseElement(final Element node, final Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ValidationException {
-    final String localName = node.getLocalName();
-    String namespaceURI = node.getNamespaceURI();
+  protected static Binding parseElement(final Element element, final Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ValidationException {
+    String namespaceURI = element.getNamespaceURI();
+    if (namespaceURI == null)
+      throw new IllegalArgumentException("Element does not declare a namespace");
+
+    final String localName = element.getLocalName();
 
     String xsiTypeName = null;
     String xsiPrefix = null;
 
-    final NamedNodeMap rootAttributes = node.getAttributes();
+    final NamedNodeMap rootAttributes = element.getAttributes();
     for (int i = 0; i < rootAttributes.getLength(); ++i) {
       final Node attribute = rootAttributes.item(i);
       if (XSI_TYPE.getNamespaceURI().equals(attribute.getNamespaceURI()) && XSI_TYPE.getLocalPart().equals(attribute.getLocalName())) {
@@ -230,7 +233,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
       if (xsiTypeName != null) {
         if (xsiPrefix != null)
-          namespaceURI = node.getOwnerDocument().getDocumentElement().lookupNamespaceURI(xsiPrefix);
+          namespaceURI = element.getOwnerDocument().getDocumentElement().lookupNamespaceURI(xsiPrefix);
 
         final Class<? extends Binding> xsiBinding = lookupType(new QName(namespaceURI, xsiTypeName), classLoader);
         if (xsiBinding == null) {
@@ -260,7 +263,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
       }
 
-      Binding.parse(binding, node);
+      Binding.parse(binding, element);
       return binding;
     }
     catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
