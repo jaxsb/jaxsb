@@ -19,6 +19,8 @@ package org.jaxsb;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,6 +28,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -37,13 +40,20 @@ import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.generator.Generator;
+import org.libj.net.URLStreamHandlers;
+import org.libj.net.URLs;
 import org.openjax.maven.mojo.FilterParameter;
 import org.openjax.maven.mojo.FilterType;
 import org.openjax.maven.mojo.GeneratorMojo;
+import org.openjax.maven.mojo.MojoUtil;
 
 @Mojo(name="generate", defaultPhase=LifecyclePhase.GENERATE_SOURCES)
 @Execute(goal="generate")
 public class XsbMojo extends GeneratorMojo {
+  static {
+    URLStreamHandlers.loadSPI();
+  }
+
   @Parameter(property="includes")
   private List<String> includes;
 
@@ -73,8 +83,19 @@ public class XsbMojo extends GeneratorMojo {
   @Parameter(property="schemas", required=true)
   private List<String> schemas;
 
+  @Parameter(defaultValue="${localRepository}")
+  private ArtifactRepository localRepository;
+
   @Override
   public void execute(final Configuration configuration) throws MojoExecutionException, MojoFailureException {
+    final String[] classpath = MojoUtil.getProjectDependencyPaths(project, localRepository);
+    final URL[] urls = new URL[classpath.length];
+    for (int i = 0; i < classpath.length; ++i)
+      urls[i] = URLs.create("file", "", classpath[i]);
+
+    final URLClassLoader classLoader = new URLClassLoader(urls);
+    Thread.currentThread().setContextClassLoader(classLoader);
+
     final Collection<SchemaReference> generatorBindings = new ArrayList<>();
     for (final String schema : new LinkedHashSet<>(schemas))
       generatorBindings.add(new SchemaReference(URI.create(schema), false));
