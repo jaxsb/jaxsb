@@ -115,7 +115,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
               }
 
               if (!duplicate.equals(schemaLocationURI))
-                logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URIs.getName(schemaLocationURI) + " with " + new File(duplicate).getName());
+                logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URIs.getName(schemaLocationURI) + " with " + duplicate);
             }
           }
           catch (final URISyntaxException e) {
@@ -154,6 +154,14 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
     if (StringPaths.isAbsoluteSystemId(schemaLocation))
       return new File(schemaLocation).toURI();
 
-    return URIs.toURI(URIs.getParent(baseURI), schemaLocation).normalize();
+    final URI parent = URIs.getParent(baseURI);
+    if (parent != null)
+      return URIs.toURI(parent, schemaLocation).normalize();
+
+    // If the parent is null, it means we're at the root of the protocol.
+    // In this case, canonicalize backwards to eliminate "../" that lead with sub-dirs that follow.
+    final String canonical = StringPaths.canonicalize(new StringBuilder(schemaLocation).reverse()).reverse().toString();
+    final String scheme = baseURI.getScheme();
+    return URI.create(scheme != null ? scheme + "://" + canonical : canonical).normalize();
   }
 }
