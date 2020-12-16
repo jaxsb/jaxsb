@@ -71,7 +71,7 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
     thisClassNameWithType = !ref && attribute.getParent() instanceof SchemaModel ? superClassNameWithType : null;
 
     nested = ref || !(attribute.getParent() instanceof SchemaModel);
-    formDefault = model.getForm() == Form.QUALIFIED || ref ? Form.QUALIFIED : attribute.getFormDefault();
+    formDefault = ref ? Form.QUALIFIED : model.getForm() != null ? model.getForm() : attribute.getFormDefault();
   }
 
   public final Use getUse() {

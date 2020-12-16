@@ -125,17 +125,19 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   protected static void parse(final Binding binding, final Element node) throws ValidationException {
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); ++i)
-      if (attributes.item(i) instanceof Attr && !binding.parseAttribute((Attr)attributes.item(i)))
-        binding.parseAnyAttribute((Attr)attributes.item(i));
+    for (int i = 0; i < attributes.getLength(); ++i) {
+      final Node attribute = attributes.item(i);
+      if (attribute instanceof Attr && !binding.parseAttribute((Attr)attribute))
+        binding.parseAnyAttribute((Attr)attribute);
+    }
 
     final NodeList elements = node.getChildNodes();
     for (int i = 0; i < elements.getLength(); ++i) {
       final Node child = elements.item(i);
       if (child instanceof Text)
         binding.parseText((Text)child);
-      else if (child instanceof Element && !binding.parseElement((Element)elements.item(i)))
-        binding.parseAny((Element)elements.item(i));
+      else if (child instanceof Element && !binding.parseElement((Element)child))
+        binding.parseAny((Element)child);
     }
   }
 
