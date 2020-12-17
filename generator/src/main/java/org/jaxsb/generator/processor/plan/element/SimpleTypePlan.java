@@ -379,7 +379,7 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
     if (parsedSuperType)
       return superType;
 
-    superType = parseNamedPlan(superTypeName);
+    superType = parseNamedPlan(getClass(), superTypeName);
     if (superType == this)
       return superType = null;
 
