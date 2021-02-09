@@ -43,7 +43,7 @@ public final class TimestampProcessor implements PipelineEntity, PipelineProcess
       filter(fileFilter).
       map(p -> p.toFile().lastModified()).
       reduce(Math::min).
-      get();
+      orElse(System.currentTimeMillis());
 
     // Set the lastModified time of all directories to just before the value from above
     Files.
