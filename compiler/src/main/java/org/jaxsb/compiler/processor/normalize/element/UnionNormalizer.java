@@ -39,27 +39,34 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
   protected void stage1(final UnionModel model) {
   }
 
+  private SimpleTypeModel<?> resolve(final SimpleTypeModel<?> memberType) {
+    if (!(memberType instanceof SimpleTypeModel.Reference))
+      return memberType;
+
+    final SimpleTypeModel<?> resolvedMemberType = simpleTypeNormalizer.parseSimpleType(memberType.getName());
+    if (resolvedMemberType != null)
+      return resolvedMemberType;
+
+    if (!UniqueQName.XS.getNamespaceURI().equals(memberType.getName().getNamespaceURI()))
+      throw new LexerFailureException("type == null for " + memberType.getName());
+
+    return SimpleTypeModel.Undefined.parseSimpleType(memberType.getName());
+  }
+
   @Override
   protected void stage2(final UnionModel model) {
     final Collection<SimpleTypeModel<?>> memberTypes = model.getMemberTypes();
     if (memberTypes != null) {
       final Collection<SimpleTypeModel<?>> resolvedMemberTypes = new ArrayList<>(memberTypes.size());
-      SimpleTypeModel<?> resolvedMemberType;
-      for (final SimpleTypeModel<?> memberType : memberTypes) {
-        if (memberType instanceof SimpleTypeModel.Reference) {
-          resolvedMemberType = simpleTypeNormalizer.parseSimpleType(memberType.getName());
-          if (resolvedMemberType == null) {
-            if (!UniqueQName.XS.getNamespaceURI().equals(memberType.getName().getNamespaceURI()))
-              throw new LexerFailureException("type == null for " + memberType.getName());
+      for (final SimpleTypeModel<?> memberType : memberTypes)
+        resolvedMemberTypes.add(resolve(memberType));
 
-            resolvedMemberType = SimpleTypeModel.Undefined.parseSimpleType(memberType.getName());
-          }
-        }
-        else
-          resolvedMemberType = memberType;
+      for (final Model child : model.getChildren())
+        if (child instanceof SimpleTypeModel)
+          resolvedMemberTypes.add(resolve((SimpleTypeModel<?>)child));
 
-        resolvedMemberTypes.add(resolvedMemberType);
-      }
+      if (resolvedMemberTypes.isEmpty())
+        throw new LexerFailureException("I dont think this can happen");
 
       model.getMemberTypes().clear();
       model.getMemberTypes().addAll(resolvedMemberTypes);
