@@ -26,7 +26,7 @@
   <xs:import namespace="http://www.jaxsb.org/do/abstract/n$a*m(e)2.xsd" schemaLocation="name2.xsd"/>
 
   <xs:notation name="attrNotation" public="Attribute notation"/>
-  
+
   <xs:attribute name="raw"/>
 
   <!-- Primitive -->
