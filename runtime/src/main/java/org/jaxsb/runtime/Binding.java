@@ -383,7 +383,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     if (elements == null || elements.size() == 0)
       return;
 
-    for (int i = 0; i < elements.size(); ++i) {
+    for (int i = 0, len = elements.size(); i < len; ++i) {
       Binding element = elements.get(i);
       if (element instanceof BindingProxy)
         element = ((BindingProxy<Binding>)element).getBinding();
