@@ -37,7 +37,7 @@ public class BindingProxy<T extends Binding> extends Binding {
 
   @Override
   protected Binding inherits() {
-    return binding.inherits();
+    return binding == null ? null : binding.inherits();
   }
 
   @Override

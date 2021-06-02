@@ -54,7 +54,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     this.owner = owner;
     if (_default != null) {
       this._default = _default;
-      this.defaultProxy = new BindingProxy<>(null);
+      this.defaultProxy = new BindingProxy<>(_default);
       owner._$$addElement(this, (B)this.defaultProxy);
     }
     else {
@@ -122,7 +122,11 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   }
 
   public B getElement() {
-    return elements == null || elements.size() == 0 ? null : (B)elements.get(0);
+    if (elements == null || elements.size() == 0)
+      return null;
+
+    final Object element = elements.get(0);
+    return (B)(element instanceof BindingProxy ? ((BindingProxy<B>)element).getBinding() : element);
   }
 
   public int size() {
