@@ -1,6 +1,6 @@
 # JAX-SB
 
-[![Build Status](https://github.com/jaxsb/jaxsb/workflows/build.yml/badge.svg)](https://github.com/jaxsb/jaxsb/actions/workflows/build.yml)
+[![Build Status](https://github.com/jaxsb/jaxsb/actions/workflows/build.yml/badge.svg)](https://github.com/jaxsb/jaxsb/actions/workflows/build.yml)
 [![Coverage Status](https://coveralls.io/repos/github/jaxsb/jaxsb/badge.svg)](https://coveralls.io/github/jaxsb/jaxsb)
 [![Javadocs](https://www.javadoc.io/badge/org.jaxsb/jaxsb.svg)](https://www.javadoc.io/doc/org.jaxsb/jaxsb)
 [![Released Version](https://img.shields.io/maven-central/v/org.jaxsb/jaxsb.svg)](https://mvnrepository.com/artifact/org.jaxsb/jaxsb)
