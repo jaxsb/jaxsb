@@ -27,7 +27,7 @@ public final class HasPropertyModel extends NamedModel {
   protected HasPropertyModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("value".equals(attribute.getLocalName()))
         value = attribute.getNodeValue();

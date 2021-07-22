@@ -199,4 +199,9 @@ public final class SchemaReference implements PipelineEntity {
     hashCode = 31 * hashCode + Objects.hashCode(namespaceURI);
     return hashCode;
   }
+
+  @Override
+  public String toString() {
+    return location.toString();
+  }
 }

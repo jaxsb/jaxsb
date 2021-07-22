@@ -30,7 +30,7 @@ public final class AnyAttributeModel extends AttributeModel implements AnyableMo
   protected AnyAttributeModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("namespace".equals(attribute.getLocalName()))
         namespace = Namespace.parseNamespace(attribute.getNodeValue());

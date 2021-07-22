@@ -53,7 +53,7 @@ public class ElementModel extends ComplexTypeModel<SimpleTypeModel<?>> implement
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if (attribute.getNodeValue() == null)
         continue;

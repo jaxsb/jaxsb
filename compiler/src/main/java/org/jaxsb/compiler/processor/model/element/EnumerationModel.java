@@ -28,7 +28,7 @@ public final class EnumerationModel extends Model {
   protected EnumerationModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("value".equals(attribute.getLocalName()))
         value = parseQNameValue(attribute.getNodeValue(), node);

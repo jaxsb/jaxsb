@@ -33,7 +33,7 @@ public abstract class NamedModel extends Model implements Nameable<Model> {
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("name".equals(attribute.getLocalName()))
         name = UniqueQName.getInstance(getTargetNamespace(), attribute.getNodeValue());

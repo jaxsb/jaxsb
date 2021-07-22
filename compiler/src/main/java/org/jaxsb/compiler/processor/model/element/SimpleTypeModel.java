@@ -53,7 +53,7 @@ public class SimpleTypeModel<T extends SimpleTypeModel<?>> extends AliasModel im
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("final".equals(attribute.getLocalName()))
         _final = Final.parseFinal(attribute.getNodeValue());

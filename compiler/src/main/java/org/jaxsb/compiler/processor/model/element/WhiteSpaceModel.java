@@ -29,7 +29,7 @@ public final class WhiteSpaceModel extends NamedModel {
   protected WhiteSpaceModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("fixed".equals(attribute.getLocalName()))
         fixed = Boolean.parseBoolean(attribute.getNodeValue());

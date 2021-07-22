@@ -223,7 +223,7 @@ public final class NamespaceBinding {
 
     final StringBuilder packageNameForDiff = new StringBuilder(packageName);
     int count = 0;
-    for (int i = 0; i < packageName.length(); i++) {
+    for (int i = 0; i < packageName.length(); ++i) {
       if (packageNameForDiff.charAt(i) == '_' && i > 0 && packageNameForDiff.charAt(i - 1) != '/' && packageNameForDiff.charAt(i - 1) != '.')
         packageNameForDiff.setCharAt(i, ':');
       else if (packageNameForDiff.charAt(i) == '.' && ++count > 2)
@@ -294,7 +294,7 @@ public final class NamespaceBinding {
 
     final StringBuilder preparedSource = new StringBuilder(source);
     int count = 0;
-    for (int i = 0; i < source.length(); i++) {
+    for (int i = 0; i < source.length(); ++i) {
       if (preparedSource.charAt(i) == '_' && i > 0 && preparedSource.charAt(i - 1) != '/' && preparedSource.charAt(i - 1) != '.')
         preparedSource.setCharAt(i, ':');
       else if (preparedSource.charAt(i) == '/' && ++count < 3)

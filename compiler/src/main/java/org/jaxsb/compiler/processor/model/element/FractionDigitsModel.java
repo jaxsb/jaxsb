@@ -27,7 +27,7 @@ public final class FractionDigitsModel extends Model {
   protected FractionDigitsModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("fixed".equals(attribute.getLocalName()))
         fixed = attribute.getNodeValue();

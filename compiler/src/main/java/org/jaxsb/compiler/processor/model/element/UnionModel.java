@@ -33,7 +33,7 @@ public final class UnionModel extends Model {
   protected UnionModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < attributes.getLength(); ++i) {
       final Node attribute = attributes.item(i);
       if ("memberTypes".equals(attribute.getLocalName()))
         parseMemberTypes(attribute.getNodeValue(), node);
