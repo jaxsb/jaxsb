@@ -67,7 +67,8 @@ public final class SchemaReference implements PipelineEntity {
     this.namespaceURI = namespaceURI;
     this.prefix = prefix;
     this.isInclude = isInclude;
-    logger.debug("new SchemaReference(\"" + this.location.toString() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
+    if (logger.isDebugEnabled())
+      logger.debug("new SchemaReference(\"" + this.location.toString() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
   }
 
   public SchemaReference(final URI location, final NamespaceURI namespaceURI, final boolean isInclude) {
@@ -160,7 +161,8 @@ public final class SchemaReference implements PipelineEntity {
       final URLConnection connection = location.toURL().openConnection();
       try {
         this.inputStream = connection.getInputStream();
-        logger.debug("opened connection to: " + location.toString());
+        if (logger.isDebugEnabled())
+          logger.debug("opened connection to: " + location.toString());
       }
       catch (final FileNotFoundException e) {
         throw new LexerFailureException("File not found: " + location.toString());

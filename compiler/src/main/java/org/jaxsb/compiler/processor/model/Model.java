@@ -70,7 +70,9 @@ public abstract class Model implements PipelineEntity {
 
   protected final void registerSchemaLocation(final NamespaceURI namespaceURI, final URI schemaReference) {
     if (getParent() != null) {
-      logger.debug("registering schema location \"" + namespaceURI + "\" to \"" + schemaReference.toString() + "\"");
+      if (logger.isDebugEnabled())
+        logger.debug("registering schema location \"" + namespaceURI + "\" to \"" + schemaReference.toString() + "\"");
+
       getParent().registerSchemaLocation(namespaceURI, schemaReference);
       return;
     }

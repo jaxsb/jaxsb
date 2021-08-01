@@ -53,7 +53,9 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       final DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
       if (logger.isDebugEnabled()) {
         builder.setEntityResolver((publicId, systemId) -> {
-          logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
+          if (logger.isDebugEnabled())
+            logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
+
           return null;
         });
       }
