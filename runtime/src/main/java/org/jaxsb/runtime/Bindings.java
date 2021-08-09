@@ -25,6 +25,7 @@ import java.util.function.Function;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import org.libj.lang.Assertions;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Documents;
@@ -67,10 +68,10 @@ public abstract class Bindings {
    * @param element Element object to parse.
    * @return Binding instance.
    * @throws ValidationException If a validation error has occurred.
-   * @throws NullPointerException If {@code element} is null.
+   * @throws IllegalArgumentException If {@code element} is null.
    */
   public static Binding parse(final Element element) throws ValidationException {
-    return parse(element, Thread.currentThread().getContextClassLoader());
+    return parse(Assertions.assertNotNull(element), Thread.currentThread().getContextClassLoader());
   }
 
   public static Binding parse(final Element element, final ClassLoader classLoader) throws ValidationException {
@@ -108,10 +109,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws NullPointerException If {@code url} is null.
+   * @throws IllegalArgumentException If {@code url} is null.
    */
   public static Binding parse(final URL url) throws IOException, SAXException {
-    return parse(url, null, Thread.currentThread().getContextClassLoader());
+    return parse(Assertions.assertNotNull(url), null, Thread.currentThread().getContextClassLoader());
   }
 
   public static Binding parse(final URL url, final String defaultNamespace) throws IOException, SAXException {
@@ -130,10 +131,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws NullPointerException If {@code url} is null.
+   * @throws IllegalArgumentException If {@code url} is null.
    */
   public static Binding parse(final URL url, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(url, null, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(Assertions.assertNotNull(url), null, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static Binding parse(final URL url, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
@@ -169,10 +170,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws NullPointerException If {@code inputSource} is null.
+   * @throws IllegalArgumentException If {@code inputSource} is null.
    */
   public static Binding parse(final InputSource inputSource) throws IOException, SAXException {
-    return parse(inputSource, null, (ErrorHandler)null);
+    return parse(Assertions.assertNotNull(inputSource), null, (ErrorHandler)null);
   }
 
   public static Binding parse(final InputSource inputSource, final String defaultNamespace) throws IOException, SAXException {
@@ -191,10 +192,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws NullPointerException If {@code inputSource} is null.
+   * @throws IllegalArgumentException If {@code inputSource} is null.
    */
   public static Binding parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(inputSource, null, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(Assertions.assertNotNull(inputSource), null, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static Binding parse(final InputSource inputSource, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {

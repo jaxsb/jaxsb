@@ -84,7 +84,7 @@ public final class BindingValidator extends Validator {
      *
      * @param location The {@link URL}.
      * @param inputSource The {@link CachedInputSource}.
-     * @throws NullPointerException If the specified {@link URL} or
+     * @throws IllegalArgumentException If the specified {@link URL} or
      *           {@link CachedInputSource} is null.
      */
     private BindingXmlCatalog(final URL location, final CachedInputSource inputSource) {

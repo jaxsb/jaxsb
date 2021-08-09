@@ -1,9 +1,8 @@
 package org.jaxsb.runtime;
 
-import java.util.Objects;
-
 import javax.xml.namespace.QName;
 
+import org.libj.lang.Assertions;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
 public class AnyAttribute extends $AnySimpleType {
@@ -11,7 +10,7 @@ public class AnyAttribute extends $AnySimpleType {
   private final QName name;
 
   public AnyAttribute(final QName name) {
-    this.name = Objects.requireNonNull(name);
+    this.name = Assertions.assertNotNull(name);
   }
 
   @Override

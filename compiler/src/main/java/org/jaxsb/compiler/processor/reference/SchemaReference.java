@@ -35,6 +35,7 @@ import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.lang.Prefix;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.pipeline.PipelineEntity;
+import org.libj.lang.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -56,14 +57,14 @@ public final class SchemaReference implements PipelineEntity {
   private InputStream inputStream;
 
   public SchemaReference(final URI location, final boolean isInclude) {
-    this.location = Objects.requireNonNull(location);
+    this.location = Assertions.assertNotNull(location);
     this.isInclude = isInclude;
     if (logger.isDebugEnabled())
       logger.debug("new SchemaReference(\"" + this.location.toString() + "\", " + isInclude + ")");
   }
 
   public SchemaReference(final URI location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
-    this.location = Objects.requireNonNull(location);
+    this.location = Assertions.assertNotNull(location);
     this.namespaceURI = namespaceURI;
     this.prefix = prefix;
     this.isInclude = isInclude;
