@@ -49,7 +49,7 @@ public class AttributeModel extends SimpleTypeModel<SimpleTypeModel<?>> implemen
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); ++i) {
+    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
       final Node attribute = attributes.item(i);
       if ("default".equals(attribute.getLocalName()))
         _default = parseQNameValue(attribute.getNodeValue(), node);

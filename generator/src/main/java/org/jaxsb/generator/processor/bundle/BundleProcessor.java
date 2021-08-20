@@ -19,8 +19,8 @@ package org.jaxsb.generator.processor.bundle;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.security.CodeSource;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.CompilerFailureException;
 import org.libj.jci.CompilationException;
 import org.libj.jci.InMemoryCompiler;
-import org.libj.net.URIs;
+import org.libj.net.URLs;
 import org.libj.util.CollectionUtil;
 import org.libj.util.StringPaths;
 import org.libj.util.function.Throwing;
@@ -112,12 +112,12 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
           if (!namespaceURIsAdded.contains(namespaceURI)) {
             namespaceURIsAdded.add(namespaceURI);
-
             Files.walk(new File(destDir, packagePath).toPath())
-              .filter(p -> (p.getFileName().toString().endsWith(".java") || p.getFileName().toString().endsWith(".class")) && p.toFile().isFile())
-              .forEach(Throwing.rethrow(p -> {
-                 destJar.write(destDir.toPath().relativize(p).toString(), Files.readAllBytes(p));
-               }));
+              .filter(p -> {
+                final String name = p.getFileName().toString();
+                return (name.endsWith(".java") || name.endsWith(".class")) && p.toFile().isFile();
+              })
+              .forEach(Throwing.rethrow(p -> { destJar.write(destDir.toPath().relativize(p).toString(), Files.readAllBytes(p)); }));
           }
         }
         else {
@@ -125,7 +125,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         }
 
         if (!skipXsd && !schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
-          addXSDs(schemaModelComposite.getSchemaDocument().getSchemaReference().getURI(), packagePath + '/' + packageName + ".xsd", destJar, destDir, 0);
+          addXSDs(schemaModelComposite.getSchemaDocument().getSchemaReference().getURL(), packagePath + '/' + packageName + ".xsd", destJar, destDir, 0);
 
         if (destJar != null)
           destJar.close();
@@ -135,12 +135,12 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     return jarFiles;
   }
 
-  private static void addXSDs(final URI uri, final String filePath, final ZipWriter ZipWriter, final File destDir, int includeCount) throws IOException, SAXException {
+  private static void addXSDs(final URL url, final String filePath, final ZipWriter ZipWriter, final File destDir, int includeCount) throws IOException, SAXException {
     final String baseDir = StringPaths.getCanonicalParent(filePath);
     StringBuilder relativeRootPath = null;
-    final Element element = DOMParsers.newDocumentBuilder().parse(uri.toURL().openStream()).getDocumentElement();
+    final Element element = DOMParsers.newDocumentBuilder().parse(url.openStream()).getDocumentElement();
     final NodeList children = element.getChildNodes();
-    for (int i = 0; i < children.getLength(); ++i) {
+    for (int i = 0, iLen = children.getLength(); i < iLen; ++i) {
       final Node node = children.item(i);
       if (!XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(node.getNamespaceURI()))
         continue;
@@ -149,7 +149,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         final NamedNodeMap attributes = node.getAttributes();
         Node namespace = null;
         Node schemaLocation = null;
-        for (int j = 0; j < attributes.getLength(); ++j) {
+        for (int j = 0, jLen = attributes.getLength(); j < jLen; ++j) {
           final Node attribute = attributes.item(j);
           if ("namespace".equals(attribute.getLocalName()))
             namespace = attribute;
@@ -180,11 +180,11 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       }
       else if ("include".equals(node.getLocalName())) {
         final NamedNodeMap attributes = node.getAttributes();
-        for (int j = 0; j < attributes.getLength(); ++j) {
+        for (int j = 0, len = attributes.getLength(); j < len; ++j) {
           final Node attribute = attributes.item(j);
           if ("schemaLocation".equals(attribute.getLocalName())) {
             final String schemaLocation = attribute.getNodeValue();
-            final URI includeURL = StringPaths.isAbsolute(schemaLocation) ? URI.create(schemaLocation) : StringPaths.isAbsoluteSystemId(schemaLocation) ? new File(schemaLocation).toURI().normalize() : URIs.toURI(URIs.getCanonicalParent(uri), schemaLocation);
+            final URL includeURL = StringPaths.isAbsolute(schemaLocation) ? URLs.create(schemaLocation) : StringPaths.isAbsoluteSystemId(schemaLocation) ? new File(schemaLocation).toURI().toURL() : URLs.create(URLs.getCanonicalParent(url), schemaLocation);
             final String includePath = filePath.replace(".xsd", "-" + ++includeCount + ".xsd");
             attribute.setNodeValue(StringPaths.getName(includePath));
             addXSDs(includeURL, includePath, ZipWriter, destDir, includeCount);

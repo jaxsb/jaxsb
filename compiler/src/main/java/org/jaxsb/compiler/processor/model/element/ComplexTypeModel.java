@@ -47,7 +47,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); ++i) {
+    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
       final Node attribute = attributes.item(i);
       if ("abstract".equals(attribute.getLocalName()))
         _abstract = Boolean.parseBoolean(attribute.getNodeValue());

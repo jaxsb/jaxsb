@@ -16,7 +16,7 @@
 
 package org.jaxsb.compiler.processor.model;
 
-import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -30,7 +30,6 @@ import org.jaxsb.compiler.processor.composite.SchemaModelComposite;
 import org.jaxsb.compiler.processor.composite.SchemaNodeComposite;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.model.element.SchemaModel;
-import org.libj.net.URLs;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -44,7 +43,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
     for (final SchemaComposite schemaComposite : documents) {
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final SchemaDocument schemaDocument = schemaModelComposite.getSchemaDocument();
-      final SchemaModel schemaModel = recurse(root, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getDocument().getChildNodes(), schemaDocument.getSchemaReference().getURI(), directory);
+      final SchemaModel schemaModel = recurse(root, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getDocument().getChildNodes(), schemaDocument.getSchemaReference().getURL(), directory);
       if (schemaModel == null)
         throw new LexerFailureException("We should have found a schema!");
 
@@ -55,7 +54,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
     return schemaModels;
   }
 
-  private SchemaModel recurse(final Model model, final NamespaceURI targetNamespace, final NodeList children, URI uri, final PipelineDirectory<GeneratorContext,? super SchemaComposite,? super Model> directory) {
+  private SchemaModel recurse(final Model model, final NamespaceURI targetNamespace, final NodeList children, URL url, final PipelineDirectory<GeneratorContext,? super SchemaComposite,? super Model> directory) {
     if (children == null || children.getLength() == 0)
       return null;
 
@@ -66,20 +65,20 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
       if (model.getTargetNamespace() == null) {
         // This means that this is an included schema
         schema.setTargetNamespace(targetNamespace);
-        final URI schemaReference = model.lookupSchemaLocation(targetNamespace);
+        final URL schemaReference = model.lookupSchemaLocation(targetNamespace);
         if (schemaReference == null)
-          model.registerSchemaLocation(targetNamespace, uri);
+          model.registerSchemaLocation(targetNamespace, url);
       }
       else {
-        model.registerSchemaLocation(targetNamespace, uri);
+        model.registerSchemaLocation(targetNamespace, url);
       }
 
-      schema.setURL(URLs.fromURI(uri));
-      uri = null;
+      schema.setURL(url);
+      url = null;
     }
 
     Model current = null;
-    for (int i = 0; i < children.getLength(); ++i) {
+    for (int i = 0, len = children.getLength(); i < len; ++i) {
       final Node child = children.item(i);
       if (child.getLocalName() == null)
         continue;
@@ -93,7 +92,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
 
       current = handler;
 
-      final SchemaModel temp = recurse(handler, targetNamespace, child.getChildNodes(), uri, directory);
+      final SchemaModel temp = recurse(handler, targetNamespace, child.getChildNodes(), url, directory);
       if (temp != null)
         schema = temp;
     }

@@ -74,9 +74,12 @@ public final class XMLSchema {
         super();
       }
 
-      public void text(final Serializable text) {
+      protected void text(final Serializable text) {
         if (isNull())
           throw new UnsupportedOperationException("NULL Object is immutable");
+
+        if (this.text != text && owner() != null)
+          owner().setDirty(); // FIXME: Should this do Objects.equals(this.text, text)?
 
         this.text = text;
       }
@@ -1399,7 +1402,7 @@ public final class XMLSchema {
         final int colon = value.indexOf(':');
         final QName qName;
         if (colon == -1)
-          qName = new QName(parent.getOwnerDocument().getNamespaceURI(), value);
+          qName = new QName(parent.getOwnerDocument().getDocumentElement().getNamespaceURI(), value);
         else
           qName = new QName(parent.getOwnerDocument().lookupNamespaceURI(value.substring(0, colon)), value.substring(colon + 1));
 

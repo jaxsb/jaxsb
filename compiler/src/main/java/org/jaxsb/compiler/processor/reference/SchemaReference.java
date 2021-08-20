@@ -19,10 +19,9 @@ package org.jaxsb.compiler.processor.reference;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
+import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -36,6 +35,7 @@ import org.jaxsb.compiler.lang.Prefix;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.pipeline.PipelineEntity;
 import org.libj.lang.Assertions;
+import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -43,28 +43,28 @@ import org.xml.sax.SAXException;
 
 public final class SchemaReference implements PipelineEntity {
   private static final Logger logger = LoggerFactory.getLogger(SchemaReference.class);
-  private static final Map<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<>();
-  private static final Map<Prefix,NamespaceURI> prefixToNamespaceURI = new HashMap<>();
+  private static final HashMap<NamespaceURI,Prefix> namespaceURIToPrefix = new HashMap<>();
+  private static final HashMap<Prefix,NamespaceURI> prefixToNamespaceURI = new HashMap<>();
 
   // to dereference the schemaReference to a targetNamespace
   private final AtomicBoolean isConnected = new AtomicBoolean();
   private final AtomicBoolean isResolved = new AtomicBoolean();
-  private final URI location;
+  private final URL location;
   private final boolean isInclude;
   private NamespaceURI namespaceURI;
   private Prefix prefix;
   private long lastModified = Long.MIN_VALUE;
   private InputStream inputStream;
 
-  public SchemaReference(final URI location, final boolean isInclude) {
-    this.location = Assertions.assertNotNull(location);
+  public SchemaReference(final URL location, final boolean isInclude) {
+    this.location = URLs.canonicalize(Assertions.assertNotNull(location));
     this.isInclude = isInclude;
     if (logger.isDebugEnabled())
       logger.debug("new SchemaReference(\"" + this.location.toString() + "\", " + isInclude + ")");
   }
 
-  public SchemaReference(final URI location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
-    this.location = Assertions.assertNotNull(location);
+  public SchemaReference(final URL location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
+    this.location = URLs.canonicalize(Assertions.assertNotNull(location));
     this.namespaceURI = namespaceURI;
     this.prefix = prefix;
     this.isInclude = isInclude;
@@ -72,7 +72,7 @@ public final class SchemaReference implements PipelineEntity {
       logger.debug("new SchemaReference(\"" + this.location.toString() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
   }
 
-  public SchemaReference(final URI location, final NamespaceURI namespaceURI, final boolean isInclude) {
+  public SchemaReference(final URL location, final NamespaceURI namespaceURI, final boolean isInclude) {
     this(location, namespaceURI, null, isInclude);
   }
 
@@ -159,7 +159,7 @@ public final class SchemaReference implements PipelineEntity {
       if (isConnected.get())
         return;
 
-      final URLConnection connection = location.toURL().openConnection();
+      final URLConnection connection = location.openConnection();
       try {
         this.inputStream = connection.getInputStream();
         if (logger.isDebugEnabled())
@@ -179,7 +179,7 @@ public final class SchemaReference implements PipelineEntity {
     return lastModified;
   }
 
-  public URI getURI() {
+  public URL getURL() {
     return location;
   }
 

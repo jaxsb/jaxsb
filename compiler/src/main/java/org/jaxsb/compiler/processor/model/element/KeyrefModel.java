@@ -27,7 +27,7 @@ public final class KeyrefModel extends Model {
   protected KeyrefModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); ++i) {
+    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
       final Node attribute = attributes.item(i);
       if ("xpath".equals(attribute.getLocalName()))
         xpath = attribute.getNodeValue();

@@ -27,7 +27,6 @@ import javax.xml.parsers.DocumentBuilder;
 
 import org.libj.lang.Assertions;
 import org.openjax.xml.api.ValidationException;
-import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Documents;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Document;
@@ -40,7 +39,7 @@ public abstract class Bindings {
   // FIXME: This is so inefficient!
   public static Binding clone(final Binding binding) {
     try {
-      return Bindings.parse(new InputSource(new StringReader(DOMs.domToString(binding.marshal()))));
+      return Bindings.parse(new InputSource(new StringReader(binding.toString())));
     }
     catch (final IOException | SAXException e) {
       throw new IllegalStateException(e);
@@ -48,10 +47,10 @@ public abstract class Bindings {
   }
 
   /**
-   * Marshals a Binding instance to an Element object.
+   * Marshals a {@link Binding} instance to an Element object.
    *
-   * @param binding Binding instance to marshal.
-   * @return Element DOM object.
+   * @param binding {@link Binding} instance to marshal.
+   * @return THe {@link Element} DOM object.
    * @throws MarshalException If the specified binding does not inherit from an
    *           element of attribute.
    */
@@ -63,10 +62,10 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an Element object to a Binding instance.
+   * Parse an Element object to a {@link Binding} instance.
    *
-   * @param element Element object to parse.
-   * @return Binding instance.
+   * @param element {@link Element} object to parse.
+   * @return The {@link Binding} instance.
    * @throws ValidationException If a validation error has occurred.
    * @throws IllegalArgumentException If {@code element} is null.
    */
@@ -105,7 +104,7 @@ public abstract class Bindings {
    * instance.
    *
    * @param url {@link URL} pointing to XML content.
-   * @return {@link Binding} instance.
+   * @return The {@link Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
@@ -127,7 +126,7 @@ public abstract class Bindings {
    * @param errorHandler Specify the {@link ErrorHandler} to be used by the
    *          parser. Setting this to null will result in the underlying
    *          implementation using it's own default implementation and behavior.
-   * @return {@link Binding} instance.
+   * @return The {@link Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
@@ -166,7 +165,7 @@ public abstract class Bindings {
    * instance.
    *
    * @param inputSource {@link InputSource} pointing to XML content.
-   * @return {@link Binding} instance.
+   * @return The {@link Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
@@ -188,7 +187,7 @@ public abstract class Bindings {
    * @param errorHandler Specify the {@link ErrorHandler} to be used by the
    *          parser. Setting this to null will result in the underlying
    *          implementation using it's own default implementation and behavior.
-   * @return {@link Binding} instance.
+   * @return The {@link Binding} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.

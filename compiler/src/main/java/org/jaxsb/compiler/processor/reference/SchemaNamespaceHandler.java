@@ -27,7 +27,7 @@ public final class SchemaNamespaceHandler extends DefaultHandler {
   @Override
   public void startElement(final String uri, String localName, final String qName, final Attributes attributes) throws ReferenceSAXException {
     if (xmlns.isEmpty()) {
-      for (int i = 0; i < attributes.getLength(); ++i) {
+      for (int i = 0, len = attributes.getLength(); i < len; ++i) {
         final String name = attributes.getQName(i);
         if (name.startsWith("xmlns")) {
           final int colon = name.indexOf(':');

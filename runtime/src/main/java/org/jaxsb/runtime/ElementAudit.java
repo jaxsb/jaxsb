@@ -139,6 +139,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
 
   protected void setElements(final ElementCompositeList.ElementComponentList elements) {
     this.elements = elements;
+    owner.setDirty();
   }
 
   public boolean addElement(final B element) {
@@ -150,6 +151,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     else
       elements.set(0, element);
 
+    owner.setDirty();
     return true;
   }
 

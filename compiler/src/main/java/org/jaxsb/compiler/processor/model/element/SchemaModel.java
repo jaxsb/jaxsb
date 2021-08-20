@@ -46,7 +46,7 @@ public final class SchemaModel extends Model {
     // NOTE: A SchemaModel does not have a parent.
     super(node, null);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); ++i) {
+    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
       final Node attribute = attributes.item(i);
       if ("attributeFormDefault".equals(attribute.getLocalName()))
         attributeFormDefault = Form.parseForm(attribute.getNodeValue());

@@ -32,7 +32,12 @@ public class BindingProxy<T extends Binding> extends Binding {
   }
 
   public T getBinding() {
-    return this.binding;
+    return binding;
+  }
+
+  @Override
+  protected boolean dirty() {
+    return binding != null && binding.dirty();
   }
 
   @Override

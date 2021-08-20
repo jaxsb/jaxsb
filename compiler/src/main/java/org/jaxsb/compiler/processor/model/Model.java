@@ -16,7 +16,7 @@
 
 package org.jaxsb.compiler.processor.model;
 
-import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,7 +40,7 @@ public abstract class Model implements PipelineEntity {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
   private final Collection<Model> children = new ArrayList<>();
-  private Map<NamespaceURI,URI> schemaReferences;
+  private Map<NamespaceURI,URL> schemaReferences;
 
   private Model parent;
   private Model previous;
@@ -54,7 +54,7 @@ public abstract class Model implements PipelineEntity {
   protected Model(final Node node, final Model parent) {
     if (node != null) {
       final NamedNodeMap attributes = node.getAttributes();
-      for (int i = 0; i < attributes.getLength(); ++i) {
+      for (int i = 0, len = attributes.getLength(); i < len; ++i) {
         final Node attribute = attributes.item(i);
         if ("id".equals(attribute.getLocalName()))
           id = attribute.getNodeValue();
@@ -68,7 +68,7 @@ public abstract class Model implements PipelineEntity {
     parent.children.add(this);
   }
 
-  protected final void registerSchemaLocation(final NamespaceURI namespaceURI, final URI schemaReference) {
+  protected final void registerSchemaLocation(final NamespaceURI namespaceURI, final URL schemaReference) {
     if (getParent() != null) {
       if (logger.isDebugEnabled())
         logger.debug("registering schema location \"" + namespaceURI + "\" to \"" + schemaReference.toString() + "\"");
@@ -86,7 +86,7 @@ public abstract class Model implements PipelineEntity {
     schemaReferences.put(namespaceURI, schemaReference);
   }
 
-  protected final URI lookupSchemaLocation(final NamespaceURI namespaceURI) {
+  protected final URL lookupSchemaLocation(final NamespaceURI namespaceURI) {
     if (getParent() != null)
       return getParent().lookupSchemaLocation(namespaceURI);
 

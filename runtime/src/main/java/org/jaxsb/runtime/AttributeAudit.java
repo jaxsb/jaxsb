@@ -76,6 +76,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
       throw new UnsupportedOperationException("NULL Object is immutable");
 
     this.value = value;
+    owner.setDirty();
     return true;
   }
 

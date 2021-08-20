@@ -16,7 +16,7 @@
 
 package org.jaxsb.compiler.processor.document;
 
-import java.net.URI;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ import org.w3c.dom.Document;
 public final class SchemaDocument implements PipelineEntity {
   private final SchemaReference schemaReference;
   private final Document document;
-  private Collection<URI> includes;
+  private Collection<URL> includes;
 
   public SchemaDocument(final SchemaReference schemaReference, final Document document) {
     this.schemaReference = schemaReference;
@@ -42,11 +42,11 @@ public final class SchemaDocument implements PipelineEntity {
     return document;
   }
 
-  public Collection<URI> getIncludes() {
+  public Collection<URL> getIncludes() {
     return includes;
   }
 
-  public void setIncludes(final Collection<URI> includes) {
+  public void setIncludes(final Collection<URL> includes) {
     this.includes = includes;
   }
 

@@ -27,7 +27,7 @@ public final class ImportModel extends Model {
   protected ImportModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); ++i) {
+    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
       final Node attribute = attributes.item(i);
       if ("namespace".equals(attribute.getLocalName()))
         namespace = attribute.getNodeValue();

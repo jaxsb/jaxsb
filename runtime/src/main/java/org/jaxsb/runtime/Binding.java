@@ -127,14 +127,14 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   protected static void parse(final Binding binding, final Element node) throws ValidationException {
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); ++i) {
+    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
       final Node attribute = attributes.item(i);
       if (attribute instanceof Attr && !binding.parseAttribute((Attr)attribute))
         binding.parseAnyAttribute((Attr)attribute);
     }
 
     final NodeList elements = node.getChildNodes();
-    for (int i = 0; i < elements.getLength(); ++i) {
+    for (int i = 0, len = elements.getLength(); i < len; ++i) {
       final Node child = elements.item(i);
       if (child instanceof Text)
         binding.parseText((Text)child);
@@ -217,7 +217,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     String xsiPrefix = null;
 
     final NamedNodeMap rootAttributes = element.getAttributes();
-    for (int i = 0; i < rootAttributes.getLength(); ++i) {
+    for (int i = 0, len = rootAttributes.getLength(); i < len; ++i) {
       final Node attribute = rootAttributes.item(i);
       if (XSI_TYPE.getNamespaceURI().equals(attribute.getNamespaceURI()) && XSI_TYPE.getLocalPart().equals(attribute.getLocalName())) {
         xsiPrefix = parsePrefix(attribute.getNodeValue());
@@ -688,12 +688,33 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return clone;
   }
 
-  @Override
-  public String toString() {
-    return DOMs.domToString(marshal(), DOMStyle.INDENT);
+  private boolean dirty;
+  private Element cacheElement;
+  private final String[] cacheString = new String[DOMStyle.combinations()];
+
+  protected final void setDirty() {
+    this.dirty = true;
+    if (owner() != null)
+      owner().setDirty();
+  }
+
+  protected boolean dirty() {
+    final boolean dirty = this.dirty || owner != null && owner.dirty();
+    this.dirty = false;
+    return dirty;
   }
 
   public Element toDOM() {
-    return marshal();
+    return cacheElement == null || dirty() ? cacheElement = marshal() : cacheElement;
+  }
+
+  public String toString(final DOMStyle ... styles) {
+    final int combination = DOMStyle.combination(styles);
+    return dirty() || cacheString[combination] == null ? cacheString[combination] = DOMs.domToString(cacheElement = marshal(), styles) : cacheString[combination];
+  }
+
+  @Override
+  public String toString() {
+    return toString((DOMStyle[])null);
   }
 }

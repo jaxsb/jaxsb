@@ -27,7 +27,7 @@ public final class ComplexContentModel extends Model implements MixableModel {
   protected ComplexContentModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0; i < attributes.getLength(); ++i) {
+    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
       final Node attribute = attributes.item(i);
       if ("mixed".equals(attribute.getLocalName()))
         mixed = Boolean.parseBoolean(attribute.getNodeValue());

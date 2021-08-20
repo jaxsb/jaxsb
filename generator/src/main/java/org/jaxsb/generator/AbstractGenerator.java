@@ -17,7 +17,7 @@
 package org.jaxsb.generator;
 
 import java.io.IOException;
-import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,11 +35,11 @@ public abstract class AbstractGenerator {
 
   public static SchemaDocument parse(final SchemaReference schemaReference) throws IOException {
     try {
-      final URI uri = schemaReference.getURI().normalize();
+      final URL url = schemaReference.getURL();
       final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
-      final Document document = documentBuilder.parse(uri.toString());
+      final Document document = documentBuilder.parse(url.toString());
       final SchemaDocument parsedDocument = new SchemaDocument(schemaReference, document);
-      parsedDocuments.put(schemaReference.getNamespaceURI() + uri.toString(), parsedDocument);
+      parsedDocuments.put(schemaReference.getNamespaceURI() + url.toString(), parsedDocument);
       return parsedDocument;
     }
     catch (final SAXException e) {
