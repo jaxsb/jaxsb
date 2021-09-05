@@ -133,10 +133,6 @@ public class yAA extends org.jaxsb.runtime.Schema {
       return node;
     }
 
-    public boolean isNull() {
-      return super.isNull();
-    }
-
     @java.lang.Override
     public org.w3.www._2001.XInclude.yAA.Include clone() {
       return (org.w3.www._2001.XInclude.yAA.Include) super.clone();
@@ -237,7 +233,7 @@ public class yAA extends org.jaxsb.runtime.Schema {
                     false,
                     false));
     private org.jaxsb.runtime.AnyAttributeAudit<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType>
-        anyAttribute = new org.jaxsb.runtime.AnyAttributeAudit<>(this, false, false);
+        anyAttribute = new org.jaxsb.runtime.AnyAttributeAudit<>(false, false);
     private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XInclude.yAA.$FallbackType>
         _xifallbackRef =
             new org.jaxsb.runtime.ElementAudit<>(
@@ -290,7 +286,6 @@ public class yAA extends org.jaxsb.runtime.Schema {
     }
 
     public void text(final java.lang.String text) {
-      if (isNull()) throw new java.lang.UnsupportedOperationException("NULL Object is immutable.");
       this.text = text;
     }
 
@@ -412,10 +407,7 @@ public class yAA extends org.jaxsb.runtime.Schema {
     public org.w3.www._2001.XInclude.yAA.$FallbackType getXiFallback(final int index) {
       final org.jaxsb.runtime.BindingList<org.w3.www._2001.XInclude.yAA.$FallbackType> values =
           getXiFallback();
-      return values != null && -1 < index && index < values.size()
-          ? values.get(index)
-          : (org.w3.www._2001.XInclude.yAA.Fallback)
-              NULL(org.w3.www._2001.XInclude.yAA.Fallback.class);
+      return values == null || index < 0 || values.size() <= index ? null : values.get(index);
     }
 
     public void add$Any(final org.w3.www._2001.XMLSchema.yAA.$AnyType any) {
@@ -594,10 +586,6 @@ public class yAA extends org.jaxsb.runtime.Schema {
         throws org.openjax.xml.api.ValidationException {
       if (element.getNodeType() != org.w3c.dom.Node.ELEMENT_NODE) return;
       _$$addElement(this.any, org.jaxsb.runtime.Bindings.parse((org.w3c.dom.Element) element));
-    }
-
-    public boolean isNull() {
-      return super.isNull();
     }
 
     @java.lang.Override
@@ -1158,10 +1146,6 @@ public class yAA extends org.jaxsb.runtime.Schema {
       return node;
     }
 
-    public boolean isNull() {
-      return super.isNull();
-    }
-
     @java.lang.Override
     public org.w3.www._2001.XInclude.yAA.Fallback clone() {
       return (org.w3.www._2001.XInclude.yAA.Fallback) super.clone();
@@ -1202,7 +1186,7 @@ public class yAA extends org.jaxsb.runtime.Schema {
 
     private java.lang.String text = null;
     private org.jaxsb.runtime.AnyAttributeAudit<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType>
-        anyAttribute = new org.jaxsb.runtime.AnyAttributeAudit<>(this, false, false);
+        anyAttribute = new org.jaxsb.runtime.AnyAttributeAudit<>(false, false);
     private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XInclude.yAA.$IncludeType>
         _xiincludeRef =
             new org.jaxsb.runtime.ElementAudit<>(
@@ -1249,7 +1233,6 @@ public class yAA extends org.jaxsb.runtime.Schema {
     }
 
     public void text(final java.lang.String text) {
-      if (isNull()) throw new java.lang.UnsupportedOperationException("NULL Object is immutable.");
       this.text = text;
     }
 
@@ -1283,10 +1266,7 @@ public class yAA extends org.jaxsb.runtime.Schema {
     public org.w3.www._2001.XInclude.yAA.$IncludeType getXiInclude(final int index) {
       final org.jaxsb.runtime.BindingList<org.w3.www._2001.XInclude.yAA.$IncludeType> values =
           getXiInclude();
-      return values != null && -1 < index && index < values.size()
-          ? values.get(index)
-          : (org.w3.www._2001.XInclude.yAA.Include)
-              NULL(org.w3.www._2001.XInclude.yAA.Include.class);
+      return values == null || index < 0 || values.size() <= index ? null : values.get(index);
     }
 
     public void add$Any(final org.w3.www._2001.XMLSchema.yAA.$AnyType any) {
@@ -1398,10 +1378,6 @@ public class yAA extends org.jaxsb.runtime.Schema {
         throws org.openjax.xml.api.ValidationException {
       if (element.getNodeType() != org.w3c.dom.Node.ELEMENT_NODE) return;
       _$$addElement(this.any, org.jaxsb.runtime.Bindings.parse((org.w3c.dom.Element) element));
-    }
-
-    public boolean isNull() {
-      return super.isNull();
     }
 
     @java.lang.Override

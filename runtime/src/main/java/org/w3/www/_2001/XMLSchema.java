@@ -101,9 +101,6 @@ public final class XMLSchema {
       }
 
       protected void text(final T text) {
-        if (isNull())
-          throw new UnsupportedOperationException("NULL Object is immutable");
-
         if (this.text != text && owner() != null)
           owner().setDirty(); // FIXME: Should this do Objects.equals(this.text, text)?
 

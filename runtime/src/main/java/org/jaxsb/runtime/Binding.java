@@ -23,7 +23,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
-import java.util.Map;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
@@ -470,41 +469,6 @@ public abstract class Binding extends AbstractBinding {
     return null;
   }
 
-  private static final Map<Class<? extends Binding>,Binding> nulls = new HashMap<>();
-
-  protected static Binding NULL(final Class<? extends Binding> clazz) {
-    Binding NULL = nulls.get(clazz);
-    if (NULL != null)
-      return NULL;
-
-    try {
-      NULL = nulls.get(clazz);
-      if (NULL != null)
-        return NULL;
-
-      final Constructor<? extends Binding> constructor = clazz.getDeclaredConstructor();
-      constructor.setAccessible(true);
-      nulls.put(clazz, NULL = constructor.newInstance());
-      NULL.isNull = true;
-      return NULL;
-    }
-    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
-      throw new RuntimeException(e);
-    }
-    catch (final InvocationTargetException e) {
-      if (e.getCause() instanceof RuntimeException)
-        throw (RuntimeException)e.getCause();
-
-      throw new RuntimeException(e.getCause());
-    }
-  }
-
-  private volatile boolean isNull;
-
-  protected boolean isNull() {
-    return isNull;
-  }
-
   /**
    * Returns a new {@link Attr} representing the marshaled attribute of the
    * specified name, corresponding to the provided parent {@link Element}.
@@ -688,7 +652,6 @@ public abstract class Binding extends AbstractBinding {
 
     clone.attributeDirectory = attributeDirectory == null ? null : attributeDirectory.clone(($AnySimpleType<?>)clone);
     clone.inherits = inherits;
-    clone.isNull = isNull;
     clone.owner = null;
     return clone;
   }

@@ -101,7 +101,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
       writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " get" + methodName + "(final int index)\n{\n");
       writer.write("final " + BindingList.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> values = get" + plan.getMethodName() + "();\n");
-      writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : (" + plan.getClassName(parent) + ")NULL(" + plan.getClassName(parent) + ".class);\n");
+      writer.write("return values == null || index < 0 || values.size() <= index ? null : values.get(index);\n");
       writer.write("}\n");
     }
   }
@@ -676,9 +676,6 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("return text.substring(1);\n");
       writer.write("}\n");
     }
-
-    // IS_NULL
-    writeIsNull(writer);
 
     // CLONE
     writer.write("@" + Override.class.getName() + "\n");

@@ -27,20 +27,17 @@ import org.w3c.dom.Element;
 
 @SuppressWarnings("rawtypes")
 public final class AnyAttributeAudit<T extends $AnySimpleType> {
-  private final $AnySimpleType<?> owner;
   private final boolean qualified;
   private final boolean required;
   private ArrayList<T> value;
 
-  public AnyAttributeAudit(final $AnySimpleType<?> owner, final boolean qualified, final boolean required) {
-    this.owner = owner;
+  public AnyAttributeAudit(final boolean qualified, final boolean required) {
     this.qualified = qualified;
     this.required = required;
   }
 
   @SuppressWarnings("unchecked")
-  private AnyAttributeAudit(final $AnySimpleType<?> owner, final AnyAttributeAudit<T> copy) {
-    this.owner = owner;
+  private AnyAttributeAudit(final AnyAttributeAudit<T> copy) {
     this.qualified = copy.qualified;
     this.required = copy.required;
     this.value = copy.value == null ? null : (ArrayList<T>)copy.value.clone();
@@ -55,9 +52,6 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> {
   }
 
   public boolean setAttribute(final ArrayList<T> value) {
-    if (owner.isNull())
-      throw new UnsupportedOperationException("NULL Object is immutable");
-
     this.value = value;
     return true;
   }
@@ -86,7 +80,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> {
   }
 
   public AnyAttributeAudit<T> clone(final $AnySimpleType<?> owner) {
-    return new AnyAttributeAudit<>(owner, this);
+    return new AnyAttributeAudit<>(this);
   }
 
   @Override

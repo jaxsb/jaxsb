@@ -232,26 +232,20 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     }
     else if (plan.getMixed() != null && plan.getMixed()) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + String.class.getName() + " text()\n");
-      writer.write("{\n");
+      writer.write("public " + String.class.getName() + " text() {\n");
       writer.write("return text;\n");
       writer.write("}\n");
-      writer.write("public void text(final " + String.class.getName() + " text)\n");
-      writer.write("{\n");
-      writer.write("if (isNull())\n");
-      writer.write("throw new " + UnsupportedOperationException.class.getName() + "(\"NULL Object is immutable.\");\n");
+      writer.write("public void text(final " + String.class.getName() + " text) {\n");
       writer.write("this.text = text;\n");
       writer.write("}\n");
     }
     else if (plan.getMixedType()) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + String.class.getName() + " text()\n");
-      writer.write("{\n");
+      writer.write("public " + String.class.getName() + " text() {\n");
       writer.write("return (" + String.class.getName() + ")super.text();\n");
       writer.write("}\n");
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public void text(final " + String.class.getName() + " text)\n");
-      writer.write("{\n");
+      writer.write("public void text(final " + String.class.getName() + " text) {\n");
       writer.write("super.text(text);\n");
       writer.write("}\n");
     }
@@ -273,8 +267,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     // ID
     if (plan.getId() != null) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + String.class.getName() + " id()\n");
-      writer.write("{\n");
+      writer.write("public " + String.class.getName() + " id() {\n");
       writer.write("return \"" + plan.getId() + "\";\n");
       writer.write("}\n");
     }
@@ -417,9 +410,6 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
         writer.write("}\n");
       }
     }
-
-    // IS_NULL
-    writeIsNull(writer);
 
     // CLONE
     writer.write("@" + Override.class.getName() + "\n");

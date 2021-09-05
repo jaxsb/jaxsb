@@ -69,9 +69,6 @@ public final class AttributeAudit<T extends $AnySimpleType> {
   }
 
   public boolean setAttribute(final T value) {
-    if (owner.isNull())
-      throw new UnsupportedOperationException("NULL Object is immutable");
-
     this.value = value;
     owner.setDirty();
     return true;
