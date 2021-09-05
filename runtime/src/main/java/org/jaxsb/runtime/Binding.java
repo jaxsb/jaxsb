@@ -16,10 +16,15 @@
 
 package org.jaxsb.runtime;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -482,6 +487,15 @@ public abstract class Binding extends AbstractBinding {
    */
   protected Attr marshalAttr(final String name, final Element parent) throws MarshalException {
     throw new UnsupportedOperationException("This is a template that must be overridden");
+  }
+
+  private static final Path mark = new File("/tmp/xxx").toPath();
+  public static void mark() {
+    try {
+      Files.write(mark, "1".getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
+    }
+    catch (final IOException e) {
+    }
   }
 
   /**

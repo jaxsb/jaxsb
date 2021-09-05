@@ -106,20 +106,13 @@ public class yAA extends org.jaxsb.runtime.Schema {
       return super.fetchChild(name);
     }
 
-    @java.lang.Override
-    protected org.w3c.dom.Attr marshalAttr(
-        final java.lang.String name, final org.w3c.dom.Element parent)
-        throws org.jaxsb.runtime.MarshalException {
-      return super.marshalAttr(name, parent);
-    }
-
-    @java.lang.Override
     public org.w3c.dom.Element marshal() throws org.jaxsb.runtime.MarshalException {
-      org.w3c.dom.Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
-      org.w3c.dom.Element node = marshal(root, name(), type(_$$inheritsInstance()));
+      final org.w3c.dom.Element node =
+          marshal(
+              createElementNS(name().getNamespaceURI(), name().getLocalPart()),
+              name(),
+              type(_$$inheritsInstance()));
       _$$marshalElements(node);
-      if (org.jaxsb.runtime.BindingValidator.getSystemValidator() != null)
-        org.jaxsb.runtime.BindingValidator.getSystemValidator().validateMarshal(node);
       return node;
     }
 
@@ -427,11 +420,6 @@ public class yAA extends org.jaxsb.runtime.Schema {
     protected abstract org.w3.www._2001.XInclude.yAA.$IncludeType inherits();
 
     @java.lang.Override
-    public javax.xml.namespace.QName name() {
-      return name(_$$inheritsInstance());
-    }
-
-    @java.lang.Override
     public javax.xml.namespace.QName type() {
       return NAME;
     }
@@ -454,11 +442,12 @@ public class yAA extends org.jaxsb.runtime.Schema {
 
     @java.lang.Override
     protected org.w3c.dom.Element marshal() throws org.jaxsb.runtime.MarshalException {
-      org.w3c.dom.Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
-      org.w3c.dom.Element node = marshal(root, name(), type(_$$inheritsInstance()));
+      final org.w3c.dom.Element node =
+          marshal(
+              createElementNS(name().getNamespaceURI(), name().getLocalPart()),
+              name(),
+              type(_$$inheritsInstance()));
       _$$marshalElements(node);
-      if (org.jaxsb.runtime.BindingValidator.getSystemValidator() != null)
-        org.jaxsb.runtime.BindingValidator.getSystemValidator().validateMarshal(node);
       return node;
     }
 
@@ -1022,35 +1011,16 @@ public class yAA extends org.jaxsb.runtime.Schema {
     protected abstract org.w3.www._2001.XInclude.yAA.$ParseType inherits();
 
     @java.lang.Override
-    public javax.xml.namespace.QName name() {
-      return name(_$$inheritsInstance());
-    }
-
-    @java.lang.Override
     public javax.xml.namespace.QName type() {
       return NAME;
     }
 
     @java.lang.Override
-    protected org.w3c.dom.Attr marshalAttr(
-        final java.lang.String name, final org.w3c.dom.Element parent)
-        throws org.jaxsb.runtime.MarshalException {
-      return super.marshalAttr(name, parent);
-    }
-
-    @java.lang.Override
     protected org.w3c.dom.Element marshal() throws org.jaxsb.runtime.MarshalException {
-      org.w3c.dom.Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
-      return marshal(root, name(), type(_$$inheritsInstance()));
-    }
-
-    @java.lang.Override
-    protected org.w3c.dom.Element marshal(
-        final org.w3c.dom.Element parent,
-        final javax.xml.namespace.QName name,
-        final javax.xml.namespace.QName type)
-        throws org.jaxsb.runtime.MarshalException {
-      return super.marshal(parent, name, type);
+      return marshal(
+          createElementNS(name().getNamespaceURI(), name().getLocalPart()),
+          name(),
+          type(_$$inheritsInstance()));
     }
 
     @java.lang.Override
@@ -1119,20 +1089,13 @@ public class yAA extends org.jaxsb.runtime.Schema {
       return super.fetchChild(name);
     }
 
-    @java.lang.Override
-    protected org.w3c.dom.Attr marshalAttr(
-        final java.lang.String name, final org.w3c.dom.Element parent)
-        throws org.jaxsb.runtime.MarshalException {
-      return super.marshalAttr(name, parent);
-    }
-
-    @java.lang.Override
     public org.w3c.dom.Element marshal() throws org.jaxsb.runtime.MarshalException {
-      org.w3c.dom.Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
-      org.w3c.dom.Element node = marshal(root, name(), type(_$$inheritsInstance()));
+      final org.w3c.dom.Element node =
+          marshal(
+              createElementNS(name().getNamespaceURI(), name().getLocalPart()),
+              name(),
+              type(_$$inheritsInstance()));
       _$$marshalElements(node);
-      if (org.jaxsb.runtime.BindingValidator.getSystemValidator() != null)
-        org.jaxsb.runtime.BindingValidator.getSystemValidator().validateMarshal(node);
       return node;
     }
 
@@ -1286,11 +1249,6 @@ public class yAA extends org.jaxsb.runtime.Schema {
     protected abstract org.w3.www._2001.XInclude.yAA.$FallbackType inherits();
 
     @java.lang.Override
-    public javax.xml.namespace.QName name() {
-      return name(_$$inheritsInstance());
-    }
-
-    @java.lang.Override
     public javax.xml.namespace.QName type() {
       return NAME;
     }
@@ -1313,11 +1271,12 @@ public class yAA extends org.jaxsb.runtime.Schema {
 
     @java.lang.Override
     protected org.w3c.dom.Element marshal() throws org.jaxsb.runtime.MarshalException {
-      org.w3c.dom.Element root = createElementNS(name().getNamespaceURI(), name().getLocalPart());
-      org.w3c.dom.Element node = marshal(root, name(), type(_$$inheritsInstance()));
+      final org.w3c.dom.Element node =
+          marshal(
+              createElementNS(name().getNamespaceURI(), name().getLocalPart()),
+              name(),
+              type(_$$inheritsInstance()));
       _$$marshalElements(node);
-      if (org.jaxsb.runtime.BindingValidator.getSystemValidator() != null)
-        org.jaxsb.runtime.BindingValidator.getSystemValidator().validateMarshal(node);
       return node;
     }
 

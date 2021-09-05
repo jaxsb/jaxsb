@@ -48,18 +48,18 @@ public abstract class Bindings {
   }
 
   /**
-   * Marshals an {@link $AnyType} instance to an Element object.
+   * Marshals a {@link Binding} instance to an Element object.
    *
-   * @param anyType {@link $AnyType} instance to marshal.
+   * @param binding {@link Binding} instance to marshal.
    * @return THe {@link Element} DOM object.
    * @throws MarshalException If the specified binding does not inherit from an
    *           element of attribute.
    */
-  public static Element marshal(final $AnyType<?> anyType) throws MarshalException {
-    if (anyType.inherits() == null)
+  public static Element marshal(final Binding binding) throws MarshalException {
+    if (binding.inherits() == null)
       throw new MarshalException("$AnyType<?> must inherit from an instantiable element or attribute to be marshaled");
 
-    return anyType.marshal();
+    return binding.marshal();
   }
 
   /**

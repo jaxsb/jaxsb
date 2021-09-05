@@ -158,6 +158,13 @@ public final class XMLSchema {
       }
 
       @Override
+      protected Element marshal() throws MarshalException {
+        final Element node = marshal(createElementNS(name().getNamespaceURI(), name().getLocalPart()), name(), type(_$$inheritsInstance()));
+        _$$marshalElements(node);
+        return node;
+      }
+
+      @Override
       protected Element marshal(final Element parent, final QName name, final QName typeName) throws MarshalException {
         final Element element = super.marshal(parent, name, typeName);
         if (text != null)
@@ -195,7 +202,7 @@ public final class XMLSchema {
 
       @Override
       public QName name() {
-        return name(inherits());
+        return name(_$$inheritsInstance());
       }
 
       @Override
@@ -213,29 +220,28 @@ public final class XMLSchema {
           return false;
 
         final $AnyType<?> that = ($AnyType<?>)obj;
+        if (!Objects.equals(text, that.text))
+          return false;
+
         if (any != null) {
-          if (that.any != null && any.size() == that.any.size()) {
-            for (int i = 0, len = any.size(); i < len; ++i)
-              if (!any.get(i).equals(that.any.get(i)))
-                return false;
-          }
-          else {
+          if (that.any == null || any.size() != that.any.size())
             return false;
-          }
+
+          for (int i = 0, len = any.size(); i < len; ++i)
+            if (!any.get(i).equals(that.any.get(i)))
+              return false;
         }
         else if (that.any != null) {
           return false;
         }
 
         if (anySimple != null) {
-          if (that.anySimple != null && anySimple.size() == that.anySimple.size()) {
-            for (int i = 0, len = anySimple.size(); i < len; ++i)
-              if (!anySimple.get(i).equals(that.anySimple.get(i)))
-                return false;
-          }
-          else {
+          if (that.anySimple == null || anySimple.size() != that.anySimple.size())
             return false;
-          }
+
+          for (int i = 0, len = anySimple.size(); i < len; ++i)
+            if (!anySimple.get(i).equals(that.anySimple.get(i)))
+              return false;
         }
         else if (that.anySimple != null) {
           return false;

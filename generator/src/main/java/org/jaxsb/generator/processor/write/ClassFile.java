@@ -84,11 +84,17 @@ public class ClassFile implements AutoCloseable {
 
     builder.append("\n}");
 
-    final String text = formatter.formatSource(builder.toString());
-    file.getParentFile().mkdirs();
-    try (final OutputStreamWriter out = new FileWriter(file)) {
-      out.write(HEADER_COMMENT);
-      out.write(text);
+    try {
+      final String text = formatter.formatSource(builder.toString());
+      file.getParentFile().mkdirs();
+      try (final OutputStreamWriter out = new FileWriter(file)) {
+        out.write(HEADER_COMMENT);
+        out.write(text);
+      }
+    }
+    catch (final FormatterException e) {
+      System.err.println(builder.toString());
+      throw e;
     }
   }
 }

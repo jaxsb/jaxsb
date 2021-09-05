@@ -66,8 +66,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       writer.write(" * Use of this method WILL CAUSE an IllegalArgumentException!\n");
       writer.write(" * Please correct your argument to use the alternate method signature.\n");
       writer.write(" */\n");
-      writer.write("public void set" + plan.getDeclarationRestrictionSimpleName() + "(final " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getInstanceName() + ")\n");
-      writer.write("{\n");
+      writer.write("public void set" + plan.getDeclarationRestrictionSimpleName() + "(final " + plan.getDeclarationRestrictionGeneric(parent) + " " + plan.getInstanceName() + ") {\n");
       writer.write("throw new " + IllegalArgumentException.class.getName() + "(\"This method has been restricted by a more specific signature. Please correct your argument to use the alternate method signature.\");\n");
       writer.write("}\n");
     }
@@ -214,8 +213,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       return;
 
     writeQualifiedName(writer, plan);
-    writer.write("public static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + Attribute.class.getName() + "\n");
-    writer.write("{\n");
+    writer.write("public static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + Attribute.class.getName() + " {\n");
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 
     // ID LOOKUP

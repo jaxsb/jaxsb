@@ -83,61 +83,52 @@ public final class NotationWriter extends Writer<NotationPlan> {
     // DOCUMENTATION
     writer.write(plan.getDocumentation());
 
-    writer.write("public static final class " + plan.getClassSimpleName() + " extends " + NotationType.class.getName() + "\n");
-    writer.write("{\n");
+    writer.write("public static final class " + plan.getClassSimpleName() + " extends " + NotationType.class.getName() + " {\n");
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 
     writer.write("private final " + String.class.getName() + " _name = \"" + plan.getName().getLocalPart() + "\";\n");
     writer.write("private final " + String.class.getName() + " _public = " + (plan.getPublic() != null ? "\"" + plan.getPublic() + "\"" : "null") + ";\n");
     writer.write("private final " + String.class.getName() + " _system = " + (plan.getSystem() != null ? "\"" + plan.getSystem() + "\"" : "null") + ";\n");
 
-    writer.write("protected " + plan.getClassSimpleName() + "()\n");
-    writer.write("{\n");
+    writer.write("protected " + plan.getClassSimpleName() + "() {\n");
     writer.write("super();\n");
     writer.write("}\n");
 
     // ID
     if (plan.getId() != null) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + String.class.getName() + " id()\n");
-      writer.write("{\n");
+      writer.write("public " + String.class.getName() + " id() {\n");
       writer.write("return \"" + plan.getId() + "\";\n");
       writer.write("}\n");
     }
 
     // NAME
-    writer.write("public " + QName.class.getName() + " name()\n");
-    writer.write("{\n");
+    writer.write("public " + QName.class.getName() + " name() {\n");
     writer.write("return NAME;\n");
     writer.write("}\n");
 
     // GETNAME
-    writer.write("public " +  String.class.getName() + " getName()\n");
-    writer.write("{\n");
+    writer.write("public " +  String.class.getName() + " getName() {\n");
     writer.write("return _name;\n");
     writer.write("}\n");
 
     // PUBLIC
-    writer.write("public " +  String.class.getName() + " getPublic()\n");
-    writer.write("{\n");
+    writer.write("public " +  String.class.getName() + " getPublic() {\n");
     writer.write("return _public;\n");
     writer.write("}\n");
 
     // SYSTEM
-    writer.write("public " +  String.class.getName() + " getSystem()\n");
-    writer.write("{\n");
+    writer.write("public " +  String.class.getName() + " getSystem() {\n");
     writer.write("return _system;\n");
     writer.write("}\n");
 
     // CLONE
-    writer.write("public " + plan.getClassName(null) + " clone()\n");
-    writer.write("{\n");
+    writer.write("public " + plan.getClassName(null) + " clone() {\n");
     writer.write("return (" + plan.getClassName(null) + ")super.clone();\n");
     writer.write("}\n");
 
     // EQUALS
-    writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
-    writer.write("{\n");
+    writer.write("public boolean equals(final " + Object.class.getName() + " obj) {\n");
     writer.write("if (this == obj)\n");
     writer.write("return true;\n");
     writer.write("if (!(obj instanceof " + plan.getClassSimpleName() + "))\n");
@@ -149,8 +140,7 @@ public final class NotationWriter extends Writer<NotationPlan> {
     writer.write("}\n");
 
     // HASHCODE
-    writer.write("public int hashCode()\n");
-    writer.write("{\n");
+    writer.write("public int hashCode() {\n");
     writer.write("int hashCode = super.hashCode();\n");
     writer.write("if (_name != null)\n");
     writer.write("hashCode = 31 * hashCode + _name.hashCode();\n");

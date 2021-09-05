@@ -79,6 +79,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> {
     }
   }
 
+  @SuppressWarnings("unused")
   public AnyAttributeAudit<T> clone(final $AnySimpleType<?> owner) {
     return new AnyAttributeAudit<>(this);
   }
