@@ -17,8 +17,6 @@
 package org.jaxsb.runtime;
 
 public abstract class NotationType extends Binding {
-  private static final long serialVersionUID = -7634751765517029331L;
-
   public static NotationType parse(final javax.xml.namespace.QName name) {
     return _$$getNotation(name);
   }

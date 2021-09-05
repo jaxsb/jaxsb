@@ -16,7 +16,6 @@
 
 package org.jaxsb.sample;
 
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.www.sample.enums.xAA.Color$;
 import org.jaxsb.www.sample.enums.xAA.ColoredFruitBasket;
 import org.jaxsb.www.sample.simple.xAA.$FruitType;
@@ -24,19 +23,18 @@ import org.jaxsb.www.sample.simple.xAA.FruitBasket;
 import org.jaxsb.www.sample.xsitype.xAA.$DehiscentDryFruitType;
 import org.jaxsb.www.sample.xsitype.xAA.$FleshyFruitType;
 import org.jaxsb.www.sample.xsitype.xAA.$IndehiscentDryFruitType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 public class XsiTypeSample {
   public static void main(final String[] args) {
     new XsiTypeSample().runSample();
   }
 
-  public Binding runSample() {
+  public $AnyType<?> runSample() {
     // Since there is no element declaration for the fleshyFruitType,
     // we need to instantiate a nameless element. Once this element is
     // put into the basket, the element will obtain the needed name.
     final $FleshyFruitType berry = new $FleshyFruitType() {
-      private static final long serialVersionUID = 3429848525130169057L;
-
       @Override
       protected $FruitType inherits() {
         return null;
@@ -47,8 +45,6 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.
     final $FleshyFruitType drupe = new $FleshyFruitType() {
-      private static final long serialVersionUID = -2818980037530493310L;
-
       @Override
       protected $FruitType inherits() {
         return null;
@@ -59,8 +55,6 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.
     final $DehiscentDryFruitType legume = new $DehiscentDryFruitType() {
-      private static final long serialVersionUID = 7187893314583339315L;
-
       @Override
       protected $FruitType inherits() {
         return null;
@@ -70,8 +64,6 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.
     final $DehiscentDryFruitType follicle = new $DehiscentDryFruitType() {
-      private static final long serialVersionUID = -3745696718412448230L;
-
       @Override
       protected $FruitType inherits() {
         return null;
@@ -81,8 +73,6 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.GenericBasket
     final $IndehiscentDryFruitType grain = new $IndehiscentDryFruitType() {
-      private static final long serialVersionUID = 4305262292756850924L;
-
       @Override
       protected $FruitType inherits() {
         return null;
@@ -92,8 +82,6 @@ public class XsiTypeSample {
 
     // Again, instantiate a nameless element.
     final $IndehiscentDryFruitType nut = new $IndehiscentDryFruitType() {
-      private static final long serialVersionUID = 5866670471244912648L;
-
       @Override
       protected $FruitType inherits() {
         return null;

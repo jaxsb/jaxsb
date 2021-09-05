@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.sample.substitutionGroup.xAA.$ProductType;
 import org.jaxsb.www.sample.substitutionGroup.xAA.Hat;
 import org.jaxsb.www.sample.substitutionGroup.xAA.Shirt;
 import org.jaxsb.www.sample.substitutionGroup.xAA.StockList;
 import org.jaxsb.www.sample.substitutionGroup.xAA.Umbrella;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.xml.sax.SAXException;
 
 public class SubstitutionGroupSample {
@@ -34,7 +34,7 @@ public class SubstitutionGroupSample {
     new SubstitutionGroupSample().runSample();
   }
 
-  public Binding runSample() throws IOException, SAXException {
+  public $AnyType<?> runSample() throws IOException, SAXException {
     final URL url = getClass().getResource("/substitutionGroup.xml");
     final StockList stockList = (StockList)Bindings.parse(url);
     final List<$ProductType> products = stockList.getSgProduct();

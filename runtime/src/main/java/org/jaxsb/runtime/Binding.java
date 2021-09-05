@@ -16,7 +16,6 @@
 
 package org.jaxsb.runtime;
 
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -37,6 +36,7 @@ import org.openjax.xml.dom.DOMs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -44,8 +44,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-public abstract class Binding extends AbstractBinding implements Serializable {
-  private static final long serialVersionUID = -1760699437761774773L;
+public abstract class Binding extends AbstractBinding {
   private static final Logger logger = LoggerFactory.getLogger(Binding.class);
 
   protected static DocumentBuilder newDocumentBuilder() {
@@ -90,16 +89,16 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return prefix;
   }
 
-  protected static $AnySimpleType _$$parseAnyAttr(final Element parent, final Node attribute) {
+  protected static $AnySimpleType<?> _$$parseAnyAttr(final Element parent, final Node attribute) {
     final QName qName = attribute.getPrefix() != null ? new QName(attribute.getNamespaceURI(), attribute.getLocalName(), attribute.getPrefix()) : new QName(attribute.getNamespaceURI(), attribute.getLocalName());
-    return _$$parseAttr(new AnyAttribute(qName), parent, attribute);
+    return _$$parseAttr(new AnyAttribute<>(qName), parent, attribute);
   }
 
-  protected static $AnySimpleType _$$parseAttr(final Class<?> cls, final Element parent, final Node attribute) {
+  protected static $AnySimpleType<?> _$$parseAttr(final Class<?> cls, final Element parent, final Node attribute) {
     try {
       final Constructor<?> constructor = cls.getDeclaredConstructor();
       constructor.setAccessible(true);
-      return _$$parseAttr(($AnySimpleType)constructor.newInstance(), parent, attribute);
+      return _$$parseAttr(($AnySimpleType<?>)constructor.newInstance(), parent, attribute);
     }
     catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
       throw new RuntimeException(e);
@@ -112,7 +111,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     }
   }
 
-  private static $AnySimpleType _$$parseAttr(final $AnySimpleType binding, final Element parent, final Node attribute) {
+  private static $AnySimpleType<?> _$$parseAttr(final $AnySimpleType<?> binding, final Element parent, final Node attribute) {
     Binding._$$decode(binding, parent, attribute.getNodeValue());
     return binding;
   }
@@ -155,7 +154,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return binding.type();
   }
 
-  protected static $AnySimpleType owner(final Binding binding) {
+  protected static $AnySimpleType<?> owner(final Binding binding) {
     return binding.owner;
   }
 
@@ -185,15 +184,16 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return false;
   }
 
-  protected static Binding parse(final Element element, final Class<? extends Binding> defaultClass) throws ValidationException {
+  @SuppressWarnings("rawtypes")
+  protected static $AnyType<?> parse(final Element element, final Class<? extends $AnyType> defaultClass) throws ValidationException {
     return parseElement(element, defaultClass, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static Binding parse(final Element element) throws ValidationException {
+  protected static $AnyType<?> parse(final Element element) throws ValidationException {
     return parseElement(element, null, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static $AnySimpleType parseAttr(final Element element, final Node node) {
+  protected static $AnySimpleType<?> parseAttr(final Element element, final Node node) {
     final String localName = node.getLocalName();
     final String namespaceURI = node.getNamespaceURI();
     final Class<? extends Binding> classBinding = lookupAttribute(new QName(namespaceURI, localName), Thread.currentThread().getContextClassLoader());
@@ -206,7 +206,8 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
   }
 
-  protected static Binding parseElement(final Element element, final Class<? extends Binding> defaultClass, final ClassLoader classLoader) throws ValidationException {
+  @SuppressWarnings("rawtypes")
+  protected static $AnyType<?> parseElement(final Element element, final Class<? extends $AnyType> defaultClass, final ClassLoader classLoader) throws ValidationException {
     String namespaceURI = element.getNamespaceURI();
     if (namespaceURI == null)
       throw new IllegalArgumentException("Element does not declare a namespace");
@@ -228,11 +229,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     Class<? extends Binding> classBinding;
     try {
       classBinding = defaultClass != null ? defaultClass : lookupElement(new QName(namespaceURI, localName), classLoader);
-      Binding binding = null;
+      $AnyType<?> binding = null;
       if (classBinding != null) {
         final Constructor<?> constructor = classBinding.getDeclaredConstructor();
         constructor.setAccessible(true);
-        binding = (Binding)constructor.newInstance();
+        binding = ($AnyType<?>)constructor.newInstance();
       }
 
       if (xsiTypeName != null) {
@@ -257,7 +258,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         }
 
         method.setAccessible(true);
-        binding = (Binding)method.invoke(null, binding);
+        binding = ($AnyType<?>)method.invoke(null, binding);
       }
 
       if (binding == null) {
@@ -295,7 +296,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   private ElementCompositeList elements;
   private CompositeAttributeStore attributeDirectory;
   private Binding inherits;
-  private $AnySimpleType owner;
+  private $AnySimpleType<?> owner;
   private boolean isDefault;
 
   protected Binding(final Binding copy) {
@@ -332,8 +333,8 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     binding.isDefault = true;
   }
 
-  @SuppressWarnings("unchecked")
-  protected BindingList<? extends Binding> fetchChild(final QName name) {
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  protected BindingList<$AnyType> fetchChild(final QName name) {
     if (name.getLocalPart() == null)
       throw new IllegalArgumentException("name.getLocalPart() == null");
 
@@ -343,7 +344,7 @@ public abstract class Binding extends AbstractBinding implements Serializable {
         if (method.getReturnType() != null && method.getParameterTypes().length == 0) {
           final org.jaxsb.runtime.QName qName = method.getAnnotation(org.jaxsb.runtime.QName.class);
           if (qName != null && name.getLocalPart().equals(qName.localPart()) && (name.getNamespaceURI() != null ? name.getNamespaceURI().equals(qName.namespaceURI()) : qName.namespaceURI() == null))
-            return (BindingList<? extends Binding>)method.invoke(this);
+            return (BindingList<$AnyType>)method.invoke(this);
         }
       }
     }
@@ -362,14 +363,14 @@ public abstract class Binding extends AbstractBinding implements Serializable {
 
   protected final void merge(final Binding copy) {
     if (copy._$$hasElements())
-      this.elements = copy.elements.clone(($AnySimpleType)this);
+      this.elements = copy.elements.clone(($AnySimpleType<?>)this);
   }
 
-  public $AnySimpleType owner() {
+  public $AnySimpleType<?> owner() {
     return owner;
   }
 
-  protected void _$$setOwner(final $AnySimpleType owner) {
+  protected void _$$setOwner(final $AnySimpleType<?> owner) {
     if (this.owner != null && this.owner != owner)
       throw new IllegalArgumentException("Cannot add another document's element. Hint: Use element.clone()");
 
@@ -386,23 +387,23 @@ public abstract class Binding extends AbstractBinding implements Serializable {
       return;
 
     for (int i = 0, len = elements.size(); i < len; ++i) {
-      Binding element = elements.get(i);
+      $AnyType<?> element = elements.get(i);
       if (element instanceof BindingProxy)
-        element = ((BindingProxy<Binding>)element).getBinding();
+        element = ((BindingProxy<$AnyType<?>>)element).getBinding();
 
-      final ElementAudit<Binding> elementAudit = (ElementAudit<Binding>)elements.getComponentList(i).getAudit();
+      final ElementAudit<$AnyType<?>> elementAudit = (ElementAudit<$AnyType<?>>)elements.getComponentList(i).getAudit();
       elementAudit.marshal(parent, element);
     }
   }
 
   protected ElementCompositeList getCreateElementDirectory() {
-    return elements == null ? elements = new ElementCompositeList(($AnySimpleType)this, nameToAudit) : elements;
+    return elements == null ? elements = new ElementCompositeList(($AnySimpleType<?>)this, nameToAudit) : elements;
   }
 
-  protected final <B extends Binding>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
+  protected final <B extends $AnyType<?>>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
     final boolean added = elementAudit.addElement(element);
     if (added && element != null)
-      element._$$setOwner(($AnySimpleType)this);
+      element._$$setOwner(($AnySimpleType<?>)this); // FIXME!
 
     return added;
   }
@@ -417,13 +418,13 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   }
 
   @SuppressWarnings("unchecked")
-  protected final <T extends Binding>ElementAudit<T> getAudit(final ElementAudit<T> audit) {
+  protected final <T extends $AnyType<?>>ElementAudit<T> getAudit(final ElementAudit<T> audit) {
     return (ElementAudit<T>)nameToAudit.get(audit.getName());
   }
 
-  protected static <B extends $AnySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final Binding binding, final B attribute) {
+  protected static <B extends $AnySimpleType<?>>boolean _$$setAttribute(final AttributeAudit<B> audit, final $AnyType<?> binding, final B attribute) {
     if (attribute != null)
-      attribute._$$setOwner(($AnySimpleType)binding);
+      attribute._$$setOwner(($AnySimpleType<?>)binding); // FIXME!
 
     return audit.setAttribute(attribute);
   }
@@ -432,24 +433,28 @@ public abstract class Binding extends AbstractBinding implements Serializable {
     return attributeDirectory == null ? attributeDirectory = new CompositeAttributeStore() : attributeDirectory;
   }
 
-  protected final <B extends $AnySimpleType>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
+  protected final <B extends $AnySimpleType<?>>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
     getCreateAttributeStore().add(audit);
     return audit;
   }
 
-  protected Iterator<Binding> elementIterator() {
+  @SuppressWarnings("rawtypes")
+  protected Iterator<$AnyType> elementIterator() {
     return getCreateElementDirectory().iterator();
   }
 
-  protected ListIterator<Binding> elementListIterator() {
+  @SuppressWarnings("rawtypes")
+  protected ListIterator<$AnyType> elementListIterator() {
     return getCreateElementDirectory().listIterator();
   }
 
-  protected ListIterator<Binding> elementListIterator(final int index) {
+  @SuppressWarnings("rawtypes")
+  protected ListIterator<$AnyType> elementListIterator(final int index) {
     return getCreateElementDirectory().listIterator(index);
   }
 
-  protected Iterator<? extends $AnySimpleType> attributeIterator() {
+  @SuppressWarnings("rawtypes")
+  protected Iterator<$AnySimpleType> attributeIterator() {
     return getCreateAttributeStore().iterator();
   }
 
@@ -677,11 +682,11 @@ public abstract class Binding extends AbstractBinding implements Serializable {
   public Binding clone() {
     final Binding clone = (Binding)super.clone();
     if (elements != null) {
-      clone.elements = elements.clone(($AnySimpleType)clone);
+      clone.elements = elements.clone(($AnySimpleType<?>)clone);
       clone.nameToAudit = elements.nameToAudit;
     }
 
-    clone.attributeDirectory = attributeDirectory == null ? null : attributeDirectory.clone(($AnySimpleType)clone);
+    clone.attributeDirectory = attributeDirectory == null ? null : attributeDirectory.clone(($AnySimpleType<?>)clone);
     clone.inherits = inherits;
     clone.isNull = isNull;
     clone.owner = null;

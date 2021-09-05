@@ -16,17 +16,17 @@
 
 package org.w3.www._2001;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
 
@@ -50,31 +50,57 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+// https://www.liquid-technologies.com/Reference/XmlStudio/XsdEditorNotation_BuiltInXsdTypes.html
+// https://www.eclipse.org/modeling/emf/docs/xsd/dW/os-schema2/os-schema2-3-2.html
 public final class XMLSchema {
   public static final class yAA {
-    public abstract static class $AnySimpleType extends Binding {
-      private static final long serialVersionUID = 3006785147423317837L;
+    public abstract static class $AnyType<T> extends Binding {
+      private List<$AnyType<?>> any;
+      private List<$AnySimpleType<?>> anySimple;
+      private T text;
 
-      private Serializable text;
-
-      public $AnySimpleType(final $AnySimpleType copy) {
+      public $AnyType(final $AnyType<T> copy) {
         super(copy);
         this.text = copy.text;
       }
 
-      public $AnySimpleType(final Object text) {
+      @SuppressWarnings("unchecked")
+      public $AnyType(final T text) {
         super();
-        if (text instanceof $AnySimpleType && (($AnySimpleType)text)._$$hasElements())
-          merge(($AnySimpleType)text);
+        if (text instanceof $AnyType && (($AnyType<T>)text)._$$hasElements())
+          merge(($AnyType<T>)text);
         else
-          this.text = (Serializable)text;
+          this.text = text;
       }
 
-      protected $AnySimpleType() {
+      protected $AnyType() {
         super();
       }
 
-      protected void text(final Serializable text) {
+      @SuppressWarnings("rawtypes")
+      protected void addAny$(final $AnySimpleType any) {
+        if (this.anySimple == null)
+          this.anySimple = new ArrayList<>();
+
+        this.anySimple.add(any);
+      }
+
+      protected List<$AnySimpleType<?>> getAny$() {
+        return anySimple;
+      }
+
+      protected void add$Any(final $AnyType<?> any) {
+        if (this.any == null)
+          this.any = new ArrayList<>();
+
+        this.any.add(any);
+      }
+
+      protected List<$AnyType<?>> get$Any() {
+        return any;
+      }
+
+      protected void text(final T text) {
         if (isNull())
           throw new UnsupportedOperationException("NULL Object is immutable");
 
@@ -85,7 +111,7 @@ public final class XMLSchema {
       }
 
       @Override
-      public Object text() {
+      public T text() {
         return text;
       }
 
@@ -95,20 +121,13 @@ public final class XMLSchema {
       }
 
       @Override
+      @SuppressWarnings("unchecked")
       protected void _$$decode(final Element parent, final String value) {
-        text(decode(value, false));
+        text((T)value); // FIXME: By default, AnySimpleType is a string
       }
 
-      protected static Serializable decode(final String value, final boolean collectionable) {
-        if (value == null || !collectionable)
-          return value;
-
-        final ArrayList<String> list = new ArrayList<>();
-        final StringTokenizer tokenizer = new StringTokenizer(value);
-        while (tokenizer.hasMoreTokens())
-          list.add(tokenizer.nextToken());
-
-        return list;
+      protected static List<String> decodeAsList(final String value) {
+        return value == null ? null : Arrays.asList(value.split(" "));
       }
 
       @Override
@@ -141,11 +160,8 @@ public final class XMLSchema {
         return builder.toString();
       }
 
-      private transient Element parent;
-
       @Override
       protected Element marshal(final Element parent, final QName name, final QName typeName) throws MarshalException {
-        this.parent = parent;
         final Element element = super.marshal(parent, name, typeName);
         if (text != null)
           element.appendChild(parent.getOwnerDocument().createTextNode(String.valueOf(_$$encode(parent))));
@@ -155,7 +171,6 @@ public final class XMLSchema {
 
       @Override
       protected Attr marshalAttr(final String name, final Element parent) throws MarshalException {
-        this.parent = parent;
         final Attr attr = parent.getOwnerDocument().createAttribute(name);
         attr.setNodeValue(_$$encode(parent));
         return attr;
@@ -187,99 +202,9 @@ public final class XMLSchema {
       }
 
       @Override
-      public $AnySimpleType clone() {
-        return ($AnySimpleType)super.clone();
-      }
-
-      @Override
-      public boolean equals(final Object obj) {
-        if (this == obj)
-          return true;
-
-        if (!(obj instanceof $AnySimpleType))
-          return false;
-
-        final $AnySimpleType that = ($AnySimpleType)obj;
-        try {
-          final String thisEncoded = _$$encode(parent);
-          final String thatEncoded = that._$$encode(parent);
-          return Objects.equals(thisEncoded, thatEncoded);
-        }
-        catch (final MarshalException e) {
-          return false;
-        }
-      }
-
-      @Override
-      public int hashCode() {
-        final String value;
-        try {
-          value = _$$encode(parent);
-        }
-        catch (final MarshalException e) {
-          return super.hashCode();
-        }
-
-        if (value == null)
-          return super.hashCode();
-
-        return value.hashCode();
-      }
-    }
-
-    public abstract static class $AnyType extends $AnySimpleType {
-      private static final long serialVersionUID = -6510869738097560771L;
-
-      private final List<Binding> anys = new ArrayList<>(7);
-      private final List<Binding> anys$ = new ArrayList<>(7);
-
-      public $AnyType(final $AnyType binding) {
-        super(binding);
-      }
-
-      public $AnyType(final Object text) {
-        super(text);
-      }
-
-      protected $AnyType(final String text) {
-        super(text);
-      }
-
-      protected $AnyType() {
-        super();
-      }
-
-      public void addAny$(final Binding any) {
-        this.anys$.add(any);
-      }
-
-      public List<Binding> getAny$() {
-        return anys$;
-      }
-
-      public void addAny(final Binding any) {
-        this.anys.add(any);
-      }
-
-      public List<Binding> getAny() {
-        return anys;
-      }
-
-      @Override
-      public $AnyType clone() {
-        return new $AnyType(this) {
-          private static final long serialVersionUID = 7881269189540416455L;
-
-          @Override
-          public QName name() {
-            return $AnyType.this.name();
-          }
-
-          @Override
-          protected $AnyType inherits() {
-            return this;
-          }
-        };
+      @SuppressWarnings("unchecked")
+      public $AnyType<T> clone() {
+        return ($AnyType<T>)super.clone();
       }
 
       @Override
@@ -290,32 +215,32 @@ public final class XMLSchema {
         if (!(obj instanceof $AnyType))
           return false;
 
-        final $AnyType that = ($AnyType)obj;
-        if (anys != null) {
-          if (that.anys != null && anys.size() == that.anys.size()) {
-            for (int i = 0, len = anys.size(); i < len; ++i)
-              if (!anys.get(i).equals(that.anys.get(i)))
+        final $AnyType<?> that = ($AnyType<?>)obj;
+        if (any != null) {
+          if (that.any != null && any.size() == that.any.size()) {
+            for (int i = 0, len = any.size(); i < len; ++i)
+              if (!any.get(i).equals(that.any.get(i)))
                 return false;
           }
           else {
             return false;
           }
         }
-        else if (that.anys != null) {
+        else if (that.any != null) {
           return false;
         }
 
-        if (anys$ != null) {
-          if (that.anys$ != null && anys$.size() == that.anys$.size()) {
-            for (int i = 0, len = anys$.size(); i < len; ++i)
-              if (!anys$.get(i).equals(that.anys$.get(i)))
+        if (anySimple != null) {
+          if (that.anySimple != null && anySimple.size() == that.anySimple.size()) {
+            for (int i = 0, len = anySimple.size(); i < len; ++i)
+              if (!anySimple.get(i).equals(that.anySimple.get(i)))
                 return false;
           }
           else {
             return false;
           }
         }
-        else if (that.anys$ != null) {
+        else if (that.anySimple != null) {
           return false;
         }
 
@@ -325,20 +250,57 @@ public final class XMLSchema {
       @Override
       public int hashCode() {
         int hashCode = 1;
-        hashCode = 31 * hashCode + Objects.hashCode(anys);
-        hashCode = 31 * hashCode + Objects.hashCode(anys$);
+        hashCode = 31 * hashCode + Objects.hashCode(any);
+        hashCode = 31 * hashCode + Objects.hashCode(anySimple);
         return hashCode;
       }
     }
 
-    public abstract static class $AnyURI extends $AnySimpleType {
-      private static final long serialVersionUID = 7515449882634738035L;
+    public abstract static class $AnySimpleType<T> extends $AnyType<T> {
+      public $AnySimpleType(final $AnySimpleType<T> binding) {
+        super(binding);
+      }
 
+      public $AnySimpleType(final T text) {
+        super(text);
+      }
+
+      protected $AnySimpleType() {
+        super();
+      }
+
+      @Override
+      public $AnySimpleType<T> clone() {
+        return new $AnySimpleType<T>(this) {
+          @Override
+          public QName name() {
+            return $AnySimpleType.this.name();
+          }
+
+          @Override
+          protected $AnySimpleType<T> inherits() {
+            return this;
+          }
+        };
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $AnySimpleType && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
+    }
+
+    public abstract static class $AnyURI extends $AnySimpleType<URI> {
       public $AnyURI(final $AnyURI binding) {
         super(binding);
       }
 
-      public $AnyURI(final String value) {
+      public $AnyURI(final URI value) {
         super(value);
       }
 
@@ -347,12 +309,8 @@ public final class XMLSchema {
       }
 
       @Override
-      public String text() {
-        return (String)super.text();
-      }
-
-      public void text(final String text) {
-        super.text(text);
+      protected void _$$decode(final Element parent, final String value) {
+        super.text(URI.create(value));
       }
 
       @Override
@@ -361,9 +319,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $Base64Binary extends $AnySimpleType {
-      private static final long serialVersionUID = -5862425707789169319L;
-
+    public abstract static class $Base64Binary extends $AnySimpleType<Base64Binary> {
       public $Base64Binary(final $Base64Binary binding) {
         super(binding);
       }
@@ -377,17 +333,8 @@ public final class XMLSchema {
       }
 
       @Override
-      public Base64Binary text() {
-        return (Base64Binary)super.text();
-      }
-
-      public void text(final Base64Binary text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
-        super.text(Base64Binary.parse(String.valueOf(value)));
+        super.text(Base64Binary.parse(value));
       }
 
       @Override
@@ -396,27 +343,9 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $Boolean extends $AnySimpleType {
-      private static final long serialVersionUID = 5805207783730082952L;
-      private static final Map<Boolean,String[]> valueMap = new HashMap<>();
-
+    public abstract static class $Boolean extends $AnySimpleType<Boolean> {
       public static Boolean parse(final String s) {
-        if (s == null)
-          return false;
-
-        if (s.length() == 1)
-          return "1".equals(s);
-
-        return Boolean.parseBoolean(s);
-      }
-
-      static {
-        valueMap.put(true, new String[] {
-          "true", "1"
-        });
-        valueMap.put(false, new String[] {
-          "false", "0"
-        });
+        return s != null && ("1".equals(s) || Boolean.parseBoolean(s));
       }
 
       public $Boolean(final $Boolean binding) {
@@ -432,15 +361,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public Boolean text() {
-        return (Boolean)super.text();
-      }
-
-      public void text(final Boolean text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text("true".equals(value) || "1".equals(value));
       }
@@ -453,11 +373,22 @@ public final class XMLSchema {
         if (_$$getPattern() == null)
           return String.valueOf(super.text());
 
-        for (final String pattern : _$$getPattern()) {
-          final String[] ret = valueMap.get(super.text());
-          for (int i = 0; i < ret.length; ++i) {
-            if (ret[i].matches(pattern))
-              return ret[i];
+        if (super.text()) {
+          for (final String pattern : _$$getPattern()) {
+            if ("true".matches(pattern))
+              return "true";
+
+            if ("1".matches(pattern))
+              return "1";
+          }
+        }
+        else {
+          for (final String pattern : _$$getPattern()) {
+            if ("false".matches(pattern))
+              return "false";
+
+            if ("0".matches(pattern))
+              return "0";
           }
         }
 
@@ -471,8 +402,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $Byte extends $Short {
-      private static final long serialVersionUID = 8992563175185047222L;
-
       public $Byte(final $Byte binding) {
         super(binding);
       }
@@ -486,17 +415,18 @@ public final class XMLSchema {
       }
 
       @Override
-      public Byte text() {
-        return (Byte)super.text();
+      public BigInteger textAsBigInteger() {
+        return text() == null ? null : BigInteger.valueOf((Byte)text());
       }
 
-      public void text(final Byte text) {
-        super.text(text);
+      @Override
+      public BigDecimal textAsBigDecimal() {
+        return text() == null ? null : BigDecimal.valueOf((Byte)text());
       }
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        super.text(Byte.parseByte(String.valueOf(value)));
+        super.text(Byte.parseByte(value));
       }
 
       @Override
@@ -505,9 +435,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $Date extends $AnySimpleType {
-      private static final long serialVersionUID = -1955542798279135254L;
-
+    public abstract static class $Date extends $AnySimpleType<Date> {
       public $Date(final $Date binding) {
         super(binding);
       }
@@ -518,15 +446,6 @@ public final class XMLSchema {
 
       protected $Date() {
         super();
-      }
-
-      @Override
-      public Date text() {
-        return (Date)super.text();
-      }
-
-      public void text(final Date text) {
-        super.text(text);
       }
 
       @Override
@@ -546,9 +465,7 @@ public final class XMLSchema {
      *
      * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">Definition</a>
      */
-    public abstract static class $DateTime extends $AnySimpleType {
-      private static final long serialVersionUID = 2247372411847607768L;
-
+    public abstract static class $DateTime extends $AnySimpleType<DateTime> {
       public $DateTime(final $DateTime binding) {
         super(binding);
       }
@@ -569,15 +486,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public DateTime text() {
-        return (DateTime)super.text();
-      }
-
-      public void text(final DateTime text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(DateTime.parse(value));
       }
@@ -588,32 +496,109 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $Decimal extends $AnySimpleType {
-      private static final long serialVersionUID = 2611735387171278709L;
-
+    public abstract static class $Decimal extends $AnySimpleType<Number> {
       public $Decimal(final $Decimal binding) {
         super(binding);
       }
 
-      public $Decimal(final BigDecimal value) {
-        super(value);
+      public $Decimal(final BigDecimal text) {
+        super(text);
       }
 
-      protected $Decimal(final Number value) {
-        super(value);
+      protected $Decimal(final Number text) {
+        super(text);
       }
 
       protected $Decimal() {
         super();
       }
 
-      @Override
-      public Number text() {
-        return (Number)super.text();
+      /**
+       * Returns the text of this node as a {@link Byte}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Byte}.
+       */
+      public Byte byteValue() {
+        return text() == null ? null : text().byteValue();
       }
 
-      public void text(final Number text) {
-        super.text(text);
+      /**
+       * Returns the text of this node as a {@link Short}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@code short}.
+       */
+      public Short textAsShort() {
+        return text() == null ? null : text().shortValue();
+      }
+
+      /**
+       * Returns the text of this node as an {@link Integer}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Integer}.
+       */
+      public Integer textAsInteger() {
+        return text() == null ? null : text().intValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Long}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Long}.
+       */
+      public Long textAsLong() {
+        return text() == null ? null : text().longValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Float}, which may involve
+       * rounding.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Float}.
+       */
+      public Float textAsFloat() {
+        return text() == null ? null : text().floatValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Double}, which may involve
+       * rounding.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Double}.
+       */
+      public Double textAsDouble() {
+        return text() == null ? null : text().doubleValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link BigInteger}, which may
+       * involve rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link BigInteger}.
+       */
+      public BigInteger textAsBigInteger() {
+        return ((BigDecimal)text()).toBigInteger();
+      }
+
+      /**
+       * Returns the text of this node as a {@link BigDecimal}, which may
+       * involve rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link BigDecimal}.
+       */
+      public BigDecimal textAsBigDecimal() {
+        return (BigDecimal)text();
       }
 
       @Override
@@ -627,9 +612,8 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $Double extends $AnySimpleType {
-      private static final long serialVersionUID = 5696304973581941043L;
-
+    // -INF, -1E4, -0, 0, 12.78E-2, 12, INF, NaN
+    public abstract static class $Double extends $AnySimpleType<Double> {
       public $Double(final $Double binding) {
         super(binding);
       }
@@ -642,13 +626,92 @@ public final class XMLSchema {
         super();
       }
 
-      @Override
-      public Double text() {
-        return (Double)super.text();
+      /**
+       * Returns the text of this node as a {@link Byte}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Byte}.
+       */
+      public Byte byteValue() {
+        return text() == null ? null : text().byteValue();
       }
 
-      public void text(final Double text) {
-        super.text(text);
+      /**
+       * Returns the text of this node as a {@link Short}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@code short}.
+       */
+      public Short textAsShort() {
+        return text() == null ? null : text().shortValue();
+      }
+
+      /**
+       * Returns the text of this node as an {@link Integer}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Integer}.
+       */
+      public Integer textAsInteger() {
+        return text() == null ? null : text().intValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Long}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Long}.
+       */
+      public Long textAsLong() {
+        return text() == null ? null : text().longValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Float}, which may involve
+       * rounding.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Float}.
+       */
+      public Float textAsFloat() {
+        return text() == null ? null : text().floatValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Double}, which may involve
+       * rounding.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Double}.
+       */
+      public Double textAsDouble() {
+        return text() == null ? null : text().doubleValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link BigInteger}, which may
+       * involve rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link BigInteger}.
+       */
+      public BigInteger textAsBigInteger() {
+        return text() == null ? null : BigInteger.valueOf(text().longValue());
+      }
+
+      /**
+       * Returns the text of this node as a {@link BigDecimal}, which may
+       * involve rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link BigDecimal}.
+       */
+      public BigDecimal textAsBigDecimal() {
+        return text() == null ? null : BigDecimal.valueOf(text());
       }
 
       @Override
@@ -662,9 +725,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $Duration extends $AnySimpleType {
-      private static final long serialVersionUID = 4604277237345201267L;
-
+    public abstract static class $Duration extends $AnySimpleType<Duration> {
       public $Duration(final $Duration binding) {
         super(binding);
       }
@@ -678,15 +739,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public Duration text() {
-        return (Duration)super.text();
-      }
-
-      protected void text(final Duration text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Duration.parse(value));
       }
@@ -697,10 +749,7 @@ public final class XMLSchema {
       }
     }
 
-    @SuppressWarnings("unchecked")
-    public abstract static class $ENTITIES extends $AnySimpleType {
-      private static final long serialVersionUID = -4444456617105792286L;
-
+    public abstract static class $ENTITIES extends $AnySimpleType<List<String>> {
       public $ENTITIES(final $ENTITIES binding) {
         super(binding);
       }
@@ -714,17 +763,8 @@ public final class XMLSchema {
       }
 
       @Override
-      public List<String> text() {
-        return (List<String>)super.text();
-      }
-
-      public <T extends List<String> & Serializable>void text(final T text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
-        text(decode(value, true));
+        text(decodeAsList(value));
       }
 
       @Override
@@ -739,8 +779,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $ENTITY extends $nCName {
-      private static final long serialVersionUID = 2131270403814548561L;
-
       public $ENTITY(final $ENTITY binding) {
         super(binding);
       }
@@ -759,9 +797,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $Float extends $AnySimpleType {
-      private static final long serialVersionUID = 8396002187294788098L;
-
+    public abstract static class $Float extends $AnySimpleType<Float> {
       public $Float(final $Float binding) {
         super(binding);
       }
@@ -774,13 +810,92 @@ public final class XMLSchema {
         super();
       }
 
-      @Override
-      public Float text() {
-        return (Float)super.text();
+      /**
+       * Returns the text of this node as a {@link Byte}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Byte}.
+       */
+      public Byte byteValue() {
+        return text() == null ? null : text().byteValue();
       }
 
-      public void text(final Float text) {
-        super.text(text);
+      /**
+       * Returns the text of this node as a {@link Short}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@code short}.
+       */
+      public Short textAsShort() {
+        return text() == null ? null : text().shortValue();
+      }
+
+      /**
+       * Returns the text of this node as an {@link Integer}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Integer}.
+       */
+      public Integer textAsInteger() {
+        return text() == null ? null : text().intValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Long}, which may involve
+       * rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Long}.
+       */
+      public Long textAsLong() {
+        return text() == null ? null : text().longValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Float}, which may involve
+       * rounding.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Float}.
+       */
+      public Float textAsFloat() {
+        return text() == null ? null : text().floatValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link Double}, which may involve
+       * rounding.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link Double}.
+       */
+      public Double textAsDouble() {
+        return text() == null ? null : text().doubleValue();
+      }
+
+      /**
+       * Returns the text of this node as a {@link BigInteger}, which may
+       * involve rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link BigInteger}.
+       */
+      public BigInteger textAsBigInteger() {
+        return text() == null ? null : BigInteger.valueOf(text().intValue());
+      }
+
+      /**
+       * Returns the text of this node as a {@link BigDecimal}, which may
+       * involve rounding or truncation.
+       *
+       * @return The numeric value represented by this node after conversion to
+       *         type {@link BigDecimal}.
+       */
+      public BigDecimal textAsBigDecimal() {
+        return text() == null ? null : BigDecimal.valueOf(text());
       }
 
       @Override
@@ -794,9 +909,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $GDay extends $AnySimpleType {
-      private static final long serialVersionUID = -7306738302337538690L;
-
+    public abstract static class $GDay extends $AnySimpleType<Day> {
       public $GDay(final $GDay binding) {
         super(binding);
       }
@@ -810,15 +923,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public Day text() {
-        return (Day)super.text();
-      }
-
-      public void text(final Day text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Day.parse(value));
       }
@@ -829,9 +933,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $GMonth extends $AnySimpleType {
-      private static final long serialVersionUID = -9051270336948297692L;
-
+    public abstract static class $GMonth extends $AnySimpleType<Month> {
       public $GMonth(final $GMonth binding) {
         super(binding);
       }
@@ -845,15 +947,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public Month text() {
-        return (Month)super.text();
-      }
-
-      public void text(final Month text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Month.parse(value));
       }
@@ -864,9 +957,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $GMonthDay extends $AnySimpleType {
-      private static final long serialVersionUID = 2892185404567465759L;
-
+    public abstract static class $GMonthDay extends $AnySimpleType<MonthDay> {
       public $GMonthDay(final $GMonthDay binding) {
         super(binding);
       }
@@ -880,15 +971,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public MonthDay text() {
-        return (MonthDay)super.text();
-      }
-
-      public void text(final MonthDay text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(MonthDay.parse(value));
       }
@@ -899,9 +981,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $GYear extends $AnySimpleType {
-      private static final long serialVersionUID = 7929109327684024810L;
-
+    public abstract static class $GYear extends $AnySimpleType<Year> {
       public $GYear(final $GYear binding) {
         super(binding);
       }
@@ -915,15 +995,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public Year text() {
-        return (Year)super.text();
-      }
-
-      public void text(final Year text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(Year.parse(value));
       }
@@ -934,9 +1005,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $GYearMonth extends $AnySimpleType {
-      private static final long serialVersionUID = -6730855611061489701L;
-
+    public abstract static class $GYearMonth extends $AnySimpleType<YearMonth> {
       public $GYearMonth(final $GYearMonth binding) {
         super(binding);
       }
@@ -950,15 +1019,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public YearMonth text() {
-        return (YearMonth)super.text();
-      }
-
-      public void text(final YearMonth text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
         super.text(YearMonth.parse(value));
       }
@@ -969,9 +1029,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $HexBinary extends $AnySimpleType {
-      private static final long serialVersionUID = -3672541717905058784L;
-
+    public abstract static class $HexBinary extends $AnySimpleType<HexBinary> {
       public $HexBinary(final $HexBinary binding) {
         super(binding);
       }
@@ -982,15 +1040,6 @@ public final class XMLSchema {
 
       protected $HexBinary() {
         super();
-      }
-
-      @Override
-      public HexBinary text() {
-        return (HexBinary)super.text();
-      }
-
-      public void text(final HexBinary text) {
-        super.text(text);
       }
 
       @Override
@@ -1005,7 +1054,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $ID extends $nCName {
-      private static final long serialVersionUID = 8671692505211063717L;
       protected static final Map<String,Map<String,$ID>> namespaceIds = new HashMap<>();
 
       private static void persist(final String namespace, final String value, final $ID id) {
@@ -1041,7 +1089,7 @@ public final class XMLSchema {
       }
 
       @Override
-      public void text(final String text) {
+      protected void text(final String text) {
         final String old = text();
         super.text(text);
         if (old != null)
@@ -1063,8 +1111,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $IDREF extends $nCName {
-      private static final long serialVersionUID = 3413021684301501386L;
-
       public $IDREF(final $IDREF binding) {
         super(binding);
       }
@@ -1083,10 +1129,7 @@ public final class XMLSchema {
       }
     }
 
-    @SuppressWarnings("unchecked")
-    public abstract static class $IDREFS extends $AnySimpleType {
-      private static final long serialVersionUID = 8278637562824948791L;
-
+    public abstract static class $IDREFS extends $AnySimpleType<List<String>> {
       public $IDREFS(final $IDREFS binding) {
         super(binding);
       }
@@ -1100,17 +1143,8 @@ public final class XMLSchema {
       }
 
       @Override
-      public List<String> text() {
-        return (List<String>)super.text();
-      }
-
-      public <T extends List<String> & Serializable>void text(final T text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
-        text(decode(value, true));
+        text(decodeAsList(value));
       }
 
       @Override
@@ -1125,8 +1159,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $Int extends $Long {
-      private static final long serialVersionUID = 6845008408792068840L;
-
       public $Int(final $Int binding) {
         super(binding);
       }
@@ -1143,13 +1175,19 @@ public final class XMLSchema {
         super();
       }
 
-      public void text(final Integer text) {
-        super.text(text);
+      @Override
+      public BigInteger textAsBigInteger() {
+        return text() == null ? null : BigInteger.valueOf((Integer)text());
+      }
+
+      @Override
+      public BigDecimal textAsBigDecimal() {
+        return text() == null ? null : BigDecimal.valueOf((Integer)text());
       }
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        super.text(Integer.parseInt(String.valueOf(value)));
+        super.text(Integer.parseInt(value));
       }
 
       @Override
@@ -1159,18 +1197,16 @@ public final class XMLSchema {
     }
 
     public abstract static class $Integer extends $Decimal {
-      private static final long serialVersionUID = 4688966863845290706L;
-
       public $Integer(final $Integer binding) {
         super(binding);
       }
 
-      public $Integer(final BigInteger value) {
-        super(value);
+      public $Integer(final BigInteger text) {
+        super(text);
       }
 
-      protected $Integer(final Number value) {
-        super(value);
+      protected $Integer(final Number text) {
+        super(text);
       }
 
       protected $Integer() {
@@ -1182,8 +1218,14 @@ public final class XMLSchema {
         return null;
       }
 
-      public void text(final BigInteger text) {
-        super.text(text);
+      @Override
+      public BigInteger textAsBigInteger() {
+        return (BigInteger)text();
+      }
+
+      @Override
+      public BigDecimal textAsBigDecimal() {
+        return text() == null ? null : new BigDecimal(textAsBigInteger());
       }
 
       @Override
@@ -1197,9 +1239,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $Language extends $AnySimpleType {
-      private static final long serialVersionUID = -2141452623750225147L;
-
+    public abstract static class $Language extends $AnySimpleType<Language> {
       public $Language(final $Language binding) {
         super(binding);
       }
@@ -1210,15 +1250,6 @@ public final class XMLSchema {
 
       protected $Language() {
         super();
-      }
-
-      @Override
-      public Language text() {
-        return (Language)super.text();
-      }
-
-      public void text(final Language text) {
-        super.text(text);
       }
 
       @Override
@@ -1233,8 +1264,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $Long extends $Integer {
-      private static final long serialVersionUID = 3110685220531748900L;
-
       public $Long(final $Long binding) {
         super(binding);
       }
@@ -1251,13 +1280,19 @@ public final class XMLSchema {
         super();
       }
 
-      public void text(final Long text) {
-        super.text(text);
+      @Override
+      public BigInteger textAsBigInteger() {
+        return text() == null ? null : BigInteger.valueOf((Long)text());
+      }
+
+      @Override
+      public BigDecimal textAsBigDecimal() {
+        return text() == null ? null : BigDecimal.valueOf((Long)text());
       }
 
       @Override
       protected void _$$decode(final Element parent, final String value) {
-        super.text(Long.parseLong(String.valueOf(value)));
+        super.text(Long.parseLong(value));
       }
 
       @Override
@@ -1266,9 +1301,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $MonthDay extends $AnySimpleType {
-      private static final long serialVersionUID = -5881188958964982827L;
-
+    public abstract static class $MonthDay extends $AnySimpleType<MonthDay> {
       public $MonthDay(final $MonthDay binding) {
         super(binding);
       }
@@ -1279,15 +1312,6 @@ public final class XMLSchema {
 
       protected $MonthDay() {
         super();
-      }
-
-      @Override
-      public MonthDay text() {
-        return (MonthDay)super.text();
-      }
-
-      public void text(final MonthDay text) {
-        super.text(text);
       }
 
       @Override
@@ -1302,8 +1326,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $NMTOKEN extends $Token {
-      private static final long serialVersionUID = -8208935544015142206L;
-
       public $NMTOKEN(final $NMTOKEN binding) {
         super(binding);
       }
@@ -1322,10 +1344,7 @@ public final class XMLSchema {
       }
     }
 
-    @SuppressWarnings("unchecked")
-    public abstract static class $NMTOKENS extends $AnySimpleType {
-      private static final long serialVersionUID = -5260386241351935007L;
-
+    public abstract static class $NMTOKENS extends $AnySimpleType<List<String>> {
       public $NMTOKENS(final $NMTOKENS binding) {
         super(binding);
       }
@@ -1339,17 +1358,8 @@ public final class XMLSchema {
       }
 
       @Override
-      public List<String> text() {
-        return (List<String>)super.text();
-      }
-
-      public <T extends List<String> & Serializable>void text(final T text) {
-        super.text(text);
-      }
-
-      @Override
       protected void _$$decode(final Element parent, final String value) {
-        text(decode(value, true));
+        text(decodeAsList(value));
       }
 
       @Override
@@ -1363,9 +1373,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $NOTATION extends $AnySimpleType {
-      private static final long serialVersionUID = 5701767081230621619L;
-
+    public abstract static class $NOTATION extends $AnySimpleType<NotationType> {
       public $NOTATION(final $NOTATION binding) {
         super(binding);
       }
@@ -1376,15 +1384,6 @@ public final class XMLSchema {
 
       protected $NOTATION() {
         super();
-      }
-
-      @Override
-      public NotationType text() {
-        return (NotationType)super.text();
-      }
-
-      public void text(final NotationType text) {
-        super.text(text);
       }
 
       @Override
@@ -1418,14 +1417,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $NegativeInteger extends $NonPositiveInteger {
-      private static final long serialVersionUID = -1150394155850884963L;
-
       public $NegativeInteger(final $NegativeInteger binding) {
         super(binding);
       }
 
       public $NegativeInteger(final BigInteger value) {
         super(value);
+        // FIXME: Check?
       }
 
       protected $NegativeInteger(final Number number) {
@@ -1443,14 +1441,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $NonNegativeInteger extends $Integer {
-      private static final long serialVersionUID = 7211473945782812029L;
-
       public $NonNegativeInteger(final $NonNegativeInteger binding) {
         super(binding);
       }
 
       public $NonNegativeInteger(final BigInteger value) {
         super(value);
+        // FIXME: Check?
       }
 
       protected $NonNegativeInteger(final Number value) {
@@ -1468,14 +1465,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $NonPositiveInteger extends $Integer {
-      private static final long serialVersionUID = 6601655744973800161L;
-
       public $NonPositiveInteger(final $NonPositiveInteger binding) {
         super(binding);
       }
 
       public $NonPositiveInteger(final BigInteger value) {
         super(value);
+        // FIXME: Check?
       }
 
       protected $NonPositiveInteger(final Number value) {
@@ -1487,19 +1483,12 @@ public final class XMLSchema {
       }
 
       @Override
-      public BigInteger text() {
-        return (BigInteger)super.text();
-      }
-
-      @Override
       public $NonPositiveInteger clone() {
         return ($NonPositiveInteger)super.clone();
       }
     }
 
     public abstract static class $NormalizedString extends $String {
-      private static final long serialVersionUID = 3288734660660079355L;
-
       public $NormalizedString(final $NormalizedString binding) {
         super(binding);
       }
@@ -1519,14 +1508,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $PositiveInteger extends $NonNegativeInteger {
-      private static final long serialVersionUID = 2815146494897113558L;
-
       public $PositiveInteger(final $PositiveInteger binding) {
         super(binding);
       }
 
       public $PositiveInteger(final BigInteger value) {
         super(value);
+        // FIXME: Check?
       }
 
       protected $PositiveInteger(final Number value) {
@@ -1544,8 +1532,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $Short extends $Int {
-      private static final long serialVersionUID = 2591829673501941175L;
-
       public $Short(final $Short binding) {
         super(binding);
       }
@@ -1562,8 +1548,14 @@ public final class XMLSchema {
         super();
       }
 
-      public void text(final Short text) {
-        super.text(text);
+      @Override
+      public BigInteger textAsBigInteger() {
+        return text() == null ? null : BigInteger.valueOf((Short)text());
+      }
+
+      @Override
+      public BigDecimal textAsBigDecimal() {
+        return text() == null ? null : BigDecimal.valueOf((Short)text());
       }
 
       @Override
@@ -1577,9 +1569,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $String extends $AnySimpleType {
-      private static final long serialVersionUID = 8341193547169457336L;
-
+    public abstract static class $String extends $AnySimpleType<String> {
       public $String(final $String binding) {
         super(binding);
       }
@@ -1593,23 +1583,12 @@ public final class XMLSchema {
       }
 
       @Override
-      public String text() {
-        return (String)super.text();
-      }
-
-      public void text(final String text) {
-        super.text(text);
-      }
-
-      @Override
       public $String clone() {
         return ($String)super.clone();
       }
     }
 
-    public abstract static class $Time extends $AnySimpleType {
-      private static final long serialVersionUID = -3591270457108634772L;
-
+    public abstract static class $Time extends $AnySimpleType<Time> {
       public $Time(final $Time binding) {
         super(binding);
       }
@@ -1623,10 +1602,6 @@ public final class XMLSchema {
       }
 
       @Override
-      public Time text() {
-        return (Time)super.text();
-      }
-
       protected void text(final Time text) {
         super.text(text);
       }
@@ -1643,8 +1618,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $Token extends $NormalizedString {
-      private static final long serialVersionUID = 9075199116743643063L;
-
       public $Token(final $Token binding) {
         super(binding);
       }
@@ -1664,22 +1637,17 @@ public final class XMLSchema {
     }
 
     public abstract static class $UnsignedByte extends $UnsignedShort {
-      private static final long serialVersionUID = -1366687334956097755L;
-
       public $UnsignedByte(final $UnsignedByte binding) {
         super(binding);
       }
 
       public $UnsignedByte(final Short value) {
         super(value);
+        // FIXME: Check?
       }
 
       protected $UnsignedByte() {
         super();
-      }
-
-      public void text(final Short text) {
-        super.text(text);
       }
 
       @Override
@@ -1694,8 +1662,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $UnsignedInt extends $UnsignedLong {
-      private static final long serialVersionUID = -6858787856727414457L;
-
       public $UnsignedInt(final $UnsignedInt binding) {
         super(binding);
       }
@@ -1706,14 +1672,11 @@ public final class XMLSchema {
 
       protected $UnsignedInt(final Number value) {
         super(value);
+        // FIXME: Check?
       }
 
       protected $UnsignedInt() {
         super();
-      }
-
-      public void text(final Long text) {
-        super.text(text);
       }
 
       @Override
@@ -1728,14 +1691,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $UnsignedLong extends $NonNegativeInteger {
-      private static final long serialVersionUID = 2576671958539402360L;
-
       public $UnsignedLong(final $UnsignedLong binding) {
         super(binding);
       }
 
       public $UnsignedLong(final BigInteger value) {
         super(value);
+        // FIXME: Check?
       }
 
       protected $UnsignedLong(final Number value) {
@@ -1753,14 +1715,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $UnsignedShort extends $UnsignedInt {
-      private static final long serialVersionUID = -1117185446138982528L;
-
       public $UnsignedShort(final $UnsignedShort binding) {
         super(binding);
       }
 
       public $UnsignedShort(final Integer value) {
         super(value);
+        // FIXME: Check?
       }
 
       protected $UnsignedShort(final Number value) {
@@ -1769,10 +1730,6 @@ public final class XMLSchema {
 
       protected $UnsignedShort() {
         super();
-      }
-
-      public void text(final Integer text) {
-        super.text(text);
       }
 
       @Override
@@ -1787,8 +1744,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $nCName extends $name {
-      private static final long serialVersionUID = 7261736605051866911L;
-
       public $nCName(final $nCName binding) {
         super(binding);
       }
@@ -1808,8 +1763,6 @@ public final class XMLSchema {
     }
 
     public abstract static class $name extends $Token {
-      private static final long serialVersionUID = 636502937738084071L;
-
       public $name(final $name binding) {
         super(binding);
       }
@@ -1828,9 +1781,7 @@ public final class XMLSchema {
       }
     }
 
-    public abstract static class $qName extends $AnySimpleType {
-      private static final long serialVersionUID = -6159227210752729335L;
-
+    public abstract static class $qName extends $AnySimpleType<QName> {
       public $qName(final $qName binding) {
         super(binding);
       }
@@ -1841,15 +1792,6 @@ public final class XMLSchema {
 
       protected $qName() {
         super();
-      }
-
-      @Override
-      public QName text() {
-        return (QName)super.text();
-      }
-
-      public void text(final QName text) {
-        super.text(text);
       }
 
       @Override

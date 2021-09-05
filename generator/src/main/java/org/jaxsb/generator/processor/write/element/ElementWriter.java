@@ -16,7 +16,6 @@
 
 package org.jaxsb.generator.processor.write.element;
 
-import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -45,6 +44,7 @@ import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.SimpleType;
 import org.openjax.xml.api.ValidationException;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3.www._2001.XMLSchema.yAA.$Boolean;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -82,7 +82,6 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.getRepeatedExtension() != null)
       return;
 
-    writeQualifiedName(writer, plan);
     final String methodName = plan.getMethodName();
     if (plan.getMaxOccurs() == 1) {
       writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " get" + methodName + "()\n{\n");
@@ -101,7 +100,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("}\n");
 
       writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " get" + methodName + "(final int index)\n{\n");
-      writer.write("final " + List.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> values = get" + plan.getMethodName() + "();\n");
+      writer.write("final " + BindingList.class.getName() + "<" + plan.getDeclarationRestrictionGeneric(parent) + "> values = get" + plan.getMethodName() + "();\n");
       writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : (" + plan.getClassName(parent) + ")NULL(" + plan.getClassName(parent) + ".class);\n");
       writer.write("}\n");
     }
@@ -113,7 +112,6 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       return;
 
     writer.write("@" + ElementSpec.class.getName() + "(minOccurs=" + plan.getMinOccurs() + ", maxOccurs=" + plan.getMaxOccurs() + ")\n");
-    writeQualifiedName(writer, plan);
     final String type = plan.getDeclarationGeneric(parent);
     final String methodName = plan.getMethodName();
     final String setAdd = plan.getMaxOccurs() > 1 ? "add" : "set";
@@ -272,22 +270,19 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     // MIXED CONSTRUCTOR
     if (!plan.isComplexType() || (plan.getMixed() == null && plan.getMixedType()) || (plan.getMixed() != null && plan.getMixed())) {
       if (plan.getMixedType()) {
-        writer.write("public " + plan.getClassSimpleName() + "(final " + String.class.getName() + " text)\n");
-        writer.write("{\n");
+        writer.write("public " + plan.getClassSimpleName() + "(final " + String.class.getName() + " text) {\n");
         writer.write("super(text);\n");
         writer.write("}\n");
 
         writer.write("@" + Override.class.getName() + "\n");
-        writer.write("public " + String.class.getName() + " text()\n");
-        writer.write("{\n");
+        writer.write("public " + String.class.getName() + " text() {\n");
         writer.write("return (" + String.class.getName() + ")super.text();\n");
         writer.write("}\n");
 
         if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
           writer.write("@" + Override.class.getName() + "\n");
 
-        writer.write("public void text(final " + String.class.getName() + " text)\n");
-        writer.write("{\n");
+        writer.write("public void text(final " + String.class.getName() + " text) {\n");
         writer.write("super.text(text);\n");
         writer.write("}\n");
       }
@@ -301,7 +296,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
             enumClassName = "Enum";
 
           if (plan.isList()) {
-            writer.write("public <T extends " + List.class.getName() + "<" + enumClassName + "> & " + Serializable.class.getName() + ">void text(final T enm)\n");
+            writer.write("public <T extends " + List.class.getName() + "<" + enumClassName + ">>void text(final T enm)\n");
             writer.write("{\n");
             writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
             writer.write("for (" + enumClassName + " temp : enm)\n");
@@ -318,7 +313,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
             writer.write("}\n");
 
             if (plan.isUnionWithNonEnumeration()) {
-              writer.write("public <T extends " + List.class.getName() + "<" + plan.getNativeNonEnumItemClassNameInterface() + "> & " + Serializable.class.getName() + ">void text(final T text)\n");
+              writer.write("public void text(final " + plan.getNativeNonEnumItemClassNameInterface() + " text)\n");
               writer.write("{\n");
               writer.write("super.text(new " + plan.getNativeNonEnumItemClassNameImplementation() + "());\n");
               writer.write("for (" + enumClassName + " temp : text)\n");
@@ -348,12 +343,12 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
             writer.write("@" + Override.class.getName() + "\n");
 
           if (plan.isList()) {
-            writer.write("public <T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">void text(final T text)\n");
+            writer.write("public void text(final " + plan.getNativeNonEnumItemClassNameInterface() + " text)\n");
             writer.write("{\n");
             writer.write("super.text(text);\n");
             writer.write("}\n");
 
-            writer.write("public <T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">void text(final " + plan.getNativeItemClassName() + " ... text)\n");
+            writer.write("public <T extends " + plan.getNativeNonEnumItemClassNameInterface() + ">void text(final " + plan.getNativeItemClassName() + " ... text)\n");
             writer.write("{\n");
             writer.write("super.text((T)" + Arrays.class.getName() + ".asList(text));\n");
             writer.write("}\n");
@@ -368,7 +363,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
 //        if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
 //        {
-//          writer.write("public <T extends " + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> & " + Serializable.class.getName() + ">void text(final T text)\n");
+//          writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
 //          writer.write("{\n");
 //          writer.write("super.text(text);\n");
 //          writer.write("}\n");
@@ -445,8 +440,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     // SUBSTITUTION GROUP
     if (plan.getSubstitutionGroup() != null) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected boolean _$$isSubstitutionGroup(" + QName.class.getName() + " name)\n");
-      writer.write("{\n");
+      writer.write("protected boolean _$$isSubstitutionGroup(" + QName.class.getName() + " name) {\n");
       writer.write("return name != null && SUBSTITUTION_GROUP.getNamespaceURI().equals(name.getNamespaceURI()) && SUBSTITUTION_GROUP.getLocalPart().equals(name.getLocalPart());\n");
       writer.write("}\n");
     }
@@ -454,24 +448,21 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     // ID
     if (plan.getId() != null) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + String.class.getName() + " id()\n");
-      writer.write("{\n");
+      writer.write("public " + String.class.getName() + " id() {\n");
       writer.write("return \"" + plan.getId() + "\";\n");
       writer.write("}\n");
     }
 
     // NAME
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + QName.class.getName() + " name()\n");
-    writer.write("{\n");
+    writer.write("public " + QName.class.getName() + " name() {\n");
     writer.write("return NAME;\n");
     writer.write("}\n");
 
     // OWNER
     if (plan.getOwnerClassName() != null) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + plan.getOwnerClassName() + " owner()\n");
-      writer.write("{\n");
+      writer.write("public " + plan.getOwnerClassName() + " owner() {\n");
       writer.write("return (" + plan.getOwnerClassName() + ")super.owner();\n");
       writer.write("}\n");
     }
@@ -481,30 +472,27 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
     // ATTRIBUTE ITERATORS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + Iterator.class.getName() + "<? extends " + $AnySimpleType.class.getCanonicalName() + "> attributeIterator()\n");
-    writer.write("{\n");
+    writer.write("public " + Iterator.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> attributeIterator() {\n");
     writer.write("return super.attributeIterator();\n");
     writer.write("}\n");
 
     // ELEMENT ITERATORS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + Iterator.class.getName() + "<" + Binding.class.getName() + "> elementIterator()\n");
-    writer.write("{\n");
+    writer.write("public " + Iterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementIterator() {\n");
     writer.write("return super.elementIterator();\n");
     writer.write("}\n");
 
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + BindingList.class.getName() + "<? extends " + Binding.class.getName() + "> fetchChild(final " + QName.class.getName() + " name)\n");
-    writer.write("{\n");
+    writer.write("public " + BindingList.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> fetchChild(final " + QName.class.getName() + " name) {\n");
     writer.write("return super.fetchChild(name);\n");
     writer.write("}\n");
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + Binding.class.getName() + "> elementListIterator()\n");
+//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementListIterator()\n");
 //  writer.write("{\n");
 //  writer.write("return super.elementListIterator();\n");
 //  writer.write("}\n");
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + Binding.class.getName() + "> elementListIterator(final int index)\n");
+//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementListIterator(final int index)\n");
 //  writer.write("{\n");
 //  writer.write("return super.elementListIterator(index);\n");
 //  writer.write("}\n");
@@ -517,8 +505,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       else
         writer.write("public ");
 
-      writer.write(Element.class.getName() + " marshal() throws " + MarshalException.class.getName() + "\n");
-      writer.write("{\n");
+      writer.write(Element.class.getName() + " marshal() throws " + MarshalException.class.getName() + " {\n");
       writer.write(Element.class.getName() + " root = createElementNS(name().getNamespaceURI(), name().getLocalPart());\n");
       writer.write(Element.class.getName() + " node = marshal(root, name(), type(_$$inheritsInstance()));\n");
       writer.write("_$$marshalElements(node);\n");

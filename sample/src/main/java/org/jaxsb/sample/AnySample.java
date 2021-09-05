@@ -16,7 +16,6 @@
 
 package org.jaxsb.sample;
 
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.www.sample.any.xAA.Trash;
 import org.jaxsb.www.sample.enums.xAA.Color$;
 import org.jaxsb.www.sample.enums.xAA.ColoredFruitBasket;
@@ -25,13 +24,14 @@ import org.jaxsb.www.sample.simple.xAA.Fruit;
 import org.jaxsb.www.sample.simple.xAA.FruitBasket;
 import org.jaxsb.www.sample.xsitype.xAA.$FleshyFruitType;
 import org.jaxsb.www.sample.xsitype.xAA.$IndehiscentDryFruitType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 public class AnySample {
   public static void main(final String[] args) {
     new AnySample().runSample();
   }
 
-  public Binding runSample() {
+  public $AnyType<?> runSample() {
     final Fruit strawberry = new Fruit();
     strawberry.setName$(new Fruit.Name$("strawberry"));
     strawberry.setSweet$(new Fruit.Sweet$(true));
@@ -50,8 +50,6 @@ public class AnySample {
     coloredBasket.setFruits(fruits);
 
     final $FleshyFruitType berry = new $FleshyFruitType() {
-      private static final long serialVersionUID = 2218327322530017590L;
-
       @Override
       protected $FruitType inherits() {
         return new Fruit();
@@ -62,8 +60,6 @@ public class AnySample {
 
     // Again, instantiate a nameless element.GenericBasket
     final $IndehiscentDryFruitType grain = new $IndehiscentDryFruitType() {
-      private static final long serialVersionUID = 867582743279198067L;
-
       @Override
       protected $FruitType inherits() {
         return new Fruit();
@@ -73,8 +69,6 @@ public class AnySample {
 
     // Again, instantiate a nameless element.
     final $IndehiscentDryFruitType nut = new $IndehiscentDryFruitType() {
-      private static final long serialVersionUID = -1491146052315929931L;
-
       @Override
       protected $FruitType inherits() {
         return new Fruit();
@@ -84,10 +78,10 @@ public class AnySample {
     nut.setDry$(new $IndehiscentDryFruitType.Dry$($IndehiscentDryFruitType.Dry$._5Ftrue));
 
     final Trash trash = new Trash();
-    trash.addAny(coloredBasket);
-    trash.addAny(berry);
-    trash.addAny(grain);
-    trash.addAny(nut);
+    trash.add$Any(coloredBasket);
+    trash.add$Any(berry);
+    trash.add$Any(grain);
+    trash.add$Any(nut);
 
     // Now verify the integrity of the code representing this XML structure.
     return trash;

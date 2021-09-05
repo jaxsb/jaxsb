@@ -16,16 +16,16 @@
 
 package org.jaxsb.sample;
 
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.www.sample.simple.xAA.Fruit;
 import org.jaxsb.www.sample.simple.xAA.FruitBasket;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 public class SimpleSample {
   public static void main(final String[] args) {
     new SimpleSample().runSample();
   }
 
-  public Binding runSample() {
+  public $AnyType<?> runSample() {
     final Fruit strawberry = new Fruit();
     strawberry.setName$(new Fruit.Name$("strawberry"));
     strawberry.setSweet$(new Fruit.Sweet$(true));

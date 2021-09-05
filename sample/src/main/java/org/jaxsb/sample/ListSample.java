@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.sample.list.xAA.$EmployeeType;
 import org.jaxsb.www.sample.list.xAA.$StaffType;
@@ -30,6 +29,7 @@ import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.xml.sax.SAXException;
 
 public class ListSample {
@@ -45,7 +45,7 @@ public class ListSample {
       logger.info("\t" + workDay);
   }
 
-  public Binding runSample() throws IOException, SAXException {
+  public $AnyType<?> runSample() throws IOException, SAXException {
     final URL url = getClass().getResource("/list.xml");
     final Roster roster = (Roster)Bindings.parse(url);
     if (roster.getEmployees() != null) {

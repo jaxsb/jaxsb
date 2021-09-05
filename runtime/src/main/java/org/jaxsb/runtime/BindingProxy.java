@@ -18,9 +18,10 @@ package org.jaxsb.runtime;
 
 import javax.xml.namespace.QName;
 
-public class BindingProxy<T extends Binding> extends Binding {
-  private static final long serialVersionUID = -7980470458516366660L;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
+@SuppressWarnings("rawtypes")
+public class BindingProxy<T extends $AnyType> extends $AnyType<Object> {
   private T binding;
 
   public BindingProxy(final T binding) {

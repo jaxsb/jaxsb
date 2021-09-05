@@ -30,10 +30,10 @@ public class XIncludeSpecTest {
   private static final String xIncludePath = "org/w3/www/_2001/XInclude/yAA.java";
 
   private static String removeGeneratedAnnotation(final byte[] bytes) {
-    final StringBuilder code = new StringBuilder(new String(bytes));
+    final StringBuilder code = new StringBuilder(new String(bytes).trim());
     final int start = code.indexOf("@javax.annotation.Generated(");
-    final int end = code.indexOf("\")", start + 27);
-    code.delete(start, end + 2);
+    final int end = code.indexOf("\")", start + 27) + 2;
+    code.delete(start, end);
     return code.toString();
   }
 
@@ -49,7 +49,7 @@ public class XIncludeSpecTest {
     Generator.main(new String[] {"--overwrite", "--skip-xsd", "-d", destDir.getAbsolutePath(), url.toString()});
 
     final File testFile = new File(destDir, xIncludePath);
-    final File controlFile = new File("../runtime/src/main/java/" + xIncludePath);
+    final File controlFile = new File("../runtime/src/main/java/", xIncludePath);
     assertEquals(controlFile.toPath(), testFile.toPath());
   }
 }

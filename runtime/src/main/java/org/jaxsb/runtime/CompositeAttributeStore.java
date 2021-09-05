@@ -16,16 +16,13 @@
 
 package org.jaxsb.runtime;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
-public class CompositeAttributeStore implements Serializable {
-  private static final long serialVersionUID = 5214136979828034837L;
-
+public class CompositeAttributeStore {
   private final ArrayList<AttributeAudit<?>> audits;
 
   public CompositeAttributeStore() {
@@ -36,9 +33,10 @@ public class CompositeAttributeStore implements Serializable {
     this.audits = audits;
   }
 
+  @SuppressWarnings("rawtypes")
   private static final class AttributeIterator implements Iterator<$AnySimpleType> {
     private final Iterator<AttributeAudit<?>> iterator;
-    private $AnySimpleType next;
+    private $AnySimpleType<?> next;
 
     private AttributeIterator(final Iterator<AttributeAudit<?>> iterator) {
       this.iterator = iterator;
@@ -56,11 +54,11 @@ public class CompositeAttributeStore implements Serializable {
     }
 
     @Override
-    public $AnySimpleType next() {
+    public $AnySimpleType<?> next() {
       if (next == null)
         throw new NoSuchElementException();
 
-      final $AnySimpleType current = next;
+      final $AnySimpleType<?> current = next;
       next = null;
       setNext();
       return current;
@@ -71,11 +69,12 @@ public class CompositeAttributeStore implements Serializable {
     this.audits.add(audit);
   }
 
-  public Iterator<? extends $AnySimpleType> iterator() {
+  @SuppressWarnings("rawtypes")
+  public Iterator<$AnySimpleType> iterator() {
     return new AttributeIterator(audits.iterator());
   }
 
-  public CompositeAttributeStore clone(final $AnySimpleType owner) {
+  public CompositeAttributeStore clone(final $AnySimpleType<?> owner) {
     final ArrayList<AttributeAudit<?>> clone = new ArrayList<>();
     for (final AttributeAudit<?> audit : audits)
       clone.add(audit.clone(owner));

@@ -21,9 +21,9 @@ import java.util.List;
 
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.generator.processor.plan.element.AnyPlan;
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.Bindings;
 import org.jaxsb.runtime.ElementAudit;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -31,25 +31,23 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
   @Override
   protected void appendDeclaration(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
 //      if (plan.getMaxOccurs() > 1)
-    writer.write("private " + ElementAudit.class.getName() + "<" + Binding.class.getName() + "> any = new " + ElementAudit.class.getName() + "<>(" + Binding.class.getName() + ".class, this, " + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
+    writer.write("private " + ElementAudit.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> any = new " + ElementAudit.class.getName() + "<>(" + $AnyType.class.getCanonicalName() + ".class, this, " + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
 //      else
-//          writer.write("private " + ElementAudit.class.getName() + "<" + Binding.class.getName() + "> any = new " + ElementAudit.class.getName() + "<>(" + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
+//          writer.write("private " + ElementAudit.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> any = new " + ElementAudit.class.getName() + "<>(" + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
   }
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
 //      if (plan.getMaxOccurs() > 1)
-    writer.write("public " + List.class.getName() + "<" +  Binding.class.getName() + "> getAny()\n");
+    writer.write("public " + List.class.getName() + "<" +  $AnyType.class.getCanonicalName() + "> get$Any() {\n");
 //      else
-//          writer.write("public " + Binding.class.getName() + " getAny()\n");
+//          writer.write("public " + $AnyType.class.getCanonicalName() + " getAny$()\n");
 
-    writer.write("{\n");
     writer.write("return any.getElements();\n");
     writer.write("}\n");
 
-    writer.write("public " + Binding.class.getName() + " any(final int index)\n");
-    writer.write("{\n");
-    writer.write("final " + List.class.getName() + "<" + Binding.class.getName() + "> values = getAny();\n");
+    writer.write("public " + $AnyType.class.getCanonicalName() + " get$Any(final int index) {\n");
+    writer.write("final " + List.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> values = get$Any();\n");
     writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : null;\n");
     writer.write("}\n");
   }
@@ -57,9 +55,9 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
   @Override
   protected void appendSetMethod(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
 //      if (plan.getMaxOccurs() > 1)
-    writer.write("public " + Binding.class.getName() + " addAny(final " +  Binding.class.getName() + " any)\n");
+    writer.write("public void add$Any(final " +  $AnyType.class.getCanonicalName() + " any)\n");
 //      else
-//          writer.write("public void setAny(" +  Binding.class.getName() + " any)\n");
+//          writer.write("public void setAny(" +  $AnyType.class.getCanonicalName() + " any)\n");
 
     writer.write("{\n");
 //      if (plan.getMaxOccurs() > 1)
@@ -73,7 +71,6 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
 //          writer.write("this.any.$value(any);\n");
 //      }
 
-    writer.write("return any;\n");
     writer.write("}\n");
   }
 

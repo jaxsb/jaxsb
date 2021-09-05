@@ -16,17 +16,17 @@
 
 package org.jaxsb.sample;
 
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.www.sample.enums.xAA.Color$;
 import org.jaxsb.www.sample.enums.xAA.ColoredFruitBasket;
 import org.jaxsb.www.sample.simple.xAA.Fruit;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 public class EnumsSample {
   public static void main(final String[] args) {
     new EnumsSample().runSample();
   }
 
-  public Binding runSample() {
+  public $AnyType<?> runSample() {
     final Fruit strawberry = new Fruit();
     strawberry.setName$(new Fruit.Name$("strawberry"));
     strawberry.setSweet$(new Fruit.Sweet$(true));

@@ -8,6 +8,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ns1="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd"
   xsi:schemaLocation="http://www.jaxsb.org/test/attribute.xsd attribute.xsd">
+  <at:foo>fjds
+  </at:foo>
   <at:local
     localRaw="foo"
     localAnyURI="http://example.com"
@@ -94,5 +96,9 @@
     at:unsignedByte="255"
     at:unsignedInt="74832"
     at:unsignedLong="21341"
-    at:unsignedShort="65535"/>
+    at:unsignedShort="65535"
+    at:enum1="A"
+    at:enum2="B"
+    at:enumList1="A B"
+    at:enumList2="B C"/>
 </at:attribute>

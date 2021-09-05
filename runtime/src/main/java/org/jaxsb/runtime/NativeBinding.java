@@ -20,6 +20,7 @@ import java.lang.reflect.AccessibleObject;
 import java.util.List;
 
 import org.jaxsb.compiler.lang.UniqueQName;
+import org.libj.lang.Assertions;
 
 public final class NativeBinding {
   private final UniqueQName name;
@@ -29,14 +30,8 @@ public final class NativeBinding {
   private final boolean list;
 
   public NativeBinding(final UniqueQName name, final GenericClass baseClass, final GenericClass nativeClass, final AccessibleObject factoryMethod) {
-    this.name = name;
-    if (name == null)
-      throw new IllegalArgumentException("name == null");
-
-    this.baseClass = baseClass;
-    if (baseClass == null)
-      throw new IllegalArgumentException("baseClass<?> == null");
-
+    this.name = Assertions.assertNotNull(name);
+    this.baseClass = Assertions.assertNotNull(baseClass);
     this.nativeClass = nativeClass;
     this.factoryMethod = factoryMethod;
     this.list = nativeClass != null && nativeClass.isList();
@@ -98,15 +93,12 @@ public final class NativeBinding {
 
   public static final class GenericClass {
     private final Class<?> cls;
-    private final Class<?> type;
-    private Boolean list;
+    private final Class<?> genericType;
+    private Boolean isList;
 
-    public GenericClass(final Class<?> cls, final Class<?> type) {
-      if (cls == null)
-        throw new IllegalArgumentException("cls == null");
-
-      this.cls = cls;
-      this.type = type;
+    public GenericClass(final Class<?> cls, final Class<?> genericType) {
+      this.cls = Assertions.assertNotNull(cls);
+      this.genericType = genericType;
     }
 
     public GenericClass(final Class<?> cls) {
@@ -118,11 +110,11 @@ public final class NativeBinding {
     }
 
     public Class<?> getType() {
-      return type;
+      return genericType;
     }
 
     protected boolean isList() {
-      return list == null ? list = List.class.isAssignableFrom(cls) : list;
+      return isList == null ? isList = List.class.isAssignableFrom(cls) : isList;
     }
 
     @Override
@@ -134,7 +126,7 @@ public final class NativeBinding {
         return false;
 
       final GenericClass that = (GenericClass)obj;
-      return cls.equals(that.cls) && (type != null ? type.equals(that.type) : that.type != null);
+      return cls.equals(that.cls) && (genericType != null ? genericType.equals(that.genericType) : that.genericType != null);
     }
 
     @Override
@@ -144,7 +136,7 @@ public final class NativeBinding {
 
     @Override
     public String toString() {
-      return type == null ? cls.getCanonicalName() : cls.getCanonicalName() + "<" + type.getCanonicalName() + ">";
+      return genericType != null ? cls.getCanonicalName() + "<" + genericType.getCanonicalName() + ">" : cls.getCanonicalName();
     }
   }
 }

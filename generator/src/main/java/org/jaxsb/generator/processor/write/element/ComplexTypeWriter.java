@@ -16,7 +16,6 @@
 
 package org.jaxsb.generator.processor.write.element;
 
-import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +29,6 @@ import org.jaxsb.generator.processor.plan.element.AttributePlan;
 import org.jaxsb.generator.processor.plan.element.ComplexTypePlan;
 import org.jaxsb.generator.processor.plan.element.ElementPlan;
 import org.jaxsb.generator.processor.write.Writer;
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.BindingList;
 import org.jaxsb.runtime.BindingValidator;
 import org.jaxsb.runtime.CompilerFailureException;
@@ -39,6 +37,7 @@ import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.XSTypeDirectory;
 import org.openjax.xml.api.ValidationException;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -100,7 +99,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     writeQualifiedName(writer, plan);
     writer.write("public abstract static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + ComplexType.class.getName() + "\n");
     writer.write("{\n");
-    writer.write("private static final " + QName.class.getName() + " NAME = getClassQName(" + plan.getClassName(parent) + ".class);\n");
+    writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 
     // FACTORY METHOD
     writer.write("protected static " + plan.getClassSimpleName() + " newInstance(final " + plan.getBaseNonXSTypeClassName() + " inherits)\n");
@@ -189,9 +188,9 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     if (plan.hasSimpleContent() && plan.getNativeItemClassNameInterface() != null) {
       if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName())) {
         writer.write("@" + Override.class.getName() + "\n");
-        writer.write("public " + BindingList.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text()\n");
+        writer.write("public " + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text()\n");
         writer.write("{\n");
-        writer.write("return (" + BindingList.class.getName() + "<" + plan.getNativeItemClassNameInterface() + ">)super.text();\n");
+        writer.write("return (" + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + ">)super.text();\n");
         writer.write("}\n");
 
         writer.write("public " + plan.getNativeItemClassNameInterface() + " text(final int index)\n");
@@ -201,8 +200,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
         writer.write("}\n");
 
         writer.write("@" + Override.class.getName() + "\n");
-        final String genericType = "<T extends " + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> & " + Serializable.class.getName() + ">";
-        writer.write("public " + genericType + "void text(final T text)\n");
+        writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
         writer.write("{\n");
         writer.write("super.text(text);\n");
         writer.write("}\n");
@@ -297,38 +295,34 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
 
     // ATTRIBUTE ITERATORS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + Iterator.class.getName() + "<? extends " + $AnySimpleType.class.getCanonicalName() + "> attributeIterator()\n");
-    writer.write("{\n");
+    writer.write("public " + Iterator.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> attributeIterator() {\n");
     writer.write("return super.attributeIterator();\n");
     writer.write("}\n");
 
     // ELEMENT ITERATORS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + Iterator.class.getName() + "<" + Binding.class.getName() + "> elementIterator()\n");
-    writer.write("{\n");
+    writer.write("public " + Iterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementIterator() {\n");
     writer.write("return super.elementIterator();\n");
     writer.write("}\n");
 
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + BindingList.class.getName() + "<? extends " + Binding.class.getName() + "> fetchChild(final " + QName.class.getName() + " name)\n");
-    writer.write("{\n");
+    writer.write("public " + BindingList.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> fetchChild(final " + QName.class.getName() + " name) {\n");
     writer.write("return super.fetchChild(name);\n");
     writer.write("}\n");
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + Binding.class.getName() + "> elementListIterator()\n");
+//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementListIterator()\n");
 //  writer.write("{\n");
 //  writer.write("return super.elementListIterator();\n");
 //  writer.write("}\n");
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + Binding.class.getName() + "> elementListIterator(final int index)\n");
+//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementListIterator(final int index)\n");
 //  writer.write("{\n");
 //  writer.write("return super.elementListIterator(index);\n");
 //  writer.write("}\n");
 
     // MARSHAL
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("protected " + Element.class.getName() + " marshal() throws " + MarshalException.class.getName() + "\n");
-    writer.write("{\n");
+    writer.write("protected " + Element.class.getName() + " marshal() throws " + MarshalException.class.getName() + " {\n");
     writer.write(Element.class.getName() + " root = createElementNS(name().getNamespaceURI(), name().getLocalPart());\n");
     writer.write(Element.class.getName() + " node = marshal(root, name(), type(_$$inheritsInstance()));\n");
     if (plan.getElements().size() != 0)

@@ -21,9 +21,11 @@ import java.util.Iterator;
 import javax.xml.namespace.QName;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
+@SuppressWarnings("rawtypes")
 public interface ComplexType {
-  Iterator<? extends $AnySimpleType> attributeIterator();
-  Iterator<? extends Binding> elementIterator();
-  BindingList<? extends Binding> fetchChild(QName name);
+  Iterator<$AnySimpleType> attributeIterator();
+  Iterator<$AnyType> elementIterator();
+  BindingList<$AnyType> fetchChild(QName name);
 }

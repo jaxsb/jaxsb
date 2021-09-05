@@ -223,6 +223,8 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
     digItemTypes(baseNonXSType);
 
     baseNonXSTypeClassName = JavaBinding.getClassName(baseNonXSType);
+    if ("org.w3.www._2001.XInclude.yAA.$IncludeType".equals(baseNonXSTypeClassName))
+      System.out.println();
 
     final XSTypeDirectory baseXSItemTypeDirectory = XSTypeDirectory.parseType(baseXSItemTypeName);
     final XSTypeDirectory baseXSNonEnumItemTypeDirectory = XSTypeDirectory.parseType(baseXSNonEnumItemTypeName);

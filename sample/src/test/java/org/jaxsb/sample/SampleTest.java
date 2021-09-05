@@ -18,13 +18,13 @@ package org.jaxsb.sample;
 
 import java.io.StringReader;
 
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.BindingValidator;
 import org.jaxsb.runtime.Bindings;
 import org.openjax.xml.dom.DOMStyle;
 import org.openjax.xml.dom.DOMs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
@@ -36,15 +36,15 @@ public abstract class SampleTest {
     BindingValidator.setSystemValidator(validator);
   }
 
-  protected static boolean verifyBinding(final Binding binding) throws Exception {
+  protected static boolean verifyBinding(final $AnyType<?> anyType) throws Exception {
     boolean success = true;
-    final Element element = Bindings.marshal(binding);
+    final Element element = Bindings.marshal(anyType);
     final String xml = DOMs.domToString(element, DOMStyle.INDENT);
     logger.info(xml + "\n");
-    final Binding reparsed = Bindings.parse(new InputSource(new StringReader(xml)));
+    final $AnyType<?> reparsed = Bindings.parse(new InputSource(new StringReader(xml)));
     String message = "SUCCESS";
     String not = "---";
-    if (!binding.equals(reparsed)) {
+    if (!anyType.equals(reparsed)) {
       success = false;
       message = "FAILURE";
       not = "NOT";

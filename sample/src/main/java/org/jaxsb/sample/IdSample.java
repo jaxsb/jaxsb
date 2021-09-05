@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.sample.id.xAA.$BookType;
 import org.jaxsb.www.sample.id.xAA.Directory;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3.www._2001.XMLSchema.yAA.$IDREFS;
 import org.xml.sax.SAXException;
 
@@ -32,7 +32,7 @@ public class IdSample {
     new IdSample().runSample();
   }
 
-  public Binding runSample() throws IOException, SAXException {
+  public $AnyType<?> runSample() throws IOException, SAXException {
     final URL url = getClass().getResource("/id.xml");
     final Directory directory = (Directory)Bindings.parse(url);
     final List<$BookType> books = directory.getBook();

@@ -16,7 +16,6 @@
 
 package org.jaxsb.runtime;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,22 +25,21 @@ import javax.xml.namespace.QName;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Element;
 
-public final class AnyAttributeAudit<T extends $AnySimpleType> implements Serializable {
-  private static final long serialVersionUID = 5515619573188162795L;
-
-  private final $AnySimpleType owner;
+@SuppressWarnings("rawtypes")
+public final class AnyAttributeAudit<T extends $AnySimpleType> {
+  private final $AnySimpleType<?> owner;
   private final boolean qualified;
   private final boolean required;
   private ArrayList<T> value;
 
-  public AnyAttributeAudit(final $AnySimpleType owner, final boolean qualified, final boolean required) {
+  public AnyAttributeAudit(final $AnySimpleType<?> owner, final boolean qualified, final boolean required) {
     this.owner = owner;
     this.qualified = qualified;
     this.required = required;
   }
 
   @SuppressWarnings("unchecked")
-  private AnyAttributeAudit(final $AnySimpleType owner, final AnyAttributeAudit<T> copy) {
+  private AnyAttributeAudit(final $AnySimpleType<?> owner, final AnyAttributeAudit<T> copy) {
     this.owner = owner;
     this.qualified = copy.qualified;
     this.required = copy.required;
@@ -87,7 +85,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> implements Serial
     }
   }
 
-  public AnyAttributeAudit<T> clone(final $AnySimpleType owner) {
+  public AnyAttributeAudit<T> clone(final $AnySimpleType<?> owner) {
     return new AnyAttributeAudit<>(owner, this);
   }
 

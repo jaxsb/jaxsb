@@ -16,7 +16,6 @@
 
 package org.jaxsb.runtime;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.xml.namespace.QName;
@@ -24,17 +23,16 @@ import javax.xml.namespace.QName;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3c.dom.Element;
 
-public final class AttributeAudit<T extends $AnySimpleType> implements Serializable {
-  private static final long serialVersionUID = 4793561156708612350L;
-
-  private final $AnySimpleType owner;
+@SuppressWarnings("rawtypes")
+public final class AttributeAudit<T extends $AnySimpleType> {
+  private final $AnySimpleType<?> owner;
   private final T _default;
   private final QName name;
   private final boolean qualified;
   private final boolean required;
   private T value;
 
-  public AttributeAudit(final $AnySimpleType owner, final T _default, final QName name, final boolean qualified, final boolean required) {
+  public AttributeAudit(final $AnySimpleType<?> owner, final T _default, final QName name, final boolean qualified, final boolean required) {
     this.owner = owner;
     this._default = _default;
     if (_default != null)
@@ -45,8 +43,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
     this.required = required;
   }
 
-  @SuppressWarnings("unchecked")
-  private AttributeAudit(final $AnySimpleType owner, final AttributeAudit<T> copy) {
+  private AttributeAudit(final $AnySimpleType<?> owner, final AttributeAudit<T> copy) {
     this.owner = owner;
     this._default = copy._default == null ? null : (T)copy._default.clone();
     this.name = copy.name;
@@ -96,7 +93,7 @@ public final class AttributeAudit<T extends $AnySimpleType> implements Serializa
     parent.setAttributeNodeNS(((Binding)value).marshalAttr(marshalName, parent));
   }
 
-  public AttributeAudit<T> clone(final $AnySimpleType owner) {
+  public AttributeAudit<T> clone(final $AnySimpleType<?> owner) {
     return new AttributeAudit<>(owner, this);
   }
 

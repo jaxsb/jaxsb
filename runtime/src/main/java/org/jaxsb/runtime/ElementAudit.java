@@ -16,15 +16,15 @@
 
 package org.jaxsb.runtime;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.xml.namespace.QName;
 
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
 
-@SuppressWarnings("unchecked")
-public final class ElementAudit<B extends Binding> implements Serializable {
+@SuppressWarnings("rawtypes")
+public final class ElementAudit<B extends $AnyType> {
   private static void marshalNil(final Element element, final Element parent) {
     // NOTE: This makes the assumption that the xmlns:xsi will be present if
     // NOTE: xsi:nil is present, saving us a hasAttributeNS() call.
@@ -35,10 +35,8 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     }
   }
 
-  private static final long serialVersionUID = -8175752291591734863L;
-
   private final Class<B> type;
-  protected final Binding owner;
+  protected final $AnyType<?> owner;
   private final B _default;
   private final BindingProxy<B> defaultProxy;
   private final QName name;
@@ -49,7 +47,8 @@ public final class ElementAudit<B extends Binding> implements Serializable {
   private final int maxOccurs;
   private ElementCompositeList.ElementComponentList elements;
 
-  public ElementAudit(final Class<? extends Binding> type, final Binding owner, final B _default, final QName name, final QName typeName, final boolean qualified, final boolean nillable, final int minOccurs, final int maxOccurs) {
+  @SuppressWarnings("unchecked")
+  public ElementAudit(final Class<? extends $AnyType> type, final $AnyType<?> owner, final B _default, final QName name, final QName typeName, final boolean qualified, final boolean nillable, final int minOccurs, final int maxOccurs) {
     this.type = (Class<B>)type;
     this.owner = owner;
     if (_default != null) {
@@ -71,7 +70,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     owner._$$registerElementAudit(this);
   }
 
-  protected ElementAudit(final Binding owner, final ElementAudit<B> copy, final ElementCompositeList.ElementComponentList elements) {
+  protected ElementAudit(final $AnyType<?> owner, final ElementAudit<B> copy, final ElementCompositeList.ElementComponentList elements) {
     this.owner = owner;
     this.type = copy.type;
     this._default = copy._default == null ? null : (B)copy._default.clone();
@@ -89,7 +88,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     return this.type;
   }
 
-  public Binding getOwner() {
+  public $AnyType<?> getOwner() {
     return this.owner;
   }
 
@@ -117,10 +116,12 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     return maxOccurs;
   }
 
+  @SuppressWarnings("unchecked")
   public BindingList<B> getElements() {
     return (BindingList<B>)elements;
   }
 
+  @SuppressWarnings("unchecked")
   public B getElement() {
     if (elements == null || elements.size() == 0)
       return null;
@@ -133,7 +134,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     return elements == null ? 0 : elements.size();
   }
 
-  protected int indexOf(final Binding element) {
+  protected int indexOf(final $AnyType<?> element) {
     return elements.indexOf(element);
   }
 
@@ -167,7 +168,7 @@ public final class ElementAudit<B extends Binding> implements Serializable {
     if (type == null)
       type = element.type();
 
-    final Element node = element.marshal(parent, name, type);
+    final Element node = ((Binding)element).marshal(parent, name, type);
     if (!element._$$hasElements() && isNillable())
       marshalNil(node, parent);
 

@@ -16,21 +16,20 @@
 
 package org.jaxsb.generator.processor.write.element;
 
-import java.io.Serializable;
+import java.util.List;
 import java.io.StringWriter;
 
 import javax.xml.namespace.QName;
 
 import org.jaxsb.compiler.schema.attribute.Form;
 import org.jaxsb.compiler.schema.attribute.Use;
+import org.jaxsb.generator.processor.plan.ExtensiblePlan;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.generator.processor.plan.element.AttributePlan;
-import org.jaxsb.generator.processor.plan.element.SimpleTypePlan;
 import org.jaxsb.runtime.Attribute;
 import org.jaxsb.runtime.AttributeAudit;
 import org.jaxsb.runtime.AttributeSpec;
 import org.jaxsb.runtime.Binding;
-import org.jaxsb.runtime.SimpleType;
 import org.jaxsb.runtime.XSTypeDirectory;
 
 public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
@@ -51,7 +50,6 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final AttributePlan plan, final Plan<?> parent) {
-    writeQualifiedName(writer, plan);
     writer.write("public " + plan.getDeclarationRestrictionGeneric(parent) + " get" + plan.getMethodName() + "()\n{\n");
     if (plan.isRestriction())
       writer.write("return super.get" + plan.getDeclarationRestrictionSimpleName() + "();\n");
@@ -75,14 +73,59 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     }
 
     writer.write("@" + AttributeSpec.class.getName() + "(use=\"" + plan.getUse().getValue() + "\")\n");
-    writeQualifiedName(writer, plan);
-    writer.write("public void set" + plan.getMethodName() + "(" + plan.getThisClassNameWithType(parent) + " " + plan.getInstanceName() + ")\n");
-    writer.write("{\n");
+    writer.write("public void set" + plan.getMethodName() + "(final " + plan.getThisClassNameWithType(parent) + " " + plan.getInstanceName() + ") {\n");
     if (plan.isRestriction())
       writer.write("super.set" + plan.getDeclarationRestrictionSimpleName() + "(" + plan.getInstanceName() + ");\n");
     else
       writer.write("_$$setAttribute(this." + plan.getInstanceName() + ", this, " + plan.getInstanceName() + ");\n");
     writer.write("}\n");
+
+    writer.write(plan.getDocumentation());
+
+    String paramClass = "";
+    final String paramClass2;
+    if (plan.hasEnumerations()) {
+      if (plan.isList())
+        paramClass = List.class.getName() + "<";
+
+      final String type;
+      if (plan.hasSuperEnumerations())
+        type = ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum";
+      else
+        type = plan.getThisClassNameWithType(parent) + ".Enum";
+
+      paramClass += type;
+      paramClass2 = type;
+
+      if (plan.isList())
+        paramClass += ">";
+    }
+    else {
+      paramClass = plan.getNativeNonEnumItemClassNameInterface();
+      paramClass2 = plan.getNativeNonEnumItemClassName();
+    }
+
+    if (plan.isList()) {
+      writer.write("public void set" + plan.getMethodName() + "(final " + paramClass + " text) {\n");
+      writer.write("set" + plan.getMethodName() + "(text == null ? null : new " + plan.getThisClassNameWithType(parent) + "(text));\n");
+      writer.write("}\n");
+
+      writer.write("public void set" + plan.getMethodName() + "(final " + paramClass2 + " ... text) {\n");
+      writer.write("set" + plan.getMethodName() + "(text == null ? null : new " + plan.getThisClassNameWithType(parent) + "(text));\n");
+      writer.write("}\n");
+    }
+    else {
+      writer.write("public void set" + plan.getMethodName() + "(final " + paramClass + " text) {\n");
+      writer.write("set" + plan.getMethodName() + "(text == null ? null : new " + plan.getThisClassNameWithType(parent) + "(text));\n");
+      writer.write("}\n");
+    }
+
+//    if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName())) {
+//      writer.write(accessibility + plan.getClassSimpleName() + "(" + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text)\n");
+//      writer.write("{\n");
+//      writer.write("super(text);\n");
+//      writer.write("}\n");
+//    }
   }
 
   @Override
@@ -92,8 +135,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
         return;
 
       if (Form.QUALIFIED.equals(plan.getFormDefault())) {
-        writer.write("if (!node.hasAttributeNS(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\"))\n");
-        writer.write("{\n");
+        writer.write("if (!node.hasAttributeNS(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\")) {\n");
         if (XSTypeDirectory.QNAME.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
           writer.write("node.setAttributeNS(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getPrefix() + "\" + \":" + plan.getName().getLocalPart() + "\", \"" + plan.getDefault().getLocalPart() + "\");\n");
         else
@@ -172,9 +214,9 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       return;
 
     writeQualifiedName(writer, plan);
-    writer.write("public static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + Attribute.class.getName() + ", " + SimpleType.class.getName() + "\n");
+    writer.write("public static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + Attribute.class.getName() + "\n");
     writer.write("{\n");
-    writer.write("private static final " + QName.class.getName() + " NAME = getClassQName(" + plan.getClassName(parent) + ".class);\n");
+    writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 
     // ID LOOKUP
     writeIdLookup(writer, plan, parent);
@@ -184,11 +226,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
     // COPY CONSTRUCTOR
     writer.write(plan.getDocumentation());
-    if (plan.hasEnumerations())
-      writer.write("public " + plan.getClassSimpleName() + "(final " + plan.getClassName(parent) + " copy)\n");
-    else
-      writer.write("public " + plan.getClassSimpleName() + "(final " + plan.getCopyClassName(parent) + " copy)\n");
-    writer.write("{\n");
+    writer.write("public " + plan.getClassSimpleName() + "(final " + (plan.hasEnumerations() ? plan.getClassName(parent) : plan.getCopyClassName(parent)) + " copy) {\n");
     writer.write("super(copy);\n");
     writer.write("}\n");
 
@@ -197,13 +235,8 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
     // DEFAULT CONSTRUCTOR
     writer.write(plan.getDocumentation());
-    if (plan.hasEnumerations())
-      writer.write("protected ");
-    else
-      writer.write("public ");
-
-    writer.write(plan.getClassSimpleName() + "()\n");
-    writer.write("{\n");
+    writer.write(plan.hasEnumerations() ? "protected " : "public ");
+    writer.write(plan.getClassSimpleName() + "() {\n");
     writer.write("super();\n");
     writer.write("}\n");
 
@@ -212,24 +245,21 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
     // INHERITS
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("protected " + plan.getCopyClassName(parent) + " inherits()\n");
-    writer.write("{\n");
+    writer.write("protected " + plan.getCopyClassName(parent) + " inherits() {\n");
     writer.write("return this;\n");
     writer.write("}\n");
 
     // ID
     if (plan.getId() != null) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + String.class.getName() + " id()\n");
-      writer.write("{\n");
+      writer.write("public " + String.class.getName() + " id() {\n");
       writer.write("return \"" + plan.getId() + "\";\n");
       writer.write("}\n");
     }
 
     // NAME
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + QName.class.getName() + " name()\n");
-    writer.write("{\n");
+    writer.write("public " + QName.class.getName() + " name() {\n");
     writer.write("return NAME;\n");
     writer.write("}\n");
 
@@ -238,8 +268,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
     // GETVALUE
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + plan.getNativeItemClassNameInterface() + " text()\n");
-    writer.write("{\n");
+    writer.write("public " + plan.getNativeItemClassNameInterface() + " text() {\n");
     if (plan.isRestriction())
       writer.write("return super.text();\n");
     else if (!Object.class.getName().equals(plan.getNativeItemClassNameInterface()))
@@ -249,37 +278,35 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     writer.write("}\n");
 
     if (plan.isList()) {
-      writer.write("public " + plan.getNativeItemClassName() + " text(final int index)\n");
-      writer.write("{\n");
+      writer.write("public " + plan.getNativeItemClassName() + " text(final int index) {\n");
       writer.write("final " + plan.getNativeItemClassNameInterface() + " values = text();\n");
       writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : null;\n");
       writer.write("}\n");
     }
 
     // SETVALUE
-    if (!plan.hasEnumerations()) {
-      // FIXME: This misses some @Override(s) for situations that inherit from xs types, cause the type of the parameter to the text() method is not known here
-      if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
-        writer.write("@" + Override.class.getName() + "\n");
-
-      if (plan.isList()) {
-        writer.write("public <T extends " + plan.getNativeNonEnumItemClassNameInterface() + " & " + Serializable.class.getName() + ">void text(final T text)\n");
-        writer.write("{\n");
-        writer.write("super.text(text);\n");
-        writer.write("}\n");
-      }
-      else {
-        writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
-        writer.write("{\n");
-        writer.write("super.text(text);\n");
-        writer.write("}\n");
-      }
-    }
+//    if (!plan.hasEnumerations()) {
+//      // FIXME: This misses some @Override(s) for situations that inherit from xs types, cause the type of the parameter to the text() method is not known here
+//      if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
+//        writer.write("@" + Override.class.getName() + "\n");
+//
+//      if (plan.isList()) {
+//        writer.write("public void text(final " + plan.getNativeNonEnumItemClassNameInterface() + " text)\n");
+//        writer.write("{\n");
+//        writer.write("super.text(text);\n");
+//        writer.write("}\n");
+//      }
+//      else {
+//        writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
+//        writer.write("{\n");
+//        writer.write("super.text(text);\n");
+//        writer.write("}\n");
+//      }
+//    }
 
     // CLONE
     writer.write("@" + Override.class.getName() + "\n");
-    writer.write("public " + plan.getCopyClassName(parent) + " clone()\n");
-    writer.write("{\n");
+    writer.write("public " + plan.getCopyClassName(parent) + " clone() {\n");
     writer.write("return (" + plan.getClassName(parent) + ")super.clone();\n");
     writer.write("}\n");
 

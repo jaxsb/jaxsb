@@ -16,10 +16,9 @@
 
 package org.jaxsb.runtime;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.RandomAccess;
 
-public interface BindingList<E> extends List<E>, RandomAccess, Cloneable, Serializable {
+public interface BindingList<E> extends List<E>, RandomAccess, Cloneable {
   Binding getOwner();
 }

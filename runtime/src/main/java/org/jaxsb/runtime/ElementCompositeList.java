@@ -16,7 +16,6 @@
 
 package org.jaxsb.runtime;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 import javax.xml.namespace.QName;
@@ -24,43 +23,42 @@ import javax.xml.namespace.QName;
 import org.libj.util.CompositeList;
 import org.slf4j.Logger;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
-public class ElementCompositeList extends CompositeList<Binding,QName> implements Serializable {
-  private static final long serialVersionUID = -6869927461811501469L;
-
+@SuppressWarnings("rawtypes")
+public class ElementCompositeList extends CompositeList<$AnyType,QName> {
   protected static final QName ANY = new QName("##any", "##any");
 
-  protected class ElementComponentList extends ComponentList implements BindingList<Binding> {
-    private static final long serialVersionUID = -9155837408220305718L;
-    private ElementAudit<? extends Binding> audit;
+  protected class ElementComponentList extends ComponentList implements BindingList<$AnyType> {
+    private ElementAudit<? extends $AnyType<?>> audit;
 
-    public ElementComponentList(final ElementAudit<? extends Binding> audit) {
+    public ElementComponentList(final ElementAudit<? extends $AnyType<?>> audit) {
       super(audit.getName() == null ? ANY : audit.getName());
       this.audit = audit;
     }
 
-    protected void setAudit(final ElementAudit<? extends Binding> audit) {
+    protected void setAudit(final ElementAudit<? extends $AnyType<?>> audit) {
       this.audit = audit;
     }
 
-    protected ElementAudit<? extends Binding> getAudit() {
+    protected ElementAudit<? extends $AnyType<?>> getAudit() {
       return this.audit;
     }
 
     @Override
-    protected void afterAdd(final int index, final Binding element, final RuntimeException e) {
+    protected void afterAdd(final int index, final $AnyType element, final RuntimeException e) {
       super.afterAdd(index, element, e);
       if (element.owner() != owner)
         element._$$setOwner(owner);
     }
 
     @Override
-    protected CompositeList<Binding,QName> getCompositeList() {
+    protected CompositeList<$AnyType,QName> getCompositeList() {
       return super.getCompositeList();
     }
 
     @Override
-    public Binding getOwner() {
+    public $AnyType<?> getOwner() {
       return audit.getOwner();
     }
 
@@ -70,20 +68,20 @@ public class ElementCompositeList extends CompositeList<Binding,QName> implement
     }
   }
 
-  protected HashMap<QName,ElementAudit<? extends Binding>> nameToAudit;
-  private $AnySimpleType owner;
+  protected HashMap<QName,ElementAudit<? extends $AnyType>> nameToAudit;
+  private $AnySimpleType<?> owner;
 
-  public ElementCompositeList(final $AnySimpleType owner, final HashMap<QName,ElementAudit<?>> nameToAudit) {
+  public ElementCompositeList(final $AnySimpleType<?> owner, final HashMap<QName,ElementAudit<?>> nameToAudit) {
     super(nameToAudit == null ? null : nameToAudit.keySet());
     this.nameToAudit = nameToAudit;
     this.owner = owner;
   }
 
-  public Binding getOwner() {
+  public $AnyType<?> getOwner() {
     return owner;
   }
 
-  protected <T extends Binding>ElementComponentList newComponentList(final ElementAudit<T> audit) {
+  protected <T extends $AnyType<?>>ElementComponentList newComponentList(final ElementAudit<T> audit) {
     final ElementComponentList componentList = new ElementComponentList(audit);
     registerComponentList(audit.getName() == null ? ANY : audit.getName(), componentList);
     return componentList;
@@ -92,7 +90,7 @@ public class ElementCompositeList extends CompositeList<Binding,QName> implement
   @Override
   @SuppressWarnings("unchecked")
   protected ComponentList newComponentList(final QName name) {
-    final ElementAudit<Binding> audit = (ElementAudit<Binding>)nameToAudit.get(name);
+    final ElementAudit<$AnyType<?>> audit = (ElementAudit<$AnyType<?>>)nameToAudit.get(name);
     final ElementComponentList componentList = new ElementComponentList(audit);
     audit.setElements(componentList);
     return componentList;
@@ -111,8 +109,8 @@ public class ElementCompositeList extends CompositeList<Binding,QName> implement
 
   @Override
   @SuppressWarnings("unchecked")
-  protected ComponentList getOrCreateComponentList(final Binding element) {
-    Class<? extends Binding> type = element.getClass();
+  protected ComponentList getOrCreateComponentList(final $AnyType element) {
+    Class<? extends $AnyType> type = element.getClass();
     do {
       final org.jaxsb.runtime.QName annotation = type.getAnnotation(org.jaxsb.runtime.QName.class);
       if (annotation == null)
@@ -122,7 +120,7 @@ public class ElementCompositeList extends CompositeList<Binding,QName> implement
       if (componentList != null)
         return componentList;
     }
-    while ((type = (Class<? extends Binding>)type.getSuperclass()) != null);
+    while ((type = (Class<? extends $AnyType>)type.getSuperclass()) != null);
     return null;
   }
 
@@ -137,11 +135,11 @@ public class ElementCompositeList extends CompositeList<Binding,QName> implement
   }
 
   @Override
-  protected Binding clone(final Binding item) {
+  protected $AnyType<?> clone(final $AnyType item) {
     return item.clone();
   }
 
-  protected ElementCompositeList clone(final $AnySimpleType owner) {
+  protected ElementCompositeList clone(final $AnySimpleType<?> owner) {
     final ElementCompositeList clone = clone();
     clone.owner = owner;
     clone.nameToAudit = new HashMap<>();
