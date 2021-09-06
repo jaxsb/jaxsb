@@ -55,26 +55,23 @@ import org.w3c.dom.Text;
 public final class XMLSchema {
   public static final class yAA {
     public abstract static class $AnyType<T> extends Binding {
-      private List<$AnyType<?>> any;
-      private List<$AnySimpleType<?>> anySimple;
-      private T text;
+      private List<$AnyType> any;
+      private List<$AnySimpleType> anySimple;
+      private T text; // FIXME: Make this final
 
-      public $AnyType(final $AnyType<T> copy) {
+      public $AnyType(final T text) {
+        super();
+        this.text = text;
+      }
+
+      protected $AnyType(final $AnyType<T> copy) {
         super(copy);
         this.text = copy.text;
       }
 
-      @SuppressWarnings("unchecked")
-      public $AnyType(final T text) {
-        super();
-        if (text instanceof $AnyType && (($AnyType<T>)text)._$$hasElements())
-          merge(($AnyType<T>)text);
-        else
-          this.text = text;
-      }
-
       protected $AnyType() {
         super();
+        this.text = null;
       }
 
       @SuppressWarnings("rawtypes")
@@ -85,7 +82,7 @@ public final class XMLSchema {
         this.anySimple.add(any);
       }
 
-      protected List<$AnySimpleType<?>> getAny$() {
+      protected List<$AnySimpleType> getAny$() {
         return anySimple;
       }
 
@@ -96,7 +93,7 @@ public final class XMLSchema {
         this.any.add(any);
       }
 
-      protected List<$AnyType<?>> get$Any() {
+      protected List<$AnyType> get$Any() {
         return any;
       }
 
@@ -108,7 +105,7 @@ public final class XMLSchema {
       }
 
       @Override
-      public T text() {
+      protected T text() {
         return text;
       }
 
@@ -253,6 +250,7 @@ public final class XMLSchema {
       @Override
       public int hashCode() {
         int hashCode = 1;
+        hashCode = 31 * hashCode + Objects.hashCode(text);
         hashCode = 31 * hashCode + Objects.hashCode(any);
         hashCode = 31 * hashCode + Objects.hashCode(anySimple);
         return hashCode;
@@ -260,16 +258,21 @@ public final class XMLSchema {
     }
 
     public abstract static class $AnySimpleType<T> extends $AnyType<T> {
-      public $AnySimpleType(final $AnySimpleType<T> binding) {
-        super(binding);
-      }
-
       public $AnySimpleType(final T text) {
         super(text);
       }
 
+      protected $AnySimpleType(final $AnySimpleType<T> copy) {
+        super(copy);
+      }
+
       protected $AnySimpleType() {
         super();
+      }
+
+      @Override
+      public T text() {
+        return super.text();
       }
 
       @Override
@@ -299,12 +302,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $AnyURI extends $AnySimpleType<URI> {
-      public $AnyURI(final $AnyURI binding) {
-        super(binding);
+      public $AnyURI(final URI text) {
+        super(text);
       }
 
-      public $AnyURI(final URI value) {
-        super(value);
+      protected $AnyURI(final $AnyURI copy) {
+        super(copy);
       }
 
       protected $AnyURI() {
@@ -323,12 +326,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Base64Binary extends $AnySimpleType<Base64Binary> {
-      public $Base64Binary(final $Base64Binary binding) {
-        super(binding);
+      public $Base64Binary(final Base64Binary text) {
+        super(text);
       }
 
-      public $Base64Binary(final Base64Binary value) {
-        super(value);
+      protected $Base64Binary(final $Base64Binary copy) {
+        super(copy);
       }
 
       protected $Base64Binary() {
@@ -351,12 +354,12 @@ public final class XMLSchema {
         return s != null && ("1".equals(s) || Boolean.parseBoolean(s));
       }
 
-      public $Boolean(final $Boolean binding) {
-        super(binding);
+      public $Boolean(final Boolean text) {
+        super(text);
       }
 
-      public $Boolean(final Boolean value) {
-        super(value);
+      protected $Boolean(final $Boolean copy) {
+        super(copy);
       }
 
       protected $Boolean() {
@@ -405,12 +408,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Byte extends $Short {
-      public $Byte(final $Byte binding) {
-        super(binding);
+      public $Byte(final Byte text) {
+        super(text);
       }
 
-      public $Byte(final Byte value) {
-        super(value);
+      protected $Byte(final $Byte copy) {
+        super(copy);
       }
 
       protected $Byte() {
@@ -439,12 +442,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Date extends $AnySimpleType<Date> {
-      public $Date(final $Date binding) {
-        super(binding);
+      public $Date(final Date text) {
+        super(text);
       }
 
-      public $Date(final Date value) {
-        super(value);
+      protected $Date(final $Date copy) {
+        super(copy);
       }
 
       protected $Date() {
@@ -469,12 +472,12 @@ public final class XMLSchema {
      * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">Definition</a>
      */
     public abstract static class $DateTime extends $AnySimpleType<DateTime> {
-      public $DateTime(final $DateTime binding) {
-        super(binding);
+      public $DateTime(final DateTime text) {
+        super(text);
       }
 
-      public $DateTime(final DateTime value) {
-        super(value);
+      protected $DateTime(final $DateTime copy) {
+        super(copy);
       }
 
       /**
@@ -500,12 +503,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Decimal extends $AnySimpleType<Number> {
-      public $Decimal(final $Decimal binding) {
-        super(binding);
-      }
-
       public $Decimal(final BigDecimal text) {
         super(text);
+      }
+
+      protected $Decimal(final $Decimal copy) {
+        super(copy);
       }
 
       protected $Decimal(final Number text) {
@@ -617,12 +620,12 @@ public final class XMLSchema {
 
     // -INF, -1E4, -0, 0, 12.78E-2, 12, INF, NaN
     public abstract static class $Double extends $AnySimpleType<Double> {
-      public $Double(final $Double binding) {
-        super(binding);
+      public $Double(final Double text) {
+        super(text);
       }
 
-      public $Double(final Double value) {
-        super(value);
+      protected $Double(final $Double copy) {
+        super(copy);
       }
 
       protected $Double() {
@@ -729,12 +732,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Duration extends $AnySimpleType<Duration> {
-      public $Duration(final $Duration binding) {
-        super(binding);
+      public $Duration(final Duration text) {
+        super(text);
       }
 
-      public $Duration(final Duration value) {
-        super(value);
+      protected $Duration(final $Duration copy) {
+        super(copy);
       }
 
       protected $Duration() {
@@ -753,12 +756,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $ENTITIES extends $AnySimpleType<List<String>> {
-      public $ENTITIES(final $ENTITIES binding) {
-        super(binding);
+      public $ENTITIES(final List<String> text) {
+        super(text);
       }
 
-      public $ENTITIES(final List<String> value) {
-        super(value);
+      protected $ENTITIES(final $ENTITIES copy) {
+        super(copy);
       }
 
       protected $ENTITIES() {
@@ -782,12 +785,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $ENTITY extends $nCName {
-      public $ENTITY(final $ENTITY binding) {
-        super(binding);
+      public $ENTITY(final String text) {
+        super(text);
       }
 
-      public $ENTITY(final String value) {
-        super(value);
+      protected $ENTITY(final $ENTITY copy) {
+        super(copy);
       }
 
       protected $ENTITY() {
@@ -801,12 +804,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Float extends $AnySimpleType<Float> {
-      public $Float(final $Float binding) {
-        super(binding);
+      public $Float(final Float text) {
+        super(text);
       }
 
-      public $Float(final Float value) {
-        super(value);
+      protected $Float(final $Float copy) {
+        super(copy);
       }
 
       protected $Float() {
@@ -913,12 +916,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $GDay extends $AnySimpleType<Day> {
-      public $GDay(final $GDay binding) {
-        super(binding);
+      public $GDay(final Day text) {
+        super(text);
       }
 
-      public $GDay(final Day value) {
-        super(value);
+      protected $GDay(final $GDay copy) {
+        super(copy);
       }
 
       protected $GDay() {
@@ -937,12 +940,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $GMonth extends $AnySimpleType<Month> {
-      public $GMonth(final $GMonth binding) {
-        super(binding);
+      public $GMonth(final Month text) {
+        super(text);
       }
 
-      public $GMonth(final Month value) {
-        super(value);
+      protected $GMonth(final $GMonth copy) {
+        super(copy);
       }
 
       protected $GMonth() {
@@ -961,12 +964,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $GMonthDay extends $AnySimpleType<MonthDay> {
-      public $GMonthDay(final $GMonthDay binding) {
-        super(binding);
+      public $GMonthDay(final MonthDay text) {
+        super(text);
       }
 
-      public $GMonthDay(final MonthDay value) {
-        super(value);
+      protected $GMonthDay(final $GMonthDay copy) {
+        super(copy);
       }
 
       protected $GMonthDay() {
@@ -985,12 +988,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $GYear extends $AnySimpleType<Year> {
-      public $GYear(final $GYear binding) {
-        super(binding);
+      public $GYear(final Year text) {
+        super(text);
       }
 
-      public $GYear(final Year value) {
-        super(value);
+      protected $GYear(final $GYear copy) {
+        super(copy);
       }
 
       protected $GYear() {
@@ -1009,12 +1012,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $GYearMonth extends $AnySimpleType<YearMonth> {
-      public $GYearMonth(final $GYearMonth binding) {
-        super(binding);
+      public $GYearMonth(final YearMonth text) {
+        super(text);
       }
 
-      public $GYearMonth(final YearMonth value) {
-        super(value);
+      protected $GYearMonth(final $GYearMonth copy) {
+        super(copy);
       }
 
       protected $GYearMonth() {
@@ -1033,12 +1036,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $HexBinary extends $AnySimpleType<HexBinary> {
-      public $HexBinary(final $HexBinary binding) {
-        super(binding);
+      public $HexBinary(final HexBinary text) {
+        super(text);
       }
 
-      public $HexBinary(final HexBinary value) {
-        super(value);
+      protected $HexBinary(final $HexBinary copy) {
+        super(copy);
       }
 
       protected $HexBinary() {
@@ -1114,12 +1117,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $IDREF extends $nCName {
-      public $IDREF(final $IDREF binding) {
-        super(binding);
+      public $IDREF(final String text) {
+        super(text);
       }
 
-      public $IDREF(final String value) {
-        super(value);
+      protected $IDREF(final $IDREF copy) {
+        super(copy);
       }
 
       protected $IDREF() {
@@ -1133,12 +1136,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $IDREFS extends $AnySimpleType<List<String>> {
-      public $IDREFS(final $IDREFS binding) {
-        super(binding);
+      public $IDREFS(final List<String> text) {
+        super(text);
       }
 
-      public $IDREFS(final List<String> value) {
-        super(value);
+      protected $IDREFS(final $IDREFS copy) {
+        super(copy);
       }
 
       protected $IDREFS() {
@@ -1162,12 +1165,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Int extends $Long {
-      public $Int(final $Int binding) {
-        super(binding);
+      public $Int(final Integer text) {
+        super(text);
       }
 
-      public $Int(final Integer value) {
-        super(value);
+      protected $Int(final $Int copy) {
+        super(copy);
       }
 
       protected $Int(final Number value) {
@@ -1200,12 +1203,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Integer extends $Decimal {
-      public $Integer(final $Integer binding) {
-        super(binding);
-      }
-
       public $Integer(final BigInteger text) {
         super(text);
+      }
+
+      protected $Integer(final $Integer copy) {
+        super(copy);
       }
 
       protected $Integer(final Number text) {
@@ -1243,12 +1246,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Language extends $AnySimpleType<Language> {
-      public $Language(final $Language binding) {
-        super(binding);
+      public $Language(final Language text) {
+        super(text);
       }
 
-      public $Language(final Language value) {
-        super(value);
+      protected $Language(final $Language copy) {
+        super(copy);
       }
 
       protected $Language() {
@@ -1267,12 +1270,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Long extends $Integer {
-      public $Long(final $Long binding) {
-        super(binding);
+      public $Long(final Long text) {
+        super(text);
       }
 
-      public $Long(final Long value) {
-        super(value);
+      protected $Long(final $Long copy) {
+        super(copy);
       }
 
       protected $Long(final Number value) {
@@ -1305,12 +1308,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $MonthDay extends $AnySimpleType<MonthDay> {
-      public $MonthDay(final $MonthDay binding) {
-        super(binding);
+      public $MonthDay(final MonthDay text) {
+        super(text);
       }
 
-      public $MonthDay(final MonthDay value) {
-        super(value);
+      protected $MonthDay(final $MonthDay copy) {
+        super(copy);
       }
 
       protected $MonthDay() {
@@ -1329,12 +1332,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $NMTOKEN extends $Token {
-      public $NMTOKEN(final $NMTOKEN binding) {
-        super(binding);
+      public $NMTOKEN(final String text) {
+        super(text);
       }
 
-      public $NMTOKEN(final String value) {
-        super(value);
+      protected $NMTOKEN(final $NMTOKEN copy) {
+        super(copy);
       }
 
       protected $NMTOKEN() {
@@ -1348,12 +1351,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $NMTOKENS extends $AnySimpleType<List<String>> {
-      public $NMTOKENS(final $NMTOKENS binding) {
-        super(binding);
+      public $NMTOKENS(final List<String> text) {
+        super(text);
       }
 
-      public $NMTOKENS(final List<String> value) {
-        super(value);
+      protected $NMTOKENS(final $NMTOKENS copy) {
+        super(copy);
       }
 
       protected $NMTOKENS() {
@@ -1377,12 +1380,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $NOTATION extends $AnySimpleType<NotationType> {
-      public $NOTATION(final $NOTATION binding) {
-        super(binding);
+      public $NOTATION(final NotationType text) {
+        super(text);
       }
 
-      public $NOTATION(final NotationType value) {
-        super(value);
+      protected $NOTATION(final $NOTATION copy) {
+        super(copy);
       }
 
       protected $NOTATION() {
@@ -1420,13 +1423,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $NegativeInteger extends $NonPositiveInteger {
-      public $NegativeInteger(final $NegativeInteger binding) {
-        super(binding);
+      public $NegativeInteger(final BigInteger text) {
+        super(text);
+        // FIXME: Check?
       }
 
-      public $NegativeInteger(final BigInteger value) {
-        super(value);
-        // FIXME: Check?
+      protected $NegativeInteger(final $NegativeInteger copy) {
+        super(copy);
       }
 
       protected $NegativeInteger(final Number number) {
@@ -1444,13 +1447,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $NonNegativeInteger extends $Integer {
-      public $NonNegativeInteger(final $NonNegativeInteger binding) {
-        super(binding);
+      public $NonNegativeInteger(final BigInteger text) {
+        super(text);
+        // FIXME: Check?
       }
 
-      public $NonNegativeInteger(final BigInteger value) {
-        super(value);
-        // FIXME: Check?
+      protected $NonNegativeInteger(final $NonNegativeInteger copy) {
+        super(copy);
       }
 
       protected $NonNegativeInteger(final Number value) {
@@ -1468,13 +1471,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $NonPositiveInteger extends $Integer {
-      public $NonPositiveInteger(final $NonPositiveInteger binding) {
-        super(binding);
+      public $NonPositiveInteger(final BigInteger text) {
+        super(text);
+        // FIXME: Check?
       }
 
-      public $NonPositiveInteger(final BigInteger value) {
-        super(value);
-        // FIXME: Check?
+      protected $NonPositiveInteger(final $NonPositiveInteger copy) {
+        super(copy);
       }
 
       protected $NonPositiveInteger(final Number value) {
@@ -1492,12 +1495,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $NormalizedString extends $String {
-      public $NormalizedString(final $NormalizedString binding) {
-        super(binding);
+      public $NormalizedString(final String text) {
+        super(text);
       }
 
-      public $NormalizedString(final String value) {
-        super(value);
+      protected $NormalizedString(final $NormalizedString copy) {
+        super(copy);
       }
 
       protected $NormalizedString() {
@@ -1511,13 +1514,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $PositiveInteger extends $NonNegativeInteger {
-      public $PositiveInteger(final $PositiveInteger binding) {
-        super(binding);
+      public $PositiveInteger(final BigInteger text) {
+        super(text);
+        // FIXME: Check?
       }
 
-      public $PositiveInteger(final BigInteger value) {
-        super(value);
-        // FIXME: Check?
+      protected $PositiveInteger(final $PositiveInteger copy) {
+        super(copy);
       }
 
       protected $PositiveInteger(final Number value) {
@@ -1535,12 +1538,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Short extends $Int {
-      public $Short(final $Short binding) {
-        super(binding);
+      public $Short(final Short text) {
+        super(text);
       }
 
-      public $Short(final Short value) {
-        super(value);
+      protected $Short(final $Short copy) {
+        super(copy);
       }
 
       protected $Short(final Number value) {
@@ -1573,12 +1576,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $String extends $AnySimpleType<String> {
-      public $String(final $String binding) {
-        super(binding);
+      public $String(final String text) {
+        super(text);
       }
 
-      public $String(final String value) {
-        super(value);
+      protected $String(final $String copy) {
+        super(copy);
       }
 
       protected $String() {
@@ -1592,12 +1595,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Time extends $AnySimpleType<Time> {
-      public $Time(final $Time binding) {
-        super(binding);
+      public $Time(final Time text) {
+        super(text);
       }
 
-      public $Time(final Time value) {
-        super(value);
+      protected $Time(final $Time copy) {
+        super(copy);
       }
 
       protected $Time() {
@@ -1621,12 +1624,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $Token extends $NormalizedString {
-      public $Token(final $Token binding) {
-        super(binding);
+      public $Token(final String text) {
+        super(text);
       }
 
-      public $Token(final String value) {
-        super(value);
+      protected $Token(final $Token copy) {
+        super(copy);
       }
 
       protected $Token() {
@@ -1640,13 +1643,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $UnsignedByte extends $UnsignedShort {
-      public $UnsignedByte(final $UnsignedByte binding) {
-        super(binding);
+      public $UnsignedByte(final Short text) {
+        super(text);
+        // FIXME: Check?
       }
 
-      public $UnsignedByte(final Short value) {
-        super(value);
-        // FIXME: Check?
+      protected $UnsignedByte(final $UnsignedByte copy) {
+        super(copy);
       }
 
       protected $UnsignedByte() {
@@ -1665,12 +1668,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $UnsignedInt extends $UnsignedLong {
-      public $UnsignedInt(final $UnsignedInt binding) {
-        super(binding);
+      public $UnsignedInt(final Long text) {
+        super(text);
       }
 
-      public $UnsignedInt(final Long value) {
-        super(value);
+      protected $UnsignedInt(final $UnsignedInt copy) {
+        super(copy);
       }
 
       protected $UnsignedInt(final Number value) {
@@ -1694,13 +1697,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $UnsignedLong extends $NonNegativeInteger {
-      public $UnsignedLong(final $UnsignedLong binding) {
-        super(binding);
+      public $UnsignedLong(final BigInteger text) {
+        super(text);
+        // FIXME: Check?
       }
 
-      public $UnsignedLong(final BigInteger value) {
-        super(value);
-        // FIXME: Check?
+      protected $UnsignedLong(final $UnsignedLong copy) {
+        super(copy);
       }
 
       protected $UnsignedLong(final Number value) {
@@ -1718,13 +1721,13 @@ public final class XMLSchema {
     }
 
     public abstract static class $UnsignedShort extends $UnsignedInt {
-      public $UnsignedShort(final $UnsignedShort binding) {
-        super(binding);
+      public $UnsignedShort(final Integer text) {
+        super(text);
+        // FIXME: Check?
       }
 
-      public $UnsignedShort(final Integer value) {
-        super(value);
-        // FIXME: Check?
+      protected $UnsignedShort(final $UnsignedShort copy) {
+        super(copy);
       }
 
       protected $UnsignedShort(final Number value) {
@@ -1747,12 +1750,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $nCName extends $name {
-      public $nCName(final $nCName binding) {
-        super(binding);
+      public $nCName(final String text) {
+        super(text);
       }
 
-      public $nCName(final String value) {
-        super(value);
+      protected $nCName(final $nCName copy) {
+        super(copy);
       }
 
       protected $nCName() {
@@ -1766,12 +1769,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $name extends $Token {
-      public $name(final $name binding) {
-        super(binding);
+      public $name(final String text) {
+        super(text);
       }
 
-      public $name(final String value) {
-        super(value);
+      protected $name(final $name copy) {
+        super(copy);
       }
 
       protected $name() {
@@ -1785,12 +1788,12 @@ public final class XMLSchema {
     }
 
     public abstract static class $qName extends $AnySimpleType<QName> {
-      public $qName(final $qName binding) {
-        super(binding);
+      public $qName(final QName text) {
+        super(text);
       }
 
-      public $qName(final QName value) {
-        super(value);
+      protected $qName(final $qName copy) {
+        super(copy);
       }
 
       protected $qName() {

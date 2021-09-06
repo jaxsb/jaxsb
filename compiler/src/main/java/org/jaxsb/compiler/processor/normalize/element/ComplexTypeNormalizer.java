@@ -77,6 +77,6 @@ public final class ComplexTypeNormalizer extends Normalizer<ComplexTypeModel<?>>
       return;
 
     if (model.getSuperType() == null)
-      model.setSuperType(ComplexTypeModel.Undefined.parseComplexType(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anySimpleType")));
+      model.setSuperType(ComplexTypeModel.Undefined.parseComplexType(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anyType")));
   }
 }

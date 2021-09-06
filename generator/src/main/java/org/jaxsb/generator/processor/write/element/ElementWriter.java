@@ -194,7 +194,9 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.isAbstract())
       writer.write("abstract ");
 
-    writer.write("class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + (plan.isComplexType() ? ComplexType.class.getName() : SimpleType.class.getName()) + ", " + org.jaxsb.runtime.Element.class.getName() + " {\n");
+    if (plan.getName().toString().equals("{http://www.jaxsb.org/test/attribute.xsd}foo"))
+      System.out.println();
+    writer.write("class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithGenericType() + " implements " + (plan.isComplexType() ? ComplexType.class.getName() : SimpleType.class.getName()) + ", " + org.jaxsb.runtime.Element.class.getName() + " {\n");
 
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 
@@ -222,7 +224,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
     // COPY CONSTRUCTOR
     writer.write(plan.getDocumentation());
-    writer.write("public " + plan.getClassSimpleName() + "(final " + (plan.hasEnumerations() ? plan.getClassName(parent) : plan.getCopyClassName(parent)) + " copy) {\n");
+    writer.write("protected " + plan.getClassSimpleName() + "(final " + (plan.hasEnumerations() ? plan.getClassName(parent) : plan.getCopyClassName(parent)) + " copy) {\n");
     writer.write("super(copy);\n");
     if ((plan.getMixed() != null && plan.getMixed()) || plan.getAttributes().size() != 0 || plan.getElements().size() != 0) {
       if (!plan.getCopyClassName(parent).equals(plan.getClassName(parent))) {
@@ -256,12 +258,18 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write(((AttributePlan)attribute).getFixedInstanceCall(plan));
     writer.write("}\n");
 
+    if (plan.getName().toString().equals("{http://www.w3.org/2001/XInclude}include"))
+      System.out.println();
+
+
     // MIXED CONSTRUCTOR
     if (!plan.isComplexType() || (plan.getMixed() == null && plan.getMixedType()) || (plan.getMixed() != null && plan.getMixed())) {
-      if (plan.getMixedType()) {
-        writer.write("public " + plan.getClassSimpleName() + "(final " + String.class.getName() + " text) {\n");
-        writer.write("super(text);\n");
-        writer.write("}\n");
+      if (plan.getMixedType() || plan.getMixed() != null && plan.getMixed()) {
+        if (!String.class.getName().equals(plan.getNativeNonEnumItemClassNameInterface())) {
+          writer.write("public " + plan.getClassSimpleName() + "(final " + String.class.getName() + " text) {\n");
+          writer.write("super(text);\n");
+          writer.write("}\n");
+        }
 
         writer.write("@" + Override.class.getName() + "\n");
         writer.write("public " + String.class.getName() + " text() {\n");
@@ -280,7 +288,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
           final boolean hasSuperEnumerations = ((EnumerablePlan)plan).hasSuperEnumerations();
           final String enumClassName;
           if (hasSuperEnumerations)
-            enumClassName = ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum";
+            enumClassName = ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum";
           else
             enumClassName = "Enum";
 
@@ -364,24 +372,6 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
           writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : null;\n");
           writer.write("}\n");
         }
-      }
-      else if (plan.getMixed() != null && plan.getMixed()) {
-        writer.write("@" + Override.class.getName() + "\n");
-        writer.write("public " + plan.getClassSimpleName() + "(final " + String.class.getName() + " text) {\n");
-        writer.write("this.text = text;\n");
-        writer.write("}\n");
-
-        writer.write("@" + Override.class.getName() + "\n");
-        writer.write("public " + String.class.getName() + " text() {\n");
-        writer.write("return text;\n");
-        writer.write("}\n");
-
-        writer.write("@" + Override.class.getName() + "\n");
-        writer.write("public void text(final " + String.class.getName() + " text) {\n");
-        writer.write("if (isNull())\n");
-        writer.write("throw new " + UnsupportedOperationException.class.getName() + "(\"NULL Object is immutable.\");\n");
-        writer.write("this.text = text;\n");
-        writer.write("}\n");
       }
       else if (plan.hasEnumerations()) {
         writer.write("@" + Override.class.getName() + "\n");

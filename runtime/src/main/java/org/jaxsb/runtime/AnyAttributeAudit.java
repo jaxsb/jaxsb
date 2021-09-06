@@ -23,6 +23,7 @@ import java.util.Objects;
 import javax.xml.namespace.QName;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("rawtypes")
@@ -80,7 +81,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> {
   }
 
   @SuppressWarnings("unused")
-  public AnyAttributeAudit<T> clone(final $AnySimpleType<?> owner) {
+  public AnyAttributeAudit<T> clone(final $AnyType<?> owner) {
     return new AnyAttributeAudit<>(this);
   }
 

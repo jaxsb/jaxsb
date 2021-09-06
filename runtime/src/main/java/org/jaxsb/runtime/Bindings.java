@@ -28,7 +28,6 @@ import javax.xml.parsers.DocumentBuilder;
 import org.libj.lang.Assertions;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.Documents;
-import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -232,9 +231,9 @@ public abstract class Bindings {
     return name != null ? new javax.xml.namespace.QName(name.namespaceURI(), name.localPart(), name.prefix()) : null;
   }
 
-  public static String getXPath(final $AnySimpleType<?> binding, final Function<? super $AnySimpleType<?>,String> function) {
+  public static String getXPath(final $AnyType<?> anyType, final Function<? super $AnyType<?>,String> function) {
     final StringBuilder builder = new StringBuilder();
-    $AnySimpleType<?> owner = binding;
+    $AnyType<?> owner = anyType;
     do
       builder.insert(0, (owner instanceof Attribute ? "/@" : "/") + function.apply(owner));
     while ((owner = owner.owner()) != null);

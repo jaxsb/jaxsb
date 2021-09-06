@@ -127,7 +127,7 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
   }
 
   @Override
-  public final String getSuperClassNameWithoutType() {
+  public final String getSuperClassNameWithoutGenericType() {
     return superClassNameWithoutType;
   }
 
@@ -190,7 +190,7 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
   }
 
   @Override
-  public final String getSuperClassNameWithType() {
+  public final String getSuperClassNameWithGenericType() {
     return superClassNameWithType;
   }
 

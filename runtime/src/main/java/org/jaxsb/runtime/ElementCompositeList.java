@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 
 import org.libj.util.CompositeList;
 import org.slf4j.Logger;
-import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 @SuppressWarnings("rawtypes")
@@ -69,9 +68,9 @@ public class ElementCompositeList extends CompositeList<$AnyType,QName> {
   }
 
   protected HashMap<QName,ElementAudit<? extends $AnyType>> nameToAudit;
-  private $AnySimpleType<?> owner;
+  private $AnyType<?> owner;
 
-  public ElementCompositeList(final $AnySimpleType<?> owner, final HashMap<QName,ElementAudit<?>> nameToAudit) {
+  public ElementCompositeList(final $AnyType<?> owner, final HashMap<QName,ElementAudit<?>> nameToAudit) {
     super(nameToAudit == null ? null : nameToAudit.keySet());
     this.nameToAudit = nameToAudit;
     this.owner = owner;
@@ -139,7 +138,7 @@ public class ElementCompositeList extends CompositeList<$AnyType,QName> {
     return item.clone();
   }
 
-  protected ElementCompositeList clone(final $AnySimpleType<?> owner) {
+  protected ElementCompositeList cloneList(final $AnyType<?> owner) {
     final ElementCompositeList clone = clone();
     clone.owner = owner;
     clone.nameToAudit = new HashMap<>();

@@ -96,7 +96,7 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
   @Override
   protected void appendClass(final StringWriter writer, final T plan, final Plan<?> parent) {
     writeQualifiedName(writer, plan);
-    writer.write("public abstract static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + ComplexType.class.getName() + " {\n");
+    writer.write("public abstract static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithGenericType() + " implements " + ComplexType.class.getName() + " {\n");
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 
     // FACTORY METHOD
@@ -112,10 +112,6 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     // ID LOOKUP
     writeIdLookup(writer, plan, parent);
 
-    // MIXED
-    if ((!plan.hasSimpleContent() || plan.getNativeItemClassNameInterface() == null) && plan.getMixed() != null && plan.getMixed())
-      writer.write("private " + String.class.getName() + " text = null;\n");
-
     for (final Object attribute : plan.getAttributes())
       Writer.writeDeclaration(writer, (AttributePlan)attribute, plan);
 
@@ -127,15 +123,16 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
 
     // COPY CONSTRUCTOR
     writer.write(plan.getDocumentation());
-    writer.write("public " + plan.getClassSimpleName() + "(final " + plan.getClassName(null) + " copy) {\n");
+    writer.write("protected " + plan.getClassSimpleName() + "(final " + plan.getClassName(null) + " copy) {\n");
     writer.write("super(copy);\n");
-    if (plan.getNativeItemClassNameInterface() == null && plan.getMixed() != null && plan.getMixed())
-      writer.write("this.text = copy.text;\n");
     for (final Object attribute : plan.getAttributes())
       Writer.writeCopy(writer, (AttributePlan)attribute, plan, "copy");
     for (final Object element : plan.getElements())
       Writer.writeCopy(writer, (ElementPlan)element, plan, "copy");
     writer.write("}\n");
+
+    if (plan.getModel().getName().toString().equals("{http://www.w3.org/2001/XInclude}includeType"))
+      System.out.println();
 
     // MIXED CONSTRUCTOR
     if (plan.getNativeItemClassNameInterface() != null) {
@@ -149,16 +146,10 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
       writer.write("super(text);\n");
       writer.write("}\n");
     }
-    else if (plan.getMixedType()) {
+    else if (plan.getMixedType() || plan.getMixed() != null && plan.getMixed()) {
       writer.write(plan.getDocumentation());
       writer.write("public " + plan.getClassSimpleName() + "(final " + String.class.getName() + " text) {\n");
       writer.write("super(text);\n");
-      writer.write("}\n");
-    }
-    else if (plan.getMixed() != null && plan.getMixed()) {
-      writer.write(plan.getDocumentation());
-      writer.write("public " + plan.getClassSimpleName() + "(final " + String.class.getName() + " text) {\n");
-      writer.write("this.text = text;\n");
       writer.write("}\n");
     }
 
@@ -214,21 +205,11 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
         }
       }
     }
-    else if (plan.getMixed() != null && plan.getMixed()) {
+    else if (plan.getMixedType() || plan.getMixed() != null && plan.getMixed()) {
       writer.write("@" + Override.class.getName() + "\n");
       writer.write("public " + String.class.getName() + " text() {\n");
-      writer.write("return text;\n");
+      writer.write("return super.text();\n");
       writer.write("}\n");
-      writer.write("public void text(final " + String.class.getName() + " text) {\n");
-      writer.write("this.text = text;\n");
-      writer.write("}\n");
-    }
-    else if (plan.getMixedType()) {
-      writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + String.class.getName() + " text() {\n");
-      writer.write("return (" + String.class.getName() + ")super.text();\n");
-      writer.write("}\n");
-      writer.write("@" + Override.class.getName() + "\n");
       writer.write("public void text(final " + String.class.getName() + " text) {\n");
       writer.write("super.text(text);\n");
       writer.write("}\n");
@@ -415,10 +396,6 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public int hashCode() {\n");
     writer.write("int hashCode = super.hashCode();\n");
-    if (plan.getMixed() != null && plan.getMixed()) {
-      writer.write("if (text != null)\n");
-      writer.write("hashCode = 31 * hashCode + text.hashCode();\n");
-    }
     for (final Object attribute : plan.getAttributes())
       Writer.writeHashCode(writer, (AttributePlan)attribute, plan);
     for (final Object element : plan.getElements())

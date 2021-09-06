@@ -38,6 +38,8 @@ import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.runtime.CompilerFailureException;
 import org.jaxsb.runtime.JavaBinding;
 import org.jaxsb.runtime.XSTypeDirectory;
+import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> implements EnumerablePlan, ExtensiblePlan, NativeablePlan {
   private static SimpleTypeModel<?> getGreatestCommonType(final Collection<SimpleTypeModel<?>> types, final boolean includeEnums) {
@@ -146,15 +148,15 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
     return retval;
   }
 
-  private String superClassNameWithType;
-  private String superClassNameWithoutType;
+  private final String superClassNameWithGenericType;
+  private final String superClassNameWithoutGenericType;
 
   private LinkedHashSet<PatternPlan> patterns;
   private LinkedHashSet<EnumerationPlan> enumerations;
   private Boolean hasEnumerations;
   private Boolean hasSuperEnumerations;
 
-  private String nativeItemClassName;
+  private final String nativeItemClassName;
   private String nativeNonEnumItemClassName;
   private String nativeInterface;
   private String nativeNonEnumInterface;
@@ -167,34 +169,14 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
 
   private UniqueQName superTypeName;
 //  private UniqueQName baseNonXSTypeName = null;
-  private UniqueQName baseXSTypeName;
-  private UniqueQName baseXSItemTypeName;
-  private UniqueQName baseXSNonEnumItemTypeName;
+  private final UniqueQName baseXSItemTypeName;
+  private final UniqueQName baseXSNonEnumItemTypeName;
 
   private boolean parsedSuperType;
   private NamedPlan<?> superType;
 
   private boolean isUnion;
   private boolean isUnionWithNonEnumeration;
-
-  private void digItemTypes(final SimpleTypeModel<?> baseNonXSType) {
-    final SimpleTypeModel<?> baseXSItemType = digBaseXSItemTypeName(getModel(), true);
-    final SimpleTypeModel<?> baseXSNonEnumItemType = digBaseXSItemTypeName(getModel(), false);
-
-    if (baseXSItemType != null)
-      baseXSItemTypeName = getItemName(baseXSItemType);
-    else if (baseNonXSType != null && baseNonXSType.getSuperType() != null)
-      baseXSItemTypeName = getItemName(baseNonXSType.getSuperType());
-    else if (XSTypeDirectory.parseType(getModel().getSuperType().getName()) != null)
-      baseXSItemTypeName = getModel().getSuperType().getName();
-
-    if (baseXSNonEnumItemType != null)
-      baseXSNonEnumItemTypeName = getItemName(baseXSNonEnumItemType);
-    else if (baseNonXSType != null && baseNonXSType.getSuperType() != null)
-      baseXSNonEnumItemTypeName = getItemName(baseNonXSType.getSuperType());
-    else if (XSTypeDirectory.parseType(getModel().getSuperType().getName()) != null)
-      baseXSNonEnumItemTypeName = getModel().getSuperType().getName();
-  }
 
   private static UniqueQName getItemName(final SimpleTypeModel<?> model) {
     UniqueQName name = model.getName();
@@ -207,20 +189,41 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
   @SuppressWarnings("unchecked")
   public SimpleTypePlan(final T model, final Plan<?> parent) {
     super(model.getRedefine() != null ? (T)model.getRedefine() : model, parent);
-    if (model instanceof AnyableModel)
+    if (model instanceof AnyableModel) {
+      nativeItemClassName = null;
+      baseXSItemTypeName = null;
+      baseXSNonEnumItemTypeName = null;
+      superClassNameWithGenericType = null;
+      superClassNameWithoutGenericType = null;
       return;
+    }
 
     // Gets the XS pre-simpleType name of the type
     final SimpleTypeModel<?> baseNonXSType = digBaseNonXSType(model);
 //    if (baseNonXSType != null)
 //      baseNonXSTypeName = baseNonXSType.getName();
 
-    superTypeName = model.getSuperType().getName();
-    superClassNameWithoutType = AliasPlan.getClassName(model.getSuperType(), null);
-    superClassNameWithType = superClassNameWithoutType;
-
     // Gets the XS simpleType name of the itemType
-    digItemTypes(baseNonXSType);
+    final SimpleTypeModel<?> baseXSItemType = digBaseXSItemTypeName(getModel(), true);
+    final SimpleTypeModel<?> baseXSNonEnumItemType = digBaseXSItemTypeName(getModel(), false);
+
+    if (baseXSItemType != null)
+      baseXSItemTypeName = getItemName(baseXSItemType);
+    else if (baseNonXSType != null && baseNonXSType.getSuperType() != null)
+      baseXSItemTypeName = getItemName(baseNonXSType.getSuperType());
+    else if (XSTypeDirectory.parseType(getModel().getSuperType().getName()) != null)
+      baseXSItemTypeName = getModel().getSuperType().getName();
+    else
+      baseXSItemTypeName = null;
+
+    if (baseXSNonEnumItemType != null)
+      baseXSNonEnumItemTypeName = getItemName(baseXSNonEnumItemType);
+    else if (baseNonXSType != null && baseNonXSType.getSuperType() != null)
+      baseXSNonEnumItemTypeName = getItemName(baseNonXSType.getSuperType());
+    else if (XSTypeDirectory.parseType(getModel().getSuperType().getName()) != null)
+      baseXSNonEnumItemTypeName = getModel().getSuperType().getName();
+    else
+      baseXSNonEnumItemTypeName = null;
 
     baseNonXSTypeClassName = JavaBinding.getClassName(baseNonXSType);
 
@@ -228,6 +231,11 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
     final XSTypeDirectory baseXSNonEnumItemTypeDirectory = XSTypeDirectory.parseType(baseXSNonEnumItemTypeName);
     if (baseXSItemTypeDirectory == null)
       throw new CompilerFailureException("Should always be able to resolve the type for name: " + getName());
+
+    superTypeName = model.getSuperType().getName();
+    superClassNameWithoutGenericType = AliasPlan.getClassName(model.getSuperType(), null);
+    if (model.getName().toString().equals("{http://www.jaxsb.org/sample/list.xsd}workDays"))
+      System.out.println();
 
     if (this.list = baseXSItemTypeDirectory.getNativeBinding().isList()) {
       nativeItemClassName = baseXSItemTypeDirectory.getNativeBinding().getNativeClass().getType().getCanonicalName();
@@ -259,6 +267,11 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
       nativeNonEnumInterface = nativeNonEnumItemClassName;
       nativeNonEnumImplementation = nativeNonEnumItemClassName;
     }
+
+    if ($AnyType.class.getCanonicalName().equals(superClassNameWithoutGenericType) || $AnySimpleType.class.getCanonicalName().equals(superClassNameWithoutGenericType))
+      superClassNameWithGenericType = superClassNameWithoutGenericType + "<" + nativeInterface + ">";
+    else
+      superClassNameWithGenericType = superClassNameWithoutGenericType;
 
     isUnionWithNonEnumeration = getSuperType() != null && ((SimpleTypePlan<?>)getSuperType()).isUnionWithNonEnumeration();
     analyzeUnion(model);
@@ -293,10 +306,6 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
 
   public final String getBaseNonXSTypeClassName() {
     return baseNonXSTypeClassName;
-  }
-
-  public final UniqueQName getBaseXSTypeName() {
-    return baseXSTypeName;
   }
 
   public final UniqueQName getBaseXSItemTypeName() {
@@ -335,8 +344,8 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
   }
 
   @Override
-  public String getSuperClassNameWithoutType() {
-    return superClassNameWithoutType;
+  public String getSuperClassNameWithoutGenericType() {
+    return superClassNameWithoutGenericType;
   }
 
   @Override
@@ -370,8 +379,8 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
   }
 
   @Override
-  public String getSuperClassNameWithType() {
-    return superClassNameWithType;
+  public String getSuperClassNameWithGenericType() {
+    return superClassNameWithGenericType;
   }
 
   @Override

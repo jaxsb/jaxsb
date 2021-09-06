@@ -94,9 +94,9 @@ public final class XSTypeDirectory {
 
   // may not need this...
   public static final XSTypeDirectory TYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "Type"), new NativeBinding.GenericClass(Binding.class)), null);
-  public static final XSTypeDirectory ANYTYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anyType"), new NativeBinding.GenericClass($AnyType.class, Object.class), new NativeBinding.GenericClass(Object.class)), null);
+  public static final XSTypeDirectory ANYTYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anyType"), new NativeBinding.GenericClass($AnyType.class, Object.class), new NativeBinding.GenericClass(String.class)), null);
 
-  public static final XSTypeDirectory ANYSIMPLETYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anySimpleType"), new NativeBinding.GenericClass($AnySimpleType.class, Object.class), new NativeBinding.GenericClass(Object.class)), null);
+  public static final XSTypeDirectory ANYSIMPLETYPE = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "anySimpleType"), new NativeBinding.GenericClass($AnySimpleType.class, Object.class), new NativeBinding.GenericClass(String.class)), null);
 
   public static final XSTypeDirectory QNAME;
 

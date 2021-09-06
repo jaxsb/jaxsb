@@ -158,7 +158,7 @@ public abstract class Binding extends AbstractBinding {
     return binding.type();
   }
 
-  protected static $AnySimpleType<?> owner(final Binding binding) {
+  protected static $AnyType<?> owner(final Binding binding) {
     return binding.owner;
   }
 
@@ -300,13 +300,15 @@ public abstract class Binding extends AbstractBinding {
   private ElementCompositeList elements;
   private CompositeAttributeStore attributeDirectory;
   private Binding inherits;
-  private $AnySimpleType<?> owner;
+  private $AnyType<?> owner;
   private boolean isDefault;
 
   protected Binding(final Binding copy) {
     this();
     this.isDefault = copy.isDefault;
-    merge(copy);
+    // FIXME: This looks like an overly complicated copy constructor
+    if (copy._$$hasElements())
+      this.elements = copy.elements.cloneList(($AnyType<?>)this);
   }
 
   protected Binding() {
@@ -365,16 +367,11 @@ public abstract class Binding extends AbstractBinding {
     return null;
   }
 
-  protected final void merge(final Binding copy) {
-    if (copy._$$hasElements())
-      this.elements = copy.elements.clone(($AnySimpleType<?>)this);
-  }
-
-  public $AnySimpleType<?> owner() {
+  public $AnyType<?> owner() {
     return owner;
   }
 
-  protected void _$$setOwner(final $AnySimpleType<?> owner) {
+  protected void _$$setOwner(final $AnyType<?> owner) {
     if (this.owner != null && this.owner != owner)
       throw new IllegalArgumentException("Cannot add another document's element. Hint: Use element.clone()");
 
@@ -401,13 +398,13 @@ public abstract class Binding extends AbstractBinding {
   }
 
   protected ElementCompositeList getCreateElementDirectory() {
-    return elements == null ? elements = new ElementCompositeList(($AnySimpleType<?>)this, nameToAudit) : elements;
+    return elements == null ? elements = new ElementCompositeList(($AnyType<?>)this, nameToAudit) : elements;
   }
 
   protected final <B extends $AnyType<?>>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
     final boolean added = elementAudit.addElement(element);
     if (added && element != null)
-      element._$$setOwner(($AnySimpleType<?>)this); // FIXME!
+      element._$$setOwner(($AnyType<?>)this); // FIXME: Can we get rid of owner altogether?
 
     return added;
   }
@@ -428,7 +425,7 @@ public abstract class Binding extends AbstractBinding {
 
   protected static <B extends $AnySimpleType<?>>boolean _$$setAttribute(final AttributeAudit<B> audit, final $AnyType<?> binding, final B attribute) {
     if (attribute != null)
-      attribute._$$setOwner(($AnySimpleType<?>)binding); // FIXME!
+      attribute._$$setOwner(binding); // FIXME: Can we get rid of owner altogether?
 
     return audit.setAttribute(attribute);
   }
@@ -660,7 +657,7 @@ public abstract class Binding extends AbstractBinding {
   public Binding clone() {
     final Binding clone = (Binding)super.clone();
     if (elements != null) {
-      clone.elements = elements.clone(($AnySimpleType<?>)clone);
+      clone.elements = elements.cloneList(($AnyType<?>)clone);
       clone.nameToAudit = elements.nameToAudit;
     }
 

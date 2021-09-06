@@ -21,18 +21,19 @@ import java.util.Objects;
 import javax.xml.namespace.QName;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("rawtypes")
 public final class AttributeAudit<T extends $AnySimpleType> {
-  private final $AnySimpleType<?> owner;
+  private final $AnyType<?> owner;
   private final T _default;
   private final QName name;
   private final boolean qualified;
   private final boolean required;
   private T value;
 
-  public AttributeAudit(final $AnySimpleType<?> owner, final T _default, final QName name, final boolean qualified, final boolean required) {
+  public AttributeAudit(final $AnyType<?> owner, final T _default, final QName name, final boolean qualified, final boolean required) {
     this.owner = owner;
     this._default = _default;
     if (_default != null)
@@ -43,7 +44,7 @@ public final class AttributeAudit<T extends $AnySimpleType> {
     this.required = required;
   }
 
-  private AttributeAudit(final $AnySimpleType<?> owner, final AttributeAudit<T> copy) {
+  private AttributeAudit(final $AnyType<?> owner, final AttributeAudit<T> copy) {
     this.owner = owner;
     this._default = copy._default == null ? null : (T)copy._default.clone();
     this.name = copy.name;
@@ -90,7 +91,7 @@ public final class AttributeAudit<T extends $AnySimpleType> {
     parent.setAttributeNodeNS(((Binding)value).marshalAttr(marshalName, parent));
   }
 
-  public AttributeAudit<T> clone(final $AnySimpleType<?> owner) {
+  public AttributeAudit<T> clone(final $AnyType<?> owner) {
     return new AttributeAudit<>(owner, this);
   }
 

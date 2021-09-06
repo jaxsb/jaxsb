@@ -53,14 +53,14 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
   }
 
   protected static void writeIdLookup(final StringWriter writer, final SimpleTypePlan<?> plan, final Plan<?> parent) {
-    if (!$ID.class.getCanonicalName().equals(plan.getSuperClassNameWithoutType()))
+    if (!$ID.class.getCanonicalName().equals(plan.getSuperClassNameWithoutGenericType()))
       return;
 
     final String className;
     final String instanceName;
     if (plan.hasEnumerations()) {
       if (((EnumerablePlan)plan).hasSuperEnumerations())
-        className = ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum";
+        className = ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum";
       else
         className = "Enum";
 
@@ -119,7 +119,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
 //      if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
 //      {
-//          writer.write(accessibility + plan.getClassSimpleName() + "(" + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text)\n");
+//          writer.write(visibility + plan.getClassSimpleName() + "(" + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text)\n");
 //          writer.write("{\n");
 //          writer.write("super(text);\n");
 //          writer.write("}\n");
@@ -157,27 +157,35 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     writer.write("public static class Enum");
     if (hasSuperEnumerations) {
-      writer.write(" extends " + ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum\n{\n");
-      writer.write("protected static " + Map.class.getName() + "<" + enumType + "," + ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum> values()\n{\nreturn " + ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum.values();\n};\n");
+      writer.write(" extends " + ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum {\n");
+      writer.write("protected static " + Map.class.getName() + "<" + enumType + "," + ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum> values() {\n");
+      writer.write("return " + ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum.values();");
+      writer.write("};\n");
     }
     else {
-      writer.write(" implements " + Enum.class.getName() + "<" + plan.getNativeItemClassName() + ">\n{\n");
+      writer.write(" implements " + Enum.class.getName() + "<" + plan.getNativeItemClassName() + "> {\n");
       writer.write("protected static final " + Map.class.getName() + "<" + enumType + ",Enum> values = new " + HashMap.class.getName() + "<>();\n");
-      writer.write("protected static " + Map.class.getName() + "<" + enumType + ",Enum> values()\n{\nreturn values;\n};\n");
-      writer.write("public static Enum valueOf(final " + enumType + " s)\n{\nreturn values.get(s);\n};\n");
+      writer.write("protected static " + Map.class.getName() + "<" + enumType + ",Enum> values() {\n");
+      writer.write("return values;\n");
+      writer.write("};\n");
+      writer.write("public static Enum valueOf(final " + enumType + " s) {\n");
+      writer.write("return values.get(s);\n");
+      writer.write("}\n");
     }
 
     if (hasSuperEnumerations) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public int ordinal()\n{\n");
-      writer.write("return super.ordinal();\n}\n");
+      writer.write("public int ordinal() {\n");
+      writer.write("return super.ordinal();\n");
+      writer.write("}\n");
     }
     else {
       writer.write("protected final " + plan.getNativeItemClassName() + " text;\n");
       writer.write("protected final int ordinal;\n");
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public int ordinal()\n{\n");
-      writer.write("return ordinal;\n}\n");
+      writer.write("public int ordinal() {\n");
+      writer.write("return ordinal;\n");
+      writer.write("}\n");
     }
 
     writer.write("protected Enum(final " + enumType + " text) {\n");
@@ -208,7 +216,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     final String enmClassName;
     if (hasSuperEnumerations)
-      enmClassName = ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum";
+      enmClassName = ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum";
     else
       enmClassName = "Enum";
 
@@ -221,7 +229,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       writer.write("return null;\n");
       writer.write("final int[] ordinals = new int[text().size()];\n");
       writer.write("for (int i = 0; i < ordinals.length; ++i) {\n");
-      writer.write("final " + (hasSuperEnumerations ? ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + "." : "") + "Enum enm = Enum.values().get(text().get(i));\n");
+      writer.write("final " + (hasSuperEnumerations ? ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + "." : "") + "Enum enm = Enum.values().get(text().get(i));\n");
       writer.write("ordinals[i] = Enum.values().get(text().get(i)).ordinal();\n");
       writer.write("}\n");
       writer.write("return ordinals;\n");
@@ -245,7 +253,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       if (hasSuperEnumerations)
         writer.write("@" + Override.class.getName() + "\n");
       writer.write("public int ordinal() {\n");
-      writer.write("final " + (hasSuperEnumerations ? ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + "." : "") + "Enum enm = Enum.values().get(text());\n");
+      writer.write("final " + (hasSuperEnumerations ? ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + "." : "") + "Enum enm = Enum.values().get(text());\n");
       writer.write("return enm != null ? enm.ordinal() : -1;\n");
       writer.write("}\n");
 
@@ -354,7 +362,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       throw new CompilerFailureException("Why are we trying to write a final class that has no name?");
 
     writeQualifiedName(writer, plan);
-    writer.write("public abstract static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + SimpleType.class.getName() + " {\n");
+    writer.write("public abstract static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithGenericType() + " implements " + SimpleType.class.getName() + " {\n");
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 
     // ID LOOKUP
@@ -374,7 +382,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write(plan.getDocumentation());
 
     // COPY CONSTRUCTOR
-    writer.write("public " + plan.getClassSimpleName() + "(" + plan.getClassName(null) + " copy) {\n");
+    writer.write("protected " + plan.getClassSimpleName() + "(" + plan.getClassName(null) + " copy) {\n");
     writer.write("super(copy);\n");
     writer.write("}\n");
 

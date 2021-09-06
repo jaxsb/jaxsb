@@ -16,8 +16,8 @@
 
 package org.jaxsb.runtime;
 
-import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 public interface Attribute extends SimpleType {
-  $AnySimpleType<?> owner();
+  $AnyType<?> owner();
 }

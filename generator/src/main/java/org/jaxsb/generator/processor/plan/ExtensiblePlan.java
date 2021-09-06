@@ -17,6 +17,6 @@
 package org.jaxsb.generator.processor.plan;
 
 public interface ExtensiblePlan {
-  String getSuperClassNameWithType();
-  String getSuperClassNameWithoutType();
+  String getSuperClassNameWithGenericType();
+  String getSuperClassNameWithoutGenericType();
 }

@@ -89,7 +89,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
       final String type;
       if (plan.hasSuperEnumerations())
-        type = ((ExtensiblePlan)plan).getSuperClassNameWithoutType() + ".Enum";
+        type = ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum";
       else
         type = plan.getThisClassNameWithType(parent) + ".Enum";
 
@@ -213,7 +213,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       return;
 
     writeQualifiedName(writer, plan);
-    writer.write("public static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithType() + " implements " + Attribute.class.getName() + " {\n");
+    writer.write("public static class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithGenericType() + " implements " + Attribute.class.getName() + " {\n");
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
 
     // ID LOOKUP
@@ -224,7 +224,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
 
     // COPY CONSTRUCTOR
     writer.write(plan.getDocumentation());
-    writer.write("public " + plan.getClassSimpleName() + "(final " + (plan.hasEnumerations() ? plan.getClassName(parent) : plan.getCopyClassName(parent)) + " copy) {\n");
+    writer.write("protected " + plan.getClassSimpleName() + "(final " + (plan.hasEnumerations() ? plan.getClassName(parent) : plan.getCopyClassName(parent)) + " copy) {\n");
     writer.write("super(copy);\n");
     writer.write("}\n");
 

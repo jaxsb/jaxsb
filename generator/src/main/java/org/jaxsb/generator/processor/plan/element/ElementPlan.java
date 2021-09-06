@@ -51,8 +51,8 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
 
   private UniqueQName typeName;
 
-  private String superClassNameWithType;
-  private String superClassNameWithoutType;
+  private String superClassNameWithGenericType;
+  private String superClassNameWithoutGenericType;
   private String declarationGeneric;
   private String declarationRestrictionGeneric;
 
@@ -83,12 +83,15 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
       throw new CompilerFailureException("element with no type?");
 
     typeName = element.getSuperType().getName();
-    if (isRestriction())
-      superClassNameWithoutType = AliasPlan.getClassName(element.getRestrictionOwner(), null) + "." + JavaBinding.getClassSimpleName(getModel().getRestriction());
-    else
-      superClassNameWithoutType = AliasPlan.getClassName(element.getSuperType(), null);
+    if (isRestriction()) {
+      superClassNameWithoutGenericType = AliasPlan.getClassName(element.getRestrictionOwner(), null) + "." + JavaBinding.getClassSimpleName(getModel().getRestriction());
+      superClassNameWithGenericType = superClassNameWithoutGenericType;
+    }
+    else {
+      superClassNameWithoutGenericType = super.getSuperClassNameWithoutGenericType();
+      superClassNameWithGenericType = super.getSuperClassNameWithGenericType();
+    }
 
-    superClassNameWithType = superClassNameWithoutType;
     // If we are directly inheriting from another element via the
     // substitutionGroup, then don't add the type
     if (substitutionGroup == null || !substitutionGroup.equals(element.getSuperType().getName()))
@@ -97,7 +100,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
       isComplexType = substitutionGroup != null && isComplexType(element.getSuperType());
 
     if (!ref && element.getParent() instanceof SchemaModel)
-      declarationGeneric = superClassNameWithType;
+      declarationGeneric = superClassNameWithGenericType;
     else
       declarationGeneric = null;
 
@@ -210,12 +213,12 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
   }
 
   public final void getSuperClassNameWithoutType(final String superClassNameWithoutType) {
-    this.superClassNameWithoutType = superClassNameWithoutType;
+    this.superClassNameWithoutGenericType = superClassNameWithoutType;
   }
 
   @Override
-  public final String getSuperClassNameWithoutType() {
-    return superClassNameWithoutType;
+  public final String getSuperClassNameWithoutGenericType() {
+    return superClassNameWithoutGenericType;
   }
 
   public final void setMaxOccurs(final int maxOccurs) {
@@ -289,8 +292,8 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
   }
 
   @Override
-  public final String getSuperClassNameWithType() {
-    return superClassNameWithType;
+  public final String getSuperClassNameWithGenericType() {
+    return superClassNameWithGenericType;
   }
 
   public final String getCopyClassName(final Plan<?> parent) {
