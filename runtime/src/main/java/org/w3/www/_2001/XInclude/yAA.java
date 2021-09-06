@@ -473,62 +473,44 @@ public class yAA extends org.jaxsb.runtime.Schema {
         return _$$setAttribute(
             this._href$Local,
             this,
-            (org.w3.www._2001.XInclude.yAA.$IncludeType.Href$)
-                org.jaxsb.runtime.Binding._$$parseAttr(
-                    org.w3.www._2001.XInclude.yAA.$IncludeType.Href$.class,
-                    attribute.getOwnerElement(),
-                    attribute));
+            org.jaxsb.runtime.Binding._$$parseAttr(
+                new org.w3.www._2001.XInclude.yAA.$IncludeType.Href$(), attribute));
       }
       if (attribute.getNamespaceURI() == null && "parse".equals(attribute.getLocalName())) {
         return _$$setAttribute(
             this._parse$Local,
             this,
-            (org.w3.www._2001.XInclude.yAA.$IncludeType.Parse$)
-                org.jaxsb.runtime.Binding._$$parseAttr(
-                    org.w3.www._2001.XInclude.yAA.$IncludeType.Parse$.class,
-                    attribute.getOwnerElement(),
-                    attribute));
+            org.jaxsb.runtime.Binding._$$parseAttr(
+                new org.w3.www._2001.XInclude.yAA.$IncludeType.Parse$(), attribute));
       }
       if (attribute.getNamespaceURI() == null && "xpointer".equals(attribute.getLocalName())) {
         return _$$setAttribute(
             this._xpointer$Local,
             this,
-            (org.w3.www._2001.XInclude.yAA.$IncludeType.Xpointer$)
-                org.jaxsb.runtime.Binding._$$parseAttr(
-                    org.w3.www._2001.XInclude.yAA.$IncludeType.Xpointer$.class,
-                    attribute.getOwnerElement(),
-                    attribute));
+            org.jaxsb.runtime.Binding._$$parseAttr(
+                new org.w3.www._2001.XInclude.yAA.$IncludeType.Xpointer$(), attribute));
       }
       if (attribute.getNamespaceURI() == null && "encoding".equals(attribute.getLocalName())) {
         return _$$setAttribute(
             this._encoding$Local,
             this,
-            (org.w3.www._2001.XInclude.yAA.$IncludeType.Encoding$)
-                org.jaxsb.runtime.Binding._$$parseAttr(
-                    org.w3.www._2001.XInclude.yAA.$IncludeType.Encoding$.class,
-                    attribute.getOwnerElement(),
-                    attribute));
+            org.jaxsb.runtime.Binding._$$parseAttr(
+                new org.w3.www._2001.XInclude.yAA.$IncludeType.Encoding$(), attribute));
       }
       if (attribute.getNamespaceURI() == null && "accept".equals(attribute.getLocalName())) {
         return _$$setAttribute(
             this._accept$Local,
             this,
-            (org.w3.www._2001.XInclude.yAA.$IncludeType.Accept$)
-                org.jaxsb.runtime.Binding._$$parseAttr(
-                    org.w3.www._2001.XInclude.yAA.$IncludeType.Accept$.class,
-                    attribute.getOwnerElement(),
-                    attribute));
+            org.jaxsb.runtime.Binding._$$parseAttr(
+                new org.w3.www._2001.XInclude.yAA.$IncludeType.Accept$(), attribute));
       }
       if (attribute.getNamespaceURI() == null
           && "accept-language".equals(attribute.getLocalName())) {
         return _$$setAttribute(
             this._accept$_language$Local,
             this,
-            (org.w3.www._2001.XInclude.yAA.$IncludeType.Accept$_language$)
-                org.jaxsb.runtime.Binding._$$parseAttr(
-                    org.w3.www._2001.XInclude.yAA.$IncludeType.Accept$_language$.class,
-                    attribute.getOwnerElement(),
-                    attribute));
+            org.jaxsb.runtime.Binding._$$parseAttr(
+                new org.w3.www._2001.XInclude.yAA.$IncludeType.Accept$_language$(), attribute));
       }
       return super.parseAttribute(attribute);
     }

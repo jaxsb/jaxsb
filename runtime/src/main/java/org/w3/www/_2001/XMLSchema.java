@@ -54,6 +54,7 @@ import org.w3c.dom.Text;
 // https://www.eclipse.org/modeling/emf/docs/xsd/dW/os-schema2/os-schema2-3-2.html
 public final class XMLSchema {
   public static final class yAA {
+    @SuppressWarnings("rawtypes")
     public abstract static class $AnyType<T> extends Binding {
       private List<$AnyType> any;
       private List<$AnySimpleType> anySimple;
@@ -74,7 +75,18 @@ public final class XMLSchema {
         this.text = null;
       }
 
-      @SuppressWarnings("rawtypes")
+      protected void text(final T text) {
+        if (this.text != text && owner() != null)
+          owner().setDirty(); // FIXME: Should this do Objects.equals(this.text, text)?
+
+        this.text = text;
+      }
+
+      @Override
+      protected T text() {
+        return text;
+      }
+
       protected void addAny$(final $AnySimpleType any) {
         if (this.anySimple == null)
           this.anySimple = new ArrayList<>();
@@ -97,18 +109,6 @@ public final class XMLSchema {
         return any;
       }
 
-      protected void text(final T text) {
-        if (this.text != text && owner() != null)
-          owner().setDirty(); // FIXME: Should this do Objects.equals(this.text, text)?
-
-        this.text = text;
-      }
-
-      @Override
-      protected T text() {
-        return text;
-      }
-
       @Override
       public boolean isDefault() {
         return super.isDefault();
@@ -124,7 +124,15 @@ public final class XMLSchema {
         return value == null ? null : Arrays.asList(value.split(" "));
       }
 
-      @Override
+      /**
+       * Returns a string representation of the encoded value of this binding,
+       * corresponding to the provided parent {@link Element}.
+       *
+       * @param parent The parent {@link Element}.
+       * @return A string representation of the encoded value of this binding,
+       *         corresponding to the provided parent {@link Element}.
+       * @throws MarshalException If a marshal exception has occurred.
+       */
       protected String _$$encode(final Element parent) throws MarshalException {
         return encode(text(), false);
       }
@@ -1081,13 +1089,18 @@ public final class XMLSchema {
         return ids == null ? null : ids.get(id);
       }
 
-      public $ID(final $ID binding) {
-        super(binding);
+      public $ID(final String text) {
+        super(text);
+        persist(name().getNamespaceURI(), text, this);
       }
 
-      public $ID(final String value) {
-        super(value);
-        persist(name().getNamespaceURI(), value, this);
+      protected $ID(final $ID copy) {
+        super(copy);
+      }
+
+      public $ID(final Attr node) {
+        super(node.getNodeValue());
+        persist(node.getOwnerElement().getNamespaceURI(), node.getNodeValue(), this);
       }
 
       protected $ID() {
@@ -1805,7 +1818,7 @@ public final class XMLSchema {
         final QName qName = stringToQName(value);
         super.text(qName);
         if (element != null)
-          super.text(new javax.xml.namespace.QName(element.getOwnerDocument().getDocumentElement().lookupNamespaceURI(qName.getPrefix()), qName.getLocalPart()));
+          super.text(new QName(element.getOwnerDocument().getDocumentElement().lookupNamespaceURI(qName.getPrefix()), qName.getLocalPart()));
       }
 
       @Override

@@ -267,20 +267,20 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
   }
 
   protected static void getEncodeDecode(final StringWriter writer, final SimpleTypePlan<?> plan) {
-    // DECODE & ENCODE
     if (plan.isList()) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("protected void _$$decode(final " + Element.class.getName() + " node, " + String.class.getName() + " value) {\n");
+      writer.write("protected void _$$decode(final " + Element.class.getName() + " parent, " + String.class.getName() + " value) {\n");
       writer.write("if (value == null || value.length() == 0)\n");
       writer.write("return;\n");
-      writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
-      writer.write(StringTokenizer.class.getName() + " tokenizer = new " + StringTokenizer.class.getName() + "(value);\n");
+      writer.write("final " + List.class.getName() + "<" + plan.getNativeItemClassName() + "> text = new " + plan.getNativeItemClassNameImplementation() + "();\n");
+      writer.write("final " + StringTokenizer.class.getName() + " tokenizer = new " + StringTokenizer.class.getName() + "(value);\n");
       writer.write("while (tokenizer.hasMoreTokens())\n");
       String factoryEntry = "tokenizer.nextToken()";
       if (plan.getNativeFactory() != null)
         factoryEntry = plan.getNativeFactory() + "(" + factoryEntry + ")";
 
-      writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(" + factoryEntry + ");\n");
+      writer.write("text.add(" + factoryEntry + ");\n");
+      writer.write("super.text(text);\n");
       writer.write("}\n");
 
       writer.write("@" + Override.class.getName() + "\n");

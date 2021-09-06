@@ -25,15 +25,15 @@ import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("rawtypes")
-public final class AttributeAudit<T extends $AnySimpleType> {
+public final class AttributeAudit<B extends $AnySimpleType> {
   private final $AnyType<?> owner;
-  private final T _default;
+  private final B _default;
   private final QName name;
   private final boolean qualified;
   private final boolean required;
-  private T value;
+  private B value;
 
-  public AttributeAudit(final $AnyType<?> owner, final T _default, final QName name, final boolean qualified, final boolean required) {
+  public AttributeAudit(final $AnyType<?> owner, final B _default, final QName name, final boolean qualified, final boolean required) {
     this.owner = owner;
     this._default = _default;
     if (_default != null)
@@ -44,16 +44,16 @@ public final class AttributeAudit<T extends $AnySimpleType> {
     this.required = required;
   }
 
-  private AttributeAudit(final $AnyType<?> owner, final AttributeAudit<T> copy) {
+  private AttributeAudit(final $AnyType<?> owner, final AttributeAudit<B> copy) {
     this.owner = owner;
-    this._default = copy._default == null ? null : (T)copy._default.clone();
+    this._default = copy._default == null ? null : (B)copy._default.clone();
     this.name = copy.name;
     this.qualified = copy.qualified;
     this.required = copy.required;
-    this.value = copy.value == null ? null : (T)copy.value.clone();
+    this.value = copy.value == null ? null : (B)copy.value.clone();
   }
 
-  public T getDefault() {
+  public B getDefault() {
     return _default;
   }
 
@@ -69,13 +69,13 @@ public final class AttributeAudit<T extends $AnySimpleType> {
     return required;
   }
 
-  public boolean setAttribute(final T value) {
+  public boolean setAttribute(final B value) {
     this.value = value;
     owner.setDirty();
     return true;
   }
 
-  public T getAttribute() {
+  public B getAttribute() {
     return value != null ? value : getDefault();
   }
 
@@ -91,7 +91,7 @@ public final class AttributeAudit<T extends $AnySimpleType> {
     parent.setAttributeNodeNS(((Binding)value).marshalAttr(marshalName, parent));
   }
 
-  public AttributeAudit<T> clone(final $AnyType<?> owner) {
+  public AttributeAudit<B> clone(final $AnyType<?> owner) {
     return new AttributeAudit<>(owner, this);
   }
 

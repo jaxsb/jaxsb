@@ -48,6 +48,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
+@SuppressWarnings("rawtypes")
 public abstract class Binding extends AbstractBinding {
   private static final Logger logger = LoggerFactory.getLogger(Binding.class);
 
@@ -95,37 +96,18 @@ public abstract class Binding extends AbstractBinding {
 
   protected static $AnySimpleType<?> _$$parseAnyAttr(final Element parent, final Node attribute) {
     final QName qName = attribute.getPrefix() != null ? new QName(attribute.getNamespaceURI(), attribute.getLocalName(), attribute.getPrefix()) : new QName(attribute.getNamespaceURI(), attribute.getLocalName());
-    return _$$parseAttr(new AnyAttribute<>(qName), parent, attribute);
+    final AnyAttribute<?> x = new AnyAttribute<>(qName);
+    _$$decode(x, parent, attribute);
+    return x;
   }
 
-  protected static $AnySimpleType<?> _$$parseAttr(final Class<?> cls, final Element parent, final Node attribute) {
-    try {
-      final Constructor<?> constructor = cls.getDeclaredConstructor();
-      constructor.setAccessible(true);
-      return _$$parseAttr(($AnySimpleType<?>)constructor.newInstance(), parent, attribute);
-    }
-    catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
-      throw new RuntimeException(e);
-    }
-    catch (final InvocationTargetException e) {
-      if (e.getCause() instanceof RuntimeException)
-        throw (RuntimeException)e.getCause();
-
-      throw new RuntimeException(e.getCause());
-    }
-  }
-
-  private static $AnySimpleType<?> _$$parseAttr(final $AnySimpleType<?> binding, final Element parent, final Node attribute) {
-    Binding._$$decode(binding, parent, attribute.getNodeValue());
+  protected static <B extends Binding>B _$$parseAttr(final B binding, final Attr attribute) {
+    binding._$$decode(attribute.getOwnerElement(), attribute.getNodeValue());
     return binding;
   }
 
-  protected static void _$$decode(final Binding binding, final Element element, final String value) {
-    binding._$$decode(element, value);
-  }
-
-  protected static String _$$encode(final Binding binding, final Element parent) throws MarshalException {
-    return binding._$$encode(parent);
+  private static void _$$decode(final Binding binding, final Element parent, final Node attribute) {
+    binding._$$decode(parent, attribute.getNodeValue());
   }
 
   protected static void parse(final Binding binding, final Element node) throws ValidationException {
@@ -188,7 +170,6 @@ public abstract class Binding extends AbstractBinding {
     return false;
   }
 
-  @SuppressWarnings("rawtypes")
   protected static $AnyType<?> parse(final Element element, final Class<? extends $AnyType> defaultClass) throws ValidationException {
     return parseElement(element, defaultClass, Thread.currentThread().getContextClassLoader());
   }
@@ -197,20 +178,6 @@ public abstract class Binding extends AbstractBinding {
     return parseElement(element, null, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static $AnySimpleType<?> parseAttr(final Element element, final Node node) {
-    final String localName = node.getLocalName();
-    final String namespaceURI = node.getNamespaceURI();
-    final Class<? extends Binding> classBinding = lookupAttribute(new QName(namespaceURI, localName), Thread.currentThread().getContextClassLoader());
-    if (classBinding != null)
-      return Binding._$$parseAttr(classBinding, element, node);
-
-    if (namespaceURI != null)
-      throw new IllegalStateException("Unable to find class binding for <" + localName + " xmlns=\"" + namespaceURI + "\">");
-
-    throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
-  }
-
-  @SuppressWarnings("rawtypes")
   protected static $AnyType<?> parseElement(final Element element, final Class<? extends $AnyType> defaultClass, final ClassLoader classLoader) throws ValidationException {
     String namespaceURI = element.getNamespaceURI();
     if (namespaceURI == null)
@@ -339,7 +306,7 @@ public abstract class Binding extends AbstractBinding {
     binding.isDefault = true;
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked"})
+  @SuppressWarnings("unchecked")
   protected BindingList<$AnyType> fetchChild(final QName name) {
     if (name.getLocalPart() == null)
       throw new IllegalArgumentException("name.getLocalPart() == null");
@@ -423,7 +390,7 @@ public abstract class Binding extends AbstractBinding {
     return (ElementAudit<T>)nameToAudit.get(audit.getName());
   }
 
-  protected static <B extends $AnySimpleType<?>>boolean _$$setAttribute(final AttributeAudit<B> audit, final $AnyType<?> binding, final B attribute) {
+  protected static <B extends $AnySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final $AnyType binding, final B attribute) {
     if (attribute != null)
       attribute._$$setOwner(binding); // FIXME: Can we get rid of owner altogether?
 
@@ -439,22 +406,18 @@ public abstract class Binding extends AbstractBinding {
     return audit;
   }
 
-  @SuppressWarnings("rawtypes")
   protected Iterator<$AnyType> elementIterator() {
     return getCreateElementDirectory().iterator();
   }
 
-  @SuppressWarnings("rawtypes")
   protected ListIterator<$AnyType> elementListIterator() {
     return getCreateElementDirectory().listIterator();
   }
 
-  @SuppressWarnings("rawtypes")
   protected ListIterator<$AnyType> elementListIterator(final int index) {
     return getCreateElementDirectory().listIterator(index);
   }
 
-  @SuppressWarnings("rawtypes")
   protected Iterator<$AnySimpleType> attributeIterator() {
     return getCreateAttributeStore().iterator();
   }
@@ -603,27 +566,7 @@ public abstract class Binding extends AbstractBinding {
   protected void parseAnyAttribute(final Attr attribute) throws ValidationException {
   }
 
-  /**
-   * Decodes the specified string value, corresponding to the provided parent
-   * {@link Element}.
-   *
-   * @param parent The parent {@link Element}.
-   * @param value The string value to be decoded.
-   */
   protected void _$$decode(final Element parent, final String value) {
-    throw new UnsupportedOperationException("This is a template that must be overridden, otherwise it shouldn't be called");
-  }
-
-  /**
-   * Returns a string representation of the encoded value of this binding,
-   * corresponding to the provided parent {@link Element}.
-   *
-   * @param parent The parent {@link Element}.
-   * @return A string representation of the encoded value of this binding,
-   *         corresponding to the provided parent {@link Element}.
-   * @throws MarshalException If a marshal exception has occurred.
-   */
-  protected String _$$encode(final Element parent) throws MarshalException {
     throw new UnsupportedOperationException("This is a template that must be overridden, otherwise it shouldn't be called");
   }
 

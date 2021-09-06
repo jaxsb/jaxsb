@@ -33,7 +33,10 @@ import org.libj.lang.PackageNotFoundException;
 import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
+@SuppressWarnings("rawtypes")
 public abstract class AbstractBinding implements Cloneable {
   private static final Logger logger = LoggerFactory.getLogger(AbstractBinding.class);
 
@@ -42,9 +45,9 @@ public abstract class AbstractBinding implements Cloneable {
   protected static final QName XMLNS = new QName(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns");
   protected static final QName XML = new QName(XMLConstants.XML_NS_URI, "xml");
 
-  private static final Map<QName,Class<? extends Binding>> attributeBindings = new HashMap<>();
-  private static final Map<QName,Class<? extends Binding>> elementBindings = new HashMap<>();
-  private static final Map<QName,Class<? extends Binding>> typeBindings = new HashMap<>();
+  private static final Map<QName,Class<? extends $AnySimpleType>> attributeBindings = new HashMap<>();
+  private static final Map<QName,Class<? extends $AnyType>> elementBindings = new HashMap<>();
+  private static final Map<QName,Class<? extends $AnyType>> typeBindings = new HashMap<>();
   private static final Map<QName,Object> notations = new HashMap<>();
 
   protected static NotationType _$$getNotation(final QName name) {
@@ -108,11 +111,11 @@ public abstract class AbstractBinding implements Cloneable {
     }
   }
 
-  protected static void _$$registerAttribute(final QName name, final Class<? extends Binding> cls) {
+  protected static void _$$registerAttribute(final QName name, final Class<? extends $AnySimpleType> cls) {
     attributeBindings.put(name, cls);
   }
 
-  protected static void _$$registerElement(final QName name, final Class<? extends Binding> cls) {
+  protected static void _$$registerElement(final QName name, final Class<? extends $AnyType<?>> cls) {
     elementBindings.put(name, cls);
   }
 
@@ -126,8 +129,8 @@ public abstract class AbstractBinding implements Cloneable {
     }
   }
 
-  protected static Class<? extends Binding> lookupAttribute(final QName name, final ClassLoader classLoader) {
-    final Class<? extends Binding> cls = attributeBindings.get(name);
+  protected static Class<? extends $AnySimpleType> lookupAttribute(final QName name, final ClassLoader classLoader) {
+    final Class<? extends $AnySimpleType> cls = attributeBindings.get(name);
     if (cls != null)
       return cls;
 
@@ -135,8 +138,8 @@ public abstract class AbstractBinding implements Cloneable {
     return attributeBindings.get(name);
   }
 
-  protected static Class<? extends Binding> lookupElement(final QName name, final ClassLoader classLoader) {
-    final Class<? extends Binding> cls = elementBindings.get(name);
+  protected static Class<? extends $AnyType> lookupElement(final QName name, final ClassLoader classLoader) {
+    final Class<? extends $AnyType> cls = elementBindings.get(name);
     if (cls != null)
       return cls;
 
@@ -144,12 +147,12 @@ public abstract class AbstractBinding implements Cloneable {
     return elementBindings.get(name);
   }
 
-  protected static void _$$registerType(final QName name, final Class<? extends Binding> cls) {
+  protected static void _$$registerType(final QName name, final Class<? extends $AnyType<?>> cls) {
     typeBindings.put(name, cls);
   }
 
-  protected static Class<? extends Binding> lookupType(final QName name, final ClassLoader classLoader) {
-    final Class<? extends Binding> cls = typeBindings.get(name);
+  protected static Class<? extends $AnyType> lookupType(final QName name, final ClassLoader classLoader) {
+    final Class<? extends $AnyType> cls = typeBindings.get(name);
     if (cls != null)
       return cls;
 

@@ -16,8 +16,8 @@
 
 package org.jaxsb.generator.processor.write.element;
 
-import java.util.List;
 import java.io.StringWriter;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 
@@ -169,7 +169,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       writer.write("if (attribute.getNamespaceURI() == null && \"" + plan.getName().getLocalPart() + "\".equals(attribute.getLocalName()))\n");
 
     writer.write("{\n");
-    writer.write("return _$$setAttribute(this." + plan.getInstanceName() + ", this, (" + plan.getThisClassNameWithType(parent) + ")" + Binding.class.getName() + "._$$parseAttr(" + plan.getClassName(parent) + ".class, attribute.getOwnerElement(), attribute));\n");
+    writer.write("return _$$setAttribute(this." + plan.getInstanceName() + ", this, " + Binding.class.getName() + "._$$parseAttr(new " + plan.getClassName(parent) + "(), attribute));\n");
     writer.write("}\n");
   }
 
