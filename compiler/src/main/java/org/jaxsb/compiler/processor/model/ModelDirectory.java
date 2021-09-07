@@ -86,6 +86,7 @@ public final class ModelDirectory implements PipelineDirectory<GeneratorContext,
 
   public ModelDirectory() {
     classes.put(null, UnknownModel.class);
+
     classes.put("all", AllModel.class);
     classes.put("annotation", AnnotationModel.class);
     classes.put("anyAttribute", AnyAttributeModel.class);

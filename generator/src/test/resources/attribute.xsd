@@ -125,7 +125,7 @@
   <xs:element name="attribute">
     <xs:complexType>
       <xs:all>
-        <xs:element name="foo" type="xs:anySimpleType"></xs:element>
+        <xs:element name="any" type="xs:anyType"/>
         <xs:element name="local">
           <xs:complexType>
             <xs:attribute name="localRaw"/>

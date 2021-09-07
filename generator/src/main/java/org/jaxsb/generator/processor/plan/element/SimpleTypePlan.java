@@ -234,8 +234,6 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
 
     superTypeName = model.getSuperType().getName();
     superClassNameWithoutGenericType = AliasPlan.getClassName(model.getSuperType(), null);
-    if (model.getName().toString().equals("{http://www.jaxsb.org/sample/list.xsd}workDays"))
-      System.out.println();
 
     if (this.list = baseXSItemTypeDirectory.getNativeBinding().isList()) {
       nativeItemClassName = baseXSItemTypeDirectory.getNativeBinding().getNativeClass().getType().getCanonicalName();

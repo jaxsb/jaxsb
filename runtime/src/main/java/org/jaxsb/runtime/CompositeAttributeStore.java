@@ -20,23 +20,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.jaxsb.runtime.Binding.PrefixToNamespace;
+import org.libj.util.DelegateList;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
-public class CompositeAttributeStore {
-  private final ArrayList<AttributeAudit<?>> audits;
-
+public class CompositeAttributeStore extends DelegateList<AttributeAudit<?>> {
   public CompositeAttributeStore() {
-    this.audits = new ArrayList<>();
-  }
-
-  private CompositeAttributeStore(final ArrayList<AttributeAudit<?>> audits) {
-    this.audits = audits;
+    super(new ArrayList<>());
   }
 
   @SuppressWarnings("rawtypes")
-  private static final class AttributeIterator implements Iterator<$AnySimpleType> {
+  private final class AttributeIterator implements Iterator<$AnySimpleType> {
     private final Iterator<AttributeAudit<?>> iterator;
-    private $AnySimpleType<?> next;
+    private $AnySimpleType next;
 
     private AttributeIterator(final Iterator<AttributeAudit<?>> iterator) {
       this.iterator = iterator;
@@ -54,31 +50,32 @@ public class CompositeAttributeStore {
     }
 
     @Override
-    public $AnySimpleType<?> next() {
+    public $AnySimpleType next() {
       if (next == null)
         throw new NoSuchElementException();
 
-      final $AnySimpleType<?> current = next;
+      final $AnySimpleType current = next;
       next = null;
       setNext();
       return current;
     }
   }
 
-  public void add(final AttributeAudit<?> audit) {
-    this.audits.add(audit);
-  }
-
   @SuppressWarnings("rawtypes")
-  public Iterator<$AnySimpleType> iterator() {
-    return new AttributeIterator(audits.iterator());
+  public Iterator<$AnySimpleType> valueIterator() {
+    return new AttributeIterator(iterator());
   }
 
   public CompositeAttributeStore clone(final $AnySimpleType<?> owner) {
-    final ArrayList<AttributeAudit<?>> clone = new ArrayList<>();
-    for (final AttributeAudit<?> audit : audits)
+    final CompositeAttributeStore clone = new CompositeAttributeStore();
+    for (final AttributeAudit<?> audit : this)
       clone.add(audit.clone(owner));
 
-    return new CompositeAttributeStore(clone);
+    return clone;
+  }
+
+  public void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace) {
+    for (final AttributeAudit<?> audit : this)
+      audit.toString(str,prefixToNamespace);
   }
 }

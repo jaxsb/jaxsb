@@ -92,7 +92,7 @@ public final class ElementAudit<B extends $AnyType> {
     return this.owner;
   }
 
-  public boolean isQualified() {
+  public boolean qualified() {
     return qualified;
   }
 
@@ -104,7 +104,7 @@ public final class ElementAudit<B extends $AnyType> {
     return typeName;
   }
 
-  public boolean isNillable() {
+  public boolean nillable() {
     return nillable;
   }
 
@@ -169,11 +169,11 @@ public final class ElementAudit<B extends $AnyType> {
       type = element.type();
 
     final Element node = ((Binding)element).marshal(parent, name, type);
-    if (!element._$$hasElements() && isNillable())
+    if (!element._$$hasElements() && nillable())
       marshalNil(node, parent);
 
     element._$$marshalElements(node);
-    if (!isQualified())
+    if (!qualified())
       node.setPrefix(null);
 
     parent.appendChild(node);

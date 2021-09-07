@@ -32,9 +32,11 @@ import javax.xml.namespace.QName;
 
 import org.apache.xerces.jaxp.datatype.Duration;
 import org.jaxsb.compiler.lang.UniqueQName;
+import org.jaxsb.runtime.AnyAttribute;
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.NotationType;
+import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.datatype.Base64Binary;
 import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.DateTime;
@@ -48,17 +50,58 @@ import org.openjax.xml.datatype.Year;
 import org.openjax.xml.datatype.YearMonth;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 // https://www.liquid-technologies.com/Reference/XmlStudio/XsdEditorNotation_BuiltInXsdTypes.html
 // https://www.eclipse.org/modeling/emf/docs/xsd/dW/os-schema2/os-schema2-3-2.html
+// https://www.herongyang.com/XSD/Built-in-Datatype-Overview.html
 public final class XMLSchema {
+  private static String encode(final Object value, final boolean collectionable) {
+    if (value == null)
+      return "";
+
+    if (!(value instanceof Collection))
+      return value.toString();
+
+    if (!collectionable)
+      throw new IllegalArgumentException("Why is this a Collection? The collection logic should be in the appropriate subclass");
+
+    if (((Collection<?>)value).size() == 0)
+      return null;
+
+    final StringBuilder builder = new StringBuilder();
+    final Iterator<?> iterator = ((Collection<?>)value).iterator();
+    for (int i = 0; iterator.hasNext(); ++i) {
+      if (i > 0)
+        builder.append(' ');
+
+      builder.append(iterator.next());
+    }
+
+    return builder.toString();
+  }
+
+  private static List<String> decodeAsList(final String value) {
+    return value == null ? null : Arrays.asList(value.split(" "));
+  }
+
   public static final class yAA {
     @SuppressWarnings("rawtypes")
     public abstract static class $AnyType<T> extends Binding {
+      private $AnyType getDocumentElement() {
+        $AnyType parent, cursor = this;
+        while ((parent = cursor.owner()) != null)
+          cursor = parent;
+
+        return cursor;
+      }
+
       private List<$AnyType> any;
       private List<$AnySimpleType> anySimple;
-      private T text; // FIXME: Make this final
+      private T text;
 
       public $AnyType(final T text) {
         super();
@@ -114,14 +157,59 @@ public final class XMLSchema {
         return super.isDefault();
       }
 
-      @Override
-      @SuppressWarnings("unchecked")
-      protected void _$$decode(final Element parent, final String value) {
-        text((T)value); // FIXME: By default, AnySimpleType is a string
+      /**
+       * Parse the specified {@link Text}.
+       *
+       * @param text The {@link Text}.
+       */
+      protected final void parseText(final Text text) {
+        // Ignore all attributes that have a xsi prefix because these are
+        // controlled implicitly by the framework
+        if (XSI_NIL.getPrefix().equals(text.getPrefix()))
+          return;
+
+        final String value;
+        if (text.getNodeValue() != null && (value = text.getNodeValue().trim()).length() > 0) // FIXME: trim()?
+          _$$decode((Element)text.getParentNode(), value);
       }
 
-      protected static List<String> decodeAsList(final String value) {
-        return value == null ? null : Arrays.asList(value.split(" "));
+      protected static $AnySimpleType<?> _$$parseAnyAttr(final Element parent, final Node attribute) {
+        final AnyAttribute<?> anyAttribute = new AnyAttribute<>(attribute.getPrefix() != null ? new QName(attribute.getNamespaceURI(), attribute.getLocalName(), attribute.getPrefix()) : new QName(attribute.getNamespaceURI(), attribute.getLocalName()));
+        _$$decode(anyAttribute, parent, attribute);
+        return anyAttribute;
+      }
+
+      @Override
+      protected final void parseAnyType(final Element node) throws ValidationException {
+        final NamedNodeMap attributes = node.getAttributes();
+        for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+          final Node attribute = attributes.item(i);
+          if (attribute instanceof Attr && !parseAttribute((Attr)attribute))
+            parseAnyAttribute((Attr)attribute);
+        }
+
+        final NodeList elements = node.getChildNodes();
+        for (int i = 0, len = elements.getLength(); i < len; ++i) {
+          final Node child = elements.item(i);
+          if (child instanceof Text)
+            parseText((Text)child);
+          else if (child instanceof Element && !parseElement((Element)child))
+            parseAny((Element)child);
+        }
+      }
+
+      private static void _$$decode(final $AnyType binding, final Element parent, final Node attribute) {
+        binding._$$decode(parent, attribute.getNodeValue());
+      }
+
+      protected static <B extends $AnyType>B _$$parseAttr(final B binding, final Attr attribute) {
+        binding._$$decode(attribute.getOwnerElement(), attribute.getNodeValue());
+        return binding;
+      }
+
+      @SuppressWarnings("unchecked")
+      protected void _$$decode(final Element parent, final String value) {
+        text((T)value); // FIXME: By default, $AnyType is a string. If it's not, then this method must be overridden.
       }
 
       /**
@@ -137,31 +225,6 @@ public final class XMLSchema {
         return encode(text(), false);
       }
 
-      protected static String encode(final Object value, final boolean collectionable) {
-        if (value == null)
-          return "";
-
-        if (!(value instanceof Collection))
-          return value.toString();
-
-        if (!collectionable)
-          throw new IllegalArgumentException("Why is this a Collection? The collection logic should be in the appropriate subclass");
-
-        if (((Collection<?>)value).size() == 0)
-          return null;
-
-        final StringBuilder builder = new StringBuilder();
-        final Iterator<?> iterator = ((Collection<?>)value).iterator();
-        for (int i = 0; iterator.hasNext(); ++i) {
-          if (i > 0)
-            builder.append(' ');
-
-          builder.append(iterator.next());
-        }
-
-        return builder.toString();
-      }
-
       @Override
       protected Element marshal() throws MarshalException {
         final Element node = marshal(createElementNS(name().getNamespaceURI(), name().getLocalPart()), name(), type(_$$inheritsInstance()));
@@ -173,7 +236,7 @@ public final class XMLSchema {
       protected Element marshal(final Element parent, final QName name, final QName typeName) throws MarshalException {
         final Element element = super.marshal(parent, name, typeName);
         if (text != null)
-          element.appendChild(parent.getOwnerDocument().createTextNode(String.valueOf(_$$encode(parent))));
+          element.appendChild(parent.getOwnerDocument().createTextNode(_$$encode(parent)));
 
         return element;
       }
@@ -183,21 +246,6 @@ public final class XMLSchema {
         final Attr attr = parent.getOwnerDocument().createAttribute(name);
         attr.setNodeValue(_$$encode(parent));
         return attr;
-      }
-
-      @Override
-      protected void parseText(final Text text) {
-        // Ignore all attributes that have a xsi prefix because these are
-        // controlled implicitly by the framework
-        if (XSI_NIL.getPrefix().equals(text.getPrefix()))
-          return;
-
-        String value = "";
-        if (text.getNodeValue() != null)
-          value += text.getNodeValue().trim();
-
-        if (value.length() != 0)
-          _$$decode((Element)text.getParentNode(), value);
       }
 
       @Override
@@ -228,29 +276,11 @@ public final class XMLSchema {
         if (!Objects.equals(text, that.text))
           return false;
 
-        if (any != null) {
-          if (that.any == null || any.size() != that.any.size())
-            return false;
-
-          for (int i = 0, len = any.size(); i < len; ++i)
-            if (!any.get(i).equals(that.any.get(i)))
-              return false;
-        }
-        else if (that.any != null) {
+        if (!Objects.equals(any, that.any))
           return false;
-        }
 
-        if (anySimple != null) {
-          if (that.anySimple == null || anySimple.size() != that.anySimple.size())
-            return false;
-
-          for (int i = 0, len = anySimple.size(); i < len; ++i)
-            if (!anySimple.get(i).equals(that.anySimple.get(i)))
-              return false;
-        }
-        else if (that.anySimple != null) {
+        if (!Objects.equals(anySimple, that.anySimple))
           return false;
-        }
 
         return true;
       }
@@ -331,6 +361,16 @@ public final class XMLSchema {
       public $AnyURI clone() {
         return ($AnyURI)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $AnyURI && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Base64Binary extends $AnySimpleType<Base64Binary> {
@@ -354,6 +394,16 @@ public final class XMLSchema {
       @Override
       public $Base64Binary clone() {
         return ($Base64Binary)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Base64Binary && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -413,6 +463,16 @@ public final class XMLSchema {
       public $Boolean clone() {
         return ($Boolean)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Boolean && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Byte extends $Short {
@@ -447,6 +507,16 @@ public final class XMLSchema {
       public $Byte clone() {
         return ($Byte)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Byte && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Date extends $AnySimpleType<Date> {
@@ -470,6 +540,16 @@ public final class XMLSchema {
       @Override
       public $Date clone() {
         return ($Date)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Date && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -508,6 +588,16 @@ public final class XMLSchema {
       public $DateTime clone() {
         return ($DateTime)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $DateTime && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Decimal extends $AnySimpleType<Number> {
@@ -515,12 +605,12 @@ public final class XMLSchema {
         super(text);
       }
 
-      protected $Decimal(final $Decimal copy) {
-        super(copy);
-      }
-
       protected $Decimal(final Number text) {
         super(text);
+      }
+
+      protected $Decimal(final $Decimal copy) {
+        super(copy);
       }
 
       protected $Decimal() {
@@ -623,6 +713,16 @@ public final class XMLSchema {
       @Override
       public $Decimal clone() {
         return ($Decimal)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Decimal && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -737,6 +837,16 @@ public final class XMLSchema {
       public $Double clone() {
         return ($Double)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Double && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Duration extends $AnySimpleType<Duration> {
@@ -760,6 +870,16 @@ public final class XMLSchema {
       @Override
       public $Duration clone() {
         return ($Duration)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Duration && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -790,6 +910,16 @@ public final class XMLSchema {
       public $ENTITIES clone() {
         return ($ENTITIES)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $ENTITIES && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $ENTITY extends $nCName {
@@ -808,6 +938,16 @@ public final class XMLSchema {
       @Override
       public $ENTITY clone() {
         return ($ENTITY)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $ENTITY && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -921,6 +1061,16 @@ public final class XMLSchema {
       public $Float clone() {
         return ($Float)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Float && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $GDay extends $AnySimpleType<Day> {
@@ -944,6 +1094,16 @@ public final class XMLSchema {
       @Override
       public $GDay clone() {
         return ($GDay)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $GDay && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -969,6 +1129,16 @@ public final class XMLSchema {
       public $GMonth clone() {
         return ($GMonth)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $GMonth && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $GMonthDay extends $AnySimpleType<MonthDay> {
@@ -992,6 +1162,16 @@ public final class XMLSchema {
       @Override
       public $GMonthDay clone() {
         return ($GMonthDay)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $GMonthDay && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1017,6 +1197,16 @@ public final class XMLSchema {
       public $GYear clone() {
         return ($GYear)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $GYear && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $GYearMonth extends $AnySimpleType<YearMonth> {
@@ -1041,6 +1231,16 @@ public final class XMLSchema {
       public $GYearMonth clone() {
         return ($GYearMonth)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $GYearMonth && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $HexBinary extends $AnySimpleType<HexBinary> {
@@ -1064,6 +1264,16 @@ public final class XMLSchema {
       @Override
       public $HexBinary clone() {
         return ($HexBinary)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $HexBinary && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1127,6 +1337,16 @@ public final class XMLSchema {
       public $ID clone() {
         return ($ID)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $ID && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $IDREF extends $nCName {
@@ -1145,6 +1365,16 @@ public final class XMLSchema {
       @Override
       public $IDREF clone() {
         return ($IDREF)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $IDREF && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1175,6 +1405,16 @@ public final class XMLSchema {
       public $IDREFS clone() {
         return ($IDREFS)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $IDREFS && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Int extends $Long {
@@ -1182,12 +1422,12 @@ public final class XMLSchema {
         super(text);
       }
 
-      protected $Int(final $Int copy) {
-        super(copy);
+      protected $Int(final Number text) {
+        super(text);
       }
 
-      protected $Int(final Number value) {
-        super(value);
+      protected $Int(final $Int copy) {
+        super(copy);
       }
 
       protected $Int() {
@@ -1213,6 +1453,16 @@ public final class XMLSchema {
       public $Int clone() {
         return ($Int)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Int && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Integer extends $Decimal {
@@ -1220,12 +1470,12 @@ public final class XMLSchema {
         super(text);
       }
 
-      protected $Integer(final $Integer copy) {
-        super(copy);
-      }
-
       protected $Integer(final Number text) {
         super(text);
+      }
+
+      protected $Integer(final $Integer copy) {
+        super(copy);
       }
 
       protected $Integer() {
@@ -1256,6 +1506,16 @@ public final class XMLSchema {
       public $Integer clone() {
         return ($Integer)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Integer && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Language extends $AnySimpleType<Language> {
@@ -1280,6 +1540,16 @@ public final class XMLSchema {
       public $Language clone() {
         return ($Language)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Language && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Long extends $Integer {
@@ -1287,12 +1557,12 @@ public final class XMLSchema {
         super(text);
       }
 
-      protected $Long(final $Long copy) {
-        super(copy);
+      protected $Long(final Number text) {
+        super(text);
       }
 
-      protected $Long(final Number value) {
-        super(value);
+      protected $Long(final $Long copy) {
+        super(copy);
       }
 
       protected $Long() {
@@ -1318,6 +1588,16 @@ public final class XMLSchema {
       public $Long clone() {
         return ($Long)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Long && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $MonthDay extends $AnySimpleType<MonthDay> {
@@ -1342,6 +1622,16 @@ public final class XMLSchema {
       public $MonthDay clone() {
         return ($MonthDay)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $MonthDay && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $NMTOKEN extends $Token {
@@ -1360,6 +1650,16 @@ public final class XMLSchema {
       @Override
       public $NMTOKEN clone() {
         return ($NMTOKEN)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $NMTOKEN && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1389,6 +1689,16 @@ public final class XMLSchema {
       @Override
       public $NMTOKENS clone() {
         return ($NMTOKENS)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $NMTOKENS && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1433,20 +1743,33 @@ public final class XMLSchema {
       public $NOTATION clone() {
         return ($NOTATION)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $NOTATION && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $NegativeInteger extends $NonPositiveInteger {
       public $NegativeInteger(final BigInteger text) {
         super(text);
-        // FIXME: Check?
+        if (text != null && text.intValue() > 0)
+          throw new IllegalArgumentException(text + " is positive");
+      }
+
+      protected $NegativeInteger(final Number text) {
+        super(text);
+        if (text != null && text.intValue() > 0)
+          throw new IllegalArgumentException(text + " is positive");
       }
 
       protected $NegativeInteger(final $NegativeInteger copy) {
         super(copy);
-      }
-
-      protected $NegativeInteger(final Number number) {
-        super(number);
       }
 
       protected $NegativeInteger() {
@@ -1457,20 +1780,33 @@ public final class XMLSchema {
       public $NegativeInteger clone() {
         return ($NegativeInteger)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $NegativeInteger && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $NonNegativeInteger extends $Integer {
       public $NonNegativeInteger(final BigInteger text) {
         super(text);
-        // FIXME: Check?
+        if (text != null && text.intValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
+      }
+
+      protected $NonNegativeInteger(final Number text) {
+        super(text);
+        if (text != null && text.intValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
       }
 
       protected $NonNegativeInteger(final $NonNegativeInteger copy) {
         super(copy);
-      }
-
-      protected $NonNegativeInteger(final Number value) {
-        super(value);
       }
 
       protected $NonNegativeInteger() {
@@ -1481,20 +1817,33 @@ public final class XMLSchema {
       public $NonNegativeInteger clone() {
         return ($NonNegativeInteger)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $NonNegativeInteger && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $NonPositiveInteger extends $Integer {
       public $NonPositiveInteger(final BigInteger text) {
         super(text);
-        // FIXME: Check?
+        if (text != null && text.intValue() > 0)
+          throw new IllegalArgumentException(text + " is positive");
+      }
+
+      protected $NonPositiveInteger(final Number text) {
+        super(text);
+        if (text != null && text.intValue() > 0)
+          throw new IllegalArgumentException(text + " is positive");
       }
 
       protected $NonPositiveInteger(final $NonPositiveInteger copy) {
         super(copy);
-      }
-
-      protected $NonPositiveInteger(final Number value) {
-        super(value);
       }
 
       protected $NonPositiveInteger() {
@@ -1504,6 +1853,16 @@ public final class XMLSchema {
       @Override
       public $NonPositiveInteger clone() {
         return ($NonPositiveInteger)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $NonPositiveInteger && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1524,20 +1883,33 @@ public final class XMLSchema {
       public $NormalizedString clone() {
         return ($NormalizedString)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $NormalizedString && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $PositiveInteger extends $NonNegativeInteger {
       public $PositiveInteger(final BigInteger text) {
         super(text);
-        // FIXME: Check?
+        if (text != null && text.intValue() <= 0)
+          throw new IllegalArgumentException(text + " is not positive");
+      }
+
+      protected $PositiveInteger(final Number text) {
+        super(text);
+        if (text != null && text.intValue() <= 0)
+          throw new IllegalArgumentException(text + " is not positive");
       }
 
       protected $PositiveInteger(final $PositiveInteger copy) {
         super(copy);
-      }
-
-      protected $PositiveInteger(final Number value) {
-        super(value);
       }
 
       protected $PositiveInteger() {
@@ -1548,6 +1920,16 @@ public final class XMLSchema {
       public $PositiveInteger clone() {
         return ($PositiveInteger)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $PositiveInteger && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Short extends $Int {
@@ -1555,12 +1937,12 @@ public final class XMLSchema {
         super(text);
       }
 
-      protected $Short(final $Short copy) {
-        super(copy);
+      protected $Short(final Number text) {
+        super(text);
       }
 
-      protected $Short(final Number value) {
-        super(value);
+      protected $Short(final $Short copy) {
+        super(copy);
       }
 
       protected $Short() {
@@ -1586,6 +1968,16 @@ public final class XMLSchema {
       public $Short clone() {
         return ($Short)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Short && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $String extends $AnySimpleType<String> {
@@ -1604,6 +1996,16 @@ public final class XMLSchema {
       @Override
       public $String clone() {
         return ($String)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $String && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1634,6 +2036,16 @@ public final class XMLSchema {
       public $Time clone() {
         return ($Time)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Time && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $Token extends $NormalizedString {
@@ -1653,12 +2065,150 @@ public final class XMLSchema {
       public $Token clone() {
         return ($Token)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $Token && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
+    }
+
+    public abstract static class $UnsignedLong extends $NonNegativeInteger {
+      public $UnsignedLong(final BigInteger text) {
+        super(text);
+        if (text != null && text.longValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
+      }
+
+      protected $UnsignedLong(final Number text) {
+        super(text);
+        if (text != null && text.longValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
+      }
+
+      protected $UnsignedLong(final $UnsignedLong copy) {
+        super(copy);
+      }
+
+      protected $UnsignedLong() {
+        super();
+      }
+
+      @Override
+      public $UnsignedLong clone() {
+        return ($UnsignedLong)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $UnsignedLong && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
+    }
+
+    public abstract static class $UnsignedInt extends $UnsignedLong {
+      public $UnsignedInt(final Long text) {
+        super(text);
+        if (text != null && text.intValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
+      }
+
+      protected $UnsignedInt(final Number text) {
+        super(text);
+        if (text != null && text.intValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
+      }
+
+      protected $UnsignedInt(final $UnsignedInt copy) {
+        super(copy);
+      }
+
+      protected $UnsignedInt() {
+        super();
+      }
+
+      @Override
+      protected void _$$decode(final Element parent, final String value) {
+        super.text(Long.parseLong(value));
+      }
+
+      @Override
+      public $UnsignedInt clone() {
+        return ($UnsignedInt)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $UnsignedInt && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
+    }
+
+    public abstract static class $UnsignedShort extends $UnsignedInt {
+      public $UnsignedShort(final Integer text) {
+        super(text);
+        if (text != null && text.shortValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
+      }
+
+      protected $UnsignedShort(final Number text) {
+        super(text);
+        if (text != null && text.shortValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
+      }
+
+      protected $UnsignedShort(final $UnsignedShort copy) {
+        super(copy);
+      }
+
+      protected $UnsignedShort() {
+        super();
+      }
+
+      @Override
+      protected void _$$decode(final Element parent, final String value) {
+        super.text(Integer.parseInt(value));
+      }
+
+      @Override
+      public $UnsignedShort clone() {
+        return ($UnsignedShort)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $UnsignedShort && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $UnsignedByte extends $UnsignedShort {
       public $UnsignedByte(final Short text) {
         super(text);
-        // FIXME: Check?
+        if (text != null && text.byteValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
+      }
+
+      protected $UnsignedByte(final Number text) {
+        super(text);
+        if (text != null && text.byteValue() < 0)
+          throw new IllegalArgumentException(text + " is negative");
       }
 
       protected $UnsignedByte(final $UnsignedByte copy) {
@@ -1678,87 +2228,15 @@ public final class XMLSchema {
       public $UnsignedByte clone() {
         return ($UnsignedByte)super.clone();
       }
-    }
 
-    public abstract static class $UnsignedInt extends $UnsignedLong {
-      public $UnsignedInt(final Long text) {
-        super(text);
-      }
-
-      protected $UnsignedInt(final $UnsignedInt copy) {
-        super(copy);
-      }
-
-      protected $UnsignedInt(final Number value) {
-        super(value);
-        // FIXME: Check?
-      }
-
-      protected $UnsignedInt() {
-        super();
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $UnsignedByte && super.equals(obj);
       }
 
       @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(Long.parseLong(value));
-      }
-
-      @Override
-      public $UnsignedInt clone() {
-        return ($UnsignedInt)super.clone();
-      }
-    }
-
-    public abstract static class $UnsignedLong extends $NonNegativeInteger {
-      public $UnsignedLong(final BigInteger text) {
-        super(text);
-        // FIXME: Check?
-      }
-
-      protected $UnsignedLong(final $UnsignedLong copy) {
-        super(copy);
-      }
-
-      protected $UnsignedLong(final Number value) {
-        super(value);
-      }
-
-      protected $UnsignedLong() {
-        super();
-      }
-
-      @Override
-      public $UnsignedLong clone() {
-        return ($UnsignedLong)super.clone();
-      }
-    }
-
-    public abstract static class $UnsignedShort extends $UnsignedInt {
-      public $UnsignedShort(final Integer text) {
-        super(text);
-        // FIXME: Check?
-      }
-
-      protected $UnsignedShort(final $UnsignedShort copy) {
-        super(copy);
-      }
-
-      protected $UnsignedShort(final Number value) {
-        super(value);
-      }
-
-      protected $UnsignedShort() {
-        super();
-      }
-
-      @Override
-      protected void _$$decode(final Element parent, final String value) {
-        super.text(Integer.parseInt(value));
-      }
-
-      @Override
-      public $UnsignedShort clone() {
-        return ($UnsignedShort)super.clone();
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1779,6 +2257,16 @@ public final class XMLSchema {
       public $nCName clone() {
         return ($nCName)super.clone();
       }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $nCName && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
+      }
     }
 
     public abstract static class $name extends $Token {
@@ -1797,6 +2285,16 @@ public final class XMLSchema {
       @Override
       public $name clone() {
         return ($name)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $name && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 
@@ -1836,6 +2334,16 @@ public final class XMLSchema {
       @Override
       public $qName clone() {
         return ($qName)super.clone();
+      }
+
+      @Override
+      public boolean equals(final Object obj) {
+        return this == obj || obj instanceof $qName && super.equals(obj);
+      }
+
+      @Override
+      public int hashCode() {
+        return super.hashCode() ^ 31;
       }
     }
 

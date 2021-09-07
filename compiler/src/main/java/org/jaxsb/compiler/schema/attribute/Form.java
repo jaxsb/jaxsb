@@ -16,48 +16,22 @@
 
 package org.jaxsb.compiler.schema.attribute;
 
-import java.util.HashMap;
-import java.util.Map;
+public enum Form {
+  QUALIFIED("qualified"),
+  UNQUALIFIED("unqualified");
 
-public final class Form {
-  private static final Map<String,Form> enums = new HashMap<>();
-
-  public static final Form QUALIFIED = new Form("qualified");
-  public static final Form UNQUALIFIED = new Form("unqualified");
-
-  public static Form parseForm(final String value) {
-    return enums.get(value);
+  public static Form parseForm(final String name) {
+    return QUALIFIED.name.equals(name) ? QUALIFIED : UNQUALIFIED.name.equals(name) ? UNQUALIFIED : null;
   }
 
-  private final String value;
+  private final String name;
 
-  private Form(final String value) {
-    this.value = value;
-    enums.put(value, this);
-  }
-
-  public String getValue() {
-    return value;
-  }
-
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj)
-      return true;
-
-    if (!(obj instanceof Form))
-      return false;
-
-    return getValue().equals(((Form)obj).getValue());
-  }
-
-  @Override
-  public int hashCode() {
-    return getValue().hashCode();
+  private Form(final String name) {
+    this.name = name;
   }
 
   @Override
   public String toString() {
-    return getValue();
+    return name;
   }
 }

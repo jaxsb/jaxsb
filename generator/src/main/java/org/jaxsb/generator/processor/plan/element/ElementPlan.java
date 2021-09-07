@@ -60,7 +60,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
   private boolean isComplexType;
   private boolean repeatedExtensionRun;
   private ElementPlan repeatedExtension;
-  private Form formDefault;
+  private final Form formDefault;
 
   private int minOccurs = 1;
   private int maxOccurs = 1;
@@ -76,6 +76,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
     nillable = getModel().getNillable() != null && getModel().getNillable();
     substitutionGroup = model.getSubstitutionGroup();
     ownerClassName = parent instanceof ElementPlan ? ((ElementPlan)parent).getClassName(null) : null;
+    formDefault = ref ? Form.QUALIFIED : element.getFormDefault();
     if (model instanceof AnyableModel)
       return;
 
@@ -105,8 +106,6 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
       declarationGeneric = null;
 
     nested = ref || !(element.getParent() instanceof SchemaModel);
-
-    formDefault = !ref ? element.getFormDefault() : Form.QUALIFIED;
   }
 
   private boolean isComplexType(final SimpleTypeModel<?> simpleType) {

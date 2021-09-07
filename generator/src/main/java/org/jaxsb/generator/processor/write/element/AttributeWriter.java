@@ -28,9 +28,8 @@ import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.generator.processor.plan.element.AttributePlan;
 import org.jaxsb.runtime.Attribute;
 import org.jaxsb.runtime.AttributeAudit;
-import org.jaxsb.runtime.AttributeSpec;
-import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.XSTypeDirectory;
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
   @Override
@@ -71,7 +70,6 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       writer.write("}\n");
     }
 
-    writer.write("@" + AttributeSpec.class.getName() + "(use=\"" + plan.getUse().getValue() + "\")\n");
     writer.write("public void set" + plan.getMethodName() + "(final " + plan.getThisClassNameWithType(parent) + " " + plan.getInstanceName() + ") {\n");
     if (plan.isRestriction())
       writer.write("super.set" + plan.getDeclarationRestrictionSimpleName() + "(" + plan.getInstanceName() + ");\n");
@@ -169,7 +167,7 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       writer.write("if (attribute.getNamespaceURI() == null && \"" + plan.getName().getLocalPart() + "\".equals(attribute.getLocalName()))\n");
 
     writer.write("{\n");
-    writer.write("return _$$setAttribute(this." + plan.getInstanceName() + ", this, " + Binding.class.getName() + "._$$parseAttr(new " + plan.getClassName(parent) + "(), attribute));\n");
+    writer.write("return _$$setAttribute(this." + plan.getInstanceName() + ", this, " + $AnyType.class.getCanonicalName() + "._$$parseAttr(new " + plan.getClassName(parent) + "(), attribute));\n");
     writer.write("}\n");
   }
 
@@ -259,6 +257,12 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + QName.class.getName() + " name() {\n");
     writer.write("return NAME;\n");
+    writer.write("}\n");
+
+    // QUALIFIED
+    writer.write("@" + Override.class.getName() + "\n");
+    writer.write("public boolean qualified() {\n");
+    writer.write("return " + (plan.getFormDefault() == Form.QUALIFIED) + ";\n");
     writer.write("}\n");
 
     // PATTERN

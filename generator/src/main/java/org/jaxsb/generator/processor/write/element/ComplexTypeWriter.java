@@ -131,9 +131,6 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
       Writer.writeCopy(writer, (ElementPlan)element, plan, "copy");
     writer.write("}\n");
 
-    if (plan.getModel().getName().toString().equals("{http://www.w3.org/2001/XInclude}includeType"))
-      System.out.println();
-
     // MIXED CONSTRUCTOR
     if (plan.getNativeItemClassNameInterface() != null) {
       if (!plan.hasEnumerations()) {

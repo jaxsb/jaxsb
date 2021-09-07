@@ -16,27 +16,26 @@
 
 package org.jaxsb.runtime;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.libj.util.ArrayUtil;
+import org.libj.util.CollectionUtil;
+import org.libj.util.HashBiMap;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMStyle;
-import org.openjax.xml.dom.DOMs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
@@ -45,8 +44,6 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
 
 @SuppressWarnings("rawtypes")
 public abstract class Binding extends AbstractBinding {
@@ -94,37 +91,39 @@ public abstract class Binding extends AbstractBinding {
     return prefix;
   }
 
-  protected static $AnySimpleType<?> _$$parseAnyAttr(final Element parent, final Node attribute) {
-    final QName qName = attribute.getPrefix() != null ? new QName(attribute.getNamespaceURI(), attribute.getLocalName(), attribute.getPrefix()) : new QName(attribute.getNamespaceURI(), attribute.getLocalName());
-    final AnyAttribute<?> x = new AnyAttribute<>(qName);
-    _$$decode(x, parent, attribute);
-    return x;
-  }
+  public static class PrefixToNamespace extends HashBiMap<String,String> {
+    private static final long serialVersionUID = -4405257007133578199L;
+    private int nsIndex = 1;
 
-  protected static <B extends Binding>B _$$parseAttr(final B binding, final Attr attribute) {
-    binding._$$decode(attribute.getOwnerElement(), attribute.getNodeValue());
-    return binding;
-  }
+    public String getPrefix(final QName name) {
+      final String namespace = name.getNamespaceURI();
+      if (namespace == null || namespace.length() == 0)
+        return null;
 
-  private static void _$$decode(final Binding binding, final Element parent, final Node attribute) {
-    binding._$$decode(parent, attribute.getNodeValue());
-  }
+      String prefix = reverse().get(namespace);
+      if (prefix != null)
+        return prefix;
 
-  protected static void parse(final Binding binding, final Element node) throws ValidationException {
-    final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
-      final Node attribute = attributes.item(i);
-      if (attribute instanceof Attr && !binding.parseAttribute((Attr)attribute))
-        binding.parseAnyAttribute((Attr)attribute);
+      if (XSI_TYPE.getNamespaceURI().equals(namespace)) {
+        prefix = XSI_TYPE.getPrefix();
+      }
+      else {
+        prefix = name.getPrefix();
+        if (prefix == null || prefix.length() == 0)
+          prefix = "ns" + nsIndex++;
+      }
+
+      put(prefix, namespace);
+      return prefix;
     }
 
-    final NodeList elements = node.getChildNodes();
-    for (int i = 0, len = elements.getLength(); i < len; ++i) {
-      final Node child = elements.item(i);
-      if (child instanceof Text)
-        binding.parseText((Text)child);
-      else if (child instanceof Element && !binding.parseElement((Element)child))
-        binding.parseAny((Element)child);
+    @Override
+    public String toString() {
+      final StringBuilder str = new StringBuilder();
+      for (final Map.Entry<String,String> entry : entrySet())
+        str.append(" xmlns:").append(entry.getKey()).append("=\"").append(entry.getValue()).append('"');
+
+      return str.toString();
     }
   }
 
@@ -200,24 +199,21 @@ public abstract class Binding extends AbstractBinding {
     Class<? extends Binding> classBinding;
     try {
       classBinding = defaultClass != null ? defaultClass : lookupElement(new QName(namespaceURI, localName), classLoader);
-      $AnyType<?> binding = null;
+      Binding binding = null;
       if (classBinding != null) {
         final Constructor<?> constructor = classBinding.getDeclaredConstructor();
         constructor.setAccessible(true);
-        binding = ($AnyType<?>)constructor.newInstance();
+        binding = (Binding)constructor.newInstance();
       }
 
       if (xsiTypeName != null) {
         if (xsiPrefix != null)
           namespaceURI = element.getOwnerDocument().getDocumentElement().lookupNamespaceURI(xsiPrefix);
 
-        final Class<? extends Binding> xsiBinding = lookupType(new QName(namespaceURI, xsiTypeName), classLoader);
-        if (xsiBinding == null) {
-          if (namespaceURI != null)
-            throw new IllegalStateException("Unable to find class binding for xsi:type <" + xsiTypeName + " xmlns=\"" + namespaceURI + "\">");
-
-          throw new IllegalStateException("Unable to find class binding for xsi:type <" + xsiTypeName + "/>");
-        }
+        final QName name = new QName(namespaceURI, xsiTypeName);
+        final Class<? extends Binding> xsiBinding = lookupType(name, classLoader);
+        if (xsiBinding == null)
+          throw new IllegalStateException("Unable to find class binding for xsi:type: " + name);
 
         Method method = null;
         final Method[] methods = xsiBinding.getDeclaredMethods();
@@ -239,8 +235,8 @@ public abstract class Binding extends AbstractBinding {
         throw new IllegalStateException("Unable to find class binding for <" + localName + "/>");
       }
 
-      Binding.parse(binding, element);
-      return binding;
+      binding.parseAnyType(element);
+      return ($AnyType<?>)binding;
     }
     catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
       throw new RuntimeException(e);
@@ -255,6 +251,8 @@ public abstract class Binding extends AbstractBinding {
       throw new RuntimeException(e.getCause());
     }
   }
+
+  protected abstract void parseAnyType(final Element node) throws ValidationException;
 
   private static final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
@@ -364,6 +362,83 @@ public abstract class Binding extends AbstractBinding {
     }
   }
 
+  protected static void textToString(final StringBuilder str, Object text, final PrefixToNamespace prefixToNamespace) {
+    if (text == null)
+      return;
+
+    if (text instanceof NotationType) {
+      ((NotationType)text).toString(str, prefixToNamespace, true, false);
+    }
+    else if (text instanceof QName) {
+      final QName qName = (QName)text;
+      str.append(prefixToNamespace.getPrefix(qName)).append(':').append(qName.getLocalPart());
+    }
+    else if (text instanceof Collection) {
+      str.append(CollectionUtil.toString((Collection)text, ' '));
+    }
+    else if (text.getClass().isArray()) {
+      str.append(ArrayUtil.toString((Object[])text, ' '));
+    }
+    else {
+      str.append(text);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  protected int toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace, final boolean qualified, final boolean nillable) {
+    QName name = name();
+    final boolean substitutionGroup = _$$isSubstitutionGroup(name) || _$$isSubstitutionGroup(name(inherits()));
+    if (substitutionGroup)
+      name = name(); // FIXME: Not sure what this is for
+
+    final QName type = type();
+    final boolean hasXsiType = !substitutionGroup && type() != null && (type != null && !type().equals(type) || !type().equals(type(inherits())));
+    final String prefix = hasXsiType ? prefixToNamespace.getPrefix(type()) : qualified ? prefixToNamespace.getPrefix(name) : null;
+
+    str.append('<');
+    if (prefix != null)
+      str.append(prefix).append(':');
+
+    str.append(name.getLocalPart());
+    final int index = str.length();
+
+    if (hasXsiType)
+      AttributeAudit.toString(str, prefixToNamespace, XSI_TYPE, true, prefix + ":" + type().getLocalPart());
+
+    final boolean hasElements = _$$hasElements();
+    final boolean hasText = text() != null;
+
+    if (!hasElements && !hasText && nillable)
+      AttributeAudit.toString(str, prefixToNamespace, XSI_NIL, true, "true");
+
+    if (attributeDirectory != null)
+      attributeDirectory.toString(str, prefixToNamespace);
+
+    str.append('>');
+
+    if (hasText)
+      textToString(str, text(), prefixToNamespace);
+
+    if (hasElements) {
+      for (int i = 0, len = elements.size(); i < len; ++i) {
+        $AnyType<?> element = elements.get(i);
+        if (element instanceof BindingProxy)
+          element = ((BindingProxy<$AnyType<?>>)element).getBinding();
+
+        final ElementAudit<$AnyType<?>> elementAudit = (ElementAudit<$AnyType<?>>)elements.getComponentList(i).getAudit();
+        element.toString(str, prefixToNamespace, elementAudit.qualified(), elementAudit.nillable());
+      }
+    }
+
+    str.append("</");
+    if (prefix != null)
+      str.append(prefix).append(':');
+
+    str.append(name.getLocalPart()).append('>');
+    return index;
+  }
+
+
   protected ElementCompositeList getCreateElementDirectory() {
     return elements == null ? elements = new ElementCompositeList(($AnyType<?>)this, nameToAudit) : elements;
   }
@@ -397,7 +472,7 @@ public abstract class Binding extends AbstractBinding {
     return audit.setAttribute(attribute);
   }
 
-  protected CompositeAttributeStore getCreateAttributeStore() {
+  private CompositeAttributeStore getCreateAttributeStore() {
     return attributeDirectory == null ? attributeDirectory = new CompositeAttributeStore() : attributeDirectory;
   }
 
@@ -419,7 +494,7 @@ public abstract class Binding extends AbstractBinding {
   }
 
   protected Iterator<$AnySimpleType> attributeIterator() {
-    return getCreateAttributeStore().iterator();
+    return getCreateAttributeStore().valueIterator();
   }
 
   protected abstract Binding inherits();
@@ -432,6 +507,14 @@ public abstract class Binding extends AbstractBinding {
 
   public QName type() {
     return null;
+  }
+
+  protected boolean qualified() {
+    return true;
+  }
+
+  protected boolean nilable() {
+    return false;
   }
 
   /**
@@ -447,15 +530,6 @@ public abstract class Binding extends AbstractBinding {
    */
   protected Attr marshalAttr(final String name, final Element parent) throws MarshalException {
     throw new UnsupportedOperationException("This is a template that must be overridden");
-  }
-
-  private static final Path mark = new File("/tmp/xxx").toPath();
-  public static void mark() {
-    try {
-      Files.write(mark, "1".getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
-    }
-    catch (final IOException e) {
-    }
   }
 
   /**
@@ -487,7 +561,7 @@ public abstract class Binding extends AbstractBinding {
     // There are 2 ways to require an xsi:type attribute:
     // 1. The element being marshaled is not global, and its typeName comes from its containing complexType
     // 2. The complexType being marshaled is global, and its name comes from the element it inherits from
-    if (!substitutionGroup && type() != null && ((type != null && !type().equals(type)) || !type().equals(type(inherits())))) {
+    if (!substitutionGroup && type() != null && (type != null && !type().equals(type) || !type().equals(type(inherits())))) {
       final String prefix = _$$getPrefix(parent, type());
       parent.getOwnerDocument().getDocumentElement().setAttributeNS(XMLNS.getNamespaceURI(), XMLNS.getLocalPart() + ":" + XSI_TYPE.getPrefix(), XSI_TYPE.getNamespaceURI());
       element.setAttributeNS(XSI_TYPE.getNamespaceURI(), XSI_TYPE.getPrefix() + ":" + XSI_TYPE.getLocalPart(), prefix + ":" + type().getLocalPart());
@@ -541,14 +615,6 @@ public abstract class Binding extends AbstractBinding {
   }
 
   /**
-   * Parse the specified TEXT content.
-   *
-   * @param text The TEXT content.
-   */
-  protected void parseText(final Text text) {
-  }
-
-  /**
    * Parse the specified {@code <any>}.
    *
    * @param element The {@code <any>}.
@@ -564,10 +630,6 @@ public abstract class Binding extends AbstractBinding {
    * @throws ValidationException If a validation error has occurred.
    */
   protected void parseAnyAttribute(final Attr attribute) throws ValidationException {
-  }
-
-  protected void _$$decode(final Element parent, final String value) {
-    throw new UnsupportedOperationException("This is a template that must be overridden, otherwise it shouldn't be called");
   }
 
   protected String[] _$$getPattern() {
@@ -632,7 +694,15 @@ public abstract class Binding extends AbstractBinding {
 
   public String toString(final DOMStyle ... styles) {
     final int combination = DOMStyle.combination(styles);
-    return dirty() || cacheString[combination] == null ? cacheString[combination] = DOMs.domToString(cacheElement = marshal(), styles) : cacheString[combination];
+    final String cached;
+    if (!dirty() && (cached = cacheString[combination]) != null)
+      return cached;
+
+    final StringBuilder str = new StringBuilder();
+    final PrefixToNamespace prefixToNamespace = new PrefixToNamespace();
+    final int index = toString(str, prefixToNamespace, qualified(), nilable());
+    str.insert(index, prefixToNamespace.toString());
+    return cacheString[combination] = str.toString();
   }
 
   @Override

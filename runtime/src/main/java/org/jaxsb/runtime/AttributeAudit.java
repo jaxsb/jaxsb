@@ -20,6 +20,7 @@ import java.util.Objects;
 
 import javax.xml.namespace.QName;
 
+import org.jaxsb.runtime.Binding.PrefixToNamespace;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
@@ -85,7 +86,7 @@ public final class AttributeAudit<B extends $AnySimpleType> {
 
     QName name = getName();
     if (name == null)
-      name = ((Binding)value).name();
+      name = ((Binding)value).name(); // FIXME: Why is this being done?
 
     final String marshalName = isQualified() ? Binding._$$getPrefix(parent, name) + ":" + name.getLocalPart() :  name.getLocalPart();
     parent.setAttributeNodeNS(((Binding)value).marshalAttr(marshalName, parent));
@@ -112,5 +113,30 @@ public final class AttributeAudit<B extends $AnySimpleType> {
   @Override
   public String toString() {
     return value != null ? value.toString() : super.toString();
+  }
+
+  public static void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace, final QName name, final boolean qualified, final Object text) {
+    if (text == null)
+      return;
+
+    str.append(' ');
+    if (qualified)
+      str.append(prefixToNamespace.getPrefix(name)).append(':');
+
+    str.append(name.getLocalPart());
+    str.append("=\"");
+    Binding.textToString(str, text, prefixToNamespace);
+    str.append('"');
+  }
+
+  public void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace) {
+    if (value == null)
+      return;
+
+    QName name = getName();
+    if (name == null)
+      name = ((Binding)value).name(); // FIXME: Why is this being done?
+
+    toString(str, prefixToNamespace, name, isQualified(), value.text());
   }
 }

@@ -130,7 +130,7 @@ public class ElementModel extends ComplexTypeModel<SimpleTypeModel<?>> implement
 
   @Override
   public final Form getFormDefault() {
-    return formDefault;
+    return formDefault != null ? formDefault : getSchema().getElementFormDefault();
   }
 
   public final QName getDefault() {

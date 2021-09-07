@@ -8,8 +8,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ns1="http://www.jaxsb.org/do/abstract/n$a*m(e)1.xsd"
   xsi:schemaLocation="http://www.jaxsb.org/test/attribute.xsd attribute.xsd">
-  <at:foo>fjds
-  </at:foo>
+  <at:any>fjds
+  </at:any>
   <at:local
     localRaw="foo"
     localAnyURI="http://example.com"

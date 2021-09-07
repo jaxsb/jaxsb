@@ -194,8 +194,6 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.isAbstract())
       writer.write("abstract ");
 
-    if (plan.getName().toString().equals("{http://www.jaxsb.org/test/attribute.xsd}foo"))
-      System.out.println();
     writer.write("class " + plan.getClassSimpleName() + " extends " + plan.getSuperClassNameWithGenericType() + " implements " + (plan.isComplexType() ? ComplexType.class.getName() : SimpleType.class.getName()) + ", " + org.jaxsb.runtime.Element.class.getName() + " {\n");
 
     writer.write("private static final " + QName.class.getName() + " NAME = new " + QName.class.getName() + "(\"" + plan.getName().getNamespaceURI() + "\", \"" + plan.getName().getLocalPart() + "\", \"" + plan.getName().getPrefix() + "\");\n");
@@ -257,10 +255,6 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     for (final Object attribute : plan.getAttributes())
       writer.write(((AttributePlan)attribute).getFixedInstanceCall(plan));
     writer.write("}\n");
-
-    if (plan.getName().toString().equals("{http://www.w3.org/2001/XInclude}include"))
-      System.out.println();
-
 
     // MIXED CONSTRUCTOR
     if (!plan.isComplexType() || (plan.getMixed() == null && plan.getMixedType()) || (plan.getMixed() != null && plan.getMixed())) {
@@ -421,6 +415,18 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("@" + Override.class.getName() + "\n");
     writer.write("public " + QName.class.getName() + " name() {\n");
     writer.write("return NAME;\n");
+    writer.write("}\n");
+
+    // QUALIFIED
+    writer.write("@" + Override.class.getName() + "\n");
+    writer.write("public boolean qualified() {\n");
+    writer.write("return " + (plan.getFormDefault() == Form.QUALIFIED) + ";\n");
+    writer.write("}\n");
+
+    // NILABLE
+    writer.write("@" + Override.class.getName() + "\n");
+    writer.write("public boolean nilable() {\n");
+    writer.write("return " + plan.isNillable() + ";\n");
     writer.write("}\n");
 
     // OWNER

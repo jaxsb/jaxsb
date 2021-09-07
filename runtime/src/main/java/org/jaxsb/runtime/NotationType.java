@@ -16,7 +16,9 @@
 
 package org.jaxsb.runtime;
 
-public abstract class NotationType extends Binding {
+import org.w3.www._2001.XMLSchema.yAA.$qName;
+
+public abstract class NotationType extends $qName {
   public static NotationType parse(final javax.xml.namespace.QName name) {
     return _$$getNotation(name);
   }
@@ -29,6 +31,13 @@ public abstract class NotationType extends Binding {
   protected abstract String getName();
   protected abstract String getPublic();
   protected abstract String getSystem();
+
+  @Override
+  protected int toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace, final boolean qualified, final boolean nillable) {
+    final javax.xml.namespace.QName name = name();
+    str.append(prefixToNamespace.getPrefix(name)).append(':').append(name.getLocalPart());
+    return -1;
+  }
 
   @Override
   public String toString() {
