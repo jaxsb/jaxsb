@@ -39,7 +39,7 @@ public final class EnumerationPlan extends Plan<EnumerationModel> {
       builder.append('_');
 
     builder.append(value.getLocalPart());
-    if (value.getPrefix() != null && value.getPrefix().length() != 0)
+    if (value.getPrefix().length() != 0)
       builder.insert(0, value.getPrefix() + "_");
 
     if (Arrays.binarySearch(illegalWords, builder.toString()) >= 0)

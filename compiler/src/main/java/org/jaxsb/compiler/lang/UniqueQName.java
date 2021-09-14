@@ -105,28 +105,21 @@ public final class UniqueQName {
         this.prefix = Prefix.getInstance(NamespaceURI.W3C_XML_SCHEMA_PREFIX);
       else if (XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(name.getNamespaceURI()))
         this.prefix = Prefix.getInstance(NamespaceURI.W3C_XML_SCHEMA_INSTANCE_PREFIX);
-      else if (name.getPrefix() != null)
-        this.prefix = Prefix.getInstance(name.getPrefix());
       else
-        this.prefix = null;
+        this.prefix = Prefix.getInstance(name.getPrefix());
     }
     else {
-      if (name.getPrefix() != null) {
-        this.prefix = Prefix.getInstance(name.getPrefix());
-        if (XMLConstants.XML_NS_PREFIX.equals(name.getPrefix()))
-          this.namespaceURI = NamespaceURI.getInstance(XMLConstants.XML_NS_URI);
-        else if (XMLConstants.XMLNS_ATTRIBUTE.equals(name.getPrefix()))
-          this.namespaceURI = NamespaceURI.getInstance(XMLConstants.XMLNS_ATTRIBUTE_NS_URI);
-        else if (NamespaceURI.W3C_XML_SCHEMA_PREFIX.equals(name.getPrefix()))
-          this.namespaceURI = NamespaceURI.getInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        else if (NamespaceURI.W3C_XML_SCHEMA_INSTANCE_PREFIX.equals(name.getPrefix()))
-          this.namespaceURI = NamespaceURI.getInstance(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
-        else
-          throw new IllegalArgumentException("Unknown prefix used: \"" + name.getPrefix() + "\"");
-      }
-      else {
-        throw new IllegalArgumentException("Both namespaceURI and prefix are null");
-      }
+      this.prefix = Prefix.getInstance(name.getPrefix());
+      if (XMLConstants.XML_NS_PREFIX.equals(name.getPrefix()))
+        this.namespaceURI = NamespaceURI.getInstance(XMLConstants.XML_NS_URI);
+      else if (XMLConstants.XMLNS_ATTRIBUTE.equals(name.getPrefix()))
+        this.namespaceURI = NamespaceURI.getInstance(XMLConstants.XMLNS_ATTRIBUTE_NS_URI);
+      else if (NamespaceURI.W3C_XML_SCHEMA_PREFIX.equals(name.getPrefix()))
+        this.namespaceURI = NamespaceURI.getInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+      else if (NamespaceURI.W3C_XML_SCHEMA_INSTANCE_PREFIX.equals(name.getPrefix()))
+        this.namespaceURI = NamespaceURI.getInstance(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
+      else
+        throw new IllegalArgumentException("Unknown prefix used: \"" + name.getPrefix() + "\"");
     }
 
     this.localPart = name.getLocalPart();
