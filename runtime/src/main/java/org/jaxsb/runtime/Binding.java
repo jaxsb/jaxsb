@@ -252,7 +252,7 @@ public abstract class Binding extends AbstractBinding {
     }
   }
 
-  protected abstract void parseAnyType(final Element node) throws ValidationException;
+  protected abstract void parseAnyType(Element node) throws ValidationException;
 
   private static final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
