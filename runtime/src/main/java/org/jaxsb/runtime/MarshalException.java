@@ -17,8 +17,6 @@
 package org.jaxsb.runtime;
 
 public class MarshalException extends BindingRuntimeException {
-  private static final long serialVersionUID = -4075553280110488380L;
-
   public MarshalException() {
     super();
   }

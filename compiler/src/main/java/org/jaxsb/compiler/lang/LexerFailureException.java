@@ -17,8 +17,6 @@
 package org.jaxsb.compiler.lang;
 
 public final class LexerFailureException extends RuntimeException {
-  private static final long serialVersionUID = 7086955029486763018L;
-
   public LexerFailureException() {
     super();
   }

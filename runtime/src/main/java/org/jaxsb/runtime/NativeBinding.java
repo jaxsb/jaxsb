@@ -16,11 +16,12 @@
 
 package org.jaxsb.runtime;
 
+import static org.libj.lang.Assertions.*;
+
 import java.lang.reflect.AccessibleObject;
 import java.util.List;
 
 import org.jaxsb.compiler.lang.UniqueQName;
-import org.libj.lang.Assertions;
 
 public final class NativeBinding {
   private final UniqueQName name;
@@ -30,8 +31,8 @@ public final class NativeBinding {
   private final boolean list;
 
   public NativeBinding(final UniqueQName name, final GenericClass baseClass, final GenericClass nativeClass, final AccessibleObject factoryMethod) {
-    this.name = Assertions.assertNotNull(name);
-    this.baseClass = Assertions.assertNotNull(baseClass);
+    this.name = assertNotNull(name);
+    this.baseClass = assertNotNull(baseClass);
     this.nativeClass = nativeClass;
     this.factoryMethod = factoryMethod;
     this.list = nativeClass != null && nativeClass.isList();
@@ -97,7 +98,7 @@ public final class NativeBinding {
     private Boolean isList;
 
     public GenericClass(final Class<?> cls, final Class<?> genericType) {
-      this.cls = Assertions.assertNotNull(cls);
+      this.cls = assertNotNull(cls);
       this.genericType = genericType;
     }
 

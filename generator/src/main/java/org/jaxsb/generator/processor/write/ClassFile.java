@@ -73,7 +73,7 @@ public class ClassFile implements AutoCloseable {
     builder.append("package ").append(namespaceBinding.getPackageName()).append(";\n\n");
     builder.append('@').append(SuppressWarnings.class.getName()).append("(\"all\")\n");
     builder.append('@').append(Generated.class.getName()).append("(value=\"").append(GENERATED_VALUE).append("\", date=\"").append(GENERATED_DATE).append("\")\n");
-    builder.append("public class ").append(namespaceBinding.getSimpleClassName()).append(" extends ").append(Schema.class.getName()).append(" {\n\n");
+    builder.append("public class ").append(namespaceBinding.getSimpleClassName()).append(" extends ").append(Schema.class.getName()).append(" {\n");
     builder.append("static {");
     for (final String registrationText : registrationTexts)
       builder.append('\n').append(registrationText);

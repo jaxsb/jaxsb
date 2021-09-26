@@ -76,8 +76,6 @@ public final class BindingValidator extends Validator {
   }
 
   private static final class BindingXmlCatalog extends XmlCatalog {
-    private static final long serialVersionUID = -7218751770616654694L;
-
     /**
      * Creates a new {@link BindingXmlCatalog} with the specified {@link URL}
      * and {@link CachedInputSource}.

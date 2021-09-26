@@ -16,18 +16,17 @@
 
 package org.jaxsb.compiler.processor.reference;
 
-import org.libj.lang.Assertions;
+import static org.libj.lang.Assertions.*;
+
 import org.xml.sax.SAXException;
 
 public class ReferenceSAXException extends SAXException {
-  private static final long serialVersionUID = -1383168276382541459L;
-
   private final String namespaceURI;
   private final String prefix;
 
   public ReferenceSAXException(final String namespaceURI, final String prefix) {
-    this.namespaceURI = Assertions.assertNotNull(namespaceURI);
-    this.prefix = Assertions.assertNotNull(prefix);
+    this.namespaceURI = assertNotNull(namespaceURI);
+    this.prefix = assertNotNull(prefix);
   }
 
   public String getNamespaceURI() {

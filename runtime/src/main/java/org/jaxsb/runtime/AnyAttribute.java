@@ -1,15 +1,16 @@
 package org.jaxsb.runtime;
 
+import static org.libj.lang.Assertions.*;
+
 import javax.xml.namespace.QName;
 
-import org.libj.lang.Assertions;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
 public class AnyAttribute<T> extends $AnySimpleType<T> {
   private final QName name;
 
   public AnyAttribute(final QName name) {
-    this.name = Assertions.assertNotNull(name);
+    this.name = assertNotNull(name);
   }
 
   @Override

@@ -16,6 +16,8 @@
 
 package org.jaxsb.compiler.processor.reference;
 
+import static org.libj.lang.Assertions.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +36,6 @@ import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.lang.Prefix;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.pipeline.PipelineEntity;
-import org.libj.lang.Assertions;
 import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,14 +58,14 @@ public final class SchemaReference implements PipelineEntity {
   private InputStream inputStream;
 
   public SchemaReference(final URL location, final boolean isInclude) {
-    this.location = URLs.canonicalize(Assertions.assertNotNull(location));
+    this.location = URLs.canonicalize(assertNotNull(location));
     this.isInclude = isInclude;
     if (logger.isDebugEnabled())
       logger.debug("new SchemaReference(\"" + this.location.toString() + "\", " + isInclude + ")");
   }
 
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
-    this.location = URLs.canonicalize(Assertions.assertNotNull(location));
+    this.location = URLs.canonicalize(assertNotNull(location));
     this.namespaceURI = namespaceURI;
     this.prefix = prefix;
     this.isInclude = isInclude;

@@ -92,7 +92,6 @@ public abstract class Binding extends AbstractBinding {
   }
 
   public static class PrefixToNamespace extends HashBiMap<String,String> {
-    private static final long serialVersionUID = -4405257007133578199L;
     private int nsIndex = 1;
 
     public String getPrefix(final QName name) {

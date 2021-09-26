@@ -17,8 +17,6 @@
 package org.jaxsb.runtime;
 
 public class BindingRuntimeException extends RuntimeException {
-  private static final long serialVersionUID = 4144568519274692003L;
-
   public BindingRuntimeException() {
     super();
   }

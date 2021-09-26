@@ -16,6 +16,8 @@
 
 package org.jaxsb.runtime;
 
+import static org.libj.lang.Assertions.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +27,6 @@ import java.util.function.Function;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import org.libj.lang.Assertions;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.Documents;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
@@ -70,7 +71,7 @@ public abstract class Bindings {
    * @throws IllegalArgumentException If {@code element} is null.
    */
   public static $AnyType<?> parse(final Element element) throws ValidationException {
-    return parse(Assertions.assertNotNull(element), Thread.currentThread().getContextClassLoader());
+    return parse(assertNotNull(element), Thread.currentThread().getContextClassLoader());
   }
 
   public static $AnyType<?> parse(final Element element, final ClassLoader classLoader) throws ValidationException {
@@ -111,7 +112,7 @@ public abstract class Bindings {
    * @throws IllegalArgumentException If {@code url} is null.
    */
   public static $AnyType<?> parse(final URL url) throws IOException, SAXException {
-    return parse(Assertions.assertNotNull(url), null, Thread.currentThread().getContextClassLoader());
+    return parse(assertNotNull(url), null, Thread.currentThread().getContextClassLoader());
   }
 
   public static $AnyType<?> parse(final URL url, final String defaultNamespace) throws IOException, SAXException {
@@ -133,7 +134,7 @@ public abstract class Bindings {
    * @throws IllegalArgumentException If {@code url} is null.
    */
   public static $AnyType<?> parse(final URL url, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(Assertions.assertNotNull(url), null, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(assertNotNull(url), null, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static $AnyType<?> parse(final URL url, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
@@ -172,7 +173,7 @@ public abstract class Bindings {
    * @throws IllegalArgumentException If {@code inputSource} is null.
    */
   public static $AnyType<?> parse(final InputSource inputSource) throws IOException, SAXException {
-    return parse(Assertions.assertNotNull(inputSource), null, (ErrorHandler)null);
+    return parse(assertNotNull(inputSource), null, (ErrorHandler)null);
   }
 
   public static $AnyType<?> parse(final InputSource inputSource, final String defaultNamespace) throws IOException, SAXException {
@@ -194,7 +195,7 @@ public abstract class Bindings {
    * @throws IllegalArgumentException If {@code inputSource} is null.
    */
   public static $AnyType<?> parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(Assertions.assertNotNull(inputSource), null, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(assertNotNull(inputSource), null, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static $AnyType<?> parse(final InputSource inputSource, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
