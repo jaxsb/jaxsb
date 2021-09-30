@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.pipeline.PipelineContext;
+import org.libj.util.CollectionUtil;
 
 public final class GeneratorContext implements PipelineContext {
   private final File destDir;
@@ -69,5 +70,10 @@ public final class GeneratorContext implements PipelineContext {
 
   public Set<NamespaceURI> getExcludes() {
     return excludes;
+  }
+
+  @Override
+  public String toString() {
+    return destDir.getAbsolutePath() + " " + overwrite + " " + (compileDir == null ? "null" : compileDir.getAbsolutePath()) + " " + pack + " " + CollectionUtil.toString(includes, ' ')+ " " + CollectionUtil.toString(excludes, ' ');
   }
 }

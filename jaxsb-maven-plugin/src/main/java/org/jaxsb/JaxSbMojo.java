@@ -37,6 +37,7 @@ import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.generator.Generator;
 import org.libj.net.URLs;
+import org.libj.util.CollectionUtil;
 import org.openjax.maven.mojo.FilterParameter;
 import org.openjax.maven.mojo.FilterType;
 import org.openjax.maven.mojo.GeneratorMojo;
@@ -82,11 +83,12 @@ public class JaxSbMojo extends GeneratorMojo {
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
     final Set<NamespaceURI> excludes = buildNamespaceSet(this.excludes);
 
+    final GeneratorContext ceneratorContext = new GeneratorContext(configuration.getDestDir(), configuration.getOverwrite(), null, false, includes, excludes);
     try {
-      Generator.generate(new GeneratorContext(configuration.getDestDir(), configuration.getOverwrite(), null, false, includes, excludes), generatorBindings, sourcePath, skipXsd);
+      Generator.generate(ceneratorContext, generatorBindings, sourcePath, skipXsd);
     }
     catch (final IOException e) {
-      throw new MojoExecutionException(e.getMessage(), e);
+      throw new MojoExecutionException("Generator " + ceneratorContext + " \"" + CollectionUtil.toString(generatorBindings, ' ') + "\" \"" + CollectionUtil.toString(sourcePath, ' ') + "\" " + skipXsd, e);
     }
 
     sourcePath.add(configuration.getDestDir());
