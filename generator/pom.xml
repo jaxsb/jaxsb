@@ -41,12 +41,12 @@
     <dependency>
       <groupId>com.google.googlejavaformat</groupId>
       <artifactId>google-java-format</artifactId>
-      <version>1.7</version>
+      <version>1.7</version> <!-- All versions higher than 1.7 don't compile for jdk8 -->
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>29.0-jre</version>
+      <version>31.0.1-jre</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.guava</groupId>
