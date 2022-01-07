@@ -41,7 +41,7 @@ public final class TimestampProcessor implements PipelineEntity, PipelineProcess
     final long lastModified = Files.
       walk(pipelineContext.getDestDir().toPath()).
       filter(fileFilter).
-      map(p -> p.toFile().lastModified()).
+      mapToLong(p -> p.toFile().lastModified()).
       reduce(Math::min).
       orElse(System.currentTimeMillis());
 
