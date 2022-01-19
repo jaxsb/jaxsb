@@ -165,6 +165,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     else {
       writer.write(" implements " + Enum.class.getName() + "<" + plan.getNativeItemClassName() + "> {\n");
       writer.write("protected static final " + Map.class.getName() + "<" + enumType + ",Enum> values = new " + HashMap.class.getName() + "<>();\n");
+      writer.write("static {\n" + plan.getClassSimpleName() + ".NAME.getClass();\n}\n");
       writer.write("protected static " + Map.class.getName() + "<" + enumType + ",Enum> values() {\n");
       writer.write("return values;\n");
       writer.write("};\n");
