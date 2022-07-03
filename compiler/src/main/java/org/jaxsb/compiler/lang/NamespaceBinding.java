@@ -399,7 +399,7 @@ public final class NamespaceBinding {
    * @see NamespaceBinding#parseNamespace(URI)
    */
   public static NamespaceBinding parseNamespace(final String uri) {
-    return uri == null ? null : parseNamespace(URI.create(uri));
+    return uri == null || uri.length() == 0 ? null : parseNamespace(URI.create(uri));
   }
 
   private final URI namespaceUri;

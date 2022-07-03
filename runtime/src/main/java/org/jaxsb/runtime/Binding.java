@@ -143,7 +143,7 @@ public abstract class Binding extends AbstractBinding {
   }
 
   protected static boolean _$$iSsubstitutionGroup(final QName elementName, final String namespaceURI, final String localName) {
-    if (elementName == null || namespaceURI == null || localName == null)
+    if (elementName == null || elementName.getNamespaceURI().length() == 0 || namespaceURI == null || localName == null)
       return false;
 
     final Class<? extends Binding> element = lookupElement(elementName, Thread.currentThread().getContextClassLoader());
