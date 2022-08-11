@@ -39,7 +39,7 @@ public class GeneratorIntegrationTest {
   private static void assertElementCount(final String description, final List<Binding> expected, final int expectedLength, final BindingList<?> elements) {
     assertEquals(expectedLength, elements.size());
     final Iterator<? extends Binding> iterator = elements.getOwner().elementIterator();
-    for (int i = 0; iterator.hasNext(); ++i) {
+    for (int i = 0; iterator.hasNext(); ++i) { // [I]
       final Binding next = iterator.next();
       assertEquals("Index " + i, expected.get(i), next);
     }

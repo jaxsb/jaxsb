@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.RandomAccess;
 import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
@@ -86,7 +87,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("if (idMap == null)\n");
     writer.write("return null;\n");
     writer.write("final " + Collection.class.getName() + "<" + plan.getClassName(parent) + "> ids = new " + ArrayList.class.getName() + "<>();\n");
-    writer.write("for (" + $ID.class.getCanonicalName() + " id : idMap.values())\n");
+    writer.write("for (final " + $ID.class.getCanonicalName() + " id : idMap.values()) // [C]\n");
     writer.write("if (id.getClass().equals(" + plan.getClassName(parent) + ".class))\n");
     writer.write("ids.add((" + plan.getClassName(parent) + ")id);\n");
     writer.write("return ids;\n");
@@ -135,13 +136,13 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     final boolean isNotation = NotationType.class.getName().equals(plan.getNativeItemClassName());
     if (isNotation) {
       writer.write("static {\n");
-      for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations())
+      for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations()) // [S]
         writer.write("lookupElement(new " + QName.class.getName() + "(\"" + enumeration.getValue().getNamespaceURI() + "\", \"" + enumeration.getValue().getLocalPart() + "\"), " + Thread.class.getName() + ".currentThread().getContextClassLoader());\n");
 
       writer.write("}\n");
     }
 
-    for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations()) {
+    for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations()) { // [S]
       final String value;
       if (isNotation)
         value = "new " + QName.class.getName() + "(\"" + enumeration.getValue().getNamespaceURI() + "\", \"" + enumeration.getValue().getLocalPart() + "\")";
@@ -215,11 +216,11 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
     writer.write("}\n");
 
-    final String enmClassName;
+    final String enumClassName;
     if (hasSuperEnumerations)
-      enmClassName = ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum";
+      enumClassName = ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + ".Enum";
     else
-      enmClassName = "Enum";
+      enumClassName = "Enum";
 
     // DOCUMENTATION
     writer.write(plan.getDocumentation());
@@ -229,25 +230,34 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       writer.write("if (text() == null)\n");
       writer.write("return null;\n");
       writer.write("final int[] ordinals = new int[text().size()];\n");
-      writer.write("for (int i = 0; i < ordinals.length; ++i) {\n");
+      writer.write("for (int i = 0; i < ordinals.length; ++i) { // [A]\n");
       writer.write("final " + (hasSuperEnumerations ? ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + "." : "") + "Enum enm = Enum.values().get(text().get(i));\n");
       writer.write("ordinals[i] = Enum.values().get(text().get(i)).ordinal();\n");
       writer.write("}\n");
       writer.write("return ordinals;\n");
       writer.write("}\n");
 
-      writer.write("public " + plan.getClassSimpleName() + "(final " + List.class.getName() + "<" + enmClassName + "> enms) {\n");
+      writer.write("public " + plan.getClassSimpleName() + "(final " + List.class.getName() + "<" + enumClassName + "> enms) {\n");
       writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
-      writer.write("for (" + enmClassName + " temp : enms)\n");
-      writer.write("if (temp != null)\n");
-      writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(temp.text);\n");
+      writer.write("if (enms instanceof " + RandomAccess.class.getName() + ") {\n");
+      writer.write("for (int i = 0, i$ = enms.size(); i < i$; ++i) { // [RA]\n");
+      writer.write("final " + enumClassName + " member = enms.get(i);\n");
+      writer.write("if (member != null)\n");
+      writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
+      writer.write("}\n");
+      writer.write("}\n");
+      writer.write("else {\n");
+      writer.write("for (final " + enumClassName + " member : enms) // [L]\n");
+      writer.write("if (member != null)\n");
+      writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
+      writer.write("}\n");
       writer.write("}\n");
 
-      writer.write("public " + plan.getClassSimpleName() + "(final " + enmClassName + " ... enms) {\n");
+      writer.write("public " + plan.getClassSimpleName() + "(final " + enumClassName + " ... enms) {\n");
       writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
-      writer.write("for (" + enmClassName + " temp : enms)\n");
-      writer.write("if (temp != null)\n");
-      writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(temp.text);\n");
+      writer.write("for (final " + enumClassName + " member : enms) // [A]\n");
+      writer.write("if (member != null)\n");
+      writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
       writer.write("}\n");
     }
     else {
@@ -258,7 +268,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       writer.write("return enm != null ? enm.ordinal() : -1;\n");
       writer.write("}\n");
 
-      writer.write("public " + plan.getClassSimpleName() + "(final " + enmClassName + " enm) {\n");
+      writer.write("public " + plan.getClassSimpleName() + "(final " + enumClassName + " enm) {\n");
       if (!hasSuperEnumerations)
         writer.write("super(enm.text());\n");
       else
@@ -350,7 +360,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("protected " + String.class.getName() + "[] _$$getPattern() {\n");
     writer.write("return new " + String.class.getName() + "[] {\n");
     final StringBuilder str = new StringBuilder();
-    for (final PatternPlan pattern : patterns)
+    for (final PatternPlan pattern : patterns) // [C]
       str.append(",\n\"").append(pattern.getValue()).append("\"");
     writer.write(str.substring(2) + "\n");
     writer.write("};\n");
@@ -424,11 +434,21 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
 
       if (plan.hasEnumerations()) {
         if (plan.isList()) {
+          final String enumClassName = plan.getClassName(parent);
           writer.write("public <E extends " + List.class.getName() + "<" + plan.getClassName(parent) + ".Enum>>void text(final E enm) {\n");
           writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
-          writer.write("for (" + plan.getClassName(parent) + ".Enum temp : enm)\n");
-          writer.write("if (temp != null)\n");
-          writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(temp.text);\n");
+          writer.write("if (enm instanceof " + RandomAccess.class.getName() + ") {\n");
+          writer.write("for (int i = 0, i$ = enm.size(); i < i$; ++i) { // [RA]\n");
+          writer.write("final " + enumClassName + " member = enm.get(i);\n");
+          writer.write("if (member != null)\n");
+          writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
+          writer.write("}\n");
+          writer.write("}\n");
+          writer.write("else {\n");
+          writer.write("for (" + enumClassName + ".Enum member : enm) // [L]\n");
+          writer.write("if (member != null)\n");
+          writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
+          writer.write("}\n");
           writer.write("}\n");
         }
         else {

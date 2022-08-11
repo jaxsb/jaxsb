@@ -70,7 +70,7 @@ public final class AttributeGroupNormalizer extends Normalizer<AttributeGroupMod
     if (model.getRef() == null)
       return;
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent.getParent() instanceof RedefineModel && parent instanceof AttributeGroupModel && model.getRef().getName().equals(((AttributeGroupModel)parent).getName())) {
         model.getRef().setRedefine((AttributeGroupModel)parent);
         break;
@@ -83,7 +83,7 @@ public final class AttributeGroupNormalizer extends Normalizer<AttributeGroupMod
     if (model.getRef() == null)
       return;
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof AttributableModel && parent instanceof Nameable && ((Nameable<?>)parent).getName() != null) {
         if (model.getRef().getRedefine() != null && model.getRef().getRedefine() != parent)
           ((AttributableModel)parent).getAttributes().addAll(model.getRef().getRedefine().getAttributes());

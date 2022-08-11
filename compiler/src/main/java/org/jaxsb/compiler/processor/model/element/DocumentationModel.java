@@ -29,7 +29,7 @@ public final class DocumentationModel extends Model {
   protected DocumentationModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = attributes.item(i);
       if (attribute.getNodeValue() == null)
         continue;
@@ -41,7 +41,7 @@ public final class DocumentationModel extends Model {
     }
 
     final NodeList nodes = node.getChildNodes();
-    for (int i = 0; i < nodes.getLength(); i++)
+    for (int i = 0, i$ = nodes.getLength(); i < i$; ++i) // [RA]
       if (Node.TEXT_NODE == nodes.item(i).getNodeType() && nodes.item(i).getNodeValue().length() != 0)
         text += "\n" + nodes.item(i).getNodeValue();
 

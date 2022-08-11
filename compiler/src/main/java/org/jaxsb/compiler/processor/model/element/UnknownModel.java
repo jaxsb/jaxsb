@@ -26,7 +26,7 @@ public final class UnknownModel extends Model {
   protected UnknownModel(final Node node, final Model parent) {
     super(node, parent);
     final NodeList nodes = node.getChildNodes();
-    for (int i = 0; i < nodes.getLength(); i++)
+    for (int i = 0, i$ = nodes.getLength(); i < i$; ++i) // [RA]
       if (Node.TEXT_NODE == nodes.item(i).getNodeType() && nodes.item(i).getNodeValue().length() != 0)
         text += "\n" + nodes.item(i).getNodeValue();
 

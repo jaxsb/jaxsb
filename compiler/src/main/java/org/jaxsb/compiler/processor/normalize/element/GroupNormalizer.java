@@ -68,7 +68,7 @@ public final class GroupNormalizer extends Normalizer<GroupModel> {
     if (model.getRef() == null)
       return;
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent.getParent() instanceof RedefineModel && parent instanceof GroupModel && model.getRef().getName().equals(((GroupModel)parent).getName())) {
         model.getRef().setRedefine((GroupModel)parent);
         break;
@@ -81,7 +81,7 @@ public final class GroupNormalizer extends Normalizer<GroupModel> {
     if (model.getRef() == null)
       return;
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof ElementableModel) {
         ((ElementableModel)parent).addMultiplicableModel(model.getRef());
         break;

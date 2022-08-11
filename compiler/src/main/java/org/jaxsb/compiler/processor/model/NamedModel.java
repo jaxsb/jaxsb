@@ -16,6 +16,7 @@
 
 package org.jaxsb.compiler.processor.model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import org.jaxsb.compiler.lang.UniqueQName;
@@ -33,7 +34,7 @@ public abstract class NamedModel extends Model implements Nameable<Model> {
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = attributes.item(i);
       if ("name".equals(attribute.getLocalName()))
         name = UniqueQName.getInstance(getTargetNamespace(), attribute.getNodeValue());
@@ -66,11 +67,11 @@ public abstract class NamedModel extends Model implements Nameable<Model> {
     if (model == null)
       return null;
 
-    for (final Model child : model.getChildren()) {
-      if (!(child instanceof RestrictionModel))
-        continue;
-
-      return ((RestrictionModel)child).getBase().getName();
+    final ArrayList<Model> children = model.getChildren();
+    for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
+      final Model child = children.get(i);
+      if (child instanceof RestrictionModel)
+        return ((RestrictionModel)child).getBase().getName();
     }
 
     return null;

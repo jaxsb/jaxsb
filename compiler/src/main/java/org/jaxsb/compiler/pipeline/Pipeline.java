@@ -49,7 +49,7 @@ public final class Pipeline<C extends PipelineContext> {
     }
   }
 
-  private final Collection<Entry<?,?>> entries = new ArrayList<>();
+  private final ArrayList<Entry<?,?>> entries = new ArrayList<>();
   private final C pipelineContext;
 
   public Pipeline(final C pipelineContext) {
@@ -65,9 +65,10 @@ public final class Pipeline<C extends PipelineContext> {
 
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void begin() throws IOException {
-    final Collection<PipelineDirectory<?,?,?>> directories = new ArrayList<>();
+    final ArrayList<PipelineDirectory<?,?,?>> directories = new ArrayList<>();
     synchronized (entries) {
-      for (final Entry modulePair : entries) {
+      for (int i = 0, i$ = entries.size(); i < i$; ++i) { // [RA]
+        final Entry modulePair = entries.get(i);
         directories.add(modulePair.getDirectory());
         final Collection<?> output = modulePair.getProcessor().process(pipelineContext, modulePair.getInput(), modulePair.getDirectory());
         if (output != null && modulePair.getOutput() != null)
@@ -75,7 +76,7 @@ public final class Pipeline<C extends PipelineContext> {
       }
     }
 
-    for (final PipelineDirectory<?,?,?> directory : directories)
-      directory.clear();
+    for (int i = 0, i$ = directories.size(); i < i$; ++i) // [RA]
+      directories.get(i).clear();
   }
 }

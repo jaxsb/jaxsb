@@ -64,7 +64,7 @@ public class JaxSbMojo extends GeneratorMojo {
       return null;
 
     final Set<NamespaceURI> set = new HashSet<>();
-    for (final String item : list)
+    for (final String item : list) // [L]
       set.add(NamespaceURI.getInstance(item));
 
     return set;
@@ -77,7 +77,7 @@ public class JaxSbMojo extends GeneratorMojo {
   @Override
   public void execute(final Configuration configuration) throws MojoExecutionException, MojoFailureException {
     final Collection<SchemaReference> generatorBindings = new ArrayList<>();
-    for (final String schema : new LinkedHashSet<>(schemas))
+    for (final String schema : new LinkedHashSet<>(schemas)) // [S]
       generatorBindings.add(new SchemaReference(URLs.create(schema), false));
 
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);

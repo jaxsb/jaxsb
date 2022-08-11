@@ -210,7 +210,7 @@ public final class NamespaceBinding {
   private static String getDiff(final String packageName, final String namespaceURI) {
     char prefix = '\0';
     final StringBuilder namespaceForDiff = new StringBuilder(namespaceURI);
-    for (final Rule rule : rules) {
+    for (final Rule rule : rules) { // [A]
       final char ch = rule.encode(namespaceForDiff);
       if (ch != '\0') {
         prefix = ch;
@@ -223,7 +223,7 @@ public final class NamespaceBinding {
 
     final StringBuilder packageNameForDiff = new StringBuilder(packageName);
     int count = 0;
-    for (int i = 0; i < packageName.length(); ++i) {
+    for (int i = 0, i$ = packageName.length(); i < i$; ++i) { // [N]
       if (packageNameForDiff.charAt(i) == '_' && i > 0 && packageNameForDiff.charAt(i - 1) != '/' && packageNameForDiff.charAt(i - 1) != '.')
         packageNameForDiff.setCharAt(i, ':');
       else if (packageNameForDiff.charAt(i) == '.' && ++count > 2)
@@ -236,7 +236,7 @@ public final class NamespaceBinding {
 
   private static StringBuilder addPrefixForDigits(final StringBuilder builder, final int index) {
     boolean match = false;
-    for (int i = builder.length() - 1; i >= index; --i) {
+    for (int i = builder.length() - 1; i >= index; --i) { // [N]
       final char ch = builder.charAt(i);
       if (match && (ch == '/' || ch == '_'))
         builder.insert(i + 1, '_');
@@ -249,7 +249,7 @@ public final class NamespaceBinding {
 
   private static StringBuilder removePrefixForDigits(final StringBuilder builder) {
     int match = 0;
-    for (int i = builder.length() - 1; i >= 0; --i) {
+    for (int i = builder.length() - 1; i >= 0; --i) { // [N]
       final char ch = builder.charAt(i);
       if (match > 1 && (ch == '/' || ch == '.'))
         builder.delete(i + 1, i + 2);
@@ -294,7 +294,7 @@ public final class NamespaceBinding {
 
     final StringBuilder preparedSource = new StringBuilder(source);
     int count = 0;
-    for (int i = 0; i < source.length(); ++i) {
+    for (int i = 0; i < source.length(); ++i) { // [N]
       if (preparedSource.charAt(i) == '_' && i > 0 && preparedSource.charAt(i - 1) != '/' && preparedSource.charAt(i - 1) != '.')
         preparedSource.setCharAt(i, ':');
       else if (preparedSource.charAt(i) == '/' && ++count < 3)
@@ -302,7 +302,7 @@ public final class NamespaceBinding {
     }
 
     final StringBuilder namespaceUri = new StringBuilder(diff.patch(preparedSource.toString()));
-    for (final Rule rule : rules) {
+    for (final Rule rule : rules) { // [A]
       final StringBuilder decode = rule.decode(prefix, namespaceUri);
       if (decode != null)
         break;

@@ -58,12 +58,15 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
     final Collection<SimpleTypeModel<?>> memberTypes = model.getMemberTypes();
     if (memberTypes != null) {
       final Collection<SimpleTypeModel<?>> resolvedMemberTypes = new ArrayList<>(memberTypes.size());
-      for (final SimpleTypeModel<?> memberType : memberTypes)
+      for (final SimpleTypeModel<?> memberType : memberTypes) // [C]
         resolvedMemberTypes.add(resolve(memberType));
 
-      for (final Model child : model.getChildren())
+      final ArrayList<Model> children = model.getChildren();
+      for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
+        final Model child = children.get(i);
         if (child instanceof SimpleTypeModel)
           resolvedMemberTypes.add(resolve((SimpleTypeModel<?>)child));
+      }
 
       if (resolvedMemberTypes.isEmpty())
         throw new LexerFailureException("I dont think this can happen");
@@ -86,7 +89,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
     if (model.getMemberTypes() == null || model.getMemberTypes().size() == 0)
       throw new LexerFailureException("I dont think this can happen");
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       // Either there is a higher level union that we want to combine into this union
       if (parent instanceof UnionModel) {
         ((UnionModel)parent).addUnion(model);
@@ -108,7 +111,7 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
     if (model.getMemberTypes() == null || model.getMemberTypes().size() == 0)
       throw new LexerFailureException("I dont think this can happen");
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       // If this union defines a named simpleType
       if (parent instanceof SimpleTypeModel && ((SimpleTypeModel<?>)parent).getName() != null) {
         final SimpleTypeModel<?> simpleTypeModel = (SimpleTypeModel<?>)parent;

@@ -30,7 +30,7 @@ public final class PatternModel extends Model {
   protected PatternModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = attributes.item(i);
       if ("value".equals(attribute.getLocalName()))
         value = formatForJava(attribute.getNodeValue());

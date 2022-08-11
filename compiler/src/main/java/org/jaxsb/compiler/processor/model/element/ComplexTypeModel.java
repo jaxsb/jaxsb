@@ -47,7 +47,7 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
       return;
 
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = attributes.item(i);
       if ("abstract".equals(attribute.getLocalName()))
         _abstract = Boolean.parseBoolean(attribute.getNodeValue());
@@ -78,7 +78,9 @@ public class ComplexTypeModel<T extends SimpleTypeModel<?>> extends SimpleTypeMo
 
   @Override
   public final Boolean getMixed() {
-    for (final Model model : getChildren()) {
+    final ArrayList<Model> models = getChildren();
+    for (int i = 0, i$ = models.size(); i < i$; ++i) { // [RA]
+      final Model model = models.get(i);
       if (model instanceof ComplexContentModel && ((ComplexContentModel)model).getMixed() != null)
         return ((ComplexContentModel)model).getMixed();
 

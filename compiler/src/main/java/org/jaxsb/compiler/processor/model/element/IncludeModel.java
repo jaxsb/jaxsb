@@ -26,7 +26,7 @@ public final class IncludeModel extends Model {
   protected IncludeModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = attributes.item(i);
       if ("schemaLocation".equals(attribute.getLocalName()))
         schemaLocation = attribute.getNodeValue();

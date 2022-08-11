@@ -27,13 +27,13 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public final class UnionModel extends Model {
-  private final Collection<SimpleTypeModel<?>> memberTypes = new HashSet<>();
-  private final Collection<UnionModel> unions = new HashSet<>();
+  private final HashSet<SimpleTypeModel<?>> memberTypes = new HashSet<>();
+  private final HashSet<UnionModel> unions = new HashSet<>();
 
   protected UnionModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = attributes.item(i);
       if ("memberTypes".equals(attribute.getLocalName()))
         parseMemberTypes(attribute.getNodeValue(), node);
@@ -55,8 +55,8 @@ public final class UnionModel extends Model {
   }
 
   public Collection<SimpleTypeModel<?>> getNormalizedMemberTypes() {
-    final Collection<SimpleTypeModel<?>> allMemberTypes = new ArrayList<>(getMemberTypes());
-    for (final UnionModel union : unions)
+    final ArrayList<SimpleTypeModel<?>> allMemberTypes = new ArrayList<>(getMemberTypes());
+    for (final UnionModel union : unions) // [S]
       allMemberTypes.addAll(union.getNormalizedMemberTypes());
 
     return allMemberTypes;

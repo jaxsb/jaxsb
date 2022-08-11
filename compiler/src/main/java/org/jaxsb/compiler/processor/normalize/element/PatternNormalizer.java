@@ -42,7 +42,7 @@ public final class PatternNormalizer extends Normalizer<PatternModel> {
 
   @Override
   protected void stage4(final PatternModel model) {
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof PatternableModel && parent instanceof Nameable && ((Nameable<?>)parent).getName() != null) {
         ((PatternableModel)parent).addPattern(model);
         break;

@@ -16,6 +16,8 @@
 
 package org.jaxsb.compiler.processor.normalize.element;
 
+import java.util.ArrayList;
+
 import org.jaxsb.compiler.processor.model.ElementableModel;
 import org.jaxsb.compiler.processor.model.Model;
 import org.jaxsb.compiler.processor.model.MultiplicableModel;
@@ -42,10 +44,11 @@ public final class AnyNormalizer extends Normalizer<AnyModel> {
 
   @Override
   protected void stage4(final AnyModel model) {
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof ElementableModel) {
-        for (final MultiplicableModel multiplicableModel : ((ElementableModel)parent).getMultiplicableModels())
-          if (multiplicableModel instanceof AnyModel)
+        final ArrayList<MultiplicableModel> multiplicableModels = ((ElementableModel)parent).getMultiplicableModels();
+        for (int i = 0, i$ = multiplicableModels.size(); i < i$; ++i) // [RA]
+          if (multiplicableModels.get(i) instanceof AnyModel)
             return;
 
         ((ElementableModel)parent).addMultiplicableModel(model);

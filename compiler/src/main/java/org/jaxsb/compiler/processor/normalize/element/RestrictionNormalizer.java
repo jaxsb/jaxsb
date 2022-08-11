@@ -17,7 +17,6 @@
 package org.jaxsb.compiler.processor.normalize.element;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.jaxsb.compiler.lang.LexerFailureException;
 import org.jaxsb.compiler.lang.UniqueQName;
@@ -86,7 +85,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
 
     model.setBase(base);
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof SimpleTypeModel) {
         if (parent instanceof ListModel) {
           ((ListModel)parent).setItemType(base);
@@ -163,7 +162,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     if (model.getBase() == null || model.getBase().getName() == null)
       return;
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof SimpleTypeModel && model.getBase().getName().equals(((Nameable<?>)parent).getName()) && parent.getParent() instanceof RedefineModel) {
         model.getBase().setRedefine((SimpleTypeModel<?>)parent);
         if (parent instanceof SimpleTypeModel) {
@@ -189,8 +188,9 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
       return;
 
     // handle all attributes
-    final Collection<AttributeModel> restrictionAttributes = findChildAttributes(model.getChildren());
-    for (final AttributeModel restrictionAttribute : restrictionAttributes) {
+    final ArrayList<AttributeModel> restrictionAttributes = findChildAttributes(model.getChildren());
+    for (int i = 0, i$ = restrictionAttributes.size(); i < i$; ++i) { // [RA]
+      final AttributeModel restrictionAttribute = restrictionAttributes.get(i);
       final RestrictionPair<AttributeModel> baseAttributePair = findBaseAttribute(restrictionAttribute.getName(), model.getBase());
       if (baseAttributePair == null)
         throw new LexerFailureException("we should have found an attribute we're restricting! what's going on?");
@@ -200,9 +200,10 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
     }
 
     // find all elements declared in this restriction
-    final Collection<ElementModel> restrictionElements = new ArrayList<>();
+    final ArrayList<ElementModel> restrictionElements = new ArrayList<>();
     findChildElements(restrictionElements, model.getChildren());
-    for (final ElementModel restrictionElement : restrictionElements) {
+    for (int i = 0, i$ = restrictionElements.size(); i < i$; ++i) { // [RA]
+      final ElementModel restrictionElement = restrictionElements.get(i);
       final RestrictionPair<ElementModel> baseElementPair = findBaseElement(restrictionElement.getName(), model.getBase());
       if (baseElementPair == null)
         throw new LexerFailureException("we should have found an element we're restricting! what's going on?");
@@ -216,11 +217,13 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
   protected void stage6(final RestrictionModel model) {
   }
 
-  private static Collection<AttributeModel> findChildAttributes(final Collection<? extends Model> children) {
-    final Collection<AttributeModel> attributes = new ArrayList<>();
-    for (final Model model : children)
+  private static ArrayList<AttributeModel> findChildAttributes(final ArrayList<? extends Model> children) {
+    final ArrayList<AttributeModel> attributes = new ArrayList<>();
+    for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
+      final Model model = children.get(i);
       if (model instanceof AttributeModel)
         attributes.add((AttributeModel)model);
+    }
 
     return attributes;
   }
@@ -231,15 +234,16 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
 
     // FIXME: Can I equate on just the localName of the QName???
     if (typeModel instanceof ComplexTypeModel)
-      for (final AttributeModel attribute : ((AttributableModel)typeModel).getAttributes())
+      for (final AttributeModel attribute : ((AttributableModel)typeModel).getAttributes()) // [S]
         if (name.getLocalPart().equals(attribute.getName().getLocalPart()))
           return new RestrictionPair<>(attribute, typeModel);
 
     return findBaseAttribute(name, typeModel.getSuperType());
   }
 
-  private static void findChildElements(final Collection<? super ElementModel> elements, final Collection<? extends Model> children) {
-    for (final Model model : children) {
+  private static void findChildElements(final ArrayList<? super ElementModel> elements, final ArrayList<? extends Model> children) {
+    for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
+      final Model model = children.get(i);
       if (model instanceof ElementModel) {
         elements.add((ElementModel)model);
         continue;
@@ -255,15 +259,18 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
       return null;
 
     if (typeModel instanceof ComplexTypeModel) {
-      final Collection<ElementModel> elements = new ArrayList<>();
+      final ArrayList<ElementModel> elements = new ArrayList<>();
       findChildElements(elements, typeModel.getChildren());
-      for (final MultiplicableModel multiplicableModel : ((ComplexTypeModel<?>)typeModel).getMultiplicableModels())
-        findChildElements(elements, ((Model)multiplicableModel).getChildren());
+      final ArrayList<MultiplicableModel> multiplicableModels = ((ComplexTypeModel<?>)typeModel).getMultiplicableModels();
+      for (int i = 0, i$ = multiplicableModels.size(); i < i$; ++i) // [RA]
+        findChildElements(elements, ((Model)multiplicableModels.get(i)).getChildren());
 
       // FIXME: Can I equate on just the localName of the QName???
-      for (final ElementModel element : elements)
+      for (int i = 0, i$ = elements.size(); i < i$; ++i) { // [RA]
+        final ElementModel element = elements.get(i);
         if (name.getLocalPart().equals(element.getName().getLocalPart()))
           return new RestrictionPair<>(element, typeModel);
+      }
     }
 
     return findBaseElement(name, typeModel.getSuperType());

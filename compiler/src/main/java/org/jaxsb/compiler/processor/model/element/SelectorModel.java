@@ -26,7 +26,7 @@ public final class SelectorModel extends Model {
   protected SelectorModel(final Node node, final Model parent) {
     super(node, parent);
     final NamedNodeMap attributes = node.getAttributes();
-    for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = attributes.item(i);
       if ("xpath".equals(attribute.getLocalName()))
         xpath = attribute.getNodeValue();

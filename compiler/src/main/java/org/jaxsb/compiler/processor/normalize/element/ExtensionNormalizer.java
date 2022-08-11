@@ -79,7 +79,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
 
     model.setBase(base);
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof Nameable && ((Nameable<?>)parent).getName() != null) {
         if (parent instanceof ElementModel) {
           // We do not want to dereference nested elements because there are name collisions
@@ -124,7 +124,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
     if (model.getBase() == null || model.getBase().getName() == null)
       return;
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof SimpleTypeModel && model.getBase().getName().equals(((Nameable<?>)parent).getName()) && parent.getParent() instanceof RedefineModel) {
         model.getBase().setRedefine((SimpleTypeModel<?>)parent);
 
@@ -146,7 +146,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
     if (model.getBase() == null || model.getBase().getName() == null)
       return;
 
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof SimpleTypeModel && model.getBase().getName().equals(((Nameable<?>)parent).getName()) && parent.getParent() instanceof RedefineModel) {
         if (parent instanceof ComplexTypeModel) {
           if (!(model.getBase() instanceof ComplexTypeModel))

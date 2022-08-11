@@ -56,25 +56,26 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
     final HashMap<NamespaceURI,URL> importLoopCheck = new HashMap<>();
     final HashMap<NamespaceURI,ArrayList<URL>> includeLoopCheck = new HashMap<>();
 
-    for (final SchemaReference schemaReference : selectedSchemas) {
+    for (final SchemaReference schemaReference : selectedSchemas) { // [C]
       if (schemaReference == null)
         continue;
 
       final Stack<SchemaDocument> schemasToGenerate = new Stack<>();
 
       // First we need to find all of the imports and includes
-      Collection<SchemaDocument> outer = new Stack<>();
+      Stack<SchemaDocument> outer = new Stack<>();
       outer.add(AbstractGenerator.parse(schemaReference));
       importLoopCheck.put(schemaReference.getNamespaceURI(), schemaReference.getURL());
       while (outer.size() != 0) {
         schemasToGenerate.addAll(0, outer);
         final Stack<SchemaDocument> inner = new Stack<>();
-        for (final SchemaDocument schemaDocument : outer) {
+        for (int i = 0, i$ = outer.size(); i < i$; ++i) { // [RA]
+          final SchemaDocument schemaDocument = outer.get(i);
           NodeList includeNodeList;
-          for (final String includeString : includeStrings) {
+          for (final String includeString : includeStrings) { // [A]
             includeNodeList = schemaDocument.getDocument().getElementsByTagNameNS(UniqueQName.XS.getNamespaceURI().toString(), includeString);
-            for (int i = 0, len = includeNodeList.getLength(); i < len; ++i) {
-              final Element includeElement = (Element)includeNodeList.item(i);
+            for (int j = 0, j$ = includeNodeList.getLength(); j < j$; ++j) { // [RA]
+              final Element includeElement = (Element)includeNodeList.item(j);
               final URL schemaLocationURL = getSchemaLocation(schemaDocument.getSchemaReference().getURL(), includeElement);
 
               // Don't want to get into an infinite loop
@@ -94,8 +95,8 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
           }
 
           final NodeList importNodeList = schemaDocument.getDocument().getElementsByTagNameNS(UniqueQName.XS.getNamespaceURI().toString(), "import");
-          for (int i = 0, len = importNodeList.getLength(); i < len; ++i) {
-            final Element importElement = (Element)importNodeList.item(i);
+          for (int j = 0, j$ = importNodeList.getLength(); j < j$; ++j) { // [RA]
+            final Element importElement = (Element)importNodeList.item(j);
             final String namespaceUri = importElement.getAttribute("namespace");
             final URL schemaUri = getSchemaLocation(schemaDocument.getSchemaReference().getURL(), importElement);
             final URL schemaUrl = SchemaResolver.resolve(namespaceUri, schemaUri.toString());
@@ -122,15 +123,17 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
       schemas.addAll(schemasToGenerate);
     }
 
-    for (final SchemaDocument schema : schemas) {
+    for (final SchemaDocument schema : schemas) { // [S]
       final ArrayList<URL> includes = includeLoopCheck.get(schema.getSchemaReference().getNamespaceURI());
       if (includes == null || includes.size() == 0)
         continue;
 
       final ArrayList<URL> externalIncludes = new ArrayList<>(includes.size());
-      for (final URL include : includes)
+      for (int i = 0, i$ = includes.size(); i < i$; ++i) { // [RA]
+        final URL include = includes.get(i);
         if (!include.equals(schema.getSchemaReference().getURL()))
           externalIncludes.add(include);
+      }
 
       if (externalIncludes.size() != 0)
         schema.setIncludes(externalIncludes);

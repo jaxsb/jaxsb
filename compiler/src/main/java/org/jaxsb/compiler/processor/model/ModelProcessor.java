@@ -38,9 +38,9 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
   public Collection<Model> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaComposite> documents, final PipelineDirectory<GeneratorContext,? super SchemaComposite,Model> directory) {
     final Model root = new Model(null, null) {};
     // Then we parse all of the schemas that have been included and imported
-    final Collection<Model> schemaModels = new ArrayList<>();
+    final ArrayList<Model> schemaModels = new ArrayList<>();
 
-    for (final SchemaComposite schemaComposite : documents) {
+    for (final SchemaComposite schemaComposite : documents) { // [C]
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final SchemaDocument schemaDocument = schemaModelComposite.getSchemaDocument();
       final SchemaModel schemaModel = recurse(root, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getDocument().getChildNodes(), schemaDocument.getSchemaReference().getURL(), directory);
@@ -78,7 +78,7 @@ public final class ModelProcessor implements PipelineProcessor<GeneratorContext,
     }
 
     Model current = null;
-    for (int i = 0, len = children.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = children.getLength(); i < i$; ++i) { // [RA]
       final Node child = children.item(i);
       if (child.getLocalName() == null)
         continue;

@@ -36,8 +36,8 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
   @Override
   public Collection<Plan<?>> process(final GeneratorContext pipelineContext, final Collection<? extends Model> documents, final PipelineDirectory<GeneratorContext,? super Model,Plan<?>> directory) {
     final Plan<?> root = new Plan<Model>(null, null) {};
-    final Collection<Plan<?>> plans = new ArrayList<>();
-    for (final Model model : documents) {
+    final ArrayList<Plan<?>> plans = new ArrayList<>();
+    for (final Model model : documents) { // [C]
       if (model.getChildren() == null || model.getChildren().size() == 0)
         continue;
 
@@ -45,8 +45,9 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
       final String display = (URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()) : url).toString();
       logger.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
 
-      for (final Model child : model.getChildren())
-        disclose(child, root, plans, directory);
+      final ArrayList<Model> children = model.getChildren();
+      for (int i = 0, i$ = children.size(); i < i$; ++i) // [RA]
+        disclose(children.get(i), root, plans, directory);
     }
 
     return plans;

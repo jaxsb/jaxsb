@@ -68,7 +68,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   private static void compile(final Collection<? extends SchemaComposite> documents, final File destDir, final File sourceDir, final Set<? extends File> sourcePath) throws CompilationException, IOException, URISyntaxException {
     final List<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
     final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, Generated.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
-    for (final Class<?> cls : requiredLibs) {
+    for (final Class<?> cls : requiredLibs) { // [A]
       final CodeSource codeSource = cls.getProtectionDomain().getCodeSource();
       if (codeSource != null)
         classpath.add(new File(codeSource.getLocation().toURI()));
@@ -76,12 +76,12 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
     final File[] sources = new File[documents.size()];
     final Iterator<? extends SchemaComposite> iterator = documents.iterator();
-    for (int i = 0; i < sources.length; ++i)
+    for (int i = 0; i < sources.length; ++i) // [A]
       // FIXME: This is duplicated in SchemaReferenceProcessor[62]
       sources[i] = new File(sourceDir, ((SchemaModelComposite)iterator.next()).getSchemaModel().getTargetNamespace().getNamespaceBinding().getClassName().replace('.', File.separatorChar) + ".java");
 
     final InMemoryCompiler compiler = new InMemoryCompiler();
-    for (final File source : sources)
+    for (final File source : sources) // [A]
       compiler.addSource(new String(Files.readAllBytes(source.toPath())));
 
     compiler.compile(classpath, destDir, "-g");
@@ -92,7 +92,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     final Set<NamespaceURI> namespaceURIsAdded = new HashSet<>();
     final Collection<File> jarFiles = new HashSet<>();
 
-    for (final SchemaComposite schemaComposite : schemaComposites) {
+    for (final SchemaComposite schemaComposite : schemaComposites) { // [C]
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
       if ((includes == null || includes.contains(namespaceURI)) && (excludes == null || !excludes.contains(namespaceURI))) {
@@ -140,7 +140,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     StringBuilder relativeRootPath = null;
     final Element element = DOMParsers.newDocumentBuilder().parse(url.openStream()).getDocumentElement();
     final NodeList children = element.getChildNodes();
-    for (int i = 0, iLen = children.getLength(); i < iLen; ++i) {
+    for (int i = 0, i$ = children.getLength(); i < i$; ++i) { // [RA]
       final Node node = children.item(i);
       if (!XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(node.getNamespaceURI()))
         continue;
@@ -149,7 +149,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         final NamedNodeMap attributes = node.getAttributes();
         Node namespace = null;
         Node schemaLocation = null;
-        for (int j = 0, jLen = attributes.getLength(); j < jLen; ++j) {
+        for (int j = 0, j$ = attributes.getLength(); j < j$; ++j) { // [RA]
           final Node attribute = attributes.item(j);
           if ("namespace".equals(attribute.getLocalName()))
             namespace = attribute;
@@ -166,7 +166,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
             else {
               if (relativeRootPath == null) {
                 relativeRootPath = new StringBuilder();
-                for (int k = 0; k != -1; k = baseDir.indexOf('/', k + 1))
+                for (int k = 0; k != -1; k = baseDir.indexOf('/', k + 1)) // [X]
                   relativeRootPath.append("../");
               }
 
@@ -180,7 +180,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       }
       else if ("include".equals(node.getLocalName())) {
         final NamedNodeMap attributes = node.getAttributes();
-        for (int j = 0, len = attributes.getLength(); j < len; ++j) {
+        for (int j = 0, j$ = attributes.getLength(); j < j$; ++j) { // [RA]
           final Node attribute = attributes.item(j);
           if ("schemaLocation".equals(attribute.getLocalName())) {
             final String schemaLocation = attribute.getNodeValue();
@@ -216,7 +216,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
       final Collection<Bundle> bundles = new ArrayList<>();
       final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes(), skipXsd);
-      for (final File jarFile : jarFiles)
+      for (final File jarFile : jarFiles) // [C]
         bundles.add(new Bundle(jarFile));
 
       return bundles;

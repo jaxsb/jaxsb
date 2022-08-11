@@ -74,7 +74,7 @@ public final class XMLSchema {
 
     final StringBuilder builder = new StringBuilder();
     final Iterator<?> iterator = ((Collection<?>)value).iterator();
-    for (int i = 0; iterator.hasNext(); ++i) {
+    for (int i = 0; iterator.hasNext(); ++i) { // [I]
       if (i > 0)
         builder.append(' ');
 
@@ -182,14 +182,14 @@ public final class XMLSchema {
       @Override
       protected final void parseAnyType(final Element node) throws ValidationException {
         final NamedNodeMap attributes = node.getAttributes();
-        for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+        for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
           final Node attribute = attributes.item(i);
           if (attribute instanceof Attr && !parseAttribute((Attr)attribute))
             parseAnyAttribute((Attr)attribute);
         }
 
         final NodeList elements = node.getChildNodes();
-        for (int i = 0, len = elements.getLength(); i < len; ++i) {
+        for (int i = 0, i$ = elements.getLength(); i < i$; ++i) { // [RA]
           final Node child = elements.item(i);
           if (child instanceof Text)
             parseText((Text)child);
@@ -438,7 +438,7 @@ public final class XMLSchema {
           return String.valueOf(super.text());
 
         if (super.text()) {
-          for (final String pattern : _$$getPattern()) {
+          for (final String pattern : _$$getPattern()) { // [A]
             if ("true".matches(pattern))
               return "true";
 
@@ -447,7 +447,7 @@ public final class XMLSchema {
           }
         }
         else {
-          for (final String pattern : _$$getPattern()) {
+          for (final String pattern : _$$getPattern()) { // [A]
             if ("false".matches(pattern))
               return "false";
 

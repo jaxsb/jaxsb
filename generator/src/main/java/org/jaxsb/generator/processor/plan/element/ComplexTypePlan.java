@@ -16,6 +16,7 @@
 
 package org.jaxsb.generator.processor.plan.element;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 import org.jaxsb.compiler.lang.UniqueQName;
@@ -45,7 +46,7 @@ public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePl
   public ElementPlan elementRefExistsInParent(final UniqueQName name) {
     // FIXME: This is slow!
     if (getElements() != null)
-      for (final ElementPlan element : getElements())
+      for (final ElementPlan element : getElements()) // [S]
         if (element.getName() != null && element.getName().equals(name))
           return element;
 
@@ -59,7 +60,9 @@ public class ComplexTypePlan<T extends ComplexTypeModel<?>> extends SimpleTypePl
   public ComplexTypePlan(final T model, final Plan<?> parent) {
     super(model.getRedefine() != null ? (T)model.getRedefine() : model, parent);
     mixed = getModel().getMixed();
-    for (final Model child : model.getChildren()) {
+    final ArrayList<Model> children = model.getChildren();
+    for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
+      final Model child = children.get(i);
       if (child instanceof SimpleContentModel) {
         simpleContent = true;
         break;

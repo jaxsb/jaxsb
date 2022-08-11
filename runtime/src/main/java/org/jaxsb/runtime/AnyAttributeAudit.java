@@ -65,7 +65,8 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> {
     if (value == null)
       return;
 
-    for (final Binding binding : value) {
+    for (int i = 0, i$ = value.size(); i < i$; ++i) { // [RA]
+      final Binding binding = value.get(i);
       final QName qName = Binding.name(binding);
       final String name;
       if (qName.getPrefix().length() > 0) {

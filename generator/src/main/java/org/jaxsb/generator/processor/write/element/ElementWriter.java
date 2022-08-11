@@ -20,6 +20,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.RandomAccess;
 import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
@@ -211,10 +212,10 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.isNillable())
       writer.write("private " + Boolean.class.getName() + " nil = null;\n");
 
-    for (final AttributePlan attribute : plan.getAttributes())
+    for (final AttributePlan attribute : plan.getAttributes()) // [S]
       Writer.writeDeclaration(writer, attribute, plan);
 
-    for (final ElementPlan element : plan.getElements())
+    for (final ElementPlan element : plan.getElements()) // [S]
       Writer.writeDeclaration(writer, element, plan);
 
     // ENUMERATIONS CONSTRUCTOR
@@ -236,9 +237,9 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
       if (plan.getMixed() != null && plan.getMixed())
         writer.write("this.text = binding.text;\n");
-      for (final AttributePlan attribute : plan.getAttributes())
+      for (final AttributePlan attribute : plan.getAttributes()) // [S]
         Writer.writeCopy(writer, attribute, plan, "binding");
-      for (final ElementPlan element : plan.getElements())
+      for (final ElementPlan element : plan.getElements()) // [S]
         Writer.writeCopy(writer, element, plan, "binding");
     }
     writer.write("}\n");
@@ -252,7 +253,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     }
     writer.write(plan.getClassSimpleName() + "() {\n");
     writer.write("super();\n");
-    for (final Object attribute : plan.getAttributes())
+    for (final Object attribute : plan.getAttributes()) // [S]
       writer.write(((AttributePlan)attribute).getFixedInstanceCall(plan));
     writer.write("}\n");
 
@@ -287,26 +288,44 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
             enumClassName = "Enum";
 
           if (plan.isList()) {
-            writer.write("public <T extends " + List.class.getName() + "<" + enumClassName + ">>void text(final T enm) {\n");
+            writer.write("public <E extends " + List.class.getName() + "<" + enumClassName + ">>void text(final E enm) {\n");
             writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
-            writer.write("for (" + enumClassName + " temp : enm)\n");
-            writer.write("if (temp != null)\n");
-            writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(temp.text);\n");
+            writer.write("if (enm instanceof " + RandomAccess.class.getName() + ") {\n");
+            writer.write("for (int i = 0, i$ = enm.size(); i < i$; ++i) { // [RA]\n");
+            writer.write("final " + enumClassName + " member = enm.get(i);\n");
+            writer.write("if (member != null)\n");
+            writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
+            writer.write("}\n");
+            writer.write("}\n");
+            writer.write("else {\n");
+            writer.write("for (final " + enumClassName + " member : enm) // [L]\n");
+            writer.write("if (member != null)\n");
+            writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
+            writer.write("}\n");
             writer.write("}\n");
 
             writer.write("public void text(final " + enumClassName + " ... enm) {\n");
             writer.write("super.text(new " + plan.getNativeItemClassNameImplementation() + "());\n");
-            writer.write("for (" + enumClassName + " temp : enm)\n");
-            writer.write("if (temp != null)\n");
-            writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(temp.text);\n");
+            writer.write("for (final " + enumClassName + " member : enm) // [A]\n");
+            writer.write("if (member != null)\n");
+            writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
             writer.write("}\n");
 
             if (plan.isUnionWithNonEnumeration()) {
               writer.write("public void text(final " + plan.getNativeNonEnumItemClassNameInterface() + " text) {\n");
               writer.write("super.text(new " + plan.getNativeNonEnumItemClassNameImplementation() + "());\n");
-              writer.write("for (" + enumClassName + " temp : text)\n");
-              writer.write("if (temp != null)\n");
-              writer.write("((" + List.class.getName() + "<" + plan.getNativeNonEnumItemClassNameInterface() + ">)super.text()).add(temp.text);\n");
+              writer.write("if (text instanceof " + RandomAccess.class.getName() + ") {\n");
+              writer.write("for (int i = 0, i$ = text.size(); i < i$; ++i) { // [RA]\n");
+              writer.write("final " + enumClassName + " member = text.get(i);\n");
+              writer.write("if (member != null)\n");
+              writer.write("((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).add(member.text);\n");
+              writer.write("}\n");
+              writer.write("}\n");
+              writer.write("else {\n");
+              writer.write("for (final " + enumClassName + " member : text) // [L]\n");
+              writer.write("if (member != null)\n");
+              writer.write("((" + List.class.getName() + "<" + plan.getNativeNonEnumItemClassNameInterface() + ">)super.text()).add(member.text);\n");
+              writer.write("}\n");
               writer.write("}\n");
             }
           }
@@ -379,12 +398,12 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.writeNativeConstructor())
       getNativeConstructors(writer, plan);
 
-    for (final AttributePlan attribute : plan.getAttributes()) {
+    for (final AttributePlan attribute : plan.getAttributes()) { // [S]
       Writer.writeSetMethod(writer, attribute, plan);
       Writer.writeGetMethod(writer, attribute, plan);
     }
 
-    for (final ElementPlan element : plan.getElements()) {
+    for (final ElementPlan element : plan.getElements()) { // [S]
       Writer.writeSetMethod(writer, element, plan);
       Writer.writeGetMethod(writer, element, plan);
     }
@@ -492,7 +511,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
         writer.write("node.appendChild(node.getOwnerDocument().createTextNode(text));\n");
       }
 
-      for (final AttributePlan attribute : plan.getAttributes())
+      for (final AttributePlan attribute : plan.getAttributes()) // [S]
         Writer.writeMarshal(writer, attribute, plan);
     }
 
@@ -507,7 +526,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("return true;\n");
       writer.write("}\n");
       AttributePlan any = null;
-      for (final AttributePlan attribute : plan.getAttributes()) {
+      for (final AttributePlan attribute : plan.getAttributes()) { // [S]
         if (attribute instanceof AnyAttributePlan)
           any = attribute;
         else
@@ -549,7 +568,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       }
 
       ElementPlan any = null;
-      for (final ElementPlan element : plan.getElements()) {
+      for (final ElementPlan element : plan.getElements()) { // [S]
         if (element instanceof AnyPlan)
           any = element;
         else
@@ -586,11 +605,21 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("protected " + String.class.getName() + " _$$encode(final " + Element.class.getName() + " parent) throws " + MarshalException.class.getName() + " {\n");
       writer.write("if (super.text() == null || ((" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text()).size() == 0)\n");
       writer.write("return null;\n");
-      writer.write("String text = \"\";\n");
-      writer.write("for (" + plan.getNativeItemClassName() + " temp : (" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text())\n");
-      writer.write("if (temp != null)\n");
-      writer.write("text += \" \" + temp;\n");
-      writer.write("return text.substring(1);\n");
+      writer.write("final " + StringBuilder.class.getName() + " builder = new " + StringBuilder.class.getName() + "();\n");
+      writer.write("final " + List.class.getName() + "<" + plan.getNativeItemClassName() + "> list = (" + List.class.getName() + "<" + plan.getNativeItemClassName() + ">)super.text();\n");
+      writer.write("if (list instanceof " + RandomAccess.class.getName() + ") {\n");
+      writer.write("for (int i = 0, i$ = list.size(); i < i$; ++i) { // [RA]\n");
+      writer.write("final " + plan.getNativeItemClassName() + " member = list.get(i);\n");
+      writer.write("if (member != null)\n");
+      writer.write("builder.append(member).append(' ');\n");
+      writer.write("}\n");
+      writer.write("}\n");
+      writer.write("else {\n");
+      writer.write("for (final " + plan.getNativeItemClassName() + " member : list) // [L]\n");
+      writer.write("if (member != null)\n");
+      writer.write("builder.append(member).append(' ');\n");
+      writer.write("}\n");
+      writer.write("return builder.substring(0, builder.length() - 1);\n");
       writer.write("}\n");
     }
 
@@ -613,9 +642,9 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
         writer.write("if (text != null ? !text.equals(that.text) : that.text != null)\n");
         writer.write("return _$$failEquals();\n");
       }
-      for (final AttributePlan attribute : plan.getAttributes())
+      for (final AttributePlan attribute : plan.getAttributes()) // [S]
         Writer.writeEquals(writer, attribute, plan);
-      for (final ElementPlan element : plan.getElements())
+      for (final ElementPlan element : plan.getElements()) // [S]
         Writer.writeEquals(writer, element, plan);
     }
 
@@ -633,19 +662,19 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("if (text != null)\n");
       writer.write("hashCode = 31 * hashCode + text.hashCode();\n");
     }
-    for (final AttributePlan attribute : plan.getAttributes())
+    for (final AttributePlan attribute : plan.getAttributes()) // [S]
       Writer.writeHashCode(writer, attribute, plan);
-    for (final ElementPlan element : plan.getElements())
+    for (final ElementPlan element : plan.getElements()) // [S]
       Writer.writeHashCode(writer, element, plan);
     writer.write("return hashCode;\n");
     writer.write("}\n");
 
     // ATTRIBUTES
-    for (final AttributePlan attribute : plan.getAttributes())
+    for (final AttributePlan attribute : plan.getAttributes()) // [S]
       Writer.writeClass(writer, attribute, plan);
 
     // ELEMENTS
-    for (final ElementPlan element : plan.getElements())
+    for (final ElementPlan element : plan.getElements()) // [S]
       Writer.writeClass(writer, element, plan);
 
     writer.write("}\n");

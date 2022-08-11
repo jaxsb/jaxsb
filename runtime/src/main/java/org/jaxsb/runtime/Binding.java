@@ -119,7 +119,7 @@ public abstract class Binding extends AbstractBinding {
     @Override
     public String toString() {
       final StringBuilder str = new StringBuilder();
-      for (final Map.Entry<String,String> entry : entrySet())
+      for (final Map.Entry<String,String> entry : entrySet()) // [S]
         str.append(" xmlns:").append(entry.getKey()).append("=\"").append(entry.getValue()).append('"');
 
       return str.toString();
@@ -152,7 +152,7 @@ public abstract class Binding extends AbstractBinding {
 
     final Field[] fields = element.getDeclaredFields();
     try {
-      for (final Field field : fields) {
+      for (final Field field : fields) { // [A]
         if (!"SUBSTITUTION_GROUP".equals(field.getName()))
           continue;
 
@@ -187,7 +187,7 @@ public abstract class Binding extends AbstractBinding {
     String xsiPrefix = null;
 
     final NamedNodeMap rootAttributes = element.getAttributes();
-    for (int i = 0, len = rootAttributes.getLength(); i < len; ++i) {
+    for (int i = 0, i$ = rootAttributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = rootAttributes.item(i);
       if (XSI_TYPE.getNamespaceURI().equals(attribute.getNamespaceURI()) && XSI_TYPE.getLocalPart().equals(attribute.getLocalName())) {
         xsiPrefix = parsePrefix(attribute.getNodeValue());
@@ -216,7 +216,7 @@ public abstract class Binding extends AbstractBinding {
 
         Method method = null;
         final Method[] methods = xsiBinding.getDeclaredMethods();
-        for (int i = 0; i < methods.length; ++i) {
+        for (int i = 0; i < methods.length; ++i) { // [A]
           if ("newInstance".equals(methods[i].getName())) {
             method = methods[i];
             break;
@@ -284,7 +284,7 @@ public abstract class Binding extends AbstractBinding {
 
     boolean legalInheritance = false;
     final Constructor<?>[] constructors = _$$inheritsInstance().getClass().getDeclaredConstructors();
-    for (int i = 0; i < constructors.length; ++i) {
+    for (int i = 0; i < constructors.length; ++i) { // [A]
       if (constructors[i].getParameterTypes().length > 0 && constructors[i].getParameterTypes()[0].isAssignableFrom(getClass())) {
         legalInheritance = true;
         break;
@@ -310,7 +310,7 @@ public abstract class Binding extends AbstractBinding {
 
     try {
       final Method[] methods = getClass().getDeclaredMethods();
-      for (final Method method : methods) {
+      for (final Method method : methods) { // [A]
         if (method.getReturnType() != null && method.getParameterTypes().length == 0) {
           final org.jaxsb.runtime.QName qName = method.getAnnotation(org.jaxsb.runtime.QName.class);
           if (qName != null && name.getLocalPart().equals(qName.localPart()) && (name.getNamespaceURI() != null ? name.getNamespaceURI().equals(qName.namespaceURI()) : qName.namespaceURI() == null))
@@ -351,7 +351,7 @@ public abstract class Binding extends AbstractBinding {
     if (elements == null || elements.size() == 0)
       return;
 
-    for (int i = 0, len = elements.size(); i < len; ++i) {
+    for (int i = 0, i$ = elements.size(); i < i$; ++i) { // [RA]
       $AnyType<?> element = elements.get(i);
       if (element instanceof BindingProxy)
         element = ((BindingProxy<$AnyType<?>>)element).getBinding();
@@ -419,7 +419,7 @@ public abstract class Binding extends AbstractBinding {
       textToString(str, text(), prefixToNamespace);
 
     if (hasElements) {
-      for (int i = 0, len = elements.size(); i < len; ++i) {
+      for (int i = 0, i$ = elements.size(); i < i$; ++i) { // [RA]
         $AnyType<?> element = elements.get(i);
         if (element instanceof BindingProxy)
           element = ((BindingProxy<$AnyType<?>>)element).getBinding();

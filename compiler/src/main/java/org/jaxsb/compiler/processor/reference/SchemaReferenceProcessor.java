@@ -40,9 +40,9 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
     if (logger.isDebugEnabled())
       logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
 
-    final Collection<SchemaReference> selectedSchemas = new LinkedHashSet<>(3);
+    final LinkedHashSet<SchemaReference> selectedSchemas = new LinkedHashSet<>(3);
     try {
-      for (final SchemaReference schemaReference : schemaReferences) {
+      for (final SchemaReference schemaReference : schemaReferences) { // [C]
         try {
           final File javaFile = new File(destDir, schemaReference.getNamespaceURI().getNamespaceBinding().getJavaPath());
           if (logger.isDebugEnabled())

@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Generated;
 
@@ -47,8 +46,8 @@ public class ClassFile implements AutoCloseable {
 
   private final File file;
   private final NamespaceBinding namespaceBinding;
-  private final List<String> registrationTexts = new ArrayList<>();
-  private final List<String> classTexts = new ArrayList<>();
+  private final ArrayList<String> registrationTexts = new ArrayList<>();
+  private final ArrayList<String> classTexts = new ArrayList<>();
 
   public ClassFile(final File file, final NamespaceBinding namespaceBinding) {
     this.file = file;
@@ -75,12 +74,12 @@ public class ClassFile implements AutoCloseable {
     builder.append('@').append(Generated.class.getName()).append("(value=\"").append(GENERATED_VALUE).append("\", date=\"").append(GENERATED_DATE).append("\")\n");
     builder.append("public class ").append(namespaceBinding.getSimpleClassName()).append(" extends ").append(Schema.class.getName()).append(" {\n");
     builder.append("static {");
-    for (final String registrationText : registrationTexts)
-      builder.append('\n').append(registrationText);
+    for (int i = 0, i$ = registrationTexts.size(); i < i$; ++i) // [RA]
+      builder.append('\n').append(registrationTexts.get(i));
     builder.append('}');
 
-    for (final String classText : classTexts)
-      builder.append('\n').append(classText);
+    for (int i = 0, i$ = classTexts.size(); i < i$; ++i) // [RA]
+       builder.append('\n').append(classTexts.get(i));
 
     builder.append("\n}");
 

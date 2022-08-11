@@ -88,7 +88,7 @@ public final class AttributeNormalizer extends Normalizer<AttributeModel> {
 
   @Override
   protected void stage4(final AttributeModel model) {
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof AttributableModel && parent instanceof Nameable && ((Nameable<?>)parent).getName() != null) {
         ((AttributableModel)parent).addAttribute(model);
         break;

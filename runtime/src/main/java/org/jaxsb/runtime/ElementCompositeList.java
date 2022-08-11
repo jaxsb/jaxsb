@@ -142,7 +142,7 @@ public class ElementCompositeList extends CompositeList<$AnyType,QName> {
     final ElementCompositeList clone = clone();
     clone.owner = owner;
     clone.nameToAudit = new HashMap<>();
-    for (final HashMap.Entry<QName,ElementAudit<?>> entry : nameToAudit.entrySet()) {
+    for (final HashMap.Entry<QName,ElementAudit<?>> entry : nameToAudit.entrySet()) { // [S]
       final ElementAudit<?> copy = new ElementAudit<>(owner, entry.getValue(), (ElementCompositeList.ElementComponentList)clone.getOrCreateComponentList(entry.getValue().getName()));
       clone.nameToAudit.put(entry.getKey(), copy);
     }

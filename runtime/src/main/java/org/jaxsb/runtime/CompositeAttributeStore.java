@@ -24,7 +24,7 @@ import org.jaxsb.runtime.Binding.PrefixToNamespace;
 import org.libj.util.DelegateList;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
-public class CompositeAttributeStore extends DelegateList<AttributeAudit<?>> {
+public class CompositeAttributeStore extends DelegateList<AttributeAudit<?>,ArrayList<AttributeAudit<?>>> {
   public CompositeAttributeStore() {
     super(new ArrayList<>());
   }
@@ -68,14 +68,14 @@ public class CompositeAttributeStore extends DelegateList<AttributeAudit<?>> {
 
   public CompositeAttributeStore clone(final $AnySimpleType<?> owner) {
     final CompositeAttributeStore clone = new CompositeAttributeStore();
-    for (final AttributeAudit<?> audit : this)
-      clone.add(audit.clone(owner));
+    for (int i = 0, i$ = this.size(); i < i$; ++i) // [RA]
+      clone.add(get(i).clone(owner));
 
     return clone;
   }
 
   public void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace) {
-    for (final AttributeAudit<?> audit : this)
-      audit.toString(str,prefixToNamespace);
+    for (int i = 0, i$ = this.size(); i < i$; ++i) // [RA]
+      get(i).toString(str,prefixToNamespace);
   }
 }

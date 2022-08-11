@@ -276,7 +276,9 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
   }
 
   private void analyzeUnion(final SimpleTypeModel<?> model) {
-    for (final Model child : model.getChildren()) {
+    final ArrayList<Model> children = model.getChildren();
+    for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
+      final Model child = children.get(i);
       if (child instanceof SimpleTypeModel)
         analyzeUnion((SimpleTypeModel<?>)child);
 
@@ -284,7 +286,7 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
         continue;
 
       isUnion = true;
-      for (final SimpleTypeModel<?> memberType : ((UnionModel)child).getMemberTypes()) {
+      for (final SimpleTypeModel<?> memberType : ((UnionModel)child).getMemberTypes()) { // [C]
         if (memberType.getEnumerations().size() != 0)
           continue;
 

@@ -37,7 +37,7 @@ public final class ElementWrapper extends Model implements Nameable {
   }
 
   private static void asSet(final Collection<? extends MultiplicableModel> multiplicableModels, final LinkedHashMap<? super ElementWrapper,ElementWrapper> elementWrappers, final int min, final int max, final Collection<? super UniqueQName> redefines) {
-    for (MultiplicableModel multiplicableModel : multiplicableModels) {
+    for (MultiplicableModel multiplicableModel : multiplicableModels) { // [C]
       // FIXME: the list used to track redefines seems BAD!!!
       if (multiplicableModel instanceof RedefinableModel && ((RedefinableModel<?>)multiplicableModel).getRedefine() != null && !redefines.contains(((Nameable<?>)multiplicableModel).getName())) {
         multiplicableModel = (MultiplicableModel)((RedefinableModel<?>)multiplicableModel).getRedefine();

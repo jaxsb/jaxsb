@@ -33,7 +33,7 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
     if (models == null || models.size() == 0)
       return;
 
-    for (final Model model : models)
+    for (final Model model : models) // [C]
       if (model != null)
         tailRecurse(pipelineContext, disclose(model, directory), directory);
   }
@@ -62,11 +62,11 @@ public final class NormalizerProcessor implements PipelineProcessor<GeneratorCon
   public Collection<Normalizer<?>> process(final GeneratorContext pipelineContext, final Collection<? extends Model> models, final PipelineDirectory<GeneratorContext,? super Model,Normalizer<?>> directory) {
     int stages = 0;
     final Method[] methods = Normalizer.class.getDeclaredMethods();
-    for (final Method method : methods)
+    for (final Method method : methods) // [A]
       if (method.getName().startsWith("stage"))
         ++stages;
 
-    for (int stage = 0; stage < stages; ++stage) {
+    for (int stage = 0; stage < stages; ++stage) { // [N]
       this.stage = stage;
       tailRecurse(pipelineContext, models, directory);
     }

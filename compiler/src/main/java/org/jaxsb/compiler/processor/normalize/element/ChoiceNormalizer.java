@@ -42,7 +42,7 @@ public final class ChoiceNormalizer extends Normalizer<ChoiceModel> {
 
   @Override
   protected void stage4(final ChoiceModel model) {
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof ElementableModel && (!(parent instanceof Nameable) || ((Nameable<?>)parent).getName() != null)) {
         ((ElementableModel)parent).addMultiplicableModel(model);
         break;

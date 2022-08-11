@@ -16,6 +16,7 @@
 
 package org.jaxsb.compiler.processor.normalize.element;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -129,7 +130,9 @@ public final class ElementNormalizer extends Normalizer<ElementModel> {
     }
 
     boolean def = false;
-    for (final Model child : model.getChildren()) {
+    final ArrayList<Model> children = model.getChildren();
+    for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
+      final Model child = children.get(i);
       if (child instanceof SimpleTypeModel) {
         def = true;
         break;

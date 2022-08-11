@@ -18,7 +18,6 @@ package org.jaxsb.compiler.processor.model;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public abstract class Model implements PipelineEntity {
 
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private final Collection<Model> children = new ArrayList<>();
+  private final ArrayList<Model> children = new ArrayList<>();
   private Map<NamespaceURI,URL> schemaReferences;
 
   private Model parent;
@@ -54,7 +53,7 @@ public abstract class Model implements PipelineEntity {
   protected Model(final Node node, final Model parent) {
     if (node != null) {
       final NamedNodeMap attributes = node.getAttributes();
-      for (int i = 0, len = attributes.getLength(); i < len; ++i) {
+      for (int i = 0, i$ = attributes.getLength(); i < i$; ++i) { // [RA]
         final Node attribute = attributes.item(i);
         if ("id".equals(attribute.getLocalName()))
           id = attribute.getNodeValue();
@@ -113,7 +112,7 @@ public abstract class Model implements PipelineEntity {
     return next;
   }
 
-  public final Collection<Model> getChildren() {
+  public final ArrayList<Model> getChildren() {
     return children;
   }
 

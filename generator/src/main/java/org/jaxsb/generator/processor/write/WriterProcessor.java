@@ -87,11 +87,11 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
     if (plans == null || plans.size() == 0)
       return;
 
-    for (final Plan<?> plan : plans)
+    for (final Plan<?> plan : plans) // [C]
       if (plan != null)
         tailRecurse(pipelineContext, disclose(pipelineContext, plan, directory), directory);
 
-    for (final Plan<?> plan : plans)
+    for (final Plan<?> plan : plans) // [C]
       if (plan != null)
         ((Writer)root).closeFile(plan, pipelineContext.getDestDir());
   }

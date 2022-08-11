@@ -51,7 +51,7 @@ public final class ComplexTypeNormalizer extends Normalizer<ComplexTypeModel<?>>
 
   @Override
   protected void stage2(final ComplexTypeModel<?> model) {
-    for (Model parent = model; (parent = parent.getParent()) != null;) {
+    for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof ElementModel && parent instanceof Nameable && ((Nameable<?>)parent).getName() != null) {
         ((ElementModel)parent).setExtension(true);
         break;
