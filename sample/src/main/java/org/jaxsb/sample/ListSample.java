@@ -41,7 +41,7 @@ public class ListSample {
 
     final List<String> workDays = staffType.getWorkDays().text();
     logger.info("Work Days: " + name);
-    for (final String workDay : workDays)
+    for (final String workDay : workDays) // [L]
       logger.info("\t" + workDay);
   }
 
@@ -50,7 +50,7 @@ public class ListSample {
     final Roster roster = (Roster)Bindings.parse(url);
     if (roster.getEmployees() != null) {
       final List<$EmployeeType> employees = roster.getEmployees(0).getEmployee();
-      for (final $EmployeeType employee : employees) {
+      for (final $EmployeeType employee : employees) { // [L]
         printCommon(employee);
 
         final String position = employee.getPosition().text();
@@ -58,7 +58,7 @@ public class ListSample {
 
         final List<Date> vacationDates = employee.getVacationDates().text();
         logger.info("Vacation Dates:");
-        for (final Date vacationDate : vacationDates)
+        for (final Date vacationDate : vacationDates) // [L]
           logger.info("\t" + vacationDate);
       }
 
@@ -72,12 +72,12 @@ public class ListSample {
 
     if (roster.getVolunteers() != null) {
       final List<$VolunteerType> volunteers = roster.getVolunteers(0).getVolunteer();
-      for (final $VolunteerType volunteer : volunteers) {
+      for (final $VolunteerType volunteer : volunteers) { // [L]
         printCommon(volunteer);
 
         final List<Time> breakTimes = volunteer.getBreakTimes().text();
         logger.info("Break Times:");
-        for (final Time breakTime : breakTimes)
+        for (final Time breakTime : breakTimes) // [L]
           logger.info("\t" + breakTime);
       }
 

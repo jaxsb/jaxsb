@@ -38,7 +38,7 @@ public class SubstitutionGroupSample {
     final URL url = getClass().getResource("/substitutionGroup.xml");
     final StockList stockList = (StockList)Bindings.parse(url);
     final List<$ProductType> products = stockList.getSgProduct();
-    for (final $ProductType product : products) {
+    for (final $ProductType product : products) { // [L]
       if (product instanceof Shirt) {
         final Shirt shirt = (Shirt)product;
         System.out.println("There are " + shirt.getAmount().text() + " of '" + shirt.getName().text() + "' shirts colored " + shirt.getColor().text() + ", size " + shirt.getSize().text());

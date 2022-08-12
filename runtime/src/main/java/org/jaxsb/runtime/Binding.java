@@ -216,7 +216,7 @@ public abstract class Binding extends AbstractBinding {
 
         Method method = null;
         final Method[] methods = xsiBinding.getDeclaredMethods();
-        for (int i = 0; i < methods.length; ++i) { // [A]
+        for (int i = 0, i$ = methods.length; i < i$; ++i) { // [A]
           if ("newInstance".equals(methods[i].getName())) {
             method = methods[i];
             break;
@@ -284,7 +284,7 @@ public abstract class Binding extends AbstractBinding {
 
     boolean legalInheritance = false;
     final Constructor<?>[] constructors = _$$inheritsInstance().getClass().getDeclaredConstructors();
-    for (int i = 0; i < constructors.length; ++i) { // [A]
+    for (int i = 0, i$ = constructors.length; i < i$; ++i) { // [A]
       if (constructors[i].getParameterTypes().length > 0 && constructors[i].getParameterTypes()[0].isAssignableFrom(getClass())) {
         legalInheritance = true;
         break;

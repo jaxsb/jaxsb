@@ -76,7 +76,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
     final File[] sources = new File[documents.size()];
     final Iterator<? extends SchemaComposite> iterator = documents.iterator();
-    for (int i = 0; i < sources.length; ++i) // [A]
+    for (int i = 0, i$ = sources.length; i < i$; ++i) // [A]
       // FIXME: This is duplicated in SchemaReferenceProcessor[62]
       sources[i] = new File(sourceDir, ((SchemaModelComposite)iterator.next()).getSchemaModel().getTargetNamespace().getNamespaceBinding().getClassName().replace('.', File.separatorChar) + ".java");
 

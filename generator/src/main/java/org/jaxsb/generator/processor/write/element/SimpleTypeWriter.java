@@ -230,7 +230,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       writer.write("if (text() == null)\n");
       writer.write("return null;\n");
       writer.write("final int[] ordinals = new int[text().size()];\n");
-      writer.write("for (int i = 0; i < ordinals.length; ++i) { // [A]\n");
+      writer.write("for (int i = 0, i$ = ordinals.length; i < i$; ++i) { // [A]\n");
       writer.write("final " + (hasSuperEnumerations ? ((ExtensiblePlan)plan).getSuperClassNameWithoutGenericType() + "." : "") + "Enum enm = Enum.values().get(text().get(i));\n");
       writer.write("ordinals[i] = Enum.values().get(text().get(i)).ordinal();\n");
       writer.write("}\n");

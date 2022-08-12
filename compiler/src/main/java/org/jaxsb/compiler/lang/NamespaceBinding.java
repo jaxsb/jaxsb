@@ -294,7 +294,7 @@ public final class NamespaceBinding {
 
     final StringBuilder preparedSource = new StringBuilder(source);
     int count = 0;
-    for (int i = 0; i < source.length(); ++i) { // [N]
+    for (int i = 0, i$ = source.length(); i < i$; ++i) { // [N]
       if (preparedSource.charAt(i) == '_' && i > 0 && preparedSource.charAt(i - 1) != '/' && preparedSource.charAt(i - 1) != '.')
         preparedSource.setCharAt(i, ':');
       else if (preparedSource.charAt(i) == '/' && ++count < 3)

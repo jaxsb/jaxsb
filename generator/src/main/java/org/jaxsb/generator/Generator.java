@@ -69,7 +69,7 @@ public final class Generator extends AbstractGenerator {
     boolean skipXsd = false;
     File destDir = null;
     final Collection<SchemaReference> schemas = new HashSet<>();
-    for (int i = 0; i < args.length; ++i) { // [A]
+    for (int i = 0, i$ = args.length; i < i$; ++i) { // [A]
       if ("--overwrite".equals(args[i]))
         overwrite = true;
       else if ("--compile".equals(args[i]))

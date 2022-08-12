@@ -19,6 +19,7 @@ package org.jaxsb.tutorial;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 
 import org.jaxsb.runtime.Bindings;
 import org.jaxsb.www.tutorial.invoice.xAA.$ItemType;
@@ -68,7 +69,11 @@ public class ParseHowTo {
     System.out.println(shippingCountry + ".");
 
     System.out.println("The following items are included in this invoice:");
-    for (final $ItemType item : invoice.getBilledItems().getItem()) {
+
+    final List<$ItemType> items = invoice.getBilledItems().getItem();
+    for (int i = 0, i$ = items.size(); i < i$; ++i) { // [RA]
+      final $ItemType item = items.get(i);
+
       final Number quantity = item.getQuantity().text();
       System.out.print(quantity + " ");
 

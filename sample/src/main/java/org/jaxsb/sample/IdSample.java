@@ -36,7 +36,7 @@ public class IdSample {
     final URL url = getClass().getResource("/id.xml");
     final Directory directory = (Directory)Bindings.parse(url);
     final List<$BookType> books = directory.getBook();
-    for (final $BookType book : books) {
+    for (final $BookType book : books) { // [L]
       final String shortName = book.getAuthor().text();
       final Directory.Author.Id$ authorId = Directory.Author.Id$.lookupId(shortName);
       final Directory.Author author = (Directory.Author)authorId.owner();
@@ -45,7 +45,7 @@ public class IdSample {
         final $IDREFS coAuthors = book.getCo$_authors();
         if (coAuthors.text() != null) {
           final StringBuilder builder = new StringBuilder();
-          for (final Object coAuthorIdString : coAuthors.text()) {
+          for (final Object coAuthorIdString : coAuthors.text()) { // [L]
             final Directory.Author.Id$ coAuthorId = Directory.Author.Id$.lookupId((String)coAuthorIdString);
             final Directory.Author coAuthor = (Directory.Author)coAuthorId.owner();
             builder.append(", ").append(coAuthor.getName().text());
