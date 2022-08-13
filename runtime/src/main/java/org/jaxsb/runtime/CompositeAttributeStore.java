@@ -21,10 +21,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.jaxsb.runtime.Binding.PrefixToNamespace;
-import org.libj.util.DelegateList;
+import org.libj.util.DelegateRandomAccessList;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
-public class CompositeAttributeStore extends DelegateList<AttributeAudit<?>,ArrayList<AttributeAudit<?>>> {
+public class CompositeAttributeStore extends DelegateRandomAccessList<AttributeAudit<?>,ArrayList<AttributeAudit<?>>> {
   public CompositeAttributeStore() {
     super(new ArrayList<>());
   }
