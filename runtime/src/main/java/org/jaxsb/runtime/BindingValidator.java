@@ -77,13 +77,11 @@ public final class BindingValidator extends Validator {
 
   private static final class BindingXmlCatalog extends XmlCatalog {
     /**
-     * Creates a new {@link BindingXmlCatalog} with the specified {@link URL}
-     * and {@link CachedInputSource}.
+     * Creates a new {@link BindingXmlCatalog} with the specified {@link URL} and {@link CachedInputSource}.
      *
      * @param location The {@link URL}.
      * @param inputSource The {@link CachedInputSource}.
-     * @throws IllegalArgumentException If the specified {@link URL} or
-     *           {@link CachedInputSource} is null.
+     * @throws IllegalArgumentException If the specified {@link URL} or {@link CachedInputSource} is null.
      */
     private BindingXmlCatalog(final URL location, final CachedInputSource inputSource) {
       super(location, inputSource);

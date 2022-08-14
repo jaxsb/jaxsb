@@ -213,12 +213,10 @@ public final class XMLSchema {
       }
 
       /**
-       * Returns a string representation of the encoded value of this binding,
-       * corresponding to the provided parent {@link Element}.
+       * Returns a string representation of the encoded value of this binding, corresponding to the provided parent {@link Element}.
        *
        * @param parent The parent {@link Element}.
-       * @return A string representation of the encoded value of this binding,
-       *         corresponding to the provided parent {@link Element}.
+       * @return A string representation of the encoded value of this binding, corresponding to the provided parent {@link Element}.
        * @throws MarshalException If a marshal exception has occurred.
        */
       protected String _$$encode(final Element parent) throws MarshalException {
@@ -569,9 +567,8 @@ public final class XMLSchema {
       }
 
       /**
-       * Allocates a {@link Date} object and initializes it so that it
-       * represents the time at which it was allocated. Milliseconds are
-       * <b>NOT</b> significant figures and are not represented.
+       * Allocates a {@link Date} object and initializes it so that it represents the time at which it was allocated. Milliseconds
+       * are <b>NOT</b> significant figures and are not represented.
        *
        * @see System#currentTimeMillis()
        */
@@ -618,88 +615,72 @@ public final class XMLSchema {
       }
 
       /**
-       * Returns the text of this node as a {@link Byte}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Byte}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Byte}.
+       * @return The numeric value represented by this node after conversion to type {@link Byte}.
        */
       public Byte byteValue() {
         return text() == null ? null : text().byteValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Short}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Short}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@code short}.
+       * @return The numeric value represented by this node after conversion to type {@code short}.
        */
       public Short textAsShort() {
         return text() == null ? null : text().shortValue();
       }
 
       /**
-       * Returns the text of this node as an {@link Integer}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as an {@link Integer}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Integer}.
+       * @return The numeric value represented by this node after conversion to type {@link Integer}.
        */
       public Integer textAsInteger() {
         return text() == null ? null : text().intValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Long}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Long}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Long}.
+       * @return The numeric value represented by this node after conversion to type {@link Long}.
        */
       public Long textAsLong() {
         return text() == null ? null : text().longValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Float}, which may involve
-       * rounding.
+       * Returns the text of this node as a {@link Float}, which may involve rounding.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Float}.
+       * @return The numeric value represented by this node after conversion to type {@link Float}.
        */
       public Float textAsFloat() {
         return text() == null ? null : text().floatValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Double}, which may involve
-       * rounding.
+       * Returns the text of this node as a {@link Double}, which may involve rounding.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Double}.
+       * @return The numeric value represented by this node after conversion to type {@link Double}.
        */
       public Double textAsDouble() {
         return text() == null ? null : text().doubleValue();
       }
 
       /**
-       * Returns the text of this node as a {@link BigInteger}, which may
-       * involve rounding or truncation.
+       * Returns the text of this node as a {@link BigInteger}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link BigInteger}.
+       * @return The numeric value represented by this node after conversion to type {@link BigInteger}.
        */
       public BigInteger textAsBigInteger() {
         return ((BigDecimal)text()).toBigInteger();
       }
 
       /**
-       * Returns the text of this node as a {@link BigDecimal}, which may
-       * involve rounding or truncation.
+       * Returns the text of this node as a {@link BigDecimal}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link BigDecimal}.
+       * @return The numeric value represented by this node after conversion to type {@link BigDecimal}.
        */
       public BigDecimal textAsBigDecimal() {
         return (BigDecimal)text();
@@ -741,88 +722,72 @@ public final class XMLSchema {
       }
 
       /**
-       * Returns the text of this node as a {@link Byte}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Byte}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Byte}.
+       * @return The numeric value represented by this node after conversion to type {@link Byte}.
        */
       public Byte byteValue() {
         return text() == null ? null : text().byteValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Short}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Short}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@code short}.
+       * @return The numeric value represented by this node after conversion to type {@code short}.
        */
       public Short textAsShort() {
         return text() == null ? null : text().shortValue();
       }
 
       /**
-       * Returns the text of this node as an {@link Integer}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as an {@link Integer}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Integer}.
+       * @return The numeric value represented by this node after conversion to type {@link Integer}.
        */
       public Integer textAsInteger() {
         return text() == null ? null : text().intValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Long}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Long}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Long}.
+       * @return The numeric value represented by this node after conversion to type {@link Long}.
        */
       public Long textAsLong() {
         return text() == null ? null : text().longValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Float}, which may involve
-       * rounding.
+       * Returns the text of this node as a {@link Float}, which may involve rounding.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Float}.
+       * @return The numeric value represented by this node after conversion to type {@link Float}.
        */
       public Float textAsFloat() {
         return text() == null ? null : text().floatValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Double}, which may involve
-       * rounding.
+       * Returns the text of this node as a {@link Double}, which may involve rounding.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Double}.
+       * @return The numeric value represented by this node after conversion to type {@link Double}.
        */
       public Double textAsDouble() {
         return text() == null ? null : text().doubleValue();
       }
 
       /**
-       * Returns the text of this node as a {@link BigInteger}, which may
-       * involve rounding or truncation.
+       * Returns the text of this node as a {@link BigInteger}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link BigInteger}.
+       * @return The numeric value represented by this node after conversion to type {@link BigInteger}.
        */
       public BigInteger textAsBigInteger() {
         return text() == null ? null : BigInteger.valueOf(text().longValue());
       }
 
       /**
-       * Returns the text of this node as a {@link BigDecimal}, which may
-       * involve rounding or truncation.
+       * Returns the text of this node as a {@link BigDecimal}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link BigDecimal}.
+       * @return The numeric value represented by this node after conversion to type {@link BigDecimal}.
        */
       public BigDecimal textAsBigDecimal() {
         return text() == null ? null : BigDecimal.valueOf(text());
@@ -965,88 +930,72 @@ public final class XMLSchema {
       }
 
       /**
-       * Returns the text of this node as a {@link Byte}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Byte}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Byte}.
+       * @return The numeric value represented by this node after conversion to type {@link Byte}.
        */
       public Byte byteValue() {
         return text() == null ? null : text().byteValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Short}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Short}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@code short}.
+       * @return The numeric value represented by this node after conversion to type {@code short}.
        */
       public Short textAsShort() {
         return text() == null ? null : text().shortValue();
       }
 
       /**
-       * Returns the text of this node as an {@link Integer}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as an {@link Integer}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Integer}.
+       * @return The numeric value represented by this node after conversion to type {@link Integer}.
        */
       public Integer textAsInteger() {
         return text() == null ? null : text().intValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Long}, which may involve
-       * rounding or truncation.
+       * Returns the text of this node as a {@link Long}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Long}.
+       * @return The numeric value represented by this node after conversion to type {@link Long}.
        */
       public Long textAsLong() {
         return text() == null ? null : text().longValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Float}, which may involve
-       * rounding.
+       * Returns the text of this node as a {@link Float}, which may involve rounding.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Float}.
+       * @return The numeric value represented by this node after conversion to type {@link Float}.
        */
       public Float textAsFloat() {
         return text() == null ? null : text().floatValue();
       }
 
       /**
-       * Returns the text of this node as a {@link Double}, which may involve
-       * rounding.
+       * Returns the text of this node as a {@link Double}, which may involve rounding.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link Double}.
+       * @return The numeric value represented by this node after conversion to type {@link Double}.
        */
       public Double textAsDouble() {
         return text() == null ? null : text().doubleValue();
       }
 
       /**
-       * Returns the text of this node as a {@link BigInteger}, which may
-       * involve rounding or truncation.
+       * Returns the text of this node as a {@link BigInteger}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link BigInteger}.
+       * @return The numeric value represented by this node after conversion to type {@link BigInteger}.
        */
       public BigInteger textAsBigInteger() {
         return text() == null ? null : BigInteger.valueOf(text().intValue());
       }
 
       /**
-       * Returns the text of this node as a {@link BigDecimal}, which may
-       * involve rounding or truncation.
+       * Returns the text of this node as a {@link BigDecimal}, which may involve rounding or truncation.
        *
-       * @return The numeric value represented by this node after conversion to
-       *         type {@link BigDecimal}.
+       * @return The numeric value represented by this node after conversion to type {@link BigDecimal}.
        */
       public BigDecimal textAsBigDecimal() {
         return text() == null ? null : BigDecimal.valueOf(text());

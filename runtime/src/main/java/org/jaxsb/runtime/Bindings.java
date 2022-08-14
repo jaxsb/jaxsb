@@ -52,8 +52,7 @@ public abstract class Bindings {
    *
    * @param binding {@link Binding} instance to marshal.
    * @return THe {@link Element} DOM object.
-   * @throws MarshalException If the specified binding does not inherit from an
-   *           element of attribute.
+   * @throws MarshalException If the specified binding does not inherit from an element of attribute.
    */
   public static Element marshal(final Binding binding) throws MarshalException {
     if (binding.inherits() == null)
@@ -101,8 +100,7 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an {@link URL} pointing to XML content into an {@link $AnyType}
-   * instance.
+   * Parse an {@link URL} pointing to XML content into an {@link $AnyType} instance.
    *
    * @param url {@link URL} pointing to XML content.
    * @return The {@link $AnyType} instance.
@@ -120,13 +118,11 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an {@link URL} pointing to XML content into an {@link $AnyType}
-   * instance.
+   * Parse an {@link URL} pointing to XML content into an {@link $AnyType} instance.
    *
    * @param url {@link URL} pointing to XML content.
-   * @param errorHandler Specify the {@link ErrorHandler} to be used by the
-   *          parser. Setting this to null will result in the underlying
-   *          implementation using it's own default implementation and behavior.
+   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the
+   *          underlying implementation using it's own default implementation and behavior.
    * @return The {@link $AnyType} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
@@ -162,8 +158,7 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an {@link InputSource} pointing to XML content into an
-   * {@link $AnyType} instance.
+   * Parse an {@link InputSource} pointing to XML content into an {@link $AnyType} instance.
    *
    * @param inputSource {@link InputSource} pointing to XML content.
    * @return The {@link $AnyType} instance.
@@ -181,13 +176,11 @@ public abstract class Bindings {
   }
 
   /**
-   * Parse an {@link InputSource} pointing to XML content into an
-   * {@link $AnyType} instance.
+   * Parse an {@link InputSource} pointing to XML content into an {@link $AnyType} instance.
    *
    * @param inputSource {@link InputSource} pointing to XML content.
-   * @param errorHandler Specify the {@link ErrorHandler} to be used by the
-   *          parser. Setting this to null will result in the underlying
-   *          implementation using it's own default implementation and behavior.
+   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the
+   *          underlying implementation using it's own default implementation and behavior.
    * @return The {@link $AnyType} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.

@@ -517,13 +517,12 @@ public abstract class Binding extends AbstractBinding {
   }
 
   /**
-   * Returns a new {@link Attr} representing the marshaled attribute of the
-   * specified name, corresponding to the provided parent {@link Element}.
+   * Returns a new {@link Attr} representing the marshaled attribute of the specified name, corresponding to the provided parent
+   * {@link Element}.
    *
    * @param name The name of the attribute.
    * @param parent The parent {@link Element} of the attribute.
-   * @return A new {@link Attr} representing the marshaled attribute of the
-   *         specified name, corresponding to the provided parent
+   * @return A new {@link Attr} representing the marshaled attribute of the specified name, corresponding to the provided parent
    *         {@link Element}.
    * @throws MarshalException If a marshal exception has occurred.
    */
@@ -532,16 +531,14 @@ public abstract class Binding extends AbstractBinding {
   }
 
   /**
-   * Returns a new {@link Element} representing the marshaled element of the
-   * specified name and type, corresponding to the provided parent
-   * {@link Element}.
+   * Returns a new {@link Element} representing the marshaled element of the specified name and type, corresponding to the provided
+   * parent {@link Element}.
    *
    * @param parent The parent {@link Element}.
    * @param name The name of the element.
    * @param type The type name of the element.
-   * @return A new {@link Element} representing the marshaled element of the
-   *         specified name and type, corresponding to the provided parent
-   *         {@link Element}.
+   * @return A new {@link Element} representing the marshaled element of the specified name and type, corresponding to the provided
+   *         parent {@link Element}.
    * @throws MarshalException If a marshal exception has occurred.
    */
   protected Element marshal(final Element parent, QName name, final QName type) throws MarshalException {
@@ -594,8 +591,7 @@ public abstract class Binding extends AbstractBinding {
    * Parse the specified {@link Element}.
    *
    * @param element The {@link Element}.
-   * @return {@code true} if the specified {@link Element} was parsed
-   *         successfully, otherwise {@code false}.
+   * @return {@code true} if the specified {@link Element} was parsed successfully, otherwise {@code false}.
    * @throws ValidationException If a validation error has occurred.
    */
   protected boolean parseElement(final Element element) throws ValidationException {
@@ -606,8 +602,7 @@ public abstract class Binding extends AbstractBinding {
    * Parse the specified {@link Attr}.
    *
    * @param attribute The {@link Attr}.
-   * @return {@code true} if the specified {@link Attr} was parsed successfully,
-   *         otherwise {@code false}.
+   * @return {@code true} if the specified {@link Attr} was parsed successfully, otherwise {@code false}.
    */
   protected boolean parseAttribute(final Attr attribute) {
     return false;
