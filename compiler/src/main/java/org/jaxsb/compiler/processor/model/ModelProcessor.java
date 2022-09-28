@@ -19,6 +19,7 @@ package org.jaxsb.compiler.processor.model;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.jaxsb.compiler.lang.LexerFailureException;
 import org.jaxsb.compiler.lang.NamespaceURI;
@@ -36,10 +37,13 @@ import org.w3c.dom.NodeList;
 public final class ModelProcessor implements PipelineProcessor<GeneratorContext,SchemaComposite,Model> {
   @Override
   public Collection<Model> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaComposite> documents, final PipelineDirectory<GeneratorContext,? super SchemaComposite,Model> directory) {
+    final int i$ = documents.size();
+    if (i$ == 0)
+      return Collections.EMPTY_LIST;
+
     final Model root = new Model(null, null) {};
     // Then we parse all of the schemas that have been included and imported
-    final ArrayList<Model> schemaModels = new ArrayList<>();
-
+    final ArrayList<Model> schemaModels = new ArrayList<>(i$);
     for (final SchemaComposite schemaComposite : documents) { // [C]
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final SchemaDocument schemaDocument = schemaModelComposite.getSchemaDocument();

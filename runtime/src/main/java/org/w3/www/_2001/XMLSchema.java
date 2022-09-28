@@ -36,6 +36,7 @@ import org.jaxsb.runtime.AnyAttribute;
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.NotationType;
+import org.libj.lang.Strings;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.datatype.Base64Binary;
 import org.openjax.xml.datatype.Date;
@@ -85,7 +86,7 @@ public final class XMLSchema {
   }
 
   private static List<String> decodeAsList(final String value) {
-    return value == null ? null : Arrays.asList(value.split(" "));
+    return value == null ? null : Arrays.asList(Strings.split(value, ' '));
   }
 
   public static final class yAA {

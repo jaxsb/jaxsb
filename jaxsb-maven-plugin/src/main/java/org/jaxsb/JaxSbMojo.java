@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.RandomAccess;
 import java.util.Set;
 
 import org.apache.maven.model.Resource;
@@ -57,15 +58,20 @@ public class JaxSbMojo extends GeneratorMojo {
   // Contains all source paths for all executions of the generator in the single VM, such
   // that subsequent executions have a reference to the source paths of previous executions
   // so as to allow for bindings of excluded namespaces to be generated in prior executions
-  private static final Set<File> sourcePath = new HashSet<>();
+  private static final HashSet<File> sourcePath = new HashSet<>();
 
   private static Set<NamespaceURI> buildNamespaceSet(final List<String> list) {
-    if (list == null || list.size() == 0)
+    final int i$;
+    if (list == null || (i$ = list.size()) == 0)
       return null;
 
-    final Set<NamespaceURI> set = new HashSet<>();
-    for (final String item : list) // [L]
-      set.add(NamespaceURI.getInstance(item));
+    final HashSet<NamespaceURI> set = new HashSet<>(i$);
+    if (list instanceof RandomAccess)
+      for (int i = 0; i < i$; ++i)// [RA]
+        set.add(NamespaceURI.getInstance(list.get(i)));
+    else
+      for (final String item : list) // [L]
+        set.add(NamespaceURI.getInstance(item));
 
     return set;
   }
@@ -77,8 +83,9 @@ public class JaxSbMojo extends GeneratorMojo {
   @Override
   public void execute(final Configuration configuration) throws MojoExecutionException, MojoFailureException {
     final Collection<SchemaReference> generatorBindings = new ArrayList<>();
-    for (final String schema : new LinkedHashSet<>(schemas)) // [S]
-      generatorBindings.add(new SchemaReference(URLs.create(schema), false));
+    if (schemas.size() > 0)
+      for (final String schema : new LinkedHashSet<>(schemas)) // [S]
+        generatorBindings.add(new SchemaReference(URLs.create(schema), false));
 
     final Set<NamespaceURI> includes = buildNamespaceSet(this.includes);
     final Set<NamespaceURI> excludes = buildNamespaceSet(this.excludes);

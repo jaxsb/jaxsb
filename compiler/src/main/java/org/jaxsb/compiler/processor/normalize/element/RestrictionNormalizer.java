@@ -17,6 +17,7 @@
 package org.jaxsb.compiler.processor.normalize.element;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import org.jaxsb.compiler.lang.LexerFailureException;
 import org.jaxsb.compiler.lang.UniqueQName;
@@ -233,10 +234,13 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
       return null;
 
     // FIXME: Can I equate on just the localName of the QName???
-    if (typeModel instanceof ComplexTypeModel)
-      for (final AttributeModel attribute : ((AttributableModel)typeModel).getAttributes()) // [S]
-        if (name.getLocalPart().equals(attribute.getName().getLocalPart()))
-          return new RestrictionPair<>(attribute, typeModel);
+    if (typeModel instanceof ComplexTypeModel) {
+      final LinkedHashSet<AttributeModel> attributes = ((AttributableModel)typeModel).getAttributes();
+      if (attributes.size() > 0)
+        for (final AttributeModel attribute : attributes) // [S]
+          if (name.getLocalPart().equals(attribute.getName().getLocalPart()))
+            return new RestrictionPair<>(attribute, typeModel);
+    }
 
     return findBaseAttribute(name, typeModel.getSuperType());
   }
@@ -244,12 +248,9 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
   private static void findChildElements(final ArrayList<? super ElementModel> elements, final ArrayList<? extends Model> children) {
     for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
       final Model model = children.get(i);
-      if (model instanceof ElementModel) {
+      if (model instanceof ElementModel)
         elements.add((ElementModel)model);
-        continue;
-      }
-
-      if (model instanceof MultiplicableModel)
+      else if (model instanceof MultiplicableModel)
         findChildElements(elements, model.getChildren());
     }
   }

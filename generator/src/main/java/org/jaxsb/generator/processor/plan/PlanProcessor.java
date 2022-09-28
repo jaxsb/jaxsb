@@ -20,6 +20,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.jaxsb.compiler.pipeline.PipelineDirectory;
 import org.jaxsb.compiler.pipeline.PipelineProcessor;
@@ -35,6 +36,9 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
 
   @Override
   public Collection<Plan<?>> process(final GeneratorContext pipelineContext, final Collection<? extends Model> documents, final PipelineDirectory<GeneratorContext,? super Model,Plan<?>> directory) {
+    if (documents.size() == 0)
+      return Collections.EMPTY_LIST;
+
     final Plan<?> root = new Plan<Model>(null, null) {};
     final ArrayList<Plan<?>> plans = new ArrayList<>();
     for (final Model model : documents) { // [C]

@@ -38,8 +38,9 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
 
   public static <A extends Plan<?>>LinkedHashSet<A> analyze(final Collection<? extends Model> models, final Plan<?> owner) {
     final LinkedHashSet<A> plans;
-    if (models != null && models.size() != 0) {
-      plans = new LinkedHashSet<>(models.size());
+    final int i$;
+    if (models != null && (i$ = models.size()) != 0) {
+      plans = new LinkedHashSet<>(i$);
       for (final Object model : models) { // [C]
         // If there is a name conflict with a parent type, then skip
         // adding this in duplicate. Otherwise there will be conflicts

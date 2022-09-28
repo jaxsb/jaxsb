@@ -18,6 +18,7 @@ package org.jaxsb.compiler.processor.composite;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.jaxsb.compiler.pipeline.PipelineDirectory;
 import org.jaxsb.compiler.pipeline.PipelineEntity;
@@ -28,7 +29,11 @@ import org.jaxsb.compiler.processor.document.SchemaDocument;
 public final class SchemaCompositeProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaDocument,SchemaComposite> {
   @Override
   public Collection<SchemaComposite> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaDocument> documents, final PipelineDirectory<GeneratorContext,? super SchemaDocument,SchemaComposite> directory) {
-    final ArrayList<SchemaComposite> selectors = new ArrayList<>();
+    final int i$ = documents.size();
+    if (i$ == 0)
+      return Collections.EMPTY_LIST;
+
+    final ArrayList<SchemaComposite> selectors = new ArrayList<>(i$);
     for (final SchemaDocument document : documents) // [C]
       selectors.add(new SchemaModelComposite(document));
 

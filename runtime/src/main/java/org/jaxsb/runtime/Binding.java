@@ -119,8 +119,9 @@ public abstract class Binding extends AbstractBinding {
     @Override
     public String toString() {
       final StringBuilder str = new StringBuilder();
-      for (final Map.Entry<String,String> entry : entrySet()) // [S]
-        str.append(" xmlns:").append(entry.getKey()).append("=\"").append(entry.getValue()).append('"');
+      if (size() > 0)
+        for (final Map.Entry<String,String> entry : entrySet()) // [S]
+          str.append(" xmlns:").append(entry.getKey()).append("=\"").append(entry.getValue()).append('"');
 
       return str.toString();
     }

@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import org.jaxsb.compiler.lang.LexerFailureException;
@@ -39,6 +40,9 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
     final File destDir = pipelineContext.getDestDir();
     if (logger.isDebugEnabled())
       logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
+
+    if (schemaReferences.size() == 0)
+      return Collections.EMPTY_LIST;
 
     final LinkedHashSet<SchemaReference> selectedSchemas = new LinkedHashSet<>(3);
     try {

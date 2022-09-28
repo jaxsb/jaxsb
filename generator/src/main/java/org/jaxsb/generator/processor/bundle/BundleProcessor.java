@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -89,8 +90,11 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
   @SuppressWarnings("resource")
   private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<? extends SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes, final boolean skipXsd) throws IOException, SAXException {
+    if (schemaComposites.size() == 0)
+      return Collections.EMPTY_LIST;
+
     final Set<NamespaceURI> namespaceURIsAdded = new HashSet<>();
-    final Collection<File> jarFiles = new HashSet<>();
+    final HashSet<File> jarFiles = new HashSet<>();
 
     for (final SchemaComposite schemaComposite : schemaComposites) { // [C]
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
@@ -216,8 +220,9 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
       final Collection<Bundle> bundles = new ArrayList<>();
       final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes(), skipXsd);
-      for (final File jarFile : jarFiles) // [C]
-        bundles.add(new Bundle(jarFile));
+      if (jarFiles.size() > 0)
+        for (final File jarFile : jarFiles) // [C]
+          bundles.add(new Bundle(jarFile));
 
       return bundles;
     }

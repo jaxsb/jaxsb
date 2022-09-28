@@ -212,10 +212,10 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.isNillable())
       writer.write("private " + Boolean.class.getName() + " nil = null;\n");
 
-    for (final AttributePlan attribute : plan.getAttributes()) // [S]
+    for (final AttributePlan attribute : plan.getAttributes()) // [S!]
       Writer.writeDeclaration(writer, attribute, plan);
 
-    for (final ElementPlan element : plan.getElements()) // [S]
+    for (final ElementPlan element : plan.getElements()) // [S!]
       Writer.writeDeclaration(writer, element, plan);
 
     // ENUMERATIONS CONSTRUCTOR
@@ -237,9 +237,9 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
 
       if (plan.getMixed() != null && plan.getMixed())
         writer.write("this.text = binding.text;\n");
-      for (final AttributePlan attribute : plan.getAttributes()) // [S]
+      for (final AttributePlan attribute : plan.getAttributes()) // [S!]
         Writer.writeCopy(writer, attribute, plan, "binding");
-      for (final ElementPlan element : plan.getElements()) // [S]
+      for (final ElementPlan element : plan.getElements()) // [S!]
         Writer.writeCopy(writer, element, plan, "binding");
     }
     writer.write("}\n");
@@ -253,7 +253,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     }
     writer.write(plan.getClassSimpleName() + "() {\n");
     writer.write("super();\n");
-    for (final Object attribute : plan.getAttributes()) // [S]
+    for (final Object attribute : plan.getAttributes()) // [S!]
       writer.write(((AttributePlan)attribute).getFixedInstanceCall(plan));
     writer.write("}\n");
 
@@ -398,12 +398,12 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     if (plan.writeNativeConstructor())
       getNativeConstructors(writer, plan);
 
-    for (final AttributePlan attribute : plan.getAttributes()) { // [S]
+    for (final AttributePlan attribute : plan.getAttributes()) { // [S!]
       Writer.writeSetMethod(writer, attribute, plan);
       Writer.writeGetMethod(writer, attribute, plan);
     }
 
-    for (final ElementPlan element : plan.getElements()) { // [S]
+    for (final ElementPlan element : plan.getElements()) { // [S!]
       Writer.writeSetMethod(writer, element, plan);
       Writer.writeGetMethod(writer, element, plan);
     }
@@ -511,7 +511,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
         writer.write("node.appendChild(node.getOwnerDocument().createTextNode(text));\n");
       }
 
-      for (final AttributePlan attribute : plan.getAttributes()) // [S]
+      for (final AttributePlan attribute : plan.getAttributes()) // [S!]
         Writer.writeMarshal(writer, attribute, plan);
     }
 
@@ -526,7 +526,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("return true;\n");
       writer.write("}\n");
       AttributePlan any = null;
-      for (final AttributePlan attribute : plan.getAttributes()) { // [S]
+      for (final AttributePlan attribute : plan.getAttributes()) { // [S!]
         if (attribute instanceof AnyAttributePlan)
           any = attribute;
         else
@@ -568,7 +568,7 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       }
 
       ElementPlan any = null;
-      for (final ElementPlan element : plan.getElements()) { // [S]
+      for (final ElementPlan element : plan.getElements()) { // [S!]
         if (element instanceof AnyPlan)
           any = element;
         else
@@ -642,9 +642,9 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
         writer.write("if (text != null ? !text.equals(that.text) : that.text != null)\n");
         writer.write("return _$$failEquals();\n");
       }
-      for (final AttributePlan attribute : plan.getAttributes()) // [S]
+      for (final AttributePlan attribute : plan.getAttributes()) // [S!]
         Writer.writeEquals(writer, attribute, plan);
-      for (final ElementPlan element : plan.getElements()) // [S]
+      for (final ElementPlan element : plan.getElements()) // [S!]
         Writer.writeEquals(writer, element, plan);
     }
 
@@ -662,19 +662,19 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
       writer.write("if (text != null)\n");
       writer.write("hashCode = 31 * hashCode + text.hashCode();\n");
     }
-    for (final AttributePlan attribute : plan.getAttributes()) // [S]
+    for (final AttributePlan attribute : plan.getAttributes()) // [S!]
       Writer.writeHashCode(writer, attribute, plan);
-    for (final ElementPlan element : plan.getElements()) // [S]
+    for (final ElementPlan element : plan.getElements()) // [S!]
       Writer.writeHashCode(writer, element, plan);
     writer.write("return hashCode;\n");
     writer.write("}\n");
 
     // ATTRIBUTES
-    for (final AttributePlan attribute : plan.getAttributes()) // [S]
+    for (final AttributePlan attribute : plan.getAttributes()) // [S!]
       Writer.writeClass(writer, attribute, plan);
 
     // ELEMENTS
-    for (final ElementPlan element : plan.getElements()) // [S]
+    for (final ElementPlan element : plan.getElements()) // [S!]
       Writer.writeClass(writer, element, plan);
 
     writer.write("}\n");

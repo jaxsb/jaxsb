@@ -56,14 +56,15 @@ public final class UnionNormalizer extends Normalizer<UnionModel> {
   @Override
   protected void stage2(final UnionModel model) {
     final Collection<SimpleTypeModel<?>> memberTypes = model.getMemberTypes();
-    if (memberTypes != null) {
-      final Collection<SimpleTypeModel<?>> resolvedMemberTypes = new ArrayList<>(memberTypes.size());
+    final int i$;
+    if (memberTypes != null && (i$ = memberTypes.size()) > 0) {
+      final ArrayList<SimpleTypeModel<?>> resolvedMemberTypes = new ArrayList<>(i$);
       for (final SimpleTypeModel<?> memberType : memberTypes) // [C]
         resolvedMemberTypes.add(resolve(memberType));
 
       final ArrayList<Model> children = model.getChildren();
-      for (int i = 0, i$ = children.size(); i < i$; ++i) { // [RA]
-        final Model child = children.get(i);
+      for (int j = 0, j$ = children.size(); j < j$; ++j) { // [RA]
+        final Model child = children.get(j);
         if (child instanceof SimpleTypeModel)
           resolvedMemberTypes.add(resolve((SimpleTypeModel<?>)child));
       }

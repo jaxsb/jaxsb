@@ -123,20 +123,22 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
       schemas.addAll(schemasToGenerate);
     }
 
-    for (final SchemaDocument schema : schemas) { // [S]
-      final ArrayList<URL> includes = includeLoopCheck.get(schema.getSchemaReference().getNamespaceURI());
-      if (includes == null || includes.size() == 0)
-        continue;
+    if (schemas.size() > 0) {
+      for (final SchemaDocument schema : schemas) { // [S]
+        final ArrayList<URL> includes = includeLoopCheck.get(schema.getSchemaReference().getNamespaceURI());
+        if (includes == null || includes.size() == 0)
+          continue;
 
-      final ArrayList<URL> externalIncludes = new ArrayList<>(includes.size());
-      for (int i = 0, i$ = includes.size(); i < i$; ++i) { // [RA]
-        final URL include = includes.get(i);
-        if (!include.equals(schema.getSchemaReference().getURL()))
-          externalIncludes.add(include);
+        final ArrayList<URL> externalIncludes = new ArrayList<>(includes.size());
+        for (int i = 0, i$ = includes.size(); i < i$; ++i) { // [RA]
+          final URL include = includes.get(i);
+          if (!include.equals(schema.getSchemaReference().getURL()))
+            externalIncludes.add(include);
+        }
+
+        if (externalIncludes.size() != 0)
+          schema.setIncludes(externalIncludes);
       }
-
-      if (externalIncludes.size() != 0)
-        schema.setIncludes(externalIncludes);
     }
 
     return schemas;

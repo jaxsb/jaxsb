@@ -286,12 +286,15 @@ public class SimpleTypePlan<T extends SimpleTypeModel<?>> extends AliasPlan<T> i
         continue;
 
       isUnion = true;
-      for (final SimpleTypeModel<?> memberType : ((UnionModel)child).getMemberTypes()) { // [C]
-        if (memberType.getEnumerations().size() != 0)
-          continue;
+      final Collection<SimpleTypeModel<?>> memberTypes = ((UnionModel)child).getMemberTypes();
+      if (memberTypes.size() > 0) {
+        for (final SimpleTypeModel<?> memberType : memberTypes) { // [C]
+          if (memberType.getEnumerations().size() != 0)
+            continue;
 
-        isUnionWithNonEnumeration = true;
-        break;
+          isUnionWithNonEnumeration = true;
+          break;
+        }
       }
     }
   }

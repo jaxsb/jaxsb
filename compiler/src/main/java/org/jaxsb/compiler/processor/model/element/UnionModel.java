@@ -56,8 +56,9 @@ public final class UnionModel extends Model {
 
   public Collection<SimpleTypeModel<?>> getNormalizedMemberTypes() {
     final ArrayList<SimpleTypeModel<?>> allMemberTypes = new ArrayList<>(getMemberTypes());
-    for (final UnionModel union : unions) // [S]
-      allMemberTypes.addAll(union.getNormalizedMemberTypes());
+    if (unions.size() > 0)
+      for (final UnionModel union : unions) // [S]
+        allMemberTypes.addAll(union.getNormalizedMemberTypes());
 
     return allMemberTypes;
   }
