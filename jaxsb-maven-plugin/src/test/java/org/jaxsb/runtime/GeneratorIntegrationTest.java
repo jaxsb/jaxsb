@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 public class GeneratorIntegrationTest {
   private static final Logger logger = LoggerFactory.getLogger(GeneratorIntegrationTest.class);
 
-  private static void assertElementCount(final String description, final List<Binding> expected, final int expectedLength, final BindingList<?> elements) {
+  private static void assertElementCount(final String description, final List<Binding> expected, final int expectedLength, final BindingList<? extends Binding> elements) {
     assertEquals(expectedLength, elements.size());
     final Iterator<? extends Binding> iterator = elements.getOwner().elementIterator();
     for (int i = 0; iterator.hasNext(); ++i) { // [I]

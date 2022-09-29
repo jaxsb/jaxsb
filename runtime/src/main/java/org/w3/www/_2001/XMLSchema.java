@@ -37,6 +37,7 @@ import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.NotationType;
 import org.libj.lang.Strings;
+import org.libj.util.CollectionUtil;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.datatype.Base64Binary;
 import org.openjax.xml.datatype.Date;
@@ -70,16 +71,28 @@ public final class XMLSchema {
     if (!collectionable)
       throw new IllegalArgumentException("Why is this a Collection? The collection logic should be in the appropriate subclass");
 
-    if (((Collection<?>)value).size() == 0)
+    final int size = ((Collection<?>)value).size();
+    if (size == 0)
       return null;
 
     final StringBuilder builder = new StringBuilder();
-    final Iterator<?> iterator = ((Collection<?>)value).iterator();
-    for (int i = 0; iterator.hasNext(); ++i) { // [I]
-      if (i > 0)
-        builder.append(' ');
+    final List<?> list;
+    if (value instanceof List && CollectionUtil.isRandomAccess(list = (List<?>)value)) {
+      for (int i = 0; i < size; ++i) { // [RA]
+        if (i > 0)
+          builder.append(' ');
 
-      builder.append(iterator.next());
+        builder.append(list.get(i));
+      }
+    }
+    else {
+      final Iterator<?> iterator = ((Collection<?>)value).iterator();
+      for (int i = 0; iterator.hasNext(); ++i) { // [I]
+        if (i > 0)
+          builder.append(' ');
+
+        builder.append(iterator.next());
+      }
     }
 
     return builder.toString();

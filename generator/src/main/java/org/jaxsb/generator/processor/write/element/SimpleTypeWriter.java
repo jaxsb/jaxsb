@@ -136,13 +136,13 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     final boolean isNotation = NotationType.class.getName().equals(plan.getNativeItemClassName());
     if (isNotation) {
       writer.write("static {\n");
-      for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations()) // [S!]
+      for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations()) // [S]
         writer.write("lookupElement(new " + QName.class.getName() + "(\"" + enumeration.getValue().getNamespaceURI() + "\", \"" + enumeration.getValue().getLocalPart() + "\"), " + Thread.class.getName() + ".currentThread().getContextClassLoader());\n");
 
       writer.write("}\n");
     }
 
-    for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations()) { // [S!]
+    for (final EnumerationPlan enumeration : ((EnumerablePlan)plan).getEnumerations()) { // [S]
       final String value;
       if (isNotation)
         value = "new " + QName.class.getName() + "(\"" + enumeration.getValue().getNamespaceURI() + "\", \"" + enumeration.getValue().getLocalPart() + "\")";
