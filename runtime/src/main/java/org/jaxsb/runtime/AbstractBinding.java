@@ -22,7 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -31,6 +30,8 @@ import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.libj.lang.PackageLoader;
 import org.libj.lang.PackageNotFoundException;
 import org.libj.net.URLs;
+import org.libj.util.IdentityHashSet;
+import org.libj.util.MultiHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
@@ -45,10 +46,11 @@ public abstract class AbstractBinding implements Cloneable {
   protected static final QName XMLNS = new QName(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns");
   protected static final QName XML = new QName(XMLConstants.XML_NS_URI, "xml");
 
-  private static final Map<QName,Class<? extends $AnySimpleType>> attributeBindings = new HashMap<>();
-  private static final Map<QName,Class<? extends $AnyType>> elementBindings = new HashMap<>();
-  private static final Map<QName,Class<? extends $AnyType>> typeBindings = new HashMap<>();
-  private static final Map<QName,Object> notations = new HashMap<>();
+  private static final MultiHashMap<String,ClassLoader,IdentityHashSet<ClassLoader>> loadedPackages = new MultiHashMap<>(IdentityHashSet::new);
+  private static final HashMap<QName,Class<? extends $AnySimpleType>> attributeBindings = new HashMap<>();
+  private static final HashMap<QName,Class<? extends $AnyType>> elementBindings = new HashMap<>();
+  private static final HashMap<QName,Class<? extends $AnyType>> typeBindings = new HashMap<>();
+  private static final HashMap<QName,Object> notations = new HashMap<>();
 
   protected static NotationType _$$getNotation(final QName name) {
     final Object object = notations.get(name);
@@ -120,6 +122,9 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   private static void loadPackage(final String namespaceURI, final ClassLoader classLoader) {
+    if (!loadedPackages.getOrNew(namespaceURI).add(classLoader))
+      return;
+
     // FIXME: Look this over. Also make a dedicated RuntimeException for this.
     try {
       PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName(), Schema.class::isAssignableFrom);

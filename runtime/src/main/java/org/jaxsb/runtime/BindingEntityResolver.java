@@ -58,8 +58,7 @@ public class BindingEntityResolver implements LSResourceResolver {
 
     // The schemaReference may not have been registered yet
     synchronized (namespaceURI.intern()) {
-      // When loading the classes, the static block of each binding will call the
-      // registerSchemaLocation() function.
+      // When loading the classes, the static block of each binding will call the registerSchemaLocation() function.
       // FIXME: Look this over. Also make a dedicated RuntimeException for this.
       schemaReference = schemaReferences.get(namespaceURI);
       if (schemaReference != null)
