@@ -122,15 +122,22 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   private static void loadPackage(final String namespaceURI, final ClassLoader classLoader) {
-    if (!loadedPackages.getOrNew(namespaceURI).add(classLoader))
+    final IdentityHashSet<ClassLoader> classLoaders = loadedPackages.getOrNew(namespaceURI);
+    if (classLoaders.contains(classLoader))
       return;
 
-    // FIXME: Look this over. Also make a dedicated RuntimeException for this.
-    try {
-      PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName(), Schema.class::isAssignableFrom);
-    }
-    catch (final IOException | PackageNotFoundException e) {
-      throw new IllegalStateException(e);
+    synchronized (loadedPackages) {
+      if (classLoaders.contains(classLoader))
+        return;
+
+      classLoaders.add(classLoader);
+      // FIXME: Look this over. Also make a dedicated RuntimeException for this.
+      try {
+        PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName(), Schema.class::isAssignableFrom);
+      }
+      catch (final IOException | PackageNotFoundException e) {
+        throw new IllegalStateException(e);
+      }
     }
   }
 
@@ -148,6 +155,7 @@ public abstract class AbstractBinding implements Cloneable {
     if (cls != null)
       return cls;
 
+    System.err.println(name.getNamespaceURI() + " " + classLoader);
     loadPackage(name.getNamespaceURI(), classLoader);
     return elementBindings.get(name);
   }
