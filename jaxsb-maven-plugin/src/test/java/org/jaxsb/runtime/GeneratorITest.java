@@ -33,8 +33,8 @@ import org.libj.lang.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GeneratorIntegrationTest {
-  private static final Logger logger = LoggerFactory.getLogger(GeneratorIntegrationTest.class);
+public class GeneratorITest {
+  private static final Logger logger = LoggerFactory.getLogger(GeneratorITest.class);
 
   private static void assertElementCount(final String description, final List<Binding> expected, final int expectedLength, final BindingList<? extends Binding> elements) {
     assertEquals(expectedLength, elements.size());

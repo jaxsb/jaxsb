@@ -16,11 +16,42 @@
 
 package org.jaxsb.tutorial;
 
+import static org.junit.Assert.*;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.junit.Test;
 
 public class InvoiceUpdaterTest {
   @Test
   public void test() throws Exception {
-    InvoiceUpdater.main(new String[] {getClass().getResource("/invoice.xml").getPath(), "Super Booties", "73648", "9", "4.30"});
+    // FIXME: Can create a JUnit runner to test these in parallel
+    final int tests = 100;
+    final CountDownLatch latch = new CountDownLatch(tests);
+    final Thread thread = Thread.currentThread();
+    final ExecutorService executor = Executors.newFixedThreadPool(tests);
+    for (int i = 0; i < tests; ++i) {
+      executor.execute(() -> {
+        try {
+          InvoiceUpdater.main(new String[] {getClass().getResource("/invoice.xml").getPath(), "Super Booties", "73648", "9", "4.30"});
+        }
+        catch (final Exception e) {
+          e.printStackTrace();
+          thread.interrupt();
+        }
+        finally {
+          latch.countDown();
+        }
+      });
+    }
+
+    try {
+      latch.await();
+    }
+    catch (final InterruptedException e) {
+      fail();
+    }
   }
 }

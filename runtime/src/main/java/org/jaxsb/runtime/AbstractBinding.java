@@ -21,7 +21,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -31,7 +32,7 @@ import org.libj.lang.PackageLoader;
 import org.libj.lang.PackageNotFoundException;
 import org.libj.net.URLs;
 import org.libj.util.IdentityHashSet;
-import org.libj.util.MultiHashMap;
+import org.libj.util.MultiConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
@@ -46,11 +47,12 @@ public abstract class AbstractBinding implements Cloneable {
   protected static final QName XMLNS = new QName(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns");
   protected static final QName XML = new QName(XMLConstants.XML_NS_URI, "xml");
 
-  private static final MultiHashMap<String,ClassLoader,IdentityHashSet<ClassLoader>> loadedPackages = new MultiHashMap<>(IdentityHashSet::new);
-  private static final HashMap<QName,Class<? extends $AnySimpleType>> attributeBindings = new HashMap<>();
-  private static final HashMap<QName,Class<? extends $AnyType>> elementBindings = new HashMap<>();
-  private static final HashMap<QName,Class<? extends $AnyType>> typeBindings = new HashMap<>();
-  private static final HashMap<QName,Object> notations = new HashMap<>();
+  private static final ReentrantLock lock = new ReentrantLock();
+  private static final MultiConcurrentHashMap<String,ClassLoader,IdentityHashSet<ClassLoader>> loadedPackages = new MultiConcurrentHashMap<>(IdentityHashSet::new);
+  private static final ConcurrentHashMap<QName,Class<? extends $AnySimpleType>> attributeBindings = new ConcurrentHashMap<>();
+  private static final ConcurrentHashMap<QName,Class<? extends $AnyType>> elementBindings = new ConcurrentHashMap<>();
+  private static final ConcurrentHashMap<QName,Class<? extends $AnyType>> typeBindings = new ConcurrentHashMap<>();
+  private static final ConcurrentHashMap<QName,Object> notations = new ConcurrentHashMap<>();
 
   protected static NotationType _$$getNotation(final QName name) {
     final Object object = notations.get(name);
@@ -121,23 +123,27 @@ public abstract class AbstractBinding implements Cloneable {
     elementBindings.put(name, cls);
   }
 
-  private static void loadPackage(final String namespaceURI, final ClassLoader classLoader) {
+  private static boolean loadPackage(final String namespaceURI, final ClassLoader classLoader) {
     final IdentityHashSet<ClassLoader> classLoaders = loadedPackages.getOrNew(namespaceURI);
     if (classLoaders.contains(classLoader))
-      return;
+      return false;
 
-    synchronized (loadedPackages) {
-      if (classLoaders.contains(classLoader))
-        return;
-
-      classLoaders.add(classLoader);
+    try {
+      lock.lock();
       // FIXME: Look this over. Also make a dedicated RuntimeException for this.
-      try {
-        PackageLoader.getPackageLoader(classLoader).loadPackage(NamespaceBinding.parseNamespace(namespaceURI).getPackageName(), Schema.class::isAssignableFrom);
-      }
-      catch (final IOException | PackageNotFoundException e) {
-        throw new IllegalStateException(e);
-      }
+      if (classLoaders.contains(classLoader))
+        return false;
+
+      final String packageName = NamespaceBinding.parseNamespace(namespaceURI).getPackageName();
+      PackageLoader.getPackageLoader(classLoader).loadPackage(packageName, Schema.class::isAssignableFrom);
+      return true;
+    }
+    catch (final IOException | PackageNotFoundException e) {
+      throw new IllegalStateException(e);
+    }
+    finally {
+      classLoaders.add(classLoader);
+      lock.unlock();
     }
   }
 
@@ -155,7 +161,6 @@ public abstract class AbstractBinding implements Cloneable {
     if (cls != null)
       return cls;
 
-    System.err.println(name.getNamespaceURI() + " " + classLoader);
     loadPackage(name.getNamespaceURI(), classLoader);
     return elementBindings.get(name);
   }
