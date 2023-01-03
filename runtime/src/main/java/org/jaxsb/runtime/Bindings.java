@@ -19,6 +19,8 @@ package org.jaxsb.runtime;
 import static org.libj.lang.Assertions.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -145,6 +147,10 @@ public abstract class Bindings {
     return parse(url, defaultNamespace, classLoader, null);
   }
 
+  public static $AnyType<?> parse(final URL url, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
+    return parse(url, null, classLoader, errorHandler);
+  }
+
   public static $AnyType<?> parse(final URL url, final String defaultNamespace, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
     try (final InputStream in = url.openStream()) {
       final InputSource inputSource = new InputSource(url.toString());
@@ -153,8 +159,62 @@ public abstract class Bindings {
     }
   }
 
-  public static $AnyType<?> parse(final URL url, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(url, null, classLoader, errorHandler);
+  /**
+   * Parse an {@link URL} pointing to XML content into an {@link $AnyType} instance.
+   *
+   * @param file {@link File} pointing to XML content.
+   * @return The {@link $AnyType} instance.
+   * @throws IOException If an I/O error has occurred.
+   * @throws SAXException If a parse error has occurred.
+   * @throws ValidationException If a validation error has occurred.
+   * @throws IllegalArgumentException If {@code url} is null.
+   */
+  public static $AnyType<?> parse(final File file) throws IOException, SAXException {
+    return parse(assertNotNull(file), null, Thread.currentThread().getContextClassLoader());
+  }
+
+  public static $AnyType<?> parse(final File file, final String defaultNamespace) throws IOException, SAXException {
+    return parse(file, defaultNamespace, Thread.currentThread().getContextClassLoader());
+  }
+
+  /**
+   * Parse an {@link URL} pointing to XML content into an {@link $AnyType} instance.
+   *
+   * @param file {@link File} pointing to XML content.
+   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the
+   *          underlying implementation using it's own default implementation and behavior.
+   * @return The {@link $AnyType} instance.
+   * @throws IOException If an I/O error has occurred.
+   * @throws SAXException If a parse error has occurred.
+   * @throws ValidationException If a validation error has occurred.
+   * @throws IllegalArgumentException If {@code url} is null.
+   */
+  public static $AnyType<?> parse(final File file, final ErrorHandler errorHandler) throws IOException, SAXException {
+    return parse(assertNotNull(file), null, Thread.currentThread().getContextClassLoader(), errorHandler);
+  }
+
+  public static $AnyType<?> parse(final File file, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
+    return parse(file, defaultNamespace, Thread.currentThread().getContextClassLoader(), errorHandler);
+  }
+
+  public static $AnyType<?> parse(final File file, final ClassLoader classLoader) throws IOException, SAXException {
+    return parse(file, null, classLoader, null);
+  }
+
+  public static $AnyType<?> parse(final File file, final String defaultNamespace, final ClassLoader classLoader) throws IOException, SAXException {
+    return parse(file, defaultNamespace, classLoader, null);
+  }
+
+  public static $AnyType<?> parse(final File file, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
+    return parse(file, null, classLoader, errorHandler);
+  }
+
+  public static $AnyType<?> parse(final File file, final String defaultNamespace, final ClassLoader classLoader, final ErrorHandler errorHandler) throws IOException, SAXException {
+    try (final InputStream in = new FileInputStream(file)) {
+      final InputSource inputSource = new InputSource("file:" + file);
+      inputSource.setByteStream(in);
+      return parse(inputSource, defaultNamespace, classLoader, errorHandler);
+    }
   }
 
   /**
