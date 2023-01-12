@@ -52,14 +52,10 @@ public abstract class Binding extends AbstractBinding {
   protected static DocumentBuilder newDocumentBuilder() {
     try {
       final DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
-      if (logger.isDebugEnabled()) {
-        builder.setEntityResolver((publicId, systemId) -> {
-          if (logger.isDebugEnabled())
-            logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
-
-          return null;
-        });
-      }
+      builder.setEntityResolver((publicId, systemId) -> {
+        if (logger.isDebugEnabled()) logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
+        return null;
+      });
       return builder;
     }
     catch (final ParserConfigurationException e) {

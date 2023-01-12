@@ -40,7 +40,7 @@ public abstract class SampleTest {
     boolean success = true;
     final Element element = Bindings.marshal(anyType);
     final String xml = DOMs.domToString(element, DOMStyle.INDENT);
-    logger.info(xml + "\n");
+    if (logger.isInfoEnabled()) logger.info(xml + "\n");
     final $AnyType<?> reparsed = Bindings.parse(new InputSource(new StringReader(xml)));
     String message = "SUCCESS";
     String not = "---";
@@ -62,7 +62,7 @@ public abstract class SampleTest {
     not = "---";
     final String xml2 = DOMs.domToString(Bindings.marshal(reparsed), DOMStyle.INDENT);
     if (!xml.equals(xml2)) {
-      logger.info(xml2);
+      if (logger.isInfoEnabled()) logger.info(xml2);
       success = false;
       message = "FAILURE";
       not = "NOT";
@@ -70,7 +70,7 @@ public abstract class SampleTest {
 
     log += "\njava -> xml -> java -> xml    String.equals() [" + message + "]";
     log += "\n         ^-" + not + "-equal----^\n";
-    logger.info(log);
+    if (logger.isInfoEnabled()) logger.info(log);
 
     return success;
   }

@@ -47,7 +47,7 @@ public final class PlanProcessor implements PipelineProcessor<GeneratorContext,M
 
       final URL url = model.getSchema().getURL();
       final String display = (URLs.isLocal(url) ? FileUtil.getCwd().toPath().relativize(new File(url.getFile()).getAbsoluteFile().toPath()) : url).toString();
-      logger.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
+      if (logger.isInfoEnabled()) logger.info("Parsing {" + model.getTargetNamespace() + "} from " + display);
 
       final ArrayList<Model> children = model.getChildren();
       for (int i = 0, i$ = children.size(); i < i$; ++i) // [RA]

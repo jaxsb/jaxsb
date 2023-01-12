@@ -89,7 +89,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
                   duplicates = new ArrayList<>();
 
               duplicates.add(schemaLocationURL);
-              logger.info("Adding " + URLs.getName(schemaLocationURL) + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}");
+              if (logger.isInfoEnabled()) logger.info("Adding " + URLs.getName(schemaLocationURL) + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}");
               includeLoopCheck.put(schemaDocument.getSchemaReference().getNamespaceURI(), duplicates);
             }
           }
@@ -112,8 +112,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
               continue;
             }
 
-            if (!duplicate.equals(schemaLocationURI))
-              logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URLs.getName(schemaLocationURI) + " with " + duplicate);
+            if (logger.isInfoEnabled() && !duplicate.equals(schemaLocationURI)) logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URLs.getName(schemaLocationURI) + " with " + duplicate);
           }
         }
 

@@ -32,7 +32,7 @@ public class InvoiceUpdaterTest {
     final CountDownLatch latch = new CountDownLatch(tests);
     final Thread thread = Thread.currentThread();
     final ExecutorService executor = Executors.newFixedThreadPool(tests);
-    for (int i = 0; i < tests; ++i) {
+    for (int i = 0; i < tests; ++i) { // [N]
       executor.execute(() -> {
         try {
           InvoiceUpdater.main(new String[] {getClass().getResource("/invoice.xml").getPath(), "Super Booties", "73648", "9", "4.30"});

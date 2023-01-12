@@ -161,7 +161,7 @@ public class ParseMarshalITest {
   public void testAnyAttribute() throws IOException, SAXException {
     final Binding binding = Bindings.parse(ClassLoader.getSystemClassLoader().getResource("anyAttribute.xml"));
     final String xml = binding.toString(DOMStyle.INDENT);
-    logger.info(xml);
+    if (logger.isInfoEnabled()) logger.info(xml);
 
     final Binding b2 = Bindings.parse(xml);
     assertEquals(binding, b2);

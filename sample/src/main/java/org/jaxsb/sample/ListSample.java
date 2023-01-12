@@ -27,22 +27,18 @@ import org.jaxsb.www.sample.list.xAA.$VolunteerType;
 import org.jaxsb.www.sample.list.xAA.Roster;
 import org.openjax.xml.datatype.Date;
 import org.openjax.xml.datatype.Time;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.xml.sax.SAXException;
 
 public class ListSample {
-  private static final Logger logger = LoggerFactory.getLogger(ListSample.class);
-
   private static void printCommon(final $StaffType staffType) {
     final String name = staffType.getName().text();
-    logger.info("Name: " + name);
+    System.out.println("Name: " + name);
 
     final List<String> workDays = staffType.getWorkDays().text();
-    logger.info("Work Days: " + name);
+    System.out.println("Work Days: " + name);
     for (final String workDay : workDays) // [L]
-      logger.info("\t" + workDay);
+      System.out.println("\t" + workDay);
   }
 
   public $AnyType<?> runSample() throws IOException, SAXException {
@@ -54,12 +50,12 @@ public class ListSample {
         printCommon(employee);
 
         final String position = employee.getPosition().text();
-        logger.info("Position: " + position);
+        System.out.println("Position: " + position);
 
         final List<Date> vacationDates = employee.getVacationDates().text();
-        logger.info("Vacation Dates:");
+        System.out.println("Vacation Dates:");
         for (final Date vacationDate : vacationDates) // [L]
-          logger.info("\t" + vacationDate);
+          System.out.println("\t" + vacationDate);
       }
 
       final Roster.Employees.Employee employee = new Roster.Employees.Employee();
@@ -76,9 +72,9 @@ public class ListSample {
         printCommon(volunteer);
 
         final List<Time> breakTimes = volunteer.getBreakTimes().text();
-        logger.info("Break Times:");
+        System.out.println("Break Times:");
         for (final Time breakTime : breakTimes) // [L]
-          logger.info("\t" + breakTime);
+          System.out.println("\t" + breakTime);
       }
 
       final Roster.Volunteers.Volunteer volunteer = new Roster.Volunteers.Volunteer();

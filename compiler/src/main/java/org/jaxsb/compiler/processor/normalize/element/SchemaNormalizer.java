@@ -39,7 +39,7 @@ public final class SchemaNormalizer extends Normalizer<SchemaModel> {
       return;
 
     final String display = (URLs.isLocal(url) ? CWD.relativize(new File(url.getFile()).getAbsoluteFile().toPath()) : url).toString();
-    logger.info("Lexing {" + model.getTargetNamespace() + "} from " + display);
+    if (logger.isInfoEnabled()) logger.info("Lexing {" + model.getTargetNamespace() + "} from " + display);
   }
 
   @Override

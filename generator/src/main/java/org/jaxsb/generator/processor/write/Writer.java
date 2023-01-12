@@ -56,7 +56,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     if (!messages.contains(message)) {
       messages.add(message);
-      logger.info(message);
+      if (logger.isInfoEnabled()) logger.info(message);
     }
 
     final Nameable<?> nameable = (Nameable<?>)plan;
@@ -81,11 +81,10 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     final File file = getFile(plan, destDir);
     try (final ClassFile classFile = fileToClassFile.remove(file)) {
-      if (logger.isDebugEnabled() && classFile != null)
-        logger.debug("Closing: " + classFile.getFile().getAbsolutePath());
+      if (classFile != null && logger.isDebugEnabled()) logger.debug("Closing: " + classFile.getFile().getAbsolutePath());
     }
     catch (final IOException e) {
-      logger.info(e.getMessage(), e);
+      if (logger.isInfoEnabled()) logger.info(e.getMessage(), e);
     }
     catch (final FormatterException e) {
       throw new CompilerFailureException(e);
@@ -102,7 +101,7 @@ public abstract class Writer<T extends Plan<?>> implements PipelineEntity {
 
     if (!messages.contains(message)) {
       messages.add(message);
-      logger.info(message);
+      if (logger.isInfoEnabled()) logger.info(message);
     }
 
     final Nameable<?> nameable = (Nameable<?>)plan;
