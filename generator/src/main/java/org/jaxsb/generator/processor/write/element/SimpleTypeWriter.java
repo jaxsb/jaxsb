@@ -361,7 +361,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("return new " + String.class.getName() + "[] {\n");
     final StringBuilder str = new StringBuilder();
     for (final PatternPlan pattern : patterns) // [C]
-      str.append(",\n\"").append(pattern.getValue()).append("\"");
+      str.append(",\n\"").append(pattern.getValue()).append('"');
     writer.write(str.substring(2) + "\n");
     writer.write("};\n");
     writer.write("}\n");
