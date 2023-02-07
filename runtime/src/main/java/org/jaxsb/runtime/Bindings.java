@@ -18,7 +18,6 @@ package org.jaxsb.runtime;
 
 import static org.libj.lang.Assertions.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -96,7 +95,7 @@ public abstract class Bindings {
   }
 
   public static $AnyType<?> parse(final String xml, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
-    try (final ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes())) {
+    try (final StringReader in = new StringReader(xml)) {
       return parse(new InputSource(in), defaultNamespace, Thread.currentThread().getContextClassLoader(), errorHandler);
     }
   }
