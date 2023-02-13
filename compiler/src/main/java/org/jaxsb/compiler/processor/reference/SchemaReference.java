@@ -60,7 +60,7 @@ public final class SchemaReference implements PipelineEntity {
   public SchemaReference(final URL location, final boolean isInclude) {
     this.location = URLs.canonicalize(assertNotNull(location));
     this.isInclude = isInclude;
-    if (logger.isDebugEnabled()) logger.debug("new SchemaReference(\"" + this.location.toString() + "\", " + isInclude + ")");
+    if (logger.isDebugEnabled()) logger.debug("new SchemaReference(\"" + this.location + "\", " + isInclude + ")");
   }
 
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final Prefix prefix, final boolean isInclude) {
@@ -68,7 +68,7 @@ public final class SchemaReference implements PipelineEntity {
     this.namespaceURI = namespaceURI;
     this.prefix = prefix;
     this.isInclude = isInclude;
-    if (logger.isDebugEnabled()) logger.debug("new SchemaReference(\"" + this.location.toString() + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
+    if (logger.isDebugEnabled()) logger.debug("new SchemaReference(\"" + this.location + "\", \"" + namespaceURI + "\", \"" + prefix + "\")");
   }
 
   public SchemaReference(final URL location, final NamespaceURI namespaceURI, final boolean isInclude) {
@@ -160,10 +160,10 @@ public final class SchemaReference implements PipelineEntity {
       final URLConnection connection = location.openConnection();
       try {
         this.inputStream = connection.getInputStream();
-        if (logger.isDebugEnabled()) logger.debug("opened connection to: " + location.toString());
+        if (logger.isDebugEnabled()) logger.debug("opened connection to: " + location);
       }
       catch (final FileNotFoundException e) {
-        throw new LexerFailureException("File not found: " + location.toString());
+        throw new LexerFailureException("File not found: " + location);
       }
 
       this.lastModified = connection.getLastModified();

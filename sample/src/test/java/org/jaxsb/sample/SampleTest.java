@@ -16,10 +16,9 @@
 
 package org.jaxsb.sample;
 
-import java.io.StringReader;
-
 import org.jaxsb.runtime.BindingValidator;
 import org.jaxsb.runtime.Bindings;
+import org.libj.io.UnsynchronizedStringReader;
 import org.openjax.xml.dom.DOMStyle;
 import org.openjax.xml.dom.DOMs;
 import org.slf4j.Logger;
@@ -41,7 +40,7 @@ public abstract class SampleTest {
     final Element element = Bindings.marshal(anyType);
     final String xml = DOMs.domToString(element, DOMStyle.INDENT);
     if (logger.isInfoEnabled()) logger.info(xml + "\n");
-    final $AnyType<?> reparsed = Bindings.parse(new InputSource(new StringReader(xml)));
+    final $AnyType<?> reparsed = Bindings.parse(new InputSource(new UnsynchronizedStringReader(xml)));
     String message = "SUCCESS";
     String not = "---";
     if (!anyType.equals(reparsed)) {

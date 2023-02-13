@@ -22,12 +22,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.function.Function;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import org.libj.io.UnsynchronizedStringReader;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.Documents;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
@@ -41,7 +42,7 @@ public abstract class Bindings {
   // FIXME: This is so inefficient!
   public static $AnyType<?> clone(final $AnyType<?> anyType) {
     try {
-      return Bindings.parse(new InputSource(new StringReader(anyType.toString())));
+      return Bindings.parse(new InputSource(new UnsynchronizedStringReader(anyType.toString())));
     }
     catch (final IOException | SAXException e) {
       throw new IllegalStateException(e);
@@ -95,7 +96,7 @@ public abstract class Bindings {
   }
 
   public static $AnyType<?> parse(final String xml, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
-    try (final StringReader in = new StringReader(xml)) {
+    try (final Reader in = new UnsynchronizedStringReader(xml)) {
       return parse(new InputSource(in), defaultNamespace, Thread.currentThread().getContextClassLoader(), errorHandler);
     }
   }

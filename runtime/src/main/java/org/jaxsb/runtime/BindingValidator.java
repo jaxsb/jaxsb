@@ -17,12 +17,12 @@
 package org.jaxsb.runtime;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.io.UncheckedIOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.libj.io.UnsynchronizedStringReader;
 import org.libj.net.MemoryURLStreamHandler;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
@@ -98,7 +98,7 @@ public final class BindingValidator extends Validator {
   protected void parse(final Element element) throws IOException, ValidationException {
     final String xml = DOMs.domToString(element);
     final URL url = MemoryURLStreamHandler.createURL(xml.getBytes());
-    try (final CachedInputSource inputSource = new CachedInputSource(null, String.valueOf(System.identityHashCode(element)), null, new StringReader(xml))) {
+    try (final CachedInputSource inputSource = new CachedInputSource(null, String.valueOf(System.identityHashCode(element)), null, new UnsynchronizedStringReader(xml))) {
       final XmlPreview preview = new XmlPreview(new BindingXmlCatalog(url, inputSource), false, false, null, null, BindingEntityResolver.schemaReferences, null) {
         @Override
         public boolean isSchema() {

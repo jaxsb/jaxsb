@@ -74,6 +74,6 @@ public final class GeneratorContext implements PipelineContext {
 
   @Override
   public String toString() {
-    return destDir.getAbsolutePath() + " " + overwrite + " " + (compileDir == null ? "null" : compileDir.getAbsolutePath()) + " " + pack + " " + CollectionUtil.toString(includes, ' ')+ " " + CollectionUtil.toString(excludes, ' ');
+    return destDir.getAbsolutePath() + " " + overwrite + " " + (compileDir == null ? "null" : compileDir.getAbsolutePath()) + " " + pack + " " + CollectionUtil.toString(includes, ' ') + " " + CollectionUtil.toString(excludes, ' ');
   }
 }

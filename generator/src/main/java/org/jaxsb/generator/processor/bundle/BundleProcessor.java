@@ -129,7 +129,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         }
 
         if (!skipXsd && !schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
-          addXSDs(schemaModelComposite.getSchemaDocument().getSchemaReference().getURL(), packagePath + '/' + packageName + ".xsd", destJar, destDir, 0);
+          addXSDs(schemaModelComposite.getSchemaDocument().getSchemaReference().getURL(), packagePath + "/" + packageName + ".xsd", destJar, destDir, 0);
 
         if (destJar != null)
           destJar.close();

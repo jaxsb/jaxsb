@@ -39,7 +39,8 @@ public abstract class AbstractGenerator {
       final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
       final Document document = documentBuilder.parse(url.toString());
       final SchemaDocument parsedDocument = new SchemaDocument(schemaReference, document);
-      parsedDocuments.put(schemaReference.getNamespaceURI() + url.toString(), parsedDocument);
+      // FIXME: String thrashing...
+      parsedDocuments.put(schemaReference.getNamespaceURI().toString() + url, parsedDocument);
       return parsedDocument;
     }
     catch (final SAXException e) {
