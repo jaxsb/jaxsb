@@ -71,28 +71,29 @@ public final class XMLSchema {
     if (!collectionable)
       throw new IllegalArgumentException("Why is this a Collection? The collection logic should be in the appropriate subclass");
 
-    final int size = ((Collection<?>)value).size();
-    if (size == 0)
+    final int i$ = ((Collection<?>)value).size();
+    if (i$ == 0)
       return null;
 
     final StringBuilder builder = new StringBuilder();
     final List<?> list;
     if (value instanceof List && CollectionUtil.isRandomAccess(list = (List<?>)value)) {
-      for (int i = 0; i < size; ++i) { // [RA]
+      int i = 0; do { // [RA]
         if (i > 0)
           builder.append(' ');
 
         builder.append(list.get(i));
       }
+      while (++i < i$);
     }
     else {
-      final Iterator<?> iterator = ((Collection<?>)value).iterator();
-      for (int i = 0; iterator.hasNext(); ++i) { // [I]
-        if (i > 0)
+      int i = -1; final Iterator<?> it = ((Collection<?>)value).iterator(); do { // [I]
+        if (++i > 0)
           builder.append(' ');
 
-        builder.append(iterator.next());
+        builder.append(it.next());
       }
+      while (it.hasNext());
     }
 
     return builder.toString();

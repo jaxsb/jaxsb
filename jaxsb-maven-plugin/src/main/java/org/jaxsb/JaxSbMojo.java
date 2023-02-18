@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.RandomAccess;
@@ -66,12 +67,16 @@ public class JaxSbMojo extends GeneratorMojo {
       return null;
 
     final HashSet<NamespaceURI> set = new HashSet<>(i$);
-    if (list instanceof RandomAccess)
-      for (int i = 0; i < i$; ++i)// [RA]
+    if (list instanceof RandomAccess) {
+      int i = 0; do // [RA]
         set.add(NamespaceURI.getInstance(list.get(i)));
-    else
-      for (final String item : list) // [L]
-        set.add(NamespaceURI.getInstance(item));
+      while (++i < i$);
+    }
+    else {
+      final Iterator<String> i = list.iterator(); do // [I]
+        set.add(NamespaceURI.getInstance(i.next()));
+      while (i.hasNext());
+    }
 
     return set;
   }
