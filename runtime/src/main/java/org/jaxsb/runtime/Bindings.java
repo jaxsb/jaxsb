@@ -16,7 +16,7 @@
 
 package org.jaxsb.runtime;
 
-import static org.libj.lang.Assertions.*;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -69,10 +69,10 @@ public abstract class Bindings {
    * @param element {@link Element} object to parse.
    * @return The {@link $AnyType} instance.
    * @throws ValidationException If a validation error has occurred.
-   * @throws IllegalArgumentException If {@code element} is null.
+   * @throws NullPointerException If {@code element} is null.
    */
   public static $AnyType<?> parse(final Element element) throws ValidationException {
-    return parse(assertNotNull(element), Thread.currentThread().getContextClassLoader());
+    return parse(element, Thread.currentThread().getContextClassLoader());
   }
 
   public static $AnyType<?> parse(final Element element, final ClassLoader classLoader) throws ValidationException {
@@ -109,10 +109,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws IllegalArgumentException If {@code url} is null.
+   * @throws NullPointerException If {@code url} is null.
    */
   public static $AnyType<?> parse(final URL url) throws IOException, SAXException {
-    return parse(assertNotNull(url), null, Thread.currentThread().getContextClassLoader());
+    return parse(url, null, Thread.currentThread().getContextClassLoader());
   }
 
   public static $AnyType<?> parse(final URL url, final String defaultNamespace) throws IOException, SAXException {
@@ -129,10 +129,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws IllegalArgumentException If {@code url} is null.
+   * @throws NullPointerException If {@code url} is null.
    */
   public static $AnyType<?> parse(final URL url, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(assertNotNull(url), null, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(url, null, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static $AnyType<?> parse(final URL url, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
@@ -167,10 +167,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws IllegalArgumentException If {@code url} is null.
+   * @throws NullPointerException If {@code url} is null.
    */
   public static $AnyType<?> parse(final File file) throws IOException, SAXException {
-    return parse(assertNotNull(file), null, Thread.currentThread().getContextClassLoader());
+    return parse(file, null, Thread.currentThread().getContextClassLoader());
   }
 
   public static $AnyType<?> parse(final File file, final String defaultNamespace) throws IOException, SAXException {
@@ -187,10 +187,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws IllegalArgumentException If {@code url} is null.
+   * @throws NullPointerException If {@code url} is null.
    */
   public static $AnyType<?> parse(final File file, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(assertNotNull(file), null, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(file, null, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static $AnyType<?> parse(final File file, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {
@@ -225,10 +225,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws IllegalArgumentException If {@code inputSource} is null.
+   * @throws NullPointerException If {@code inputSource} is null.
    */
   public static $AnyType<?> parse(final InputSource inputSource) throws IOException, SAXException {
-    return parse(assertNotNull(inputSource), null, (ErrorHandler)null);
+    return parse(inputSource, null, (ErrorHandler)null);
   }
 
   public static $AnyType<?> parse(final InputSource inputSource, final String defaultNamespace) throws IOException, SAXException {
@@ -245,10 +245,10 @@ public abstract class Bindings {
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
    * @throws ValidationException If a validation error has occurred.
-   * @throws IllegalArgumentException If {@code inputSource} is null.
+   * @throws NullPointerException If {@code inputSource} is null.
    */
   public static $AnyType<?> parse(final InputSource inputSource, final ErrorHandler errorHandler) throws IOException, SAXException {
-    return parse(assertNotNull(inputSource), null, Thread.currentThread().getContextClassLoader(), errorHandler);
+    return parse(inputSource, null, Thread.currentThread().getContextClassLoader(), errorHandler);
   }
 
   public static $AnyType<?> parse(final InputSource inputSource, final String defaultNamespace, final ErrorHandler errorHandler) throws IOException, SAXException {

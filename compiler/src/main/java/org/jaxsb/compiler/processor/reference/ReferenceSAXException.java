@@ -30,10 +30,10 @@ public class ReferenceSAXException extends SAXException {
   }
 
   public String getNamespaceURI() {
-    return this.namespaceURI;
+    return namespaceURI;
   }
 
   public String getPrefix() {
-    return this.prefix;
+    return prefix;
   }
 }
