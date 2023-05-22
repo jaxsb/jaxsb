@@ -22,7 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -47,7 +46,6 @@ public abstract class AbstractBinding implements Cloneable {
   protected static final QName XMLNS = new QName(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns");
   protected static final QName XML = new QName(XMLConstants.XML_NS_URI, "xml");
 
-  private static final ReentrantLock lock = new ReentrantLock();
   private static final MultiConcurrentHashMap<String,ClassLoader,IdentityHashSet<ClassLoader>> loadedPackages = new MultiConcurrentHashMap<>(IdentityHashSet::new);
   private static final ConcurrentHashMap<QName,Class<? extends $AnySimpleType>> attributeBindings = new ConcurrentHashMap<>();
   private static final ConcurrentHashMap<QName,Class<? extends $AnyType>> elementBindings = new ConcurrentHashMap<>();
@@ -127,22 +125,22 @@ public abstract class AbstractBinding implements Cloneable {
     if (classLoaders.contains(classLoader))
       return false;
 
-    try {
-      lock.lock();
-      // FIXME: Look this over. Also make a dedicated RuntimeException for this.
-      if (classLoaders.contains(classLoader))
-        return false;
+    synchronized (loadedPackages) {
+      try {
+        // FIXME: Look this over. Also make a dedicated RuntimeException for this.
+        if (classLoaders.contains(classLoader))
+          return false;
 
-      final String packageName = NamespaceBinding.parseNamespace(namespaceURI).getPackageName();
-      PackageLoader.getPackageLoader(classLoader).loadPackage(packageName, Schema.class::isAssignableFrom);
-      return true;
-    }
-    catch (final IOException | PackageNotFoundException e) {
-      throw new IllegalStateException(e);
-    }
-    finally {
-      classLoaders.add(classLoader);
-      lock.unlock();
+        final String packageName = NamespaceBinding.parseNamespace(namespaceURI).getPackageName();
+        PackageLoader.getPackageLoader(classLoader).loadPackage(packageName, Schema.class::isAssignableFrom);
+        return true;
+      }
+      catch (final IOException | PackageNotFoundException e) {
+        throw new IllegalStateException(e);
+      }
+      finally {
+        classLoaders.add(classLoader);
+      }
     }
   }
 

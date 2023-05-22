@@ -31,6 +31,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.libj.lang.Classes;
 import org.libj.util.ArrayUtil;
 import org.libj.util.CollectionUtil;
 import org.libj.util.HashBiMap;
@@ -211,15 +212,7 @@ public abstract class Binding extends AbstractBinding {
         if (xsiBinding == null)
           throw new IllegalStateException("Unable to find class binding for xsi:type: " + name);
 
-        Method method = null;
-        final Method[] methods = xsiBinding.getDeclaredMethods();
-        for (int i = 0, i$ = methods.length; i < i$; ++i) { // [A]
-          if ("newInstance".equals(methods[i].getName())) {
-            method = methods[i];
-            break;
-          }
-        }
-
+        final Method method = Classes.getDeclaredMethod(xsiBinding, "newInstance");
         method.setAccessible(true);
         binding = ($AnyType<?>)method.invoke(null, binding);
       }

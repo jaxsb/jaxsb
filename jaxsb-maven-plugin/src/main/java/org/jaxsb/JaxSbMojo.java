@@ -19,7 +19,6 @@ package org.jaxsb;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -87,7 +86,7 @@ public class JaxSbMojo extends GeneratorMojo {
 
   @Override
   public void execute(final Configuration configuration) throws MojoExecutionException, MojoFailureException {
-    final Collection<SchemaReference> generatorBindings = new ArrayList<>();
+    final ArrayList<SchemaReference> generatorBindings = new ArrayList<>();
     if (schemas.size() > 0)
       for (final String schema : new LinkedHashSet<>(schemas)) // [S]
         generatorBindings.add(new SchemaReference(URLs.create(schema), false));
