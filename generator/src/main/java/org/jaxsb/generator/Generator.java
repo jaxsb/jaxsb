@@ -46,7 +46,7 @@ import org.libj.util.StringPaths;
 
 public final class Generator extends AbstractGenerator {
   private static void trapPrintUsage() {
-    System.err.println("Usage: Generator [OPTIONS] <-d DEST_DIR> <SCHEMA_XSD>");
+    System.err.println("Usage: Generator [OPTIONS] <-d DEST_DIR> <SCHEMA.xsd>");
     System.err.println();
     System.err.println("Mandatory arguments:");
     System.err.println("  -d <destDir>    Specify the destination directory.");
