@@ -28,6 +28,7 @@ import org.jaxsb.compiler.pipeline.PipelineDirectory;
 import org.jaxsb.compiler.pipeline.PipelineEntity;
 import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
+import org.libj.net.URLConnections;
 import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
 
           if (!pipelineContext.getOverwrite() && javaFile.exists()) {
             final URL url = schemaReference.getURL();
-            final long lastModified = url.openConnection().getLastModified();
+            final long lastModified = URLConnections.checkFollowRedirect(url.openConnection()).getLastModified();
             if (lastModified != 0 && javaFile.lastModified() >= lastModified) {
               if (logger.isInfoEnabled()) logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
               continue;

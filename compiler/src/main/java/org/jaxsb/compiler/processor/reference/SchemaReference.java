@@ -36,6 +36,7 @@ import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.lang.Prefix;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.pipeline.PipelineEntity;
+import org.libj.net.URLConnections;
 import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -157,7 +158,7 @@ public final class SchemaReference implements PipelineEntity {
       if (isConnected.get())
         return;
 
-      final URLConnection connection = location.openConnection();
+      final URLConnection connection = URLConnections.checkFollowRedirect(location.openConnection());
       try {
         this.inputStream = connection.getInputStream();
         if (logger.isDebugEnabled()) logger.debug("opened connection to: " + location);

@@ -17,6 +17,7 @@
 package org.jaxsb.generator;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +27,7 @@ import javax.xml.parsers.DocumentBuilder;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.runtime.CompilerFailureException;
+import org.libj.net.URLConnections;
 import org.openjax.xml.dom.DOMParsers;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -37,7 +39,11 @@ public abstract class AbstractGenerator {
     try {
       final URL url = schemaReference.getURL();
       final DocumentBuilder documentBuilder = DOMParsers.newDocumentBuilder();
-      final Document document = documentBuilder.parse(url.toString());
+      final Document document;
+      try (final InputStream in = URLConnections.checkFollowRedirect(url.openConnection()).getInputStream()) {
+        document = documentBuilder.parse(in);
+      }
+
       final SchemaDocument parsedDocument = new SchemaDocument(schemaReference, document);
       // FIXME: String thrashing...
       parsedDocuments.put(schemaReference.getNamespaceURI().toString() + url, parsedDocument);

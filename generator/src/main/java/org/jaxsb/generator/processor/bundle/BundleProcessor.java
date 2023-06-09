@@ -19,6 +19,7 @@ package org.jaxsb.generator.processor.bundle;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -48,6 +49,7 @@ import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.CompilerFailureException;
 import org.libj.jci.CompilationException;
 import org.libj.jci.InMemoryCompiler;
+import org.libj.net.URLConnections;
 import org.libj.net.URLs;
 import org.libj.util.CollectionUtil;
 import org.libj.util.StringPaths;
@@ -140,9 +142,13 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   }
 
   private static void addXSDs(final URL url, final String filePath, final ZipWriter ZipWriter, final File destDir, int includeCount) throws IOException, SAXException {
+    final Element element;
+    try (final InputStream in = URLConnections.checkFollowRedirect(url.openConnection()).getInputStream()) {
+      element = DOMParsers.newDocumentBuilder().parse(in).getDocumentElement();
+    }
+
     final String baseDir = StringPaths.getCanonicalParent(filePath);
     StringBuilder relativeRootPath = null;
-    final Element element = DOMParsers.newDocumentBuilder().parse(url.openStream()).getDocumentElement();
     final NodeList children = element.getChildNodes();
     for (int i = 0, i$ = children.getLength(); i < i$; ++i) { // [RA]
       final Node node = children.item(i);

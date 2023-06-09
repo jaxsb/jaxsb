@@ -21,17 +21,20 @@ import java.io.UncheckedIOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.libj.lang.PackageLoader;
 import org.libj.lang.PackageNotFoundException;
+import org.libj.net.URLConnections;
 import org.libj.util.function.Throwing;
 import org.openjax.xml.sax.CachedInputSource;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
-public class BindingEntityResolver implements LSResourceResolver {
+public class BindingEntityResolver implements LSResourceResolver, EntityResolver {
   public static void registerSchemaLocation(final String namespaceURI, final URL schemaReference) {
     final URL present = schemaReferences.get(namespaceURI);
     if (present == null) {
@@ -78,23 +81,28 @@ public class BindingEntityResolver implements LSResourceResolver {
     return schemaReferences.get(namespaceURI);
   }
 
-  protected static final Map<String,URL> schemaReferences = new HashMap<>();
+  protected static final HashMap<String,URL> schemaReferences = new HashMap<>();
 
   @Override
   public LSInput resolveResource(final String type, final String namespaceURI, final String publicId, final String systemId, final String baseURI) {
     if (namespaceURI == null && systemId == null)
       return null;
 
-    final URL url = lookupSchemaLocation(namespaceURI);
-    if (url == null)
+    final URL location = lookupSchemaLocation(namespaceURI);
+    if (location == null)
       throw new IllegalStateException("The schemaReference for namespaceURI: " + namespaceURI + ", publicId: " + publicId + ", systemId: " + systemId + ", baseURI: " + baseURI + " is null");
 
     try {
-      return new CachedInputSource(publicId, url.toString(), baseURI, url.openStream());
+      return new CachedInputSource(publicId, location.toString(), baseURI, location.openConnection());
     }
     catch (final IOException e) {
       Throwing.rethrow(e);
       throw new Error("Will never get here");
     }
+  }
+
+  @Override
+  public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException {
+    return systemId == null ? null : new InputSource(URLConnections.checkFollowRedirect(new URL(systemId).openConnection()).getInputStream());
   }
 }

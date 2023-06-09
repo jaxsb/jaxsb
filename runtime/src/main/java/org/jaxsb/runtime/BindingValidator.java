@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.libj.io.UnsynchronizedStringReader;
 import org.libj.net.MemoryURLStreamHandler;
+import org.libj.net.URLConnections;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.dom.DOMs;
 import org.openjax.xml.dom.Validator;
@@ -89,8 +90,8 @@ public final class BindingValidator extends Validator {
 
     @Override
     public XmlEntity getEntity(final String uri) throws IOException {
-      final URL url = BindingEntityResolver.schemaReferences.get(uri);
-      return url == null ? null : new XmlEntity(url, new CachedInputSource(null, uri, null, url.openStream()));
+      final URL location = BindingEntityResolver.schemaReferences.get(uri);
+      return location == null ? null : new XmlEntity(location, new CachedInputSource(null, uri, null, URLConnections.checkFollowRedirect(location.openConnection())));
     }
   }
 
