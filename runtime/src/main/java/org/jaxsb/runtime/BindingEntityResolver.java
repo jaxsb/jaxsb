@@ -25,6 +25,7 @@ import java.util.HashMap;
 import org.jaxsb.compiler.lang.NamespaceBinding;
 import org.libj.lang.PackageLoader;
 import org.libj.lang.PackageNotFoundException;
+import org.libj.lang.Strings;
 import org.libj.net.URLConnections;
 import org.libj.util.function.Throwing;
 import org.openjax.xml.sax.CachedInputSource;
@@ -60,7 +61,7 @@ public class BindingEntityResolver implements LSResourceResolver, EntityResolver
       return schemaReference;
 
     // The schemaReference may not have been registered yet
-    synchronized (namespaceURI.intern()) {
+    synchronized (Strings.intern(namespaceURI)) {
       // When loading the classes, the static block of each binding will call the registerSchemaLocation() function.
       // FIXME: Look this over. Also make a dedicated RuntimeException for this.
       schemaReference = schemaReferences.get(namespaceURI);
