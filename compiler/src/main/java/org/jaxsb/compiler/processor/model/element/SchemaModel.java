@@ -98,7 +98,7 @@ public final class SchemaModel extends Model {
   public void setTargetNamespace(final NamespaceURI targetNamespace) {
     this.targetNamespace = targetNamespace;
     if (targetNamespace == null)
-      throw new IllegalArgumentException("targetNamespace == null");
+      throw new IllegalArgumentException("targetNamespace is null");
   }
 
   @Override

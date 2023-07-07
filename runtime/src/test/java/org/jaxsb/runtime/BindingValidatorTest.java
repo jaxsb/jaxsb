@@ -39,7 +39,7 @@ public class BindingValidatorTest {
     System.setProperty("org.xml.sax.driver", SAXParser.class.getName());
     final Document document = DOMParsers.newDocumentBuilder().parse(ClassLoader.getSystemClassLoader().getResourceAsStream("empty.xml"));
     if (document == null)
-      fail("document == null");
+      fail("document is null");
 
     final Element element = document.getDocumentElement();
     try {

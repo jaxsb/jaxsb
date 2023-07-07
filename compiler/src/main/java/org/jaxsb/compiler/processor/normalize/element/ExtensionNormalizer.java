@@ -88,7 +88,7 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
             element = elementNormalizer.parseElement(((Nameable<?>)parent).getName());
 
           if (element == null)
-            throw new LexerFailureException("element == null");
+            throw new LexerFailureException("element is null");
 
           element.setSuperType(base);
         }

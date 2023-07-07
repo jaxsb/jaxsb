@@ -113,7 +113,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
             element = elementNormalizer.parseElement(((Nameable<?>)parent).getName());
 
           if (element == null)
-            throw new LexerFailureException("element == null");
+            throw new LexerFailureException("element is null");
 
           element.setSuperType(base);
           element.setRestriction(true);
@@ -125,7 +125,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
             attribute = attributeNormalizer.parseAttribute(((Nameable<?>)parent).getName());
 
           if (attribute == null)
-            throw new LexerFailureException("attribute == null");
+            throw new LexerFailureException("attribute is null");
 
           attribute.setSuperType(base);
           attribute.setRestriction(true);

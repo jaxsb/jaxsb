@@ -39,7 +39,7 @@ public final class Prefix {
 
   private Prefix(final String prefix) {
     if (prefix == null)
-      throw new IllegalArgumentException("prefix == null");
+      throw new IllegalArgumentException("prefix is null");
 
     this.prefix = prefix;
     /*if (prefix.equals(prefix.toUpperCase())) {

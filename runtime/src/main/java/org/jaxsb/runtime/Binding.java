@@ -296,7 +296,7 @@ public abstract class Binding extends AbstractBinding {
   @SuppressWarnings("unchecked")
   protected BindingList<$AnyType> fetchChild(final QName name) {
     if (name.getLocalPart() == null)
-      throw new IllegalArgumentException("name.getLocalPart() == null");
+      throw new IllegalArgumentException("name.getLocalPart() is null");
 
     try {
       final Method[] methods = getClass().getDeclaredMethods();
