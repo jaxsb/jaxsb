@@ -39,18 +39,18 @@ public final class JavaBinding {
   private static final String COMPLEXTYPE_PREFIX = "$";
 
   private static String toJavaIdentifier(final String ncName) {
-    final StringBuilder builder = new StringBuilder(ncName.length());
+    final StringBuilder b = new StringBuilder(ncName.length());
     for (int i = 0, i$ = ncName.length(); i < i$; ++i) { // [N]
      final char ch = ncName.charAt(i);
      if (ch == '-')
-       builder.append('$').append('_');
+       b.append('$').append('_');
      else if (ch == '.')
-       builder.append('$');
+       b.append('$');
      else
-       builder.append(ch);
+       b.append(ch);
     }
 
-    return builder.toString();
+    return b.toString();
   }
 
   public static String getInstanceName(final Model model) {

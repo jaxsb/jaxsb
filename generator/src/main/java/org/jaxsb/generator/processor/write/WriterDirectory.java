@@ -171,26 +171,28 @@ public final class WriterDirectory implements PipelineDirectory<GeneratorContext
 
   @Override
   public PipelineEntity getEntity(final Plan<?> entity, final Writer<?> parent) {
-    if (!keys.contains(entity.getClass()))
-      throw new IllegalArgumentException("Unknown key: " + entity.getClass().getSimpleName());
+    final Class<? extends Plan> entityClass = entity.getClass();
+    if (!keys.contains(entityClass))
+      throw new IllegalArgumentException("Unknown key: " + entityClass.getSimpleName());
 
-    Writer writerInstance = instances.get(entity.getClass());
+    Writer writerInstance = instances.get(entityClass);
     if (writerInstance != null)
       return writerInstance;
 
-    final Class<? extends Writer> writerClass = classes.get(entity.getClass());
+    final Class<? extends Writer> writerClass = classes.get(entityClass);
     try {
-      instances.put(entity.getClass(), writerInstance = writerClass.getDeclaredConstructor().newInstance());
+      instances.put(entityClass, writerInstance = writerClass.getDeclaredConstructor().newInstance());
       return writerInstance;
     }
     catch (final IllegalAccessException | InstantiationException | NoSuchMethodException e) {
       throw new CompilerFailureException(e);
     }
     catch (final InvocationTargetException e) {
-      if (e.getCause() instanceof RuntimeException)
-        throw (RuntimeException)e.getCause();
+      final Throwable cause = e.getCause();
+      if (cause instanceof RuntimeException)
+        throw (RuntimeException)cause;
 
-      throw new CompilerFailureException(e.getCause());
+      throw new CompilerFailureException(cause);
     }
   }
 

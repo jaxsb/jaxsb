@@ -181,10 +181,11 @@ public final class PlanDirectory implements PipelineDirectory<GeneratorContext,M
       throw new CompilerFailureException(e);
     }
     catch (final InvocationTargetException e) {
-      if (e.getCause() instanceof RuntimeException)
-        throw (RuntimeException)e.getCause();
+      final Throwable cause = e.getCause();
+      if (cause instanceof RuntimeException)
+        throw (RuntimeException)cause;
 
-      throw new CompilerFailureException(e.getCause());
+      throw new CompilerFailureException(cause);
     }
   }
 

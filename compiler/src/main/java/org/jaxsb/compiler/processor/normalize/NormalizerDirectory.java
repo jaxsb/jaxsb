@@ -194,10 +194,11 @@ public final class NormalizerDirectory implements PipelineDirectory<GeneratorCon
       throw new LexerFailureException(e);
     }
     catch (final InvocationTargetException e) {
-      if (e.getCause() instanceof RuntimeException)
-        throw (RuntimeException)e.getCause();
+      final Throwable cause = e.getCause();
+      if (cause instanceof RuntimeException)
+        throw (RuntimeException)cause;
 
-      throw new LexerFailureException(e.getCause());
+      throw new LexerFailureException(cause);
     }
   }
 
