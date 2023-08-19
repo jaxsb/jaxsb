@@ -16,6 +16,7 @@
 
 package org.jaxsb.runtime;
 
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -103,8 +104,7 @@ public final class XSTypeDirectory {
   static {
     // This section creates simpleType bindings for all of the base xs simple types.
     try {
-      // FIXME: Have the nativeClasses hardcoded here be looked up using
-      // FIXME: reflection during the generation process!!!!
+      // FIXME: Have the nativeClasses hardcoded here be looked up using reflection during the generation process!!!!
       final XSTypeDirectory ENTITIES = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "ENTITIES"), new NativeBinding.GenericClass($ENTITIES.class), new NativeBinding.GenericClass(List.class, String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory string = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "string"), new NativeBinding.GenericClass($String.class), new NativeBinding.GenericClass(String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory normalizedString = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "normalizedString"), new NativeBinding.GenericClass($NormalizedString.class), new NativeBinding.GenericClass(String.class)), string);
@@ -136,7 +136,7 @@ public final class XSTypeDirectory {
       final XSTypeDirectory gMonthDay = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "gMonthDay"), new NativeBinding.GenericClass($GMonthDay.class), new NativeBinding.GenericClass(MonthDay.class), MonthDay.class.getDeclaredMethod("parse", String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory gYear = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "gYear"), new NativeBinding.GenericClass($GYear.class), new NativeBinding.GenericClass(Year.class), Year.class.getDeclaredMethod("parse", String.class)), ANYSIMPLETYPE);
       final XSTypeDirectory gYearMonth = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "gYearMonth"), new NativeBinding.GenericClass($GYearMonth.class), new NativeBinding.GenericClass(YearMonth.class), YearMonth.class.getDeclaredMethod("parse", String.class)), ANYSIMPLETYPE);
-      final XSTypeDirectory hexBinary = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "hexBinary"), new NativeBinding.GenericClass($HexBinary.class), new NativeBinding.GenericClass(HexBinary.class), HexBinary.class.getDeclaredMethod("parse", String.class)), ANYSIMPLETYPE);
+      final XSTypeDirectory hexBinary = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "hexBinary"), new NativeBinding.GenericClass($HexBinary.class), new NativeBinding.GenericClass(HexBinary.class), HexBinary.class.getDeclaredMethod("parse", CharSequence.class)), ANYSIMPLETYPE);
       final XSTypeDirectory integer = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "integer"), new NativeBinding.GenericClass($Integer.class), new NativeBinding.GenericClass(BigInteger.class), BigInteger.class.getDeclaredConstructor(String.class)), decimal);
       final XSTypeDirectory language = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "language"), new NativeBinding.GenericClass($Language.class), new NativeBinding.GenericClass(Language.class), Language.class.getDeclaredMethod("parse", String.class)), token);
       final XSTypeDirectory positiveInteger = new XSTypeDirectory(new NativeBinding(UniqueQName.getInstance(UniqueQName.XS.getNamespaceURI(), "positiveInteger"), new NativeBinding.GenericClass($PositiveInteger.class), new NativeBinding.GenericClass(BigInteger.class), BigInteger.class.getDeclaredConstructor(String.class)), integer);
@@ -176,20 +176,22 @@ public final class XSTypeDirectory {
 
   private XSTypeDirectory(final NativeBinding nativeBinding, final XSTypeDirectory superType) {
     this.nativeBinding = nativeBinding;
-    if (nativeBinding.getFactoryMethod() == null) {
+    final AccessibleObject factoryMethod = nativeBinding.getFactoryMethod();
+    if (factoryMethod == null) {
       this.nativeFactory = null;
     }
     else {
-      if (nativeBinding.getFactoryMethod() instanceof Method)
-        this.nativeFactory = ((Method)nativeBinding.getFactoryMethod()).getDeclaringClass().getCanonicalName() + "." + ((Method)nativeBinding.getFactoryMethod()).getName();
-      else if (nativeBinding.getFactoryMethod() instanceof Constructor<?>)
-        this.nativeFactory = "new " + ((Constructor<?>)nativeBinding.getFactoryMethod()).getDeclaringClass().getCanonicalName();
+      if (factoryMethod instanceof Method)
+        this.nativeFactory = ((Method)factoryMethod).getDeclaringClass().getCanonicalName() + "." + ((Method)factoryMethod).getName();
+      else if (factoryMethod instanceof Constructor<?>)
+        this.nativeFactory = "new " + ((Constructor<?>)factoryMethod).getDeclaringClass().getCanonicalName();
       else
-        throw new UnsupportedOperationException("Unknown native binding factoryMethod type: " + nativeBinding.getFactoryMethod().getClass().getCanonicalName());
+        throw new UnsupportedOperationException("Unknown native binding factoryMethod type: " + factoryMethod.getClass().getCanonicalName());
     }
 
-    defaultTypes.put(nativeBinding.getName(), this);
+    final UniqueQName name = nativeBinding.getName();
+    defaultTypes.put(name, this);
     if (superType != null)
-      typeHierarchy.put(nativeBinding.getName(), superType.getNativeBinding().getName());
+      typeHierarchy.put(name, superType.getNativeBinding().getName());
   }
 }
