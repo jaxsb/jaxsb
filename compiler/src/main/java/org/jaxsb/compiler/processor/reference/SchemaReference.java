@@ -138,10 +138,10 @@ public final class SchemaReference implements PipelineEntity {
         else if (!namespaceURI.toString().equals(e.getNamespaceURI()))
           throw new LexerFailureException("This should never happen: " + namespaceURI + " != " + e.getNamespaceURI());
 
-        this.prefix = Prefix.getInstance(e.getPrefix());
-        if (logger.isDebugEnabled()) logger.debug("linking \"" + namespaceURI + "\" to \"" + this.prefix + "\"");
+        prefix = Prefix.getInstance(e.getPrefix());
+        if (logger.isDebugEnabled()) logger.debug("linking \"" + namespaceURI + "\" to \"" + prefix + "\"");
 
-        UniqueQName.linkPrefixNamespace(namespaceURI, this.prefix);
+        UniqueQName.linkPrefixNamespace(namespaceURI, prefix);
         isResolved.set(true);
       }
       catch (final SAXException e) {

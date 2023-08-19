@@ -105,6 +105,7 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
             // Check if we have two schemaReferences for a single targetNamespace
             // This should not happen for import, but can happen for include!
             final NamespaceURI importNamespaceURI = NamespaceURI.getInstance(namespaceUri);
+
             final URL duplicate = importLoopCheck.get(importNamespaceURI);
             if (duplicate == null) {
               importLoopCheck.put(importNamespaceURI, schemaLocationURI);
@@ -145,6 +146,10 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
 
   private static URL getSchemaLocation(final URL baseURI, final Element element) throws MalformedURLException {
     final String schemaLocation = element.getAttribute("schemaLocation");
+    final URL location = SchemaResolver.resolve(schemaLocation, null);
+    if (location != null)
+      return location;
+
     if (StringPaths.isAbsolutePublicId(schemaLocation))
       return URLs.create(StringPaths.canonicalize(schemaLocation));
 
