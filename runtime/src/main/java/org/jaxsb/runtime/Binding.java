@@ -394,13 +394,13 @@ public abstract class Binding extends AbstractBinding {
     final int index = str.length();
 
     if (hasXsiType)
-      AttributeAudit.toString(str, prefixToNamespace, XSI_TYPE, true, prefix + ":" + type().getLocalPart());
+      AbstractAttributeAudit.toString(str, prefixToNamespace, XSI_TYPE, true, prefix + ":" + type().getLocalPart());
 
     final boolean hasElements = _$$hasElements();
     final boolean hasText = text() != null;
 
     if (!hasElements && !hasText && nillable)
-      AttributeAudit.toString(str, prefixToNamespace, XSI_NIL, true, "true");
+      AbstractAttributeAudit.toString(str, prefixToNamespace, XSI_NIL, true, "true");
 
     if (attributeDirectory != null)
       attributeDirectory.toString(str, prefixToNamespace);
@@ -467,7 +467,7 @@ public abstract class Binding extends AbstractBinding {
     return attributeDirectory == null ? attributeDirectory = new CompositeAttributeStore() : attributeDirectory;
   }
 
-  protected final <B extends $AnySimpleType<?>>AttributeAudit<B> __$$registerAttributeAudit(final AttributeAudit<B> audit) {
+  protected final <A extends AbstractAttributeAudit>A __$$registerAttributeAudit(final A audit) {
     getCreateAttributeStore().add(audit);
     return audit;
   }

@@ -27,7 +27,6 @@ import org.libj.lang.PackageLoader;
 import org.libj.lang.PackageNotFoundException;
 import org.libj.lang.Strings;
 import org.libj.net.URLConnections;
-import org.libj.util.function.Throwing;
 import org.openjax.xml.sax.CachedInputSource;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
@@ -97,8 +96,7 @@ public class BindingEntityResolver implements LSResourceResolver, EntityResolver
       return new CachedInputSource(publicId, location.toString(), baseURI, location.openConnection());
     }
     catch (final IOException e) {
-      Throwing.rethrow(e);
-      throw new Error("Will never get here");
+      throw new UncheckedIOException(e);
     }
   }
 

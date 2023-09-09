@@ -22,12 +22,13 @@ import java.util.Objects;
 
 import javax.xml.namespace.QName;
 
+import org.jaxsb.runtime.Binding.PrefixToNamespace;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("rawtypes")
-public final class AnyAttributeAudit<T extends $AnySimpleType> {
+public final class AnyAttributeAudit<T extends $AnySimpleType> extends AbstractAttributeAudit {
   private final boolean qualified;
   private final boolean required;
   private ArrayList<T> value;
@@ -57,6 +58,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> {
     return true;
   }
 
+  @Override
   public List<T> getAttribute() {
     return value;
   }
@@ -81,7 +83,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> {
     }
   }
 
-  @SuppressWarnings("unused")
+  @Override
   public AnyAttributeAudit<T> clone(final $AnyType<?> owner) {
     return new AnyAttributeAudit<>(this);
   }
@@ -103,5 +105,17 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> {
   @Override
   public String toString() {
     return value != null ? value.toString() : super.toString();
+  }
+
+  @Override
+  void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace) {
+    if (value == null)
+      return;
+
+    for (int i = 0, i$ = value.size(); i < i$; ++i) { // [RA]
+      final Binding binding = value.get(i);
+      final QName qName = Binding.name(binding);
+      AbstractAttributeAudit.toString(str, prefixToNamespace, qName, isQualified(), binding.text().toString());
+    }
   }
 }

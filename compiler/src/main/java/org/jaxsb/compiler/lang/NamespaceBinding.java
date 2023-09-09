@@ -215,8 +215,7 @@ public final class NamespaceBinding {
       throw new UnsupportedOperationException("Unsupported namespace format: " + namespaceURI);
 
     final StringBuilder packageNameForDiff = new StringBuilder(packageName);
-    int count = 0;
-    for (int i = 0, i$ = packageName.length(); i < i$; ++i) { // [N]
+    for (int i = 0, i$ = packageName.length(), count = 0; i < i$; ++i) { // [N]
       if (packageNameForDiff.charAt(i) == '_' && i > 0 && packageNameForDiff.charAt(i - 1) != '/' && packageNameForDiff.charAt(i - 1) != '.')
         packageNameForDiff.setCharAt(i, ':');
       else if (packageNameForDiff.charAt(i) == '.' && ++count > 2)
@@ -241,9 +240,9 @@ public final class NamespaceBinding {
   }
 
   private static StringBuilder removePrefixForDigits(final StringBuilder builder) {
-    int match = 0;
-    for (int i = builder.length() - 1; i >= 0; --i) { // [N]
-      final char ch = builder.charAt(i);
+    char ch;
+    for (int i = builder.length() - 1, match = 0; i >= 0; --i) { // [N]
+      ch = builder.charAt(i);
       if (match > 1 && (ch == '/' || ch == '.'))
         builder.delete(i + 1, i + 2);
 
@@ -282,8 +281,7 @@ public final class NamespaceBinding {
     final String source = className.substring(0, index).replace('.', '/');
 
     final StringBuilder preparedSource = new StringBuilder(source);
-    int count = 0;
-    for (int i = 0, i$ = source.length(); i < i$; ++i) { // [N]
+    for (int i = 0, i$ = source.length(), count = 0; i < i$; ++i) { // [N]
       if (preparedSource.charAt(i) == '_' && i > 0 && preparedSource.charAt(i - 1) != '/' && preparedSource.charAt(i - 1) != '.')
         preparedSource.setCharAt(i, ':');
       else if (preparedSource.charAt(i) == '/' && ++count < 3)
@@ -411,7 +409,7 @@ public final class NamespaceBinding {
    * @return The namespace URI for this binding.
    */
   public URI getNamespaceUri() {
-    return this.namespaceUri;
+    return namespaceUri;
   }
 
   /**
@@ -420,7 +418,7 @@ public final class NamespaceBinding {
    * @return The package name for this binding.
    */
   public String getPackageName() {
-    return this.packageName;
+    return packageName;
   }
 
   /**
@@ -429,7 +427,7 @@ public final class NamespaceBinding {
    * @return The simple class name (i.e. class name without the package name) for this binding.
    */
   public String getSimpleClassName() {
-    return this.simpleClassName;
+    return simpleClassName;
   }
 
   /**
@@ -438,7 +436,7 @@ public final class NamespaceBinding {
    * @return The fully qualified class name for this binding.
    */
   public String getClassName() {
-    return this.className;
+    return className;
   }
 
   /**
@@ -447,7 +445,7 @@ public final class NamespaceBinding {
    * @return The relative path of the {@code .java} file for this binding.
    */
   public String getJavaPath() {
-    return this.javaPath;
+    return javaPath;
   }
 
   @Override

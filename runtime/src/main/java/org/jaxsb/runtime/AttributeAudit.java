@@ -26,7 +26,7 @@ import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("rawtypes")
-public final class AttributeAudit<B extends $AnySimpleType> {
+public class AttributeAudit<B extends $AnySimpleType> extends AbstractAttributeAudit {
   private final $AnyType<?> owner;
   private final B _default;
   private final QName name;
@@ -76,6 +76,7 @@ public final class AttributeAudit<B extends $AnySimpleType> {
     return true;
   }
 
+  @Override
   public B getAttribute() {
     return value != null ? value : getDefault();
   }
@@ -92,6 +93,7 @@ public final class AttributeAudit<B extends $AnySimpleType> {
     parent.setAttributeNodeNS(((Binding)value).marshalAttr(marshalName, parent));
   }
 
+  @Override
   public AttributeAudit<B> clone(final $AnyType<?> owner) {
     return new AttributeAudit<>(owner, this);
   }
@@ -115,21 +117,8 @@ public final class AttributeAudit<B extends $AnySimpleType> {
     return value != null ? value.toString() : super.toString();
   }
 
-  public static void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace, final QName name, final boolean qualified, final Object text) {
-    if (text == null)
-      return;
-
-    str.append(' ');
-    if (qualified)
-      str.append(prefixToNamespace.getPrefix(name)).append(':');
-
-    str.append(name.getLocalPart());
-    str.append("=\"");
-    Binding.textToString(str, text, prefixToNamespace);
-    str.append('"');
-  }
-
-  public void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace) {
+  @Override
+  void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace) {
     if (value == null)
       return;
 
@@ -137,6 +126,6 @@ public final class AttributeAudit<B extends $AnySimpleType> {
     if (name == null)
       name = ((Binding)value).name(); // FIXME: Why is this being done?
 
-    toString(str, prefixToNamespace, name, isQualified(), value.text());
+    AbstractAttributeAudit.toString(str, prefixToNamespace, name, isQualified(), value.text());
   }
 }

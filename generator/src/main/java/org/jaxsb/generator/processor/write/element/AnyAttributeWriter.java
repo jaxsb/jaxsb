@@ -36,7 +36,7 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("private " + AnyAttributeAudit.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> anyAttribute = new " + AnyAttributeAudit.class.getName() + "<>(" + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + ");\n");
+    writer.write("private " + AnyAttributeAudit.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> anyAttribute = __$$registerAttributeAudit(new " + AnyAttributeAudit.class.getName() + "<>(" + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + "));\n");
   }
 
   @Override

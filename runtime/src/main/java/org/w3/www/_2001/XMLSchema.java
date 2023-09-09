@@ -178,8 +178,7 @@ public final class XMLSchema {
        * @param text The {@link Text}.
        */
       protected final void parseText(final Text text) {
-        // Ignore all attributes that have a xsi prefix because these are
-        // controlled implicitly by the framework
+        // Ignore all attributes that have a xsi prefix because these are controlled implicitly by the framework
         if (XSI_NIL.getPrefix().equals(text.getPrefix()))
           return;
 

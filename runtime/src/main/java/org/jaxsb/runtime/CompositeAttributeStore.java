@@ -18,23 +18,24 @@ package org.jaxsb.runtime;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.jaxsb.runtime.Binding.PrefixToNamespace;
 import org.libj.util.DelegateRandomAccessList;
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 
-public class CompositeAttributeStore extends DelegateRandomAccessList<AttributeAudit<?>,ArrayList<AttributeAudit<?>>> {
+public class CompositeAttributeStore extends DelegateRandomAccessList<AbstractAttributeAudit,ArrayList<AbstractAttributeAudit>> {
   public CompositeAttributeStore() {
     super(new ArrayList<>());
   }
 
   @SuppressWarnings("rawtypes")
   private final class AttributeIterator implements Iterator<$AnySimpleType> {
-    private final Iterator<AttributeAudit<?>> iterator;
-    private $AnySimpleType next;
+    private final Iterator<AbstractAttributeAudit> iterator;
+    private Object next;
 
-    private AttributeIterator(final Iterator<AttributeAudit<?>> iterator) {
+    private AttributeIterator(final Iterator<AbstractAttributeAudit> iterator) {
       this.iterator = iterator;
       setNext();
     }
@@ -50,11 +51,29 @@ public class CompositeAttributeStore extends DelegateRandomAccessList<AttributeA
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public $AnySimpleType next() {
       if (next == null)
         throw new NoSuchElementException();
 
-      final $AnySimpleType current = next;
+      final $AnySimpleType current;
+      if (next instanceof $AnySimpleType) {
+        current = ($AnySimpleType)next;
+      }
+      else if (next instanceof Iterator) {
+        final Iterator<$AnySimpleType> iterator = (Iterator<$AnySimpleType>)next;
+        current = iterator.next();
+        if (iterator.hasNext())
+          return current;
+      }
+      else if (next instanceof List) {
+        next = ((List)next).iterator();
+        return next();
+      }
+      else {
+        throw new IllegalStateException("Unexpected attribute type: " + next.getClass().getName());
+      }
+
       next = null;
       setNext();
       return current;
@@ -66,7 +85,7 @@ public class CompositeAttributeStore extends DelegateRandomAccessList<AttributeA
     return new AttributeIterator(iterator());
   }
 
-  public CompositeAttributeStore clone(final $AnySimpleType<?> owner) {
+  CompositeAttributeStore clone(final $AnySimpleType<?> owner) {
     final CompositeAttributeStore clone = new CompositeAttributeStore();
     for (int i = 0, i$ = this.size(); i < i$; ++i) // [RA]
       clone.add(get(i).clone(owner));
@@ -74,8 +93,8 @@ public class CompositeAttributeStore extends DelegateRandomAccessList<AttributeA
     return clone;
   }
 
-  public void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace) {
+  void toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace) {
     for (int i = 0, i$ = this.size(); i < i$; ++i) // [RA]
-      get(i).toString(str,prefixToNamespace);
+      get(i).toString(str, prefixToNamespace);
   }
 }

@@ -231,7 +231,8 @@ public class yAA extends org.jaxsb.runtime.Schema {
                     false,
                     false));
     private org.jaxsb.runtime.AnyAttributeAudit<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType>
-        anyAttribute = new org.jaxsb.runtime.AnyAttributeAudit<>(false, false);
+        anyAttribute =
+            __$$registerAttributeAudit(new org.jaxsb.runtime.AnyAttributeAudit<>(false, false));
     private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XInclude.yAA.$FallbackType>
         _xifallbackRef =
             new org.jaxsb.runtime.ElementAudit<>(
@@ -1169,7 +1170,8 @@ public class yAA extends org.jaxsb.runtime.Schema {
     }
 
     private org.jaxsb.runtime.AnyAttributeAudit<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType>
-        anyAttribute = new org.jaxsb.runtime.AnyAttributeAudit<>(false, false);
+        anyAttribute =
+            __$$registerAttributeAudit(new org.jaxsb.runtime.AnyAttributeAudit<>(false, false));
     private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XInclude.yAA.$IncludeType>
         _xiincludeRef =
             new org.jaxsb.runtime.ElementAudit<>(
