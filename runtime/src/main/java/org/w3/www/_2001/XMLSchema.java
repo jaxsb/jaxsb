@@ -75,28 +75,28 @@ public final class XMLSchema {
     if (i$ == 0)
       return null;
 
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder b = new StringBuilder();
     final List<?> list;
     if (value instanceof List && CollectionUtil.isRandomAccess(list = (List<?>)value)) {
       int i = 0; do { // [RA]
         if (i > 0)
-          builder.append(' ');
+          b.append(' ');
 
-        builder.append(list.get(i));
+        b.append(list.get(i));
       }
       while (++i < i$);
     }
     else {
       int i = -1; final Iterator<?> it = ((Collection<?>)value).iterator(); do { // [I]
         if (++i > 0)
-          builder.append(' ');
+          b.append(' ');
 
-        builder.append(it.next());
+        b.append(it.next());
       }
       while (it.hasNext());
     }
 
-    return builder.toString();
+    return b.toString();
   }
 
   private static List<String> decodeAsList(final String value) {
@@ -114,8 +114,8 @@ public final class XMLSchema {
         return cursor;
       }
 
-      private List<$AnyType> any;
-      private List<$AnySimpleType> anySimple;
+      private List<$AnyType<?>> any;
+      private List<$AnySimpleType<?>> anySimple;
       private T text;
 
       public $AnyType(final T text) {
@@ -134,8 +134,9 @@ public final class XMLSchema {
       }
 
       protected void text(final T text) {
-        if (this.text != text && owner() != null)
-          owner().setDirty(); // FIXME: Should this do Objects.equals(this.text, text)?
+        final $AnyType<?> owner;
+        if (this.text != text && (owner = owner()) != null)
+          owner.setDirty(); // FIXME: Should this do Objects.equals(this.text, text)?
 
         this.text = text;
       }
@@ -145,14 +146,14 @@ public final class XMLSchema {
         return text;
       }
 
-      protected void addAny$(final $AnySimpleType any) {
+      protected void addAny$(final $AnySimpleType<?> any) {
         if (this.anySimple == null)
           this.anySimple = new ArrayList<>();
 
         this.anySimple.add(any);
       }
 
-      protected List<$AnySimpleType> getAny$() {
+      protected List<$AnySimpleType<?>> getAny$() {
         return anySimple;
       }
 
@@ -163,7 +164,7 @@ public final class XMLSchema {
         this.any.add(any);
       }
 
-      protected List<$AnyType> get$Any() {
+      protected List<$AnyType<?>> get$Any() {
         return any;
       }
 
@@ -182,13 +183,14 @@ public final class XMLSchema {
         if (XSI_NIL.getPrefix().equals(text.getPrefix()))
           return;
 
-        final String value;
-        if (text.getNodeValue() != null && (value = text.getNodeValue().trim()).length() > 0) // FIXME: trim()?
+        String value;
+        if ((value = text.getNodeValue()) != null && (value = value.trim()).length() > 0) // FIXME: trim()?
           _$$decode((Element)text.getParentNode(), value);
       }
 
       protected static $AnySimpleType<?> _$$parseAnyAttr(final Element parent, final Node attribute) {
-        final AnyAttribute<?> anyAttribute = new AnyAttribute<>(attribute.getPrefix() != null ? new QName(attribute.getNamespaceURI(), attribute.getLocalName(), attribute.getPrefix()) : new QName(attribute.getNamespaceURI(), attribute.getLocalName()));
+        final String prefix = attribute.getPrefix();
+        final AnyAttribute<?> anyAttribute = new AnyAttribute<>(prefix != null ? new QName(attribute.getNamespaceURI(), attribute.getLocalName(), prefix) : new QName(attribute.getNamespaceURI(), attribute.getLocalName()));
         _$$decode(anyAttribute, parent, attribute);
         return anyAttribute;
       }
@@ -216,7 +218,7 @@ public final class XMLSchema {
         binding._$$decode(parent, attribute.getNodeValue());
       }
 
-      protected static <B extends $AnyType>B _$$parseAttr(final B binding, final Attr attribute) {
+      protected static <B extends $AnyType<?>>B _$$parseAttr(final B binding, final Attr attribute) {
         binding._$$decode(attribute.getOwnerElement(), attribute.getNodeValue());
         return binding;
       }
@@ -239,7 +241,8 @@ public final class XMLSchema {
 
       @Override
       protected Element marshal() throws MarshalException {
-        final Element node = marshal(createElementNS(name().getNamespaceURI(), name().getLocalPart()), name(), type(_$$inheritsInstance()));
+        final QName name = name();
+        final Element node = marshal(createElementNS(name.getNamespaceURI(), name.getLocalPart()), name, type(_$$inheritsInstance()));
         _$$marshalElements(node);
         return node;
       }
@@ -1284,10 +1287,11 @@ public final class XMLSchema {
       protected void text(final String text) {
         final String old = text();
         super.text(text);
+        final String namespaceURI = name().getNamespaceURI();
         if (old != null)
-          remove(name().getNamespaceURI(), old);
+          remove(namespaceURI, old);
 
-        persist(name().getNamespaceURI(), text, this);
+        persist(namespaceURI, text, this);
       }
 
       @Override
@@ -1680,12 +1684,12 @@ public final class XMLSchema {
 
       @Override
       protected String _$$encode(final Element parent) throws MarshalException {
-        final String name = super._$$encode(parent);
-        if (parent.getNamespaceURI().equals(text().name().getNamespaceURI()))
-          return name;
+        final String superName = super._$$encode(parent);
+        final QName textName = text().name();
+        if (parent.getNamespaceURI().equals(textName.getNamespaceURI()))
+          return superName;
 
-        final String prefix = _$$getPrefix(parent, text().name());
-        return prefix + ":" + name;
+        return _$$getPrefix(parent, textName) + ":" + superName;
       }
 
       @Override
@@ -1697,9 +1701,11 @@ public final class XMLSchema {
         else
           qName = new QName(parent.getOwnerDocument().lookupNamespaceURI(value.substring(0, colon)), value.substring(colon + 1));
 
-        super.text(NotationType.parse(qName));
-        if (super.text() == null)
+        final NotationType text = NotationType.parse(qName);
+        if (text == null)
           throw new IllegalStateException("Notation \"" + value + "\" is not registered. The code that instantiates the Notation binding for \"" + value + "\" must be run before it is possible for the Binding engine to know about it.");
+
+        super.text(text);
       }
 
       @Override

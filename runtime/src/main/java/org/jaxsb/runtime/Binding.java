@@ -166,7 +166,7 @@ public abstract class Binding extends AbstractBinding {
     return false;
   }
 
-  protected static $AnyType<?> parse(final Element element, final Class<? extends $AnyType> defaultClass) throws ValidationException {
+  protected static $AnyType<?> parse(final Element element, final Class<? extends $AnyType<?>> defaultClass) throws ValidationException {
     return parseElement(element, defaultClass, Thread.currentThread().getContextClassLoader());
   }
 
@@ -174,7 +174,7 @@ public abstract class Binding extends AbstractBinding {
     return parseElement(element, null, Thread.currentThread().getContextClassLoader());
   }
 
-  protected static $AnyType<?> parseElement(final Element element, final Class<? extends $AnyType> defaultClass, final ClassLoader classLoader) throws ValidationException {
+  protected static $AnyType<?> parseElement(final Element element, final Class<? extends $AnyType<?>> defaultClass, final ClassLoader classLoader) throws ValidationException {
     String namespaceURI = element.getNamespaceURI();
     if (namespaceURI == null)
       throw new IllegalArgumentException("Element does not declare a namespace");
@@ -295,7 +295,7 @@ public abstract class Binding extends AbstractBinding {
   }
 
   @SuppressWarnings("unchecked")
-  protected BindingList<$AnyType> fetchChild(final QName name) {
+  protected BindingList<$AnyType<?>> fetchChild(final QName name) {
     if (name.getLocalPart() == null)
       throw new IllegalArgumentException("name.getLocalPart() is null");
 
@@ -305,7 +305,7 @@ public abstract class Binding extends AbstractBinding {
         if (method.getReturnType() != null && method.getParameterTypes().length == 0) {
           final org.jaxsb.runtime.QName qName = method.getAnnotation(org.jaxsb.runtime.QName.class);
           if (qName != null && name.getLocalPart().equals(qName.localPart()) && (name.getNamespaceURI() != null ? name.getNamespaceURI().equals(qName.namespaceURI()) : qName.namespaceURI() == null))
-            return (BindingList<$AnyType>)method.invoke(this);
+            return (BindingList<$AnyType<?>>)method.invoke(this);
         }
       }
     }
@@ -472,19 +472,19 @@ public abstract class Binding extends AbstractBinding {
     return audit;
   }
 
-  protected Iterator<$AnyType> elementIterator() {
+  protected Iterator<$AnyType<?>> elementIterator() {
     return getCreateElementDirectory().iterator();
   }
 
-  protected ListIterator<$AnyType> elementListIterator() {
+  protected ListIterator<$AnyType<?>> elementListIterator() {
     return getCreateElementDirectory().listIterator();
   }
 
-  protected ListIterator<$AnyType> elementListIterator(final int index) {
+  protected ListIterator<$AnyType<?>> elementListIterator(final int index) {
     return getCreateElementDirectory().listIterator(index);
   }
 
-  protected Iterator<$AnySimpleType> attributeIterator() {
+  protected Iterator<$AnySimpleType<?>> attributeIterator() {
     return getCreateAttributeStore().valueIterator();
   }
 

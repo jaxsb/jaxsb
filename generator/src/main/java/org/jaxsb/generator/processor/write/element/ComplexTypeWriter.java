@@ -243,27 +243,27 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
     // ATTRIBUTE & ELEMENT ITERATORS
     if ($AnyType.class.getCanonicalName().equals(plan.getSuperClassNameWithoutGenericType()) || $AnySimpleType.class.getCanonicalName().equals(plan.getSuperClassNameWithoutGenericType())) {
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + Iterator.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> attributeIterator() {\n");
+      writer.write("public " + Iterator.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "<?>> attributeIterator() {\n");
       writer.write("return super.attributeIterator();\n");
       writer.write("}\n");
 
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + Iterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementIterator() {\n");
+      writer.write("public " + Iterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementIterator() {\n");
       writer.write("return super.elementIterator();\n");
       writer.write("}\n");
 
       writer.write("@" + Override.class.getName() + "\n");
-      writer.write("public " + BindingList.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> fetchChild(final " + QName.class.getName() + " name) {\n");
+      writer.write("public " + BindingList.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> fetchChild(final " + QName.class.getName() + " name) {\n");
       writer.write("return super.fetchChild(name);\n");
       writer.write("}\n");
     }
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementListIterator()\n");
+//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementListIterator()\n");
 //  writer.write("{\n");
 //  writer.write("return super.elementListIterator();\n");
 //  writer.write("}\n");
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "> elementListIterator(final int index)\n");
+//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementListIterator(final int index)\n");
 //  writer.write("{\n");
 //  writer.write("return super.elementListIterator(index);\n");
 //  writer.write("}\n");

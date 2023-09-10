@@ -36,24 +36,24 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendDeclaration(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("private " + AnyAttributeAudit.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> anyAttribute = __$$registerAttributeAudit(new " + AnyAttributeAudit.class.getName() + "<>(" + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + "));\n");
+    writer.write("private " + AnyAttributeAudit.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "<?>> anyAttribute = __$$registerAttributeAudit(new " + AnyAttributeAudit.class.getName() + "<>(" + Form.QUALIFIED.equals(plan.getFormDefault()) + ", " + Use.REQUIRED.equals(plan.getUse()) + "));\n");
   }
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("public " + List.class.getName() + "<" +  $AnySimpleType.class.getCanonicalName() + "> getAny$() {\n");
+    writer.write("public " + List.class.getName() + "<" +  $AnySimpleType.class.getCanonicalName() + "<?>> getAny$() {\n");
     writer.write("return anyAttribute.getAttribute();\n");
     writer.write("}\n");
 
     writer.write("public " + $AnySimpleType.class.getCanonicalName() + " getAny$(final int index) {\n");
-    writer.write("final " + List.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "> values = getAny$();\n");
+    writer.write("final " + List.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "<?>> values = getAny$();\n");
     writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : null;\n");
     writer.write("}\n");
   }
 
   @Override
   protected void appendSetMethod(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("public void addAny$(final " + $AnySimpleType.class.getCanonicalName() + " anyAttribute) {\n");
+    writer.write("public void addAny$(final " + $AnySimpleType.class.getCanonicalName() + "<?> anyAttribute) {\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
     writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<>());\n");
     writer.write("this.anyAttribute.getAttribute().add(anyAttribute);\n");

@@ -96,17 +96,18 @@ public class yAA extends org.jaxsb.runtime.Schema {
     }
 
     @java.lang.Override
-    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType> attributeIterator() {
+    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>>
+        attributeIterator() {
       return super.attributeIterator();
     }
 
     @java.lang.Override
-    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnyType> elementIterator() {
+    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> elementIterator() {
       return super.elementIterator();
     }
 
     @java.lang.Override
-    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType> fetchChild(
+    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> fetchChild(
         final javax.xml.namespace.QName name) {
       return super.fetchChild(name);
     }
@@ -230,7 +231,7 @@ public class yAA extends org.jaxsb.runtime.Schema {
                         "http://www.w3.org/2001/XInclude", "accept-language", "xi"),
                     false,
                     false));
-    private org.jaxsb.runtime.AnyAttributeAudit<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType>
+    private org.jaxsb.runtime.AnyAttributeAudit<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>>
         anyAttribute =
             __$$registerAttributeAudit(new org.jaxsb.runtime.AnyAttributeAudit<>(false, false));
     private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XInclude.yAA.$FallbackType>
@@ -246,7 +247,7 @@ public class yAA extends org.jaxsb.runtime.Schema {
                 false,
                 0,
                 2147483647);
-    private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XMLSchema.yAA.$AnyType> any =
+    private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> any =
         new org.jaxsb.runtime.ElementAudit<>(
             org.w3.www._2001.XMLSchema.yAA.$AnyType.class,
             this,
@@ -370,18 +371,18 @@ public class yAA extends org.jaxsb.runtime.Schema {
       return _accept$_language$Local.getAttribute();
     }
 
-    public void addAny$(final org.w3.www._2001.XMLSchema.yAA.$AnySimpleType anyAttribute) {
+    public void addAny$(final org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?> anyAttribute) {
       if (this.anyAttribute.getAttribute() == null)
         this.anyAttribute.setAttribute(new java.util.ArrayList<>());
       this.anyAttribute.getAttribute().add(anyAttribute);
     }
 
-    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType> getAny$() {
+    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> getAny$() {
       return anyAttribute.getAttribute();
     }
 
     public org.w3.www._2001.XMLSchema.yAA.$AnySimpleType getAny$(final int index) {
-      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType> values = getAny$();
+      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> values = getAny$();
       return values != null && -1 < index && index < values.size() ? values.get(index) : null;
     }
 
@@ -403,16 +404,16 @@ public class yAA extends org.jaxsb.runtime.Schema {
       return values == null || index < 0 || values.size() <= index ? null : values.get(index);
     }
 
-    public void add$Any(final org.w3.www._2001.XMLSchema.yAA.$AnyType any) {
+    public void add$Any(final org.w3.www._2001.XMLSchema.yAA.$AnyType<?> any) {
       _$$addElement(this.any, any);
     }
 
-    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType> get$Any() {
+    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> get$Any() {
       return any.getElements();
     }
 
-    public org.w3.www._2001.XMLSchema.yAA.$AnyType get$Any(final int index) {
-      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType> values = get$Any();
+    public org.w3.www._2001.XMLSchema.yAA.$AnyType<?> get$Any(final int index) {
+      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> values = get$Any();
       return values != null && -1 < index && index < values.size() ? values.get(index) : null;
     }
 
@@ -425,17 +426,18 @@ public class yAA extends org.jaxsb.runtime.Schema {
     }
 
     @java.lang.Override
-    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType> attributeIterator() {
+    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>>
+        attributeIterator() {
       return super.attributeIterator();
     }
 
     @java.lang.Override
-    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnyType> elementIterator() {
+    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> elementIterator() {
       return super.elementIterator();
     }
 
     @java.lang.Override
-    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType> fetchChild(
+    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> fetchChild(
         final javax.xml.namespace.QName name) {
       return super.fetchChild(name);
     }
@@ -1095,17 +1097,18 @@ public class yAA extends org.jaxsb.runtime.Schema {
     }
 
     @java.lang.Override
-    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType> attributeIterator() {
+    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>>
+        attributeIterator() {
       return super.attributeIterator();
     }
 
     @java.lang.Override
-    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnyType> elementIterator() {
+    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> elementIterator() {
       return super.elementIterator();
     }
 
     @java.lang.Override
-    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType> fetchChild(
+    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> fetchChild(
         final javax.xml.namespace.QName name) {
       return super.fetchChild(name);
     }
@@ -1169,7 +1172,7 @@ public class yAA extends org.jaxsb.runtime.Schema {
       };
     }
 
-    private org.jaxsb.runtime.AnyAttributeAudit<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType>
+    private org.jaxsb.runtime.AnyAttributeAudit<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>>
         anyAttribute =
             __$$registerAttributeAudit(new org.jaxsb.runtime.AnyAttributeAudit<>(false, false));
     private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XInclude.yAA.$IncludeType>
@@ -1185,7 +1188,7 @@ public class yAA extends org.jaxsb.runtime.Schema {
                 false,
                 0,
                 2147483647);
-    private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XMLSchema.yAA.$AnyType> any =
+    private org.jaxsb.runtime.ElementAudit<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> any =
         new org.jaxsb.runtime.ElementAudit<>(
             org.w3.www._2001.XMLSchema.yAA.$AnyType.class,
             this,
@@ -1221,18 +1224,18 @@ public class yAA extends org.jaxsb.runtime.Schema {
       super.text(text);
     }
 
-    public void addAny$(final org.w3.www._2001.XMLSchema.yAA.$AnySimpleType anyAttribute) {
+    public void addAny$(final org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?> anyAttribute) {
       if (this.anyAttribute.getAttribute() == null)
         this.anyAttribute.setAttribute(new java.util.ArrayList<>());
       this.anyAttribute.getAttribute().add(anyAttribute);
     }
 
-    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType> getAny$() {
+    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> getAny$() {
       return anyAttribute.getAttribute();
     }
 
     public org.w3.www._2001.XMLSchema.yAA.$AnySimpleType getAny$(final int index) {
-      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType> values = getAny$();
+      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> values = getAny$();
       return values != null && -1 < index && index < values.size() ? values.get(index) : null;
     }
 
@@ -1254,16 +1257,16 @@ public class yAA extends org.jaxsb.runtime.Schema {
       return values == null || index < 0 || values.size() <= index ? null : values.get(index);
     }
 
-    public void add$Any(final org.w3.www._2001.XMLSchema.yAA.$AnyType any) {
+    public void add$Any(final org.w3.www._2001.XMLSchema.yAA.$AnyType<?> any) {
       _$$addElement(this.any, any);
     }
 
-    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType> get$Any() {
+    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> get$Any() {
       return any.getElements();
     }
 
-    public org.w3.www._2001.XMLSchema.yAA.$AnyType get$Any(final int index) {
-      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType> values = get$Any();
+    public org.w3.www._2001.XMLSchema.yAA.$AnyType<?> get$Any(final int index) {
+      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> values = get$Any();
       return values != null && -1 < index && index < values.size() ? values.get(index) : null;
     }
 
@@ -1276,17 +1279,18 @@ public class yAA extends org.jaxsb.runtime.Schema {
     }
 
     @java.lang.Override
-    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType> attributeIterator() {
+    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>>
+        attributeIterator() {
       return super.attributeIterator();
     }
 
     @java.lang.Override
-    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnyType> elementIterator() {
+    public java.util.Iterator<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> elementIterator() {
       return super.elementIterator();
     }
 
     @java.lang.Override
-    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType> fetchChild(
+    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> fetchChild(
         final javax.xml.namespace.QName name) {
       return super.fetchChild(name);
     }

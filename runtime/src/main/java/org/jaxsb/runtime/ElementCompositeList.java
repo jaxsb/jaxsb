@@ -25,10 +25,10 @@ import org.slf4j.Logger;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 @SuppressWarnings("rawtypes")
-public class ElementCompositeList extends CompositeList<$AnyType,QName> {
+public class ElementCompositeList extends CompositeList<$AnyType<?>,QName> {
   protected static final QName ANY = new QName("##any", "##any");
 
-  protected class ElementComponentList extends ComponentList implements BindingList<$AnyType> {
+  protected class ElementComponentList extends ComponentList implements BindingList<$AnyType<?>> {
     private ElementAudit<? extends $AnyType<?>> audit;
 
     public ElementComponentList(final ElementAudit<? extends $AnyType<?>> audit) {
@@ -52,7 +52,7 @@ public class ElementCompositeList extends CompositeList<$AnyType,QName> {
     }
 
     @Override
-    protected CompositeList<$AnyType,QName> getCompositeList() {
+    protected CompositeList<$AnyType<?>,QName> getCompositeList() {
       return super.getCompositeList();
     }
 

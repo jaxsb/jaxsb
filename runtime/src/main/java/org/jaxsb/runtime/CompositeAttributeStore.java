@@ -31,7 +31,7 @@ public class CompositeAttributeStore extends DelegateRandomAccessList<AbstractAt
   }
 
   @SuppressWarnings("rawtypes")
-  private final class AttributeIterator implements Iterator<$AnySimpleType> {
+  private final class AttributeIterator implements Iterator<$AnySimpleType<?>> {
     private final Iterator<AbstractAttributeAudit> iterator;
     private Object next;
 
@@ -61,7 +61,7 @@ public class CompositeAttributeStore extends DelegateRandomAccessList<AbstractAt
         current = ($AnySimpleType)next;
       }
       else if (next instanceof Iterator) {
-        final Iterator<$AnySimpleType> iterator = (Iterator<$AnySimpleType>)next;
+        final Iterator<$AnySimpleType<?>> iterator = (Iterator<$AnySimpleType<?>>)next;
         current = iterator.next();
         if (iterator.hasNext())
           return current;
@@ -80,8 +80,7 @@ public class CompositeAttributeStore extends DelegateRandomAccessList<AbstractAt
     }
   }
 
-  @SuppressWarnings("rawtypes")
-  public Iterator<$AnySimpleType> valueIterator() {
+  public Iterator<$AnySimpleType<?>> valueIterator() {
     return new AttributeIterator(iterator());
   }
 
