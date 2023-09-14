@@ -53,7 +53,7 @@ public abstract class Binding extends AbstractBinding {
   protected static DocumentBuilder newDocumentBuilder() {
     try {
       final DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
-      builder.setEntityResolver((publicId, systemId) -> {
+      builder.setEntityResolver((final String publicId, final String systemId) -> {
         if (logger.isDebugEnabled()) logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
         return null;
       });
