@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.jaxsb</groupId>
     <artifactId>jaxsb</artifactId>
-    <version>2.2.0</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>runtime</artifactId>
   <name>JAX-SB Runtime</name>
@@ -50,12 +50,12 @@
     <dependency>
       <groupId>org.openjax.xml</groupId>
       <artifactId>datatype</artifactId>
-      <version>0.9.5</version>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.openjax.xml</groupId>
       <artifactId>dom</artifactId>
-      <version>0.9.5</version>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.jaxsb</groupId>
