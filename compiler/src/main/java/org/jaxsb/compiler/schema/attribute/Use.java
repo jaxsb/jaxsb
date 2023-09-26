@@ -17,10 +17,9 @@
 package org.jaxsb.compiler.schema.attribute;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public final class Use {
-  private static final Map<String,Use> enums = new HashMap<>();
+  private static final HashMap<String,Use> enums = new HashMap<>();
 
   public static final Use OPTIONAL = new Use("optional");
   public static final Use PROHIBITED = new Use("prohibited");

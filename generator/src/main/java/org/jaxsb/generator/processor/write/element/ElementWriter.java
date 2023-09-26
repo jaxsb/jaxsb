@@ -343,7 +343,8 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
           }
         }
         else {
-          // FIXME: This misses some @Override(s) for situations that inherit from xs types, cause the type of the parameter to the text() method is not known here
+          // FIXME: This misses some @Override(s) for situations that inherit from xs types,
+          // FIXME: cause the type of the parameter to the text() method is not known here
           if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
             writer.write("@" + Override.class.getName() + "\n");
 
@@ -363,13 +364,14 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
           }
         }
 
-//        if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
-//        {
-//          writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
-//          writer.write("{\n");
-//          writer.write("super.text(text);\n");
-//          writer.write("}\n");
-//        }
+        // if (plan.getNativeItemClassName() == null &&
+        // XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
+        // {
+        // writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
+        // writer.write("{\n");
+        // writer.write("super.text(text);\n");
+        // writer.write("}\n");
+        // }
 
         writer.write("@" + Override.class.getName() + "\n");
         writer.write("public " + plan.getNativeItemClassNameInterface() + " text() {\n");
@@ -476,15 +478,17 @@ public class ElementWriter<T extends ElementPlan> extends ComplexTypeWriter<T> {
     writer.write("return super.fetchChild(name);\n");
     writer.write("}\n");
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementListIterator()\n");
-//  writer.write("{\n");
-//  writer.write("return super.elementListIterator();\n");
-//  writer.write("}\n");
+    // writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>>
+    // elementListIterator()\n");
+    // writer.write("{\n");
+    // writer.write("return super.elementListIterator();\n");
+    // writer.write("}\n");
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementListIterator(final int index)\n");
-//  writer.write("{\n");
-//  writer.write("return super.elementListIterator(index);\n");
-//  writer.write("}\n");
+    // writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementListIterator(final
+    // int index)\n");
+    // writer.write("{\n");
+    // writer.write("return super.elementListIterator(index);\n");
+    // writer.write("}\n");
 
     // MARSHAL
     if (plan.isNested())

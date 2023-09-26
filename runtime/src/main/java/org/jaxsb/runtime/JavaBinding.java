@@ -41,13 +41,13 @@ public final class JavaBinding {
   private static String toJavaIdentifier(final String ncName) {
     final StringBuilder b = new StringBuilder(ncName.length());
     for (int i = 0, i$ = ncName.length(); i < i$; ++i) { // [N]
-     final char ch = ncName.charAt(i);
-     if (ch == '-')
-       b.append('$').append('_');
-     else if (ch == '.')
-       b.append('$');
-     else
-       b.append(ch);
+      final char ch = ncName.charAt(i);
+      if (ch == '-')
+        b.append('$').append('_');
+      else if (ch == '.')
+        b.append('$');
+      else
+        b.append(ch);
     }
 
     return b.toString();
@@ -133,7 +133,6 @@ public final class JavaBinding {
 
     throw new CompilerFailureException("model is not instanceof {AttributeModel,ElementModel,NotationModel,SimpleTypeModel}");
   }
-
 
   private JavaBinding() {
   }

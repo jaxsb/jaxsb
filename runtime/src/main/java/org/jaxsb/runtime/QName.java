@@ -25,6 +25,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface QName {
   String namespaceURI();
+
   String localPart();
+
   String prefix();
 }

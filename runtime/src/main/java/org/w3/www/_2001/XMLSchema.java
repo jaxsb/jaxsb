@@ -78,7 +78,8 @@ public final class XMLSchema {
     final StringBuilder b = new StringBuilder();
     final List<?> list;
     if (value instanceof List && CollectionUtil.isRandomAccess(list = (List<?>)value)) {
-      int i = 0; do { // [RA]
+      int i = 0;
+      do { // [RA]
         if (i > 0)
           b.append(' ');
 
@@ -87,7 +88,9 @@ public final class XMLSchema {
       while (++i < i$);
     }
     else {
-      int i = -1; final Iterator<?> it = ((Collection<?>)value).iterator(); do { // [I]
+      int i = -1;
+      final Iterator<?> it = ((Collection<?>)value).iterator();
+      do { // [I]
         if (++i > 0)
           b.append(' ');
 
@@ -218,7 +221,7 @@ public final class XMLSchema {
         binding._$$decode(parent, attribute.getNodeValue());
       }
 
-      protected static <B extends $AnyType<?>>B _$$parseAttr(final B binding, final Attr attribute) {
+      protected static <B extends $AnyType<?>> B _$$parseAttr(final B binding, final Attr attribute) {
         binding._$$decode(attribute.getOwnerElement(), attribute.getNodeValue());
         return binding;
       }
@@ -569,8 +572,7 @@ public final class XMLSchema {
     }
 
     /**
-     * This final class represents the Java binding of the dateTime instance of
-     * time.
+     * This final class represents the Java binding of the dateTime instance of time.
      *
      * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">Definition</a>
      */
@@ -584,8 +586,8 @@ public final class XMLSchema {
       }
 
       /**
-       * Allocates a {@link Date} object and initializes it so that it represents the time at which it was allocated. Milliseconds
-       * are <b>NOT</b> significant figures and are not represented.
+       * Allocates a {@link Date} object and initializes it so that it represents the time at which it was allocated. Milliseconds are
+       * <b>NOT</b> significant figures and are not represented.
        *
        * @see System#currentTimeMillis()
        */

@@ -144,7 +144,7 @@ public final class ModelDirectory implements PipelineDirectory<GeneratorContext,
       throw new IllegalArgumentException("Node key without local name");
 
     if (!keys.contains(elementName)) {
-      if (logger.isDebugEnabled()) logger.debug("Unknown schema element <" + (schemaNodeComposite.getNode().getPrefix() != null ? schemaNodeComposite.getNode().getPrefix() + ":" : "") + elementName + ">");
+      if (logger.isDebugEnabled()) { logger.debug("Unknown schema element <" + (schemaNodeComposite.getNode().getPrefix() != null ? schemaNodeComposite.getNode().getPrefix() + ":" : "") + elementName + ">"); }
       elementName = null;
     }
 

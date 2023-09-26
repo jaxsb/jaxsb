@@ -262,9 +262,9 @@ public final class NamespaceBinding {
 
   /**
    * Create a {@link NamespaceBinding} from a fully qualified class name. This method is intended for class names created by
-   * {@link NamespaceBinding#getClassName()}, which contain a simple class name as a Base64-encoded diff between the package name
-   * and the original namespace URI. If such a class name is inputted to this method, the resulting {@link NamespaceBinding} is
-   * guaranteed to the unique binding between that class name and the namespace URI from which it originated.
+   * {@link NamespaceBinding#getClassName()}, which contain a simple class name as a Base64-encoded diff between the package name and
+   * the original namespace URI. If such a class name is inputted to this method, the resulting {@link NamespaceBinding} is guaranteed
+   * to the unique binding between that class name and the namespace URI from which it originated.
    *
    * @param className The fully qualified class name previously encoded by {{@link NamespaceBinding#getClassName()}.
    * @return A guaranteed unique {@link NamespaceBinding} for the package name.
@@ -308,8 +308,8 @@ public final class NamespaceBinding {
   }
 
   /**
-   * Create a {@link NamespaceBinding} from a {@link URI}. This method guarantees that a unique package name will be created for
-   * each unique {@link URI}. Examples of namespaces that would otherwise seem to result in the same package name are:
+   * Create a {@link NamespaceBinding} from a {@link URI}. This method guarantees that a unique package name will be created for each
+   * unique {@link URI}. Examples of namespaces that would otherwise seem to result in the same package name are:
    * <p>
    * {@code http://www.foo.com/bar.xsd}
    * <p>
@@ -352,10 +352,8 @@ public final class NamespaceBinding {
   }
 
   /**
-   * Create a {@link NamespaceBinding} from a {@link String} uri. This method
-   * guarantees that a unique package name will be created for each unique
-   * {@link URI}. Examples of namespaces that would otherwise seem to result in
-   * the same package name are:
+   * Create a {@link NamespaceBinding} from a {@link String} uri. This method guarantees that a unique package name will be created
+   * for each unique {@link URI}. Examples of namespaces that would otherwise seem to result in the same package name are:
    * <p>
    * {@code http://www.foo.com/bar.xsd}
    * <p>
@@ -371,11 +369,9 @@ public final class NamespaceBinding {
    * <p>
    * {@code com.foo.www.bar}
    * <p>
-   * The simple class name is based on a Base64 string representation of a diff
-   * between the original namespace URI and the resulting package name. The
-   * package name carries enough information within itself to be able to
-   * translate directly back to the unique namespace URI from which it was
-   * generated.
+   * The simple class name is based on a Base64 string representation of a diff between the original namespace URI and the resulting
+   * package name. The package name carries enough information within itself to be able to translate directly back to the unique
+   * namespace URI from which it was generated.
    *
    * @param uri The namespace URI.
    * @return A guaranteed unique {@link NamespaceBinding} to the uri.

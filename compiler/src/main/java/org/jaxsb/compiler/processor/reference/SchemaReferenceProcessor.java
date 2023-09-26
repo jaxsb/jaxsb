@@ -39,7 +39,7 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
   @Override
   public Collection<SchemaReference> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaReference> schemaReferences, final PipelineDirectory<GeneratorContext,? super SchemaReference,SchemaReference> directory) {
     final File destDir = pipelineContext.getDestDir();
-    if (logger.isDebugEnabled()) logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null));
+    if (logger.isDebugEnabled()) { logger.debug("destDir = " + (destDir != null ? destDir.getAbsolutePath() : null)); }
 
     if (schemaReferences.size() == 0)
       return Collections.EMPTY_LIST;
@@ -49,18 +49,18 @@ public final class SchemaReferenceProcessor implements PipelineEntity, PipelineP
       for (final SchemaReference schemaReference : schemaReferences) { // [C]
         try {
           final File javaFile = new File(destDir, schemaReference.getNamespaceURI().getNamespaceBinding().getJavaPath());
-          if (logger.isDebugEnabled()) logger.debug("checking whether class is up-to-date: " + javaFile.getAbsolutePath());
+          if (logger.isDebugEnabled()) { logger.debug("checking whether class is up-to-date: " + javaFile.getAbsolutePath()); }
 
           if (!pipelineContext.getOverwrite() && javaFile.exists()) {
             final URL url = schemaReference.getURL();
             final long lastModified = URLConnections.checkFollowRedirect(url.openConnection()).getLastModified();
             if (lastModified != 0 && javaFile.lastModified() >= lastModified) {
-              if (logger.isInfoEnabled()) logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date.");
+              if (logger.isInfoEnabled()) { logger.info("Bindings for " + URLs.getName(schemaReference.getURL()) + " are up-to-date."); }
               continue;
             }
           }
 
-          if (logger.isDebugEnabled()) logger.debug("adding: " + javaFile.getAbsolutePath());
+          if (logger.isDebugEnabled()) { logger.debug("adding: " + javaFile.getAbsolutePath()); }
           selectedSchemas.add(schemaReference);
         }
         catch (final IOException e) {

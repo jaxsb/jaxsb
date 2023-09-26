@@ -117,12 +117,14 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
       writer.write("}\n");
     }
 
-//    if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName())) {
-//      writer.write(accessibility + plan.getClassSimpleName() + "(" + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text)\n");
-//      writer.write("{\n");
-//      writer.write("super(text);\n");
-//      writer.write("}\n");
-//    }
+    // if (plan.getNativeItemClassName() == null &&
+    // XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName())) {
+    // writer.write(accessibility + plan.getClassSimpleName() + "(" + List.class.getName() + "<" +
+    // plan.getNativeItemClassNameInterface() + "> text)\n");
+    // writer.write("{\n");
+    // writer.write("super(text);\n");
+    // writer.write("}\n");
+    // }
   }
 
   @Override
@@ -287,24 +289,26 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     }
 
     // SETVALUE
-//    if (!plan.hasEnumerations()) {
-//      // FIXME: This misses some @Override(s) for situations that inherit from xs types, cause the type of the parameter to the text() method is not known here
-//      if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
-//        writer.write("@" + Override.class.getName() + "\n");
-//
-//      if (plan.isList()) {
-//        writer.write("public void text(final " + plan.getNativeNonEnumItemClassNameInterface() + " text)\n");
-//        writer.write("{\n");
-//        writer.write("super.text(text);\n");
-//        writer.write("}\n");
-//      }
-//      else {
-//        writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
-//        writer.write("{\n");
-//        writer.write("super.text(text);\n");
-//        writer.write("}\n");
-//      }
-//    }
+    // if (!plan.hasEnumerations()) {
+    // // FIXME: This misses some @Override(s) for situations that inherit from xs types, cause the type of the parameter to the text()
+    // method is not known here
+    // if (parent != null &&
+    // ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
+    // writer.write("@" + Override.class.getName() + "\n");
+    //
+    // if (plan.isList()) {
+    // writer.write("public void text(final " + plan.getNativeNonEnumItemClassNameInterface() + " text)\n");
+    // writer.write("{\n");
+    // writer.write("super.text(text);\n");
+    // writer.write("}\n");
+    // }
+    // else {
+    // writer.write("public void text(final " + plan.getNativeItemClassNameInterface() + " text)\n");
+    // writer.write("{\n");
+    // writer.write("super.text(text);\n");
+    // writer.write("}\n");
+    // }
+    // }
 
     // CLONE
     writer.write("@" + Override.class.getName() + "\n");
@@ -313,23 +317,23 @@ public final class AttributeWriter extends SimpleTypeWriter<AttributePlan> {
     writer.write("}\n");
 
     // EQUALS
-//    writer.write("@" + Override.class.getName() + "\n");
-//    writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
-//    writer.write("{\n");
-//    // NOTE: This is not checking whether getValue() is equal between this and obj
-//    // NOTE: because this final class does not contain the value field.
-//    writer.write("return super.equals(obj);\n");
-//    writer.write("}\n");
+    // writer.write("@" + Override.class.getName() + "\n");
+    // writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
+    // writer.write("{\n");
+    // // NOTE: This is not checking whether getValue() is equal between this and obj
+    // // NOTE: because this final class does not contain the value field.
+    // writer.write("return super.equals(obj);\n");
+    // writer.write("}\n");
 
     // HASHCODE
-//    writer.write("@" + Override.class.getName() + "\n");
-//    writer.write("public int hashCode()\n");
-//    writer.write("{\n");
-//    writer.write("int hashCode = super.hashCode();\n");
-//    // NOTE: This is not checking whether getValue() is equal between this and obj
-//    // NOTE: because this final class does not contain the value field.
-//    writer.write("return hashCode;\n");
-//    writer.write("}\n");
+    // writer.write("@" + Override.class.getName() + "\n");
+    // writer.write("public int hashCode()\n");
+    // writer.write("{\n");
+    // writer.write("int hashCode = super.hashCode();\n");
+    // // NOTE: This is not checking whether getValue() is equal between this and obj
+    // // NOTE: because this final class does not contain the value field.
+    // writer.write("return hashCode;\n");
+    // writer.write("}\n");
 
     writer.write("}\n");
   }

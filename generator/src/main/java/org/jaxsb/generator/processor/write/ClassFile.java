@@ -78,7 +78,7 @@ public class ClassFile implements AutoCloseable {
     builder.append('}');
 
     for (int i = 0, i$ = classTexts.size(); i < i$; ++i) // [RA]
-       builder.append('\n').append(classTexts.get(i));
+      builder.append('\n').append(classTexts.get(i));
 
     builder.append("\n}");
 

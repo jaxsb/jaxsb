@@ -47,14 +47,14 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
 
   private DocumentationPlan documentation;
 
-//  private String packageName;
+  // private String packageName;
   private String instanceName;
 
   private String className;
   private String classInconvertibleName;
   private String classSimpleName;
   private String methodName;
-//  private String schemaReference;
+  // private String schemaReference;
   private String xsdLocation;
 
   public AliasPlan(final T model, final Plan<?> parent) {
@@ -62,7 +62,7 @@ public abstract class AliasPlan<T extends AliasModel> extends NamedPlan<T> imple
     if (getModel() != null)
       documentation = Plan.analyze(getModel().getDocumentation(), this);
 
-//    schemaReference = model.getSchema().getURL().toString();
+    // schemaReference = model.getSchema().getURL().toString();
     xsdLocation = model.getSchema().getTargetNamespace().getNamespaceBinding().getPackageName() + ".xsd";
   }
 

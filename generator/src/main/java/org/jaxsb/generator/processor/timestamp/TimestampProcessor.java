@@ -38,18 +38,16 @@ public final class TimestampProcessor implements PipelineEntity, PipelineProcess
   @Override
   public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<? extends Bundle> documents, final PipelineDirectory<GeneratorContext,? super Bundle,Bundle> directory) throws IOException {
     // Get the earliest lastModified time of all the files
-    final long lastModified = Files.
-      walk(pipelineContext.getDestDir().toPath()).
-      filter(fileFilter).
-      mapToLong(p -> p.toFile().lastModified()).
-      reduce(Math::min).
-      orElse(System.currentTimeMillis());
+    final long lastModified = Files.walk(pipelineContext.getDestDir().toPath())
+      .filter(fileFilter)
+      .mapToLong(p -> p.toFile().lastModified())
+      .reduce(Math::min)
+      .orElse(System.currentTimeMillis());
 
     // Set the lastModified time of all directories to just before the value from above
-    Files.
-      walk(pipelineContext.getDestDir().toPath()).
-      filter(dirFileFilter).
-      forEach(p -> p.toFile().setLastModified(lastModified - 100));
+    Files.walk(pipelineContext.getDestDir().toPath())
+      .filter(dirFileFilter)
+      .forEach(p -> p.toFile().setLastModified(lastModified - 100));
 
     return null;
   }

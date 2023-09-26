@@ -89,7 +89,7 @@ public class AttributeAudit<B extends $AnySimpleType> extends AbstractAttributeA
     if (name == null)
       name = ((Binding)value).name(); // FIXME: Why is this being done?
 
-    final String marshalName = isQualified() ? Binding._$$getPrefix(parent, name) + ":" + name.getLocalPart() :  name.getLocalPart();
+    final String marshalName = isQualified() ? Binding._$$getPrefix(parent, name) + ":" + name.getLocalPart() : name.getLocalPart();
     parent.setAttributeNodeNS(((Binding)value).marshalAttr(marshalName, parent));
   }
 

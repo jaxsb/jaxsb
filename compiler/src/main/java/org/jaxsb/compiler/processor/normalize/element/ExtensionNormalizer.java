@@ -52,25 +52,28 @@ public final class ExtensionNormalizer extends Normalizer<ExtensionModel> {
   protected void stage2(final ExtensionModel model) {
     // First de-reference the base
     SimpleTypeModel<?> base;
-    if (model.getBase() instanceof SimpleTypeModel.Reference) {
-      base = simpleTypeNormalizer.parseSimpleType(model.getBase().getName());
+    final SimpleTypeModel<?> modelBase = model.getBase();
+    if (modelBase instanceof SimpleTypeModel.Reference) {
+      final UniqueQName name = modelBase.getName();
+      base = simpleTypeNormalizer.parseSimpleType(name);
       if (base == null)
-        base = complexTypeNormalizer.parseComplexType(model.getBase().getName());
+        base = complexTypeNormalizer.parseComplexType(modelBase.getName());
 
       if (base == null) {
-        if (!UniqueQName.XS.getNamespaceURI().equals(model.getBase().getName().getNamespaceURI()))
-          throw new LexerFailureException("base == null for " + model.getBase().getName());
+        if (!UniqueQName.XS.getNamespaceURI().equals(modelBase.getName().getNamespaceURI()))
+          throw new LexerFailureException("base == null for " + modelBase.getName());
 
-        base = SimpleTypeModel.Undefined.parseSimpleType(model.getBase().getName());
+        base = SimpleTypeModel.Undefined.parseSimpleType(modelBase.getName());
       }
     }
-    else if (model.getBase() instanceof ComplexTypeModel.Reference) {
-      base = complexTypeNormalizer.parseComplexType(model.getBase().getName());
+    else if (modelBase instanceof ComplexTypeModel.Reference) {
+      final UniqueQName name = modelBase.getName();
+      base = complexTypeNormalizer.parseComplexType(name);
       if (base == null) {
-        if (!UniqueQName.XS.getNamespaceURI().equals(model.getBase().getName().getNamespaceURI()))
-          throw new LexerFailureException("base == null for " + model.getBase().getName());
+        if (!UniqueQName.XS.getNamespaceURI().equals(modelBase.getName().getNamespaceURI()))
+          throw new LexerFailureException("base == null for " + modelBase.getName());
 
-        base = ComplexTypeModel.Undefined.parseComplexType(model.getBase().getName());
+        base = ComplexTypeModel.Undefined.parseComplexType(modelBase.getName());
       }
     }
     else {

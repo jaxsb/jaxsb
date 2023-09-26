@@ -99,7 +99,7 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
           // NOTE: later to add enumerations, which would end up
           // NOTE: modifying ALL such SimpleTypeModel.Undefined
           // NOTE: references.
-//                  ((NamedModel)model.getParent()).setName(base.getName());
+          // ((NamedModel)model.getParent()).setName(base.getName());
           ((UnionModel)parent).getMemberTypes().add((SimpleTypeModel<?>)model.getParent());
           break;
         }

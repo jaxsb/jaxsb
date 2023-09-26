@@ -31,7 +31,7 @@ public final class SchemaDocumentDirectory implements PipelineDirectory<Generato
   }
 
   @Override
-  public PipelineProcessor<GeneratorContext,SchemaReference, SchemaDocument> getProcessor() {
+  public PipelineProcessor<GeneratorContext,SchemaReference,SchemaDocument> getProcessor() {
     return processor;
   }
 

@@ -31,6 +31,6 @@ public class NameTest {
   @Test
   public void test() throws IOException, SAXException {
     final Class name = (Class)Bindings.parse(ClassLoader.getSystemClassLoader().getResource("name.xml"));
-    if (logger.isInfoEnabled()) logger.info(name.toString());
+    if (logger.isInfoEnabled()) { logger.info(name.toString()); }
   }
 }

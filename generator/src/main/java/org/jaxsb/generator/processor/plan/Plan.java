@@ -36,7 +36,7 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
     return null;
   }
 
-  public static <A extends Plan<?>>LinkedHashSet<A> analyze(final Collection<? extends Model> models, final Plan<?> owner) {
+  public static <A extends Plan<?>> LinkedHashSet<A> analyze(final Collection<? extends Model> models, final Plan<?> owner) {
     final LinkedHashSet<A> plans;
     final int i$;
     if (models != null && (i$ = models.size()) != 0) {
@@ -45,8 +45,9 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
         // If there is a name conflict with a parent type, then skip
         // adding this in duplicate. Otherwise there will be conflicts
         // with method names.
-//              if (owner.getSuperType() != null && model instanceof Nameable && owner.getSuperType().elementRefExistsInParent(((Nameable)model).getName()))
-//                  continue;
+        // if (owner.getSuperType() != null && model instanceof Nameable &&
+        // owner.getSuperType().elementRefExistsInParent(((Nameable)model).getName()))
+        // continue;
 
         if (model instanceof ElementWrapper) {
           final ElementWrapper element = (ElementWrapper)model;
@@ -69,7 +70,7 @@ public abstract class Plan<T extends Model> implements PipelineEntity {
 
   // FIXME: Forgot this section here!!!
   @SuppressWarnings("unchecked")
-  public static <A extends Plan<?>>A analyze(final Model model, final Plan<?> owner) {
+  public static <A extends Plan<?>> A analyze(final Model model, final Plan<?> owner) {
     if (model == null)
       return null;
 

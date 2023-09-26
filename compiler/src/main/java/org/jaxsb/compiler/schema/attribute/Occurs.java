@@ -20,7 +20,7 @@ public final class Occurs {
   public static final Occurs UNBOUNDED = new Occurs(Integer.MAX_VALUE);
 
   public static Occurs parseOccurs(final String value) {
-    return "unbounded".equals(value) ?  UNBOUNDED : new Occurs(Integer.parseInt(value));
+    return "unbounded".equals(value) ? UNBOUNDED : new Occurs(Integer.parseInt(value));
   }
 
   private final int value;

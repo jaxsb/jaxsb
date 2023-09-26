@@ -41,7 +41,7 @@ public final class ImportNormalizer extends Normalizer<ImportModel> {
       return;
 
     messages.add(message);
-    if (logger.isInfoEnabled()) logger.info(message);
+    if (logger.isInfoEnabled()) { logger.info(message); }
   }
 
   @Override

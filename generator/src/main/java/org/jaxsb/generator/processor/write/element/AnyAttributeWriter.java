@@ -41,7 +41,7 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-    writer.write("public " + List.class.getName() + "<" +  $AnySimpleType.class.getCanonicalName() + "<?>> getAny$() {\n");
+    writer.write("public " + List.class.getName() + "<" + $AnySimpleType.class.getCanonicalName() + "<?>> getAny$() {\n");
     writer.write("return anyAttribute.getAttribute();\n");
     writer.write("}\n");
 
@@ -67,12 +67,12 @@ public final class AnyAttributeWriter extends Writer<AnyAttributePlan> {
 
   @Override
   protected void appendParse(final StringWriter writer, final AnyAttributePlan plan, final Plan<?> parent) {
-//      writer.write("else\n");
-//      writer.write("{\n");
+    // writer.write("else\n");
+    // writer.write("{\n");
     writer.write("if (this.anyAttribute.getAttribute() == null)\n");
     writer.write("this.anyAttribute.setAttribute(new " + ArrayList.class.getName() + "<>());\n");
     writer.write("this.anyAttribute.getAttribute().add(" + $AnySimpleType.class.getCanonicalName() + "._$$parseAnyAttr((" + Element.class.getName() + ")attribute.getParentNode(), attribute));\n");
-//      writer.write("}\n");
+    // writer.write("}\n");
   }
 
   @Override

@@ -108,17 +108,17 @@ public final class NotationWriter extends Writer<NotationPlan> {
     writer.write("}\n");
 
     // GETNAME
-    writer.write("public " +  String.class.getName() + " getName() {\n");
+    writer.write("public " + String.class.getName() + " getName() {\n");
     writer.write("return _name;\n");
     writer.write("}\n");
 
     // PUBLIC
-    writer.write("public " +  String.class.getName() + " getPublic() {\n");
+    writer.write("public " + String.class.getName() + " getPublic() {\n");
     writer.write("return _public;\n");
     writer.write("}\n");
 
     // SYSTEM
-    writer.write("public " +  String.class.getName() + " getSystem() {\n");
+    writer.write("public " + String.class.getName() + " getSystem() {\n");
     writer.write("return _system;\n");
     writer.write("}\n");
 

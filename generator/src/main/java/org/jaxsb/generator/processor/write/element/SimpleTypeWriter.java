@@ -50,7 +50,7 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     if (plan.getId() != null)
       writer.write("@" + org.jaxsb.runtime.Id.class.getName() + "(\"" + plan.getId() + "\")\n");
 
-    writer.write("@" + org.jaxsb.runtime.QName.class.getName() + "(namespaceURI=\"" + plan.getName().getNamespaceURI() +"\", localPart=\"" + plan.getName().getLocalPart() +"\", prefix=\"" + plan.getName().getPrefix() +"\")\n");
+    writer.write("@" + org.jaxsb.runtime.QName.class.getName() + "(namespaceURI=\"" + plan.getName().getNamespaceURI() + "\", localPart=\"" + plan.getName().getLocalPart() + "\", prefix=\"" + plan.getName().getPrefix() + "\")\n");
   }
 
   protected static void writeIdLookup(final StringWriter writer, final SimpleTypePlan<?> plan, final Plan<?> parent) {
@@ -118,13 +118,15 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
       writer.write("}\n");
     }
 
-//      if (plan.getNativeItemClassName() == null && XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
-//      {
-//          writer.write(visibility + plan.getClassSimpleName() + "(" + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() + "> text)\n");
-//          writer.write("{\n");
-//          writer.write("super(text);\n");
-//          writer.write("}\n");
-//      }
+    // if (plan.getNativeItemClassName() == null &&
+    // XSTypeDirectory.ANYSIMPLETYPE.getNativeBinding().getName().equals(plan.getBaseXSItemTypeName()))
+    // {
+    // writer.write(visibility + plan.getClassSimpleName() + "(" + List.class.getName() + "<" + plan.getNativeItemClassNameInterface() +
+    // "> text)\n");
+    // writer.write("{\n");
+    // writer.write("super(text);\n");
+    // writer.write("}\n");
+    // }
   }
 
   protected static void getRestrictions(final StringWriter writer, final SimpleTypePlan<?> plan) {
@@ -465,7 +467,8 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
         }
       }
       else {
-        // FIXME: This misses some @Override(s) for situations that inherit from xs types, cause the type of the parameter to the text() method is not known here
+        // FIXME: This misses some @Override(s) for situations that inherit from xs types, cause the type of the parameter to the text()
+        // method is not known here
         if (parent != null && ((SimpleTypePlan<?>)parent).getNativeItemClassNameInterface().equals(plan.getNativeItemClassNameInterface()))
           writer.write("@" + Override.class.getName() + "\n");
 
@@ -513,23 +516,23 @@ public class SimpleTypeWriter<T extends SimpleTypePlan<?>> extends Writer<T> {
     writer.write("}\n");
 
     // EQUALS
-//    writer.write("@" + Override.class.getName() + "\n");
-//    writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
-//    writer.write("{\n");
-//    // NOTE: This is not checking whether getTEXT() is equal between this and obj
-//    // NOTE: because this final class does not contain the text field.
-//    writer.write("return super.equals(obj);\n");
-//    writer.write("}\n");
+    // writer.write("@" + Override.class.getName() + "\n");
+    // writer.write("public boolean equals(final " + Object.class.getName() + " obj)\n");
+    // writer.write("{\n");
+    // // NOTE: This is not checking whether getTEXT() is equal between this and obj
+    // // NOTE: because this final class does not contain the text field.
+    // writer.write("return super.equals(obj);\n");
+    // writer.write("}\n");
 
     // HASHCODE
-//    writer.write("@" + Override.class.getName() + "\n");
-//    writer.write("public int hashCode()\n");
-//    writer.write("{\n");
-//    writer.write("int hashCode = super.hashCode();\n");
-//    // NOTE: This is not checking whether getTEXT() is equal between this and obj
-//    // NOTE: because this final class does not contain the text field.
-//    writer.write("return hashCode;\n");
-//    writer.write("}\n");
+    // writer.write("@" + Override.class.getName() + "\n");
+    // writer.write("public int hashCode()\n");
+    // writer.write("{\n");
+    // writer.write("int hashCode = super.hashCode();\n");
+    // // NOTE: This is not checking whether getTEXT() is equal between this and obj
+    // // NOTE: because this final class does not contain the text field.
+    // writer.write("return hashCode;\n");
+    // writer.write("}\n");
 
     writer.write("}\n");
   }

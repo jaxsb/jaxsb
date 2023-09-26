@@ -17,10 +17,9 @@
 package org.jaxsb.compiler.schema.attribute;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public final class Value {
-  private static final Map<String,Value> enums = new HashMap<>();
+  private static final HashMap<String,Value> enums = new HashMap<>();
 
   public static final Value COLLAPSE = new Value("collapse");
   public static final Value PRESERVE = new Value("preserve");

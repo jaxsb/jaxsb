@@ -123,7 +123,9 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
                 final String name = p.getFileName().toString();
                 return (name.endsWith(".java") || name.endsWith(".class")) && p.toFile().isFile();
               })
-              .forEach(Throwing.rethrow(p -> { destJar.write(destDir.toPath().relativize(p).toString(), Files.readAllBytes(p)); }));
+              .forEach(Throwing.rethrow(p -> {
+                destJar.write(destDir.toPath().relativize(p).toString(), Files.readAllBytes(p));
+              }));
           }
         }
         else {

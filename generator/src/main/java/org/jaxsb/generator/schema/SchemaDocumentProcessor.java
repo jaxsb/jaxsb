@@ -81,15 +81,15 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
               // Don't want to get into an infinite loop
               ArrayList<URL> duplicates = includeLoopCheck.get(schemaDocument.getSchemaReference().getNamespaceURI());
               if (schemaLocationURL.equals(schemaDocument.getSchemaReference().getURL()) || (duplicates != null && duplicates.contains(schemaLocationURL)))
-                  continue;
+                continue;
 
               final SchemaReference includeSchemaReference = new SchemaReference(schemaLocationURL, schemaDocument.getSchemaReference().getNamespaceURI(), schemaDocument.getSchemaReference().getPrefix(), true);
               inner.insertElementAt(AbstractGenerator.parse(includeSchemaReference), 0);
               if (duplicates == null)
-                  duplicates = new ArrayList<>();
+                duplicates = new ArrayList<>();
 
               duplicates.add(schemaLocationURL);
-              if (logger.isInfoEnabled()) logger.info("Adding " + URLs.getName(schemaLocationURL) + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}");
+              if (logger.isInfoEnabled()) { logger.info("Adding " + URLs.getName(schemaLocationURL) + " for {" + schemaDocument.getSchemaReference().getNamespaceURI() + "}"); }
               includeLoopCheck.put(schemaDocument.getSchemaReference().getNamespaceURI(), duplicates);
             }
           }
@@ -113,7 +113,8 @@ public final class SchemaDocumentProcessor implements PipelineEntity, PipelinePr
               continue;
             }
 
-            if (logger.isInfoEnabled() && !duplicate.equals(schemaLocationURI)) logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URLs.getName(schemaLocationURI) + " with " + duplicate);
+            if (logger.isInfoEnabled() && !duplicate.equals(schemaLocationURI))
+              logger.info("Redefining {" + schemaDocument.getSchemaReference().getNamespaceURI() + "} from " + URLs.getName(schemaLocationURI) + " with " + duplicate);
           }
         }
 

@@ -17,10 +17,9 @@
 package org.jaxsb.compiler.schema.attribute;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public final class Final {
-  private static final Map<String,Final> enums = new HashMap<>();
+  private static final HashMap<String,Final> enums = new HashMap<>();
 
   public static final Final ALL = new Final("#all");
   public static final Final EXTENSION = new Final("extension");

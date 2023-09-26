@@ -30,7 +30,7 @@ public class NamespaceBindingTest {
 
   @Test
   public void testNamespaceToPackage() {
-//    assertEquals("org.w3.www._2001.XMLSchema.yAA", "http://www.w3.org/2001/XMLSchema");
+    // assertEquals("org.w3.www._2001.XMLSchema.yAA", "http://www.w3.org/2001/XMLSchema");
     assertEquals("org._3w.www._2001.XMLSchema.yAA", "http://www.3w.org/2001/XMLSchema");
     assertEquals("org._3w.www._2001.XMLSchema.pKCMjL2A", "ssh://www.3w.org/2001/XMLSchema");
     assertEquals("org._3w.www._2001.XMLSchema.pKGeHhzOi8v9g", "xxs://www.3w.org/2001/XMLSchema");

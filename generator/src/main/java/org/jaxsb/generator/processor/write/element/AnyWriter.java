@@ -30,18 +30,20 @@ import org.w3c.dom.Node;
 public final class AnyWriter extends ElementWriter<AnyPlan> {
   @Override
   protected void appendDeclaration(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
-//      if (plan.getMaxOccurs() > 1)
+    // if (plan.getMaxOccurs() > 1)
     writer.write("private " + ElementAudit.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> any = new " + ElementAudit.class.getName() + "<>(" + $AnyType.class.getCanonicalName() + ".class, this, " + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
-//      else
-//          writer.write("private " + ElementAudit.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> any = new " + ElementAudit.class.getName() + "<>(" + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " + plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
+    // else
+    // writer.write("private " + ElementAudit.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> any = new " +
+    // ElementAudit.class.getName() + "<>(" + plan.getDefaultInstance(parent) + ", null, null, true, " + plan.isNillable() + ", " +
+    // plan.getMinOccurs() + ", " + plan.getMaxOccurs() + ");\n");
   }
 
   @Override
   protected void appendGetMethod(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
-//      if (plan.getMaxOccurs() > 1)
-    writer.write("public " + List.class.getName() + "<" +  $AnyType.class.getCanonicalName() + "<?>> get$Any() {\n");
-//      else
-//          writer.write("public " + $AnyType.class.getCanonicalName() + "<?> getAny$()\n");
+    // if (plan.getMaxOccurs() > 1)
+    writer.write("public " + List.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> get$Any() {\n");
+    // else
+    // writer.write("public " + $AnyType.class.getCanonicalName() + "<?> getAny$()\n");
 
     writer.write("return any.getElements();\n");
     writer.write("}\n");
@@ -54,41 +56,41 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
 
   @Override
   protected void appendSetMethod(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
-//      if (plan.getMaxOccurs() > 1)
-    writer.write("public void add$Any(final " +  $AnyType.class.getCanonicalName() + "<?> any)\n");
-//      else
-//          writer.write("public void setAny(" +  $AnyType.class.getCanonicalName() + "<?> any)\n");
+    // if (plan.getMaxOccurs() > 1)
+    writer.write("public void add$Any(final " + $AnyType.class.getCanonicalName() + "<?> any)\n");
+    // else
+    // writer.write("public void setAny(" + $AnyType.class.getCanonicalName() + "<?> any)\n");
 
     writer.write("{\n");
-//      if (plan.getMaxOccurs() > 1)
-//      {
+    // if (plan.getMaxOccurs() > 1)
+    // {
     writer.write("_$$addElement(this.any, any);\n");
-//      }
-//      else
-//      {
-//          writer.write("if (this." + plan.getInstanceName() + ".$value() != null)\n");
-//          writer.write("_$$dequeueElement(this." + plan.getInstanceName() + ");\n");
-//          writer.write("this.any.$value(any);\n");
-//      }
+    // }
+    // else
+    // {
+    // writer.write("if (this." + plan.getInstanceName() + ".$value() != null)\n");
+    // writer.write("_$$dequeueElement(this." + plan.getInstanceName() + ");\n");
+    // writer.write("this.any.$value(any);\n");
+    // }
 
     writer.write("}\n");
   }
 
   @Override
   protected void appendMarshal(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
-//      writer.write("any.marshal(element);\n");
+    // writer.write("any.marshal(element);\n");
   }
 
   @Override
   protected void appendParse(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
-//      if (plan.getMaxOccurs() > 1)
-//      {
+    // if (plan.getMaxOccurs() > 1)
+    // {
     writer.write("if (element.getNodeType() != " + Node.class.getName() + ".ELEMENT_NODE)\n");
     writer.write("return;\n");
     writer.write("_$$addElement(this.any, " + Bindings.class.getName() + ".parse((" + Element.class.getName() + ")element));\n");
-//      }
-//      else
-//          writer.write("this.any.$value(" + Bindings.class.getName() + ".parse((" + Element.class.getName() + ")childNode));\n");
+    // }
+    // else
+    // writer.write("this.any.$value(" + Bindings.class.getName() + ".parse((" + Element.class.getName() + ")childNode));\n");
   }
 
   @Override

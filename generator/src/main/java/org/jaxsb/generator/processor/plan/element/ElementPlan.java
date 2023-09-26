@@ -173,7 +173,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
     if (!hasEnumerations() && getNativeFactory() != null)
       defaultInstance += getNativeFactory() + "(" + _default + "))";
     else
-      defaultInstance +=  _default + ")";
+      defaultInstance += _default + ")";
 
     return defaultInstance;
   }

@@ -17,10 +17,9 @@
 package org.jaxsb.compiler.lang;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public final class Prefix {
-  private static final Map<String,Prefix> instances = new HashMap<>();
+  private static final HashMap<String,Prefix> instances = new HashMap<>();
 
   public static final Prefix EMPTY = getInstance("");
   public static final Prefix DEFAULT = getInstance("$");
@@ -34,26 +33,19 @@ public final class Prefix {
   }
 
   private final String prefix;
-//  private final String title;
-//  private final String lower;
+  // private final String title;
+  // private final String lower;
 
   private Prefix(final String prefix) {
     if (prefix == null)
       throw new IllegalArgumentException("prefix is null");
 
     this.prefix = prefix;
-    /*if (prefix.equals(prefix.toUpperCase())) {
-      title = prefix;
-      lower = prefix.toLowerCase();
-    }
-    else if (64 < prefix.charAt(0) && prefix.charAt(0) < 91) {
-      title = prefix;
-      lower = title.substring(0, 1).toLowerCase() + title.substring(1);
-    }
-    else {
-      title = prefix.substring(0, 1).toUpperCase() + prefix.substring(1);
-      lower = prefix;
-    }*/
+    /*
+     * if (prefix.equals(prefix.toUpperCase())) { title = prefix; lower = prefix.toLowerCase(); } else if (64 < prefix.charAt(0) &&
+     * prefix.charAt(0) < 91) { title = prefix; lower = title.substring(0, 1).toLowerCase() + title.substring(1); } else { title =
+     * prefix.substring(0, 1).toUpperCase() + prefix.substring(1); lower = prefix; }
+     */
   }
 
   @Override
@@ -77,11 +69,11 @@ public final class Prefix {
     return prefix;
   }
 
-//  public String toStringTitleCase() {
-//      return title;
-//  }
-//
-//  public String toStringLowerCase() {
-//      return lower;
-//  }
+  // public String toStringTitleCase() {
+  // return title;
+  // }
+  //
+  // public String toStringLowerCase() {
+  // return lower;
+  // }
 }

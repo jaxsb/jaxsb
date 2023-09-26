@@ -139,8 +139,8 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
     if (thisClassNameWithType != null)
       return thisClassNameWithType;
 
-    //if (!UniqueQName.XS.getNamespaceURI().equals(getModel().getSuperType().getName().getNamespaceURI()))
-    //final AliasModel model = !getModel().isRestriction() ? getModel().getSuperType() : getModel();
+    // if (!UniqueQName.XS.getNamespaceURI().equals(getModel().getSuperType().getName().getNamespaceURI()))
+    // final AliasModel model = !getModel().isRestriction() ? getModel().getSuperType() : getModel();
 
     return AliasPlan.getClassName(getModel(), parent);
   }
@@ -149,8 +149,8 @@ public class AttributePlan extends SimpleTypePlan<AttributeModel> implements For
     if (thisClassNameWithType != null)
       return thisClassNameWithType;
 
-    //if (!UniqueQName.XS.getNamespaceURI().equals(getModel().getSuperType().getName().getNamespaceURI()))
-    //final AliasModel model = !getModel().isRestriction() ? getModel().getSuperType() : getModel();
+    // if (!UniqueQName.XS.getNamespaceURI().equals(getModel().getSuperType().getName().getNamespaceURI()))
+    // final AliasModel model = !getModel().isRestriction() ? getModel().getSuperType() : getModel();
 
     return AliasPlan.getClassName(getModel(), parent);
   }

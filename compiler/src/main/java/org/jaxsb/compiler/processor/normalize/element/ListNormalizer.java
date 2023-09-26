@@ -43,7 +43,8 @@ public final class ListNormalizer extends Normalizer<ListModel> {
     final Collection<SimpleTypeModel<?>> itemTypes = model.getItemType();
     if (itemTypes == null || itemTypes.size() != 1)
       return;
-    // throw new LexerError("This should not happen, right?!"); // This happens in XMLSchema.xsd .. returning may not be a good idea, as UnionModel and
+    // throw new LexerError("This should not happen, right?!"); // This happens in XMLSchema.xsd .. returning may not be a good idea, as
+    // UnionModel and
     // ListModel have intricate relationship wrt the stages in the normalizers
 
     final SimpleTypeModel<?> itemType = itemTypes.iterator().next();
@@ -71,7 +72,8 @@ public final class ListNormalizer extends Normalizer<ListModel> {
   protected void stage4(final ListModel model) {
     if (model.getItemType() == null)
       return;
-    // throw new LexerError("This can't happen."); // This happens in XMLSchema.xsd .. returning may not be a good idea, as UnionModel and ListModel have
+    // throw new LexerError("This can't happen."); // This happens in XMLSchema.xsd .. returning may not be a good idea, as UnionModel
+    // and ListModel have
     // intricate relationship wrt the stages in the normalizers
 
     for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]

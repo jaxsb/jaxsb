@@ -43,16 +43,16 @@ import org.openjax.maven.mojo.FilterParameter;
 import org.openjax.maven.mojo.FilterType;
 import org.openjax.maven.mojo.GeneratorMojo;
 
-@Mojo(name="generate", defaultPhase=LifecyclePhase.GENERATE_SOURCES)
-@Execute(goal="generate")
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
+@Execute(goal = "generate")
 public class JaxSbMojo extends GeneratorMojo {
-  @Parameter(property="includes")
+  @Parameter(property = "includes")
   private List<String> includes;
 
-  @Parameter(property="excludes")
+  @Parameter(property = "excludes")
   private List<String> excludes;
 
-  @Parameter(property="skipXsd")
+  @Parameter(property = "skipXsd")
   private boolean skipXsd;
 
   // Contains all source paths for all executions of the generator in the single VM, such
@@ -67,12 +67,14 @@ public class JaxSbMojo extends GeneratorMojo {
 
     final HashSet<NamespaceURI> set = new HashSet<>(i$);
     if (list instanceof RandomAccess) {
-      int i = 0; do // [RA]
+      int i = 0;
+      do // [RA]
         set.add(NamespaceURI.getInstance(list.get(i)));
       while (++i < i$);
     }
     else {
-      final Iterator<String> i = list.iterator(); do // [I]
+      final Iterator<String> i = list.iterator();
+      do // [I]
         set.add(NamespaceURI.getInstance(i.next()));
       while (i.hasNext());
     }
@@ -81,7 +83,7 @@ public class JaxSbMojo extends GeneratorMojo {
   }
 
   @FilterParameter(FilterType.URL)
-  @Parameter(property="schemas", required=true)
+  @Parameter(property = "schemas", required = true)
   private List<String> schemas;
 
   @Override

@@ -54,7 +54,7 @@ public abstract class Binding extends AbstractBinding {
     try {
       final DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
       builder.setEntityResolver((final String publicId, final String systemId) -> {
-        if (logger.isDebugEnabled()) logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")");
+        if (logger.isDebugEnabled()) { logger.debug("resolveEntity(\"" + publicId + "\", \"" + systemId + "\")"); }
         return null;
       });
       return builder;
@@ -429,12 +429,11 @@ public abstract class Binding extends AbstractBinding {
     return index;
   }
 
-
   protected ElementCompositeList getCreateElementDirectory() {
     return elements == null ? elements = new ElementCompositeList(($AnyType<?>)this, nameToAudit) : elements;
   }
 
-  protected final <B extends $AnyType<?>>boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
+  protected final <B extends $AnyType<?>> boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
     final boolean added = elementAudit.addElement(element);
     if (added && element != null)
       element._$$setOwner(($AnyType<?>)this); // FIXME: Can we get rid of owner altogether?
@@ -452,11 +451,11 @@ public abstract class Binding extends AbstractBinding {
   }
 
   @SuppressWarnings("unchecked")
-  protected final <T extends $AnyType<?>>ElementAudit<T> getAudit(final ElementAudit<T> audit) {
+  protected final <T extends $AnyType<?>> ElementAudit<T> getAudit(final ElementAudit<T> audit) {
     return (ElementAudit<T>)nameToAudit.get(audit.getName());
   }
 
-  protected static <B extends $AnySimpleType>boolean _$$setAttribute(final AttributeAudit<B> audit, final $AnyType binding, final B attribute) {
+  protected static <B extends $AnySimpleType> boolean _$$setAttribute(final AttributeAudit<B> audit, final $AnyType binding, final B attribute) {
     if (attribute != null)
       attribute._$$setOwner(binding); // FIXME: Can we get rid of owner altogether?
 
@@ -467,7 +466,7 @@ public abstract class Binding extends AbstractBinding {
     return attributeDirectory == null ? attributeDirectory = new CompositeAttributeStore() : attributeDirectory;
   }
 
-  protected final <A extends AbstractAttributeAudit>A __$$registerAttributeAudit(final A audit) {
+  protected final <A extends AbstractAttributeAudit> A __$$registerAttributeAudit(final A audit) {
     getCreateAttributeStore().add(audit);
     return audit;
   }

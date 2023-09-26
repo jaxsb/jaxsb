@@ -258,15 +258,17 @@ public class ComplexTypeWriter<T extends ComplexTypePlan<?>> extends SimpleTypeW
       writer.write("}\n");
     }
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementListIterator()\n");
-//  writer.write("{\n");
-//  writer.write("return super.elementListIterator();\n");
-//  writer.write("}\n");
+    // writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>>
+    // elementListIterator()\n");
+    // writer.write("{\n");
+    // writer.write("return super.elementListIterator();\n");
+    // writer.write("}\n");
 
-//  writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementListIterator(final int index)\n");
-//  writer.write("{\n");
-//  writer.write("return super.elementListIterator(index);\n");
-//  writer.write("}\n");
+    // writer.write("public " + ListIterator.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> elementListIterator(final
+    // int index)\n");
+    // writer.write("{\n");
+    // writer.write("return super.elementListIterator(index);\n");
+    // writer.write("}\n");
 
     // MARSHAL
     writer.write("@" + Override.class.getName() + "\n");

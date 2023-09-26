@@ -45,7 +45,7 @@ public class GeneratorITest {
     }
 
     if (description != null) {
-      if (logger.isInfoEnabled()) logger.info(description + " " + Strings.repeat("=", 34 - description.length()));
+      if (logger.isInfoEnabled()) { logger.info(description + " " + Strings.repeat("=", 34 - description.length())); }
       ((ElementCompositeList)((ElementCompositeList.ElementComponentList)elements).getCompositeList()).print(logger);
     }
   }

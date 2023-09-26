@@ -16,8 +16,6 @@
 
 package org.jaxsb.runtime;
 
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -123,8 +121,8 @@ public abstract class Bindings {
    * Parse an {@link URL} pointing to XML content into an {@link $AnyType} instance.
    *
    * @param url {@link URL} pointing to XML content.
-   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the
-   *          underlying implementation using it's own default implementation and behavior.
+   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the underlying
+   *          implementation using it's own default implementation and behavior.
    * @return The {@link $AnyType} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
@@ -181,8 +179,8 @@ public abstract class Bindings {
    * Parse an {@link URL} pointing to XML content into an {@link $AnyType} instance.
    *
    * @param file {@link File} pointing to XML content.
-   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the
-   *          underlying implementation using it's own default implementation and behavior.
+   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the underlying
+   *          implementation using it's own default implementation and behavior.
    * @return The {@link $AnyType} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.
@@ -239,8 +237,8 @@ public abstract class Bindings {
    * Parse an {@link InputSource} pointing to XML content into an {@link $AnyType} instance.
    *
    * @param inputSource {@link InputSource} pointing to XML content.
-   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the
-   *          underlying implementation using it's own default implementation and behavior.
+   * @param errorHandler Specify the {@link ErrorHandler} to be used by the parser. Setting this to null will result in the underlying
+   *          implementation using it's own default implementation and behavior.
    * @return The {@link $AnyType} instance.
    * @throws IOException If an I/O error has occurred.
    * @throws SAXException If a parse error has occurred.

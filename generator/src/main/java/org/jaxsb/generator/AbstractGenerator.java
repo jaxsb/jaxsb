@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -33,7 +32,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 public abstract class AbstractGenerator {
-  private static final Map<String,SchemaDocument> parsedDocuments = new HashMap<>();
+  private static final HashMap<String,SchemaDocument> parsedDocuments = new HashMap<>();
 
   public static SchemaDocument parse(final SchemaReference schemaReference) throws IOException {
     try {
