@@ -19,8 +19,8 @@ package org.jaxsb.compiler.processor;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
+import java.util.regex.Pattern;
 
-import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.pipeline.PipelineContext;
 import org.libj.util.CollectionUtil;
 
@@ -29,10 +29,10 @@ public final class GeneratorContext implements PipelineContext {
   private final boolean overwrite;
   private final File compileDir;
   private final boolean pack;
-  private final Set<NamespaceURI> includes;
-  private final Set<NamespaceURI> excludes;
+  private final Set<Pattern> includes;
+  private final Set<Pattern> excludes;
 
-  public GeneratorContext(final File destDir, final boolean overwrite, final File compileDir, final boolean pack, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes) {
+  public GeneratorContext(final File destDir, final boolean overwrite, final File compileDir, final boolean pack, final Set<Pattern> includes, final Set<Pattern> excludes) {
     File tempDestDir;
     try {
       tempDestDir = destDir.getCanonicalFile();
@@ -64,11 +64,11 @@ public final class GeneratorContext implements PipelineContext {
     return pack;
   }
 
-  public Set<NamespaceURI> getIncludes() {
+  public Set<Pattern> getIncludes() {
     return includes;
   }
 
-  public Set<NamespaceURI> getExcludes() {
+  public Set<Pattern> getExcludes() {
     return excludes;
   }
 

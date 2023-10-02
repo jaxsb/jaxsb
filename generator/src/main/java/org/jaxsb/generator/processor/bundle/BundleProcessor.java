@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.jar.JarOutputStream;
+import java.util.regex.Pattern;
 
 import javax.annotation.Generated;
 import javax.xml.XMLConstants;
@@ -68,8 +69,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
-  private static void compile(final Collection<? extends SchemaComposite> documents, final File destDir, final File sourceDir, final Set<? extends File> sourcePath) throws CompilationException, IOException, URISyntaxException {
-    final ArrayList<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
+  private static void compile(final Collection<? extends SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> classPath) throws CompilationException, IOException, URISyntaxException {
+    final ArrayList<File> classpath = classPath != null ? new ArrayList<>(classPath) : new ArrayList<>(2);
     final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, Generated.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
     for (final Class<?> cls : requiredLibs) { // [A]
       final CodeSource codeSource = cls.getProtectionDomain().getCodeSource();
@@ -85,13 +86,25 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
 
     final InMemoryCompiler compiler = new InMemoryCompiler();
     for (final File source : sources) // [A]
-      compiler.addSource(new String(Files.readAllBytes(source.toPath())));
+      if (source.exists())
+        compiler.addSource(new String(Files.readAllBytes(source.toPath())));
 
     compiler.compile(classpath, destDir, "-g");
   }
 
+  private static boolean matches(final boolean ifNullReturn, final Set<Pattern> patterns, final NamespaceURI namespaceURI) {
+    if (patterns == null || patterns.size() == 0)
+      return ifNullReturn;
+
+    for (final Pattern pattern : patterns)
+      if (pattern.matcher(namespaceURI.toString()).matches())
+        return true;
+
+    return false;
+  }
+
   @SuppressWarnings("resource")
-  private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<? extends SchemaComposite> schemaComposites, final Set<NamespaceURI> includes, final Set<NamespaceURI> excludes, final boolean skipXsd) throws IOException, SAXException {
+  private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<? extends SchemaComposite> schemaComposites, final Set<Pattern> includes, final Set<Pattern> excludes, final boolean skipXsd) throws IOException, SAXException {
     if (schemaComposites.size() == 0)
       return Collections.EMPTY_LIST;
 
@@ -102,7 +115,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
       final SchemaReference schemaReference = schemaModelComposite.getSchemaDocument().getSchemaReference();
       final NamespaceURI namespaceURI = schemaReference.getNamespaceURI();
-      if ((includes == null || includes.contains(namespaceURI)) && (excludes == null || !excludes.contains(namespaceURI))) {
+      if (matches(true, includes, namespaceURI) && !matches(false, excludes, namespaceURI)) {
         final String packageName = namespaceURI.getNamespaceBinding().getPackageName();
         final String packagePath = packageName.replace('.', '/');
         final ZipWriter destJar;
@@ -216,11 +229,11 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     Files.write(new File(destDir, filePath).toPath(), bytes);
   }
 
-  private final Set<? extends File> sourcePath;
+  private final Set<File> classPath;
   private final boolean skipXsd;
 
-  public BundleProcessor(final Set<? extends File> sourcePath, final boolean skipXsd) {
-    this.sourcePath = sourcePath;
+  public BundleProcessor(final Set<File> classPath, final boolean skipXsd) {
+    this.classPath = classPath;
     this.skipXsd = skipXsd;
   }
 
@@ -228,7 +241,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
   public Collection<Bundle> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaComposite> documents, final PipelineDirectory<GeneratorContext,? super SchemaComposite,Bundle> directory) throws IOException {
     try {
       if (pipelineContext.getCompileDir() != null)
-        BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
+        BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), classPath);
 
       final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes(), skipXsd);
       final int size = jarFiles.size();

@@ -91,7 +91,7 @@ public final class Generator extends AbstractGenerator {
     return generate(new GeneratorContext(destDir == null ? FileUtil.getCwd() : destDir, overwrite, compile, pack, null, null), schemas, null, skipXsd);
   }
 
-  public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> sourcePath, final boolean skipXsd) throws IOException {
+  public static Collection<Bundle> generate(final GeneratorContext generatorContext, final Collection<SchemaReference> schemas, final Set<File> classPath, final boolean skipXsd) throws IOException {
     final Pipeline<GeneratorContext> pipeline = new Pipeline<>(generatorContext);
 
     // select the schemas to be generated and exit if no schemas need work
@@ -122,7 +122,7 @@ public final class Generator extends AbstractGenerator {
 
     // compile and jar the bindings
     final Collection<Bundle> bundles = new ArrayList<>();
-    pipeline.addProcessor(schemaComposites, bundles, new BundleDirectory(sourcePath, skipXsd));
+    pipeline.addProcessor(schemaComposites, bundles, new BundleDirectory(classPath, skipXsd));
 
     // timestamp the generated files and directories
     pipeline.addProcessor(bundles, null, new TimestampDirectory());
