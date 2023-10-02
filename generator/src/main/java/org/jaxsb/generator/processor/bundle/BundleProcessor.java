@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.jar.JarOutputStream;
 
@@ -45,6 +44,7 @@ import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.composite.SchemaComposite;
 import org.jaxsb.compiler.processor.composite.SchemaModelComposite;
+import org.jaxsb.compiler.processor.reference.SchemaReference;
 import org.jaxsb.runtime.Binding;
 import org.jaxsb.runtime.CompilerFailureException;
 import org.libj.jci.CompilationException;
@@ -69,7 +69,7 @@ import org.xml.sax.SAXException;
 
 public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
   private static void compile(final Collection<? extends SchemaComposite> documents, final File destDir, final File sourceDir, final Set<? extends File> sourcePath) throws CompilationException, IOException, URISyntaxException {
-    final List<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
+    final ArrayList<File> classpath = sourcePath != null ? new ArrayList<>(sourcePath) : new ArrayList<>(2);
     final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, Generated.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
     for (final Class<?> cls : requiredLibs) { // [A]
       final CodeSource codeSource = cls.getProtectionDomain().getCodeSource();
@@ -95,12 +95,13 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     if (schemaComposites.size() == 0)
       return Collections.EMPTY_LIST;
 
-    final Set<NamespaceURI> namespaceURIsAdded = new HashSet<>();
+    final HashSet<NamespaceURI> namespaceURIsAdded = new HashSet<>();
     final HashSet<File> jarFiles = new HashSet<>();
 
     for (final SchemaComposite schemaComposite : schemaComposites) { // [C]
       final SchemaModelComposite schemaModelComposite = (SchemaModelComposite)schemaComposite;
-      final NamespaceURI namespaceURI = schemaModelComposite.getSchemaDocument().getSchemaReference().getNamespaceURI();
+      final SchemaReference schemaReference = schemaModelComposite.getSchemaDocument().getSchemaReference();
+      final NamespaceURI namespaceURI = schemaReference.getNamespaceURI();
       if ((includes == null || includes.contains(namespaceURI)) && (excludes == null || !excludes.contains(namespaceURI))) {
         final String packageName = namespaceURI.getNamespaceBinding().getPackageName();
         final String packagePath = packageName.replace('.', '/');
@@ -132,8 +133,8 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
           destJar = null;
         }
 
-        if (!skipXsd && !schemaModelComposite.getSchemaDocument().getSchemaReference().isInclude())
-          addXSDs(schemaModelComposite.getSchemaDocument().getSchemaReference().getURL(), packagePath + "/" + packageName + ".xsd", destJar, destDir, 0);
+        if (!skipXsd && !schemaReference.isInclude())
+          addXSDs(schemaReference.getURL(), packagePath + "/" + packageName + ".xsd", destJar, destDir, 0);
 
         if (destJar != null)
           destJar.close();
@@ -143,7 +144,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
     return jarFiles;
   }
 
-  private static void addXSDs(final URL url, final String filePath, final ZipWriter ZipWriter, final File destDir, int includeCount) throws IOException, SAXException {
+  private static void addXSDs(final URL url, final String filePath, final ZipWriter zipWriter, final File destDir, int includeCount) throws IOException, SAXException {
     final Element element;
     try (final InputStream in = URLConnections.checkFollowRedirect(url.openConnection()).getInputStream()) {
       element = DOMParsers.newDocumentBuilder().parse(in).getDocumentElement();
@@ -163,14 +164,17 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         Node schemaLocation = null;
         for (int j = 0, j$ = attributes.getLength(); j < j$; ++j) { // [RA]
           final Node attribute = attributes.item(j);
-          if ("namespace".equals(attribute.getLocalName()))
+          final String localName = attribute.getLocalName();
+          if ("namespace".equals(localName))
             namespace = attribute;
-          else if ("schemaLocation".equals(attribute.getLocalName()))
+          else if ("schemaLocation".equals(localName))
             schemaLocation = attribute;
 
           if (namespace != null && schemaLocation != null) {
             final NamespaceURI namespaceURI = NamespaceURI.getInstance(namespace.getNodeValue());
-            final String packagePath = namespaceURI.getNamespaceBinding().getPackageName().replace('.', '/');
+            final NamespaceBinding namespaceBinding = namespaceURI.getNamespaceBinding();
+            final String packageName = namespaceBinding.getPackageName();
+            final String packagePath = packageName.replace('.', '/');
             final String schemaPath;
             if (baseDir.equals(packagePath)) {
               schemaPath = baseDir;
@@ -185,7 +189,7 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
               schemaPath = StringPaths.canonicalize(relativeRootPath + packagePath);
             }
 
-            schemaLocation.setNodeValue(schemaPath + "/" + namespaceURI.getNamespaceBinding().getPackageName() + ".xsd");
+            schemaLocation.setNodeValue(schemaPath + "/" + packageName + ".xsd");
             break;
           }
         }
@@ -199,15 +203,15 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
             final URL includeURL = StringPaths.isAbsolute(schemaLocation) ? URLs.create(schemaLocation) : StringPaths.isAbsoluteSystemId(schemaLocation) ? new File(schemaLocation).toURI().toURL() : URLs.create(URLs.getCanonicalParent(url), schemaLocation);
             final String includePath = filePath.replace(".xsd", "-" + ++includeCount + ".xsd");
             attribute.setNodeValue(StringPaths.getName(includePath));
-            addXSDs(includeURL, includePath, ZipWriter, destDir, includeCount);
+            addXSDs(includeURL, includePath, zipWriter, destDir, includeCount);
           }
         }
       }
     }
 
     final byte[] bytes = DOMs.domToString(element, DOMStyle.INDENT).getBytes();
-    if (ZipWriter != null)
-      ZipWriter.write(filePath, bytes);
+    if (zipWriter != null)
+      zipWriter.write(filePath, bytes);
 
     Files.write(new File(destDir, filePath).toPath(), bytes);
   }
@@ -226,11 +230,14 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
       if (pipelineContext.getCompileDir() != null)
         BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), sourcePath);
 
-      final Collection<Bundle> bundles = new ArrayList<>();
       final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes(), skipXsd);
-      if (jarFiles.size() > 0)
-        for (final File jarFile : jarFiles) // [C]
-          bundles.add(new Bundle(jarFile));
+      final int size = jarFiles.size();
+      if (size == 0)
+        return Collections.EMPTY_LIST;
+
+      final ArrayList<Bundle> bundles = new ArrayList<>(size);
+      for (final File jarFile : jarFiles) // [C]
+        bundles.add(new Bundle(jarFile));
 
       return bundles;
     }
