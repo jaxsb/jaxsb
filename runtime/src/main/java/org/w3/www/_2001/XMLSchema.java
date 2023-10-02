@@ -20,11 +20,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -34,9 +34,12 @@ import org.apache.xerces.jaxp.datatype.Duration;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.runtime.AnyAttribute;
 import org.jaxsb.runtime.Binding;
+import org.jaxsb.runtime.BindingArrayList;
+import org.jaxsb.runtime.BindingList;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.NotationType;
 import org.libj.lang.Strings;
+import org.libj.lang.WrappedArrayList;
 import org.libj.util.CollectionUtil;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.datatype.Base64Binary;
@@ -102,8 +105,8 @@ public final class XMLSchema {
     return b.toString();
   }
 
-  private static List<String> decodeAsList(final String value) {
-    return value == null ? null : Arrays.asList(Strings.split(value, ' '));
+  private static ArrayList<String> decodeAsList(final String value) {
+    return value == null ? null : new WrappedArrayList<>(Strings.split(value, ' '));
   }
 
   public static final class yAA {
@@ -117,8 +120,8 @@ public final class XMLSchema {
         return cursor;
       }
 
-      private List<$AnyType<?>> any;
-      private List<$AnySimpleType<?>> anySimple;
+      private BindingList<$AnyType<?>> any;
+      private ArrayList<$AnySimpleType<?>> anySimple;
       private T text;
 
       public $AnyType(final T text) {
@@ -134,6 +137,26 @@ public final class XMLSchema {
       protected $AnyType() {
         super();
         this.text = null;
+      }
+
+      @Override
+      public Iterator<$AnyType<?>> elementIterator() {
+        return super.elementIterator();
+      }
+
+      @Override
+      public ListIterator<$AnyType<?>> elementListIterator() {
+        return super.elementListIterator();
+      }
+
+      @Override
+      public ListIterator<$AnyType<?>> elementListIterator(final int index) {
+        return super.elementListIterator(index);
+      }
+
+      @Override
+      public Iterator<$AnySimpleType<?>> attributeIterator() {
+        return super.attributeIterator();
       }
 
       protected void text(final T text) {
@@ -156,18 +179,18 @@ public final class XMLSchema {
         this.anySimple.add(any);
       }
 
-      protected List<$AnySimpleType<?>> getAny$() {
+      protected ArrayList<$AnySimpleType<?>> getAny$() {
         return anySimple;
       }
 
       protected void add$Any(final $AnyType<?> any) {
         if (this.any == null)
-          this.any = new ArrayList<>();
+          this.any = new BindingArrayList<>(this);
 
         this.any.add(any);
       }
 
-      protected List<$AnyType<?>> get$Any() {
+      protected BindingList<$AnyType<?>> get$Any() {
         return any;
       }
 

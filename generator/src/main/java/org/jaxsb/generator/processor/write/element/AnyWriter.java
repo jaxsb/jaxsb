@@ -17,10 +17,10 @@
 package org.jaxsb.generator.processor.write.element;
 
 import java.io.StringWriter;
-import java.util.List;
 
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.generator.processor.plan.element.AnyPlan;
+import org.jaxsb.runtime.BindingList;
 import org.jaxsb.runtime.Bindings;
 import org.jaxsb.runtime.ElementAudit;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
@@ -41,7 +41,7 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
   @Override
   protected void appendGetMethod(final StringWriter writer, final AnyPlan plan, final Plan<?> parent) {
     // if (plan.getMaxOccurs() > 1)
-    writer.write("public " + List.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> get$Any() {\n");
+    writer.write("public " + BindingList.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> get$Any() {\n");
     // else
     // writer.write("public " + $AnyType.class.getCanonicalName() + "<?> getAny$()\n");
 
@@ -49,7 +49,7 @@ public final class AnyWriter extends ElementWriter<AnyPlan> {
     writer.write("}\n");
 
     writer.write("public " + $AnyType.class.getCanonicalName() + "<?> get$Any(final int index) {\n");
-    writer.write("final " + List.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> values = get$Any();\n");
+    writer.write("final " + BindingList.class.getName() + "<" + $AnyType.class.getCanonicalName() + "<?>> values = get$Any();\n");
     writer.write("return values != null && -1 < index && index < values.size() ? values.get(index) : null;\n");
     writer.write("}\n");
   }

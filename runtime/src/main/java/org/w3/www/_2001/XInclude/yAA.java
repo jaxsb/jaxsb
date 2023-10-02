@@ -4,8 +4,8 @@ package org.w3.www._2001.XInclude;
 
 @java.lang.SuppressWarnings("all")
 @javax.annotation.Generated(
-    value = "org.jaxsb.generator.Generator",
-    date = "2023-09-26T17:53:43.708")
+  value = "org.jaxsb.generator.Generator",
+  date = "2023-10-02T17:53:43.708")
 public class yAA extends org.jaxsb.runtime.Schema {
   static {
     _$$registerElement(
@@ -379,12 +379,13 @@ public class yAA extends org.jaxsb.runtime.Schema {
       this.anyAttribute.getAttribute().add(anyAttribute);
     }
 
-    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> getAny$() {
+    public java.util.ArrayList<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> getAny$() {
       return anyAttribute.getAttribute();
     }
 
     public org.w3.www._2001.XMLSchema.yAA.$AnySimpleType getAny$(final int index) {
-      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> values = getAny$();
+      final java.util.ArrayList<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> values =
+          getAny$();
       return values != null && -1 < index && index < values.size() ? values.get(index) : null;
     }
 
@@ -410,12 +411,13 @@ public class yAA extends org.jaxsb.runtime.Schema {
       _$$addElement(this.any, any);
     }
 
-    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> get$Any() {
+    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> get$Any() {
       return any.getElements();
     }
 
     public org.w3.www._2001.XMLSchema.yAA.$AnyType<?> get$Any(final int index) {
-      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> values = get$Any();
+      final org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> values =
+          get$Any();
       return values != null && -1 < index && index < values.size() ? values.get(index) : null;
     }
 
@@ -1232,12 +1234,13 @@ public class yAA extends org.jaxsb.runtime.Schema {
       this.anyAttribute.getAttribute().add(anyAttribute);
     }
 
-    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> getAny$() {
+    public java.util.ArrayList<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> getAny$() {
       return anyAttribute.getAttribute();
     }
 
     public org.w3.www._2001.XMLSchema.yAA.$AnySimpleType getAny$(final int index) {
-      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> values = getAny$();
+      final java.util.ArrayList<org.w3.www._2001.XMLSchema.yAA.$AnySimpleType<?>> values =
+          getAny$();
       return values != null && -1 < index && index < values.size() ? values.get(index) : null;
     }
 
@@ -1263,12 +1266,13 @@ public class yAA extends org.jaxsb.runtime.Schema {
       _$$addElement(this.any, any);
     }
 
-    public java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> get$Any() {
+    public org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> get$Any() {
       return any.getElements();
     }
 
     public org.w3.www._2001.XMLSchema.yAA.$AnyType<?> get$Any(final int index) {
-      final java.util.List<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> values = get$Any();
+      final org.jaxsb.runtime.BindingList<org.w3.www._2001.XMLSchema.yAA.$AnyType<?>> values =
+          get$Any();
       return values != null && -1 < index && index < values.size() ? values.get(index) : null;
     }
 

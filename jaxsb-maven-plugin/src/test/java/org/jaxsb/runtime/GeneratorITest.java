@@ -20,7 +20,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ListIterator;
 
 import org.jaxsb.www.generator.html.xAA.Body;
@@ -36,7 +35,7 @@ import org.slf4j.LoggerFactory;
 public class GeneratorITest {
   private static final Logger logger = LoggerFactory.getLogger(GeneratorITest.class);
 
-  private static void assertElementCount(final String description, final List<Binding> expected, final int expectedLength, final BindingList<? extends Binding> elements) {
+  private static void assertElementCount(final String description, final ArrayList<Binding> expected, final int expectedLength, final BindingList<? extends Binding> elements) {
     assertEquals(expectedLength, elements.size());
     final Iterator<? extends Binding> iterator = elements.getOwner().elementIterator();
     for (int i = 0; iterator.hasNext(); ++i) { // [I]
@@ -53,7 +52,7 @@ public class GeneratorITest {
   @Test
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testElementLists() {
-    final List<Binding> expected = new ArrayList<>();
+    final ArrayList<Binding> expected = new ArrayList<>();
     final Body body = new Body();
 
     final P p1 = new P();

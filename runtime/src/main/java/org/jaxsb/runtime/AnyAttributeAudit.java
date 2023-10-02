@@ -17,7 +17,6 @@
 package org.jaxsb.runtime;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.xml.namespace.QName;
@@ -59,7 +58,7 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> extends AbstractA
   }
 
   @Override
-  public List<T> getAttribute() {
+  public ArrayList<T> getAttribute() {
     return value;
   }
 
