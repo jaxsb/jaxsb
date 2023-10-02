@@ -24,7 +24,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.RandomAccess;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.maven.model.Resource;
@@ -60,7 +59,7 @@ public class JaxSbMojo extends GeneratorMojo {
   // so as to allow for bindings of excluded namespaces to be generated in prior executions
   private static final HashSet<File> sourcePath = new HashSet<>();
 
-  private static Set<Pattern> buildNamespaceSet(final List<String> list) {
+  private static HashSet<Pattern> buildNamespaceSet(final List<String> list) {
     final int i$;
     if (list == null || (i$ = list.size()) == 0)
       return null;
@@ -93,8 +92,8 @@ public class JaxSbMojo extends GeneratorMojo {
       for (final String schema : new LinkedHashSet<>(schemas)) // [S]
         generatorBindings.add(new SchemaReference(URLs.create(schema), false));
 
-    final Set<Pattern> includes = buildNamespaceSet(this.includes);
-    final Set<Pattern> excludes = buildNamespaceSet(this.excludes);
+    final HashSet<Pattern> includes = buildNamespaceSet(this.includes);
+    final HashSet<Pattern> excludes = buildNamespaceSet(this.excludes);
 
     final GeneratorContext ceneratorContext = new GeneratorContext(configuration.getDestDir(), configuration.getOverwrite(), null, false, includes, excludes);
     try {

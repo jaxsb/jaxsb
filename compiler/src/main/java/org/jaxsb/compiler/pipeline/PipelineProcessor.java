@@ -18,7 +18,22 @@ package org.jaxsb.compiler.pipeline;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Set;
+import java.util.regex.Pattern;
 
-public interface PipelineProcessor<C extends PipelineContext,I extends PipelineEntity,O extends PipelineEntity> {
-  Collection<O> process(C pipelineContext, Collection<? extends I> documents, PipelineDirectory<C,? super I,O> directory) throws IOException;
+import org.jaxsb.compiler.lang.NamespaceURI;
+
+public abstract class PipelineProcessor<C extends PipelineContext,I extends PipelineEntity,O extends PipelineEntity> {
+  protected static boolean matches(final boolean ifNullReturn, final Set<Pattern> patterns, final NamespaceURI namespaceURI) {
+    if (patterns == null || patterns.size() == 0)
+      return ifNullReturn;
+
+    for (final Pattern pattern : patterns)
+      if (pattern.matcher(namespaceURI.toString()).matches())
+        return true;
+
+    return false;
+  }
+
+  public abstract Collection<O> process(C pipelineContext, Collection<? extends I> documents, PipelineDirectory<C,? super I,O> directory) throws IOException;
 }

@@ -19,6 +19,7 @@ package org.jaxsb.generator.processor.write;
 import java.io.StringWriter;
 import java.util.Collection;
 
+import org.jaxsb.compiler.lang.NamespaceURI;
 import org.jaxsb.compiler.pipeline.PipelineDirectory;
 import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
@@ -28,7 +29,7 @@ import org.jaxsb.generator.processor.plan.NestablePlan;
 import org.jaxsb.generator.processor.plan.Plan;
 import org.jaxsb.runtime.CompilerFailureException;
 
-public final class WriterProcessor implements PipelineProcessor<GeneratorContext,Plan<?>,Writer<?>> {
+public final class WriterProcessor extends PipelineProcessor<GeneratorContext,Plan<?>,Writer<?>> {
   private final Writer<?> root = new Writer<Plan<?>>() {
     @Override
     protected void appendRegistration(final StringWriter writer, final Plan<?> plan, final Plan<?> parent) {
@@ -104,7 +105,8 @@ public final class WriterProcessor implements PipelineProcessor<GeneratorContext
     if (((Nameable<?>)plan).getName().getNamespaceURI() == null)
       throw new CompilerFailureException("Cannot generate classes for schema with no targetNamespace");
 
-    if ((pipelineContext.getIncludes() == null || pipelineContext.getIncludes().contains(plan.getModel().getTargetNamespace())) && (pipelineContext.getExcludes() == null || !pipelineContext.getExcludes().contains(plan.getModel().getTargetNamespace())))
+    final NamespaceURI targetNamespace = plan.getModel().getTargetNamespace();
+    if (matches(true, pipelineContext.getIncludes(), targetNamespace) && !matches(false, pipelineContext.getExcludes(), targetNamespace))
       ((Writer)root).writeFile(((Writer<?>)directory.getEntity(plan, null)), plan, pipelineContext.getDestDir());
 
     return null;

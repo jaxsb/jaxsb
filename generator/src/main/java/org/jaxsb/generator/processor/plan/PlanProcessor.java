@@ -31,7 +31,7 @@ import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class PlanProcessor implements PipelineProcessor<GeneratorContext,Model,Plan<?>> {
+public final class PlanProcessor extends PipelineProcessor<GeneratorContext,Model,Plan<?>> {
   private static final Logger logger = LoggerFactory.getLogger(PlanProcessor.class);
 
   @Override

@@ -68,7 +68,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public final class BundleProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> {
+public final class BundleProcessor extends PipelineProcessor<GeneratorContext,SchemaComposite,Bundle> implements PipelineEntity {
   private static void compile(final Collection<? extends SchemaComposite> documents, final File destDir, final File sourceDir, final Set<File> classPath) throws CompilationException, IOException, URISyntaxException {
     final ArrayList<File> classpath = classPath != null ? new ArrayList<>(classPath) : new ArrayList<>(2);
     final Class<?>[] requiredLibs = {Binding.class, CollectionUtil.class, Generated.class, HexBinary.class, JAXPConstants.class, NamespaceBinding.class, ValidationException.class, Validator.class};
@@ -90,17 +90,6 @@ public final class BundleProcessor implements PipelineEntity, PipelineProcessor<
         compiler.addSource(new String(Files.readAllBytes(source.toPath())));
 
     compiler.compile(classpath, destDir, "-g");
-  }
-
-  private static boolean matches(final boolean ifNullReturn, final Set<Pattern> patterns, final NamespaceURI namespaceURI) {
-    if (patterns == null || patterns.size() == 0)
-      return ifNullReturn;
-
-    for (final Pattern pattern : patterns)
-      if (pattern.matcher(namespaceURI.toString()).matches())
-        return true;
-
-    return false;
   }
 
   @SuppressWarnings("resource")

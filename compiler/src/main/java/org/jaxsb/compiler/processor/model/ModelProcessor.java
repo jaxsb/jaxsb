@@ -34,7 +34,7 @@ import org.jaxsb.compiler.processor.model.element.SchemaModel;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public final class ModelProcessor implements PipelineProcessor<GeneratorContext,SchemaComposite,Model> {
+public final class ModelProcessor extends PipelineProcessor<GeneratorContext,SchemaComposite,Model> {
   @Override
   public Collection<Model> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaComposite> documents, final PipelineDirectory<GeneratorContext,? super SchemaComposite,Model> directory) {
     final int i$ = documents.size();

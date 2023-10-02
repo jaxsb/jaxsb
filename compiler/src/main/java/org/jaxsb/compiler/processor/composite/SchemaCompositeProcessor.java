@@ -26,7 +26,7 @@ import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.document.SchemaDocument;
 
-public final class SchemaCompositeProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaDocument,SchemaComposite> {
+public final class SchemaCompositeProcessor extends PipelineProcessor<GeneratorContext,SchemaDocument,SchemaComposite> implements PipelineEntity {
   @Override
   public Collection<SchemaComposite> process(final GeneratorContext pipelineContext, final Collection<? extends SchemaDocument> documents, final PipelineDirectory<GeneratorContext,? super SchemaDocument,SchemaComposite> directory) {
     final int i$ = documents.size();

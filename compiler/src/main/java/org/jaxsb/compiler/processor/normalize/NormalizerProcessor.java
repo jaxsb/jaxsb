@@ -26,7 +26,7 @@ import org.jaxsb.compiler.pipeline.PipelineProcessor;
 import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.compiler.processor.model.Model;
 
-public final class NormalizerProcessor implements PipelineProcessor<GeneratorContext,Model,Normalizer<?>> {
+public final class NormalizerProcessor extends PipelineProcessor<GeneratorContext,Model,Normalizer<?>> {
   private int stage;
 
   protected void tailRecurse(final GeneratorContext pipelineContext, final Collection<? extends Model> models, final PipelineDirectory<GeneratorContext,? super Model,Normalizer<?>> directory) {

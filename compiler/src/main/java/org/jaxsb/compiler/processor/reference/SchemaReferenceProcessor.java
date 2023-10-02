@@ -33,7 +33,7 @@ import org.libj.net.URLs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class SchemaReferenceProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaReference> {
+public final class SchemaReferenceProcessor extends PipelineProcessor<GeneratorContext,SchemaReference,SchemaReference> implements PipelineEntity {
   private static final Logger logger = LoggerFactory.getLogger(SchemaReferenceProcessor.class);
 
   @Override

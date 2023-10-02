@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public final class SchemaDocumentProcessor implements PipelineEntity, PipelineProcessor<GeneratorContext,SchemaReference,SchemaDocument> {
+public final class SchemaDocumentProcessor extends PipelineProcessor<GeneratorContext,SchemaReference,SchemaDocument> implements PipelineEntity {
   private static final Logger logger = LoggerFactory.getLogger(SchemaDocumentProcessor.class);
   private static final String[] includeStrings = {"include", "redefine"};
 
