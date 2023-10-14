@@ -108,8 +108,8 @@ public class JaxSbMojo extends GeneratorMojo {
     final Resource resource = new Resource();
     resource.setDirectory(configuration.getDestDir().getAbsolutePath());
     if (isInTestPhase())
-      project.addTestResource(resource);
+      getProject().addTestResource(resource);
     else
-      project.addResource(resource);
+      getProject().addResource(resource);
   }
 }
