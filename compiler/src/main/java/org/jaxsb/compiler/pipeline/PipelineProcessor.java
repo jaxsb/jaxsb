@@ -28,7 +28,7 @@ public abstract class PipelineProcessor<C extends PipelineContext,I extends Pipe
     if (patterns == null || patterns.size() == 0)
       return ifNullReturn;
 
-    for (final Pattern pattern : patterns)
+    for (final Pattern pattern : patterns) // [S]
       if (pattern.matcher(namespaceURI.toString()).matches())
         return true;
 

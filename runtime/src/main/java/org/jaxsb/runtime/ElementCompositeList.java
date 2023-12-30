@@ -41,7 +41,7 @@ public class ElementCompositeList extends CompositeList<$AnyType<?>,QName> {
     }
 
     protected ElementAudit<? extends $AnyType<?>> getAudit() {
-      return this.audit;
+      return audit;
     }
 
     @Override

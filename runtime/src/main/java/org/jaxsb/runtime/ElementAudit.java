@@ -85,11 +85,11 @@ public final class ElementAudit<B extends $AnyType> {
   }
 
   public Class<B> getType() {
-    return this.type;
+    return type;
   }
 
   public $AnyType<?> getOwner() {
-    return this.owner;
+    return owner;
   }
 
   public boolean qualified() {

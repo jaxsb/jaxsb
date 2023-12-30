@@ -129,7 +129,7 @@ public class ElementPlan extends ComplexTypePlan<ElementModel> implements Formab
   }
 
   public final String getOwnerClassName() {
-    return this.ownerClassName;
+    return ownerClassName;
   }
 
   public final UniqueQName getSubstitutionGroup() {
