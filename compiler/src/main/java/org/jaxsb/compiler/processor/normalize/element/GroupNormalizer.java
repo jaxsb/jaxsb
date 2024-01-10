@@ -23,7 +23,6 @@ import org.jaxsb.compiler.lang.LexerFailureException;
 import org.jaxsb.compiler.lang.UniqueQName;
 import org.jaxsb.compiler.processor.model.ElementableModel;
 import org.jaxsb.compiler.processor.model.Model;
-import org.jaxsb.compiler.processor.model.element.ExtensionModel;
 import org.jaxsb.compiler.processor.model.element.GroupModel;
 import org.jaxsb.compiler.processor.model.element.RedefineModel;
 import org.jaxsb.compiler.processor.normalize.Normalizer;
@@ -81,10 +80,6 @@ public final class GroupNormalizer extends Normalizer<GroupModel> {
   protected void stage4(final GroupModel model) {
     if (model.getRef() == null)
       return;
-
-    if (model.getParent() instanceof ExtensionModel)
-      System.err.println(model.getParent().getClass().getName());
-
 
     for (Model parent = model; (parent = parent.getParent()) != null;) { // [X]
       if (parent instanceof ElementableModel) {
