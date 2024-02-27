@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.jaxsb</groupId>
     <artifactId>jaxsb</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
   </parent>
   <artifactId>compiler</artifactId>
   <name>JAX-SB Compiler</name>
@@ -33,7 +33,7 @@
     <dependency>
       <groupId>org.openjax.xml</groupId>
       <artifactId>sax</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0</version>
     </dependency>
   </dependencies>
 </project>

@@ -1,6 +1,11 @@
 # Changes by Version
 
-## [v3.0.0-SNAPSHOT](https://github.com/libj/util/compare/74a5114a561297e30fe1b8a2d3fa77666071d58d..HEAD)
+## [v3.0.1-SNAPSHOT](https://github.com/libj/util/compare/ecf43175dca79b32483f720dd65a6e441f75c83b..HEAD)
+
+## [v3.0.0](https://github.com/libj/util/compare/74a5114a561297e30fe1b8a2d3fa77666071d58d..ecf43175dca79b32483f720dd65a6e441f75c83b) (2024-02-27)
+* #21 `JaxSbMojo` use mojo parameters provided by `BaseMojo`
+* #20 Generator namespaceUri `<include>` and `<exclude>` as regex `Pattern`
+* #19 Public `elementIterator`, `elementListIterator`, and `attributeIterator` on `Binding`
 
 ## [v2.2.0](https://github.com/jaxsb/jaxsb/compare/c5841176083e1f68b6adebf5e3b20e492dd55bcc..74a5114a561297e30fe1b8a2d3fa77666071d58d) (2023-09-20)
 * #15 Support HTTP 30X Follow Redirect
@@ -8,13 +13,13 @@
 * #13 Upgrade Maven Dependencies
 * #12 Remove NULL facet
 * #10 XML string and DOM caching
-* #9 Explicit <simpleType>(s) in <union> are ignored
-* #7 No value present for missing lastModified timestamp
+* #9 Explicit `<simpleType>`(s) in `<union>` are ignored
+* #7 No value present for missing `lastModified` timestamp
 * #6 Transition to GitHub Actions
 * #5 Conflicting associations amongst same-named types and groups
-* #4 attribute.form not overriding schema.attributeFormDefault
-* #3 Support classpath:// scheme for schema references in jaxsb-maven-plugin
-* #2 Support defaultNamespace in Bindings.parse(...)
+* #4 `attribute.form` not overriding `schema.attributeFormDefault`
+* #3 Support `classpath://` scheme for schema references in `jaxsb-maven-plugin`
+* #2 Support `defaultNamespace` in `Bindings.parse(...)`
 * #1 Inherit Maven dependency versions from root POM
 
 ## [v2.1.6](https://github.com/jaxsb/jaxsb/compare/b2173ee18fed62e354378733903324ce83c6be56..c5841176083e1f68b6adebf5e3b20e492dd55bcc) (2020-05-23)
