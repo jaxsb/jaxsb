@@ -80,8 +80,8 @@ public final class XMLSchema {
 
     final StringBuilder b = new StringBuilder();
     final List<?> list;
+    int i = 0;
     if (value instanceof List && CollectionUtil.isRandomAccess(list = (List<?>)value)) {
-      int i = 0;
       do { // [RA]
         if (i > 0)
           b.append(' ');
@@ -91,10 +91,9 @@ public final class XMLSchema {
       while (++i < i$);
     }
     else {
-      int i = -1;
       final Iterator<?> it = ((Collection<?>)value).iterator();
       do { // [I]
-        if (++i > 0)
+        if (++i > 1)
           b.append(' ');
 
         b.append(it.next());
