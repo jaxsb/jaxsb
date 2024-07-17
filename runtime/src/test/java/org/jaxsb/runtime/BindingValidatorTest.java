@@ -29,8 +29,8 @@ import org.w3c.dom.Element;
 public class BindingValidatorTest {
   /**
    * This test verifies that the correct implementation of the SAXParser is used within the validator. A SAXParser implementation
-   * other than the default will cause a ClassCastException stating that org.safris.xml.generator.compiler.runtime.XMLSchemaResolver
-   * cannot be cast to org.apache.xerces.xni.parser.XMLEntityResolver.
+   * other than the default will cause a ClassCastException stating that {@link BindingEntityResolver} cannot be cast to
+   * {@link XMLEntityResolver}.
    *
    * @exception Exception If any {@link Exception} is thrown.
    */

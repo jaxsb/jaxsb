@@ -286,8 +286,21 @@ public abstract class Bindings {
   public static String getXPath(final $AnyType<?> anyType, final Function<? super $AnyType<?>,String> function) {
     final StringBuilder builder = new StringBuilder();
     $AnyType<?> owner = anyType;
-    do
-      builder.insert(0, (owner instanceof Attribute ? "/@" : "/") + function.apply(owner));
+    do {
+      final String pre;
+      final int len;
+      if (owner instanceof Attribute) {
+        pre = "/@";
+        len = 2;
+      }
+      else {
+        pre = "/";
+        len = 1;
+      }
+
+      builder.insert(0, pre);
+      builder.insert(len, function.apply(owner));
+    }
     while ((owner = owner.owner()) != null);
     return builder.toString();
   }

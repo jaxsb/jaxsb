@@ -70,9 +70,10 @@ public final class AnyAttributeAudit<T extends $AnySimpleType> extends AbstractA
       final Binding binding = value.get(i);
       final QName qName = Binding.name(binding);
       final String name;
-      if (qName.getPrefix().length() > 0) {
-        name = qName.getPrefix() + ":" + qName.getLocalPart();
-        parent.setAttributeNS(AbstractBinding.XMLNS.getNamespaceURI(), AbstractBinding.XMLNS.getLocalPart() + ":" + qName.getPrefix(), qName.getNamespaceURI());
+      final String prefix = qName.getPrefix();
+      if (prefix.length() > 0) {
+        name = prefix + ":" + qName.getLocalPart();
+        parent.setAttributeNS(AbstractBinding.XMLNS.getNamespaceURI(), AbstractBinding.XMLNS.getLocalPart() + ":" + prefix, qName.getNamespaceURI());
       }
       else {
         name = qName.getLocalPart();

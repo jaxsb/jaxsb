@@ -33,7 +33,7 @@ public abstract class NotationType extends $qName {
   protected abstract String getSystem();
 
   @Override
-  protected int toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace, final boolean qualified, final boolean nillable) {
+  protected int toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace, final int indent, final int depth, final boolean qualified, final boolean nillable) {
     final javax.xml.namespace.QName name = name();
     str.append(prefixToNamespace.getPrefix(name)).append(':').append(name.getLocalPart());
     return -1;

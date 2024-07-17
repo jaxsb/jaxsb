@@ -70,12 +70,13 @@ public abstract class Binding extends AbstractBinding {
 
   protected static String _$$getPrefix(Element parent, final QName name) {
     String prefix = name.getPrefix();
+    final String namespaceURI = name.getNamespaceURI();
     if (prefix == null || prefix.length() == 0) {
-      if (name.getNamespaceURI() == null || name.getNamespaceURI().length() == 0)
+      if (namespaceURI == null || namespaceURI.length() == 0)
         return null;
 
       parent = parent.getOwnerDocument().getDocumentElement();
-      prefix = parent.lookupPrefix(name.getNamespaceURI());
+      prefix = parent.lookupPrefix(namespaceURI);
       if (prefix != null)
         return prefix;
 
@@ -84,7 +85,7 @@ public abstract class Binding extends AbstractBinding {
       prefix = "ns" + i;
     }
 
-    parent.getOwnerDocument().getDocumentElement().setAttributeNS(XMLNS.getNamespaceURI(), XMLNS.getLocalPart() + ":" + prefix, name.getNamespaceURI());
+    parent.getOwnerDocument().getDocumentElement().setAttributeNS(XMLNS.getNamespaceURI(), XMLNS.getLocalPart() + ":" + prefix, namespaceURI);
     return prefix;
   }
 
@@ -92,15 +93,15 @@ public abstract class Binding extends AbstractBinding {
     private int nsIndex = 1;
 
     public String getPrefix(final QName name) {
-      final String namespace = name.getNamespaceURI();
-      if (namespace == null || namespace.length() == 0)
+      final String namespaceURI = name.getNamespaceURI();
+      if (namespaceURI == null || namespaceURI.length() == 0)
         return null;
 
-      String prefix = reverse().get(namespace);
+      String prefix = reverse().get(namespaceURI);
       if (prefix != null)
         return prefix;
 
-      if (XSI_TYPE.getNamespaceURI().equals(namespace)) {
+      if (XSI_TYPE.getNamespaceURI().equals(namespaceURI)) {
         prefix = XSI_TYPE.getPrefix();
       }
       else {
@@ -109,16 +110,18 @@ public abstract class Binding extends AbstractBinding {
           prefix = "ns" + nsIndex++;
       }
 
-      put(prefix, namespace);
+      put(prefix, namespaceURI);
       return prefix;
     }
 
     @Override
     public String toString() {
+      if (size() == 0)
+        return "";
+
       final StringBuilder str = new StringBuilder();
-      if (size() > 0)
-        for (final Map.Entry<String,String> entry : entrySet()) // [S]
-          str.append(" xmlns:").append(entry.getKey()).append("=\"").append(entry.getValue()).append('"');
+      for (final Map.Entry<String,String> entry : entrySet()) // [S]
+        str.append(" xmlns:").append(entry.getKey()).append("=\"").append(entry.getValue()).append('"');
 
       return str.toString();
     }
@@ -188,8 +191,9 @@ public abstract class Binding extends AbstractBinding {
     for (int i = 0, i$ = rootAttributes.getLength(); i < i$; ++i) { // [RA]
       final Node attribute = rootAttributes.item(i);
       if (XSI_TYPE.getNamespaceURI().equals(attribute.getNamespaceURI()) && XSI_TYPE.getLocalPart().equals(attribute.getLocalName())) {
-        xsiPrefix = parsePrefix(attribute.getNodeValue());
-        xsiTypeName = parseLocalName(attribute.getNodeValue());
+        final String nodeValue = attribute.getNodeValue();
+        xsiPrefix = parsePrefix(nodeValue);
+        xsiTypeName = parseLocalName(nodeValue);
       }
     }
 
@@ -353,12 +357,12 @@ public abstract class Binding extends AbstractBinding {
     }
   }
 
-  protected static void textToString(final StringBuilder str, Object text, final PrefixToNamespace prefixToNamespace) {
+  protected static void textToString(final StringBuilder str, final Object text, final PrefixToNamespace prefixToNamespace) {
     if (text == null)
       return;
 
     if (text instanceof NotationType) {
-      ((NotationType)text).toString(str, prefixToNamespace, true, false);
+      ((NotationType)text).toString(str, prefixToNamespace, 0, 0, true, false);
     }
     else if (text instanceof QName) {
       final QName qName = (QName)text;
@@ -375,29 +379,43 @@ public abstract class Binding extends AbstractBinding {
     }
   }
 
-  @SuppressWarnings("unchecked")
-  protected int toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace, final boolean qualified, final boolean nillable) {
+  private static void indent(final StringBuilder str, final int indent, final int depth) {
+    if (indent > 0) {
+      if (str.length() > 0)
+        str.append('\n');
+
+      for (int i = 0, i$ = indent * depth; i < i$; ++i)
+        str.append(' ');
+    }
+  }
+
+  @SuppressWarnings({"null", "unchecked"})
+  protected int toString(final StringBuilder str, final PrefixToNamespace prefixToNamespace, final int indent, final int depth, final boolean qualified, final boolean nillable) {
     QName name = name();
     final boolean substitutionGroup = _$$isSubstitutionGroup(name) || _$$isSubstitutionGroup(name(inherits()));
     if (substitutionGroup)
       name = name(); // FIXME: Not sure what this is for
 
     final QName type = type();
-    final boolean hasXsiType = !substitutionGroup && type() != null && (type != null && !type().equals(type) || !type().equals(type(inherits())));
-    final String prefix = hasXsiType ? prefixToNamespace.getPrefix(type()) : qualified ? prefixToNamespace.getPrefix(name) : null;
+    final boolean hasXsiType = !substitutionGroup && type != null && !type.equals(type(inherits()));
+    final String prefix = hasXsiType ? prefixToNamespace.getPrefix(type) : qualified ? prefixToNamespace.getPrefix(name) : null;
+
+    indent(str, indent, depth);
 
     str.append('<');
     if (prefix != null)
       str.append(prefix).append(':');
 
-    str.append(name.getLocalPart());
+    final String localName = name.getLocalPart();
+    str.append(localName);
     final int index = str.length();
 
     if (hasXsiType)
-      AbstractAttributeAudit.toString(str, prefixToNamespace, XSI_TYPE, true, prefix + ":" + type().getLocalPart());
+      AbstractAttributeAudit.toString(str, prefixToNamespace, XSI_TYPE, true, prefix + ":" + type.getLocalPart());
 
     final boolean hasElements = _$$hasElements();
-    final boolean hasText = text() != null;
+    final Object text = text();
+    final boolean hasText = text != null;
 
     if (!hasElements && !hasText && nillable)
       AbstractAttributeAudit.toString(str, prefixToNamespace, XSI_NIL, true, "true");
@@ -405,27 +423,36 @@ public abstract class Binding extends AbstractBinding {
     if (attributeDirectory != null)
       attributeDirectory.toString(str, prefixToNamespace);
 
-    str.append('>');
+    if (hasText || hasElements) {
+      str.append('>');
 
-    if (hasText)
-      textToString(str, text(), prefixToNamespace);
+      if (hasText)
+        textToString(str, text, prefixToNamespace);
 
-    if (hasElements) {
-      for (int i = 0, i$ = elements.size(); i < i$; ++i) { // [RA]
-        $AnyType<?> element = elements.get(i);
-        if (element instanceof BindingProxy)
-          element = ((BindingProxy<$AnyType<?>>)element).getBinding();
+      if (hasElements) {
+        for (int i = 0, i$ = elements.size(); i < i$; ++i) { // [RA]
+          $AnyType<?> element = elements.get(i);
+          if (element instanceof BindingProxy)
+            element = ((BindingProxy<$AnyType<?>>)element).getBinding();
 
-        final ElementAudit<$AnyType<?>> elementAudit = (ElementAudit<$AnyType<?>>)elements.getComponentList(i).getAudit();
-        element.toString(str, prefixToNamespace, elementAudit.qualified(), elementAudit.nillable());
+          final ElementAudit<$AnyType<?>> elementAudit = (ElementAudit<$AnyType<?>>)elements.getComponentList(i).getAudit();
+          element.toString(str, prefixToNamespace, indent, depth + 1, elementAudit.qualified(), elementAudit.nillable());
+        }
       }
+
+      if (!hasText)
+        indent(str, indent, depth);
+
+      str.append("</");
+      if (prefix != null)
+        str.append(prefix).append(':');
+
+      str.append(localName).append('>');
+    }
+    else {
+      str.append("/>");
     }
 
-    str.append("</");
-    if (prefix != null)
-      str.append(prefix).append(':');
-
-    str.append(name.getLocalPart()).append('>');
     return index;
   }
 
@@ -685,7 +712,7 @@ public abstract class Binding extends AbstractBinding {
 
     final StringBuilder str = new StringBuilder();
     final PrefixToNamespace prefixToNamespace = new PrefixToNamespace();
-    final int index = toString(str, prefixToNamespace, qualified(), nilable());
+    final int index = toString(str, prefixToNamespace, DOMStyle.isIndent(styles) ? 2 : 0, 0, qualified(), nilable());
     str.insert(index, prefixToNamespace.toString());
     return cacheString[combination] = str.toString();
   }

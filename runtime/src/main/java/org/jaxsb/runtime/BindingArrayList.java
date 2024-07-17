@@ -25,9 +25,9 @@ public class BindingArrayList<E> extends ArrayList<E> implements BindingList<E> 
   /**
    * Constructs an empty {@link BindingArrayList} with the specified initial capacity.
    *
-   * @param initialCapacity the initial capacity of the list
+   * @param initialCapacity The initial capacity of the list.
    * @param owner The owner {@link Binding}.
-   * @throws IllegalArgumentException if the specified initial capacity is negative
+   * @throws IllegalArgumentException If the specified initial capacity is negative.
    */
   public BindingArrayList(final int initialCapacity, final Binding owner) {
     super(initialCapacity);
@@ -38,9 +38,9 @@ public class BindingArrayList<E> extends ArrayList<E> implements BindingList<E> 
    * Constructs a {@link BindingArrayList} containing the elements of the specified collection, in the order they are returned by the
    * collection's iterator.
    *
-   * @param c the collection whose elements are to be placed into this list
+   * @param c The collection whose elements are to be placed into this list.
    * @param owner The owner {@link Binding}.
-   * @throws NullPointerException if the specified collection is null
+   * @throws NullPointerException If the specified collection is null.
    */
   public BindingArrayList(final Collection<? extends E> c, final Binding owner) {
     super(c);

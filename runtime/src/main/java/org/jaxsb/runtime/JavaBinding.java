@@ -39,8 +39,9 @@ public final class JavaBinding {
   private static final String COMPLEXTYPE_PREFIX = "$";
 
   private static String toJavaIdentifier(final String ncName) {
-    final StringBuilder b = new StringBuilder(ncName.length());
-    for (int i = 0, i$ = ncName.length(); i < i$; ++i) { // [N]
+    final int len = ncName.length();
+    final StringBuilder b = new StringBuilder(len);
+    for (int i = 0; i < len; ++i) { // [N]
       final char ch = ncName.charAt(i);
       if (ch == '-')
         b.append('$').append('_');

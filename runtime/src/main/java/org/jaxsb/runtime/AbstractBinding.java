@@ -38,7 +38,7 @@ import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
 
 @SuppressWarnings("rawtypes")
-public abstract class AbstractBinding implements Cloneable {
+abstract class AbstractBinding implements Cloneable {
   private static final Logger logger = LoggerFactory.getLogger(AbstractBinding.class);
 
   protected static final QName XSI_TYPE = new QName(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "type", "xsi");
@@ -96,10 +96,11 @@ public abstract class AbstractBinding implements Cloneable {
   }
 
   protected static void _$$registerSchemaLocation(final String namespaceURI, final Class<?> cls, final String schemaReference) {
-    final String classPath = cls.getName().replace('.', '/') + ".class";
+    final String className = cls.getName();
+    final String classPath = className.replace('.', '/') + ".class";
     final URL url = Thread.currentThread().getContextClassLoader().getResource(classPath);
     if (url == null) {
-      if (logger.isDebugEnabled()) { logger.debug("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + cls.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\""); }
+      if (logger.isDebugEnabled()) { logger.debug("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className + "\"\n\tschemaReference=\"" + schemaReference + "\""); }
 
       return;
     }
@@ -109,7 +110,7 @@ public abstract class AbstractBinding implements Cloneable {
       BindingEntityResolver.registerSchemaLocation(namespaceURI, new URL(parent + "/" + schemaReference));
     }
     catch (final MalformedURLException e) {
-      if (logger.isErrorEnabled()) { logger.error("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + cls.getName() + "\"\n\tschemaReference=\"" + schemaReference + "\"", e); }
+      if (logger.isErrorEnabled()) { logger.error("Cannot register: systemId=\"" + namespaceURI + "\"\n\tclassName=\"" + className + "\"\n\tschemaReference=\"" + schemaReference + "\"", e); }
     }
   }
 
