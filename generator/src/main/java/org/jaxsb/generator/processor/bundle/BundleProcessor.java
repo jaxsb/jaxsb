@@ -93,7 +93,7 @@ public final class BundleProcessor extends PipelineProcessor<GeneratorContext,Sc
   }
 
   @SuppressWarnings("resource")
-  private static Collection<File> jar(final File destDir, final boolean isJar, final Collection<? extends SchemaComposite> schemaComposites, final Set<Pattern> includes, final Set<Pattern> excludes, final boolean skipXsd) throws IOException, SAXException {
+  private static Collection<File> jar(final File destDir, final boolean makeJar, final Collection<? extends SchemaComposite> schemaComposites, final Set<Pattern> includes, final Set<Pattern> excludes, final boolean skipXsd) throws IOException, SAXException {
     if (schemaComposites.size() == 0)
       return Collections.EMPTY_LIST;
 
@@ -108,7 +108,7 @@ public final class BundleProcessor extends PipelineProcessor<GeneratorContext,Sc
         final String packageName = namespaceURI.getNamespaceBinding().getPackageName();
         final String packagePath = packageName.replace('.', '/');
         final ZipWriter destJar;
-        if (isJar) {
+        if (makeJar) {
           final File jarFile = new File(destDir, packageName + ".jar");
           if (jarFile.exists() && !jarFile.delete())
             throw new IOException("Unable to delete existing jar: " + jarFile.getAbsolutePath());
@@ -232,7 +232,7 @@ public final class BundleProcessor extends PipelineProcessor<GeneratorContext,Sc
       if (pipelineContext.getCompileDir() != null)
         BundleProcessor.compile(documents, pipelineContext.getCompileDir(), pipelineContext.getDestDir(), classPath);
 
-      final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getPackage(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes(), skipXsd);
+      final Collection<File> jarFiles = BundleProcessor.jar(pipelineContext.getDestDir(), pipelineContext.getMakeJar(), documents, pipelineContext.getIncludes(), pipelineContext.getExcludes(), skipXsd);
       final int size = jarFiles.size();
       if (size == 0)
         return Collections.EMPTY_LIST;

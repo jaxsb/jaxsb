@@ -28,11 +28,11 @@ public final class GeneratorContext implements PipelineContext {
   private final File destDir;
   private final boolean overwrite;
   private final File compileDir;
-  private final boolean pack;
+  private final boolean makeJar;
   private final Set<Pattern> includes;
   private final Set<Pattern> excludes;
 
-  public GeneratorContext(final File destDir, final boolean overwrite, final File compileDir, final boolean pack, final Set<Pattern> includes, final Set<Pattern> excludes) {
+  public GeneratorContext(final File destDir, final boolean overwrite, final File compileDir, final boolean makeJar, final Set<Pattern> includes, final Set<Pattern> excludes) {
     File tempDestDir;
     try {
       tempDestDir = destDir.getCanonicalFile();
@@ -43,7 +43,7 @@ public final class GeneratorContext implements PipelineContext {
     this.destDir = tempDestDir;
     this.overwrite = overwrite;
     this.compileDir = compileDir;
-    this.pack = pack;
+    this.makeJar = makeJar;
     this.includes = includes;
     this.excludes = excludes;
   }
@@ -60,8 +60,8 @@ public final class GeneratorContext implements PipelineContext {
     return compileDir;
   }
 
-  public boolean getPackage() {
-    return pack;
+  public boolean getMakeJar() {
+    return makeJar;
   }
 
   public Set<Pattern> getIncludes() {
@@ -74,6 +74,6 @@ public final class GeneratorContext implements PipelineContext {
 
   @Override
   public String toString() {
-    return destDir.getAbsolutePath() + " " + overwrite + " " + (compileDir == null ? "null" : compileDir.getAbsolutePath()) + " " + pack + " " + CollectionUtil.toString(includes, ' ') + " " + CollectionUtil.toString(excludes, ' ');
+    return destDir.getAbsolutePath() + " " + overwrite + " " + (compileDir == null ? "null" : compileDir.getAbsolutePath()) + " " + makeJar + " " + CollectionUtil.toString(includes, ' ') + " " + CollectionUtil.toString(excludes, ' ');
   }
 }
