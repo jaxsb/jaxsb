@@ -16,5 +16,14 @@
 
 package org.jaxsb.runtime;
 
+import javax.xml.namespace.QName;
+
+import org.w3.www._2001.XMLSchema.yAA.$AnyType;
+
 public interface Element {
+  QName name();
+  QName type();
+  $AnyType<?> owner();
+  org.w3c.dom.Element toDOM();
+  Binding clone();
 }

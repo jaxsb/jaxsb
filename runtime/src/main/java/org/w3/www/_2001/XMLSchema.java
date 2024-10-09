@@ -208,8 +208,8 @@ public final class XMLSchema {
         if (XSI_NIL.getPrefix().equals(text.getPrefix()))
           return;
 
-        String value;
-        if ((value = text.getNodeValue()) != null && (value = value.trim()).length() > 0) // FIXME: trim()?
+        String value = text.getNodeValue();
+        if (value != null && (value = value.trim()).length() > 0) // FIXME: If trim() is removed, then any pretty printing of XML will not be possible!?
           _$$decode((Element)text.getParentNode(), value);
       }
 

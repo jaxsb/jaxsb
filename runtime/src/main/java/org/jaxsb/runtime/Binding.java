@@ -266,7 +266,7 @@ public abstract class Binding extends AbstractBinding {
     this();
     this.isDefault = copy.isDefault;
     // FIXME: This looks like an overly complicated copy constructor
-    if (copy._$$hasElements())
+    if (copy._$$elementCount() > 0)
       this.elements = copy.elements.cloneList(($AnyType<?>)this);
   }
 
@@ -338,16 +338,17 @@ public abstract class Binding extends AbstractBinding {
     this.owner = owner;
   }
 
-  protected final boolean _$$hasElements() {
-    return elements != null && elements.size() != 0;
+  protected final int _$$elementCount() {
+    return elements == null ? 0 : elements.size();
   }
 
   @SuppressWarnings("unchecked")
   protected final void _$$marshalElements(final Element parent) throws MarshalException {
-    if (elements == null || elements.size() == 0)
+    final int size;
+    if (elements == null || (size = elements.size()) == 0)
       return;
 
-    for (int i = 0, i$ = elements.size(); i < i$; ++i) { // [RA]
+    for (int i = 0; i < size; ++i) { // [RA]
       $AnyType<?> element = elements.get(i);
       if (element instanceof BindingProxy)
         element = ((BindingProxy<$AnyType<?>>)element).getBinding();
@@ -413,24 +414,24 @@ public abstract class Binding extends AbstractBinding {
     if (hasXsiType)
       AbstractAttributeAudit.toString(str, prefixToNamespace, XSI_TYPE, true, prefix + ":" + type.getLocalPart());
 
-    final boolean hasElements = _$$hasElements();
+    final int elementCount = _$$elementCount();
     final Object text = text();
     final boolean hasText = text != null;
 
-    if (!hasElements && !hasText && nillable)
+    if (elementCount == 0 && !hasText && nillable)
       AbstractAttributeAudit.toString(str, prefixToNamespace, XSI_NIL, true, "true");
 
     if (attributeDirectory != null)
       attributeDirectory.toString(str, prefixToNamespace);
 
-    if (hasText || hasElements) {
+    if (hasText || elementCount > 0) {
       str.append('>');
 
       if (hasText)
         textToString(str, text, prefixToNamespace);
 
-      if (hasElements) {
-        for (int i = 0, i$ = elements.size(); i < i$; ++i) { // [RA]
+      if (elementCount > 0) {
+        for (int i = 0; i < elementCount; ++i) { // [RA]
           $AnyType<?> element = elements.get(i);
           if (element instanceof BindingProxy)
             element = ((BindingProxy<$AnyType<?>>)element).getBinding();
@@ -704,7 +705,7 @@ public abstract class Binding extends AbstractBinding {
     return cacheElement == null || dirty() ? cacheElement = marshal() : cacheElement;
   }
 
-  public String toString(final DOMStyle ... styles) {
+  public final String toString(final DOMStyle ... styles) {
     final int combination = DOMStyle.combination(styles);
     final String cached;
     if (!dirty() && (cached = cacheString[combination]) != null)

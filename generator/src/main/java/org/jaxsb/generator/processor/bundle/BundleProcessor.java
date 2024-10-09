@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -122,11 +123,11 @@ public final class BundleProcessor extends PipelineProcessor<GeneratorContext,Sc
           if (!namespaceURIsAdded.contains(namespaceURI)) {
             namespaceURIsAdded.add(namespaceURI);
             Files.walk(new File(destDir, packagePath).toPath())
-              .filter(p -> {
+              .filter((final Path p) -> {
                 final String name = p.getFileName().toString();
                 return (name.endsWith(".java") || name.endsWith(".class")) && p.toFile().isFile();
               })
-              .forEach(Throwing.rethrow(p -> {
+              .forEach(Throwing.rethrow((final Path p) -> {
                 destJar.write(destDir.toPath().relativize(p).toString(), Files.readAllBytes(p));
               }));
           }

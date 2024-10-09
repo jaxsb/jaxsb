@@ -94,10 +94,8 @@ public final class RestrictionNormalizer extends Normalizer<RestrictionModel> {
         }
 
         if (parent instanceof UnionModel) {
-          // NOTE: We do not pass the SimpleTypeModel.Undefined
-          // NOTE: version of this element because it will be modified
-          // NOTE: later to add enumerations, which would end up
-          // NOTE: modifying ALL such SimpleTypeModel.Undefined
+          // NOTE: We do not pass the SimpleTypeModel.Undefined version of this element because it will be modified
+          // NOTE: later to add enumerations, which would end up modifying ALL such SimpleTypeModel.Undefined
           // NOTE: references.
           // ((NamedModel)model.getParent()).setName(base.getName());
           ((UnionModel)parent).getMemberTypes().add((SimpleTypeModel<?>)model.getParent());

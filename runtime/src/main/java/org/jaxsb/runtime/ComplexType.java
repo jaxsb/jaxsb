@@ -22,9 +22,16 @@ import javax.xml.namespace.QName;
 
 import org.w3.www._2001.XMLSchema.yAA.$AnySimpleType;
 import org.w3.www._2001.XMLSchema.yAA.$AnyType;
+import org.w3c.dom.Element;
 
 public interface ComplexType {
   Iterator<$AnySimpleType<?>> attributeIterator();
   Iterator<$AnyType<?>> elementIterator();
   BindingList<$AnyType<?>> fetchChild(QName name);
+
+  QName name();
+  QName type();
+  $AnyType<?> owner();
+  Element toDOM();
+  Binding clone();
 }

@@ -26,8 +26,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("rawtypes")
 public final class ElementAudit<B extends $AnyType> {
   private static void marshalNil(final Element element, final Element parent) {
-    // NOTE: This makes the assumption that the xmlns:xsi will be present if
-    // NOTE: xsi:nil is present, saving us a hasAttributeNS() call.
+    // NOTE: This makes the assumption that the xmlns:xsi will be present if xsi:nil is present, saving us a hasAttributeNS() call.
     if (!element.hasAttributeNS(Binding.XSI_NIL.getNamespaceURI(), Binding.XSI_NIL.getLocalPart())) {
       element.setAttributeNS(Binding.XSI_NIL.getNamespaceURI(), Binding.XSI_NIL.getPrefix() + ":" + Binding.XSI_NIL.getLocalPart(), "true");
       final Element documentElement = parent.getOwnerDocument().getDocumentElement();
@@ -170,7 +169,7 @@ public final class ElementAudit<B extends $AnyType> {
       type = element.type();
 
     final Element node = ((Binding)element).marshal(parent, name, type);
-    if (!element._$$hasElements() && nillable())
+    if (element._$$elementCount() == 0 && nillable())
       marshalNil(node, parent);
 
     element._$$marshalElements(node);

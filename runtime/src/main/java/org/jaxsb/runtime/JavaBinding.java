@@ -31,7 +31,7 @@ import org.jaxsb.compiler.processor.model.element.SimpleTypeModel;
 import org.libj.lang.Strings;
 
 public final class JavaBinding {
-  private static final Pattern classPattern = Pattern.compile("Class_*"); // FIXME: I think this regex is wrong!
+  private static final Pattern classPattern = Pattern.compile("Class_*");
   private static final Pattern keywordPattern = Pattern.compile("_*(abstract)|(assert)|(boolean)|(break)|(byte)|(case)|(catch)|(char)|(class)|(const)|(continue)|(default)|(do)|(double)|(else)|(enum)|(extends)|(false)|(final)|(finally)|(float)|(for)|(goto)|(if)|(implements)|(import)|(instanceof)|(int)|(interface)|(long)|(native)|(new)|(null)|(package)|(private)|(protected)|(public)|(return)|(short)|(static)|(strictfp)|(super)|(switch)|(synchronized)|(this)|(throw)|(throws)|(transient)|(true)|(try)|(void)|(volatile)|(while)");
 
   private static final String ATTRIBUTE_SUFFIX = "$";

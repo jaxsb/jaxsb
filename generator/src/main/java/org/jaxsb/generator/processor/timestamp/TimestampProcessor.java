@@ -29,8 +29,8 @@ import org.jaxsb.compiler.processor.GeneratorContext;
 import org.jaxsb.generator.processor.bundle.Bundle;
 
 public final class TimestampProcessor extends PipelineProcessor<GeneratorContext,Bundle,Bundle> implements PipelineEntity {
-  private static final Predicate<Path> fileFilter = path -> path != null && path.toFile().isFile();
-  private static final Predicate<Path> dirFileFilter = path -> path != null && path.toFile().isDirectory();
+  private static final Predicate<Path> fileFilter = (final Path path) -> path != null && path.toFile().isFile();
+  private static final Predicate<Path> dirFileFilter = (final Path path) -> path != null && path.toFile().isDirectory();
 
   protected TimestampProcessor() {
   }
@@ -40,14 +40,14 @@ public final class TimestampProcessor extends PipelineProcessor<GeneratorContext
     // Get the earliest lastModified time of all the files
     final long lastModified = Files.walk(pipelineContext.getDestDir().toPath())
       .filter(fileFilter)
-      .mapToLong(p -> p.toFile().lastModified())
+      .mapToLong((final Path p) -> p.toFile().lastModified())
       .reduce(Math::min)
       .orElse(System.currentTimeMillis());
 
     // Set the lastModified time of all directories to just before the value from above
     Files.walk(pipelineContext.getDestDir().toPath())
       .filter(dirFileFilter)
-      .forEach(p -> p.toFile().setLastModified(lastModified - 100));
+      .forEach((final Path p) -> p.toFile().setLastModified(lastModified - 100));
 
     return null;
   }

@@ -16,6 +16,8 @@
 
 package org.jaxsb.sample;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.jaxsb.runtime.BindingValidator;
 import org.jaxsb.runtime.Bindings;
 import org.libj.io.UnsynchronizedStringReader;

@@ -34,7 +34,7 @@ import org.libj.util.Diff;
  * @see NamespaceBinding#parseClassName(String)
  */
 public final class NamespaceBinding {
-  private static final Function<Character,String> substitutes = c -> Character.isJavaIdentifierPart(c) ? "_" + c : "_";
+  private static final Function<Character,String> substitutes = (final Character c) -> Character.isJavaIdentifierPart(c) ? "_" + c : "_";
 
   /**
    * Utility class for optimization of diff compression.
