@@ -88,7 +88,8 @@ public final class JavaBinding {
   }
 
   private static boolean isNested(final Model model) {
-    return !(model.getParent() instanceof SchemaModel || (model.getParent() instanceof RedefineModel && model.getParent().getParent() instanceof SchemaModel) || (model instanceof Nameable && XSTypeDirectory.parseType(((Nameable<?>)model).getName()) != null));
+    final Model parent = model.getParent();
+    return !(parent instanceof SchemaModel || (parent instanceof RedefineModel && parent.getParent() instanceof SchemaModel) || (model instanceof Nameable && XSTypeDirectory.parseType(((Nameable<?>)model).getName()) != null));
   }
 
   private static Prefix getPrefix(final Model model) {

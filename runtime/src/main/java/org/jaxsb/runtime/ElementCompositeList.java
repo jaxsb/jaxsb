@@ -82,7 +82,8 @@ public class ElementCompositeList extends CompositeList<$AnyType<?>,QName> {
 
   protected <T extends $AnyType<?>> ElementComponentList newComponentList(final ElementAudit<T> audit) {
     final ElementComponentList componentList = new ElementComponentList(audit);
-    registerComponentList(audit.getName() == null ? ANY : audit.getName(), componentList);
+    final QName name = audit.getName();
+    registerComponentList(name == null ? ANY : name, componentList);
     return componentList;
   }
 

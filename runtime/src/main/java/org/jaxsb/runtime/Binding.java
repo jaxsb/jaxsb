@@ -279,11 +279,18 @@ public abstract class Binding extends AbstractBinding {
 
     boolean legalInheritance = false;
     final Constructor<?>[] constructors = _$$inheritsInstance().getClass().getDeclaredConstructors();
-    for (int i = 0, i$ = constructors.length; i < i$; ++i) { // [A]
-      if (constructors[i].getParameterTypes().length > 0 && constructors[i].getParameterTypes()[0].isAssignableFrom(getClass())) {
-        legalInheritance = true;
-        break;
+    final int len = constructors.length;
+    if (len > 0) {
+      final Class<? extends Binding> cls = getClass();
+      int i = 0;
+      do {
+        final Class<?>[] parameterTypes = constructors[i].getParameterTypes();
+        if (parameterTypes.length > 0 && parameterTypes[0].isAssignableFrom(cls)) {
+          legalInheritance = true;
+          break;
+        }
       }
+      while (++i < len);
     }
 
     if (!legalInheritance)
@@ -464,7 +471,7 @@ public abstract class Binding extends AbstractBinding {
   protected final <B extends $AnyType<?>> boolean _$$addElement(final ElementAudit<B> elementAudit, final B element) {
     final boolean added = elementAudit.addElement(element);
     if (added && element != null)
-      element._$$setOwner(($AnyType<?>)this); // FIXME: Can we get rid of owner altogether?
+      element._$$setOwner(($AnyType<?>)this);
 
     return added;
   }
@@ -485,7 +492,7 @@ public abstract class Binding extends AbstractBinding {
 
   protected static <B extends $AnySimpleType> boolean _$$setAttribute(final AttributeAudit<B> audit, final $AnyType binding, final B attribute) {
     if (attribute != null)
-      attribute._$$setOwner(binding); // FIXME: Can we get rid of owner altogether?
+      attribute._$$setOwner(binding);
 
     return audit.setAttribute(attribute);
   }
