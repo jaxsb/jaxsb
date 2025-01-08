@@ -39,7 +39,7 @@ import org.jaxsb.runtime.BindingList;
 import org.jaxsb.runtime.MarshalException;
 import org.jaxsb.runtime.NotationType;
 import org.libj.lang.Strings;
-import org.libj.lang.WrappedArrayList;
+import org.libj.lang.ToArrayList;
 import org.libj.util.CollectionUtil;
 import org.openjax.xml.api.ValidationException;
 import org.openjax.xml.datatype.Base64Binary;
@@ -105,7 +105,7 @@ public final class XMLSchema {
   }
 
   private static ArrayList<String> decodeAsList(final String value) {
-    return value == null ? null : new WrappedArrayList<>(Strings.split(value, ' '));
+    return value == null ? null : new ToArrayList<>(Strings.split(value, ' '));
   }
 
   public static final class yAA {
